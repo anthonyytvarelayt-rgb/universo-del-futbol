@@ -1,0 +1,1153 @@
+// Mundo (beta) — Universo del Fútbol
+// Partida de varias temporadas sobre el motor: ligas, Copa, ascensos, carreras, mercado y récords.
+(function (root) {
+  'use strict';
+  const Motor = root.Motor || (typeof require !== 'undefined' ? require('./motor.js') : null);
+  const Epoca = root.Epoca || (typeof require !== 'undefined' ? require('./epoca.js') : null);
+
+  const normal = (r) => r() + r() + r() - 1.5;
+  const anioNac = (j) => parseInt(String(j.nac || '').slice(0, 4), 10) || 1932;
+  const media = (xs) => (xs.length ? xs.reduce((s, x) => s + x, 0) / xs.length : 0);
+  const esFilial = (c) => /filial/i.test(c.nombre);
+  const MATRIZ = { 'Condal (filial del Barcelona)': 'Barcelona', 'Basconia (filial del Bilbao)': 'Atlético Bilbao', 'Plus Ultra (filial del Real Madrid)': 'Real Madrid',
+    'Mestalla (filial del Valencia)': 'Valencia', 'Sevilla Atlético (filial del Sevilla)': 'Sevilla' };
+  // Récord real de goles en una Liga antes de 1958: Zarra, 38 en 1950-51.
+  const RECORD_REAL_LIGA = { goles: 38, quien: 'Zarra', club: 'Atlético Bilbao', temporada: '1950-51' };
+
+  // Perfil de carrera estable para cada jugador (precoz, normal o tardío), salvo que el dato lo traiga.
+  const hashN = (s, sal) => { let h = sal || 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+  // Carreras reales conocidas: perfil y ritmo de declive (1 normal; menos de 1 envejece despacio, más de 1 deprisa).
+  const CARRERAS = {
+    'Pelé': ['precoz', 0.9], 'Alfredo Di Stéfano': ['tardio', 0.45], 'Ferenc Puskás': ['tardio', 0.4], 'Stanley Matthews': ['tardio', 0.3],
+    'Paco Gento': ['normal', 0.7], 'Garrincha': ['tardio', 1.6], 'Eusébio': ['normal', 1.2], 'Bobby Charlton': ['normal', 0.8],
+    'Raymond Kopa': ['normal', 0.8], 'Uwe Seeler': ['normal', 0.8], 'Didi': ['tardio', 0.8], 'Nílton Santos': ['tardio', 0.5], 'Zizinho': ['tardio', 0.6],
+    'Omar Sívori': ['precoz', 1.2], 'Just Fontaine': ['normal', 3], 'Gianni Rivera': ['precoz', 0.8], 'Dino Zoff': ['tardio', 0.35],
+    'Denis Law': ['precoz', 1.2], 'Jimmy Greaves': ['precoz', 1.3], 'Fritz Walter': ['normal', 0.6], 'José Altafini': ['normal', 0.6],
+    'George Best': ['precoz', 1.8], 'Lev Yashin': ['tardio', 0.5], 'Johan Cruyff': ['normal', 1], 'Franz Beckenbauer': ['normal', 0.7],
+    'Gerd Müller': ['normal', 1.1], 'Diego Maradona': ['precoz', 1.2], 'Marco van Basten': ['precoz', 2.5], 'Roger Milla': ['tardio', 0.35],
+    'Paolo Maldini': ['normal', 0.45], 'Ronaldo': ['precoz', 1.5], 'Ronaldo Nazário': ['precoz', 1.5], 'Ronaldinho': ['precoz', 1.6],
+    'Kaká': ['precoz', 1.5], 'Adriano': ['precoz', 2.2], 'Michael Owen': ['precoz', 1.8], 'Gianluigi Buffon': ['normal', 0.4],
+    'Ryan Giggs': ['normal', 0.5], 'Zlatan Ibrahimović': ['tardio', 0.45], 'Luka Modrić': ['tardio', 0.45], 'Robert Lewandowski': ['tardio', 0.55],
+    'Cristiano Ronaldo': ['tardio', 0.45], 'Lionel Messi': ['precoz', 0.7], 'Didier Drogba': ['tardio', 0.6], 'Jamie Vardy': ['tardio', 0.6],
+    'Andrea Pirlo': ['tardio', 0.6], 'Xavi': ['normal', 0.7], 'Andrés Iniesta': ['normal', 0.8], 'Kylian Mbappé': ['precoz', 1],
+  };
+  // ---------- Constantes: lo que este universo no puede cambiar (idea de Anthony) ----------
+  // Las carreras las decide el motor, pero algunas cosas pasan siempre: Pelé es un crack desde los 17 y llega a los 1000 goles,
+  // el Madrid de Di Stéfano manda, Messi y Cristiano son los mejores de su tiempo. Niveles en la escala que se ve (1-1000).
+  // techo = mejor nivel; suelo = [edad, nivel mínimo] (entre edades se interpola); club + fiel = no sale de ese club hasta ese año;
+  // retiro = no lo deja antes de esa edad; mundial = definición en los Mundiales; fin = definición mínima; elite = solo ficha por un grande.
+  const CONSTANTES = {
+    'Pelé': { techo: 1000, suelo: [[17, 920], [22, 960], [25, 1000], [30, 990], [34, 940], [37, 870]], club: 'Santos', fiel: 1977, retiro: 37, fin: 1.75, mundial: 1.75 },
+    'Alfredo Di Stéfano': { techo: 960, suelo: [[28, 960], [33, 950], [35, 920], [37, 860], [39, 780]], club: 'Real Madrid', fiel: 1964, retiro: 38 },
+    'Ferenc Puskás': { techo: 920, suelo: [[30, 920], [34, 900], [36, 860], [38, 780]], club: 'Real Madrid', fiel: 1966, retiro: 38, fin: 1.3 },
+    'Paco Gento': { techo: 880, suelo: [[23, 850], [27, 880], [31, 870], [34, 820], [37, 740]], club: 'Real Madrid', fiel: 1971 },
+    'Lionel Messi': { techo: 1000, suelo: [[18, 850], [20, 920], [22, 970], [24, 1000], [31, 990], [34, 950], [37, 890]], elite: true },
+    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 830], [21, 900], [23, 960], [26, 1000], [33, 990], [36, 940], [39, 870]], elite: true },
+    'Kylian Mbappé': { techo: 970, suelo: [[18, 860], [20, 920], [23, 960], [27, 970], [30, 960]], elite: true, mundial: 1.7 },
+  };
+  // Clubes que mandan en una época: si al empezar la temporada no son los más fuertes de su liga (o de Europa hasta
+  // el año 'europa'), su plantilla sube lo que falte (como mucho 'paso' por verano).
+  const CLUBES_CONSTANTES = [{ club: 'Real Madrid', desde: 1953, hasta: 1969, margen: 40, europa: 1960, paso: 60 }];
+  // Fuerza del once por puestos (1 portero, 4 defensas, 3 medios, 3 delanteros): diez delanteros buenos no hacen un equipo.
+  const ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
+  const onceDe = (c) => Object.entries(ONCE).flatMap(([pos, k]) => { const xs = c.jugadores.filter((j) => j.pos === pos && !j.cedido).sort((a, b) => b.niv - a.niv).slice(0, k); while (xs.length < k) xs.push(null); return xs; });
+  const fuerzaOnce = (c) => media(onceDe(c).map((j) => (j ? j.niv : 300)));
+  function sueloDe(K, edad) {
+    const s = K.suelo;
+    if (!s || edad < s[0][0] || edad > s[s.length - 1][0]) return 0;
+    for (let i = 1; i < s.length; i++) if (edad <= s[i][0]) return Motor.escala.interno(s[i - 1][1] + (s[i][1] - s[i - 1][1]) * (edad - s[i - 1][0]) / (s[i][0] - s[i - 1][0]));
+    return 0;
+  }
+  // Se aplica al empezar cada temporada (M.anio = la que se va a jugar).
+  function constantes(M) {
+    M.clubes.forEach((c) => c.jugadores.forEach((j) => {
+      const K = CONSTANTES[j.n];
+      if (!K || j.relleno) return;
+      j.cons = true;
+      if (K.fin) j.fin = Math.max(j.fin || 0, K.fin);
+      const s = sueloDe(K, M.anio - anioNac(j));
+      if (s > j.niv) j.niv = s;
+      j.tec = Math.max(j.tec || 0, j.niv, M.anio - anioNac(j) <= 27 ? Motor.escala.interno(K.techo) : 0);
+    }));
+    CLUBES_CONSTANTES.forEach((C) => {
+      if (M.anio < C.desde || M.anio > C.hasta) return;
+      const c = M.clubes.find((x) => x.nombre === C.club);
+      if (!c || c.division !== 1) return;
+      const rivales = M.clubes.filter((x) => x !== c && x.division === 1 && (M.anio <= C.europa || x.pais === c.pais));
+      const meta = Math.max(...rivales.map(fuerzaOnce)) + C.margen;
+      const once = onceDe(c).filter((j) => j && !j.cons);
+      // Primero se tapan los agujeros del once (un portero o un defensa muy por debajo del resto) y luego sube todo lo que falte.
+      once.forEach((j) => { if (j.niv < meta - 110) j.niv = Math.min(meta - 110, j.niv + 3 * C.paso); });
+      const falta = Math.min(C.paso, (meta - fuerzaOnce(c)) * 11 / Math.max(1, once.length));
+      once.forEach((j) => { if (falta > 0) j.niv = Math.min(1180, j.niv + falta); j.tec = Math.max(j.tec || 0, j.niv); });
+    });
+  }
+  function perfil(j) {
+    if (j.perfil) return j.perfil;
+    if (CARRERAS[j.n]) return CARRERAS[j.n][0];
+    const x = (hashN(j.n) % 100) / 100;
+    return x < 0.3 ? 'precoz' : x < 0.75 ? 'normal' : 'tardio';
+  }
+  const PICO = { precoz: 26, normal: 27, tardio: 29 };
+  // Cada jugador envejece por partes: el físico (velocidad, potencia) llega antes y cae rápido, la técnica aguanta
+  // y la cabeza (lectura, colocación, experiencia) sigue mejorando hasta pasados los 30. Pesan distinto según el puesto,
+  // y cada jugador lleva su propia mezcla: uno muy físico (Adriano) cae antes que uno de cabeza (Pirlo).
+  const PARTES = { fis: { pico: -3, sube: 0.03, cae: 0.005 }, tec: { pico: -1, sube: 0.025, cae: 0.0025 }, men: { pico: 3, sube: 0.02, cae: 0.0015 } };
+  const PESOS = { POR: [0.2, 0.35, 0.45], DEF: [0.4, 0.25, 0.35], MED: [0.3, 0.45, 0.25], EXT: [0.5, 0.35, 0.15], DEL: [0.4, 0.4, 0.2] };
+  const curvas = new Map();
+  function curva(j) {
+    const clave = j.n + '|' + j.pos + '|' + (j.rol || '');
+    if (curvas.has(clave)) return curvas.get(clave);
+    const h = hashN(j.n, 7), u = (k) => ((h >>> k) % 1000) / 1000;
+    const pf = perfil(j), real = CARRERAS[j.n];
+    // Ritmo de declive propio (0,6 a 1,5; los conocidos traen el suyo) y mezcla de partes con algo de azar estable.
+    const ritmo = real ? real[1] : 0.6 + 0.9 * u(3) * u(11);
+    const w0 = PESOS[j.rol === 'EXT' ? 'EXT' : j.pos] || PESOS.MED;
+    let w = w0.map((x, i) => x * (0.75 + 0.5 * u(5 + i * 4)));
+    const s = w[0] + w[1] + w[2]; w = w.map((x) => x / s);
+    const pico = PICO[pf] + (j.pos === 'POR' ? 1 : 0);
+    // Un tardío crece más despacio; un precoz explota antes y llega casi hecho a los 20.
+    const sube = { precoz: 0.85, normal: 1, tardio: 1.2 }[pf];
+    const parte = (p, edad) => {
+      const P = PARTES[p], top = pico + P.pico;
+      return edad <= top ? 1 - P.sube * sube * (top - edad) : 1 - P.cae * ritmo * Math.pow(edad - top, 1.7);
+    };
+    const bruto = (edad) => Math.max(0.3, w[0] * parte('fis', edad) + w[1] * parte('tec', edad) + w[2] * parte('men', edad));
+    let mejor = 0, edadPico = pico;
+    for (let e = 15; e <= 42; e++) { const v = bruto(e); if (v > mejor) { mejor = v; edadPico = e; } }
+    const c = { perfil: pf, ritmo, pesos: w, pico: edadPico, F: (edad) => bruto(edad) / mejor };
+    curvas.set(clave, c);
+    return c;
+  }
+  const temporadaTxt = (anio) => `${anio}-${String((anio + 1) % 100).padStart(2, '0')}`;
+
+  function nuevoMundo(d) {
+    const clubes = d.primera.map((c) => Object.assign(c, { division: 1, grupo: 'Primera', pais: 'España' }))
+      .concat(d.segunda.map((c) => Object.assign(c, { division: 2, pais: 'España' })));
+    // Otras ligas: cada país trae sus divisiones (o grupos regionales) con su nivel.
+    const paises = (d.paises || []).map((P) => {
+      if (P.nacionales) NACIONALES[P.pais] = [P.pais].concat(P.nacionales);
+      P.divisiones.forEach((dv) => dv.clubes.forEach((c) => { Object.assign(c, { division: dv.nivel, grupo: dv.nombre, pais: P.pais }); clubes.push(c); }));
+      return { pais: P.pais, grupos: P.divisiones.map((dv) => ({ nombre: dv.nombre, nivel: dv.nivel, de: dv.de || null })), sube: P.sube || 2, final: P.final || null, copa: P.copa || null,
+        ascensos: P.ascensos || {}, cupo: P.cupo || null, abajo: P.abajo || 'Tercera', estatales: !!P.estatales, rellenar: !!P.rellenar };
+    });
+    clubes.forEach((c) => c.jugadores.forEach((j) => {
+      j.rol = Motor.rol(j);            // el rol se fija al empezar y ya no depende de sus goles
+      j.carrera = [];
+      j.inicio = { niv: j.niv, club: c.nombre };
+      j.tecReal = j.tec || j.niv;      // sus mejores temporadas reales después de 1959
+      j.nacion = j.pais || c.pais;     // para las reglas de extranjeros de cada país
+    }));
+    const debutantes = ((d.debutantes && d.debutantes.jugadores) || []).concat(...(d.paises || []).map((P) => P.debutantes || []));
+    const M = {
+      anio: d.anio || 1958, clubes, paises, relleno: !!d.relleno, retirados: [], libres: [], historia: [], fichajes: [],
+      derbis: d.derbis || [],
+      // Jugadores reales que entran después de 1958-59 y clubes que subieron de verdad desde Tercera.
+      // Copa de Europa con datos reales (solo 1958-59 por ahora): clubes extranjeros y cuadro del sorteo real.
+      europa: d.europa ? [].concat(d.europa) : [],
+      debutantes, ascensos: (d.debutantes && d.debutantes.ascensos) || {},
+      records: { libro: [], liga: null, partido: null, equipoPts: null, equipoGoles: null }
+    };
+    constantes(M);
+    return M;
+  }
+
+  // Una temporada completa: tres ligas, promoción y Copa.
+  function jugarTemporada(M, semilla) {
+    const est = Motor.nuevoEstado(M.anio, M.derbis);
+    const primera = M.clubes.filter((c) => c.division === 1 && c.pais === 'España');
+    const grupos = {};
+    M.clubes.filter((c) => c.division === 2 && c.pais === 'España').forEach((c) => (grupos[c.grupo] = grupos[c.grupo] || []).push(c));
+    M.clubes.forEach((c) => (c.estiloCalc = null));
+    // Reglas de la época: puntos por victoria y cambios permitidos.
+    const reg = Epoca.reglas('España', M.anio), fg = caracter('España', M.anio);
+    const T = Motor.temporada(primera, { semilla, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: fg });
+    const seg = Object.keys(grupos).sort().map((g, i) => ({ grupo: g, T: Motor.temporada(grupos[g], { semilla: semilla + 11 + i, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: fg }) }));
+
+    // Promoción: 13.º y 14.º de Primera contra los segundos de cada grupo, a ida y vuelta.
+    const n = T.tabla.length;
+    // Sin Segunda en la partida (épocas con solo Primera) no hay descenso directo ni promoción: lo resuelve categorias().
+    const bajan = seg.length ? T.tabla.slice(n - 2).map((t) => t.equipo) : [];
+    const aspirantes = seg.map((s) => s.T.tabla.map((t) => t.equipo).filter((c) => !esFilial(c)));
+    const suben = aspirantes.map((xs) => xs[0]).filter(Boolean);
+    const segundos = aspirantes.map((xs) => xs[1]).filter(Boolean);
+    const promos = [];
+    [T.tabla[n - 4], T.tabla[n - 3]].forEach((t, i) => {
+      const rival = segundos[i];
+      if (!rival || !t) return;
+      const C = Motor.copa([t.equipo, rival], { semilla: semilla + 31 + i, anio: M.anio + 1, estado: est, finalUnica: false, nombre: 'Promoción', cambios: reg.cambios });
+      promos.push({ primera: t.equipo.nombre, segunda: rival.nombre, cruce: C.rondas[0].cruces[0], ganador: C.campeon, C });
+    });
+    // Un país que pasa de ligas regionales a una liga nacional (Alemania en 1963) la crea antes de empezar.
+    M.paises.forEach((P) => unificar(M, P));
+    // Las demás ligas de la partida, cada una con las reglas de su país en ese año.
+    const otros = M.paises.map((P, i) => jugarPais(M, P, semilla + 1000 * (i + 1), est));
+    // Copa de Europa: los clubes españoles de la partida contra los extranjeros reales, con el cuadro del sorteo real.
+    let E = Epoca.hayCompeticion('Copa de Europa', M.anio) ? M.europa.find((x) => x.anio === M.anio) : null;
+    // Sin datos del sorteo de ese año, la Copa de Europa se juega igual: los campeones de la partida, el vigente
+    // y, de los países que no se juegan, el último club que tenemos de cada uno.
+    if (!E && Epoca.hayCompeticion('Copa de Europa', M.anio)) E = europaSinDatos(M);
+    let EU = null;
+    if (E) {
+      // Los españoles salen de la partida: el campeón de Liga del año anterior y el campeón de Europa vigente.
+      // Si el vigente es extranjero y esa edición no lo trae, juega con la última plantilla real que tengamos de él.
+      const prev = M.historia[M.historia.length - 1];
+      // Plazas de cada país según el año: solo el campeón hasta 1996; después, hasta cuatro por liga (Liga de Campeones).
+      const plazas = (pais) => Math.max(1, Epoca.plazasEuropa(pais, M.anio) || 1);
+      let nombres = E.espanoles || [prev && prev.campeon, prev && prev.europa].concat(prev ? prev.R.T.tabla.slice(1, plazas('España')).map((t) => t.nombre) : []).filter(Boolean);
+      // Si el campeón de Liga es también el vigente, España manda además a su subcampeón (como el Atlético en 1958-59).
+      if (!E.espanoles && prev && prev.campeon === prev.europa) nombres = nombres.concat(prev.R.T.tabla[1].nombre);
+      const vigente = prev && prev.europa;
+      // Los que entraron solo porque el vigente real ocupó una plaza juegan solo si el vigente de la partida es ese club.
+      const eqs = E.clubes.filter((c) => !c.siVigente || c.siVigente === vigente).map((c) => (M.clubes.includes(c) ? c : JSON.parse(JSON.stringify(c))));
+      [...new Set(nombres)].forEach((n) => {
+        if (eqs.some((c) => c.nombre === n)) return;
+        const esp = M.clubes.find((c) => c.nombre === n);
+        const fuera = !esp && M.europa.filter((x) => x.anio < M.anio).reverse().map((x) => x.clubes.find((c) => c.nombre === n)).find(Boolean);
+        if (esp) eqs.push(esp); else if (fuera) eqs.push(JSON.parse(JSON.stringify(fuera)));
+      });
+      // Países que también se juegan en la partida: con el sorteo real (1958-59) juegan sus clubes de la partida;
+      // después, en lugar de los participantes reales va el campeón de la partida.
+      otros.forEach((o, i) => {
+        const delPais = (c) => (PAIS_EUROPA[c.pais] || c.pais) === o.pais;
+        eqs.forEach((c, k) => {
+          const propio = delPais(c) && !M.clubes.includes(c) && M.clubes.find((x) => x.nombre === c.nombre && x.pais === o.pais);
+          if (propio) eqs[k] = propio;
+        });
+        const ant = prev && prev.otros && prev.otros[i];
+        if (NO_EUROPA.includes(o.pais)) return;
+        if (E.cuadro || !ant || !ant.campeon) return;
+        const reales = eqs.filter((c) => delPais(c) && c.nombre !== vigente);
+        if (!reales.length && !E.sinDatos) return;
+        reales.forEach((c) => eqs.splice(eqs.indexOf(c), 1));
+        const van = [ant.campeon].concat(ant.campeon === vigente && ant.subcampeon ? [ant.subcampeon] : [], (ant.puestos || []).slice(1, plazas(o.pais)));
+        van.forEach((n) => { const c = M.clubes.find((x) => x.nombre === n); if (c && !eqs.includes(c) && !eqs.some((x) => x.nombre === n)) eqs.push(c); });
+      });
+      // Los clubes de países que no se juegan salen de la última plantilla real que tenemos (años 60) y no envejecen:
+      // sin datos de ese año no pueden pasar de aspirantes, por debajo del nivel medio de los clubes de la partida.
+      if (E.sinDatos) {
+        const mios = eqs.filter((c) => M.clubes.includes(c)).map((c) => Motor.fuerzaBruta(c)).sort((a, b) => a - b);
+        const medio = mios.length ? mios[Math.floor(mios.length / 2)] : 0;
+        if (medio) eqs.forEach((c) => {
+          if (M.clubes.includes(c)) return;
+          if (c.generado) return plantillaExtranjera(c, medio * c.generado * 0.92, M.anio);
+          const delta = medio * (0.86 + 0.08 * ((hashN(c.nombre + M.anio, 3) % 1000) / 1000)) - Motor.fuerzaBruta(c);
+          if (delta < 0) c.jugadores.forEach((j) => { j.niv += delta; });
+        });
+      }
+      // Liga de Campeones: dos grupos desde 1991, cuatro desde 1994 y ocho desde 1999 (si hay equipos para llenarlos).
+      const grupos = M.anio >= 1999 ? 8 : M.anio >= 1994 ? 4 : M.anio >= 1991 ? 2 : 0;
+      EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
+      EU.goleadorReal = E.goleadorReal;
+    }
+    // Copa del Generalísimo: todos los clubes de Primera y Segunda.
+    const C = Motor.copa(M.clubes.filter((c) => c.division <= 2 && c.pais === 'España'), { semilla: semilla + 41, anio: M.anio + 1, estado: est, nombre: Epoca.nombre('copa', 'España', M.anio) || 'Copa', derbis: M.derbis, cambios: reg.cambios, factorGoles: fg });
+    const comps = [{ nombre: 'Liga', jugadores: T.jugadores, campeon: T.tabla[0].equipo }]
+      .concat(seg.map((s) => ({ nombre: 'Segunda', jugadores: s.T.jugadores, campeon: s.T.tabla[0].equipo })))
+      .concat(promos.map((p) => ({ nombre: 'Promoción', jugadores: p.C.jugadores })))
+      .concat(EU ? [{ nombre: 'Europa', jugadores: EU.jugadores, campeon: EU.campeonEq }] : [])
+      .concat([{ nombre: 'Copa', jugadores: C.jugadores, campeon: C.campeonEq }])
+      .concat(...otros.map((o) => o.ligas.map((l) => ({ nombre: l.grupo, jugadores: l.T.jugadores, campeon: l.nivel === 1 ? l.T.tabla[0].equipo : null }))
+        .concat(o.F ? [{ nombre: o.F.nombre, jugadores: o.F.jugadores, campeon: o.F.campeonEq }] : [])
+        .concat(o.C ? [{ nombre: o.C.nombre, jugadores: o.C.jugadores, campeon: o.C.campeonEq }] : [])));
+    const G = Motor.global(comps);
+    // Premios de cada país con los jugadores de sus clubes (el mejor de España no puede ser uno de Italia).
+    const dePais = (p) => G.filter((x) => x.eq.pais === p);
+    const premios = Motor.premios(T, dePais('España'), M.anio + 1);
+    // Con varias ligas arriba (Oberligen, estatales de Brasil) los premios del país se dan juntando a sus jugadores.
+    otros.forEach((o) => {
+      const top = o.ligas.filter((l) => l.nivel === 1);
+      const liga = top.length === 1 ? top[0].T : { jugadores: top.flatMap((l) => l.T.jugadores), tabla: [{ pj: Math.min(...top.map((l) => l.T.tabla[0].pj)) }] };
+      if (top.length) o.premios = Motor.premios(liga, dePais(o.pais), M.anio + 1);
+    });
+    return { anio: M.anio, reglas: reg, T, seg, promos, C, EU, G, premios, bajan, suben, est, otros };
+  }
+
+  // Carácter de cada liga frente a la media de su época: el catenaccio italiano desde los 60, el fútbol directo inglés y alemán.
+  // Se interpola entre años (1 = media de la época; los goles de la época ya los pone el motor).
+  const CARACTER = {
+    Italia: [[1930, 0.97], [1958, 0.93], [1962, 0.82], [1975, 0.78], [1990, 0.86], [2005, 0.97], [2026, 1]],
+    Inglaterra: [[1930, 1.06], [1970, 1.02], [2000, 1], [2026, 1.02]],
+    Alemania: [[1930, 1.04], [1963, 1.08], [1990, 1.03], [2026, 1.05]],
+    Francia: [[1930, 1], [1970, 0.97], [2000, 0.94], [2026, 0.98]],
+    Portugal: [[1930, 1.02], [2026, 0.97]],
+    Argentina: [[1930, 1.02], [1970, 0.95], [2000, 0.93], [2026, 0.93]],
+    Brasil: [[1930, 1.03], [1980, 0.95], [2026, 0.95]],
+    España: [[1930, 1], [2026, 1]]
+  };
+  function caracter(pais, anio) {
+    const t = CARACTER[pais]; if (!t) return 1;
+    if (anio <= t[0][0]) return t[0][1];
+    for (let i = 1; i < t.length; i++) if (anio <= t[i][0]) { const [a, fa] = t[i - 1], [b, fb] = t[i]; return fa + (fb - fa) * (anio - a) / (b - a); }
+    return t[t.length - 1][1];
+  }
+
+  const NO_EUROPA = ['Argentina', 'Brasil'];
+  // Clubes de los países que no se juegan en la partida, para que la Copa de Europa no sea solo de seis ligas.
+  // No tenemos sus plantillas: salen con jugadores de relleno (*) y una fuerza relativa a los campeones de la partida
+  // (1 = como ellos). [club, país, fuerza normal, [desde, hasta, fuerza en sus mejores años]...]
+  const EXTRANJEROS = [
+    ['Ajax', 'Países Bajos', 0.92, [1966, 1973, 1.04], [1993, 1996, 1.01], [2017, 2019, 0.97]], ['Feyenoord', 'Países Bajos', 0.88, [1968, 1971, 1]],
+    ['PSV Eindhoven', 'Países Bajos', 0.9, [1986, 1989, 1]], ['Celtic', 'Escocia', 0.88, [1965, 1971, 1.01]], ['Rangers', 'Escocia', 0.87],
+    ['Anderlecht', 'Bélgica', 0.88, [1975, 1978, 0.95]], ['Brujas', 'Bélgica', 0.85, [1976, 1978, 0.96]],
+    ['Estrella Roja', 'Yugoslavia', 0.88, [1989, 1991, 1.01]], ['Dinamo Zagreb', 'Yugoslavia', 0.83], ['Steaua Bucarest', 'Rumanía', 0.86, [1985, 1989, 1]],
+    ['Dinamo Kiev', 'Unión Soviética', 0.88, [1974, 1976, 0.97], [1985, 1987, 0.97], [1997, 1999, 0.97]], ['Spartak Moscú', 'Unión Soviética', 0.86],
+    ['Shakhtar Donetsk', 'Ucrania', 0.84, [2007, 2019, 0.91]], ['Zenit', 'Rusia', 0.84, [2007, 2015, 0.9]],
+    ['Galatasaray', 'Turquía', 0.85, [1998, 2001, 0.95]], ['Fenerbahçe', 'Turquía', 0.84], ['Olympiacos', 'Grecia', 0.84], ['Panathinaikos', 'Grecia', 0.85, [1970, 1971, 0.96]],
+    ['Sparta Praga', 'Checoslovaquia', 0.84], ['Austria de Viena', 'Austria', 0.83], ['Rapid de Viena', 'Austria', 0.83], ['Basilea', 'Suiza', 0.82],
+    ['Copenhague', 'Dinamarca', 0.82], ['Rosenborg', 'Noruega', 0.82, [1995, 1999, 0.9]], ['IFK Göteborg', 'Suecia', 0.84, [1981, 1987, 0.93]], ['Malmö', 'Suecia', 0.82, [1978, 1979, 0.95]],
+    ['CSKA Sofía', 'Bulgaria', 0.83], ['Ferencváros', 'Hungría', 0.83], ['Legia Varsovia', 'Polonia', 0.82]
+  ];
+  // Países que nacen más tarde (o dejan de existir): sus clubes solo entran en esos años.
+  const EXTRANJERO_AÑOS = { 'Shakhtar Donetsk': [1992, 9999], 'Zenit': [1992, 9999], 'Copenhague': [1992, 9999], 'Spartak Moscú': [1955, 9999] };
+  const fuerzaExtranjero = (x, anio) => { let f = x[2]; x.slice(3).forEach(([a, b, v]) => { if (anio >= a && anio <= b) f = v; }); return f; };
+  function plantillaExtranjera(c, nivel, anio) {
+    const P = [['POR', 2], ['DEF', 5], ['MED', 4], ['DEL', 5]];
+    let k = 0;
+    c.jugadores = P.flatMap(([pos, n]) => Array.from({ length: n }, (_, i) => {
+      k++;
+      const niv = Math.round(nivel * (1.05 - 0.035 * i) * (0.985 + 0.03 * ((hashN(c.nombre + anio, k) % 100) / 100)));
+      return { n: `Suplente ${k} (${c.nombre})`, pos, nac: `${anio - 23 - (k % 9)}-01-01`, niv, tec: niv, pj: 0, g: 0, relleno: true, rol: pos === 'DEL' ? 'DC' : pos };
+    }));
+  }
+  function europaSinDatos(M) {
+    const ultima = M.europa.filter((x) => x.anio < M.anio).sort((a, b) => b.anio - a.anio);
+    const enPartida = new Set(M.paises.map((P) => P.pais).concat('España'));
+    const porPais = new Map();
+    ultima.forEach((ed) => ed.clubes.forEach((c) => { const p = PAIS_EUROPA[c.pais] || c.pais; if (!enPartida.has(p) && !porPais.has(p) && !c.siVigente) porPais.set(p, c); }));
+    // Las plantillas reales que tenemos son de 1958-63: pasados cinco años ya no valen y entran los clubes de la lista.
+    const viejas = !ultima.length || M.anio - ultima[0].anio > 5;
+    const clubes = viejas ? [] : [...porPais.values()];
+    // Hasta 1996 entra solo el campeón de cada país (uno por país, el más fuerte de esos años, con algo de turno);
+    // después, los catorce mejores, que es más o menos lo que dejaban libres las grandes ligas.
+    let fuera = EXTRANJEROS.filter((x) => {
+      const [a, b] = EXTRANJERO_AÑOS[x[0]] || [0, 9999];
+      return !(enPartida.has(x[1]) || M.anio < a || M.anio > b || clubes.some((c) => c.nombre === x[0]) || (!viejas && porPais.has(x[1])));
+    }).map((x) => ({ x, f: fuerzaExtranjero(x, M.anio), orden: fuerzaExtranjero(x, M.anio) + 0.05 * ((hashN(x[0] + M.anio, 5) % 100) / 100) }))
+      .sort((a, b) => b.orden - a.orden);
+    if (M.anio < 1997) { const visto = new Set(); fuera = fuera.filter(({ x }) => !visto.has(x[1]) && visto.add(x[1])); } else fuera = fuera.slice(0, 14);
+    fuera.forEach(({ x, f }) => clubes.push({ nombre: x[0], pais: x[1], prestigio: Math.round(900 * f), generado: f, entrenadores: [], jugadores: [] }));
+    const prev = M.historia[M.historia.length - 1];
+    let espanoles = null;
+    if (!prev) {
+      // Primera temporada de la partida sin datos: va el club de más prestigio de cada liga europea de la partida.
+      const plazas = (pais) => Math.max(1, Epoca.plazasEuropa(pais, M.anio) || 1);
+      espanoles = M.clubes.filter((c) => c.pais === 'España' && c.division === 1).sort((a, b) => b.prestigio - a.prestigio).slice(0, plazas('España')).map((c) => c.nombre);
+      M.paises.filter((P) => !NO_EUROPA.includes(P.pais)).forEach((P) => {
+        M.clubes.filter((x) => x.pais === P.pais && x.division === 1).sort((a, b) => b.prestigio - a.prestigio).slice(0, plazas(P.pais)).forEach((c) => clubes.push(c));
+      });
+    }
+    return { anio: M.anio, nombre: Epoca.nombre('europa', null, M.anio) || 'Copa de Europa', clubes, espanoles, sinDatos: true };
+  }
+
+  // Un dato que cambia con los años: número fijo o { año: valor } (vale el último año que haya empezado).
+  const porAnio = (x, anio) => { if (typeof x !== 'object' || x === null) return x; let v; Object.keys(x).map(Number).sort((a, b) => a - b).forEach((k) => { if (anio >= k) v = x[k]; }); return v; };
+  // La Copa de Europa llama a algunos países de otra forma que las ligas.
+  const PAIS_EUROPA = { RFA: 'Alemania' };
+
+  // De ligas regionales a una liga nacional (Bundesliga, 1963): entran los mejores de cada región, repartidos según
+  // la fuerza de cada una (de verdad: 5 del Oeste, 5 del Sur, 3 del Norte, 2 del Suroeste y 1 de Berlín);
+  // las regionales quedan como segunda categoría y suben los dos mejores campeones.
+  function unificar(M, P) {
+    const reg = Epoca.reglas(P.pais, M.anio);
+    const top = P.grupos.filter((g) => g.nivel === 1);
+    if (P.estatales || !reg.clubes || !reg.liga || top.length < 2) return;
+    const clubesDe = (g) => M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre && c.division === 1);
+    // Puesto de cada club en la última temporada jugada (si la hay) y fuerza de su once.
+    const prev = M.historia[M.historia.length - 1], ant = prev && prev.R && prev.R.otros.find((o) => o.pais === P.pais);
+    const puesto = new Map();
+    if (ant) ant.ligas.forEach((l) => l.T.tabla.forEach((t, i) => puesto.set(t.nombre, i)));
+    const valor = (c) => Motor.fuerzaBruta(c) + (c.prestigio || 0) * 0.3 - (puesto.has(c.nombre) ? puesto.get(c.nombre) * 12 : 60);
+    const peso = top.map((g) => { const cs = clubesDe(g).map(valor).sort((a, b) => b - a).slice(0, 6); return Math.max(1, cs.reduce((x, y) => x + Math.max(0, y), 0)); });
+    const tot = peso.reduce((a, b) => a + b, 0);
+    let cupo = peso.map((w) => Math.max(1, Math.floor(reg.clubes * w / tot)));
+    while (cupo.reduce((a, b) => a + b, 0) < reg.clubes) { const i = peso.map((w, k) => w / tot * reg.clubes - cupo[k]).reduce((m, v, k, xs) => (v > xs[m] ? k : m), 0); cupo[i]++; }
+    while (cupo.reduce((a, b) => a + b, 0) > reg.clubes) cupo[cupo.indexOf(Math.max(...cupo))]--;
+    const regional = (n) => n.replace(/^Oberliga/, 'Regionalliga');
+    // Lo que estaba debajo de las regionales (si se jugaba) baja un escalón y sale de la partida.
+    const segundas = P.grupos.filter((g) => g.nivel >= 2);
+    M.clubes.filter((c) => c.pais === P.pais && segundas.some((g) => g.nombre === c.grupo)).forEach((c) => { c.division = 3; c.grupo = P.abajo; });
+    top.forEach((g, i) => {
+      const cs = clubesDe(g).sort((a, b) => valor(b) - valor(a));
+      cs.forEach((c, k) => { if (k < cupo[i]) { c.grupo = reg.liga; c.division = 1; } else { c.grupo = regional(g.nombre); c.division = 2; } });
+    });
+    P.grupos = [{ nombre: reg.liga, nivel: 1, de: null }].concat(top.map((g) => ({ nombre: regional(g.nombre), nivel: 2, de: reg.liga })));
+    P.final = null; P.subenTotal = 2;
+  }
+
+  // Una temporada de otro país: sus ligas (una o varias regionales), la fase final si la hay y su copa.
+  function jugarPais(M, P, semilla, est) {
+    const reg = Epoca.reglas(P.pais, M.anio);
+    const base = { pais: P.pais, reglas: reg, ligas: [], F: null, C: null, campeon: null, subcampeon: null, campeones: [] };
+    // Sin liga nacional (Brasil antes de 1959) se juegan igual sus campeonatos estatales.
+    if (!reg.hayLiga && !P.estatales) return base;
+    const op = (k) => ({ semilla: semilla + k, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: caracter(P.pais, M.anio) });
+    base.ligas = P.grupos.map((g, i) => ({ grupo: g.nombre, nivel: g.nivel, T: Motor.temporada(M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre), op(7 * i + 3)) }))
+      .filter((l) => l.T.tabla.length > 1);
+    const top = base.ligas.filter((l) => l.nivel === 1);
+    base.campeones = top.map((l) => ({ grupo: l.grupo, club: l.T.tabla[0].nombre }));
+    if (top.length === 1) {
+      base.campeon = top[0].T.tabla[0].nombre; base.subcampeon = top[0].T.tabla[1].nombre;
+    } else if (P.final && top.length) {
+      // Liga por regiones (Alemania antes de 1963): los primeros de cada grupo juegan la fase final.
+      const eqs = top.flatMap((l) => l.T.tabla.slice(0, P.final.porGrupo || 2).map((t) => t.equipo));
+      base.F = Motor.copa(eqs, { semilla: semilla + 51, anio: M.anio + 1, estado: est, nombre: P.final.nombre, finalUnica: true, cambios: reg.cambios });
+      base.campeon = base.F.campeon;
+      const fin = base.F.rondas[base.F.rondas.length - 1].cruces[0];
+      base.subcampeon = fin ? [fin.a, fin.b].find((n) => n !== base.campeon) : null;
+    }
+    if (P.copa && (!P.copa.desde || M.anio >= P.copa.desde)) {
+      base.C = Motor.copa(M.clubes.filter((c) => c.pais === P.pais && c.division <= 2), { semilla: semilla + 41, anio: M.anio + 1, estado: est, nombre: Epoca.nombre('copa', P.pais, M.anio) || P.copa.nombre, derbis: M.derbis, cambios: reg.cambios, factorGoles: caracter(P.pais, M.anio) });
+    }
+    // Brasil sin liga nacional: desde 1959 se juega la Taça Brasil entre los mejores de cada estatal (eliminatorias a
+    // ida y vuelta) y su ganador es el campeón de Brasil, como lo reconoce la CBF desde 2010.
+    if (!base.campeon && top.length > 1 && P.estatales && !base.C && reg.hayLiga) {
+      const eqs = top.flatMap((l) => l.T.tabla.slice(0, 4).map((t) => t.equipo));
+      base.C = Motor.copa(eqs, { semilla: semilla + 43, anio: M.anio + 1, estado: est, nombre: M.anio < 1971 ? 'Taça Brasil' : (reg.liga || 'Taça Brasil'), cambios: reg.cambios, factorGoles: caracter(P.pais, M.anio) });
+    }
+    if (!base.campeon && top.length > 1 && P.estatales && base.C) {
+      base.campeon = base.C.campeon;
+      const fin = base.C.rondas[base.C.rondas.length - 1].cruces[0];
+      base.subcampeon = fin ? [fin.a, fin.b].find((n) => n !== base.campeon) : null;
+      base.campeonPorCopa = true;
+    }
+    return base;
+  }
+
+  // Cambia de categoría a los que bajan, suben o pierden la promoción.
+  function categorias(M, R) {
+    const mov = [];
+    const baja = (c, grupo) => { c.division = 2; c.grupo = grupo; mov.push({ club: c.nombre, a: 'Segunda' }); };
+    const sube = (c) => { const g = c.grupo; c.division = 1; c.grupo = 'Primera'; mov.push({ club: c.nombre, a: 'Primera' }); return g; };
+    const huecos = R.suben.map((c) => sube(c));
+    R.bajan.forEach((c, i) => baja(c, huecos[i] || 'Segunda Norte'));
+    R.promos.forEach((p) => {
+      if (p.ganador === p.segunda) {
+        const s = M.clubes.find((c) => c.nombre === p.segunda), pr = M.clubes.find((c) => c.nombre === p.primera);
+        const g = sube(s); baja(pr, g);
+      }
+    });
+    // España sin Segunda en la partida: suben a Primera los que subieron de verdad ese verano y bajan por la cola los que
+    // sobren para que la liga tenga los clubes que tuvo ese año (16, 18, 20, 22...). Si faltan, sube el de más prestigio de abajo.
+    if (!R.seg.length) {
+      const anioSig = M.anio + 1, objetivo = Epoca.reglas('España', anioSig).clubes || R.T.tabla.length;
+      const llegan = [];
+      (M.ascensos[anioSig] || []).forEach((a) => {
+        let c = M.clubes.find((x) => x.nombre === a.nombre);
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); }
+        if (c.division !== 1 && llegan.length < objetivo - 4) llegan.push(c);
+      });
+      const cola = [...R.T.tabla].reverse().map((t) => t.equipo);
+      const caen = cola.slice(0, Math.max(0, Math.min(cola.length - 4, R.T.tabla.length + llegan.length - objetivo)));
+      caen.forEach((c) => { c.division = 3; c.grupo = 'Tercera'; mov.push({ club: c.nombre, a: 'Segunda' }); });
+      const sube1 = (c) => { c.division = 1; c.grupo = 'Primera'; mov.push({ club: c.nombre, a: 'Primera' }); };
+      llegan.forEach(sube1);
+      const faltan = objetivo - (R.T.tabla.length - caen.length + llegan.length);
+      if (faltan > 0) M.clubes.filter((c) => c.pais === 'España' && c.division === 3 && !caen.includes(c) && !MATRIZ[c.nombre]).sort((a, b) => b.prestigio - a.prestigio).slice(0, faltan).forEach(sube1);
+    }
+    // España con Segunda en la partida: la Primera crece o encoge cuando lo hizo de verdad (16 clubes hasta 1971, luego 18, 20, 22...).
+    if (R.seg.length) {
+      const objetivo = Epoca.reglas('España', M.anio + 1).clubes || 0;
+      const enPrimera = () => M.clubes.filter((c) => c.pais === 'España' && c.division === 1);
+      for (let puesto = 0; objetivo && enPrimera().length < objetivo && puesto < 8; puesto++) {
+        R.seg.forEach((sg) => {
+          const c = sg.T.tabla[puesto] && sg.T.tabla[puesto].equipo;
+          const mat = c && MATRIZ[c.nombre] && M.clubes.find((x) => x.nombre === MATRIZ[c.nombre]);
+          if (c && c.division === 2 && !mat && enPrimera().length < objetivo) sube(c);
+        });
+      }
+      const cola = [...R.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === 1);
+      while (objetivo && enPrimera().length > objetivo && cola.length) baja(cola.shift(), R.seg[enPrimera().length % R.seg.length].grupo);
+    }
+    // Segunda ↔ Tercera: suben los clubes que subieron de verdad ese verano y bajan tantos como suben, por la cola de cada grupo.
+    const nuevoAnio = M.anio + 1;
+    const tercera = (c) => { mov.push({ club: c.nombre, a: 'Tercera', grupo: c.grupo }); c.division = 3; c.grupo = 'Tercera'; };
+    R.seg.forEach((s) => {
+      const llegan = [];
+      (M.ascensos[nuevoAnio] || []).filter((a) => a.grupo === s.grupo).forEach((a) => {
+        let c = M.clubes.find((x) => x.nombre === a.nombre);
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); }
+        if (c.division !== 3) return;
+        // Un filial no puede jugar en la misma categoría que su primer equipo.
+        const mat = MATRIZ[c.nombre] && M.clubes.find((x) => x.nombre === MATRIZ[c.nombre]);
+        if (mat && mat.division === 2) return;
+        llegan.push(c);
+      });
+      const cola = [...s.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === 2 && c.grupo === s.grupo);
+      llegan.forEach((c, i) => {
+        if (!cola[i]) return;
+        tercera(cola[i]);
+        c.division = 2; c.grupo = s.grupo;
+        mov.push({ club: c.nombre, a: 'Segunda', de: 'Tercera', grupo: s.grupo });
+      });
+    });
+    // Si un primer equipo baja al grupo de su filial, el filial baja a Tercera y se salva el mejor de los que bajaban.
+    M.clubes.filter((f) => MATRIZ[f.nombre] && f.division === 2).forEach((f) => {
+      const mat = M.clubes.find((x) => x.nombre === MATRIZ[f.nombre]);
+      if (!mat || mat.division !== 2) return;
+      const s = R.seg.find((x) => x.grupo === f.grupo);
+      const salvado = s && s.T.tabla.map((t) => t.equipo).find((c) => c.division === 3 && mov.some((m) => m.club === c.nombre && m.a === 'Tercera'));
+      if (!salvado) return;
+      tercera(f);
+      salvado.division = 2; salvado.grupo = f.grupo;
+      mov.splice(mov.findIndex((m) => m.club === salvado.nombre && m.a === 'Tercera'), 1);
+    });
+    // De la categoría de abajo (que no se juega) suben los que subieron de verdad; bajan tantos como suben, por la cola.
+    function llegadas(P, liga, nivel) {
+      const llegan = [];
+      (P.ascensos[nuevoAnio] || []).filter((a) => !a.grupo || a.grupo === liga.grupo).forEach((a) => {
+        let c = M.clubes.find((x) => x.nombre === a.nombre);
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: P.abajo, pais: P.pais, nuevo: true }; M.clubes.push(c); }
+        if (c.division === 3) llegan.push(c);
+      });
+      const cola = [...liga.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === nivel && c.grupo === liga.grupo);
+      llegan.forEach((c, k) => {
+        if (!cola[k]) return;
+        cola[k].division = 3; cola[k].grupo = P.abajo;
+        mov.push({ club: cola[k].nombre, a: P.abajo, pais: P.pais, grupo: liga.grupo });
+        c.division = nivel; c.grupo = liga.grupo;
+        mov.push({ club: c.nombre, a: liga.grupo, de: P.abajo, pais: P.pais, sube: true });
+      });
+    }
+    // Otros países: los primeros de cada grupo de segunda suben a su primera y bajan tantos como suben.
+    M.paises.forEach((P, i) => {
+      const o = R.otros[i];
+      if (!o || !o.ligas.length) return;
+      const top = o.ligas.filter((l) => l.nivel === 1);
+      // Ligas por regiones sin segunda en la partida (Alemania): los que suben de verdad entran directamente en su grupo.
+      top.filter((l) => !P.grupos.some((g) => g.nivel === 2 && (g.de === l.grupo || top.length === 1))).forEach((l) => llegadas(P, l, 1));
+      if (P.subenTotal && top.length === 1) {
+        // Varias regionales y pocas plazas: suben los mejores campeones (por puntos por partido) y bajan tantos como suben.
+        const seg2 = o.ligas.filter((l) => l.nivel === 2 && l.T.tabla.length);
+        const camps = seg2.map((l) => l.T.tabla[0]).sort((a, b) => b.pts / b.pj - a.pts / a.pj).slice(0, P.subenTotal);
+        const destino = top[0];
+        const bajan = [...destino.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.grupo === destino.grupo).slice(0, camps.length);
+        bajan.forEach((c, k) => { const g = seg2.find((l) => l.T.tabla.includes(camps[k])); c.division = 2; c.grupo = g ? g.grupo : seg2[0].grupo; mov.push({ club: c.nombre, a: c.grupo, pais: P.pais }); });
+        camps.forEach((t) => { t.equipo.division = 1; t.equipo.grupo = destino.grupo; mov.push({ club: t.nombre, a: destino.grupo, pais: P.pais, sube: true }); });
+        seg2.forEach((s) => llegadas(P, s, 2));
+        return;
+      }
+      o.ligas.filter((l) => l.nivel === 2).forEach((s) => {
+        const g = P.grupos.find((x) => x.nombre === s.grupo);
+        const destino = top.find((l) => l.grupo === g.de) || (top.length === 1 ? top[0] : null);
+        if (!destino) return;
+        const suben = s.T.tabla.slice(0, porAnio(P.sube, M.anio)).map((t) => t.equipo);
+        const bajan = [...destino.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.grupo === destino.grupo).slice(0, suben.length);
+        suben.forEach((c) => { c.division = 1; c.grupo = destino.grupo; mov.push({ club: c.nombre, a: destino.grupo, pais: P.pais, sube: true }); });
+        bajan.forEach((c) => { c.division = 2; c.grupo = s.grupo; mov.push({ club: c.nombre, a: s.grupo, pais: P.pais }); });
+        llegadas(P, s, 2);
+      });
+    });
+    // Tamaño real de cada liga europea de una sola Primera: crece o encoge cuando lo hizo de verdad
+    // (Bundesliga de 16 a 18 en 1965, Serie A de 16 a 18 en 1988 y a 20 en 2004, Premier de 22 a 20 en 1995).
+    M.paises.forEach((P, i) => {
+      const o = R.otros[i];
+      const top = o && o.ligas.filter((l) => l.nivel === 1);
+      const objetivo = Epoca.reglas(P.pais, nuevoAnio).clubes;
+      if (!top || top.length !== 1 || NO_EUROPA.includes(P.pais) || !(objetivo >= 10 && objetivo <= 24)) return;
+      const liga = top[0], enPrimera = () => M.clubes.filter((c) => c.pais === P.pais && c.division === 1 && c.grupo === liga.grupo);
+      const seg2 = o.ligas.filter((l) => l.nivel === 2 && l.T.tabla.length);
+      if (enPrimera().length < objetivo) {
+        // Suben más: los siguientes de la segunda de la partida o, si no se juega, los de más prestigio de abajo.
+        const cand = seg2.length ? Array.from({ length: 8 }, (_, k) => seg2.map((l) => l.T.tabla[k] && l.T.tabla[k].equipo)).flat().filter((c) => c && c.division === 2)
+          : M.clubes.filter((c) => c.pais === P.pais && c.division === 3 && c.jugadores.length >= 11 && !MATRIZ[c.nombre]).sort((a, b) => b.prestigio - a.prestigio);
+        cand.slice(0, objetivo - enPrimera().length).forEach((c) => { c.division = 1; c.grupo = liga.grupo; mov.push({ club: c.nombre, a: liga.grupo, pais: P.pais, sube: true }); });
+      }
+      const cola = [...liga.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === 1 && c.grupo === liga.grupo);
+      while (enPrimera().length > objetivo && cola.length) {
+        const c = cola.shift();
+        if (seg2.length) { c.division = 2; c.grupo = seg2[enPrimera().length % seg2.length].grupo; } else { c.division = 3; c.grupo = P.abajo; }
+        mov.push({ club: c.nombre, a: c.grupo, pais: P.pais });
+      }
+    });
+    return mov;
+  }
+
+  // Crecimiento, declive y retiros al terminar la temporada.
+  function envejecer(M, R, r) {
+    const pj = new Map(R.G.map((x) => [x.j, x]));
+    const retiros = [];
+    M.clubes.forEach((c) => {
+      c.jugadores = c.jugadores.filter((j) => {
+        const x = pj.get(j);
+        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
+        if (j.selT) { j.carrera[j.carrera.length - 1].sel = j.selT; delete j.selT; }
+        const edad = M.anio + 1 - anioNac(j);
+        const cv = curva(j), pico = cv.pico;
+        const minutos = Math.min(1, (x ? x.pj : 0) / 25);
+        if (edad <= pico) {
+          // Crece hacia lo que le toca a su edad según su curva; jugar acelera, y un chaval sin minutos pierde algo de techo.
+          const meta = (j.tec || j.niv) * cv.F(edad);
+          const hueco = meta - j.niv;
+          // Si ya va por delante de su curva (Pelé a los 17), no se le frena: solo el vaivén normal.
+          j.niv += hueco > 0 ? hueco * (0.35 + 0.4 * minutos) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
+          if (edad <= 22 && minutos < 0.2 && !j.relleno) j.tec = (j.tec || j.niv) - r() * 8;
+        } else {
+          // Cae lo que marca su curva ese año (físico antes, cabeza después), con algo de azar.
+          // Si en la realidad siguió a su nivel después de 1959 (techo ≥ nivel de partida), envejece más despacio.
+          const longevo = (j.tecReal || 0) >= (j.inicio ? j.inicio.niv : j.niv) ? 0.75 : 1;
+          const caida = (j.tec || j.niv) * (cv.F(edad - 1) - cv.F(edad));
+          j.niv -= Math.max(0, caida) * longevo * (0.7 + 0.6 * r());
+          // El cuerpo manda: desde los 37 (38 los porteros) cada año pesa más que el anterior, también a los longevos.
+          const tarde = edad - (j.pos === 'POR' ? 37 : 36);
+          if (tarde > 0) j.niv -= (j.tec || j.niv) * 0.012 * tarde * (0.6 + 0.4 * Math.min(1.5, cv.ritmo));
+          j.tec = Math.min(j.tec || j.niv, j.niv + 20);
+        }
+        j.niv = Math.max(250, Math.min(1180, j.niv));
+        // Retiro: casi nunca antes de los 32; los cracks aguantan más y los de nivel bajo lo dejan antes.
+        const RETIRO = { 32: 0.03, 33: 0.06, 34: 0.12, 35: 0.22, 36: 0.35, 37: 0.5 };
+        let p = edad <= 31 ? 0.005 : RETIRO[edad] || 0.7;
+        if (j.niv < 550 && edad > 29) p += 0.15;
+        if (j.niv > 800) p *= j.niv > 850 ? 0.35 : 0.5;
+        // Una figura que sigue en lo más alto no lo deja antes de los 35.
+        if (j.niv >= 850 && edad < 35) p = 0;
+        // Quien sigue rindiendo (buena nota con minutos) casi nunca lo deja: Di Stéfano jugó hasta los 40.
+        if (x && x.pj >= 15) p *= x.notaTemp >= 7.5 ? 0.1 : x.notaTemp >= 7 ? 0.4 : 1;
+        if (j.niv >= 1000 && edad < 37) p = 0;
+        // Sin edad tope: quien sigue siendo de los buenos y juega con buena nota puede seguir (Cristiano a los 41, Matthews a los 50).
+        // A los demás, desde los 38 el retiro les llega cada año con más fuerza.
+        const sigueArriba = x && x.pj >= 15 && x.notaTemp >= 7 && j.niv >= 880;  // escala interna: de 'crack' para arriba
+        if (edad >= 38 && !sigueArriba) p = Math.max(p, Math.min(0.9, 0.3 + 0.15 * (edad - 38)));
+        const K = CONSTANTES[j.n];
+        if (K && !j.relleno && K.retiro && edad < K.retiro) p = 0;
+        if (r() < p) { retiros.push({ j, club: c.nombre, edad }); M.retirados.push(Object.assign({ retiro: M.anio + 1, edad }, { n: j.n, carrera: j.carrera, pos: j.pos })); return false; }
+        return true;
+      });
+    });
+    M.libres = M.libres.filter((j) => {
+      const edad = M.anio + 1 - anioNac(j);
+      j.niv -= edad > 28 ? 15 : 0;
+      if (edad > 29 || r() < 0.3) { M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos }); return false; }
+      return true;
+    });
+    return retiros;
+  }
+
+  // Mercado de verano: vuelta de cedidos, filiales, fichajes por prestigio y necesidad, cesiones y libres.
+  const IDEAL = { POR: 2, DEF: 7, MED: 6, DEL: 7 };
+  const CUPO_EXTRANJEROS = 3, NIVEL_EXTRANJERO = 720;
+  // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
+  // Portugal, Argentina, Brasil y la Alemania semiamateur casi nada; Inglaterra, cerrada hasta 1978.
+  const ATRACCION = { Italia: { 1946: 1 }, España: { 1950: 1 }, Francia: { 1950: 0.5 }, Portugal: { 1950: 0.15 }, Argentina: { 1950: 0.15 },
+    Brasil: { 1950: 0.03, 1990: 0.3 }, Alemania: { 1950: 0.05, 1963: 0.15 }, Inglaterra: { 1950: 0.05, 1978: 0.6 } };
+  // Quién cuenta como de casa: el propio país y, si los datos lo dicen, otros (en Inglaterra, escoceses, galeses e irlandeses).
+  const NACIONALES = {};
+  const extranjero = (j, pais) => {
+    const casa = NACIONALES[pais] || [pais];
+    return !String(j.nacion || pais).split('/').map((x) => x.trim()).some((x) => casa.includes(x));
+  };
+  function mercado(M, r) {
+    const nuevoAnio = M.anio + 1;
+    const log = [];
+    const porNombre = new Map(M.clubes.map((c) => [c.nombre, c]));
+    const mover = (j, de, a, tipo) => {
+      de.jugadores = de.jugadores.filter((x) => x !== j);
+      a.jugadores.push(j);
+      log.push({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo });
+    };
+    // 1. Vuelven los cedidos.
+    M.clubes.forEach((c) => c.jugadores.filter((j) => j.cedido).forEach((j) => {
+      const dueno = porNombre.get(j.cedido);
+      j.cedido = null;
+      if (dueno && dueno !== c) mover(j, c, dueno, 'vuelve de cesión');
+    }));
+    // 2. Debutantes reales de este año, en su club de verdad (estén en la categoría que estén en la partida).
+    const deNuevo = M.debutantes.filter((d) => d.debut === nuevoAnio);
+    const clave = (n, nac) => n + '|' + nac, buscados = new Set(deNuevo.map((d) => clave(d.nombre, d.nac)));
+    const dondeEsta = new Map();
+    M.clubes.forEach((x) => x.jugadores.forEach((j) => { const k = clave(j.n, j.nac); if (buscados.has(k) && !dondeEsta.has(k)) dondeEsta.set(k, x); }));
+    deNuevo.forEach((d) => {
+      const c = porNombre.get(d.club) || M.clubes.find((x) => x.nombre === d.club);
+      if (!c) return;
+      if (d.tipo === 'extranjero' && !Epoca.reglas(c.pais, nuevoAnio).extranjerosNuevos) return;
+      // Si ya está en la partida (en otro país), es un traspaso real: se mueve, no se crea otro igual.
+      const ya = dondeEsta.get(clave(d.nombre, d.nac));
+      if (ya) { if (ya !== c) { const j = ya.jugadores.find((x) => x.n === d.nombre && x.nac === d.nac); j.cedido = null; mover(j, ya, c, 'fichaje'); dondeEsta.set(clave(d.nombre, d.nac), c); } return; }
+      const libreYa = M.libres.find((j) => j.n === d.nombre && j.nac === d.nac);
+      if (libreYa) { M.libres = M.libres.filter((j) => j !== libreYa); c.jugadores.push(libreYa); dondeEsta.set(clave(libreYa.n, libreYa.nac), c); log.push({ temporada: temporadaTxt(nuevoAnio), jugador: libreYa.n, pos: libreYa.pos, niv: Math.round(libreYa.niv), de: 'sin club', a: c.nombre, tipo: 'libre' }); return; }
+      const j = { n: d.nombre, completo: d.completo, pos: d.pos, nac: d.nac, pais: d.pais, nacion: d.pais || c.pais, niv: d.niv, tec: d.tec, tecReal: d.tec, pj: 0, g: 0, carrera: [], inicio: { niv: d.niv, club: c.nombre }, debut: nuevoAnio };
+      // Los que llegan durante la partida traen también su definición (antes se perdía y Messi remataba como un medio cualquiera).
+      if (d.fin) j.fin = d.fin;
+      if (d.gol) j.gol = d.gol;
+      j.rol = d.rol || Motor.rol(j);
+      c.jugadores.push(j);
+      dondeEsta.set(clave(j.n, j.nac), c);
+      log.push({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: j.niv, tec: j.tec, extranjero: d.tipo === 'extranjero', de: d.tipo === 'extranjero' ? (d.pais || 'extranjero') : d.tipo === 'regresa' ? 'vuelve' : 'cantera', a: c.nombre, tipo: 'debut' });
+    });
+    // 3. Los filiales suben a sus mejores jóvenes al primer equipo.
+    Object.entries(MATRIZ).forEach(([f, m]) => {
+      const fil = porNombre.get(f), mat = porNombre.get(m);
+      if (!fil || !mat) return;
+      const corte = mat.jugadores.map((j) => j.niv).sort((a, b) => b - a)[15] || 700;
+      fil.jugadores.filter((j) => nuevoAnio - anioNac(j) <= 23 && j.niv >= corte - 20).forEach((j) => mover(j, fil, mat, 'sube del filial'));
+    });
+    // 4. Fichajes: los clubes con más prestigio eligen primero.
+    // El mercado se mueve más con los años: poco hasta 1980, bastante después y mucho desde la ley Bosman (1996),
+    // cuando las figuras cambian de club y de país con facilidad y los comunitarios dejan de contar como extranjeros.
+    const fluidez = nuevoAnio >= 1996 ? 1 : nuevoAnio >= 1980 ? 0.4 : 0;
+    const orden = [...M.clubes].filter((c) => !esFilial(c) && c.division <= 2).sort((a, b) => (b.prestigio + r() * 150) - (a.prestigio + r() * 150));  // el más grande no siempre llega primero: sin eso, un club encadenaba 18 ligas
+    const fichados = new Set();
+    const ventas = new Map();
+    // Un club vende como mucho tres jugadores por verano y nunca se queda corto en un puesto.
+    // Los de Tercera no juegan en la partida: venden sin esos límites.
+    const puedeVender = (v, pos) => v.division === 3 || ((ventas.get(v) || 0) < 3 && v.jugadores.filter((x) => x.pos === pos && !x.cedido).length > IDEAL[pos]);
+    // Fichar en otro país: solo jugadores de nivel, si las reglas de la época dejan entrar extranjeros y queda cupo.
+    const abierto = {};
+    const puedeEntrar = (j, comprador) => {
+      if (!extranjero(j, comprador.pais)) return true;
+      if (!(comprador.pais in abierto)) abierto[comprador.pais] = Epoca.reglas(comprador.pais, nuevoAnio).extranjerosNuevos;
+      const P = M.paises.find((x) => x.pais === comprador.pais);
+      const cupo = fluidez === 1 ? 9 : (P && P.cupo && porAnio(P.cupo[comprador.division], nuevoAnio)) || CUPO_EXTRANJEROS;
+      return abierto[comprador.pais] && comprador.jugadores.filter((x) => extranjero(x, comprador.pais)).length < cupo;
+    };
+    // El campeón se conforma y los grandes que no ganaron se refuerzan más: así ninguna racha dura veinte años.
+    const prevH = M.historia[M.historia.length - 1];
+    const campeones = new Set(prevH ? [prevH.campeon].concat((prevH.otros || []).map((o) => o.campeon)).filter(Boolean) : []);
+    // Un grande no refuerza a un rival directo de su liga, y desde 1996 los clubes de élite se quitan figuras entre países
+    // (Zidane de la Juventus al Madrid) aunque el vendedor tenga tanto nombre como el comprador.
+    const vende = (v, comprador, fuera) => v.division === 3
+      || (v.pais === comprador.pais ? comprador.prestigio >= v.prestigio + (v.prestigio >= 750 ? 150 : 40)
+        : comprador.prestigio >= v.prestigio + 40 || (fluidez === 1 && fuera && comprador.prestigio >= 820 && comprador.prestigio >= v.prestigio - 60));
+    // Quien ya es claramente el más fuerte de su liga no ficha ese verano: no lo necesita (y así no se escapa del todo).
+    const fuerzas = new Map(M.clubes.filter((c) => c.division === 1).map((c) => [c, fuerzaOnce(c)]));
+    const sobrado = (c) => {
+      if (!fuerzas.has(c)) return false;
+      let otro = 0;
+      fuerzas.forEach((f, x) => { if (x !== c && x.pais === c.pais && f > otro) otro = f; });
+      return fuerzas.get(c) >= otro + 25;
+    };
+    // Constantes: una leyenda no sale de su club mientras dura su época, y las de 'elite' solo fichan por un grande.
+    const seVende = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
+    // Las leyendas 'elite' (Cristiano, Mbappé) no se quedan en una liga menor: en cuanto son figuras mundiales
+    // (nivel 900) se las lleva uno de los clubes más fuertes de las grandes ligas. En cuál acaban lo decide la partida.
+    const LIGAS_GRANDES = ['España', 'Inglaterra', 'Italia', 'Alemania'];
+    const grandes = [...fuerzas.keys()].filter((c) => LIGAS_GRANDES.includes(c.pais) && c.prestigio >= 760).sort((a, b) => fuerzas.get(b) - fuerzas.get(a)).slice(0, 6);
+    if (grandes.length) M.clubes.forEach((v) => v.jugadores.slice().forEach((j) => {
+      const K = CONSTANTES[j.n];
+      if (!K || !K.elite || j.relleno || j.niv < Motor.escala.interno(900) || (LIGAS_GRANDES.includes(v.pais) && v.prestigio >= 750)) return;
+      // Mejor a un grande que no tenga ya a otra leyenda: Mbappé no se junta con Messi.
+      const sinLeyenda = grandes.filter((g) => !g.jugadores.some((x) => x.cons));
+      const destinos = sinLeyenda.length ? sinLeyenda : grandes;
+      const a = destinos[Math.floor(r() * Math.min(4, destinos.length))];
+      j.cedido = null; fichados.add(j); mover(j, v, a, 'fichaje');
+    }));
+    orden.forEach((comprador) => {
+      let compras = 0;
+      if (sobrado(comprador)) return;
+      const tope = 2 + (fluidez === 1 ? 1 : 0) + (campeones.has(comprador.nombre) ? -1 : comprador.prestigio >= 800 ? 1 : 0);
+      for (let vuelta = 0; vuelta < 3 + fluidez + 1 && compras < tope; vuelta++) {
+        // El puesto más flojo del once respecto a la media del club.
+        const xi = (pos, k) => comprador.jugadores.filter((j) => j.pos === pos && !j.cedido).map((j) => j.niv).sort((a, b) => b - a).slice(0, k);
+        const huecos = { POR: xi('POR', 1), DEF: xi('DEF', 4), MED: xi('MED', 3), DEL: xi('DEL', 3) };
+        const mediaClub = media(Object.values(huecos).flat());
+        const pos = Object.keys(huecos).sort((a, b) => (media(huecos[a]) || 0) - (media(huecos[b]) || 0))[0];
+        const umbral = Math.max(huecos[pos].length ? Math.min(...huecos[pos]) : 0, mediaClub - 40) + 25;
+        // Mirar fuera es una decisión del club, no de cada jugador: los países que casi no fichaban fuera casi nunca lo hacen.
+        const mirarFuera = comprador.division === 1 && r() < (porAnio(ATRACCION[comprador.pais], nuevoAnio) || 0.3);
+        // Primero los clubes que pueden vender (más rápido que mirar a todos los jugadores del mundo).
+        const cand = M.clubes.filter((v) => v !== comprador && !esFilial(v) && MATRIZ[v.nombre] !== comprador.nombre
+            && (v.pais === comprador.pais || mirarFuera) && vende(v, comprador, mirarFuera) && puedeVender(v, pos))
+          .flatMap((v) => v.jugadores.filter((j) => j.pos === pos && !j.cedido && j.debut !== nuevoAnio && !fichados.has(j) && seVende(j, v, comprador) && j.niv >= umbral && nuevoAnio - anioNac(j) <= 30
+            // Argentina y Brasil solo traen de fuera a los suyos que vuelven: una figura europea no se va a jugar allí.
+            && (v.pais === comprador.pais || (j.niv >= NIVEL_EXTRANJERO && puedeEntrar(j, comprador) && (!NO_EUROPA.includes(comprador.pais) || !extranjero(j, comprador.pais))))).map((j) => ({ j, v })))
+          .sort((a, b) => b.j.niv - a.j.niv);
+        const tercera = new Map(), titular = new Map();
+        const elegido = cand.find(({ j, v }) => {
+          // Un club no suelta fácil a una de sus tres figuras; irse a otro país cuesta más.
+          if (!tercera.has(v)) tercera.set(v, v.jugadores.map((x) => x.niv).sort((a, b) => b - a).slice(0, 3).pop());
+          const figura = j.niv >= tercera.get(v);
+          // Un titular no se va a un equipo claramente peor que el suyo (Ronaldo no deja el Inter por un club de media tabla).
+          if (v.division === 1 && fuerzas.has(v) && fuerzas.has(comprador) && fuerzas.get(comprador) < fuerzas.get(v) - 10 && j.niv >= (titular.get(v) || (titular.set(v, v.jugadores.map((x) => x.niv).sort((a, b) => b - a)[10] || 0), titular.get(v)))) return false;
+          return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.5 + 0.2 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
+        });
+        if (!elegido) continue;
+        fichados.add(elegido.j);
+        ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
+        mover(elegido.j, elegido.v, comprador, 'fichaje');
+        compras++;
+      }
+    });
+    // 5. Cesiones: jóvenes sin minutos en clubes grandes van a jugar a un club menor.
+    const minutos = new Map();
+    M.historia.length && M.historia[M.historia.length - 1].G.forEach((x) => minutos.set(x.j, x.pj));
+    M.clubes.filter((c) => c.prestigio >= 700).forEach((c) => {
+      const corte = c.jugadores.map((j) => j.niv).sort((a, b) => b - a)[13] || 0;
+      c.jugadores.filter((j) => j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 21 && j.niv < corte && (minutos.get(j) || 0) < 8 && j.tec > j.niv + 40).forEach((j) => {
+        const destino = M.clubes.filter((d) => d !== c && d.pais === c.pais && !esFilial(d) && d.division <= 2 && d.prestigio < c.prestigio - 150 && d.jugadores.filter((x) => x.pos === j.pos).length < IDEAL[j.pos] + 1)
+          .sort(() => r() - 0.5)[0];
+        if (!destino) return;
+        mover(j, c, destino, 'cesión');
+        j.cedido = c.nombre;
+      });
+    });
+    // 6. Plantillas: los que sobran quedan libres; a los cortos se les completa con libres.
+    M.clubes.forEach((c) => {
+      while (c.jugadores.length > 28) {
+        const peor = c.jugadores.filter((j) => !j.cedido).sort((a, b) => a.niv - b.niv)[0];
+        c.jugadores = c.jugadores.filter((j) => j !== peor);
+        M.libres.push(peor);
+        log.push({ temporada: temporadaTxt(nuevoAnio), jugador: peor.n, pos: peor.pos, niv: Math.round(peor.niv), de: c.nombre, a: 'sin club', tipo: 'baja' });
+      }
+    });
+    // A los cortos se les completa con libres y, si no hay, con jugadores de los clubes de Tercera.
+    const terceras = M.clubes.filter((c) => c.division === 3 && c.pais === 'España');
+    const rellenaPais = new Set(M.paises.filter((P) => P.rellenar).map((P) => P.pais));
+    M.clubes.filter((c) => c.division <= 2).forEach((c) => {
+      Object.entries(IDEAL).forEach(([pos, k]) => {
+        while (c.jugadores.filter((j) => j.pos === pos).length < k - 1) {
+          // Los libres se quedan en su país: nadie cruza la frontera para ser suplente.
+          const libre = M.libres.filter((j) => j.pos === pos && !extranjero(j, c.pais)).sort((a, b) => b.niv - a.niv)[0];
+          if (libre) {
+            M.libres = M.libres.filter((j) => j !== libre);
+            c.jugadores.push(libre);
+            log.push({ temporada: temporadaTxt(nuevoAnio), jugador: libre.n, pos, niv: Math.round(libre.niv), de: 'sin club', a: c.nombre, tipo: 'libre' });
+            continue;
+          }
+          // Sin libres: España tira de Tercera; los demás países, de los clubes que bajaron a la categoría que no se juega
+          // y, si no basta, de los clubes de su país con gente de sobra en ese puesto.
+          const abajo = M.clubes.filter((v) => v !== c && v.pais === c.pais && v.division === 3);
+          const sobra = M.clubes.filter((v) => v !== c && v.pais === c.pais && v.division <= 2 && v.jugadores.filter((x) => x.pos === pos).length >= k);
+          // De abajo, el mejor; de los que tienen de sobra, su suplente más flojo (nadie regala a una figura).
+          const de = (vs, peor) => vs.flatMap((v) => v.jugadores.filter((j) => j.pos === pos && !j.cedido).map((j) => ({ j, v }))).sort((a, b) => (peor ? a.j.niv - b.j.niv : b.j.niv - a.j.niv))[0];
+          const t = c.pais === 'España' ? de(terceras) : de(abajo) || de(sobra, true);
+          if (t) { mover(t.j, t.v, c, 'fichaje'); continue; }
+          // Último recurso, solo si la partida o el país lo permiten: un suplente anónimo de nivel bajo (clubes sin plantilla real completa).
+          // (Antes solo se hacía en países con relleno; con plantillas de Wikidata un club recién ascendido puede llegar vacío a cualquier liga.)
+          const base = Math.min(...c.jugadores.map((j) => j.niv), 300 + 0.4 * c.prestigio) - 20;
+          const n = c.jugadores.filter((j) => j.relleno).length + 1;
+          c.jugadores.push({ n: `Suplente ${n} (${c.nombre})`, pos, nac: `${nuevoAnio - 24}-01-01`, nacion: c.pais, niv: base, tec: base, tecReal: base, pj: 0, g: 0, carrera: [], inicio: { niv: base, club: c.nombre }, rol: pos === 'DEL' ? 'DC' : pos, relleno: true });
+        }
+      });
+    });
+    return log;
+  }
+
+  // Prestigio: sube con los títulos y con quedar por encima de lo esperado; baja al revés.
+  function prestigio(M, R) {
+    const ajusta = (c, d) => (c.prestigio = Math.max(250, Math.min(1000, Math.round(c.prestigio + d))));
+    const tabla = (T) => T.tabla.forEach((t, i) => {
+      const esperado = [...T.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio).indexOf(t);
+      ajusta(t.equipo, (esperado - i) * 3 + (i === 0 ? 15 : 0));
+    });
+    tabla(R.T); R.seg.forEach((s) => tabla(s.T));
+    R.otros.forEach((o) => o.ligas.forEach((l) => tabla(l.T)));
+    const copas = [R.C].concat(R.otros.map((o) => o.C)).filter(Boolean);
+    copas.forEach((C) => { const c = M.clubes.find((x) => x.nombre === C.campeon); if (c) ajusta(c, 10); });
+    R.otros.filter((o) => o.F).forEach((o) => { const c = M.clubes.find((x) => x.nombre === o.F.campeon); if (c) ajusta(c, 15); });
+    const campeonEuropa = R.EU && M.clubes.find((c) => c.nombre === R.EU.campeon);
+    if (campeonEuropa) ajusta(campeonEuropa, 25);
+    // Con los años el prestigio se acerca un poco a su valor de siempre.
+    M.clubes.forEach((c) => { c.prestigioBase = c.prestigioBase || c.prestigio; ajusta(c, (c.prestigioBase - c.prestigio) * 0.1); });
+  }
+
+  // Libro de récords de la partida, con el contexto del récord real.
+  function records(M, R) {
+    const temp = temporadaTxt(M.anio), libro = M.records;
+    const nota = (texto) => libro.libro.push({ temporada: temp, texto });
+    const top = [...R.T.jugadores].sort((a, b) => b.g - a.g)[0];
+    if (top && (!libro.liga || top.g > libro.liga.g)) {
+      const antes = libro.liga;
+      libro.liga = { g: top.g, quien: top.nombre, club: top.club, temporada: temp };
+      if (antes) nota(`${top.nombre} (${top.club}) bate el récord de goles en una Liga de la partida: ${top.g} (antes ${antes.quien}, ${antes.g}).`);
+      if (top.g > RECORD_REAL_LIGA.goles) nota(`${top.nombre} supera el récord real de ${RECORD_REAL_LIGA.quien} (${RECORD_REAL_LIGA.goles} goles en ${RECORD_REAL_LIGA.temporada}).`);
+    }
+    const ev = R.T.resultados.flat();
+    ev.forEach((m) => {
+      const cuenta = {};
+      m.eventos.filter((e) => e.tipo === 'gol' || e.tipo === 'pen').forEach((e) => { cuenta[e.quien + '|' + e.lado] = (cuenta[e.quien + '|' + e.lado] || 0) + 1; });
+      Object.entries(cuenta).forEach(([k, g]) => {
+        if (!libro.partido || g > libro.partido.g) {
+          const [quien, lado] = k.split('|');
+          if (libro.partido && g >= 5) nota(`${quien} marca ${g} goles en un partido de Liga (${m.local} ${m.ga}-${m.gb} ${m.visita}).`);
+          libro.partido = { g, quien, club: +lado === 0 ? m.local : m.visita, temporada: temp, partido: `${m.local} ${m.ga}-${m.gb} ${m.visita}` };
+        }
+      });
+    });
+    const camp = R.T.tabla[0];
+    if (!libro.equipoPts || camp.pts > libro.equipoPts.pts) { if (libro.equipoPts) nota(`${camp.nombre} hace la mejor Liga de la partida: ${camp.pts} puntos.`); libro.equipoPts = { pts: camp.pts, club: camp.nombre, temporada: temp }; }
+    const gol = [...R.T.tabla].sort((a, b) => b.gf - a.gf)[0];
+    if (!libro.equipoGoles || gol.gf > libro.equipoGoles.gf) libro.equipoGoles = { gf: gol.gf, club: gol.nombre, temporada: temp };
+  }
+
+  // Después de 1958-59 no hay datos de entrenadores: cada club mantiene al último, y los que se quedan sin banquillo
+  // van a una bolsa de parados. Un club que cesa a su entrenador ficha a uno de esa bolsa (antes, del mismo país).
+  function banquillos(M, R) {
+    M.parados = M.parados || [];
+    const T = [R.T].concat(R.seg.map((s) => s.T), ...R.otros.map((o) => o.ligas.map((l) => l.T)));
+    const todos = new Map();
+    M.clubes.forEach((c) => (c.entrenadores || []).forEach((e) => todos.set(e.nombre, Object.assign({ pais: c.pais }, e))));
+    const conBanquillo = new Set();
+    T.forEach((t) => Object.entries(t.tramos || {}).forEach(([club, tr]) => {
+      const c = M.clubes.find((x) => x.nombre === club);
+      const ultimo = c && c.entrenadores && c.entrenadores.find((e) => e.nombre === tr[tr.length - 1].nombre);
+      tr.slice(0, -1).forEach((x) => { if (todos.has(x.nombre) && x.nombre !== tr[tr.length - 1].nombre) M.parados.push(Object.assign({}, todos.get(x.nombre), { fijo: false, nota: null })); });
+      if (ultimo) { c.entrenadores = [Object.assign({}, ultimo, { desde: 1, hasta: 30, fijo: false, nota: null })]; conBanquillo.add(ultimo.nombre); }
+    }));
+    // La bolsa: sin repetidos, sin los que ya entrenan y sin los muy mayores; como mucho 40.
+    const vistos = new Set();
+    M.parados = M.parados.filter((e) => { const edad = M.anio + 1 - (parseInt(String(e.nac || '').slice(0, 4), 10) || 1910); if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || edad > 68) return false; vistos.add(e.nombre); return true; }).slice(-40);
+    // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
+    M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
+      const cand = M.parados.slice().sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
+      c.entrenadores = c.entrenadores.concat(cand.map((e) => Object.assign({}, e, { desde: 1, hasta: 30, fijo: false })));
+    });
+  }
+
+  // ---------- Mundial: cada cuatro años, al acabar la temporada ----------
+  // Juegan las selecciones que fueron de verdad a ese Mundial, con su formato real (mundial/mundial.js), pero con los
+  // jugadores de la partida: cada selección elige a los mejores de su país que juegan en las ligas de la partida y
+  // completa la lista con su convocatoria real (los que juegan en ligas que no están en la partida).
+  const sinTildes = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const ALIAS_NACION = { rfa: 'alemania', 'alemania federal': 'alemania', 'alemania occidental': 'alemania', urss: 'union sovietica', 'estados unidos de america': 'estados unidos', holanda: 'paises bajos', 'corea del sur': 'corea del sur' };
+  const nacionClave = (s) => ALIAS_NACION[sinTildes(s)] || sinTildes(s);
+  function jugarMundial(M, semilla) {
+    if (typeof Mundial === 'undefined' || typeof MUNDIALES === 'undefined' || !MUNDIALES) return null;
+    const anio = M.anio + 1, ed = MUNDIALES.find((e) => e.anio === anio);
+    if (!ed) return null;
+    const porNacion = new Map(), refs = new Map();
+    M.clubes.forEach((c) => c.jugadores.forEach((j) => {
+      if (j.relleno || !j.nacion) return;
+      const k = nacionClave(j.nacion);
+      if (!porNacion.has(k)) porNacion.set(k, []);
+      porNacion.get(k).push({ j, club: c.nombre });
+    }));
+    const equipos = {};
+    Object.entries(ed.equipos).forEach(([clave, E]) => {
+      const mios = (porNacion.get(nacionClave(E.nombre)) || []).map(({ j, club }) => {
+        const K = CONSTANTES[j.n];
+        const ref = E.nombre + '|' + j.n;
+        refs.set(ref, j);
+        return { ref, n: j.n, pos: j.pos, nac: anioNac(j), edad: anio - anioNac(j), caps: (j.sel && j.sel.pj) || 0, club, niv: Motor.escala.mostrar(j.niv), figura: Motor.escala.mostrar(j.niv) >= 800,
+          // Constante de Mundial: hay jugadores que en un Mundial son otra cosa (Pelé, Mbappé).
+          fin: Math.max(j.fin || 1, (K && K.mundial) || 0), rol: j.rol, gol: j.gol };
+      });
+      const limpio = (n) => sinTildes(String(n).replace(/\s*\(.*\)\s*$/, ''));
+      const nombres = new Set(mios.map((x) => limpio(x.n)));
+      const mismo = (x) => { const n = limpio(x.n); return nombres.has(n) || mios.some((y) => { const m = limpio(y.n); return Math.abs((y.nac || 0) - (x.nac || 0)) <= 1 && (m.endsWith(' ' + n) || n.endsWith(' ' + m) || m.split(' ').pop() === n.split(' ').pop()); }); };
+      const todos = mios.concat(E.jugadores.filter((x) => !mismo(x)));
+      const lista = [];
+      ['POR', 'DEF', 'MED', 'DEL'].forEach((pos) => {
+        const cupo = Math.max(pos === 'POR' ? 2 : 4, E.jugadores.filter((x) => x.pos === pos).length);
+        lista.push(...todos.filter((x) => x.pos === pos).sort((a, b) => b.niv - a.niv).slice(0, cupo));
+      });
+      equipos[clave] = { nombre: E.nombre, elo: E.elo, jugadores: lista };
+    });
+    const T = Mundial.torneo(Object.assign({}, ed, { equipos }), { semilla });
+    // Los partidos y goles con la selección cuentan en la carrera de cada jugador de la partida.
+    T.jugadores.forEach((x) => {
+      const j = x.ref && refs.get(x.ref);
+      if (!j) return;
+      j.selT = { pj: x.pj, g: x.g, mundial: anio, pais: x.eq };
+      j.sel = j.sel || { pj: 0, g: 0, mundiales: 0, titulos: 0 };
+      j.sel.pj += x.pj; j.sel.g += x.g; j.sel.mundiales++;
+      if (x.eq === T.campeon) j.sel.titulos++;
+    });
+    const mia = (x) => !!(x && x.ref);
+    T.partidos.forEach((p) => { delete p.xi; });
+    T.jugadores = T.jugadores.filter((x) => x.g > 0 || mia(x)).map((x) => Object.assign(x, { mio: mia(x) }));
+    T.real = ed.real && ed.real.campeon && ((ed.equipos[ed.real.campeon] || {}).nombre || ed.real.campeon);
+    T.convocados = Object.fromEntries(Object.values(equipos).map((E) => [E.nombre, E.jugadores.map((x) => [x.n, x.pos, x.niv, x.ref ? 1 : 0])]));
+    return T;
+  }
+
+  // Juega la temporada en curso (ligas, promoción y copas) sin tocar todavía las plantillas.
+  function jugar(M, semilla) {
+    const R = jugarTemporada(M, semilla);
+    const resumen = {
+      temporada: temporadaTxt(M.anio), anio: M.anio, R, G: R.G,
+      campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
+      otros: R.otros.map((o) => ({ pais: o.pais, liga: o.reglas.liga, campeon: o.campeon, subcampeon: o.subcampeon, puestos: (() => { const top = o.ligas.filter((l) => l.nivel === 1); return top.length === 1 && top[0].T ? top[0].T.tabla.slice(0, 4).map((t) => t.nombre) : []; })(), campeones: o.campeones, copa: o.C ? o.C.campeon : null, pichichi: o.premios ? o.premios.pichichi : null }))
+    };
+    const MU = jugarMundial(M, semilla + 5);
+    if (MU) { R.MU = MU; resumen.mundial = MU.campeon; }
+    M.historia.push(resumen);
+    return resumen;
+  }
+
+  // Verano: récords, ascensos y descensos, prestigio, banquillos, edad, retiros y mercado; después empieza el año siguiente.
+  function verano(M, resumen, r) {
+    const R = resumen.R;
+    records(M, R);
+    resumen.movimientos = categorias(M, R);
+    prestigio(M, R);
+    banquillos(M, R);
+    resumen.retiros = envejecer(M, R, r);
+    resumen.mercado = mercado(M, r);
+    M.fichajes.push(...resumen.mercado);
+    M.anio++;
+    constantes(M);
+    return resumen;
+  }
+
+  function avanzar(M, semilla, r) {
+    return verano(M, jugar(M, semilla), r);
+  }
+
+  function partida(datos, opciones) {
+    const op = Object.assign({ semilla: 7, temporadas: 5, alAvanzar: null }, opciones);
+    const M = nuevoMundo(datos);
+    const r = Motor.rng(op.semilla * 7 + 3);
+    for (let k = 0; k < op.temporadas; k++) {
+      const res = avanzar(M, op.semilla * 1000 + k * 97, r);
+      if (op.alAvanzar) op.alAvanzar(res, M);
+    }
+    return M;
+  }
+
+  // ---------- Base única: los datos de la partida para la temporada en que se empiece ----------
+  // B = motor/base.json (montada por motor/base.py desde datos/base/). Devuelve lo mismo que leía nuevoMundo.
+  // Paso de carrera: [club, país, desde, hasta, partidos, goles, nivel, nota, orden].
+  const TIPOS_LLEGADA = ['debuta', 'cantera', 'extranjero', 'regresa'];
+  const MINIMO_RELLENO = { POR: 2, DEF: 5, MED: 4, DEL: 4 };
+  // Nivel que tendría un jugador a una edad, sabiendo su mejor nivel (sube hasta su pico y luego cae como en envejecer).
+  function nivelEdad(j, anio) {
+    const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
+    if (!nac) return j.max;
+    return Math.max(300, j.max * curva(j).F(anio - nac));
+  }
+  function desdeBase(B, anio) {
+    const cfg = new Map(B.paises.map((P) => [P.pais, P]));
+    const filas = B.ligas.filter((x) => x[1] === anio && x[6] !== 'campeón real');
+    // Dónde juega cada uno esa temporada: el último paso que la cubre (sin "hasta", hasta que empieza el siguiente).
+    const plantillas = new Map(), llegadas = [];
+    B.jugadores.forEach((j) => {
+      const c = j.carrera;
+      c.forEach((p, i) => {
+        // Último paso sin "hasta": se da por retirado a los 36 (los datos no siempre dicen cuándo lo dejó).
+        const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
+        const hasta = p[3] != null ? p[3] : i + 1 < c.length ? Math.max(p[2], c[i + 1][2] - 1) : nac ? Math.max(p[2], nac + 36) : Infinity;
+        if (p[2] <= anio && anio <= hasta && (!plantillas.has(j) || plantillas.get(j)[2] < p[2])) plantillas.set(j, p);  // dos clubes el mismo año: el primero de los datos
+        // Llegan más tarde: su primer club, o un paso que los datos marcan como llegada real.
+        if (p[2] > anio && (i === 0 || TIPOS_LLEGADA.includes(p[7]))) llegadas.push({ j, p });
+      });
+    });
+    const ficha = (j, p, niv) => {
+      const x = { n: j.n, pos: j.pos, nac: j.nac, niv: Math.round(niv), tec: j.max, pj: p[2] === anio && p[4] != null ? p[4] : 0, g: p[2] === anio && p[5] != null ? p[5] : 0 };
+      if (j.nacion && j.nacion !== (B.clubes[p[0]] || {}).pais) x.pais = j.nacion;
+      if (j.completo) x.completo = j.completo;
+      if (j.ficticio) x.relleno = true;
+      if (j.rol) x.rol = j.rol;
+      // Definición: goles reales por partido frente a lo normal de su puesto. Un goleador nato (Bican, Müller)
+      // remata más y marca más que otro de su mismo nivel. Solo con 30+ partidos de datos.
+      let pj = 0, g = 0;
+      j.carrera.forEach((q) => { if (q[4] > 0 && q[5] != null) { pj += q[4]; g += q[5]; } });
+      const normal = { DEL: 0.45, MED: 0.15, DEF: 0.04 }[j.pos];
+      if (normal && pj >= 30) x.fin = +Math.max(0.75, Math.min(1.4, Math.pow(g / pj / normal, 0.5))).toFixed(2);
+      // Olfato de gol absoluto, frente a un delantero centro normal (0,45 por partido): un extremo o un media punta que
+      // marca como un nueve (Cristiano, Messi) remata como un nueve, juegue donde juegue.
+      if (j.pos !== 'POR' && pj >= 30) x.gol = +(g / pj / 0.45).toFixed(2);
+      return x;
+    };
+    const porClub = new Map();
+    const ord = (p) => (p[8] != null ? p[8] : 1e9);  // los pasos de Wikidata no traen orden: van detrás, en el orden de la base (mejor nivel primero)
+    [...plantillas].sort((a, b) => ord(a[1]) - ord(b[1])).forEach(([j, p]) => {
+      if (!porClub.has(p[0])) porClub.set(p[0], []);
+      porClub.get(p[0]).push(ficha(j, p, p[2] === anio && p[6] != null ? p[6] : nivelEdad(j, anio)));
+    });
+    // Prestigio: el medido cerca de ese año; si no, el palmarés de las 20 temporadas anteriores en ligas.csv
+    // (puesto en Primera, más los títulos, pesando más lo reciente), de 450 a 900 dentro de su país; sin historia, el de su categoría.
+    const historia = new Map();
+    B.ligas.filter((x) => x[1] < anio && x[1] >= anio - 20 && x[2] === 1 && x[5]).forEach((x) => {
+      const n = B.ligas.filter((y) => y[0] === x[0] && y[1] === x[1] && y[2] === 1 && y[3] === x[3]).length || 16;
+      const peso = 1 - (anio - x[1]) / 25;
+      historia.set(x[4], (historia.get(x[4]) || 0) + peso * ((n - x[5] + 1) / n + (x[5] === 1 ? 1.5 : 0)));
+    });
+    const mejorPais = {};
+    historia.forEach((v, k) => { const p = (B.clubes[k] || {}).pais; mejorPais[p] = Math.max(mejorPais[p] || 0, v); });
+    // El palmarés se mide dentro de cada país, pero no todas las ligas valen lo mismo: ganar en Francia o Portugal
+    // en 2000 no da el nombre que da ganar en Italia o España. Cada país pesa según la fuerza de sus cuatro mejores plantillas.
+    const top4 = {};
+    filas.filter((x) => x[2] === 1).forEach((x) => (top4[x[0]] = top4[x[0]] || []).push(Motor.fuerzaBruta({ jugadores: porClub.get(x[4]) || [] })));
+    Object.keys(top4).forEach((p) => (top4[p] = media(top4[p].sort((a, b) => b - a).slice(0, 4))));
+    const mejorLiga = Math.max(...Object.values(top4), 601);
+    const pesoLiga = (p) => (top4[p] ? Math.max(0.55, Math.min(1, Math.sqrt(Math.max(0, top4[p] - 600) / (mejorLiga - 600)))) : 0.7);
+    const prestigio = (nombre, nivel) => {
+      const c = B.clubes[nombre] || {};
+      if (c.prestigio != null && Math.abs((c.prestigioAnio || anio) - anio) <= 3) return c.prestigio;
+      if (historia.has(nombre)) return Math.round(450 + 450 * pesoLiga(c.pais) * historia.get(nombre) / mejorPais[c.pais]);
+      return nivel === 1 ? 560 : 450;  // sin historia reciente en Primera: un recién llegado, no un club medio
+    };
+    // Un club que sube más adelante llega como recién ascendido: su prestigio medido solo vale si es de esos años
+    // (antes entraba con el de 1958 y el Wolverhampton o el Núremberg fichaban en 2005 como campeones de Europa).
+    const prestigioSube = (nombre, t) => { const c = B.clubes[nombre] || {}; return c.prestigio != null && Math.abs((c.prestigioAnio || 1958) - t) <= 3 ? c.prestigio : 480; };
+    const tecnicos = (nombre) => (B.entrenadores || []).filter((t) => t.club === nombre && t.desde <= anio && anio <= (t.hasta != null ? t.hasta : t.desde)).map((t) => {
+      const x = { nombre: t.nombre, nac: t.nac, desde: t.jDesde || 1, hasta: t.jHasta || 99 };
+      ['nota', 'fisico', 'merito', 'estilo', 'fijo'].forEach((k) => { if (t[k]) x[k] = t[k]; });
+      return x;
+    });
+    const club = (nombre, nivel) => {
+      const c = { nombre, prestigio: prestigio(nombre, nivel), entrenadores: tecnicos(nombre), jugadores: porClub.get(nombre) || [] };
+      if ((B.clubes[nombre] || {}).id) c.id = B.clubes[nombre].id;
+      return c;
+    };
+    // Clubes sin plantilla real completa: suplentes anónimos marcados (mismo criterio que motor/paises.py).
+    // Suelo del relleno en una división: un suplente anónimo no puede ser mucho peor que los jugadores reales de esa
+    // categoría (antes salían clubes de Oberliga con media de Tercera y Seeler marcaba 68 goles).
+    const sueloDe = (clubes) => {
+      const xs = clubes.flatMap((c) => c.jugadores.filter((j) => !j.relleno).map((j) => j.niv)).sort((a, b) => a - b);
+      return xs.length >= 15 ? xs[Math.floor(xs.length * 0.3)] - 30 : 0;
+    };
+    const rellenar = (c, suelo) => {
+      if (c.jugadores.length >= 14 && c.jugadores.some((j) => j.pos === 'POR')) return;
+      const reales = c.jugadores.map((j) => j.niv);
+      const base = Math.max(suelo || 0, reales.length ? Math.min(...reales) - 20 : 280 + 0.4 * c.prestigio);
+      let k = 0;
+      Object.entries(MINIMO_RELLENO).forEach(([pos, n]) => {
+        while (c.jugadores.filter((j) => j.pos === pos).length < n || (pos === 'DEL' && c.jugadores.length < 16)) {
+          k++;
+          c.jugadores.push({ n: `Suplente ${k} (${c.nombre})`, pos, nac: `${anio - 28 + (k % 7)}-01-01`, niv: Math.trunc(base - 10 * (k % 3)), tec: Math.trunc(base), pj: 0, g: 0, relleno: true });
+        }
+      });
+    };
+    const debutante = ({ j, p }) => Object.assign(ficha(j, p, p[6] != null ? p[6] : nivelEdad(j, p[2])), { nombre: j.n, club: p[0], debut: p[2], tipo: TIPOS_LLEGADA.includes(p[7]) ? p[7] : 'debuta' });
+    // Clubes que entran desde abajo (lo que no se juega): filas marcadas, o la diferencia entre dos temporadas completas.
+    const completas = (pais, t) => B.ligas.filter((x) => x[0] === pais && x[1] === t && !x[6]);
+    const ascensos = (pais) => {
+      const r = {};
+      B.ligas.filter((x) => x[0] === pais && x[1] > anio && /^sube/.test(x[6])).forEach((x) => (r[x[1]] = r[x[1]] || []).push(Object.assign({ nombre: x[4], prestigio: prestigioSube(x[4], x[1]) }, x[3] ? { grupo: x[3] } : {})));
+      for (let t = anio + 1; t <= 2026; t++) {
+        const a = completas(pais, t - 1), b = completas(pais, t);
+        if (a.length < 8 || b.length < 8 || r[t]) continue;
+        const antes = new Set(a.map((x) => x[4]));
+        const nuevos = b.filter((x) => !antes.has(x[4]));
+        if (nuevos.length) r[t] = nuevos.map((x) => Object.assign({ nombre: x[4], prestigio: prestigioSube(x[4], x[1]) }, x[3] ? { grupo: x[3] } : {}));
+      }
+      return r;
+    };
+    const campeonesReales = (pais) => {
+      const r = {};
+      B.ligas.filter((x) => x[0] === pais && x[2] === 1 && x[5] === 1).forEach((x) => { if (!r[x[1]] || !x[3]) r[x[1]] = x[4]; });
+      return r;
+    };
+    const d = { anio, primera: [], segunda: [], paises: [], derbis: B.derbis || [], europa: (B.europa || []).filter((e) => e.anio >= anio), debutantes: { jugadores: [], ascensos: {} }, info: { clubes: B.clubes, derbis: B.derbis || [] } };
+    const nombreDiv = (P, nivel, grupo) => grupo || (P.divisiones.find((x) => x[1] === nivel) || [String(nivel)])[0];
+    B.paises.forEach((P) => {
+      const mias = filas.filter((x) => x[0] === P.pais);
+      const deb = llegadas.filter(({ p }) => (B.clubes[p[0]] || {}).pais === P.pais).sort((a, b) => ord(a.p) - ord(b.p)).map(debutante);
+      if (P.espana) {
+        mias.forEach((x) => (x[2] === 1 ? d.primera : d.segunda).push(Object.assign(club(x[4], x[2]), x[2] === 2 ? { division: 2, grupo: x[3] } : {})));
+        const sP = sueloDe(d.primera), sS = sueloDe(d.segunda);
+        d.primera.concat(d.segunda).forEach((c) => { if (c.jugadores.length < 13 || !c.jugadores.some((j) => j.pos === 'POR')) rellenar(c, c.division === 2 ? sS : sP); });
+        d.debutantes = { jugadores: deb, ascensos: ascensos(P.pais) };
+        return;
+      }
+      if (!mias.length) return;
+      const divisiones = [];
+      mias.forEach((x) => {
+        const nombre = nombreDiv(P, x[2], x[3]);
+        let dv = divisiones.find((v) => v.nombre === nombre);
+        if (!dv) divisiones.push((dv = { nombre, nivel: x[2], clubes: [] }));
+        dv.clubes.push(club(x[4], x[2]));
+      });
+      // Con relleno en el país se completan todas las plantillas cortas; en los demás, solo las que no llegan a 13 (no se podría jugar).
+      divisiones.forEach((dv) => { const suelo = sueloDe(dv.clubes); dv.clubes.forEach((c) => { if (P.rellenar || c.jugadores.length < 13 || !c.jugadores.some((j) => j.pos === 'POR')) rellenar(c, suelo); }); });
+      d.paises.push({ pais: P.pais, sube: P.sube, copa: P.copa || null, final: P.final || null, abajo: P.abajo, cupo: P.cupo || null, ascensos: ascensos(P.pais),
+        real: campeonesReales(P.pais), estatales: !!P.estatales, rellenar: !!P.rellenar, nacionales: P.nacionales, divisiones, debutantes: deb });
+    });
+    return d;
+  }
+
+  const api = { desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.Mundo = api;
+})(typeof self !== 'undefined' ? self : this);

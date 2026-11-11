@@ -1,0 +1,247 @@
+{
+ "paises": [
+  {
+   "pais": "España",
+   "divisiones": [
+    [
+     "Primera",
+     1
+    ],
+    [
+     "Segunda",
+     2
+    ]
+   ],
+   "abajo": "Tercera",
+   "copa": {
+    "nombre": "Copa del Generalísimo"
+   },
+   "espana": true
+  },
+  {
+   "pais": "Italia",
+   "sube": {
+    "1958": 2,
+    "1959": 3
+   },
+   "copa": {
+    "nombre": "Coppa Italia"
+   },
+   "abajo": "Serie C",
+   "cupo": {
+    "1": {
+     "1958": 3,
+     "1961": 4
+    },
+    "2": {
+     "1958": 1,
+     "1962": 2
+    }
+   },
+   "divisiones": [
+    [
+     "Serie A",
+     1
+    ],
+    [
+     "Serie B",
+     2
+    ]
+   ]
+  },
+  {
+   "pais": "Inglaterra",
+   "sube": 2,
+   "copa": {
+    "nombre": "FA Cup"
+   },
+   "abajo": "Third Division",
+   "nacionales": [
+    "Escocia",
+    "Gales",
+    "Irlanda del Norte",
+    "Irlanda"
+   ],
+   "divisiones": [
+    [
+     "First Division",
+     1
+    ],
+    [
+     "Second Division",
+     2
+    ]
+   ]
+  },
+  {
+   "pais": "Alemania",
+   "sube": 2,
+   "rellenar": true,
+   "copa": {
+    "nombre": "DFB-Pokal"
+   },
+   "abajo": "2. Oberliga / Amateurliga",
+   "nacionales": [
+    "RFA"
+   ],
+   "final": {
+    "nombre": "Campeonato alemán (fase final)",
+    "porGrupo": 2
+   },
+   "divisiones": [
+    [
+     "Oberliga Nord",
+     1
+    ],
+    [
+     "Oberliga West",
+     1
+    ],
+    [
+     "Oberliga Süd",
+     1
+    ],
+    [
+     "Oberliga Südwest",
+     1
+    ],
+    [
+     "Oberliga Berlin",
+     1
+    ]
+   ]
+  },
+  {
+   "pais": "Francia",
+   "sube": 4,
+   "copa": {
+    "nombre": "Coupe de France"
+   },
+   "nacionales": [
+    "Argelia",
+    "Marruecos",
+    "Túnez",
+    "Senegal",
+    "Camerún",
+    "Costa de Marfil",
+    "Malí"
+   ],
+   "divisiones": [
+    [
+     "Division 1",
+     1
+    ],
+    [
+     "Division 2",
+     2
+    ]
+   ]
+  },
+  {
+   "pais": "Portugal",
+   "sube": {
+    "1958": 3,
+    "1959": 2,
+    "1961": 3
+   },
+   "rellenar": true,
+   "copa": {
+    "nombre": "Taça de Portugal"
+   },
+   "divisiones": [
+    [
+     "Primeira Divisão",
+     1
+    ],
+    [
+     "Segunda Divisão",
+     2
+    ]
+   ]
+  },
+  {
+   "pais": "Argentina",
+   "sube": 1,
+   "copa": null,
+   "abajo": "Primera B",
+   "divisiones": [
+    [
+     "Primera División",
+     1
+    ],
+    [
+     "Primera B",
+     2
+    ]
+   ]
+  },
+  {
+   "pais": "Brasil",
+   "sube": 0,
+   "rellenar": true,
+   "copa": null,
+   "estatales": true,
+   "divisiones": [
+    [
+     "Campeonato Paulista",
+     1
+    ],
+    [
+     "Campeonato Carioca",
+     1
+    ]
+   ]
+  }
+ ],
+ "ajustes": {
+  "Italia": {
+   "pos": {
+    "Nils Liedholm": "MED",
+    "Pepe Schiaffino": "MED"
+   },
+   "nivel_club": {
+    "Juventus": -30,
+    "Fiorentina": 10
+   },
+   "sin_estilo": [
+    "Giuseppe Viani"
+   ]
+  },
+  "Inglaterra": {
+   "nivel_club": {
+    "Manchester United": -25,
+    "Wolverhampton Wanderers": 10
+   }
+  },
+  "Argentina": {
+   "nivel_club": {
+    "River Plate": -30,
+    "Racing Club": 10
+   }
+  },
+  "Brasil": {
+   "nivel_jugador": {
+    "Pelé": 950
+   }
+  },
+  "Alemania": {
+   "nivel_club": {
+    "Stuttgart": -60,
+    "Eintracht Fráncfort": 15,
+    "Borussia Dortmund": -30,
+    "Westfalia Herne": 20
+   }
+  },
+  "Portugal": {
+   "nivel_club": {
+    "Oporto": 50,
+    "Sporting de Portugal": -15
+   }
+  }
+ },
+ "renombrar": {
+  "Brasil": {
+   "Juventus": "Juventus-SP"
+  }
+ }
+}

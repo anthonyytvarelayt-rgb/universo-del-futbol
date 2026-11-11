@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Simulador de la historia del fútbol: elige una época y mira otra historia.">
+<title>Universo del Fútbol beta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<div class="cargando" id="cargando">Preparando la partida…</div>
+
+<!-- Inicio: elige la época -->
+<div class="inicio" id="inicio" hidden>
+  <div class="dentro">
+    <header>
+      <div class="rotulo">Simulador de la historia · 1930 — 2026</div>
+      <h1>Universo del fútbol</h1>
+      <p>Elige la época en la que empieza tu historia. La partida arranca en su primera temporada y sigue hasta donde quieras.</p>
+    </header>
+    <button type="button" class="seguir" id="seguirPartida" hidden>Seguir mi partida</button>
+    <div class="eras" id="eras"></div>
+    <div class="ajustes">
+      <div class="fila"><b>Ligas<small>España, Italia, Inglaterra, Alemania, Francia, Portugal, Argentina y Brasil</small></b><span>8 de 8</span></div>
+      <label class="fila" for="constantes"><b>Constantes de la historia<small>Encendido: lo que pasó de verdad tira de la partida. Apagado: universo libre. (Todavía no cambia nada en el motor.)</small></b>
+        <input type="checkbox" class="interruptor" id="constantes" checked></label>
+      <label class="fila" for="pronosticos"><b>Pronósticos<small>Apuesta por el campeón de cada liga hasta la jornada 10 y mira cuántos aciertas. Se puede quitar cuando quieras.</small></b>
+        <input type="checkbox" class="interruptor" id="pronosticos"></label>
+    </div>
+    <button type="button" class="empezar" id="empezar">Empezar</button>
+  </div>
+</div>
+
+<header class="cab">
+  <div class="dentro">
+    <b id="temporadaTxt">1958-59</b>
+    <div class="fecha" aria-live="polite"><span id="fechaTxt">Preparando la partida…</span><em id="guardado"></em></div>
+    <button type="button" class="menu tema" id="tema" aria-label="Cambiar tema">🌙</button>
+    <button type="button" class="menu" id="nueva">Nueva<span class="ancho"> partida</span></button>
+  </div>
+  <div class="progreso" aria-hidden="true"><i id="progresoBar"></i></div>
+</header>
+
+<main class="cuerpo">
+  <section class="seccion" id="s-hoy" aria-label="Hoy"></section>
+  <section class="seccion" id="s-comp" aria-label="Competiciones" hidden></section>
+  <section class="seccion" id="s-mundo" aria-label="Mundo" hidden></section>
+  <section class="seccion" id="s-historia" aria-label="Historia" hidden></section>
+</main>
+
+<nav class="abajo" aria-label="Partida y secciones">
+  <div class="dentro">
+    <div class="marca"><b>Universo <i>del</i> fútbol</b><span id="eraTxt">1930 — 2026</span></div>
+    <div class="tiempo" id="tiempo"></div>
+    <div class="navegar" id="navegar">
+      <button type="button" data-s="hoy" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2h-1 M7 9h7 M7 12.5h7 M7 16h4"/></svg><span>Hoy</span></button>
+      <button type="button" data-s="comp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z M8 6H5a3 3 0 0 0 3 4 M16 6h3a3 3 0 0 1-3 4 M12 13v4 M8.5 20h7l-1-3h-5z"/></svg><span>Competiciones</span></button>
+      <button type="button" data-s="mundo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16 M12 4c2.5 2.3 3.6 5 3.6 8s-1.1 5.7-3.6 8 M12 4c-2.5 2.3-3.6 5-3.6 8s1.1 5.7 3.6 8"/></svg><span>Mundo</span></button>
+      <button type="button" data-s="historia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v13H6.5A1.5 1.5 0 0 0 5 18.5z M5 18.5A1.5 1.5 0 0 0 6.5 20H19 M9 8h6"/></svg><span>Historia</span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="hoja-fondo" id="hojaFondo" hidden>
+  <div class="hoja" id="hoja" role="dialog" aria-modal="true" aria-label="Ficha"></div>
+</div>
+
+<script id="src-motor" src="js/motor.js"></script>
+<script id="src-epoca" src="js/epoca.js"></script>
+<script src="js/cronica.js"></script>
+<script id="src-mundial" src="js/mundial.js"></script>
+<script id="src-mundiales" src="datos/mundiales.js"></script>
+<script id="src-mundo" src="js/mundo.js"></script>
+<script src="datos/base.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
