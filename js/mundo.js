@@ -886,7 +886,11 @@
       if (!fuerzas.has(c)) return false;
       let otro = 0;
       fuerzas.forEach((f, x) => { if (x !== c && x.pais === c.pais && f > otro) otro = f; });
-      return fuerzas.get(c) >= otro + 25;
+      if (fuerzas.get(c) < otro + 25) return false;
+      // Mandar en casa no basta: desde los 90, quien arrasa en su liga pero tiene por delante a tres o más clubes
+      // de Europa sigue fichando para competir fuera (el Bayern, el PSG, el Oporto).
+      if (nuevoAnio >= 1992 && !NO_EUROPA.includes(c.pais)) { let mejores = 0; fuerzas.forEach((f, x) => { if (!NO_EUROPA.includes(x.pais) && f > fuerzas.get(c)) mejores++; }); if (mejores >= 3) return false; }
+      return true;
     };
     // Constantes: una leyenda no sale de su club mientras dura su época, y las de 'elite' solo fichan por un grande.
     const seVende = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
@@ -909,7 +913,8 @@
     // en un club de élite reciben la oferta de uno donde serían titulares; cuanto mejor el jugador, más probable.
     if (fluidez > 0) {
       const europeos = [...fuerzas.keys()].filter((c) => !NO_EUROPA.includes(c.pais));
-      const elite = europeos.filter((c) => c.prestigio >= 770).sort((a, b) => b.prestigio - a.prestigio).slice(0, 14);
+      // La élite son los veinte clubes europeos de más prestigio: no solo los cinco gigantes, también los Valencia, Roma o Dortmund de cada época.
+      const elite = europeos.filter((c) => c.prestigio >= 640).sort((a, b) => b.prestigio - a.prestigio).slice(0, 20);
       const esElite = new Set(elite), llegadas = new Map();
       const estrellas = [];
       M.clubes.forEach((v) => v.jugadores.forEach((j) => { if (!j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
@@ -922,8 +927,8 @@
         // Cuanto más arriba en la lista, menos tarda en salir: el número 1 se va casi seguro, el 100 una vez de cada cuatro.
         if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez)) return;
         const titular = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
-        const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 3 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c)
-          && fuerzas.get(c) > (fuerzas.get(v) || 0)).map((c) => ({ c, gana: j.niv - titular(c) + 120 * r() })).sort((a, b) => b.gana - a.gana);
+        const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 2 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c)
+          && fuerzas.get(c) > (fuerzas.get(v) || 0)).map((c) => ({ c, gana: j.niv - titular(c) + 0.3 * (c.prestigio - 700) + 120 * r() })).sort((a, b) => b.gana - a.gana);
         if (!destinos.length) return;
         const c = destinos[0].c;
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);

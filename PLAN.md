@@ -1,7 +1,7 @@
 # Plan del Universo del fútbol
 
 Plan completo y al día (documento vivo): https://claude.ai/artifact/UtJ5YzgBygLrGYDbp4huNZ
-Este archivo es el resumen, por si el documento no está a mano. Actualizado el 11 de noviembre de 2026.
+Este archivo es el resumen, por si el documento no está a mano. Actualizado el 12 de noviembre de 2026.
 
 ## Etapas
 
@@ -14,6 +14,21 @@ Este archivo es el resumen, por si el documento no está a mano. Actualizado el 
 6. **Estilo y personalidad**, y lo que Anthony elija de tácticas, dinero y cantera.
 
 Las etapas 1 y 3 son de código. Las 2, 4 y 5 son datos y avanzan a la vez en ChatGPT y Gemini.
+
+## Hecho el 12 de noviembre de 2026 (motor)
+
+- Campeones creíbles: los cracks se reparten entre los veinte clubes europeos de más prestigio; quien arrasa en su liga sigue fichando para Europa.
+- Diez atributos en el motor y en la ficha (118 figuras a mano en `datos_fuente/base/atributos.csv`, el resto calculado).
+- Carreras que dependen de cómo juegan: debut de promesa, crecer por minutos y nota, estado de forma de cada temporada.
+- Sorpresas: insignias que se ganan jugando, joyas inesperadas, lesiones graves y regresos, récords reales batidos, rivalidades.
+- Balón de Oro con títulos; Copa de Europa más abierta desde 1992.
+
+## En marcha
+
+- Claude: revisión a fondo (partidas largas desde cada época) y arreglar lo flojo.
+- ChatGPT con Codex, conectado a este repositorio: mejoras por pull request, acotadas a archivos que Claude no esté tocando. Primera tarea: "El libro de la década" en `js/app.js`.
+- ChatGPT (chat): niveles y atributos de 200 figuras de 1970 a 1999, en CSV.
+- Falta en los datos: Claude Makélélé y Lev Yashin no están en la base.
 
 ## Reglas de trabajo
 

@@ -109,6 +109,10 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
         if f['wikidata'] in mujeres: n_wd['mujeres'] += 1; continue
         ps, maxi, pos, y = pasos_wd.get(clave), entero(f['nivel_max']), f['posicion'].strip().upper(), anio_nac(clave[1])
         if not ps or clave in nuevos or maxi is None or not 1 <= maxi <= 1000 or pos not in POSICIONES or y is None: continue
+        # Canteranos: Wikidata cuenta desde que entraron de niños (Busquets en el Barça desde los 12). Si siguieron
+        # en el club de mayores, su etapa empieza a los 18; si no, esa etapa no cuenta.
+        for p in ps:
+            if p[2] - y < 15 and (p[3] is None or p[3] - y >= 19) and (p[4] or 0) >= 20: p[2] = y + 18
         ps = [p for p in ps if 15 <= p[2] - y <= 50]
         if not ps: continue
         t, clubes_wd, igual = toks(clave[0]), {p[0] for p in ps}, None
