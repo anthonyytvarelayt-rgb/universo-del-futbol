@@ -1613,6 +1613,71 @@ function goleadoresHistoricos() {
     .filter((x) => x.g > 0).sort((a, b) => b.g - a.g).slice(0, 12);
   return `<div class="caja"><span class="rotulo">Goleadores históricos de la partida</span>${xs.map((x, i) => goleadorFila({ nombre: x.j.n, club: x.club }, i, x.g, `${x.pj} partidos`)).join('') || '<div class="vacio">Todavía no hay goles.</div>'}</div>`;
 }
+// Un capítulo solo se abre con el verano del año terminado en nueve ya visto.
+// Se reconstruye del archivo de la partida: no añade estado ni modifica resultados.
+function libroDecadas(ts) {
+  const finales = ts.filter((V) => V.anio % 10 === 9 && V.veranoHecho).slice().reverse();
+  if (!finales.length) return '';
+  const parrafo = (texto) => `<p>${esc(texto)}</p>`;
+  const contar = (xs) => {
+    const cuenta = new Map();
+    xs.filter(Boolean).forEach((n) => cuenta.set(n, (cuenta.get(n) || 0) + 1));
+    return [...cuenta].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'es'));
+  };
+  const dominio = (xs, titulo) => {
+    const orden = contar(xs);
+    if (!orden.length) return `${titulo}: no se disputó en los años recogidos.`;
+    const lideres = orden.filter((x) => x[1] === orden[0][1]);
+    return `${titulo}: ${lista(lideres.map(([n]) => n))} ${lideres.length > 1 ? 'compartieron el mando' : 'mandó'} con ${orden[0][1]} títulos. El palmarés quedó así: ${orden.map(([n, t]) => `${n} (${t})`).join(', ')}.`;
+  };
+  return `<section class="libro-decadas" aria-label="El libro de la década"><h2>El libro de la década</h2>${finales.map((finDecada) => {
+    const desde = finDecada.anio - 9;
+    const anos = ts.filter((V) => V.anio >= desde && V.anio <= finDecada.anio);
+    const paises = [...new Set(anos.flatMap(paisesDe))];
+    const jugadores = new Map();
+    anos.forEach((V) => figurasDe(V).forEach((x) => {
+      const j = jugadores.get(x.nombre) || { nombre: x.nombre, g: 0, pj: 0, nota: 0, valoradas: 0 };
+      j.g += x.g; j.pj += x.pj;
+      if (x.pj >= 15 && Number.isFinite(x.notaTemp)) { j.nota += x.notaTemp * x.pj; j.valoradas += x.pj; }
+      jugadores.set(x.nombre, j);
+    }));
+    const todos = [...jugadores.values()];
+    const mejores = todos.filter((j) => j.valoradas).sort((a, b) => b.nota / b.valoradas - a.nota / a.valoradas || b.valoradas - a.valoradas || a.nombre.localeCompare(b.nombre, 'es')).slice(0, 3);
+    const goleadores = todos.filter((j) => j.g > 0).sort((a, b) => b.g - a.g || a.nombre.localeCompare(b.nombre, 'es'));
+    const maximos = goleadores.filter((j) => j.g === goleadores[0].g);
+    const novedades = anos.flatMap((V) => (V.novedades || []).map((x) => ({ ...x, temporada: V.temporada })));
+    const joyas = novedades.filter((x) => x.tipo === 'joya').sort((a, b) => (b.tec - b.real) - (a.tec - a.real) || b.tec - a.tec);
+    const sorpresa = joyas[0];
+    const mundiales = anos.filter((V) => V.R.MU).map((V) => `${V.R.MU.anio}: ${V.R.MU.campeon}`);
+    const sucesos = [
+      ['insignia', 'Las insignias', (x) => `${x.jugador} ganó ${x.nombre} (${GRADO_TXT[x.grado] || 'sin grado'}, ${x.club})`],
+      ['joya', 'Las joyas', (x) => `${x.jugador} despegó en el ${x.club} a los ${x.edad} años`],
+      ['lesion', 'Las lesiones graves', (x) => `${x.jugador}, del ${x.club}, cayó de nivel ${nivel(x.niv)} a ${nivel(x.queda)}`],
+      ['rivalidad', 'Las rivalidades', (x) => `${x.a} (${x.clubA}) y ${x.b} (${x.clubB}) iniciaron su duelo`],
+      ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`]
+    ].map(([tipo, titulo, relatar]) => {
+      const xs = novedades.filter((x) => x.tipo === tipo);
+      return `<details class="decada-sucesos"><summary>${titulo} · ${xs.length}</summary>${xs.length ? anos.map((V) => {
+        const noticias = xs.filter((x) => x.temporada === V.temporada);
+        return noticias.length ? parrafo(`${V.temporada}: ${noticias.map(relatar).join('; ')}.`) : '';
+      }).join('') : parrafo('No se registraron en estos años.')}</details>`;
+    }).join('');
+    return `<details class="decada"><summary><span class="rotulo">Crónica de ${desde}–${finDecada.anio + 1}</span><strong>Los años ${desde}</strong><span>${anos[0].temporada} — ${finDecada.temporada}</span></summary><article class="decada-pagina">
+      ${parrafo(`Así se escribió esta década en tu partida: ${anos.length} temporadas, de ${anos[0].temporada} a ${finDecada.temporada}.${anos.length < 10 ? ' Es un capítulo parcial: la partida comenzó con la década ya en marcha.' : ''}`)}
+      <h3>Los dueños del balón</h3>${paises.map((p) => parrafo(dominio(anos.flatMap((V) => {
+        const c = campeonDe(V, p); return c.campeon ? [c.campeon] : c.campeones.map((x) => x.club);
+      }), p))).join('')}
+      ${parrafo(dominio(anos.map((V) => V.europa), 'Copa de Europa'))}
+      ${parrafo(mundiales.length ? `Los Mundiales coronaron a estas selecciones: ${mundiales.join('; ')}.` : 'No se disputaron Mundiales en los años recogidos.')}
+      <h3>Los nombres de la década</h3>
+      ${parrafo(mejores.length ? `Los tres mejores por nota media ponderada por partidos fueron ${lista(mejores.map((j, i) => `${i + 1}. ${j.nombre} (${(j.nota / j.valoradas).toFixed(2)})`))}.` : 'No hay notas suficientes para elegir a los tres mejores.')}
+      ${parrafo(maximos.length ? `${lista(maximos.map((j) => j.nombre))} ${maximos.length > 1 ? 'compartieron el primer puesto goleador' : 'fue el máximo goleador'} con ${maximos[0].g} goles.` : 'No se registraron goles.')}
+      <p class="nota-pie">Se cuentan jugadores de ligas de primera y sus goles con clubes. La nota usa temporadas con al menos 15 partidos; los empates se ordenan por partidos valorados.</p>
+      <h3>La mayor sorpresa</h3>${parrafo(sorpresa ? `${sorpresa.jugador} fue la joya que más se alejó de su techo real: irrumpió en el ${sorpresa.club} en ${sorpresa.temporada}, a los ${sorpresa.edad} años. Su techo en la partida llegó a ${nivel(sorpresa.tec)}. Así se elige la sorpresa de este capítulo.` : 'No se registraron joyas inesperadas: esta década no tiene una mayor sorpresa entre las novedades.')}
+      <h3>Las huellas que quedaron</h3>${sucesos}
+    </article></details>`;
+  }).join('')}</section>`;
+}
 function pintarHistoria() {
   const ts = temporadas().filter(cerradaV);
   // La era la marca quien domina la partida: cada Copa de Europa vale tres ligas.
@@ -1648,6 +1713,7 @@ function pintarHistoria() {
       <div class="caja">${recs.join('') || '<div class="vacio">Los récords se apuntan al terminar cada temporada.</div>'}
         <span class="rotulo" style="margin-top:8px">Momentos que cambiaron la historia</span>
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b><small>${esc(m.real)}</small></div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
+    + libroDecadas(ts)
     + mundialesHistoria()
     + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}</div>` : '')
     + diarioHtml();
