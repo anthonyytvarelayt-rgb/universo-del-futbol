@@ -39,6 +39,7 @@
     ruidoDia: 55,          // forma del día del equipo
     pesoMoral: 30,         // rachas: cuánto pesa el ánimo del equipo
     pesoFatiga: 200,       // nivel que se pierde con el depósito vacío
+    pesoAtributo: 3,       // puntos de nivel que vale cada punto de atributo de más o de menos en su jugada
     expNivel: 2.0          // cuánto acaparan las jugadas los mejores del equipo
   };
 
@@ -86,6 +87,76 @@
   const PESO_CORTE = pesoRol({ DEF: 1.0, MED: 0.55, DC: 0.1, EXT: 0.1, POR: 0 });
   const PESO_CABEZA = pesoRol({ DC: 1.0, DEF: 0.55, MED: 0.35, EXT: 0.3, POR: 0 });
   const PESO_BOTA = pesoRol({ EXT: 1.0, MED: 0.9, DC: 0.3, DEF: 0.2, POR: 0 });
+  // ---- Los diez atributos (1-100): la FORMA del nivel ----
+  // El nivel dice lo bueno que es; los atributos dicen en qué. Cada uno decide una jugada del partido y nada cuenta dos veces:
+  // lo que un jugador tiene de más en una cosa lo tiene de menos en otra (la suma, con los pesos de su puesto, da cero).
+  // La definición sale de sus goles reales (FIN) y la portería es el nivel del portero: esas dos solo se enseñan.
+  const ATRIBUTOS = ['def', 'des', 'pas', 'vis', 'reg', 'vel', 'fis', 'dfs', 'aer', 'por'];
+  const NOMBRE_ATRIBUTO = { def: 'Definición', des: 'Desmarque', pas: 'Pase', vis: 'Visión', reg: 'Regate', vel: 'Velocidad', fis: 'Físico', dfs: 'Defensa', aer: 'Juego aéreo', por: 'Portería' };
+  // Lo normal de cada puesto, en puntos alrededor de su base.
+  const FORMA = {
+    DC: { def: 10, des: 9, pas: -6, vis: -6, reg: 0, vel: 2, fis: 3, dfs: -30, aer: 6, por: -70 },
+    EXT: { def: -1, des: 3, pas: 3, vis: 2, reg: 10, vel: 10, fis: -6, dfs: -26, aer: -10, por: -70 },
+    MED: { def: -9, des: -5, pas: 9, vis: 8, reg: 1, vel: -2, fis: 2, dfs: 0, aer: -5, por: -70 },
+    DEF: { def: -26, des: -20, pas: -4, vis: -8, reg: -12, vel: 0, fis: 7, dfs: 11, aer: 7, por: -70 },
+    POR: { def: -60, des: -55, pas: -18, vis: -12, reg: -40, vel: -15, fis: 2, dfs: -30, aer: 6, por: 10 }
+  };
+  // Qué pesa en cada puesto: con estos pesos se pone a cero la suma de lo que le sobra y le falta.
+  const PESO_FORMA = {
+    DC: { des: 0.35, reg: 0.1, vel: 0.15, fis: 0.1, aer: 0.15, pas: 0.1, vis: 0.05 },
+    EXT: { reg: 0.3, vel: 0.2, pas: 0.15, vis: 0.15, des: 0.2 },
+    MED: { pas: 0.3, vis: 0.25, dfs: 0.2, des: 0.1, reg: 0.1, fis: 0.05 },
+    DEF: { dfs: 0.5, fis: 0.1, aer: 0.15, vel: 0.1, pas: 0.15 }
+  };
+  const DEL_JUEGO = ['des', 'pas', 'vis', 'reg', 'vel', 'fis', 'dfs', 'aer'];
+  const baseAtributo = (niv) => 30 + escala.mostrar(niv) * 0.054;
+  const azar = (txt) => { let h = 2166136261; for (let i = 0; i < txt.length; i++) { h ^= txt.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 10000) / 10000; };
+  const tope = (x, a, b) => Math.max(a, Math.min(b, x));
+  const cacheForma = new WeakMap();
+  // Lo que se aparta cada jugador de lo normal de su puesto, en su mejor momento.
+  function formaDe(j) {
+    const ro = rol(j);
+    let c = cacheForma.get(j);
+    if (c && c.ro === ro) return c.d;
+    const d = {}, mano = typeof ATRIBUTOS_A_MANO !== 'undefined' && ATRIBUTOS_A_MANO[j.n];
+    if (mano) {
+      // Figura con atributos puestos a mano: cuenta la forma (en qué destaca), no si los números vienen altos o bajos.
+      const b = baseAtributo(j.tec || j.niv);
+      ATRIBUTOS.forEach((x, i) => { d[x] = mano[i] - (b + FORMA[ro][x]); });
+      d.def = tope(d.def, -25, 25); d.por = ro === 'POR' ? tope(d.por, -8, 8) : 0;
+    } else {
+      // Los demás: una forma propia y fija (dos del mismo nivel no son iguales), inclinada por sus goles reales.
+      ATRIBUTOS.forEach((x) => { d[x] = (azar(j.n + x) + azar(x + j.n) - 1) * 10; });
+      const gp = j.gol != null ? j.gol * 0.45 : null;
+      if (gp != null && ro === 'MED') { const t = tope((gp - 0.15) / 0.2, -0.6, 1); d.des += 9 * t; d.dfs -= 10 * t; d.vis += 2 * t; }
+      if (gp != null && ro === 'DEF') d.aer += 6 * tope((gp - 0.04) / 0.08, -0.5, 1.5);
+      if (gp != null && ro === 'EXT') d.des += 6 * tope((gp - 0.2) / 0.2, -1, 1);
+      d.def = d.def * 0.4 + (FIN(j) - 1) * 45;
+      d.por = ro === 'POR' ? d.por * 0.3 : 0;
+    }
+    const W = PESO_FORMA[ro];
+    if (W) { let m = 0; for (const x in W) m += W[x] * d[x]; DEL_JUEGO.forEach((x) => { d[x] = tope(d[x] - m, -30, 30); }); }
+    else DEL_JUEGO.forEach((x) => { d[x] = tope(d[x], -12, 12); });
+    cacheForma.set(j, { ro, d });
+    return d;
+  }
+  // Con los años se pierde velocidad y regate y se gana pase y visión; de joven, al revés.
+  function formaHoy(j, anio) {
+    const d = formaDe(j), nac = parseInt(String(j.nac || '').slice(0, 4), 10);
+    const e = nac && anio ? anio - nac : 27;
+    if (e > 22 && e <= 30) return d;
+    const v = Object.assign({}, d);
+    if (e > 30) { const k = Math.min(8, e - 30); v.vel -= 1.2 * k; v.reg -= 0.4 * k; v.vis += 0.8 * k; v.pas += 0.5 * k; v.des += 0.3 * k; }
+    else { const k = Math.min(5, 23 - e); v.vel += 0.8 * k; v.reg += 0.4 * k; v.vis -= 0.8 * k; v.pas -= 0.4 * k; }
+    return v;
+  }
+  // Los diez números que se enseñan en la ficha, con el nivel que tiene ese año.
+  function atributos(j, anio) {
+    const ro = rol(j), d = formaHoy(j, anio), b = baseAtributo(j.niv), r = {};
+    ATRIBUTOS.forEach((x) => { r[x] = Math.round(tope(b + FORMA[ro][x] + d[x], 1, 99)); });
+    return r;
+  }
+
   const PASES_ROL = { POR: 0.45, DEF: 1.0, MED: 1.5, EXT: 0.8, DC: 0.65 };
   const ACIERTO_ROL = { POR: 0.58, DEF: 0.72, MED: 0.73, EXT: 0.65, DC: 0.62 };
   const VOLUMEN = {
@@ -145,15 +216,16 @@
     return xi;
   }
 
-  function fuerzas(xi, nv) {
-    const by = (pos) => xi.filter((j) => j.pos === pos).map(nv);
-    const def = media(by('DEF')) || 600, med = media(by('MED')) || 600, del = media(by('DEL')) || 600;
+  function fuerzas(xi, nv, D) {
+    const g = P.pesoAtributo * 0.6, d = D || (() => 0);
+    const m = (pos, f) => media(xi.filter((j) => j.pos === pos).map(f)) || 600;
     const p = xi.find((j) => j.pos === 'POR');
     const por = p ? nv(p) : 600;
+    const crea = (j) => nv(j) + g * (d(j, 'pas') + d(j, 'vis')) / 2, quita = (j) => nv(j) + g * d(j, 'dfs');
     return {
-      ataque: 0.5 * del + 0.35 * med + 0.15 * def,
-      defensa: 0.45 * def + 0.3 * med + 0.25 * por,
-      creacion: 0.55 * med + 0.3 * del + 0.15 * def
+      ataque: 0.5 * m('DEL', (j) => nv(j) + g * (d(j, 'des') + d(j, 'reg') + d(j, 'vel')) / 3) + 0.35 * m('MED', (j) => nv(j) + g * d(j, 'des')) + 0.15 * m('DEF', nv),
+      defensa: 0.45 * m('DEF', quita) + 0.3 * m('MED', quita) + 0.25 * por,
+      creacion: 0.55 * m('MED', crea) + 0.3 * m('DEL', crea) + 0.15 * m('DEF', (j) => nv(j) + g * d(j, 'pas'))
     };
   }
 
@@ -202,6 +274,9 @@
     const nvDia = new Map(), pot = new Map();
     const nv = (j) => { let v = nvDia.get(j); if (v === undefined) { v = o.nv(j); nvDia.set(j, v); } return v; };
     nv.pw = (j) => { let v = pot.get(j); if (v === undefined) { v = Math.pow(Math.max(100, nv(j)) / 700, P.expNivel); pot.set(j, v); } return v; };
+    const formas = new Map();
+    const D = (j, x) => { let v = formas.get(j); if (v === undefined) { v = formaHoy(j, o.anio); formas.set(j, v); } return v[x] || 0; };
+    const GA = P.pesoAtributo;
     const minutos = 90 * o.duracion;
     const xiL = o.xiL || alineacion(local, o.fueraL, o.selL || nv), xiV = o.xiV || alineacion(visita, o.fueraV, o.selV || nv);
     const estilos = [estiloPartido(local, visita, true), estiloPartido(visita, local, o.neutral)];
@@ -223,14 +298,14 @@
       const pR = P.pRoja * tension.roja * o.duracion * duro;
       // Lesiones: más con la edad y con el depósito vacío.
       if (r() < pR) { e.roja = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'roja', quien: j.n, lado: k }); }
-      else if (r() < P.pLesion * o.duracion * (o.riesgo ? o.riesgo(j) : 1)) {
+      else if (r() < P.pLesion * o.duracion * (o.riesgo ? o.riesgo(j) : 1) * Math.exp(-D(j, 'fis') / 50)) {
         e.lesion = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'lesion', quien: j.n, lado: k });
         if (o.cambios > 0) { e.sustituido = true; return; }
       } else return;
       menos[k] += (minutos - e.salida) / minutos;
     }));
 
-    const fL = fuerzas(xiL, nv), fV = fuerzas(xiV, nv);
+    const fL = fuerzas(xiL, nv, D), fV = fuerzas(xiV, nv, D);
     [fL, fV].forEach((f, k) => {
       const E = ESTILOS[estilos[k]];
       const d = normal(r) * P.ruidoDia * tension.ruido + o.moral[k] * P.pesoMoral - menos[k] * P.unoMenos;
@@ -268,25 +343,28 @@
     });
     plan.sort((x, y) => x.t - y.t);
     const animo = (k) => { const v = goles[k] - goles[1 - k] + (o.marcador ? o.marcador[k] - o.marcador[1 - k] : 0); return v >= 3 ? 0.72 : v === 2 ? 0.88 : v <= -2 ? 1.08 : v === -1 ? 1.04 : 1; };
+    const corta = (j) => PESO_CORTE(j) * Math.exp(D(j, 'dfs') / 40);
     plan.forEach(({ k, t, tipo }) => {
       const lado = lados[k];
       const mios = enCampo(lado.xi, t), suyos = enCampo(lado.rival, t), porRival = portero(lado.rival, t);
       if (tipo === 'abierta') {
         // La definición sale de sus goles reales, que ya llevan dentro lo bueno que era su equipo y lo floja que era su liga;
         // aquí pesa a medias para no contarlo dos veces (el motor ya pone el equipo y los rivales).
-        const tirador = elige(r, mios, (j) => TIRO(j) * Math.sqrt(FIN(j)), nv);
-        let creador = elige(r, mios, PESO_PASE, nv, tirador);
+        const tirador = elige(r, mios, (j) => TIRO(j) * Math.sqrt(FIN(j)) * Math.exp(D(j, 'des') / 40), nv);
+        let creador = elige(r, mios, (j) => PESO_PASE(j) * Math.exp(D(j, 'vis') / 40), nv, tirador);
         let pTiro = P.pTiroBase * 2 * lado.f.E.tiro * sig((lado.f.ataque - lado.fr.defensa) / P.escala + (lado.casa ? vCasa : 0)) * animo(k);
         // Regate: alguien encara a un defensor. Si sale bien, la jugada mejora; si no, se pierde.
         if (r() < P.pIntentoRegate) {
-          const reg = elige(r, mios, PESO_REGATE, nv), marca = elige(r, suyos, PESO_CORTE, nv);
-          if (r() < sig((nv(reg) - nv(marca)) / P.escala + 0.2)) {
+          const reg = elige(r, mios, (j) => PESO_REGATE(j) * Math.exp(D(j, 'reg') / 40), nv), marca = elige(r, suyos, corta, nv);
+          if (r() < sig((nv(reg) + GA * (0.65 * D(reg, 'reg') + 0.35 * D(reg, 'vel')) - nv(marca) - GA * (0.7 * D(marca, 'dfs') + 0.3 * D(marca, 'vel'))) / P.escala + 0.2)) {
             s(reg).regates++; pTiro = Math.min(0.95, pTiro * (1 + P.extraRegate));
             if (reg !== tirador && r() < 0.6) creador = reg;
           } else { s(marca).cortes++; return; }
         }
         s(creador).ocas++;
-        if (r() > pTiro) { s(elige(r, suyos, PESO_CORTE, nv)).cortes++; return; }
+        // Un buen pase deja mejor el remate.
+        pTiro = Math.min(0.95, pTiro * (1 + D(creador, 'pas') / 150));
+        if (r() > pTiro) { s(elige(r, suyos, corta, nv)).cortes++; return; }
         s(tirador).tiros++;
         if (r() < P.pGolBase * 2 * sig((nv(tirador) - nv(porRival)) / P.escala + 0.2 * Math.log(FIN(tirador)))) {
           s(porRival).enc++;
@@ -294,14 +372,14 @@
         } else s(porRival).paradas++;
       } else if (tipo === 'parado') {
         // Balón parado: córners y faltas. Pesa menos la diferencia de nivel, por eso hasta el colista marca.
-        const remata = elige(r, mios, PESO_CABEZA, nv), saca = elige(r, mios, PESO_BOTA, nv, remata);
+        const remata = elige(r, mios, (j) => PESO_CABEZA(j) * Math.exp(D(j, 'aer') / 30), nv), saca = elige(r, mios, (j) => PESO_BOTA(j) * Math.exp(D(j, 'pas') / 40), nv, remata);
         s(saca).ocas++; s(remata).tiros++;
-        if (r() < P.pGolParado * 2 * sig((nv(remata) - nv(porRival)) / (P.escala * 1.5))) { s(porRival).enc++; gol(k, t, remata, saca, 'gol'); }
+        if (r() < P.pGolParado * 2 * sig((nv(remata) + GA * (0.7 * D(remata, 'aer') + 0.3 * D(remata, 'fis')) - nv(porRival)) / (P.escala * 1.5))) { s(porRival).enc++; gol(k, t, remata, saca, 'gol'); }
         else s(porRival).paradas++;
       } else {
         // Penalti: lo tira el mejor lanzador en el campo (nivel, puesto y definición).
         const lanza = lanzadores(mios, nv)[0] || mios[0];
-        const comete = elige(r, suyos, PESO_CORTE, nv);
+        const comete = elige(r, suyos, corta, nv);
         if (comete) s(comete).penCometido = 1;
         s(lanza).tiros++;
         if (r() < P.pGolPenalti + (nv(lanza) - nv(porRival)) / 2000) {
@@ -318,7 +396,7 @@
       const sw = w.reduce((a, b) => a + b, 0);
       lado.xi.forEach((j, i) => {
         const e = s(j), intentos = Math.round(total * w[i] / sw * (0.8 + r() * 0.4));
-        const pOk = Math.max(0.4, Math.min(0.95, (ACIERTO_ROL[rol(j)] || 0.7) + aciertoEpoca(o.anio) + (nv(j) - lado.fr.defensa) / 3500));
+        const pOk = Math.max(0.4, Math.min(0.95, (ACIERTO_ROL[rol(j)] || 0.7) + aciertoEpoca(o.anio) + (nv(j) - lado.fr.defensa) / 3500 + D(j, 'pas') / 400));
         e.pases = intentos;
         e.pasesOk = Math.max(0, Math.min(intentos, Math.round(intentos * pOk + normal(r) * Math.sqrt(intentos * pOk * (1 - pOk)) * 2)));
       });
@@ -766,7 +844,7 @@
     };
   }
 
-  const api = { golesEpoca, casaEpoca, tanda, escala, rng, partido, temporada, copa, global, premios, hitos, calendario, rol, estiloBase, fuerzaBruta, edad, NOMBRE_ESTILO, nuevoEstado, jugarConEstado, pasaSemana, P };
+  const api = { golesEpoca, casaEpoca, tanda, escala, rng, partido, temporada, copa, global, premios, hitos, calendario, rol, estiloBase, fuerzaBruta, edad, NOMBRE_ESTILO, atributos, formaDe, ATRIBUTOS, NOMBRE_ATRIBUTO, nuevoEstado, jugarConEstado, pasaSemana, P };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Motor = api;
 })(typeof self !== 'undefined' ? self : this);

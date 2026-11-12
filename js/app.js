@@ -92,7 +92,7 @@ function crearSimulador() {
   };
   try {
     // En la página de un solo archivo el código va dentro de cada etiqueta; en el sitio por archivos, el trabajador los importa por su dirección.
-    const fuentes = ['src-motor', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
+    const fuentes = ['src-motor', 'src-atributos', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
     const codigo = `${fuentes}\n;const atender = (${cuerpoSimulador.toString()})(self);\nself.onmessage = (e) => atender(e.data, (x) => self.postMessage(x));`;
     const w = new Worker(URL.createObjectURL(new Blob([codigo], { type: 'text/javascript' })));
     w.onmessage = (e) => recibir(e.data);
@@ -315,7 +315,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 14, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 15, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1456,10 +1456,18 @@ function fichaJugador(n) {
     + `<div class="cifras"><div><small>Goles ${S.temporada}</small><b>${cif.g}</b></div><div><small>Asist.</small><b>${cif.a}</b></div><div><small>${cif.nota != null ? 'Nota' : 'En la partida'}</small><b>${cif.nota != null ? cif.nota.toFixed(1).replace('.', ',') : `${tot.g} g / ${tot.pj} pj`}</b></div></div>`
     + (comparaCon && comparaCon !== n ? comparar(comparaCon, n) : '')
     + `<div class="acciones-ficha"><button type="button" class="copiar" data-comparar="${esc(n)}">⚖ Comparar</button><button type="button" class="copiar" data-compartir="${esc(n)}">📋 Copiar ficha</button></div>`
+    + (x.activo ? atributosHtml(j) : '')
     + memorables(n, carrera)
     + (rasgos.length ? `<div><span class="rotulo">Estilo y rasgos</span><div class="rasgos" style="margin-top:6px">${rasgos.join('')}</div></div>` : '')
     + `<div class="palmares"><span class="rotulo">Palmarés en esta partida</span>${selTxt}${palm || (selTxt ? '' : '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>')}</div>`
     + (carrera.length ? `<div class="palmares"><span class="rotulo">Temporadas</span>${carrera.slice().reverse().map((t) => `<div><span>${t.temporada} · ${esc(t.club)}${t.cedido ? ' (cedido)' : ''}</span><span>${t.pj} pj · ${t.g} g${t.nota != null ? ' · ' + t.nota.toFixed(1).replace('.', ',') : ''}</span></div>`).join('')}</div>` : '');
+}
+// Los diez atributos del jugador hoy: en qué es bueno y en qué no (el portero enseña los suyos).
+function atributosHtml(j) {
+  const at = Motor.atributos(j, S.anio + 1), por = j.pos === 'POR';
+  const cuales = por ? ['por', 'aer', 'fis', 'vel', 'pas', 'vis'] : Motor.ATRIBUTOS.filter((x) => x !== 'por');
+  const mano = typeof ATRIBUTOS_A_MANO !== 'undefined' && ATRIBUTOS_A_MANO[j.n];
+  return `<div><span class="rotulo">Atributos${mano ? '' : ' (calculados con su puesto y sus goles reales)'}</span><div class="atributos">${cuales.map((x) => `<div><span>${Motor.NOMBRE_ATRIBUTO[x]}</span><i><b style="width:${at[x]}%" class="${at[x] >= 85 ? 'alto' : at[x] < 50 ? 'bajo' : ''}"></b></i><em>${at[x]}</em></div>`).join('')}</div></div>`;
 }
 function formaClub(l, n, pais) {
   const nV = vistasDe(l.T, S), t = tablaHasta(l.T, nV, reglasDe(S, pais).puntosVictoria).find((x) => x.nombre === n);
@@ -1743,6 +1751,6 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 14) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 15) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();

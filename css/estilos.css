@@ -390,3 +390,11 @@ button.partido:hover b, .fila-btn:hover { opacity: .85; }
 .diario { margin-top: 18px; }
 .diario summary { cursor: pointer; padding: 8px 0; list-style: revert; }
 .diario summary small { color: var(--gris); }
+.atributos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 6px 22px; margin-top: 8px; }
+.atributos > div { display: grid; grid-template-columns: 92px 1fr 26px; align-items: center; gap: 8px; font-size: 12.5px; }
+.atributos span { color: var(--gris); }
+.atributos i { height: 7px; border-radius: 4px; background: var(--linea2); overflow: hidden; display: block; }
+.atributos i b { display: block; height: 100%; border-radius: 4px; background: var(--tinta2); }
+.atributos i b.alto { background: var(--oro); }
+.atributos i b.bajo { background: var(--empate); }
+.atributos em { font-style: normal; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
