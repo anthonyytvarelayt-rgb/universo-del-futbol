@@ -248,11 +248,14 @@
       // Liga de Campeones: dos grupos desde 1991, cuatro desde 1994 y ocho desde 1999 (si hay equipos para llenarlos).
       const grupos = M.anio >= 1999 ? 8 : M.anio >= 1994 ? 4 : M.anio >= 1991 ? 2 : 0;
       // En Europa la diferencia de nivel pesa algo más que en la liga: los grandes se guardan lo mejor para estas noches.
+      // Los Reyes de Europa se crecen en estas noches.
+      const reyes = [];
+      eqs.forEach((c) => c.jugadores.forEach((j) => { const g = gradoDe(j, 'europa'); if (g) { reyes.push([j, 7 * g]); j.temp = (j.temp || 0) + 7 * g; } }));
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
         EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
-      } finally { Motor.P.escala = escalaLiga; }
+      } finally { Motor.P.escala = escalaLiga; reyes.forEach(([j, v]) => { j.temp -= v; }); }
       EU.goleadorReal = E.goleadorReal;
     }
     // Copa del Generalísimo: todos los clubes de Primera y Segunda.
@@ -596,10 +599,59 @@
     return mov;
   }
 
+  // ---- Insignias: se ganan jugando y cambian (un poco) cómo juega quien las tiene ----
+  // Cada una cuenta algo que el jugador ha hecho en ESTA partida; al llegar a un corte sube de grado (bronce, plata, oro, excepcional).
+  const GRADOS = ['bronce', 'plata', 'oro', 'excepcional'];
+  const INSIGNIAS = {
+    europa: { nombre: 'Rey de Europa', efecto: 'Se crece en las noches de Copa de Europa', cuenta: 'Copas de Europa ganadas', cortes: [1, 2, 3, 5] },
+    bandera: { nombre: 'Bandera del club', efecto: 'Rinde más con el club de su vida', cuenta: 'temporadas seguidas de titular en su club', cortes: [8, 11, 14, 17] },
+    goleador: { nombre: 'Goleador implacable', efecto: 'Define mejor', cuenta: 'temporadas de 30 goles', cortes: [2, 4, 6, 9] },
+    mago: { nombre: 'Mago', efecto: 'Sus pases dejan solo al delantero', cuenta: 'temporadas de 15 asistencias', cortes: [2, 4, 6, 9] },
+    muro: { nombre: 'Muro', efecto: 'Gana más duelos atrás', cuenta: 'temporadas de nota 7,9 como defensa o portero', cortes: [2, 4, 6, 9] },
+    hierro: { nombre: 'Hombre de hierro', efecto: 'Se lesiona menos', cuenta: 'temporadas de 45 partidos', cortes: [5, 8, 11, 14] },
+    prodigio: { nombre: 'Niño prodigio', efecto: 'Crece más deprisa', cuenta: 'temporadas de nota 7,3 antes de los 21', cortes: [1, 2, 3, 4] },
+    eterno: { nombre: 'Eterno', efecto: 'Envejece más despacio', cuenta: 'temporadas de nota 7,2 pasados los 35', cortes: [1, 2, 3, 5] },
+    gol: { nombre: 'Leyenda del gol', efecto: 'Su nombre ya asusta a los porteros', cuenta: 'goles en la partida', cortes: [250, 400, 600, 1000] },
+    gracia: { nombre: 'Estado de gracia', efecto: 'Empieza la temporada lanzado (dura un año)', cuenta: 'temporada de nota 8,8', cortes: [1, 1, 1, 1], temporal: true }
+  };
+  function insignias(M, R, c, j, x, edad, novedades) {
+    if (j.relleno) return;
+    const n = j.cnt || (j.cnt = {}), ins = j.ins || (j.ins = {});
+    const mas = (id, si) => { if (si) n[id] = (n[id] || 0) + 1; };
+    const nota = x && x.pj >= 15 ? x.notaTemp : 0, pj = x ? x.pj : 0;
+    mas('europa', R.EU && R.EU.campeon === c.nombre && pj >= 15);
+    mas('goleador', x && x.g >= 30);
+    mas('mago', x && x.a >= 15);
+    mas('muro', (j.pos === 'DEF' || j.pos === 'POR') && nota >= 7.9);
+    mas('hierro', pj >= 45);
+    mas('prodigio', edad <= 20 && nota >= 7.3);
+    mas('eterno', edad >= 36 && nota >= 7.2);
+    n.gol = (n.gol || 0) + (x ? x.g : 0);
+    let seguidas = 0;
+    for (let i = j.carrera.length - 1; i >= 0 && j.carrera[i].club === c.nombre && !j.carrera[i].cedido && j.carrera[i].pj >= 25; i--) seguidas++;
+    n.bandera = seguidas;
+    if (seguidas < 8) delete ins.bandera;
+    // Sin bucles: quien ya está en estado de gracia no puede encadenarlo con otro.
+    const tenia = ins.gracia != null;
+    delete ins.gracia;
+    n.gracia = nota >= 8.8 && !tenia ? 1 : 0;
+    Object.keys(INSIGNIAS).forEach((id) => {
+      const I = INSIGNIAS[id], v = n[id] || 0;
+      let g = -1;
+      I.cortes.forEach((k, i) => { if (v >= k) g = i; });
+      if (I.temporal) g = v ? 0 : -1;
+      if (g < 0 || (ins[id] != null && ins[id] >= g)) return;
+      ins[id] = g;
+      if (id === 'goleador') j.fin = Math.min(1.7, (j.fin || 1) + 0.02);
+      novedades.push({ tipo: 'insignia', jugador: j.n, club: c.nombre, id, grado: g, nombre: I.nombre, niv: Math.round(j.niv) });
+    });
+  }
+  const gradoDe = (j, id) => (j.ins && j.ins[id] != null ? j.ins[id] + 1 : 0);
   // Crecimiento, declive y retiros al terminar la temporada.
   function envejecer(M, R, r) {
     const pj = new Map(R.G.map((x) => [x.j, x]));
-    const retiros = [];
+    const retiros = [], novedades = [];
+    retiros.novedades = novedades;
     M.clubes.forEach((c) => {
       c.jugadores = c.jugadores.filter((j) => {
         const x = pj.get(j);
@@ -608,6 +660,7 @@
         const edad = M.anio + 1 - anioNac(j);
         const cv = curva(j), pico = cv.pico;
         const minutos = Math.min(1, (x ? x.pj : 0) / 25);
+        insignias(M, R, c, j, x, edad, novedades);
         if (edad <= pico) {
           // Crece hacia lo que le toca a su edad según su curva; jugar acelera, y un chaval sin minutos pierde algo de techo.
           const meta = metaEdad(j.tec || j.niv, cv, edad);
@@ -620,14 +673,21 @@
             j.tec = Math.max(suelo, Math.min(Math.max(tope, j.tec || 0), (j.tec || j.niv) * (1 + 0.012 * (rinde - 0.45))));
           }
           // Si ya va por delante de su curva (Pelé a los 17), no se le frena: solo el vaivén normal.
-          j.niv += hueco > 0 ? hueco * (0.25 + 0.35 * minutos + 0.3 * rinde) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
+          j.niv += hueco > 0 ? hueco * (0.25 + 0.35 * minutos + 0.3 * rinde + 0.07 * gradoDe(j, 'prodigio')) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
           if (edad <= 24 && minutos < 0.3 && !j.relleno && !j.cons) j.tec = (j.tec || j.niv) - r() * 12;
+          // La joya inesperada: muy de vez en cuando un chaval que juega y rinde da un salto que nadie esperaba
+          // y su techo se dispara. En la vida real fue uno más; en este universo puede acabar entre los mejores.
+          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < 0.04) {
+            j.joya = M.anio + 1;
+            j.tec = Math.min(1090, (j.tec || j.niv) * (1.12 + 0.1 * r()));
+            novedades.push({ tipo: 'joya', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), real: Math.round(j.tecReal || 0) });
+          }
         } else {
           // Cae lo que marca su curva ese año (físico antes, cabeza después), con algo de azar.
           // Si en la realidad siguió a su nivel después de 1959 (techo ≥ nivel de partida), envejece más despacio.
           const longevo = (j.tecReal || 0) >= (j.inicio ? j.inicio.niv : j.niv) ? 0.75 : 1;
           const caida = (j.tec || j.niv) * (cv.F(edad - 1) - cv.F(edad));
-          j.niv -= Math.max(0, caida) * longevo * (0.7 + 0.6 * r());
+          j.niv -= Math.max(0, caida) * longevo * (0.7 + 0.6 * r()) * (1 - 0.1 * gradoDe(j, 'eterno'));
           // El cuerpo manda: desde los 37 (38 los porteros) cada año pesa más que el anterior, también a los longevos.
           const tarde = edad - (j.pos === 'POR' ? 37 : 36);
           if (tarde > 0) j.niv -= (j.tec || j.niv) * 0.012 * tarde * (0.6 + 0.4 * Math.min(1.5, cv.ritmo));
@@ -635,7 +695,7 @@
         }
         j.niv = Math.max(250, Math.min(1130, j.niv));
         // Estado de forma de la temporada que viene: hasta el mejor tiene un año flojo y un buen jugador, el año de su vida.
-        j.temp = Math.round(normal(r) * 22);
+        j.temp = Math.round(normal(r) * 22) + 5 * gradoDe(j, 'bandera') + 15 * gradoDe(j, 'gracia');
         // Retiro: casi nunca antes de los 32; los cracks aguantan más y los de nivel bajo lo dejan antes.
         const RETIRO = { 32: 0.03, 33: 0.06, 34: 0.12, 35: 0.22, 36: 0.35, 37: 0.5 };
         let p = edad <= 31 ? 0.005 : RETIRO[edad] || 0.7;
@@ -1046,6 +1106,7 @@
     prestigio(M, R);
     banquillos(M, R);
     resumen.retiros = envejecer(M, R, r);
+    resumen.novedades = resumen.retiros.novedades;
     resumen.mercado = mercado(M, r);
     M.fichajes.push(...resumen.mercado);
     M.anio++;
@@ -1221,7 +1282,7 @@
     return d;
   }
 
-  const api = { desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA };
+  const api = { desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

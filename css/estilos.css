@@ -398,3 +398,10 @@ button.partido:hover b, .fila-btn:hover { opacity: .85; }
 .atributos i b.alto { background: var(--oro); }
 .atributos i b.bajo { background: var(--empate); }
 .atributos em { font-style: normal; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.insignias { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.insignia { display: inline-flex; flex-direction: column; gap: 1px; font-size: 12.5px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--linea); background: var(--tarjeta); border-left: 4px solid #B07A4A; }
+.insignia small { color: var(--gris); font-size: 11.5px; }
+.insignia.g1 { border-left-color: #A9B4C4; }
+.insignia.g2 { border-left-color: var(--oro); }
+.insignia.g3 { border-left-color: #7C5CFF; background: color-mix(in srgb, #7C5CFF 10%, var(--tarjeta)); }
+.resultado .insignia { flex-direction: row; white-space: nowrap; font-weight: 600; }

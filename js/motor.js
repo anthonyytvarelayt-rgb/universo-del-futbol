@@ -277,6 +277,8 @@
     const formas = new Map();
     const D = (j, x) => { let v = formas.get(j); if (v === undefined) { v = formaHoy(j, o.anio); formas.set(j, v); } return v[x] || 0; };
     const GA = P.pesoAtributo;
+    // Insignias ganadas en la partida (ver mundo.js): grado 1 a 4, o 0 si no la tiene.
+    const gr = (j, id) => (j.ins && j.ins[id] != null ? j.ins[id] + 1 : 0);
     const minutos = 90 * o.duracion;
     const xiL = o.xiL || alineacion(local, o.fueraL, o.selL || nv), xiV = o.xiV || alineacion(visita, o.fueraV, o.selV || nv);
     const estilos = [estiloPartido(local, visita, true), estiloPartido(visita, local, o.neutral)];
@@ -298,7 +300,7 @@
       const pR = P.pRoja * tension.roja * o.duracion * duro;
       // Lesiones: más con la edad y con el depósito vacío.
       if (r() < pR) { e.roja = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'roja', quien: j.n, lado: k }); }
-      else if (r() < P.pLesion * o.duracion * (o.riesgo ? o.riesgo(j) : 1) * Math.exp(-D(j, 'fis') / 50)) {
+      else if (r() < P.pLesion * o.duracion * (o.riesgo ? o.riesgo(j) : 1) * Math.exp(-D(j, 'fis') / 50) * (1 - 0.12 * gr(j, 'hierro'))) {
         e.lesion = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'lesion', quien: j.n, lado: k });
         if (o.cambios > 0) { e.sustituido = true; return; }
       } else return;
@@ -356,17 +358,17 @@
         // Regate: alguien encara a un defensor. Si sale bien, la jugada mejora; si no, se pierde.
         if (r() < P.pIntentoRegate) {
           const reg = elige(r, mios, (j) => PESO_REGATE(j) * Math.exp(D(j, 'reg') / 40), nv), marca = elige(r, suyos, corta, nv);
-          if (r() < sig((nv(reg) + GA * (0.65 * D(reg, 'reg') + 0.35 * D(reg, 'vel')) - nv(marca) - GA * (0.7 * D(marca, 'dfs') + 0.3 * D(marca, 'vel'))) / P.escala + 0.2)) {
+          if (r() < sig((nv(reg) + GA * (0.65 * D(reg, 'reg') + 0.35 * D(reg, 'vel')) - nv(marca) - GA * (0.7 * D(marca, 'dfs') + 0.3 * D(marca, 'vel')) - 10 * gr(marca, 'muro')) / P.escala + 0.2)) {
             s(reg).regates++; pTiro = Math.min(0.95, pTiro * (1 + P.extraRegate));
             if (reg !== tirador && r() < 0.6) creador = reg;
           } else { s(marca).cortes++; return; }
         }
         s(creador).ocas++;
         // Un buen pase deja mejor el remate.
-        pTiro = Math.min(0.95, pTiro * (1 + D(creador, 'pas') / 150));
+        pTiro = Math.min(0.95, pTiro * (1 + D(creador, 'pas') / 150 + 0.03 * gr(creador, 'mago')));
         if (r() > pTiro) { s(elige(r, suyos, corta, nv)).cortes++; return; }
         s(tirador).tiros++;
-        if (r() < P.pGolBase * 2 * sig((nv(tirador) - nv(porRival)) / P.escala + 0.2 * Math.log(FIN(tirador)))) {
+        if (r() < P.pGolBase * 2 * sig((nv(tirador) + 3 * gr(tirador, 'gol') - nv(porRival) - 10 * gr(porRival, 'muro')) / P.escala + 0.2 * Math.log(FIN(tirador)))) {
           s(porRival).enc++;
           gol(k, t, tirador, r() < P.pAsistencia ? creador : null, 'gol');
         } else s(porRival).paradas++;
