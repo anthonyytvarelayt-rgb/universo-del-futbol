@@ -11,6 +11,8 @@ Anthony es el dueño. Habla español y no programa: explícale todo en español,
 - Lo real no se pone al lado del resultado: una marca ≠ pequeña que al tocarla dice qué pasó de verdad.
 - No hay edad tope de retiro.
 
+Plan de etapas y reparto con otras IA: ver `PLAN.md`.
+
 ## Código
 
 - Sitio de archivos sueltos, sin compilación. `index.html` carga `js/*.js` y `datos/*.js` con etiquetas `<script>`; el simulador corre en un Worker que importa esos mismos archivos por su dirección (ver `crearSimulador` en `js/app.js`).
