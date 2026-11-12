@@ -240,7 +240,7 @@
         const enJuego = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => enJuego.add(j.n)));
         if (medio) eqs.forEach((c) => {
           if (M.clubes.includes(c)) return;
-          if (c.generado) return plantillaExtranjera(c, medio * c.generado * 0.92, M.anio, enJuego);
+          if (c.generado) return plantillaExtranjera(c, medio * c.generado * FUERA_RELATIVO, M.anio, enJuego);
           const delta = medio * (0.86 + 0.08 * ((hashN(c.nombre + M.anio, 3) % 1000) / 1000)) - Motor.fuerzaBruta(c);
           if (delta < 0) c.jugadores.forEach((j) => { j.niv += delta; });
         });
@@ -795,6 +795,8 @@
   const CUPO_EXTRANJEROS = 3, NIVEL_EXTRANJERO = 720;
   // Hasta 1991 (eliminatorias puras, pocos grandes) pesa algo más el nivel; después no hace falta: los grandes ya juntan a los mejores.
   const CONTRASTE_EUROPA = 0.75;
+  // Los clubes de países que no se juegan, frente al campeón mediano de la partida.
+  const FUERA_RELATIVO = 0.92;
   const CONTRASTE_EUROPA_HOY = 1;
   const IDEAL_ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
