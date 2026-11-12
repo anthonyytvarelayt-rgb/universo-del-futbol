@@ -1,0 +1,21 @@
+temporada,movimiento,club,ciudad,estadio,color1,color2,prestigio,nota
+1959-60,sube a Primeira,Atlético CP,Lisboa,Estádio da Tapadinha,#002F6C,#FFFFFF,425,campeón de Segunda (final 3-0 a Leixões)
+1959-60,sube a Primeira,Leixões,Matosinhos,Campo de Santana,#D50032,#FFFFFF,309,finalista de Segunda
+1959-60,sube a Primeira,Boavista,Porto,Estádio do Bessa,#000000,#FFFFFF,355,2.º de la Zona Norte; ese año suben 3 (Primeira se mantiene en 14 porque bajan 3)
+1959-60,baja a Segunda,Barreirense,Barreiro,Campo D. Manuel de Mello,#D50032,#FFFFFF,405,12.º en Primeira 1958-59
+1959-60,baja a Segunda,Caldas,Caldas da Rainha,Campo da Mata,#003893,#FFFFFF,313,13.º
+1959-60,baja a Segunda,Torreense,Torres Vedras,Estádio Manuel Marques,#003893,#FFFFFF,382,14.º
+1960-61,sube a Primeira,Barreirense,Barreiro,Campo D. Manuel de Mello,#D50032,#FFFFFF,405,campeón de Segunda 1959-60
+1960-61,sube a Primeira,Salgueiros,Porto,Estádio Engenheiro Vidal Pinheiro,#E30613,#FFFFFF,316,finalista de Segunda 1959-60
+1960-61,baja a Segunda,Vitória de Setúbal,Setúbal,Estádio do Bonfim,#007A33,#FFFFFF,417,13.º en Primeira 1959-60
+1960-61,baja a Segunda,Boavista,Porto,Estádio do Bessa,#000000,#FFFFFF,355,14.º
+1961-62,sube a Primeira,Beira-Mar,Aveiro,Estádio Mário Duarte,#FFD100,#000000,300,campeón de Segunda 1960-61
+1961-62,sube a Primeira,Olhanense,Olhão,Estádio José Arcanjo,#D50032,#000000,373,finalista de Segunda 1960-61
+1961-62,baja a Segunda,Braga,Braga,Estádio 1.º de Maio,#D50032,#FFFFFF,424,13.º en Primeira 1960-61
+1961-62,baja a Segunda,Barreirense,Barreiro,Campo D. Manuel de Mello,#D50032,#FFFFFF,405,14.º
+1962-63,sube a Primeira,Barreirense,Barreiro,Campo D. Manuel de Mello,#D50032,#FFFFFF,405,campeón de Segunda 1961-62
+1962-63,sube a Primeira,Feirense,Santa Maria da Feira,Estádio Marcolino de Castro,#003893,#FFFFFF,300,finalista de Segunda 1961-62
+1962-63,sube a Primeira,Vitória de Setúbal,Setúbal,Estádio do Bonfim,#007A33,#FFFFFF,417,ese año suben 3 (motivo exacto sin confirmar)
+1962-63,baja a Segunda,Beira-Mar,Aveiro,Estádio Mário Duarte,#FFD100,#000000,300,11.º en Primeira 1961-62; bajaron 3 y no sé el motivo exacto (posible liguilla)
+1962-63,baja a Segunda,Covilhã,Covilhã,Estádio José dos Santos Pinto,#007A33,#FFFFFF,398,13.º
+1962-63,baja a Segunda,Salgueiros,Porto,Estádio Engenheiro Vidal Pinheiro,#E30613,#FFFFFF,316,14.º

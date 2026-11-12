@@ -1,0 +1,242 @@
+[
+{
+"club": "Luton Town",
+"wikipedia": "Jimmy_Adam",
+"q": "Q6199474",
+"name": "Jimmy Adam",
+"birth": "1931-05-13",
+"nat": [],
+"pos": [
+"midfielder",
+"Midfielder"
+],
+"s": 1953,
+"e": 1959,
+"m": 137,
+"g": 22
+},
+{
+"club": "Luton Town",
+"wikipedia": "Terry_Kelly_(English_footballer)",
+"q": "Q7704600",
+"name": "Terry Kelly",
+"birth": "1932-01-01",
+"nat": [],
+"pos": [
+"centre-back",
+"Defender"
+],
+"s": 1950,
+"e": 1963,
+"m": 136,
+"g": 1
+},
+{
+"club": "Luton Town",
+"wikipedia": "Brendan_McNally",
+"q": "Q4961005",
+"name": "Brendan McNally",
+"birth": "1935-01-22",
+"nat": [
+"Ireland"
+],
+"pos": [
+"Defender"
+],
+"s": 1956,
+"e": 1963,
+"m": 134,
+"g": 3
+},
+{
+"club": "Brighton & Hove Albion",
+"wikipedia": "Tommy_Bisset",
+"q": "Q56087102",
+"name": "Tommy Bisset",
+"birth": "1932-03-21",
+"nat": [],
+"pos": [
+"full-back",
+"Right back, forward"
+],
+"s": 1952,
+"e": 1961,
+"m": 115,
+"g": 5
+},
+{
+"club": "Brighton & Hove Albion",
+"wikipedia": "Frankie_Howard_(footballer)",
+"q": "Q56254065",
+"name": "Frankie Howard",
+"birth": "1931-01-30",
+"nat": [],
+"pos": [
+"wing half",
+"Outside left"
+],
+"s": 1950,
+"e": 1959,
+"m": 200,
+"g": 26
+},
+{
+"club": "Brighton & Hove Albion",
+"wikipedia": "Derek_Neate",
+"q": "Q59391068",
+"name": "Derek Neate",
+"birth": "1927-10-01",
+"nat": [],
+"pos": [
+"wing half",
+"Winger"
+],
+"s": 1956,
+"e": 1959,
+"m": 24,
+"g": 6
+},
+{
+"club": "Scunthorpe United",
+"wikipedia": "Merfyn_Jones_(footballer)",
+"q": "Q6819086",
+"name": "Merfyn Jones",
+"birth": "1931-04-30",
+"nat": [],
+"pos": [
+"wing half",
+"| youthyears1    ="
+],
+"s": 1953,
+"e": 1959,
+"m": 240,
+"g": 27
+},
+{
+"club": "Scunthorpe United",
+"wikipedia": "Albert_Stokes",
+"q": "Q28867962",
+"name": "Albert Stokes",
+"birth": "1933-01-26",
+"nat": [],
+"pos": [
+"forward",
+"Forward"
+],
+"s": 1957,
+"e": 1959,
+"m": 5,
+"g": 2
+},
+{
+"club": "Scunthorpe United",
+"wikipedia": "Doug_Fletcher",
+"q": "Q18719407",
+"name": "Doug Fletcher",
+"birth": "1930-09-17",
+"nat": [],
+"pos": [
+"inside forward",
+"Inside forward"
+],
+"s": 1956,
+"e": 1958,
+"m": 54,
+"g": 26
+},
+{
+"club": "Scunthorpe United",
+"wikipedia": "Eddie_Gleadall",
+"q": "Q5336069",
+"name": "Eddie Gleadall",
+"birth": "1931-08-21",
+"nat": [],
+"pos": [
+"wing half",
+"Winger"
+],
+"s": 1957,
+"e": 1958,
+"m": 6,
+"g": 2
+},
+{
+"club": "Barnsley",
+"wikipedia": "Peter_Whyke",
+"q": "Q28746267",
+"name": "Peter Whyke",
+"birth": "1939-09-07",
+"nat": [],
+"pos": [
+"wing half",
+"Right winger"
+],
+"s": 1958,
+"e": 1961,
+"m": 26,
+"g": 1
+},
+{
+"club": "Barnsley",
+"wikipedia": "Peter_Gillott",
+"q": "Q60619166",
+"name": "Peter Gillott",
+"birth": "1935-07-20",
+"nat": [],
+"pos": [
+"defender",
+"Full back"
+],
+"s": 1953,
+"e": 1959,
+"m": 5,
+"g": 0
+},
+{
+"club": "Barnsley",
+"wikipedia": "Joe_Thomas_(footballer,_born_1932)",
+"q": "Q85771339",
+"name": "Joe Thomas",
+"birth": "1932-09-22",
+"nat": [],
+"pos": [
+"Defender"
+],
+"s": 1952,
+"e": 1958,
+"m": 134,
+"g": 0
+},
+{
+"club": "Barnsley",
+"wikipedia": "George_Spruce",
+"q": "Q5544751",
+"name": "George Spruce",
+"birth": "1923-04-03",
+"nat": [],
+"pos": [
+"defender",
+"Defender"
+],
+"s": 1952,
+"e": 1958,
+"m": 149,
+"g": 0
+},
+{
+"club": "Barnsley",
+"wikipedia": "Johnny_Edgar",
+"q": "Q6266651",
+"name": "Johnny Edgar",
+"birth": "1936-04-09",
+"nat": [],
+"pos": [
+"inside forward",
+"Inside forward"
+],
+"s": 1954,
+"e": 1958,
+"m": 22,
+"g": 6
+}
+]

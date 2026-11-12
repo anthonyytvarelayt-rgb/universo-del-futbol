@@ -1,0 +1,287 @@
+pais,temporada,division,grupo,club,posicion
+Inglaterra,1930,1,,Arsenal,1
+Inglaterra,1930,1,,Aston Villa,2
+Inglaterra,1930,1,,Sheffield Wednesday,3
+Inglaterra,1930,1,,Portsmouth,4
+Inglaterra,1930,1,,Huddersfield Town,5
+Inglaterra,1930,1,,Derby County,6
+Inglaterra,1930,1,,Middlesbrough,7
+Inglaterra,1930,1,,Manchester City,8
+Inglaterra,1930,1,,Liverpool,9
+Inglaterra,1930,1,,Blackburn Rovers,10
+Inglaterra,1930,1,,Sunderland,11
+Inglaterra,1930,1,,Chelsea,12
+Inglaterra,1930,1,,Grimsby Town,13
+Inglaterra,1930,1,,Bolton Wanderers,14
+Inglaterra,1930,1,,Sheffield United,15
+Inglaterra,1930,1,,Leicester City,16
+Inglaterra,1930,1,,Newcastle United,17
+Inglaterra,1930,1,,West Ham United,18
+Inglaterra,1930,1,,Birmingham,19
+Inglaterra,1930,1,,Blackpool,20
+Inglaterra,1930,1,,Leeds United,21
+Inglaterra,1930,1,,Manchester United,22
+Inglaterra,1931,1,,Everton,1
+Inglaterra,1931,1,,Arsenal,2
+Inglaterra,1931,1,,Sheffield Wednesday,3
+Inglaterra,1931,1,,Huddersfield Town,4
+Inglaterra,1931,1,,Aston Villa,5
+Inglaterra,1931,1,,West Bromwich Albion,6
+Inglaterra,1931,1,,Sheffield United,7
+Inglaterra,1931,1,,Portsmouth,8
+Inglaterra,1931,1,,Birmingham,9
+Inglaterra,1931,1,,Liverpool,10
+Inglaterra,1931,1,,Newcastle United,11
+Inglaterra,1931,1,,Chelsea,12
+Inglaterra,1931,1,,Sunderland,13
+Inglaterra,1931,1,,Manchester City,14
+Inglaterra,1931,1,,Derby County,15
+Inglaterra,1931,1,,Blackburn Rovers,16
+Inglaterra,1931,1,,Bolton Wanderers,17
+Inglaterra,1931,1,,Middlesbrough,18
+Inglaterra,1931,1,,Leicester City,19
+Inglaterra,1931,1,,Blackpool,20
+Inglaterra,1931,1,,Grimsby Town,21
+Inglaterra,1931,1,,West Ham United,22
+Inglaterra,1932,1,,Arsenal,1
+Inglaterra,1932,1,,Aston Villa,2
+Inglaterra,1932,1,,Sheffield Wednesday,3
+Inglaterra,1932,1,,West Bromwich Albion,4
+Inglaterra,1932,1,,Newcastle United,5
+Inglaterra,1932,1,,Huddersfield Town,6
+Inglaterra,1932,1,,Derby County,7
+Inglaterra,1932,1,,Leeds United,8
+Inglaterra,1932,1,,Portsmouth,9
+Inglaterra,1932,1,,Sheffield United,10
+Inglaterra,1932,1,,Everton,11
+Inglaterra,1932,1,,Sunderland,12
+Inglaterra,1932,1,,Birmingham,13
+Inglaterra,1932,1,,Liverpool,14
+Inglaterra,1932,1,,Blackburn Rovers,15
+Inglaterra,1932,1,,Manchester City,16
+Inglaterra,1932,1,,Middlesbrough,17
+Inglaterra,1932,1,,Chelsea,18
+Inglaterra,1932,1,,Leicester City,19
+Inglaterra,1932,1,,Wolverhampton Wanderers,20
+Inglaterra,1932,1,,Bolton Wanderers,21
+Inglaterra,1932,1,,Blackpool,22
+Inglaterra,1933,1,,Arsenal,1
+Inglaterra,1933,1,,Huddersfield Town,2
+Inglaterra,1933,1,,Tottenham Hotspur,3
+Inglaterra,1933,1,,Derby County,4
+Inglaterra,1933,1,,Manchester City,5
+Inglaterra,1933,1,,Sunderland,6
+Inglaterra,1933,1,,West Bromwich Albion,7
+Inglaterra,1933,1,,Blackburn Rovers,8
+Inglaterra,1933,1,,Leeds United,9
+Inglaterra,1933,1,,Portsmouth,10
+Inglaterra,1933,1,,Sheffield Wednesday,11
+Inglaterra,1933,1,,Stoke City,12
+Inglaterra,1933,1,,Aston Villa,13
+Inglaterra,1933,1,,Everton,14
+Inglaterra,1933,1,,Wolverhampton Wanderers,15
+Inglaterra,1933,1,,Middlesbrough,16
+Inglaterra,1933,1,,Leicester City,17
+Inglaterra,1933,1,,Liverpool,18
+Inglaterra,1933,1,,Chelsea,19
+Inglaterra,1933,1,,Birmingham,20
+Inglaterra,1933,1,,Newcastle United,21
+Inglaterra,1933,1,,Sheffield United,22
+Inglaterra,1934,1,,Arsenal,1
+Inglaterra,1934,1,,Sunderland,2
+Inglaterra,1934,1,,Sheffield Wednesday,3
+Inglaterra,1934,1,,Manchester City,4
+Inglaterra,1934,1,,Grimsby Town,5
+Inglaterra,1934,1,,Derby County,6
+Inglaterra,1934,1,,Liverpool,7
+Inglaterra,1934,1,,Everton,8
+Inglaterra,1934,1,,West Bromwich Albion,9
+Inglaterra,1934,1,,Stoke City,10
+Inglaterra,1934,1,,Preston North End,11
+Inglaterra,1934,1,,Chelsea,12
+Inglaterra,1934,1,,Aston Villa,13
+Inglaterra,1934,1,,Portsmouth,14
+Inglaterra,1934,1,,Blackburn Rovers,15
+Inglaterra,1934,1,,Huddersfield Town,16
+Inglaterra,1934,1,,Wolverhampton Wanderers,17
+Inglaterra,1934,1,,Leeds United,18
+Inglaterra,1934,1,,Birmingham,19
+Inglaterra,1934,1,,Middlesbrough,20
+Inglaterra,1934,1,,Leicester City,21
+Inglaterra,1934,1,,Tottenham Hotspur,22
+Inglaterra,1935,1,,Sunderland,1
+Inglaterra,1935,1,,Derby County,2
+Inglaterra,1935,1,,Huddersfield Town,3
+Inglaterra,1935,1,,Stoke City,4
+Inglaterra,1935,1,,Brentford,5
+Inglaterra,1935,1,,Arsenal,6
+Inglaterra,1935,1,,Preston North End,7
+Inglaterra,1935,1,,Chelsea,8
+Inglaterra,1935,1,,Manchester City,9
+Inglaterra,1935,1,,Portsmouth,10
+Inglaterra,1935,1,,Leeds United,11
+Inglaterra,1935,1,,Birmingham,12
+Inglaterra,1935,1,,Bolton Wanderers,13
+Inglaterra,1935,1,,Middlesbrough,14
+Inglaterra,1935,1,,Wolverhampton Wanderers,15
+Inglaterra,1935,1,,Everton,16
+Inglaterra,1935,1,,Grimsby Town,17
+Inglaterra,1935,1,,West Bromwich Albion,18
+Inglaterra,1935,1,,Liverpool,19
+Inglaterra,1935,1,,Sheffield Wednesday,20
+Inglaterra,1935,1,,Aston Villa,21
+Inglaterra,1935,1,,Blackburn Rovers,22
+Inglaterra,1936,1,,Manchester City,1
+Inglaterra,1936,1,,Charlton Athletic,2
+Inglaterra,1936,1,,Arsenal,3
+Inglaterra,1936,1,,Derby County,4
+Inglaterra,1936,1,,Wolverhampton Wanderers,5
+Inglaterra,1936,1,,Brentford,6
+Inglaterra,1936,1,,Middlesbrough,7
+Inglaterra,1936,1,,Sunderland,8
+Inglaterra,1936,1,,Portsmouth,9
+Inglaterra,1936,1,,Stoke City,10
+Inglaterra,1936,1,,Birmingham,11
+Inglaterra,1936,1,,Grimsby Town,12
+Inglaterra,1936,1,,Chelsea,13
+Inglaterra,1936,1,,Preston North End,14
+Inglaterra,1936,1,,Huddersfield Town,15
+Inglaterra,1936,1,,West Bromwich Albion,16
+Inglaterra,1936,1,,Everton,17
+Inglaterra,1936,1,,Liverpool,18
+Inglaterra,1936,1,,Leeds United,19
+Inglaterra,1936,1,,Bolton Wanderers,20
+Inglaterra,1936,1,,Manchester United,21
+Inglaterra,1936,1,,Sheffield Wednesday,22
+Inglaterra,1937,1,,Arsenal,1
+Inglaterra,1937,1,,Wolverhampton Wanderers,2
+Inglaterra,1937,1,,Preston North End,3
+Inglaterra,1937,1,,Charlton Athletic,4
+Inglaterra,1937,1,,Middlesbrough,5
+Inglaterra,1937,1,,Brentford,6
+Inglaterra,1937,1,,Bolton Wanderers,7
+Inglaterra,1937,1,,Sunderland,8
+Inglaterra,1937,1,,Leeds United,9
+Inglaterra,1937,1,,Chelsea,10
+Inglaterra,1937,1,,Liverpool,11
+Inglaterra,1937,1,,Blackpool,12
+Inglaterra,1937,1,,Derby County,13
+Inglaterra,1937,1,,Everton,14
+Inglaterra,1937,1,,Huddersfield Town,15
+Inglaterra,1937,1,,Leicester City,16
+Inglaterra,1937,1,,Stoke City,17
+Inglaterra,1937,1,,Birmingham,18
+Inglaterra,1937,1,,Portsmouth,19
+Inglaterra,1937,1,,Grimsby Town,20
+Inglaterra,1937,1,,Manchester City,21
+Inglaterra,1937,1,,West Bromwich Albion,22
+Inglaterra,1938,1,,Everton,1
+Inglaterra,1938,1,,Wolverhampton Wanderers,2
+Inglaterra,1938,1,,Charlton Athletic,3
+Inglaterra,1938,1,,Middlesbrough,4
+Inglaterra,1938,1,,Arsenal,5
+Inglaterra,1938,1,,Derby County,6
+Inglaterra,1938,1,,Stoke City,7
+Inglaterra,1938,1,,Bolton Wanderers,8
+Inglaterra,1938,1,,Preston North End,9
+Inglaterra,1938,1,,Grimsby Town,10
+Inglaterra,1938,1,,Liverpool,11
+Inglaterra,1938,1,,Aston Villa,12
+Inglaterra,1938,1,,Leeds United,13
+Inglaterra,1938,1,,Manchester United,14
+Inglaterra,1938,1,,Blackpool,15
+Inglaterra,1938,1,,Sunderland,16
+Inglaterra,1938,1,,Portsmouth,17
+Inglaterra,1938,1,,Brentford,18
+Inglaterra,1938,1,,Huddersfield Town,19
+Inglaterra,1938,1,,Chelsea,20
+Inglaterra,1938,1,,Birmingham,21
+Inglaterra,1938,1,,Leicester City,22
+Inglaterra,1946,1,,Liverpool,1
+Inglaterra,1946,1,,Manchester United,2
+Inglaterra,1946,1,,Wolverhampton Wanderers,3
+Inglaterra,1946,1,,Stoke City,4
+Inglaterra,1946,1,,Blackpool,5
+Inglaterra,1946,1,,Sheffield United,6
+Inglaterra,1946,1,,Preston North End,7
+Inglaterra,1946,1,,Aston Villa,8
+Inglaterra,1946,1,,Sunderland,9
+Inglaterra,1946,1,,Everton,10
+Inglaterra,1946,1,,Middlesbrough,11
+Inglaterra,1946,1,,Portsmouth,12
+Inglaterra,1946,1,,Arsenal,13
+Inglaterra,1946,1,,Derby County,14
+Inglaterra,1946,1,,Chelsea,15
+Inglaterra,1946,1,,Grimsby Town,16
+Inglaterra,1946,1,,Blackburn Rovers,17
+Inglaterra,1946,1,,Bolton Wanderers,18
+Inglaterra,1946,1,,Charlton Athletic,19
+Inglaterra,1946,1,,Huddersfield Town,20
+Inglaterra,1946,1,,Brentford,21
+Inglaterra,1946,1,,Leeds United,22
+Inglaterra,1947,1,,Arsenal,1
+Inglaterra,1947,1,,Manchester United,2
+Inglaterra,1947,1,,Burnley,3
+Inglaterra,1947,1,,Derby County,4
+Inglaterra,1947,1,,Wolverhampton Wanderers,5
+Inglaterra,1947,1,,Aston Villa,6
+Inglaterra,1947,1,,Preston North End,7
+Inglaterra,1947,1,,Portsmouth,8
+Inglaterra,1947,1,,Blackpool,9
+Inglaterra,1947,1,,Manchester City,10
+Inglaterra,1947,1,,Liverpool,11
+Inglaterra,1947,1,,Sheffield United,12
+Inglaterra,1947,1,,Charlton Athletic,13
+Inglaterra,1947,1,,Everton,14
+Inglaterra,1947,1,,Stoke City,15
+Inglaterra,1947,1,,Middlesbrough,16
+Inglaterra,1947,1,,Bolton Wanderers,17
+Inglaterra,1947,1,,Chelsea,18
+Inglaterra,1947,1,,Huddersfield Town,19
+Inglaterra,1947,1,,Sunderland,20
+Inglaterra,1947,1,,Blackburn Rovers,21
+Inglaterra,1947,1,,Grimsby Town,22
+Inglaterra,1948,1,,Portsmouth,1
+Inglaterra,1948,1,,Manchester United,2
+Inglaterra,1948,1,,Derby County,3
+Inglaterra,1948,1,,Newcastle United,4
+Inglaterra,1948,1,,Arsenal,5
+Inglaterra,1948,1,,Wolverhampton Wanderers,6
+Inglaterra,1948,1,,Manchester City,7
+Inglaterra,1948,1,,Sunderland,8
+Inglaterra,1948,1,,Charlton Athletic,9
+Inglaterra,1948,1,,Aston Villa,10
+Inglaterra,1948,1,,Stoke City,11
+Inglaterra,1948,1,,Liverpool,12
+Inglaterra,1948,1,,Chelsea,13
+Inglaterra,1948,1,,Bolton Wanderers,14
+Inglaterra,1948,1,,Burnley,15
+Inglaterra,1948,1,,Blackpool,16
+Inglaterra,1948,1,,Birmingham,17
+Inglaterra,1948,1,,Everton,18
+Inglaterra,1948,1,,Middlesbrough,19
+Inglaterra,1948,1,,Huddersfield Town,20
+Inglaterra,1948,1,,Preston North End,21
+Inglaterra,1948,1,,Sheffield United,22
+Inglaterra,1949,1,,Portsmouth,1
+Inglaterra,1949,1,,Wolverhampton Wanderers,2
+Inglaterra,1949,1,,Sunderland,3
+Inglaterra,1949,1,,Manchester United,4
+Inglaterra,1949,1,,Newcastle United,5
+Inglaterra,1949,1,,Arsenal,6
+Inglaterra,1949,1,,Blackpool,7
+Inglaterra,1949,1,,Liverpool,8
+Inglaterra,1949,1,,Middlesbrough,9
+Inglaterra,1949,1,,Burnley,10
+Inglaterra,1949,1,,Derby County,11
+Inglaterra,1949,1,,Aston Villa,12
+Inglaterra,1949,1,,Chelsea,13
+Inglaterra,1949,1,,West Bromwich Albion,14
+Inglaterra,1949,1,,Huddersfield Town,15
+Inglaterra,1949,1,,Bolton Wanderers,16
+Inglaterra,1949,1,,Fulham,17
+Inglaterra,1949,1,,Everton,18
+Inglaterra,1949,1,,Stoke City,19
+Inglaterra,1949,1,,Charlton Athletic,20
+Inglaterra,1949,1,,Manchester City,21
+Inglaterra,1949,1,,Birmingham,22

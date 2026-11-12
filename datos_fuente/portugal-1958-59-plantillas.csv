@@ -1,0 +1,662 @@
+division,club,nombre,pos,nac,pais,liga,nivel,techo,ficticio
+Primeira Divisão,Oporto,Hernâni,DEL,1931-09-01,Portugal,21 / 11,789,797,no
+Primeira Divisão,Oporto,Virgílio Mendes,DEF,1927-11-17,Portugal,23 / 0,788,788,no
+Primeira Divisão,Oporto,José Maria Pedroto,MED,1928-10-21,Portugal,19 / 4,733,736,no
+Primeira Divisão,Oporto,Gastao Gonçalves,DEL,1930-09-16,Portugal,17 / 12,718,726,no
+Primeira Divisão,Oporto,Carlos Duarte,DEL,1933-03-25,Portugal,17 / 7,704,712,no
+Primeira Divisão,Oporto,Monteiro Da Costa,DEL,1928-08-20,Portugal,21 / 6,702,702,no
+Primeira Divisão,Oporto,Osvaldo da Silva,MED,1934-03-13,Brasil,18 / 8,685,700,no
+Primeira Divisão,Oporto,Luis Roberto,MED,1934-03-04,Brasil,13 / 0,662,677,no
+Primeira Divisão,Oporto,Miguel Arcanjo,DEF,1932-05-13,Portugal,14 / 0,638,646,no
+Primeira Divisão,Oporto,António Barbosa,DEF,1931-11-03,Portugal,15 / 0,631,679,no
+Primeira Divisão,Oporto,Acúrcio Carrelo,POR,1931-03-16,Portugal,13 / 0,622,630,no
+Primeira Divisão,Oporto,Antonio Manuel Paula,DEF,1937-08-14,Portugal,13 / 0,622,652,no
+Primeira Divisão,Oporto,Noé,DEL,1935-03-21,Portugal,13 / 0,622,637,no
+Primeira Divisão,Oporto,Américo Teixeira,DEF,1937-05-24,Portugal,12 / 0,617,645,sí
+Primeira Divisão,Oporto,Américo Lopes,POR,1933-03-06,Portugal,11 / 0,613,621,no
+Primeira Divisão,Oporto,Rui Neves,MED,1933-06-17,Portugal,11 / 1,613,615,sí
+Primeira Divisão,Oporto,Fernando Perdigão,DEL,1932,Portugal,7 / 2,606,614,no
+Primeira Divisão,Oporto,António Morais,DEL,1934-12-30,Portugal,6 / 2,595,610,no
+Primeira Divisão,Oporto,Silvino Alves,DEF,1928-09-25,Portugal,6 / 0,589,589,sí
+Primeira Divisão,Oporto,Belmiro Cunha,DEF,1927-09-07,Portugal,4 / 0,580,580,sí
+Primeira Divisão,Oporto,Jaime Moreira,MED,1932-08-21,Portugal,4 / 0,580,581,sí
+Primeira Divisão,Oporto,Delfim Ribeiro,POR,1939-03-18,Portugal,8 / 0,569,579,sí
+Primeira Divisão,Benfica,José Águas,DEL,1930-11-09,Portugal,22 / 22,901,909,no
+Primeira Divisão,Benfica,Coluna,MED,1935-08-06,Portugal,23 / 6,824,839,no
+Primeira Divisão,Benfica,Ângelo Martins,DEF,1930-04-19,Portugal,18 / 0,777,792,no
+Primeira Divisão,Benfica,Costa Pereira,POR,1929-12-22,Portugal,19 / 0,758,773,no
+Primeira Divisão,Benfica,Artur Santos,DEF,1931-03-27,Portugal,26 / 0,754,762,no
+Primeira Divisão,Benfica,Domiciano Cavém,DEF,1932-11-21,Portugal,20 / 6,744,794,no
+Primeira Divisão,Benfica,Fernando Caiado,MED,1925-03-02,Portugal,20 / 3,740,740,no
+Primeira Divisão,Benfica,Alfredo Abrantes,MED,1929-04-19,Portugal,23 / 0,728,731,no
+Primeira Divisão,Benfica,Francisco Palmeiro,DEL,1932-10-16,Portugal,11 / 4,705,713,no
+Primeira Divisão,Benfica,Manuel Serra,DEF,1935-11-06,Portugal,16 / 0,696,750,no
+Primeira Divisão,Benfica,Belmiro Ribeiro,MED,1933-07-09,Portugal,14 / 1,687,687,sí
+Primeira Divisão,Benfica,Félix Salvador,DEL,1932-08-01,Portugal,13 / 0,682,690,no
+Primeira Divisão,Benfica,José Neto,DEF,1935-10-05,Portugal,12 / 1,677,692,no
+Primeira Divisão,Benfica,José Bastos,POR,1929-10-17,Portugal,12 / 0,677,680,no
+Primeira Divisão,Benfica,Joaquim Santana,MED,1936-03-22,Portugal,8 / 4,659,674,no
+Primeira Divisão,Benfica,Mário João,DEF,1935-06-06,Portugal,7 / 0,654,669,no
+Primeira Divisão,Benfica,Zézinho,DEF,1930-03-06,Portugal,6 / 1,650,653,no
+Primeira Divisão,Benfica,Artur Machado,MED,1936-06-25,Portugal,3 / 0,636,639,sí
+Primeira Divisão,Benfica,Mascarenhas,DEL,1937-04-28,Portugal,2 / 1,633,663,no
+Primeira Divisão,Benfica,Delfim Alves,POR,1931-06-18,Portugal,2 / 0,631,640,sí
+Primeira Divisão,Benfica,António Mendes,DEL,1939-10-18,Portugal,4 / 3,617,647,no
+Primeira Divisão,Benfica,Humberto Fernandes,DEF,1940-06-14,Portugal,5 / 0,615,645,no
+Primeira Divisão,Belenenses,Matateu,DEL,1927-07-26,Portugal,21 / 16,799,799,no
+Primeira Divisão,Belenenses,Yaúca,DEL,1935-06-18,Portugal,25 / 19,725,740,no
+Primeira Divisão,Belenenses,Vicente Lucas,DEF,1935-09-24,Portugal,22 / 1,628,690,no
+Primeira Divisão,Belenenses,José Pereira,POR,1931-09-15,Portugal,20 / 0,619,663,no
+Primeira Divisão,Belenenses,Abel Reis,DEF,1932-06-05,Portugal,18 / 0,610,613,sí
+Primeira Divisão,Belenenses,José Dimas,DEL,1930-05-07,Portugal,13 / 0,605,608,no
+Primeira Divisão,Belenenses,Arnaldo Rocha,POR,1936-11-17,Portugal,17 / 0,605,654,sí
+Primeira Divisão,Belenenses,Delfim Simões,MED,1935-05-07,Portugal,16 / 1,600,609,sí
+Primeira Divisão,Belenenses,Adelino Ramos,MED,1933-01-08,Portugal,16 / 1,600,605,sí
+Primeira Divisão,Belenenses,Gaspar Araújo,MED,1937-05-14,Portugal,14 / 1,591,607,sí
+Primeira Divisão,Belenenses,Raul Figueiredo,DEF,1927-03-10,Portugal,13 / 0,587,587,no
+Primeira Divisão,Belenenses,José Ribeiro,DEL,1932-05-13,Portugal,10 / 3,583,593,sí
+Primeira Divisão,Belenenses,Belmiro Teixeira,DEF,1939-04-08,Portugal,18 / 0,580,626,sí
+Primeira Divisão,Belenenses,Augusto Soares,POR,1939-08-15,Portugal,17 / 0,575,627,sí
+Primeira Divisão,Belenenses,Feliciano Ramos,DEF,1929-02-19,Portugal,10 / 0,573,573,sí
+Primeira Divisão,Belenenses,Belmiro Ferreira,DEF,1930-02-22,Portugal,9 / 0,568,568,sí
+Primeira Divisão,Belenenses,Armando Teixeira,DEL,1933-04-19,Portugal,6 / 1,557,558,sí
+Primeira Divisão,Belenenses,Rui Oliveira,DEL,1933-04-28,Portugal,5 / 2,555,556,sí
+Primeira Divisão,Belenenses,Belmiro Silva,MED,1931-09-14,Portugal,6 / 1,554,560,sí
+Primeira Divisão,Belenenses,Luís Vieira,MED,1936-07-27,Portugal,4 / 0,545,549,sí
+Primeira Divisão,Belenenses,Joaquim Lourenço,MED,1927-03-25,Portugal,3 / 0,540,540,sí
+Primeira Divisão,Belenenses,João Antunes,DEF,1939-08-04,Portugal,4 / 0,515,541,sí
+Primeira Divisão,Sporting de Portugal,Manuel Vasques,DEL,1926-07-29,Portugal,21 / 15,865,865,no
+Primeira Divisão,Sporting de Portugal,José Travassos,DEL,1926-02-22,Portugal,19 / 8,855,855,no
+Primeira Divisão,Sporting de Portugal,Martins,DEL,1927-09-03,Portugal,16 / 10,794,794,no
+Primeira Divisão,Sporting de Portugal,Manuel Caldeira,DEF,1926-12-14,Portugal,20 / 0,737,737,no
+Primeira Divisão,Sporting de Portugal,José Rodriguez Carabello,DEL,1930-04-04,Uruguay,13 / 0,727,730,no
+Primeira Divisão,Sporting de Portugal,Diego Arizaga,DEL,1936-02-21,Argentina,13 / 0,727,742,no
+Primeira Divisão,Sporting de Portugal,Ivson,DEL,,Brasil,13 / 0,727,735,no
+Primeira Divisão,Sporting de Portugal,David Júlio,MED,1932-01-08,Portugal,21 / 1,724,765,no
+Primeira Divisão,Sporting de Portugal,Hilário,DEF,1939-06-19,Portugal,24 / 0,708,843,no
+Primeira Divisão,Sporting de Portugal,Morais,DEF,1935-03-06,Portugal,17 / 5,705,780,no
+Primeira Divisão,Sporting de Portugal,Pedro Pacheco,DEF,1926-03-30,Portugal,13 / 0,693,693,no
+Primeira Divisão,Sporting de Portugal,Mário Lino,DEF,1937-01-09,Portugal,14 / 0,692,722,no
+Primeira Divisão,Sporting de Portugal,Fernando Mendes,MED,1937-07-15,Portugal,14 / 0,692,722,no
+Primeira Divisão,Sporting de Portugal,Joaquim Carvalho,POR,1937-04-18,Portugal,13 / 0,687,717,no
+Primeira Divisão,Sporting de Portugal,José Peridés,MED,1935-04-18,Portugal,13 / 0,687,702,no
+Primeira Divisão,Sporting de Portugal,Octávio de Sá,POR,1935,Portugal,13 / 0,687,702,no
+Primeira Divisão,Sporting de Portugal,Lúcio Soares,DEF,1934-05-31,Portugal,13 / 0,687,702,no
+Primeira Divisão,Sporting de Portugal,José Galaz,DEF,1931-10-04,Portugal,13 / 0,687,695,no
+Primeira Divisão,Sporting de Portugal,Rocha,MED,1935-02-07,Portugal,13 / 0,687,702,no
+Primeira Divisão,Sporting de Portugal,Hugo Sarmento,DEL,1933-02-25,Portugal,13 / 0,687,695,no
+Primeira Divisão,Sporting de Portugal,Antonio Morato,DEF,1937-03-20,Portugal,9 / 0,669,699,no
+Primeira Divisão,Sporting de Portugal,Teixeira Carlos Manuel,MED,1940-05-04,Portugal,13 / 0,657,687,no
+Primeira Divisão,Sporting de Portugal,Ferreira Pinto,MED,1939-11-07,Portugal,3 / 0,611,641,no
+Primeira Divisão,Vitória de Guimarães,Edmur Ribeiro,DEL,1929-09-09,Brasil,24 / 19,613,616,no
+Primeira Divisão,Vitória de Guimarães,Feliciano Oliveira,DEL,1936-07-03,Portugal,23 / 6,546,558,sí
+Primeira Divisão,Vitória de Guimarães,Rui Carvalho,POR,1934-04-02,Portugal,26 / 0,534,562,sí
+Primeira Divisão,Vitória de Guimarães,Armando Santos,DEF,1933-05-06,Portugal,26 / 0,534,541,sí
+Primeira Divisão,Vitória de Guimarães,Alberto Neves,MED,1933-10-18,Portugal,25 / 1,530,532,sí
+Primeira Divisão,Vitória de Guimarães,Abel Antunes,MED,1933-02-05,Portugal,23 / 1,520,524,sí
+Primeira Divisão,Vitória de Guimarães,Gaspar Gomes,MED,1933-02-12,Portugal,15 / 1,483,485,sí
+Primeira Divisão,Vitória de Guimarães,Humberto Freitas,DEF,1937-12-01,Portugal,12 / 0,470,480,sí
+Primeira Divisão,Vitória de Guimarães,Henrique Pinto,DEL,1933-09-28,Portugal,10 / 2,467,491,sí
+Primeira Divisão,Vitória de Guimarães,Feliciano Rodrigues,POR,1930-05-24,Portugal,11 / 0,465,465,sí
+Primeira Divisão,Vitória de Guimarães,Arnaldo Lourenço,MED,1937-12-14,Portugal,11 / 1,465,481,sí
+Primeira Divisão,Vitória de Guimarães,Francisco Tavares,DEF,1928-01-18,Portugal,10 / 0,460,460,sí
+Primeira Divisão,Vitória de Guimarães,Augusto Alves,POR,1928-02-27,Portugal,9 / 0,456,456,sí
+Primeira Divisão,Vitória de Guimarães,Armando Rocha,DEF,1933-03-08,Portugal,8 / 0,451,458,sí
+Primeira Divisão,Vitória de Guimarães,Silvino Soares,MED,1931-09-28,Portugal,7 / 1,446,454,sí
+Primeira Divisão,Vitória de Guimarães,Henrique Antunes,DEF,1928-04-05,Portugal,6 / 0,442,442,sí
+Primeira Divisão,Vitória de Guimarães,Jorge Ramos,DEL,1930-10-21,Portugal,4 / 1,435,440,sí
+Primeira Divisão,Vitória de Guimarães,Augusto Da Silva,DEF,1939-02-06,Portugal,9 / 2,426,456,no
+Primeira Divisão,Vitória de Guimarães,José Nunes,MED,1939-08-12,Portugal,9 / 1,426,453,sí
+Primeira Divisão,Vitória de Guimarães,Jaime Araújo,DEL,1939-09-13,Portugal,6 / 1,415,468,sí
+Primeira Divisão,Vitória de Guimarães,Fausto Pereira,DEL,1939-01-10,Portugal,6 / 1,415,469,sí
+Primeira Divisão,Vitória de Guimarães,Henrique Sousa,DEF,1939-09-06,Portugal,5 / 0,407,451,sí
+Primeira Divisão,Vitória de Setúbal,Emídio Graça,MED,1931-05-17,Portugal,13 / 0,560,568,no
+Primeira Divisão,Vitória de Setúbal,Augusto Oliveira,DEL,1930-10-02,Portugal,20 / 5,541,549,sí
+Primeira Divisão,Vitória de Setúbal,Silvino Baptista,MED,1933-03-03,Portugal,19 / 2,515,523,sí
+Primeira Divisão,Vitória de Setúbal,Álvaro Sequeira,POR,1936-12-27,Portugal,18 / 0,511,524,sí
+Primeira Divisão,Vitória de Setúbal,Hermínio Pereira,DEF,1930-12-25,Portugal,17 / 0,506,509,sí
+Primeira Divisão,Vitória de Setúbal,Raul Baptista,DEL,1930-11-02,Portugal,16 / 1,505,512,sí
+Primeira Divisão,Vitória de Setúbal,Rui Simões,DEL,1933-03-01,Portugal,13 / 4,502,511,sí
+Primeira Divisão,Vitória de Setúbal,Feliciano Valente,DEF,1936-04-18,Portugal,16 / 0,501,521,sí
+Primeira Divisão,Vitória de Setúbal,Manuel Rodrigues,MED,1935-07-19,Portugal,16 / 2,501,518,sí
+Primeira Divisão,Vitória de Setúbal,Augusto Sousa,DEF,1929-08-08,Portugal,15 / 0,497,497,sí
+Primeira Divisão,Vitória de Setúbal,Jaime Freitas,MED,1935-01-12,Portugal,15 / 1,497,507,sí
+Primeira Divisão,Vitória de Setúbal,Justino Pinto,POR,1932-05-22,Portugal,13 / 0,488,496,no
+Primeira Divisão,Vitória de Setúbal,Alberto Lopes,DEF,1939-05-24,Portugal,19 / 0,485,495,sí
+Primeira Divisão,Vitória de Setúbal,Manuel Freitas,DEF,1930-11-08,Portugal,12 / 0,483,493,sí
+Primeira Divisão,Vitória de Setúbal,Mário Pereira,DEL,1929-12-27,Portugal,9 / 3,479,479,sí
+Primeira Divisão,Vitória de Setúbal,Félix Mourinho,POR,1938-02-12,Portugal,11 / 0,478,633,no
+Primeira Divisão,Vitória de Setúbal,Ernesto Vieira,DEL,1932-08-24,Portugal,8 / 3,474,482,sí
+Primeira Divisão,Vitória de Setúbal,Luís Rodrigues,MED,1929-07-15,Portugal,9 / 1,469,469,sí
+Primeira Divisão,Vitória de Setúbal,Abel Valente,DEF,1928-05-07,Portugal,7 / 0,460,460,sí
+Primeira Divisão,Vitória de Setúbal,Alfredo Moreira,DEF,1938-11-01,Portugal,13 / 0,458,488,no
+Primeira Divisão,Vitória de Setúbal,Vítor Mendes,DEL,1936-09-18,Portugal,5 / 1,453,466,sí
+Primeira Divisão,Vitória de Setúbal,Júlio Monteiro,MED,1928-04-03,Portugal,4 / 0,446,446,sí
+Primeira Divisão,Braga,Ernesto Pereira,DEL,1935-09-15,Portugal,17 / 6,533,549,sí
+Primeira Divisão,Braga,Jaime Sequeira,DEL,1934-02-02,Portugal,17 / 4,525,528,sí
+Primeira Divisão,Braga,Vítor Nunes,POR,1929-12-06,Portugal,19 / 0,518,518,sí
+Primeira Divisão,Braga,Artur Cruz,DEF,1936-12-28,Portugal,19 / 0,518,576,sí
+Primeira Divisão,Braga,Jaime Monteiro,DEF,1938-03-11,Portugal,19 / 0,518,546,sí
+Primeira Divisão,Braga,Mário Costa,DEL,1934-03-09,Portugal,14 / 4,510,511,sí
+Primeira Divisão,Braga,Américo Reis,DEF,1938-01-09,Portugal,17 / 0,509,544,sí
+Primeira Divisão,Braga,Augusto Antunes,MED,1932-10-24,Portugal,17 / 1,509,513,sí
+Primeira Divisão,Braga,Álvaro Almeida,MED,1928-10-21,Portugal,14 / 2,495,495,sí
+Primeira Divisão,Braga,Álvaro Fernandes,DEL,1928-06-02,Portugal,13 / 1,494,494,sí
+Primeira Divisão,Braga,Juvenal,MED,1935-09-24,Portugal,13 / 0,491,506,no
+Primeira Divisão,Braga,Fernando Ferreira,DEL,1936-02-01,Portugal,13 / 0,491,506,no
+Primeira Divisão,Braga,Júlio Silva,DEF,1938-09-14,Portugal,19 / 0,488,514,sí
+Primeira Divisão,Braga,Alberto Tavares,DEL,1938-11-26,Portugal,16 / 3,486,534,sí
+Primeira Divisão,Braga,Carlos Pinto,MED,1929-09-09,Portugal,11 / 1,482,482,sí
+Primeira Divisão,Braga,Adelino Rocha,POR,1935-04-02,Portugal,10 / 0,477,483,sí
+Primeira Divisão,Braga,Mário Carvalho,DEF,1929-09-27,Portugal,9 / 0,472,472,sí
+Primeira Divisão,Braga,Álvaro Gomes,MED,1929-08-14,Portugal,7 / 0,463,463,sí
+Primeira Divisão,Braga,Mário Martins,DEF,1928-11-26,Portugal,4 / 0,449,449,sí
+Primeira Divisão,Braga,Humberto Coelho,DEF,1929-08-11,Portugal,4 / 0,449,449,sí
+Primeira Divisão,Braga,Augusto Cruz,MED,1932-04-03,Portugal,4 / 0,449,456,sí
+Primeira Divisão,Braga,Manuel Cunha,POR,1938-11-07,Portugal,10 / 0,447,485,sí
+Primeira Divisão,Covilhã,Joaquim Sousa,DEL,1932-10-13,Portugal,20 / 3,524,524,sí
+Primeira Divisão,Covilhã,António Brito,MED,1935-04-21,Portugal,20 / 1,511,514,sí
+Primeira Divisão,Covilhã,João Monteiro,DEL,1932-03-14,Portugal,16 / 4,509,515,sí
+Primeira Divisão,Covilhã,José Rita,POR,1932-04-02,Portugal,18 / 0,502,510,no
+Primeira Divisão,Covilhã,Carlos Cunha,POR,1930-08-18,Portugal,18 / 0,502,502,sí
+Primeira Divisão,Covilhã,Álvaro Antunes,DEF,1936-08-10,Portugal,18 / 0,502,505,sí
+Primeira Divisão,Covilhã,Joaquim Pereira,DEF,1937-04-02,Portugal,16 / 0,493,506,sí
+Primeira Divisão,Covilhã,João Valente,DEF,1931-10-15,Portugal,15 / 0,488,493,sí
+Primeira Divisão,Covilhã,João Cardoso,DEF,1928-08-10,Portugal,15 / 0,488,488,sí
+Primeira Divisão,Covilhã,Feliciano Baptista,MED,1927-02-16,Portugal,15 / 1,488,488,sí
+Primeira Divisão,Covilhã,Rogério Pinto,MED,1937-03-13,Portugal,15 / 1,488,513,sí
+Primeira Divisão,Covilhã,Armando Gonçalves,DEL,1935-01-06,Portugal,11 / 3,480,490,sí
+Primeira Divisão,Covilhã,Francisco Manteigueiro,MED,1933-09-24,Portugal,13 / 0,479,494,no
+Primeira Divisão,Covilhã,Rui Brito,DEF,1930-09-25,Portugal,13 / 0,479,483,sí
+Primeira Divisão,Covilhã,Augusto Mendes,MED,1927-08-24,Portugal,13 / 1,479,479,sí
+Primeira Divisão,Covilhã,Humberto Ribeiro,POR,1930-02-16,Portugal,9 / 0,461,461,sí
+Primeira Divisão,Covilhã,Carlos Ribeiro,DEL,1939-04-12,Portugal,14 / 1,457,473,sí
+Primeira Divisão,Covilhã,José Soares,DEL,1935-06-07,Portugal,6 / 2,452,465,sí
+Primeira Divisão,Covilhã,Álvaro Ferreira,DEF,1938-08-11,Portugal,6 / 0,447,506,sí
+Primeira Divisão,Covilhã,Abel Fonseca,DEF,1931-08-22,Portugal,6 / 0,447,455,sí
+Primeira Divisão,Covilhã,Artur Rodrigues,MED,1928-02-20,Portugal,5 / 0,442,442,sí
+Primeira Divisão,Covilhã,Vítor Rocha,DEL,1936-11-10,Portugal,4 / 0,438,466,sí
+Primeira Divisão,Lusitano de Évora,José Pedro Biléu,DEL,1932,Portugal,26 / 9,594,602,no
+Primeira Divisão,Lusitano de Évora,Caraça,DEL,1932-02-07,Portugal,20 / 7,544,552,no
+Primeira Divisão,Lusitano de Évora,Melanio Olmedo,DEF,1932-01-19,Paraguay,17 / 2,537,545,no
+Primeira Divisão,Lusitano de Évora,Dinis Vital,POR,1932-07-02,Portugal,24 / 0,533,541,no
+Primeira Divisão,Lusitano de Évora,Alberto Monteiro,DEL,1928-07-18,Portugal,17 / 4,517,517,no
+Primeira Divisão,Lusitano de Évora,Carlos Falé,DEF,1933-06-11,Portugal,18 / 0,505,513,no
+Primeira Divisão,Lusitano de Évora,Fausto Monteiro,DEF,1933-11-22,Portugal,14 / 0,487,512,sí
+Primeira Divisão,Lusitano de Évora,Humberto Pires,MED,1928-05-15,Portugal,14 / 2,487,487,sí
+Primeira Divisão,Lusitano de Évora,Abel Gomes,MED,1937-09-02,Portugal,14 / 1,487,497,sí
+Primeira Divisão,Lusitano de Évora,Mário Tavares,POR,1929-01-18,Portugal,12 / 0,478,478,sí
+Primeira Divisão,Lusitano de Évora,Adelino Martins,POR,1928-02-17,Portugal,12 / 0,478,478,sí
+Primeira Divisão,Lusitano de Évora,António Nunes,DEL,1933-02-28,Portugal,10 / 2,475,482,sí
+Primeira Divisão,Lusitano de Évora,Rui Machado,DEF,1936-06-27,Portugal,11 / 0,473,473,sí
+Primeira Divisão,Lusitano de Évora,Domingos Oliveira,MED,1931-09-14,Portugal,11 / 1,473,481,sí
+Primeira Divisão,Lusitano de Évora,Artur Matos,DEF,1927-09-15,Portugal,10 / 0,468,468,sí
+Primeira Divisão,Lusitano de Évora,Rui Lopes,MED,1934-03-22,Portugal,9 / 1,464,487,sí
+Primeira Divisão,Lusitano de Évora,Manuel Ferreira,DEL,1927-04-23,Portugal,8 / 1,462,462,sí
+Primeira Divisão,Lusitano de Évora,Eduardo Teixeira,DEF,1939-05-22,Portugal,14 / 0,457,481,sí
+Primeira Divisão,Lusitano de Évora,Humberto Lourenço,MED,1933-01-10,Portugal,7 / 1,455,457,sí
+Primeira Divisão,Lusitano de Évora,Adelino Pinto,DEL,1939-01-01,Portugal,10 / 4,452,461,sí
+Primeira Divisão,Lusitano de Évora,Eduardo Araújo,DEF,1932-03-28,Portugal,5 / 0,445,454,sí
+Primeira Divisão,Lusitano de Évora,Augusto Simões,MED,1935-09-12,Portugal,2 / 0,431,454,sí
+Primeira Divisão,Académica,Mário Torres,MED,1931-09-13,Portugal,23 / 2,564,572,no
+Primeira Divisão,Académica,Humberto Lopes,DEL,1938-02-07,Portugal,17 / 6,542,545,sí
+Primeira Divisão,Académica,Jorge Humberto,DEL,1938-02-17,Portugal,17 / 5,538,568,no
+Primeira Divisão,Académica,Mário Wilson,DEF,1929-10-17,Portugal,21 / 1,537,540,no
+Primeira Divisão,Académica,Feliciano Sequeira,MED,1938-09-01,Portugal,21 / 2,537,586,sí
+Primeira Divisão,Académica,Luís Machado,DEF,1929-10-21,Portugal,20 / 0,532,532,sí
+Primeira Divisão,Académica,Ernesto Matos,DEF,1936-02-05,Portugal,19 / 0,527,532,sí
+Primeira Divisão,Académica,Gaspar Matos,MED,1935-08-26,Portugal,16 / 1,514,542,sí
+Primeira Divisão,Académica,Bentes,DEL,1927,Portugal,13 / 0,506,506,no
+Primeira Divisão,Académica,Vítor Moreira,MED,1931-11-22,Portugal,14 / 1,504,506,sí
+Primeira Divisão,Académica,Manuel Soares,POR,1937-01-22,Portugal,12 / 0,495,531,sí
+Primeira Divisão,Académica,Ernesto Sousa,DEF,1929-09-17,Portugal,12 / 0,495,495,sí
+Primeira Divisão,Académica,Artur Coelho,DEL,1937-05-16,Portugal,11 / 1,494,520,sí
+Primeira Divisão,Académica,Augusto Barbosa,POR,1934-12-07,Portugal,11 / 0,491,505,sí
+Primeira Divisão,Académica,Humberto Gonçalves,DEF,1935-11-02,Portugal,11 / 0,491,514,sí
+Primeira Divisão,Académica,António Oliveira,MED,1931-10-15,Portugal,10 / 1,486,486,sí
+Primeira Divisão,Académica,Luís Valente,MED,1928-05-21,Portugal,6 / 0,467,467,sí
+Primeira Divisão,Académica,Luís Cardoso,DEF,1928-12-22,Portugal,5 / 0,463,463,sí
+Primeira Divisão,Académica,Silvino Machado,DEL,1939-11-04,Portugal,10 / 2,463,522,sí
+Primeira Divisão,Académica,Carlos Moreira,DEL,1929-11-02,Portugal,3 / 0,454,454,sí
+Primeira Divisão,Académica,Luís Baptista,POR,1938-11-23,Portugal,6 / 0,437,496,sí
+Primeira Divisão,Académica,Augusto Costa,DEF,1938-09-18,Portugal,6 / 0,437,478,sí
+Primeira Divisão,CUF,Arsénio Duarte,DEL,1925-10-16,Portugal,22 / 15,568,568,no
+Primeira Divisão,CUF,Mário Neves,DEL,1935-02-21,Portugal,19 / 4,507,531,sí
+Primeira Divisão,CUF,João Oliveira,DEL,1928-11-28,Portugal,20 / 2,504,504,sí
+Primeira Divisão,CUF,Luís Barbosa,POR,1930-09-02,Portugal,20 / 0,496,498,sí
+Primeira Divisão,CUF,Artur Baptista,DEF,1933-04-25,Portugal,20 / 0,496,506,sí
+Primeira Divisão,CUF,António Cardoso,MED,1931-09-27,Portugal,20 / 2,496,501,sí
+Primeira Divisão,CUF,Luís Martins,DEF,1934-02-10,Portugal,18 / 0,486,502,sí
+Primeira Divisão,CUF,Custódio Silva,DEL,1935-11-28,Portugal,16 / 2,485,507,sí
+Primeira Divisão,CUF,Rui Fonseca,MED,1931-05-02,Portugal,17 / 1,482,486,sí
+Primeira Divisão,CUF,Eduardo Pinto,DEF,1937-06-12,Portugal,16 / 0,477,526,sí
+Primeira Divisão,CUF,Francisco Cruz,DEF,1934-06-10,Portugal,15 / 0,473,477,sí
+Primeira Divisão,CUF,Raul Simões,DEL,1931-01-12,Portugal,12 / 3,470,475,sí
+Primeira Divisão,CUF,Abel Neves,DEF,1936-09-22,Portugal,14 / 0,468,495,sí
+Primeira Divisão,CUF,António Marques,MED,1933-05-23,Portugal,10 / 1,450,460,sí
+Primeira Divisão,CUF,Mário Pinto,POR,1929-06-14,Portugal,9 / 0,445,445,sí
+Primeira Divisão,CUF,Humberto Moreira,POR,1934-08-14,Portugal,9 / 0,445,453,sí
+Primeira Divisão,CUF,Feliciano Mendes,DEF,1935-01-05,Portugal,8 / 0,440,453,sí
+Primeira Divisão,CUF,Arnaldo Neves,DEL,1931-05-11,Portugal,6 / 1,434,441,sí
+Primeira Divisão,CUF,Hermínio Reis,DEF,1929-12-27,Portugal,5 / 0,426,426,sí
+Primeira Divisão,CUF,Hermínio Fernandes,MED,1935-09-23,Portugal,5 / 1,426,444,sí
+Primeira Divisão,CUF,Feliciano Martins,MED,1927-09-19,Portugal,3 / 0,417,417,sí
+Primeira Divisão,CUF,Carlos Rodrigues,MED,1932-10-01,Portugal,3 / 0,417,421,sí
+Primeira Divisão,Barreirense,José Augusto,DEL,1937-04-13,Portugal,24 / 12,609,837,no
+Primeira Divisão,Barreirense,Custódio Martins,DEF,1936-11-17,Portugal,20 / 0,515,563,sí
+Primeira Divisão,Barreirense,Horácio Coelho,MED,1933-08-04,Portugal,20 / 2,515,518,sí
+Primeira Divisão,Barreirense,Belmiro Barbosa,DEL,1928-01-24,Portugal,19 / 1,514,514,sí
+Primeira Divisão,Barreirense,Adelino Fonseca,POR,1934-05-10,Portugal,17 / 0,501,520,sí
+Primeira Divisão,Barreirense,Delfim Costa,MED,1929-03-27,Portugal,17 / 2,501,501,sí
+Primeira Divisão,Barreirense,António Cunha,DEF,1938-05-12,Portugal,14 / 0,487,510,sí
+Primeira Divisão,Barreirense,Joaquim Soares,MED,1929-10-26,Portugal,14 / 1,487,487,sí
+Primeira Divisão,Barreirense,Júlio Teixeira,MED,1932-03-26,Portugal,14 / 1,487,487,sí
+Primeira Divisão,Barreirense,Joaquim Coelho,DEL,1934-10-07,Portugal,11 / 4,487,507,sí
+Primeira Divisão,Barreirense,Álvaro Alves,DEL,1930-07-22,Portugal,12 / 2,485,485,sí
+Primeira Divisão,Barreirense,Álvaro Pinto,MED,1936-05-23,Portugal,13 / 1,482,491,sí
+Primeira Divisão,Barreirense,Vítor Pinto,DEF,1936-07-13,Portugal,12 / 0,478,485,sí
+Primeira Divisão,Barreirense,Hermínio Teixeira,MED,1933-03-25,Portugal,12 / 1,478,486,sí
+Primeira Divisão,Barreirense,Horácio Pereira,POR,1939-07-13,Portugal,18 / 0,475,534,sí
+Primeira Divisão,Barreirense,Germano Nunes,DEF,1928-04-25,Portugal,10 / 0,468,468,sí
+Primeira Divisão,Barreirense,Horácio Carvalho,DEF,1934-03-03,Portugal,10 / 0,468,482,sí
+Primeira Divisão,Barreirense,Silvino Reis,POR,1930-12-06,Portugal,7 / 0,455,463,sí
+Primeira Divisão,Barreirense,Silvino Marques,DEF,1931-04-26,Portugal,7 / 0,455,457,sí
+Primeira Divisão,Barreirense,Henrique Machado,DEL,1931-08-05,Portugal,6 / 2,455,460,sí
+Primeira Divisão,Barreirense,Feliciano Pinto,DEL,1936-06-26,Portugal,3 / 1,438,460,sí
+Primeira Divisão,Barreirense,Raul Pereira,DEF,1939-06-28,Portugal,8 / 0,429,487,sí
+Primeira Divisão,Caldas,António Saraiva,DEF,1934-05-03,Portugal,25 / 1,496,511,no
+Primeira Divisão,Caldas,Arnaldo Mendes,POR,1935-03-07,Portugal,23 / 0,487,494,sí
+Primeira Divisão,Caldas,Armando Silva,DEL,1927-11-19,Portugal,17 / 6,483,483,sí
+Primeira Divisão,Caldas,Adelino Tavares,MED,1932-02-21,Portugal,22 / 2,482,483,sí
+Primeira Divisão,Caldas,Fernando Brito,MED,1929-07-03,Portugal,18 / 1,464,464,sí
+Primeira Divisão,Caldas,Américo Cunha,DEL,1930-07-19,Portugal,17 / 1,463,463,sí
+Primeira Divisão,Caldas,Américo Coelho,POR,1930-04-15,Portugal,17 / 0,459,459,sí
+Primeira Divisão,Caldas,Carlos Ramos,DEL,1932-12-02,Portugal,14 / 3,457,463,sí
+Primeira Divisão,Caldas,Horácio Gonçalves,DEL,1935-08-08,Portugal,13 / 2,448,478,sí
+Primeira Divisão,Caldas,Silvino Tavares,DEF,1939-12-18,Portugal,20 / 0,443,489,sí
+Primeira Divisão,Caldas,Artur Correia,DEF,1930-06-13,Portugal,13 / 0,441,441,sí
+Primeira Divisão,Caldas,Fausto Cardoso,DEF,1931-03-27,Portugal,12 / 0,436,443,sí
+Primeira Divisão,Caldas,Fernando Sousa,DEF,1939-10-09,Portugal,18 / 0,434,450,sí
+Primeira Divisão,Caldas,Rogério Carvalho,DEL,1931-09-04,Portugal,9 / 3,432,433,sí
+Primeira Divisão,Caldas,Henrique Santos,DEL,1930-11-15,Portugal,9 / 2,429,437,sí
+Primeira Divisão,Caldas,Horácio Moreira,POR,1938-05-21,Portugal,9 / 0,422,431,sí
+Primeira Divisão,Caldas,José Valente,MED,1934-04-03,Portugal,8 / 1,418,438,sí
+Primeira Divisão,Caldas,Vítor Moura,DEF,1933-09-06,Portugal,5 / 0,404,409,sí
+Primeira Divisão,Caldas,Alberto Teixeira,DEF,1934-01-24,Portugal,5 / 0,404,422,sí
+Primeira Divisão,Caldas,Custódio Gonçalves,MED,1929-09-26,Portugal,5 / 0,404,404,sí
+Primeira Divisão,Caldas,Luís Castro,MED,1938-05-17,Portugal,4 / 0,399,459,sí
+Primeira Divisão,Caldas,João Vieira,MED,1936-11-16,Portugal,3 / 0,395,427,sí
+Primeira Divisão,Torreense,Henrique Moreira,DEL,1931-06-13,Portugal,21 / 8,542,549,sí
+Primeira Divisão,Torreense,Carlos Rocha,DEL,1931-10-14,Portugal,21 / 7,538,540,sí
+Primeira Divisão,Torreense,José Baptista,DEF,1930-10-10,Portugal,22 / 0,513,523,sí
+Primeira Divisão,Torreense,Delfim Coelho,MED,1932-10-21,Portugal,21 / 2,509,514,sí
+Primeira Divisão,Torreense,Joaquim Costa,MED,1929-10-15,Portugal,21 / 2,509,509,sí
+Primeira Divisão,Torreense,Alberto Marques,DEF,1938-06-27,Portugal,19 / 0,500,531,sí
+Primeira Divisão,Torreense,Rui Alves,DEL,1938-08-15,Portugal,15 / 4,497,554,sí
+Primeira Divisão,Torreense,Belmiro Cruz,DEL,1928-12-21,Portugal,14 / 4,492,492,sí
+Primeira Divisão,Torreense,Fausto Coelho,DEL,1928-08-16,Portugal,14 / 4,492,492,sí
+Primeira Divisão,Torreense,Abel Costa,MED,1927-05-01,Portugal,16 / 1,486,486,sí
+Primeira Divisão,Torreense,Eduardo Soares,DEF,1936-12-23,Portugal,14 / 0,477,528,sí
+Primeira Divisão,Torreense,Carlos Silva,MED,1933-10-28,Portugal,12 / 1,467,488,sí
+Primeira Divisão,Torreense,Delfim Gonçalves,DEL,1932-12-11,Portugal,10 / 2,465,468,sí
+Primeira Divisão,Torreense,Germano Rodrigues,POR,1935-11-12,Portugal,11 / 0,463,488,sí
+Primeira Divisão,Torreense,Henrique Moura,MED,1932-09-21,Portugal,10 / 1,458,467,sí
+Primeira Divisão,Torreense,António Manuel,DEF,1929-12-07,Portugal,9 / 0,453,456,no
+Primeira Divisão,Torreense,Alberto Ferreira,POR,1939-05-26,Portugal,13 / 0,442,498,sí
+Primeira Divisão,Torreense,Horácio Sousa,DEF,1937-12-01,Portugal,6 / 0,440,443,sí
+Primeira Divisão,Torreense,Joaquim Monteiro,MED,1929-04-26,Portugal,6 / 1,440,440,sí
+Primeira Divisão,Torreense,Rui Martins,DEF,1934-01-05,Portugal,5 / 0,435,448,sí
+Primeira Divisão,Torreense,Joaquim Moreira,POR,1933-05-02,Portugal,4 / 0,430,437,sí
+Primeira Divisão,Torreense,Rogério Oliveira,DEF,1938-01-22,Portugal,3 / 0,426,426,sí
+Segunda Divisão,Atlético CP,Germano,DEF,1932-12-23,Portugal,13 / 2,551,559,no
+Segunda Divisão,Atlético CP,Mário Barbosa,MED,1936-02-23,Portugal,24 / 3,542,549,sí
+Segunda Divisão,Atlético CP,Fernando Pinto,MED,1931-09-23,Portugal,24 / 3,542,550,sí
+Segunda Divisão,Atlético CP,Américo Monteiro,DEL,1932-10-22,Portugal,21 / 3,541,542,sí
+Segunda Divisão,Atlético CP,Domingos Castro,POR,1929-09-09,Portugal,21 / 0,528,528,sí
+Segunda Divisão,Atlético CP,Eduardo Monteiro,MED,1932-02-14,Portugal,21 / 2,528,532,sí
+Segunda Divisão,Atlético CP,Abel Correia,DEL,1929-10-19,Portugal,15 / 6,524,524,sí
+Segunda Divisão,Atlético CP,João Brito,DEF,1933-06-10,Portugal,18 / 0,514,524,sí
+Segunda Divisão,Atlético CP,Arnaldo Nunes,DEL,1935-02-15,Portugal,14 / 3,507,523,sí
+Segunda Divisão,Atlético CP,Fonseca,DEF,1938-04-30,Portugal,13 / 0,491,521,no
+Segunda Divisão,Atlético CP,Álvaro Inácio,MED,1935-09-28,Portugal,13 / 0,491,507,no
+Segunda Divisão,Atlético CP,Eduardo Lourenço,POR,1927-07-18,Portugal,12 / 0,487,487,sí
+Segunda Divisão,Atlético CP,António Pereira,DEF,1930-02-22,Portugal,12 / 0,487,487,sí
+Segunda Divisão,Atlético CP,Joaquim Silva,MED,1934-10-20,Portugal,12 / 1,487,489,sí
+Segunda Divisão,Atlético CP,Américo Ferreira,DEL,1935-07-06,Portugal,8 / 2,474,484,sí
+Segunda Divisão,Atlético CP,Fausto Correia,MED,1929-05-12,Portugal,9 / 1,473,473,sí
+Segunda Divisão,Atlético CP,Augusto Pereira,DEL,1939-03-28,Portugal,12 / 2,464,479,sí
+Segunda Divisão,Atlético CP,Jaime Martins,DEL,1930-06-14,Portugal,6 / 1,462,462,sí
+Segunda Divisão,Atlético CP,José Cunha,DEF,1928-02-26,Portugal,6 / 0,459,459,sí
+Segunda Divisão,Atlético CP,Gaspar Castro,DEF,1934-08-14,Portugal,4 / 0,450,460,sí
+Segunda Divisão,Atlético CP,Júlio Cruz,DEF,1931-03-18,Portugal,3 / 0,445,445,sí
+Segunda Divisão,Atlético CP,José Rocha,POR,1939-10-18,Portugal,4 / 0,420,430,sí
+Segunda Divisão,Leixões,João Soares,DEL,1931-01-04,Portugal,23 / 3,498,503,sí
+Segunda Divisão,Leixões,Humberto Mendes,DEF,1928-11-21,Portugal,23 / 0,485,485,sí
+Segunda Divisão,Leixões,Domingos Rocha,MED,1937-11-04,Portugal,23 / 1,485,519,sí
+Segunda Divisão,Leixões,Custódio Vieira,DEL,1939-04-18,Portugal,23 / 6,481,493,sí
+Segunda Divisão,Leixões,Feliciano Rocha,DEF,1933-06-05,Portugal,21 / 0,476,476,sí
+Segunda Divisão,Leixões,Mário Coelho,DEF,1934-05-19,Portugal,19 / 0,467,486,sí
+Segunda Divisão,Leixões,Augusto Lopes,DEF,1927-01-05,Portugal,19 / 0,467,467,sí
+Segunda Divisão,Leixões,Ernesto Castro,MED,1931-11-02,Portugal,19 / 1,467,470,sí
+Segunda Divisão,Leixões,Horácio Martins,MED,1930-05-23,Portugal,18 / 1,462,462,sí
+Segunda Divisão,Leixões,António Lourenço,MED,1929-03-27,Portugal,16 / 1,453,453,sí
+Segunda Divisão,Leixões,Jorge Lourenço,DEL,1928-03-18,Portugal,11 / 3,440,440,sí
+Segunda Divisão,Leixões,Custódio Antunes,MED,1934-06-21,Portugal,12 / 1,434,455,sí
+Segunda Divisão,Leixões,Hermínio Almeida,POR,1939-11-23,Portugal,16 / 0,423,469,sí
+Segunda Divisão,Leixões,Mário Marques,DEF,1927-09-03,Portugal,9 / 0,421,421,sí
+Segunda Divisão,Leixões,Humberto Pereira,POR,1938-01-03,Portugal,7 / 0,411,456,sí
+Segunda Divisão,Leixões,Fausto Moura,DEL,1934-07-11,Portugal,6 / 1,409,414,sí
+Segunda Divisão,Leixões,Fausto Sousa,DEL,1932-02-15,Portugal,5 / 0,402,409,sí
+Segunda Divisão,Leixões,Gaspar Cardoso,DEF,1931-12-22,Portugal,4 / 0,398,402,sí
+Segunda Divisão,Leixões,Gaspar Brito,DEL,1927-10-16,Portugal,4 / 0,398,398,sí
+Segunda Divisão,Leixões,Adelino Lourenço,POR,1935-07-01,Portugal,3 / 0,393,407,sí
+Segunda Divisão,Leixões,José Alves,DEF,1936-08-24,Portugal,3 / 0,393,415,sí
+Segunda Divisão,Leixões,Vítor Ramos,MED,1934-04-20,Portugal,3 / 0,393,416,sí
+Segunda Divisão,Boavista,Delfim Matos,DEL,1931-06-03,Portugal,18 / 6,507,515,sí
+Segunda Divisão,Boavista,Rogério Teixeira,DEL,1938-07-07,Portugal,17 / 6,502,534,sí
+Segunda Divisão,Boavista,Raul Ramos,DEL,1928-05-12,Portugal,18 / 4,499,499,sí
+Segunda Divisão,Boavista,Alberto Correia,POR,1927-05-06,Portugal,18 / 0,483,483,sí
+Segunda Divisão,Boavista,Silvino Nunes,MED,1929-12-03,Portugal,18 / 2,483,483,sí
+Segunda Divisão,Boavista,Joaquim Moura,DEL,1933-02-24,Portugal,15 / 3,481,487,sí
+Segunda Divisão,Boavista,Armando Fernandes,DEF,1930-10-09,Portugal,16 / 0,474,476,sí
+Segunda Divisão,Boavista,Abel Moura,DEF,1933-06-04,Portugal,16 / 0,474,483,sí
+Segunda Divisão,Boavista,Hermínio Fonseca,DEF,1936-09-24,Portugal,16 / 0,474,524,sí
+Segunda Divisão,Boavista,Mário Cruz,MED,1933-11-11,Portugal,16 / 1,474,477,sí
+Segunda Divisão,Boavista,Júlio Martins,DEF,1931-10-14,Portugal,15 / 0,469,477,sí
+Segunda Divisão,Boavista,Silvino Pinto,MED,1933-09-11,Portugal,15 / 1,469,486,sí
+Segunda Divisão,Boavista,Rui Sousa,DEF,1937-01-09,Portugal,14 / 0,464,476,sí
+Segunda Divisão,Boavista,Fausto Marques,DEF,1935-08-23,Portugal,12 / 0,455,484,sí
+Segunda Divisão,Boavista,Vítor Cunha,MED,1936-05-03,Portugal,12 / 1,455,473,sí
+Segunda Divisão,Boavista,João Costa,POR,1939-09-15,Portugal,15 / 0,439,492,sí
+Segunda Divisão,Boavista,Fausto Moreira,POR,1929-09-16,Portugal,7 / 0,432,432,sí
+Segunda Divisão,Boavista,António Valente,DEF,1931-03-08,Portugal,7 / 0,432,441,sí
+Segunda Divisão,Boavista,Germano Vieira,MED,1929-02-23,Portugal,7 / 0,432,432,sí
+Segunda Divisão,Boavista,Germano Tavares,MED,1930-10-15,Portugal,7 / 1,432,438,sí
+Segunda Divisão,Boavista,José Pires,DEL,1935-09-10,Portugal,2 / 1,410,423,sí
+Segunda Divisão,Boavista,Rui Valente,DEL,1938-09-25,Portugal,6 / 1,400,437,sí
+Segunda Divisão,Penafiel,Francisco Nunes,POR,1928-05-09,Portugal,24 / 0,474,474,sí
+Segunda Divisão,Penafiel,José Silva,MED,1934-06-10,Portugal,24 / 2,474,494,sí
+Segunda Divisão,Penafiel,Carlos Barbosa,DEF,1930-02-25,Portugal,22 / 0,465,465,sí
+Segunda Divisão,Penafiel,Humberto Almeida,DEF,1932-07-07,Portugal,20 / 0,456,457,sí
+Segunda Divisão,Penafiel,Ernesto Fonseca,MED,1933-05-12,Portugal,18 / 1,446,451,sí
+Segunda Divisão,Penafiel,Ernesto Antunes,DEL,1927-09-22,Portugal,13 / 3,434,434,sí
+Segunda Divisão,Penafiel,Vítor Araújo,DEF,1928-12-05,Portugal,15 / 0,433,433,sí
+Segunda Divisão,Penafiel,Humberto Sousa,DEL,1939-05-13,Portugal,19 / 3,433,439,sí
+Segunda Divisão,Penafiel,Gaspar Oliveira,DEL,1929-12-20,Portugal,11 / 3,425,425,sí
+Segunda Divisão,Penafiel,Augusto Cunha,MED,1933-04-23,Portugal,13 / 1,423,428,sí
+Segunda Divisão,Penafiel,Adelino Coelho,MED,1929-08-27,Portugal,12 / 1,419,419,sí
+Segunda Divisão,Penafiel,Henrique Tavares,MED,1934-02-11,Portugal,11 / 1,414,421,sí
+Segunda Divisão,Penafiel,João Fernandes,DEF,1938-10-24,Portugal,17 / 0,412,462,sí
+Segunda Divisão,Penafiel,Gaspar Antunes,DEF,1939-02-23,Portugal,14 / 0,398,413,sí
+Segunda Divisão,Penafiel,Gaspar Sequeira,DEF,1937-09-27,Portugal,7 / 0,396,422,sí
+Segunda Divisão,Penafiel,Armando Correia,DEL,1928-01-27,Portugal,6 / 1,394,394,sí
+Segunda Divisão,Penafiel,Alberto Pinto,POR,1927-10-20,Portugal,6 / 0,391,391,sí
+Segunda Divisão,Penafiel,Mário Ribeiro,DEF,1928-02-28,Portugal,5 / 0,386,386,sí
+Segunda Divisão,Penafiel,José Fonseca,POR,1939-06-27,Portugal,10 / 0,379,413,sí
+Segunda Divisão,Penafiel,Delfim Sequeira,DEL,1927-06-19,Portugal,3 / 0,377,377,sí
+Segunda Divisão,Penafiel,Vítor Coelho,MED,1938-11-02,Portugal,7 / 0,366,366,sí
+Segunda Divisão,Penafiel,Gaspar Sousa,DEL,1939-06-11,Portugal,7 / 0,366,425,sí
+Segunda Divisão,Sanjoanense,Ernesto Araújo,DEL,1932-02-04,Portugal,24 / 8,515,522,sí
+Segunda Divisão,Sanjoanense,Belmiro Fernandes,DEL,1929-06-28,Portugal,25 / 3,498,498,sí
+Segunda Divisão,Sanjoanense,Germano Barbosa,DEL,1927-10-05,Portugal,20 / 4,479,479,sí
+Segunda Divisão,Sanjoanense,Abel Santos,DEF,1937-09-15,Portugal,22 / 0,472,492,sí
+Segunda Divisão,Sanjoanense,José Brito,DEF,1933-08-09,Portugal,21 / 0,467,472,sí
+Segunda Divisão,Sanjoanense,Ernesto Gonçalves,DEF,1937-10-14,Portugal,20 / 0,462,487,sí
+Segunda Divisão,Sanjoanense,Henrique Matos,MED,1938-12-08,Portugal,26 / 2,460,461,sí
+Segunda Divisão,Sanjoanense,Gaspar Cunha,DEF,1930-02-26,Portugal,18 / 0,453,453,sí
+Segunda Divisão,Sanjoanense,Raul Sousa,DEF,1930-08-11,Portugal,15 / 0,439,439,sí
+Segunda Divisão,Sanjoanense,Jorge Antunes,DEF,1927-08-14,Portugal,14 / 0,435,435,sí
+Segunda Divisão,Sanjoanense,Luís Simões,DEL,1927-12-12,Portugal,9 / 4,425,425,sí
+Segunda Divisão,Sanjoanense,Vítor Almeida,MED,1934-07-12,Portugal,11 / 1,421,431,sí
+Segunda Divisão,Sanjoanense,Rogério Correia,DEL,1927-10-22,Portugal,8 / 3,416,416,sí
+Segunda Divisão,Sanjoanense,Domingos Fonseca,DEL,1928-04-06,Portugal,8 / 2,413,413,sí
+Segunda Divisão,Sanjoanense,Delfim Moura,DEF,1936-12-18,Portugal,9 / 0,412,440,sí
+Segunda Divisão,Sanjoanense,Carlos Simões,POR,1931-02-18,Portugal,8 / 0,407,408,sí
+Segunda Divisão,Sanjoanense,Gaspar Cruz,MED,1938-08-04,Portugal,7 / 1,402,441,sí
+Segunda Divisão,Sanjoanense,Ernesto Freitas,MED,1928-01-24,Portugal,7 / 1,402,402,sí
+Segunda Divisão,Sanjoanense,Feliciano Sousa,POR,1937-10-13,Portugal,4 / 0,389,414,sí
+Segunda Divisão,Sanjoanense,Germano Matos,MED,1932-03-27,Portugal,4 / 0,389,390,sí
+Segunda Divisão,Sanjoanense,Augusto Nunes,MED,1930-02-17,Portugal,3 / 0,384,384,sí
+Segunda Divisão,Sanjoanense,Armando Ribeiro,POR,1938-10-07,Portugal,7 / 0,372,417,sí
+Segunda Divisão,Peniche,Raul Ferreira,DEL,1937-06-04,Portugal,23 / 7,499,515,sí
+Segunda Divisão,Peniche,Vítor Lourenço,DEL,1930-12-15,Portugal,23 / 2,478,488,sí
+Segunda Divisão,Peniche,Jorge Castro,DEL,1930-12-02,Portugal,19 / 5,471,472,sí
+Segunda Divisão,Peniche,Belmiro Pereira,MED,1933-08-23,Portugal,23 / 2,469,476,sí
+Segunda Divisão,Peniche,Eduardo Reis,POR,1936-05-14,Portugal,20 / 0,456,476,sí
+Segunda Divisão,Peniche,Gaspar Teixeira,MED,1931-02-10,Portugal,18 / 2,446,449,sí
+Segunda Divisão,Peniche,Silvino Castro,DEF,1933-07-18,Portugal,17 / 0,442,446,sí
+Segunda Divisão,Peniche,Fausto Lopes,DEL,1933-11-07,Portugal,13 / 3,434,457,sí
+Segunda Divisão,Peniche,António Alves,MED,1930-06-24,Portugal,15 / 2,433,433,sí
+Segunda Divisão,Peniche,Rogério Costa,DEL,1936-09-27,Portugal,11 / 2,421,449,sí
+Segunda Divisão,Peniche,Hermínio Rodrigues,DEF,1937-05-10,Portugal,12 / 0,419,436,sí
+Segunda Divisão,Peniche,Vítor Lopes,MED,1928-01-18,Portugal,12 / 1,419,419,sí
+Segunda Divisão,Peniche,Domingos Cardoso,POR,1938-10-28,Portugal,17 / 0,412,415,sí
+Segunda Divisão,Peniche,Eduardo Fernandes,DEF,1928-07-02,Portugal,10 / 0,409,409,sí
+Segunda Divisão,Peniche,Francisco Valente,DEF,1929-11-07,Portugal,9 / 0,405,405,sí
+Segunda Divisão,Peniche,Júlio Castro,MED,1929-05-01,Portugal,9 / 1,405,405,sí
+Segunda Divisão,Peniche,Eduardo Ferreira,POR,1932-09-17,Portugal,8 / 0,400,403,sí
+Segunda Divisão,Peniche,Luís Carvalho,DEF,1936-01-17,Portugal,8 / 0,400,412,sí
+Segunda Divisão,Peniche,Américo Pereira,DEF,1937-08-01,Portugal,5 / 0,386,401,sí
+Segunda Divisão,Peniche,Jorge Correia,DEF,1928-04-27,Portugal,4 / 0,382,382,sí
+Segunda Divisão,Peniche,Mário Simões,MED,1930-06-20,Portugal,4 / 0,382,382,sí
+Segunda Divisão,Peniche,Custódio Moura,DEL,1939-12-18,Portugal,7 / 1,369,380,sí
+Segunda Divisão,Portimonense,Armando Matos,DEL,1935-10-15,Portugal,18 / 7,475,490,sí
+Segunda Divisão,Portimonense,Henrique Oliveira,POR,1933-07-24,Portugal,23 / 0,469,473,sí
+Segunda Divisão,Portimonense,Custódio Teixeira,DEF,1936-01-25,Portugal,22 / 0,465,471,sí
+Segunda Divisão,Portimonense,Vítor Reis,DEF,1937-08-12,Portugal,21 / 0,460,500,sí
+Segunda Divisão,Portimonense,Américo Simões,MED,1929-09-14,Portugal,21 / 2,460,460,sí
+Segunda Divisão,Portimonense,Manuel Gonçalves,POR,1928-06-24,Portugal,18 / 0,446,446,sí
+Segunda Divisão,Portimonense,Alberto Ribeiro,DEF,1932-04-22,Portugal,17 / 0,442,452,sí
+Segunda Divisão,Portimonense,Eduardo Brito,MED,1929-09-07,Portugal,17 / 2,442,442,sí
+Segunda Divisão,Portimonense,Joaquim Ferreira,MED,1937-04-03,Portugal,16 / 1,437,452,sí
+Segunda Divisão,Portimonense,Augusto Martins,DEL,1939-07-03,Portugal,18 / 4,433,460,sí
+Segunda Divisão,Portimonense,Raul Cardoso,DEL,1928-04-19,Portugal,10 / 4,423,423,sí
+Segunda Divisão,Portimonense,Jorge Brito,MED,1929-05-26,Portugal,12 / 1,419,419,sí
+Segunda Divisão,Portimonense,Arnaldo Gonçalves,DEL,1933-10-04,Portugal,10 / 2,416,437,sí
+Segunda Divisão,Portimonense,Arnaldo Machado,DEL,1928-06-26,Portugal,8 / 2,406,406,sí
+Segunda Divisão,Portimonense,Horácio Baptista,MED,1928-07-11,Portugal,9 / 0,405,405,sí
+Segunda Divisão,Portimonense,Júlio Soares,POR,1927-03-04,Portugal,8 / 0,400,400,sí
+Segunda Divisão,Portimonense,Américo Araújo,DEF,1934-11-08,Portugal,8 / 0,400,409,sí
+Segunda Divisão,Portimonense,Delfim Freitas,DEF,1931-12-01,Portugal,8 / 0,400,400,sí
+Segunda Divisão,Portimonense,Álvaro Simões,DEF,1932-01-16,Portugal,7 / 0,396,406,sí
+Segunda Divisão,Portimonense,Delfim Oliveira,DEL,1934-11-08,Portugal,6 / 2,396,398,sí
+Segunda Divisão,Portimonense,Alberto Martins,DEF,1935-02-23,Portugal,5 / 0,386,402,sí
+Segunda Divisão,Portimonense,Fernando Alves,MED,1930-01-01,Portugal,4 / 0,382,382,sí
+Segunda Divisão,Farense,Jorge Rocha,DEL,1930-04-02,Portugal,23 / 4,487,487,sí
+Segunda Divisão,Farense,João Marques,DEL,1935-04-15,Portugal,22 / 3,478,486,sí
+Segunda Divisão,Farense,Raul Santos,DEL,1939-07-09,Portugal,22 / 9,473,505,sí
+Segunda Divisão,Farense,Rogério Rocha,DEF,1937-04-23,Portugal,22 / 0,465,481,sí
+Segunda Divisão,Farense,Francisco Coelho,MED,1927-11-07,Portugal,22 / 2,465,465,sí
+Segunda Divisão,Farense,Raul Silva,POR,1937-12-09,Portugal,21 / 0,460,518,sí
+Segunda Divisão,Farense,Américo Oliveira,DEF,1935-09-21,Portugal,18 / 0,446,460,sí
+Segunda Divisão,Farense,Custódio Ramos,DEF,1932-11-13,Portugal,17 / 0,442,451,sí
+Segunda Divisão,Farense,José Cardoso,DEL,1932-06-22,Portugal,13 / 5,442,450,sí
+Segunda Divisão,Farense,Eduardo Neves,MED,1939-09-02,Portugal,21 / 2,430,440,sí
+Segunda Divisão,Farense,Ernesto Nunes,MED,1939-08-12,Portugal,18 / 1,416,464,sí
+Segunda Divisão,Farense,José Carvalho,DEF,1931-09-03,Portugal,10 / 0,409,410,sí
+Segunda Divisão,Farense,Luís Pires,DEL,1930-04-16,Portugal,8 / 1,403,403,sí
+Segunda Divisão,Farense,Horácio Pinto,DEF,1937-11-07,Portugal,8 / 0,400,442,sí
+Segunda Divisão,Farense,Raul Valente,DEF,1931-08-01,Portugal,8 / 0,400,405,sí
+Segunda Divisão,Farense,Adelino Teixeira,MED,1934-06-26,Portugal,6 / 1,391,406,sí
+Segunda Divisão,Farense,Domingos Soares,POR,1932-06-13,Portugal,5 / 0,386,393,sí
+Segunda Divisão,Farense,Arnaldo Carvalho,MED,1936-10-21,Portugal,4 / 0,382,440,sí
+Segunda Divisão,Farense,Álvaro Sousa,DEL,1931-03-11,Portugal,3 / 1,379,384,sí
+Segunda Divisão,Farense,Júlio Gonçalves,DEF,1930-06-20,Portugal,3 / 0,377,377,sí
+Segunda Divisão,Farense,Manuel Tavares,MED,1929-02-14,Portugal,3 / 0,377,377,sí
+Segunda Divisão,Farense,Henrique Barbosa,POR,1938-09-20,Portugal,8 / 0,370,384,sí
+Segunda Divisão,Chaves,Rui Moura,DEL,1928-03-20,Portugal,25 / 3,492,492,sí
+Segunda Divisão,Chaves,Júlio Valente,DEF,1938-03-20,Portugal,25 / 0,479,496,sí
+Segunda Divisão,Chaves,Delfim Cunha,DEL,1928-07-05,Portugal,19 / 5,471,471,sí
+Segunda Divisão,Chaves,Armando Baptista,MED,1928-03-18,Portugal,22 / 1,465,465,sí
+Segunda Divisão,Chaves,Domingos Ribeiro,DEL,1931-06-06,Portugal,19 / 3,463,468,sí
+Segunda Divisão,Chaves,Ernesto Brito,MED,1935-10-24,Portugal,21 / 2,460,486,sí
+Segunda Divisão,Chaves,Mário Correia,DEF,1938-07-17,Portugal,19 / 0,451,481,sí
+Segunda Divisão,Chaves,Fernando Tavares,DEF,1930-02-25,Portugal,19 / 0,451,451,sí
+Segunda Divisão,Chaves,Domingos Pinto,DEF,1933-01-18,Portugal,18 / 0,446,447,sí
+Segunda Divisão,Chaves,Vítor Simões,DEL,1931-12-19,Portugal,12 / 1,422,429,sí
+Segunda Divisão,Chaves,Adelino Monteiro,DEF,1935-09-18,Portugal,12 / 0,419,422,sí
+Segunda Divisão,Chaves,Humberto Martins,MED,1931-12-14,Portugal,12 / 1,419,424,sí
+Segunda Divisão,Chaves,Henrique Silva,DEL,1930-05-05,Portugal,10 / 1,413,413,sí
+Segunda Divisão,Chaves,João Gomes,POR,1928-02-27,Portugal,10 / 0,409,409,sí
+Segunda Divisão,Chaves,Adelino Ribeiro,DEL,1938-08-23,Portugal,8 / 3,409,469,sí
+Segunda Divisão,Chaves,Augusto Fonseca,MED,1933-06-06,Portugal,7 / 1,396,397,sí
+Segunda Divisão,Chaves,Vítor Brito,POR,1928-02-09,Portugal,5 / 0,386,386,sí
+Segunda Divisão,Chaves,Francisco Mendes,MED,1936-10-21,Portugal,5 / 0,386,430,sí
+Segunda Divisão,Chaves,Belmiro Rocha,POR,1932-08-25,Portugal,3 / 0,377,383,sí
+Segunda Divisão,Chaves,Fernando Ramos,DEF,1929-08-21,Portugal,3 / 0,377,377,sí
+Segunda Divisão,Chaves,Álvaro Moreira,MED,1936-03-12,Portugal,3 / 0,377,397,sí
+Segunda Divisão,Chaves,Domingos Freitas,DEF,1938-10-09,Portugal,8 / 0,370,405,sí
+Segunda Divisão,Montijo,António Castro,DEL,1937-10-11,Portugal,20 / 2,464,489,sí
+Segunda Divisão,Montijo,Fernando Rocha,DEL,1937-08-01,Portugal,16 / 6,461,479,sí
+Segunda Divisão,Montijo,Carlos Baptista,DEL,1933-06-01,Portugal,17 / 3,454,459,sí
+Segunda Divisão,Montijo,Francisco Ramos,DEF,1936-11-16,Portugal,19 / 0,451,506,sí
+Segunda Divisão,Montijo,Henrique Soares,MED,1934-06-09,Portugal,19 / 2,451,477,sí
+Segunda Divisão,Montijo,Jorge Araújo,POR,1928-03-25,Portugal,17 / 0,442,442,sí
+Segunda Divisão,Montijo,António Reis,POR,1938-01-11,Portugal,17 / 0,442,498,sí
+Segunda Divisão,Montijo,Armando Cardoso,MED,1936-10-18,Portugal,17 / 1,442,449,sí
+Segunda Divisão,Montijo,Américo Sousa,DEF,1934-05-19,Portugal,16 / 0,437,450,sí
+Segunda Divisão,Montijo,Augusto Machado,DEL,1933-10-05,Portugal,15 / 1,436,449,sí
+Segunda Divisão,Montijo,Álvaro Monteiro,DEL,1939-01-20,Portugal,15 / 6,426,444,sí
+Segunda Divisão,Montijo,Joaquim Neves,MED,1930-07-25,Portugal,13 / 1,423,423,sí
+Segunda Divisão,Montijo,Júlio Sequeira,MED,1936-02-06,Portugal,13 / 1,423,426,sí
+Segunda Divisão,Montijo,Vítor Alves,DEF,1938-11-09,Portugal,18 / 0,416,463,sí
+Segunda Divisão,Montijo,Jorge Martins,MED,1936-12-15,Portugal,9 / 1,405,444,sí
+Segunda Divisão,Montijo,Joaquim Nunes,POR,1936-05-26,Portugal,7 / 0,396,398,sí
+Segunda Divisão,Montijo,Artur Ferreira,DEF,1938-05-07,Portugal,7 / 0,396,402,sí
+Segunda Divisão,Montijo,Júlio Tavares,DEF,1930-12-19,Portugal,7 / 0,396,406,sí
+Segunda Divisão,Montijo,Júlio Correia,DEF,1938-09-15,Portugal,13 / 0,393,445,sí
+Segunda Divisão,Montijo,Feliciano Pires,DEL,1933-07-13,Portugal,5 / 2,391,400,sí
+Segunda Divisão,Montijo,Artur Moreira,DEF,1927-02-16,Portugal,4 / 0,382,382,sí
+Segunda Divisão,Montijo,Joaquim Valente,MED,1932-05-28,Portugal,3 / 0,377,380,sí
+Segunda Divisão,Oliveirense,Joaquim Marques,DEL,1934-01-24,Portugal,17 / 6,472,486,sí
+Segunda Divisão,Oliveirense,Rogério Moreira,DEF,1933-05-03,Portugal,21 / 0,467,477,sí
+Segunda Divisão,Oliveirense,Eduardo Martins,DEF,1938-07-06,Portugal,21 / 0,467,474,sí
+Segunda Divisão,Oliveirense,Luís Rocha,MED,1932-04-14,Portugal,21 / 1,467,470,sí
+Segunda Divisão,Oliveirense,António Machado,DEL,1928-09-15,Portugal,16 / 5,463,463,sí
+Segunda Divisão,Oliveirense,Manuel Martins,DEL,1933-10-23,Portugal,15 / 1,443,471,sí
+Segunda Divisão,Oliveirense,Américo Fonseca,DEF,1939-07-13,Portugal,21 / 0,437,464,sí
+Segunda Divisão,Oliveirense,Francisco Neves,DEL,1927-10-14,Portugal,12 / 3,436,436,sí
+Segunda Divisão,Oliveirense,Raul Brito,MED,1935-01-16,Portugal,14 / 1,435,439,sí
+Segunda Divisão,Oliveirense,Silvino Ribeiro,POR,1927-10-03,Portugal,13 / 0,430,430,sí
+Segunda Divisão,Oliveirense,Augusto Matos,DEL,1928-09-27,Portugal,12 / 1,429,429,sí
+Segunda Divisão,Oliveirense,Vítor Cardoso,POR,1930-01-17,Portugal,12 / 0,425,425,sí
+Segunda Divisão,Oliveirense,Artur Gonçalves,DEL,1930-03-14,Portugal,10 / 1,420,420,sí
+Segunda Divisão,Oliveirense,Silvino Ramos,DEF,1934-12-07,Portugal,10 / 0,416,430,sí
+Segunda Divisão,Oliveirense,Gaspar Simões,MED,1929-01-13,Portugal,10 / 1,416,416,sí
+Segunda Divisão,Oliveirense,Artur Marques,MED,1930-05-16,Portugal,10 / 1,416,416,sí
+Segunda Divisão,Oliveirense,Jaime Alves,MED,1939-05-04,Portugal,16 / 2,414,441,sí
+Segunda Divisão,Oliveirense,Feliciano Lopes,POR,1939-04-01,Portugal,14 / 0,405,463,sí
+Segunda Divisão,Oliveirense,Mário Moura,DEF,1928-11-16,Portugal,6 / 0,398,398,sí
+Segunda Divisão,Oliveirense,Mário Mendes,DEF,1929-04-20,Portugal,5 / 0,393,393,sí
+Segunda Divisão,Oliveirense,Abel Ferreira,MED,1932-07-04,Portugal,4 / 0,389,393,sí
+Segunda Divisão,Oliveirense,Humberto Brito,DEF,1939-09-07,Portugal,6 / 0,368,398,sí
+Segunda Divisão,Oriental,José Gomes,DEL,1930-03-25,Portugal,22 / 6,522,522,sí
+Segunda Divisão,Oriental,Ernesto Barbosa,DEL,1932-04-01,Portugal,18 / 5,498,501,sí
+Segunda Divisão,Oriental,Artur Pires,DEL,1938-06-17,Portugal,19 / 3,495,545,sí
+Segunda Divisão,Oriental,Carlos Pires,DEF,1935-07-11,Portugal,19 / 0,482,483,sí
+Segunda Divisão,Oriental,Feliciano Almeida,MED,1938-08-14,Portugal,18 / 1,478,478,sí
+Segunda Divisão,Oriental,Álvaro Pereira,DEL,1936-01-23,Portugal,14 / 5,478,492,sí
+Segunda Divisão,Oriental,Francisco Ribeiro,POR,1928-12-04,Portugal,17 / 0,473,473,sí
+Segunda Divisão,Oriental,Jorge Cardoso,DEF,1931-06-01,Portugal,17 / 0,473,483,sí
+Segunda Divisão,Oriental,Luís Neves,DEF,1932-06-28,Portugal,17 / 0,473,480,sí
+Segunda Divisão,Oriental,José Sequeira,MED,1936-06-24,Portugal,17 / 2,473,476,sí
+Segunda Divisão,Oriental,António Matos,MED,1939-06-15,Portugal,22 / 1,466,475,sí
+Segunda Divisão,Oriental,Carlos Reis,DEF,1938-01-06,Portugal,15 / 0,464,478,sí
+Segunda Divisão,Oriental,Custódio Coelho,DEF,1936-01-05,Portugal,13 / 0,455,469,sí
+Segunda Divisão,Oriental,Adelino Sequeira,DEF,1932-01-01,Portugal,12 / 0,450,453,sí
+Segunda Divisão,Oriental,Adelino Cardoso,DEL,1928-12-15,Portugal,8 / 2,438,438,sí
+Segunda Divisão,Oriental,Humberto Ferreira,POR,1930-02-10,Portugal,9 / 0,436,436,sí
+Segunda Divisão,Oriental,Álvaro Valente,MED,1932-07-14,Portugal,9 / 1,436,442,sí
+Segunda Divisão,Oriental,Armando Lopes,POR,1927-11-02,Portugal,6 / 0,422,422,sí
+Segunda Divisão,Oriental,Custódio Fernandes,MED,1936-06-15,Portugal,6 / 1,422,430,sí
+Segunda Divisão,Oriental,Rui Matos,DEL,1932-02-28,Portugal,4 / 2,418,418,sí
+Segunda Divisão,Oriental,Jorge Moura,MED,1929-01-08,Portugal,4 / 0,413,413,sí
+Segunda Divisão,Oriental,Horácio Valente,DEF,1939-01-11,Portugal,4 / 0,383,435,sí
+Segunda Divisão,Tirsense,Horácio Moura,POR,1934-06-10,Portugal,21 / 0,460,478,sí
+Segunda Divisão,Tirsense,Mário Antunes,DEF,1929-09-13,Portugal,20 / 0,456,456,sí
+Segunda Divisão,Tirsense,Humberto Teixeira,MED,1930-07-04,Portugal,20 / 2,456,456,sí
+Segunda Divisão,Tirsense,Belmiro Moura,DEL,1930-08-16,Portugal,17 / 3,454,454,sí
+Segunda Divisão,Tirsense,Mário Lopes,DEF,1930-09-01,Portugal,18 / 0,446,446,sí
+Segunda Divisão,Tirsense,Humberto Fonseca,DEL,1929-01-06,Portugal,15 / 3,444,444,sí
+Segunda Divisão,Tirsense,Abel Soares,POR,1931-11-20,Portugal,17 / 0,442,443,sí
+Segunda Divisão,Tirsense,Henrique Correia,DEF,1930-09-01,Portugal,17 / 0,442,442,sí
+Segunda Divisão,Tirsense,Germano Simões,MED,1934-04-14,Portugal,15 / 2,433,447,sí
+Segunda Divisão,Tirsense,Fernando Cunha,MED,1936-07-05,Portugal,15 / 1,433,446,sí
+Segunda Divisão,Tirsense,Horácio Ramos,DEL,1938-10-21,Portugal,18 / 2,424,450,sí
+Segunda Divisão,Tirsense,José Coelho,POR,1934-11-05,Portugal,13 / 0,423,429,sí
+Segunda Divisão,Tirsense,Feliciano Ribeiro,DEF,1937-11-12,Portugal,11 / 0,414,455,sí
+Segunda Divisão,Tirsense,Silvino Ferreira,DEF,1938-05-02,Portugal,10 / 0,409,418,sí
+Segunda Divisão,Tirsense,Artur Costa,MED,1927-07-05,Portugal,10 / 1,409,409,sí
+Segunda Divisão,Tirsense,Francisco Moura,DEL,1932-12-08,Portugal,8 / 3,409,416,sí
+Segunda Divisão,Tirsense,Júlio Freitas,DEF,1931-03-24,Portugal,8 / 0,400,400,sí
+Segunda Divisão,Tirsense,Feliciano Matos,MED,1930-02-27,Portugal,7 / 1,396,396,sí
+Segunda Divisão,Tirsense,Alberto Festa,DEF,1939-07-21,Portugal,13 / 0,393,423,no
+Segunda Divisão,Tirsense,Álvaro Mendes,DEL,1936-06-05,Portugal,5 / 2,391,411,sí
+Segunda Divisão,Tirsense,Júlio Lopes,DEL,1928-03-28,Portugal,5 / 2,391,391,sí
+Segunda Divisão,Tirsense,José Almeida,MED,1938-12-14,Portugal,7 / 1,366,409,sí
+Segunda Divisão,Vila Real,Jaime Lopes,DEL,1934-09-08,Portugal,19 / 3,463,486,sí
+Segunda Divisão,Vila Real,Fernando Oliveira,DEL,1931-05-25,Portugal,15 / 4,448,450,sí
+Segunda Divisão,Vila Real,Custódio Sequeira,DEF,1936-12-13,Portugal,18 / 0,446,465,sí
+Segunda Divisão,Vila Real,Eduardo Vieira,DEF,1932-07-14,Portugal,18 / 0,446,456,sí
+Segunda Divisão,Vila Real,Fernando Correia,MED,1931-09-12,Portugal,18 / 2,446,448,sí
+Segunda Divisão,Vila Real,Raul Lourenço,DEF,1932-12-20,Portugal,17 / 0,442,451,sí
+Segunda Divisão,Vila Real,Raul Ribeiro,MED,1938-02-25,Portugal,17 / 1,442,497,sí
+Segunda Divisão,Vila Real,Artur Rocha,MED,1935-06-07,Portugal,16 / 1,437,457,sí
+Segunda Divisão,Vila Real,Fernando Rodrigues,MED,1939-05-15,Portugal,22 / 2,435,443,sí
+Segunda Divisão,Vila Real,Gaspar Martins,DEL,1933-06-10,Portugal,13 / 2,431,433,sí
+Segunda Divisão,Vila Real,Domingos Gonçalves,DEL,1938-08-22,Portugal,12 / 3,429,489,sí
+Segunda Divisão,Vila Real,Abel Gonçalves,POR,1932-03-07,Portugal,13 / 0,423,431,sí
+Segunda Divisão,Vila Real,Luís Lourenço,MED,1938-05-19,Portugal,13 / 1,423,424,sí
+Segunda Divisão,Vila Real,Feliciano Coelho,POR,1936-01-06,Portugal,12 / 0,419,431,sí
+Segunda Divisão,Vila Real,Delfim Mendes,DEL,1939-07-06,Portugal,16 / 3,419,423,sí
+Segunda Divisão,Vila Real,Ernesto Teixeira,DEF,1930-08-15,Portugal,10 / 0,409,409,sí
+Segunda Divisão,Vila Real,Álvaro Araújo,DEF,1928-12-05,Portugal,9 / 0,405,405,sí
+Segunda Divisão,Vila Real,Jaime Silva,DEF,1927-10-14,Portugal,9 / 0,405,405,sí
+Segunda Divisão,Vila Real,Silvino Santos,DEF,1929-03-07,Portugal,7 / 0,396,396,sí
+Segunda Divisão,Vila Real,Arnaldo Araújo,MED,1928-08-23,Portugal,6 / 1,391,391,sí
+Segunda Divisão,Vila Real,Arnaldo Fernandes,POR,1931-01-12,Portugal,4 / 0,382,384,sí
+Segunda Divisão,Vila Real,António Lopes,DEL,1932-07-03,Portugal,4 / 0,382,384,sí
+Segunda Divisão,Almada,Joaquim Cruz,POR,1937-08-26,Portugal,24 / 0,474,506,sí
+Segunda Divisão,Almada,Henrique Teixeira,DEF,1929-12-12,Portugal,24 / 0,474,474,sí
+Segunda Divisão,Almada,Joaquim Reis,MED,1929-01-19,Portugal,23 / 3,469,469,sí
+Segunda Divisão,Almada,Ernesto Rocha,DEF,1932-07-12,Portugal,20 / 0,456,466,sí
+Segunda Divisão,Almada,Arnaldo Gomes,DEL,1927-06-04,Portugal,15 / 5,452,452,sí
+Segunda Divisão,Almada,Domingos Araújo,DEL,1939-01-06,Portugal,21 / 5,451,487,sí
+Segunda Divisão,Almada,Carlos Costa,DEF,1930-08-28,Portugal,16 / 0,437,437,sí
+Segunda Divisão,Almada,Ernesto Alves,MED,1936-12-17,Portugal,16 / 2,437,491,sí
+Segunda Divisão,Almada,Delfim Vieira,MED,1938-04-18,Portugal,14 / 1,428,478,sí
+Segunda Divisão,Almada,Armando Reis,POR,1928-01-04,Portugal,13 / 0,423,423,sí
+Segunda Divisão,Almada,Rogério Brito,DEL,1934-11-13,Portugal,9 / 3,415,425,sí
+Segunda Divisão,Almada,Carlos Pereira,POR,1928-06-13,Portugal,11 / 0,414,414,sí
+Segunda Divisão,Almada,Jaime Marques,DEF,1932-05-21,Portugal,11 / 0,414,421,sí
+Segunda Divisão,Almada,Artur Antunes,MED,1933-07-24,Portugal,11 / 1,414,421,sí
+Segunda Divisão,Almada,Manuel Lourenço,DEL,1930-12-05,Portugal,9 / 1,408,411,sí
+Segunda Divisão,Almada,Fausto Oliveira,MED,1928-03-21,Portugal,9 / 1,405,405,sí
+Segunda Divisão,Almada,Augusto Araújo,DEL,1937-10-07,Portugal,7 / 1,399,455,sí
+Segunda Divisão,Almada,Raul Alves,DEF,1939-04-02,Portugal,14 / 0,398,447,sí
+Segunda Divisão,Almada,Álvaro Brito,MED,1927-11-24,Portugal,6 / 0,391,391,sí
+Segunda Divisão,Almada,Jaime Mendes,DEF,1937-05-07,Portugal,5 / 0,386,418,sí
+Segunda Divisão,Almada,Augusto Ferreira,DEL,1933-02-16,Portugal,4 / 0,382,391,sí
+Segunda Divisão,Almada,Álvaro Matos,DEF,1933-11-22,Portugal,3 / 0,377,386,sí
+Segunda Divisão,Juventude de Évora,Jorge Ribeiro,DEL,1936-02-24,Portugal,20 / 4,472,478,sí
+Segunda Divisão,Juventude de Évora,Artur Barbosa,DEL,1932-02-24,Portugal,19 / 4,467,477,sí
+Segunda Divisão,Juventude de Évora,Jaime Fonseca,MED,1927-07-21,Portugal,19 / 2,451,451,sí
+Segunda Divisão,Juventude de Évora,Jorge Ferreira,DEL,1936-02-16,Portugal,18 / 1,450,452,sí
+Segunda Divisão,Juventude de Évora,Joaquim Cunha,POR,1935-11-05,Portugal,18 / 0,446,461,sí
+Segunda Divisão,Juventude de Évora,Augusto Teixeira,MED,1928-11-11,Portugal,18 / 1,446,446,sí
+Segunda Divisão,Juventude de Évora,Artur Pinto,DEF,1933-10-12,Portugal,14 / 0,428,439,sí
+Segunda Divisão,Juventude de Évora,Vítor Tavares,DEF,1933-03-01,Portugal,14 / 0,428,432,sí
+Segunda Divisão,Juventude de Évora,Domingos Neves,DEF,1930-07-14,Portugal,14 / 0,428,428,sí
+Segunda Divisão,Juventude de Évora,Abel Fernandes,DEF,1938-06-04,Portugal,13 / 0,423,423,sí
+Segunda Divisão,Juventude de Évora,Silvino Cruz,DEF,1934-12-17,Portugal,12 / 0,419,441,sí
+Segunda Divisão,Juventude de Évora,Álvaro Soares,DEL,1932-02-08,Portugal,11 / 1,418,428,sí
+Segunda Divisão,Juventude de Évora,Belmiro Martins,DEF,1939-09-22,Portugal,18 / 0,416,424,sí
+Segunda Divisão,Juventude de Évora,Feliciano Neves,DEF,1927-08-22,Portugal,10 / 0,409,409,sí
+Segunda Divisão,Juventude de Évora,Rogério Castro,MED,1932-08-18,Portugal,10 / 1,409,413,sí
+Segunda Divisão,Juventude de Évora,Arnaldo Pires,MED,1928-03-27,Portugal,10 / 1,409,409,sí
+Segunda Divisão,Juventude de Évora,Custódio Oliveira,MED,1931-07-02,Portugal,9 / 1,405,413,sí
+Segunda Divisão,Juventude de Évora,Domingos Nunes,DEL,1939-04-12,Portugal,14 / 2,405,440,sí
+Segunda Divisão,Juventude de Évora,Júlio Carvalho,POR,1929-09-21,Portugal,8 / 0,400,400,sí
+Segunda Divisão,Juventude de Évora,Custódio Moreira,POR,1930-11-23,Portugal,7 / 0,396,398,sí
+Segunda Divisão,Juventude de Évora,António Rodrigues,MED,1929-11-25,Portugal,6 / 1,391,391,sí
+Segunda Divisão,Juventude de Évora,Silvino Gonçalves,DEL,1929-09-10,Portugal,4 / 1,384,384,sí

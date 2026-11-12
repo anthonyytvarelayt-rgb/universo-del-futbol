@@ -1,0 +1,12 @@
+temporada,club,ciudad,estadio,color1,color2,prestigio,nota
+1959-60,Mantova,Mantova,Stadio Danilo Martelli,#E2001A,#FFFFFF,300,"prestigio calculado con su historial (0 temporadas en A y 0 en B hasta 1958); la fórmula daba 250, se sube al mínimo de 300 para clubes recién ascendidos"
+1959-60,Catanzaro,Catanzaro,Stadio Comunale,#FFD700,#A6192E,300,"prestigio calculado con su historial (0 temporadas en A y 2 en B hasta 1958); la fórmula daba 250, se sube al mínimo de 300 para clubes recién ascendidos"
+1960-61,Prato,Prato,Stadio Comunale,#1E5AA8,#FFFFFF,306,vuelve tras bajar a Serie C; ya está en italia-clubes-1958-59.csv
+1960-61,Pro Patria,Busto Arsizio,Stadio Carlo Speroni,#0A3D91,#FFFFFF,451,prestigio calculado con su historial (12 temporadas en A y 7 en B hasta 1958)
+1960-61,Foggia,Foggia,Stadio Pino Zaccheria,#E2001A,#000000,300,"prestigio calculado con su historial (0 temporadas en A y 1 en B hasta 1958); la fórmula daba 250, se sube al mínimo de 300 para clubes recién ascendidos"
+1961-62,Lucchese,Lucca,Stadio Porta Elisa,#E2001A,#000000,372,prestigio calculado con su historial (8 temporadas en A y 7 en B hasta 1958)
+1961-62,Modena,Modena,Stadio Alberto Braglia,#FFD700,#0A3D91,457,vuelve tras bajar a Serie C; ya está en italia-clubes-1958-59.csv
+1961-62,Cosenza,Cosenza,Stadio Città di Cosenza,#E2001A,#0A3D91,300,"prestigio calculado con su historial (0 temporadas en A y 0 en B hasta 1958); la fórmula daba 250, se sube al mínimo de 300 para clubes recién ascendidos"
+1962-63,Cagliari,Cagliari,Stadio Amsicora,#A6192E,#002147,367,vuelve tras bajar a Serie C; ya está en italia-clubes-1958-59.csv
+1962-63,Triestina,Trieste,Stadio Comunale,#E2001A,#FFFFFF,568,vuelve tras bajar a Serie C; ya está en italia-clubes-1958-59.csv
+1962-63,Foggia,Foggia,Stadio Pino Zaccheria,#E2001A,#000000,300,"prestigio calculado con su historial (0 temporadas en A y 1 en B hasta 1958); la fórmula daba 250, se sube al mínimo de 300 para clubes recién ascendidos"

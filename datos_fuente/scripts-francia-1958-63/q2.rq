@@ -1,0 +1,12 @@
+SELECT ?p ?pLabel ?birth ?natLabel ?posLabel ?art ?club ?s ?e WHERE {
+  VALUES ?club { wd:Q192071 wd:Q132885 wd:Q19512 wd:Q209509 wd:Q126334 wd:Q172476 wd:Q19509 wd:Q19513 wd:Q19516 wd:Q704 wd:Q522283 wd:Q208228 wd:Q19521 wd:Q212269 wd:Q221525 wd:Q2422417 wd:Q1056987 wd:Q1387308 wd:Q1515369 wd:Q1474354 wd:Q982889 wd:Q608988 wd:Q730809 wd:Q845137 wd:Q867320 wd:Q442657 wd:Q185163 wd:Q298188 wd:Q3000537 wd:Q501693 wd:Q191843 wd:Q1387406 wd:Q1024190 wd:Q1757655 wd:Q298267 wd:Q328658 wd:Q1022931 wd:Q940001 }
+  ?p p:P54 ?st . ?st ps:P54 ?club ; pq:P580 ?s .
+  OPTIONAL { ?st pq:P582 ?e }
+  FILTER(YEAR(?s)>=1959 && YEAR(?s)<=1962)
+  ?p wdt:P31 wd:Q5 .
+  OPTIONAL { ?p wdt:P569 ?birth }
+  OPTIONAL { ?p wdt:P1532 ?nat }
+  OPTIONAL { ?p wdt:P413 ?pos }
+  OPTIONAL { ?art schema:about ?p ; schema:isPartOf <https://fr.wikipedia.org/> }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}

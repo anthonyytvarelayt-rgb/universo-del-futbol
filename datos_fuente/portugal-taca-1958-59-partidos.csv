@@ -1,0 +1,50 @@
+ronda,fecha,local,goles_local,goles_visitante,visitante,prorroga
+1.ª ronda (ida),1959-05-03,Peniche,1,1,Belenenses,no
+1.ª ronda (vuelta),1959-05-10,Belenenses,4,0,Peniche,no
+1.ª ronda (ida),1959-05-03,Caldas,0,0,Tirsense,no
+1.ª ronda (vuelta),1959-05-10,Tirsense,1,0,Caldas,no
+1.ª ronda (ida),1959-05-03,Oriental,2,2,Atlético CP,no
+1.ª ronda (vuelta),1959-05-10,Atlético CP,5,0,Oriental,no
+1.ª ronda (ida),1959-05-03,Lusitano de Évora,6,1,Oliveirense,no
+1.ª ronda (vuelta),1959-05-10,Oliveirense,1,2,Lusitano de Évora,no
+1.ª ronda (ida),1959-05-03,Juventude de Évora,1,1,Vitória de Guimarães,no
+1.ª ronda (vuelta),1959-05-10,Vitória de Guimarães,7,2,Juventude de Évora,no
+1.ª ronda (ida),1959-05-03,Portimonense,2,3,Académica,no
+1.ª ronda (vuelta),1959-05-10,Académica,1,0,Portimonense,no
+1.ª ronda (ida),1959-05-03,Vila Real,3,1,Almada,no
+1.ª ronda (vuelta),1959-05-10,Almada,0,2,Vila Real,no
+1.ª ronda (ida),1959-05-03,Torreense,2,2,Chaves,no
+1.ª ronda (vuelta),1959-05-10,Chaves,1,3,Torreense,no
+1.ª ronda (ida),1959-05-03,Sporting de Portugal,3,0,Leixões,no
+1.ª ronda (vuelta),1959-05-10,Leixões,2,1,Sporting de Portugal,no
+1.ª ronda (ida),1959-05-03,Covilhã,2,2,Benfica,no
+1.ª ronda (vuelta),1959-05-10,Benfica,2,0,Covilhã,no
+1.ª ronda (ida),1959-05-03,Braga,7,3,Montijo,no
+1.ª ronda (vuelta),1959-05-10,Montijo,1,2,Braga,no
+1.ª ronda (ida),1959-05-03,Oporto,7,1,Vitória de Setúbal,no
+1.ª ronda (vuelta),1959-05-10,Vitória de Setúbal,3,2,Oporto,no
+Octavos (ida),1959-05-24,Vila Real,0,1,Oporto,no
+Octavos (vuelta),1959-05-28,Oporto,6,1,Vila Real,no
+Octavos (ida),1959-05-24,Benfica,4,0,Tirsense,no
+Octavos (vuelta),1959-05-28,Tirsense,0,3,Benfica,no
+Octavos (ida),1959-05-24,Braga,4,0,Vitória de Guimarães,no
+Octavos (vuelta),1959-05-28,Vitória de Guimarães,2,0,Braga,no
+Octavos (ida),1959-05-24,Académica,3,1,Sporting de Portugal,no
+Octavos (vuelta),1959-05-28,Sporting de Portugal,3,0,Académica,no
+Octavos (ida),1959-05-24,Torreense,1,2,Lusitano de Évora,no
+Octavos (vuelta),1959-05-28,Lusitano de Évora,1,1,Torreense,no
+Octavos (ida),1959-05-24,Atlético CP,0,4,Belenenses,no
+Octavos (vuelta),1959-05-28,Belenenses,4,2,Atlético CP,no
+Cuartos (ida),1959-06-29,Lusitano de Évora,3,1,Marítimo,no
+Cuartos (vuelta),1959-07-05,Marítimo,1,3,Lusitano de Évora,no
+Cuartos (ida),1959-06-29,Ferroviário de Lourenço Marques,0,9,Oporto,no
+Cuartos (vuelta),1959-07-05,Oporto,7,0,Ferroviário de Lourenço Marques,no
+Cuartos (ida),1959-06-29,Belenenses,3,1,Benfica,no
+Cuartos (vuelta),1959-07-05,Benfica,3,0,Belenenses,no
+Cuartos (ida),1959-06-29,Sporting de Portugal,6,2,Braga,no
+Cuartos (vuelta),1959-07-05,Braga,1,3,Sporting de Portugal,no
+Semifinal (ida),1959-07-08,Lusitano de Évora,0,3,Oporto,no
+Semifinal (vuelta),1959-07-12,Oporto,7,1,Lusitano de Évora,no
+Semifinal (ida),1959-07-08,Sporting de Portugal,2,1,Benfica,no
+Semifinal (vuelta),1959-07-12,Benfica,3,1,Sporting de Portugal,no
+Final,1959-07-19,Benfica,1,0,Oporto,no

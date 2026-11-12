@@ -1,0 +1,45 @@
+{
+  "fecha_revision": "2026-10-23",
+  "pais": "España",
+  "division": 1,
+  "ediciones_completas": 93,
+  "primera": "1930-31",
+  "ultima": "2025-26",
+  "filas": 1622,
+  "clubes_distintos": 63,
+  "no_disputadas": [
+    1936,
+    1937,
+    1938
+  ],
+  "en_curso": [
+    2026
+  ],
+  "temporadas_disputadas_faltantes": [],
+  "campeones_contrastados": 93,
+  "fuente_del_contraste": "RSSSF (misma organización; no independiente)",
+  "clubes_sin_ficha_en_base": [
+    "AD Almería",
+    "Alcoyano",
+    "Arenas de Getxo",
+    "Atlético Tetuán",
+    "Compostela",
+    "Eibar",
+    "Europa",
+    "Getafe",
+    "Gimnàstic de Tarragona",
+    "Huesca",
+    "Leganés",
+    "Lleida",
+    "Logroñés",
+    "Málaga CF",
+    "Mérida CP",
+    "Numancia",
+    "Real Burgos",
+    "UD Almería",
+    "Villarreal",
+    "Xerez"
+  ],
+  "motor_modificado": false,
+  "errores_estructurales": 0
+}

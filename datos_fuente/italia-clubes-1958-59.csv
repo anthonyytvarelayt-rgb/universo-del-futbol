@@ -1,0 +1,39 @@
+club,ciudad,estadio,color1,color2,prestigio
+Juventus,Torino,Stadio Comunale di Torino,#FFFFFF,#000000,950
+Inter,Milano,Stadio San Siro,#0068A8,#000000,883
+Milan,Milano,Stadio San Siro,#FB090B,#000000,868
+Bologna,Bologna,Stadio Comunale,#A21C26,#1A2F48,826
+Torino,Torino,Stadio Comunale di Torino,#881F19,#FFFFFF,808
+Fiorentina,Firenze,Stadio Comunale,#5B2A86,#FFFFFF,741
+Genoa,Genova,Stadio Comunale,#A6192E,#002147,733
+Roma,Roma,Stadio dei Centomila,#8E1F2F,#F0BC42,690
+Lazio,Roma,Stadio dei Centomila,#87D8F7,#FFFFFF,643
+Napoli,Napoli,Stadio San Paolo,#12A0D7,#FFFFFF,598
+Triestina,Trieste,Stadio Comunale,#E2001A,#FFFFFF,568
+Udinese,Udine,Stadio Moretti,#FFFFFF,#000000,559
+Padova,Padova,Stadio Silvio Appiani,#FFFFFF,#C8102E,552
+Sampdoria,Genova,Stadio Comunale,#1B5497,#FFFFFF,545
+SPAL,Ferrara,Stadio Comunale,#6CACE4,#FFFFFF,523
+Vicenza,Vicenza,Stadio Romeo Menti,#E2001A,#FFFFFF,520
+Alessandria,Alessandria,Stadio Comunale,#8C8C8C,#FFFFFF,489
+Bari,Bari,Stadio della Vittoria,#FFFFFF,#E30613,445
+Atalanta,Bergamo,Stadio Comunale,#1E71B8,#000000,541
+Novara,Novara,Stadio Comunale,#2B65EC,#FFFFFF,489
+Palermo,Palermo,Stadio La Favorita,#F7A8C0,#000000,475
+Modena,Modena,Stadio Alberto Braglia,#FFD700,#0A3D91,457
+Brescia,Brescia,Stadium di viale Piave,#0A3D91,#FFFFFF,442
+Verona,Verona,Stadio Marcantonio Bentegodi,#FFDD00,#003DA5,437
+Venezia,Venezia,Stadio Pierluigi Penzo,#00703C,#000000,434
+Como,Como,Stadio Giuseppe Sinigaglia,#0A3E8C,#FFFFFF,419
+Catania,Catania,Stadio Cibali,#E2001A,#1E5AA8,416
+Monza,Monza,Stadio Gino Alfonso Sada,#E2001A,#FFFFFF,385
+Marzotto Valdagno,Valdagno,Stadio dei Fiori,#FFFFFF,#1E5AA8,377
+Cagliari,Cagliari,Stadio Amsicora,#A6192E,#002147,367
+Messina,Messina,Stadio Giovanni Celeste,#FFD700,#E2001A,359
+Taranto,Taranto,Stadio Valentino Mazzola,#E2001A,#1E3C8C,343
+Parma,Parma,Stadio Ennio Tardini,#FFFFFF,#000000,325
+Prato,Prato,Stadio Comunale,#1E5AA8,#FFFFFF,306
+Vigevano,Vigevano,Stadio Comunale,#FFFFFF,#E2001A,289
+Sambenedettese,San Benedetto del Tronto,Stadio Fratelli Ballarin,#E2001A,#0A3D91,281
+Reggiana,Reggio Emilia,Stadio Comunale Mirabello,#7A1E2C,#FFFFFF,268
+Lecco,Lecco,Stadio Rigamonti-Ceppi,#0055A5,#87CEEB,250

@@ -1,0 +1,199 @@
+temporada,division,puesto,club,g,e,p,gf,gc,pts
+1958-59,First Division,1,Wolverhampton Wanderers,28,5,9,110,49,61
+1958-59,First Division,2,Manchester United,24,7,11,103,66,55
+1958-59,First Division,3,Arsenal,21,8,13,88,68,50
+1958-59,First Division,4,Bolton Wanderers,20,10,12,79,66,50
+1958-59,First Division,5,West Bromwich Albion,18,13,11,88,68,49
+1958-59,First Division,6,West Ham United,21,6,15,85,70,48
+1958-59,First Division,7,Burnley,19,10,13,81,70,48
+1958-59,First Division,8,Blackpool,18,11,13,66,49,47
+1958-59,First Division,9,Birmingham City,20,6,16,84,68,46
+1958-59,First Division,10,Blackburn Rovers,17,10,15,76,70,44
+1958-59,First Division,11,Newcastle United,17,7,18,80,80,41
+1958-59,First Division,12,Preston North End,17,7,18,70,77,41
+1958-59,First Division,13,Nottingham Forest,17,6,19,71,74,40
+1958-59,First Division,14,Chelsea,18,4,20,77,98,40
+1958-59,First Division,15,Leeds United,15,9,18,57,74,39
+1958-59,First Division,16,Everton,17,4,21,71,87,38
+1958-59,First Division,17,Luton Town,12,13,17,68,71,37
+1958-59,First Division,18,Tottenham Hotspur,13,10,19,85,95,36
+1958-59,First Division,19,Leicester City,11,10,21,67,98,32
+1958-59,First Division,20,Manchester City,11,9,22,64,95,31
+1958-59,First Division,21,Aston Villa,11,8,23,58,87,30
+1958-59,First Division,22,Portsmouth,6,9,27,64,112,21
+1958-59,Second Division,1,Sheffield Wednesday,28,6,8,106,48,62
+1958-59,Second Division,2,Fulham,27,6,9,96,61,60
+1958-59,Second Division,3,Sheffield United,23,7,12,82,48,53
+1958-59,Second Division,4,Liverpool,24,5,13,87,62,53
+1958-59,Second Division,5,Stoke City,21,7,14,72,58,49
+1958-59,Second Division,6,Bristol Rovers,18,12,12,80,64,48
+1958-59,Second Division,7,Derby County,20,8,14,74,71,48
+1958-59,Second Division,8,Charlton Athletic,18,7,17,92,90,43
+1958-59,Second Division,9,Cardiff City,18,7,17,65,65,43
+1958-59,Second Division,10,Bristol City,17,7,18,74,70,41
+1958-59,Second Division,11,Swansea Town,16,9,17,79,81,41
+1958-59,Second Division,12,Brighton & Hove Albion,15,11,16,74,90,41
+1958-59,Second Division,13,Middlesbrough,15,10,17,87,71,40
+1958-59,Second Division,14,Huddersfield Town,16,8,18,62,55,40
+1958-59,Second Division,15,Sunderland,16,8,18,64,75,40
+1958-59,Second Division,16,Ipswich Town,17,6,19,62,77,40
+1958-59,Second Division,17,Leyton Orient,14,8,20,71,78,36
+1958-59,Second Division,18,Scunthorpe United,12,9,21,55,84,33
+1958-59,Second Division,19,Lincoln City,11,7,24,63,93,29
+1958-59,Second Division,20,Rotherham United,10,9,23,42,82,29
+1958-59,Second Division,21,Grimsby Town,9,10,23,62,90,28
+1958-59,Second Division,22,Barnsley,10,7,25,55,91,27
+1959-60,First Division,1,Burnley,24,7,11,85,61,55
+1959-60,First Division,2,Wolverhampton Wanderers,24,6,12,106,67,54
+1959-60,First Division,3,Tottenham Hotspur,21,11,10,86,50,53
+1959-60,First Division,4,West Bromwich Albion,19,11,12,83,57,49
+1959-60,First Division,5,Sheffield Wednesday,19,11,12,80,59,49
+1959-60,First Division,6,Bolton Wanderers,20,8,14,59,51,48
+1959-60,First Division,7,Manchester United,19,7,16,102,80,45
+1959-60,First Division,8,Newcastle United,18,8,16,82,78,44
+1959-60,First Division,9,Preston North End,16,12,14,79,76,44
+1959-60,First Division,10,Fulham,17,10,15,73,80,44
+1959-60,First Division,11,Blackpool,15,10,17,59,71,40
+1959-60,First Division,12,Leicester City,13,13,16,66,75,39
+1959-60,First Division,13,Arsenal,15,9,18,68,80,39
+1959-60,First Division,14,West Ham United,16,6,20,75,91,38
+1959-60,First Division,15,Everton,13,11,18,73,78,37
+1959-60,First Division,16,Manchester City,17,3,22,78,84,37
+1959-60,First Division,17,Blackburn Rovers,16,5,21,60,70,37
+1959-60,First Division,18,Chelsea,14,9,19,76,91,37
+1959-60,First Division,19,Birmingham City,13,10,19,63,80,36
+1959-60,First Division,20,Nottingham Forest,13,9,20,50,74,35
+1959-60,First Division,21,Leeds United,12,10,20,65,92,34
+1959-60,First Division,22,Luton Town,9,12,21,50,73,30
+1959-60,Second Division,1,Aston Villa,25,9,8,89,43,59
+1959-60,Second Division,2,Cardiff City,23,12,7,90,62,58
+1959-60,Second Division,3,Liverpool,20,10,12,90,66,50
+1959-60,Second Division,4,Sheffield United,19,12,11,68,51,50
+1959-60,Second Division,5,Middlesbrough,19,10,13,90,64,48
+1959-60,Second Division,6,Huddersfield Town,19,9,14,73,52,47
+1959-60,Second Division,7,Charlton Athletic,17,13,12,90,87,47
+1959-60,Second Division,8,Rotherham United,17,13,12,61,60,47
+1959-60,Second Division,9,Bristol Rovers,18,11,13,72,78,47
+1959-60,Second Division,10,Leyton Orient,15,14,13,76,61,44
+1959-60,Second Division,11,Ipswich Town,19,6,17,78,68,44
+1959-60,Second Division,12,Swansea Town,15,10,17,82,84,40
+1959-60,Second Division,13,Lincoln City,16,7,19,75,78,39
+1959-60,Second Division,14,Brighton & Hove Albion,13,12,17,67,76,38
+1959-60,Second Division,15,Scunthorpe United,13,10,19,57,71,36
+1959-60,Second Division,16,Sunderland,12,12,18,52,65,36
+1959-60,Second Division,17,Stoke City,14,7,21,66,83,35
+1959-60,Second Division,18,Derby County,14,7,21,61,77,35
+1959-60,Second Division,19,Plymouth Argyle,13,9,20,61,89,35
+1959-60,Second Division,20,Portsmouth,10,12,20,59,77,32
+1959-60,Second Division,21,Hull City,10,10,22,48,76,30
+1959-60,Second Division,22,Bristol City,11,5,26,60,97,27
+1960-61,Second Division,1,Ipswich Town,26,7,9,100,55,59
+1960-61,Second Division,2,Sheffield United,26,6,10,81,51,58
+1960-61,Second Division,3,Liverpool,21,10,11,87,58,52
+1960-61,Second Division,4,Norwich City,20,9,13,70,53,49
+1960-61,Second Division,5,Middlesbrough,18,12,12,83,74,48
+1960-61,Second Division,6,Sunderland,17,13,12,75,60,47
+1960-61,Second Division,7,Swansea Town,18,11,13,77,73,47
+1960-61,Second Division,8,Southampton,18,8,16,84,81,44
+1960-61,Second Division,9,Scunthorpe United,14,15,13,69,64,43
+1960-61,Second Division,10,Charlton Athletic,16,11,15,97,91,43
+1960-61,Second Division,11,Plymouth Argyle,17,8,17,81,82,42
+1960-61,Second Division,12,Derby County,15,10,17,80,80,40
+1960-61,Second Division,13,Luton Town,15,9,18,71,79,39
+1960-61,Second Division,14,Leeds United,14,10,18,75,83,38
+1960-61,Second Division,15,Rotherham United,12,13,17,65,64,37
+1960-61,Second Division,16,Brighton & Hove Albion,14,9,19,61,75,37
+1960-61,Second Division,17,Bristol Rovers,15,7,20,73,92,37
+1960-61,Second Division,18,Stoke City,12,12,18,51,59,36
+1960-61,Second Division,19,Leyton Orient,14,8,20,55,78,36
+1960-61,Second Division,20,Huddersfield Town,13,9,20,62,71,35
+1960-61,Second Division,21,Portsmouth,11,11,20,64,91,33
+1960-61,Second Division,22,Lincoln City,8,8,26,48,95,24
+1961-62,First Division,1,Ipswich Town,24,8,10,93,67,56
+1961-62,First Division,2,Burnley,21,11,10,101,67,53
+1961-62,First Division,3,Tottenham Hotspur,21,10,11,88,69,52
+1961-62,First Division,4,Everton,20,11,11,88,54,51
+1961-62,First Division,5,Sheffield United,19,9,14,61,69,47
+1961-62,First Division,6,Sheffield Wednesday,20,6,16,72,58,46
+1961-62,First Division,7,Aston Villa,18,8,16,65,56,44
+1961-62,First Division,8,West Ham United,17,10,15,76,82,44
+1961-62,First Division,9,West Bromwich Albion,15,13,14,83,67,43
+1961-62,First Division,10,Arsenal,16,11,15,71,72,43
+1961-62,First Division,11,Bolton Wanderers,16,10,16,62,66,42
+1961-62,First Division,12,Manchester City,17,7,18,78,81,41
+1961-62,First Division,13,Blackpool,15,11,16,70,75,41
+1961-62,First Division,14,Leicester City,17,6,19,72,71,40
+1961-62,First Division,15,Manchester United,15,9,18,72,75,39
+1961-62,First Division,16,Blackburn Rovers,14,11,17,50,58,39
+1961-62,First Division,17,Birmingham City,14,10,18,65,81,38
+1961-62,First Division,18,Wolverhampton Wanderers,13,10,19,73,86,36
+1961-62,First Division,19,Nottingham Forest,13,10,19,63,79,36
+1961-62,First Division,20,Fulham,13,7,22,66,74,33
+1961-62,First Division,21,Cardiff City,9,14,19,50,81,32
+1961-62,First Division,22,Chelsea,9,10,23,63,94,28
+1961-62,Second Division,1,Liverpool,27,8,7,99,43,62
+1961-62,Second Division,2,Leyton Orient,22,10,10,69,40,54
+1961-62,Second Division,3,Sunderland,22,9,11,85,50,53
+1961-62,Second Division,4,Scunthorpe United,21,7,14,86,71,49
+1961-62,Second Division,5,Plymouth Argyle,19,8,15,75,75,46
+1961-62,Second Division,6,Southampton,18,9,15,77,62,45
+1961-62,Second Division,7,Huddersfield Town,16,12,14,67,59,44
+1961-62,Second Division,8,Stoke City,17,8,17,55,57,42
+1961-62,Second Division,9,Rotherham United,16,9,17,70,76,41
+1961-62,Second Division,10,Preston North End,15,10,17,55,57,40
+1961-62,Second Division,11,Newcastle United,15,9,18,64,58,39
+1961-62,Second Division,12,Middlesbrough,16,7,19,76,72,39
+1961-62,Second Division,13,Luton Town,17,5,20,69,71,39
+1961-62,Second Division,14,Walsall,14,11,17,70,75,39
+1961-62,Second Division,15,Charlton Athletic,15,9,18,69,75,39
+1961-62,Second Division,16,Derby County,14,11,17,68,75,39
+1961-62,Second Division,17,Norwich City,14,11,17,61,70,39
+1961-62,Second Division,18,Bury,17,5,20,52,76,39
+1961-62,Second Division,19,Leeds United,12,12,18,50,61,36
+1961-62,Second Division,20,Swansea Town,12,12,18,61,83,36
+1961-62,Second Division,21,Bristol Rovers,13,7,22,53,81,33
+1961-62,Second Division,22,Brighton & Hove Albion,10,11,21,42,86,31
+1962-63,First Division,1,Everton,25,11,6,84,42,61
+1962-63,First Division,2,Tottenham Hotspur,23,9,10,111,62,55
+1962-63,First Division,3,Burnley,22,10,10,78,57,54
+1962-63,First Division,4,Leicester City,20,12,10,79,53,52
+1962-63,First Division,5,Wolverhampton Wanderers,20,10,12,93,65,50
+1962-63,First Division,6,Sheffield Wednesday,19,10,13,77,63,48
+1962-63,First Division,7,Arsenal,18,10,14,86,77,46
+1962-63,First Division,8,Liverpool,17,10,15,71,59,44
+1962-63,First Division,9,Nottingham Forest,17,10,15,67,69,44
+1962-63,First Division,10,Sheffield United,16,12,14,58,60,44
+1962-63,First Division,11,Blackburn Rovers,15,12,15,79,71,42
+1962-63,First Division,12,West Ham United,14,12,16,73,69,40
+1962-63,First Division,13,Blackpool,13,14,15,58,64,40
+1962-63,First Division,14,West Bromwich Albion,16,7,19,71,79,39
+1962-63,First Division,15,Aston Villa,15,8,19,62,68,38
+1962-63,First Division,16,Fulham,14,10,18,50,71,38
+1962-63,First Division,17,Ipswich Town,12,11,19,59,78,35
+1962-63,First Division,18,Bolton Wanderers,15,5,22,55,75,35
+1962-63,First Division,19,Manchester United,12,10,20,67,81,34
+1962-63,First Division,20,Birmingham City,10,13,19,63,90,33
+1962-63,First Division,21,Manchester City,10,11,21,58,102,31
+1962-63,First Division,22,Leyton Orient,6,9,27,37,81,21
+1962-63,Second Division,1,Stoke City,20,13,9,73,50,53
+1962-63,Second Division,2,Chelsea,24,4,14,81,42,52
+1962-63,Second Division,3,Sunderland,20,12,10,84,55,52
+1962-63,Second Division,4,Middlesbrough,20,9,13,86,85,49
+1962-63,Second Division,5,Leeds United,19,10,13,79,53,48
+1962-63,Second Division,6,Huddersfield Town,17,14,11,63,50,48
+1962-63,Second Division,7,Newcastle United,18,11,13,79,59,47
+1962-63,Second Division,8,Bury,18,11,13,51,47,47
+1962-63,Second Division,9,Scunthorpe United,16,12,14,57,59,44
+1962-63,Second Division,10,Cardiff City,18,7,17,83,73,43
+1962-63,Second Division,11,Southampton,17,8,17,72,67,42
+1962-63,Second Division,12,Plymouth Argyle,15,12,15,76,73,42
+1962-63,Second Division,13,Norwich City,17,8,17,80,79,42
+1962-63,Second Division,14,Rotherham United,17,6,19,67,74,40
+1962-63,Second Division,15,Swansea Town,15,9,18,51,72,39
+1962-63,Second Division,16,Portsmouth,13,11,18,63,79,37
+1962-63,Second Division,17,Preston North End,13,11,18,59,74,37
+1962-63,Second Division,18,Derby County,12,12,18,61,72,36
+1962-63,Second Division,19,Grimsby Town,11,13,18,55,66,35
+1962-63,Second Division,20,Charlton Athletic,13,5,24,62,94,31
+1962-63,Second Division,21,Walsall,11,9,22,53,89,31
+1962-63,Second Division,22,Luton Town,11,7,24,61,84,29

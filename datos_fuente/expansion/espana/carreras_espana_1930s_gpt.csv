@@ -1,0 +1,221 @@
+nombre,nacimiento,club,pais,desde,hasta,partidos,goles
+Ricardo Zamora,1901-01-21,Español,España,1916,1918,48,0
+Ricardo Zamora,1901-01-21,Barcelona,España,1919,1921,38,0
+Ricardo Zamora,1901-01-21,Español,España,1922,1929,126,0
+Ricardo Zamora,1901-01-21,Real Madrid,España,1930,1935,82,0
+Ricardo Zamora,1901-01-21,OGC Nice,Francia,1937,1937,9,0
+Jacinto Quincoces,1905-07-17,Deportivo Alavés,España,1920,1930,18,0
+Jacinto Quincoces,1905-07-17,Real Madrid,España,1931,1935,90,0
+Jacinto Quincoces,1905-07-17,Real Madrid,España,1939,1941,42,0
+Ciriaco Errasti,1904-08-08,UD Eibarresa,España,1922,1924,,
+Ciriaco Errasti,1904-08-08,Deportivo Alavés,España,1925,1930,,
+Ciriaco Errasti,1904-08-08,Real Madrid,España,1931,1935,61,0
+Ciriaco Errasti,1904-08-08,Deportivo Alavés,España,1936,1936,,
+Gregorio Blasco,1909-06-10,Acero de Olabeaga,España,1926,1927,,
+Gregorio Blasco,1909-06-10,Atlético Bilbao,España,1928,1935,113,0
+Gregorio Blasco,1909-06-10,CD Euzkadi,México,1938,1938,12,0
+Gregorio Blasco,1909-06-10,Club España,México,1939,1945,,
+Gregorio Blasco,1909-06-10,River Plate,Argentina,1940,1940,,
+Gregorio Blasco,1909-06-10,Atlante,México,1946,1946,,
+Isidro Lángara,1912-05-25,Real Oviedo,España,1930,1935,115,142
+Isidro Lángara,1912-05-25,CD Euzkadi,México,1938,1938,9,15
+Isidro Lángara,1912-05-25,San Lorenzo,Argentina,1939,1942,121,110
+Isidro Lángara,1912-05-25,Club España,México,1943,1945,80,105
+Isidro Lángara,1912-05-25,Real Oviedo,España,1946,1947,29,23
+Bata,1908-05-11,Barakaldo,España,1925,1928,,
+Bata,1908-05-11,Atlético Bilbao,España,1929,1935,118,105
+Bata,1908-05-11,Barakaldo,España,1938,1941,42,18
+Bata,1908-05-11,Osasuna,España,1942,1942,0,0
+Bata,1908-05-11,Barakaldo,España,1942,1943,13,6
+Guillermo Gorostiza,1909-02-15,Arenas de Getxo,España,1927,1927,28,21
+Guillermo Gorostiza,1909-02-15,Racing Ferrol,España,1928,1928,27,21
+Guillermo Gorostiza,1909-02-15,Atlético Bilbao,España,1929,1935,119,107
+Guillermo Gorostiza,1909-02-15,Atlético Bilbao,España,1939,1939,21,14
+Guillermo Gorostiza,1909-02-15,Valencia,España,1940,1945,115,72
+Guillermo Gorostiza,1909-02-15,Barakaldo,España,1946,1946,20,14
+Guillermo Gorostiza,1909-02-15,Juvencia,España,1947,1947,9,7
+Guillermo Gorostiza,1909-02-15,Logroñés,España,1948,1948,17,15
+José Iraragorri,1912-03-16,Atlético Bilbao,España,1929,1935,114,81
+José Iraragorri,1912-03-16,CD Euzkadi,México,1938,1938,,
+José Iraragorri,1912-03-16,San Lorenzo,Argentina,1939,1939,5,0
+José Iraragorri,1912-03-16,Club España,México,1943,1945,,
+José Iraragorri,1912-03-16,Atlético Bilbao,España,1946,1948,26,7
+Lafuente,1907-12-31,Barakaldo,España,1923,1925,,
+Lafuente,1907-12-31,Atlético Bilbao,España,1926,1933,96,24
+Lafuente,1907-12-31,Atlético Madrid,España,1934,1935,20,1
+Chirri II,1909-05-10,Atlético Bilbao,España,1928,1934,90,30
+Leonardo Cilaurren,1912-11-05,Arenas de Getxo,España,1929,1930,43,0
+Leonardo Cilaurren,1912-11-05,Atlético Bilbao,España,1931,1935,49,2
+Leonardo Cilaurren,1912-11-05,CD Euzkadi,México,1938,1938,12,0
+Leonardo Cilaurren,1912-11-05,River Plate,Argentina,1939,1940,19,3
+Leonardo Cilaurren,1912-11-05,Peñarol,Uruguay,1941,1942,,
+Leonardo Cilaurren,1912-11-05,Club España,México,1943,1944,,
+José Muguerza,1911-09-15,UD Eibarresa,España,1927,1928,,
+José Muguerza,1911-09-15,Atlético Bilbao,España,1929,1935,129,1
+José Muguerza,1911-09-15,CD Euzkadi,México,1938,1938,12,0
+José Muguerza,1911-09-15,Club España,México,1939,,,
+Ángel Zubieta,1918-07-17,Atlético Bilbao,España,1935,1935,22,2
+Ángel Zubieta,1918-07-17,CD Euzkadi,México,1938,1938,9,0
+Ángel Zubieta,1918-07-17,San Lorenzo,Argentina,1939,1951,352,29
+Ángel Zubieta,1918-07-17,Deportivo La Coruña,España,1952,1955,56,2
+Luis Regueiro,1908-07-01,Real Unión,España,1924,1930,,
+Luis Regueiro,1908-07-01,Real Madrid,España,1931,1935,92,53
+Luis Regueiro,1908-07-01,CD Euzkadi,México,1938,1938,10,
+Luis Regueiro,1908-07-01,Asturias FC,México,1940,1941,,
+Luis Regueiro,1908-07-01,Club América,México,1942,1943,,
+Pedro Regueiro,1909-12-19,Real Unión,España,1925,1928,9,0
+Pedro Regueiro,1909-12-19,Real Betis,España,1929,1929,30,1
+Pedro Regueiro,1909-12-19,Real Unión,España,1930,1931,29,1
+Pedro Regueiro,1909-12-19,Real Madrid,España,1932,1935,77,0
+Pedro Regueiro,1909-12-19,CD Euzkadi,México,1938,1938,7,
+Pedro Regueiro,1909-12-19,Asturias FC,México,1939,1943,,
+Josep Samitier,1902-02-02,FC Internacional,España,1917,1918,18,1
+Josep Samitier,1902-02-02,Barcelona,España,1919,1931,174,133
+Josep Samitier,1902-02-02,Real Madrid,España,1932,1933,14,7
+Josep Samitier,1902-02-02,OGC Nice,Francia,1936,1938,48,21
+Martí Ventolrà,1906-12-16,Español,España,1924,1929,30,16
+Martí Ventolrà,1906-12-16,Sevilla,España,1930,1932,,
+Martí Ventolrà,1906-12-16,Barcelona,España,1933,1936,58,31
+Martí Ventolrà,1906-12-16,Club España,México,1939,1939,,
+Martí Ventolrà,1906-12-16,Atlante,México,1940,1948,,
+Juan José Nogués,1909-03-28,Zaragoza CD,España,1928,1929,,
+Juan José Nogués,1909-03-28,Barcelona,España,1930,1935,83,0
+Juan José Nogués,1909-03-28,Barcelona,España,1939,1940,31,0
+Ramón Zabalo,1910-06-10,Barcelona,España,1929,1936,88,5
+Ramón Zabalo,1910-06-10,Racing Club de Paris,Francia,1937,1943,,
+Ramón Zabalo,1910-06-10,Barcelona,España,1944,1944,1,0
+Josep Escolà,1914-10-29,Sants,España,1932,1933,,
+Josep Escolà,1914-10-29,Español,España,1934,1934,,
+Josep Escolà,1914-10-29,Barcelona,España,1934,1936,51,38
+Josep Escolà,1914-10-29,FC Sète,Francia,1937,1938,26,15
+Josep Escolà,1914-10-29,Barcelona,España,1940,1947,115,55
+Domènec Balmanya,1914-12-29,Gerona,España,1933,1934,,
+Domènec Balmanya,1914-12-29,Barcelona,España,1935,1936,,
+Domènec Balmanya,1914-12-29,FC Sète,Francia,1937,1940,,
+Domènec Balmanya,1914-12-29,Barcelona,España,1941,1943,48,5
+Domènec Balmanya,1914-12-29,Gimnàstic Tarragona,España,1944,1947,3,0
+Domènec Balmanya,1914-12-29,Sant Andreu,España,1948,1948,,
+Domènec Balmanya,1914-12-29,Gimnàstic Tarragona,España,1949,1949,6,1
+Vicente Piera,1903-06-11,Barcelona,España,1920,1932,,
+Ángel Arocha,1907-06-24,Tenerife,España,1925,1926,77,73
+Ángel Arocha,1907-06-24,Barcelona,España,1927,1932,99,85
+Ángel Arocha,1907-06-24,Atlético Madrid,España,1933,1935,32,7
+Severiano Goiburu,1906-11-08,Osasuna,España,1925,1928,44,25
+Severiano Goiburu,1906-11-08,Barcelona,España,1929,1933,111,53
+Severiano Goiburu,1906-11-08,Valencia,España,1934,1936,35,9
+Severiano Goiburu,1906-11-08,Español,España,1937,1937,4,0
+Severiano Goiburu,1906-11-08,Valencia,España,1938,1940,17,1
+Severiano Goiburu,1906-11-08,Levante,España,1941,1941,10,1
+Severiano Goiburu,1906-11-08,Real Murcia,España,1942,1942,1,1
+Hilario,1905-12-08,Porteño,España,1922,1924,,
+Hilario,1905-12-08,Victoria,España,1925,1927,,
+Hilario,1905-12-08,Deportivo La Coruña,España,1928,1930,50,28
+Hilario,1905-12-08,Real Madrid,España,1931,1935,73,23
+Hilario,1905-12-08,Valencia,España,1936,1936,0,0
+Hilario,1905-12-08,Barcelona,España,1939,1939,6,1
+Hilario,1905-12-08,Deportivo La Coruña,España,1940,1941,21,4
+Hilario,1905-12-08,Elche,España,1942,1942,,
+Simón Lecue,1912-02-11,Deportivo Alavés,España,1930,1931,36,6
+Simón Lecue,1912-02-11,Real Betis,España,1932,1934,55,23
+Simón Lecue,1912-02-11,Real Madrid,España,1935,1941,80,24
+Simón Lecue,1912-02-11,Valencia,España,1942,1945,77,4
+Simón Lecue,1912-02-11,Hércules,España,1947,1947,0,0
+Simón Lecue,1912-02-11,Chamberí,España,1947,1947,,
+Simón Lecue,1912-02-11,Real Zaragoza,España,1948,1948,,
+Manuel Olivares,1909-04-02,Deportivo Alavés,España,1928,1930,14,10
+Manuel Olivares,1909-04-02,Real Madrid,España,1931,1933,39,34
+Manuel Olivares,1909-04-02,Real Sociedad,España,1934,1934,17,7
+Manuel Olivares,1909-04-02,Real Zaragoza,España,1935,1935,,
+Manuel Olivares,1909-04-02,Real Zaragoza,España,1939,1939,5,2
+Manuel Olivares,1909-04-02,Hércules,España,1940,1940,7,3
+Manuel Olivares,1909-04-02,Málaga,España,1941,1941,,
+Manuel Olivares,1909-04-02,Algeciras,España,1942,1942,,
+Félix Quesada,1902-07-01,Real Madrid,España,1922,1935,,
+Martín Marculeta,1907-09-24,Real Sociedad,España,1924,1933,106,4
+Martín Marculeta,1907-09-24,Atlético Madrid,España,1934,1935,41,9
+Paco Bienzobas,1909-03-26,Real Sociedad,España,1926,1933,65,39
+Paco Bienzobas,1909-03-26,Osasuna,España,1934,1939,64,33
+Paco Bienzobas,1909-03-26,Real Sociedad,España,1940,1941,26,14
+Herrerita,1914-07-05,Real Gijón,España,1931,1932,13,8
+Herrerita,1914-07-05,Real Oviedo,España,1933,1935,57,31
+Herrerita,1914-07-05,Barcelona,España,1939,1939,17,9
+Herrerita,1914-07-05,Real Oviedo,España,1940,1949,155,79
+Herrerita,1914-07-05,Real Gijón,España,1950,1950,5,3
+Emilín,1912-05-25,Arenas de Getxo,España,1929,1932,44,13
+Emilín,1912-05-25,Real Madrid,España,1933,1935,42,16
+Emilín,1912-05-25,CD Euzkadi,México,1938,1938,8,2
+Emilín,1912-05-25,San Lorenzo,Argentina,1939,1939,1,0
+Emilín,1912-05-25,Club España,México,1940,1941,,
+Campanal I,1912-02-09,Real Gijón,España,1927,1928,7,12
+Campanal I,1912-02-09,Sevilla,España,1929,1945,222,168
+Victorio Unamuno,1909-05-21,Deportivo Alavés,España,1927,1927,,
+Victorio Unamuno,1909-05-21,Atlético Bilbao,España,1928,1932,45,36
+Victorio Unamuno,1909-05-21,Real Betis,España,1933,1935,55,29
+Victorio Unamuno,1909-05-21,Atlético Bilbao,España,1939,1941,44,36
+Serafín Aedo,1908-11-11,Unión Sport San Vicente,España,1930,1930,,
+Serafín Aedo,1908-11-11,Barakaldo,España,1931,1932,,
+Serafín Aedo,1908-11-11,Real Betis,España,1933,1935,61,0
+Serafín Aedo,1908-11-11,CD Euzkadi,México,1938,1938,10,0
+Serafín Aedo,1908-11-11,Club España,México,1939,1941,,
+Serafín Aedo,1908-11-11,River Plate,Argentina,1942,1942,,
+Serafín Aedo,1908-11-11,Club España,México,1943,1948,,
+Pedro Areso,1911-06-29,Tolosa,España,1929,1929,,
+Pedro Areso,1911-06-29,Real Murcia,España,1930,1931,,
+Pedro Areso,1911-06-29,Real Betis,España,1932,1934,,
+Pedro Areso,1911-06-29,Barcelona,España,1935,1935,,
+Pedro Areso,1911-06-29,Tigre,Argentina,1938,1938,,
+Pedro Areso,1911-06-29,Racing Club,Argentina,1939,1939,,
+Pedro Areso,1911-06-29,River Plate,Argentina,1941,1941,,
+Pedro Areso,1911-06-29,Deportivo Vasco,Argentina,1942,1944,,
+Pedro Areso,1911-06-29,Real Santander,España,1945,1945,,
+Pedro Areso,1911-06-29,Gimnástica Burgalesa,España,1947,1947,,
+Pedro Areso,1911-06-29,Villafranca UC,España,1948,1948,,
+Peral,1911-04-10,Real Betis,España,1929,1935,,
+Peral,1911-04-10,Real Betis,España,1939,1943,,
+Peral,1911-04-10,Calavera,España,1944,1944,,
+Saro,1909-03-01,Sestao,España,1927,1927,,
+Saro,1909-03-01,Arenas de Getxo,España,1928,1932,,
+Saro,1909-03-01,Real Betis,España,1933,1935,,
+Saro,1909-03-01,Real Betis,España,1939,1948,,
+Rufino Larrinoa,1909-01-11,Real Santander,España,1928,1932,,
+Rufino Larrinoa,1909-01-11,Real Betis,España,1933,1935,,
+Joaquín Urquiaga,1910-03-14,Real Betis,España,1932,1935,76,0
+Joaquín Urquiaga,1910-03-14,Asturias FC,México,1937,1943,,
+Joaquín Urquiaga,1910-03-14,Veracruz,México,1944,1945,,
+Germán Gómez,1914-01-05,Tolosa Sport,España,1933,1933,,
+Germán Gómez,1914-01-05,Real Santander,España,1934,1938,38,0
+Germán Gómez,1914-01-05,Atlético Madrid,España,1939,1947,175,2
+Germán Gómez,1914-01-05,Real Santander,España,1948,1949,27,4
+Chus Alonso,1917-04-29,Sportiva Ovetense,España,1934,1934,,
+Chus Alonso,1917-04-29,Real Oviedo,España,1935,1935,3,2
+Chus Alonso,1917-04-29,Real Madrid,España,1939,1947,,
+Chus Alonso,1917-04-29,Real Zaragoza,España,1948,1949,28,7
+Mundo,1916-01-22,Atlético Bilbao,España,1935,1935,1,0
+Mundo,1916-01-22,Valencia,España,1939,1949,210,186
+Mundo,1916-01-22,Alcoyano,España,1950,1950,21,9
+Mariano Martín,1919-10-20,Sant Andreu,España,1936,1938,,
+Mariano Martín,1919-10-20,Barcelona,España,1939,1947,112,97
+Mariano Martín,1919-10-20,Gimnàstic Tarragona,España,1948,1948,18,8
+Mariano Martín,1919-10-20,Real Zaragoza,España,1949,1949,4,0
+Mariano Martín,1919-10-20,Sant Andreu,España,1950,1951,47,34
+Gaspar Rubio,1907-12-14,Gràcia FC,España,1926,1926,14,1
+Gaspar Rubio,1907-12-14,Levante,España,1927,1927,9,7
+Gaspar Rubio,1907-12-14,Real Madrid,España,1928,1931,34,30
+Gaspar Rubio,1907-12-14,Atlético Madrid,España,1932,1933,25,10
+Gaspar Rubio,1907-12-14,Valencia,España,1934,1934,32,17
+Gaspar Rubio,1907-12-14,Real Madrid,España,1939,1939,4,2
+Gaspar Rubio,1907-12-14,Real Murcia,España,1940,1940,10,1
+Gaspar Rubio,1907-12-14,Levante,España,1941,1941,0,0
+Gaspar Rubio,1907-12-14,Recreativo Granada,España,1942,1942,3,1
+Cholín,1906-12-13,Tolosa,España,1925,1926,,
+Cholín,1906-12-13,Real Sociedad,España,1927,1939,,
+Cholín,1906-12-13,Granada,España,1940,1941,,
+Francisco Gamborena,1901-03-14,Real Unión,España,1915,1933,,
+Enrique Fernández,1912-06-10,Nacional,Uruguay,1930,1930,23,8
+Enrique Fernández,1912-06-10,Independiente,Argentina,1931,1931,16,5
+Enrique Fernández,1912-06-10,Nacional,Uruguay,1933,1934,41,19
+Enrique Fernández,1912-06-10,Barcelona,España,1935,1935,17,8
+Enrique Fernández,1912-06-10,Nacional,Uruguay,1936,1939,22,8
+José María Peña,1895-04-19,Arenas de Getxo,España,1915,1925,,
+José María Peña,1895-04-19,Real Madrid,España,1926,1931,53,2
+José María Peña,1895-04-19,Celta de Vigo,España,1932,1933,6,0

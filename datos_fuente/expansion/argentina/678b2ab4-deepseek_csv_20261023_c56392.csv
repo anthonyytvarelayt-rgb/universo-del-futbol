@@ -1,0 +1,401 @@
+pais,temporada,division,grupo,club,posicion
+Argentina,2003,1,Apertura,Boca Juniors,1
+Argentina,2003,1,Apertura,San Lorenzo,2
+Argentina,2003,1,Apertura,Banfield,3
+Argentina,2003,1,Apertura,Quilmes,4
+Argentina,2003,1,Apertura,Rosario Central,5
+Argentina,2003,1,Apertura,Newell's Old Boys,6
+Argentina,2003,1,Apertura,Arsenal,7
+Argentina,2003,1,Apertura,River Plate,8
+Argentina,2003,1,Apertura,Colón,9
+Argentina,2003,1,Apertura,Talleres (Córdoba),10
+Argentina,2003,1,Apertura,Estudiantes de La Plata,11
+Argentina,2003,1,Apertura,Racing Club,12
+Argentina,2003,1,Apertura,Lanús,13
+Argentina,2003,1,Apertura,Independiente,14
+Argentina,2003,1,Apertura,Vélez Sarsfield,15
+Argentina,2003,1,Apertura,Chacarita Juniors,16
+Argentina,2003,1,Apertura,Atlético de Rafaela,17
+Argentina,2003,1,Apertura,Olimpo,18
+Argentina,2003,1,Apertura,Instituto,19
+Argentina,2003,1,Apertura,Nueva Chicago,20
+Argentina,2003,1,Clausura,River Plate,1
+Argentina,2003,1,Clausura,Boca Juniors,2
+Argentina,2003,1,Clausura,Talleres (Córdoba),3
+Argentina,2003,1,Clausura,Banfield,4
+Argentina,2003,1,Clausura,Vélez Sarsfield,5
+Argentina,2003,1,Clausura,Quilmes,6
+Argentina,2003,1,Clausura,Arsenal,7
+Argentina,2003,1,Clausura,Racing Club,8
+Argentina,2003,1,Clausura,San Lorenzo,9
+Argentina,2003,1,Clausura,Atlético de Rafaela,10
+Argentina,2003,1,Clausura,Colón,11
+Argentina,2003,1,Clausura,Newell's Old Boys,12
+Argentina,2003,1,Clausura,Independiente,13
+Argentina,2003,1,Clausura,Estudiantes de La Plata,14
+Argentina,2003,1,Clausura,Lanús,15
+Argentina,2003,1,Clausura,Olimpo,16
+Argentina,2003,1,Clausura,Rosario Central,17
+Argentina,2003,1,Clausura,Chacarita Juniors,18
+Argentina,2003,1,Clausura,Instituto,19
+Argentina,2003,1,Clausura,Nueva Chicago,20
+Argentina,2004,1,Apertura,Newell's Old Boys,1
+Argentina,2004,1,Apertura,Vélez Sarsfield,2
+Argentina,2004,1,Apertura,River Plate,3
+Argentina,2004,1,Apertura,Estudiantes de La Plata,4
+Argentina,2004,1,Apertura,San Lorenzo,5
+Argentina,2004,1,Apertura,Rosario Central,6
+Argentina,2004,1,Apertura,Colón,7
+Argentina,2004,1,Apertura,Boca Juniors,8
+Argentina,2004,1,Apertura,Banfield,9
+Argentina,2004,1,Apertura,Racing Club,10
+Argentina,2004,1,Apertura,Lanús,11
+Argentina,2004,1,Apertura,Gimnasia y Esgrima La Plata,12
+Argentina,2004,1,Apertura,Arsenal,13
+Argentina,2004,1,Apertura,Quilmes,14
+Argentina,2004,1,Apertura,Independiente,15
+Argentina,2004,1,Apertura,Argentinos Juniors,16
+Argentina,2004,1,Apertura,Almagro,17
+Argentina,2004,1,Apertura,Instituto,18
+Argentina,2004,1,Apertura,Olimpo,19
+Argentina,2004,1,Apertura,Atlético de Rafaela,20
+Argentina,2004,1,Clausura,Vélez Sarsfield,1
+Argentina,2004,1,Clausura,Banfield,2
+Argentina,2004,1,Clausura,Racing Club,3
+Argentina,2004,1,Clausura,Estudiantes de La Plata,4
+Argentina,2004,1,Clausura,Rosario Central,5
+Argentina,2004,1,Clausura,Arsenal,6
+Argentina,2004,1,Clausura,Gimnasia y Esgrima La Plata,7
+Argentina,2004,1,Clausura,Lanús,8
+Argentina,2004,1,Clausura,Instituto,9
+Argentina,2004,1,Clausura,River Plate,10
+Argentina,2004,1,Clausura,Colón,11
+Argentina,2004,1,Clausura,Independiente,12
+Argentina,2004,1,Clausura,Olimpo,13
+Argentina,2004,1,Clausura,Newell's Old Boys,14
+Argentina,2004,1,Clausura,Boca Juniors,15
+Argentina,2004,1,Clausura,San Lorenzo,16
+Argentina,2004,1,Clausura,Argentinos Juniors,17
+Argentina,2004,1,Clausura,Quilmes,18
+Argentina,2004,1,Clausura,Almagro,19
+Argentina,2004,1,Clausura,Atlético de Rafaela,20
+Argentina,2005,1,Apertura,Boca Juniors,1
+Argentina,2005,1,Apertura,Gimnasia y Esgrima La Plata,2
+Argentina,2005,1,Apertura,Vélez Sarsfield,3
+Argentina,2005,1,Apertura,Independiente,4
+Argentina,2005,1,Apertura,Banfield,5
+Argentina,2005,1,Apertura,River Plate,6
+Argentina,2005,1,Apertura,Estudiantes de La Plata,7
+Argentina,2005,1,Apertura,Argentinos Juniors,8
+Argentina,2005,1,Apertura,San Lorenzo,9
+Argentina,2005,1,Apertura,Colón,10
+Argentina,2005,1,Apertura,Racing Club,11
+Argentina,2005,1,Apertura,Olimpo,12
+Argentina,2005,1,Apertura,Lanús,13
+Argentina,2005,1,Apertura,Arsenal,14
+Argentina,2005,1,Apertura,Rosario Central,15
+Argentina,2005,1,Apertura,Newell's Old Boys,16
+Argentina,2005,1,Apertura,Instituto,17
+Argentina,2005,1,Apertura,Tiro Federal,18
+Argentina,2005,1,Apertura,Quilmes,19
+Argentina,2005,1,Apertura,Unión,20
+Argentina,2005,1,Clausura,Boca Juniors,1
+Argentina,2005,1,Clausura,Lanús,2
+Argentina,2005,1,Clausura,River Plate,3
+Argentina,2005,1,Clausura,Gimnasia y Esgrima (J),4
+Argentina,2005,1,Clausura,Gimnasia y Esgrima La Plata,5
+Argentina,2005,1,Clausura,Newell's Old Boys,6
+Argentina,2005,1,Clausura,Banfield,7
+Argentina,2005,1,Clausura,San Lorenzo,8
+Argentina,2005,1,Clausura,Olimpo,9
+Argentina,2005,1,Clausura,Vélez Sarsfield,10
+Argentina,2005,1,Clausura,Estudiantes de La Plata,11
+Argentina,2005,1,Clausura,Independiente,12
+Argentina,2005,1,Clausura,Rosario Central,13
+Argentina,2005,1,Clausura,Argentinos Juniors,14
+Argentina,2005,1,Clausura,Arsenal,15
+Argentina,2005,1,Clausura,Colón,16
+Argentina,2005,1,Clausura,Racing Club,17
+Argentina,2005,1,Clausura,Instituto,18
+Argentina,2005,1,Clausura,Tiro Federal,19
+Argentina,2005,1,Clausura,Quilmes,20
+Argentina,2006,1,Apertura,Estudiantes de La Plata,1
+Argentina,2006,1,Apertura,Boca Juniors,2
+Argentina,2006,1,Apertura,River Plate,3
+Argentina,2006,1,Apertura,Independiente,4
+Argentina,2006,1,Apertura,Arsenal,5
+Argentina,2006,1,Apertura,Lanús,6
+Argentina,2006,1,Apertura,Colón,7
+Argentina,2006,1,Apertura,Argentinos Juniors,8
+Argentina,2006,1,Apertura,Vélez Sarsfield,9
+Argentina,2006,1,Apertura,San Lorenzo,10
+Argentina,2006,1,Apertura,Gimnasia y Esgrima La Plata,11
+Argentina,2006,1,Apertura,Newell's Old Boys,12
+Argentina,2006,1,Apertura,Racing Club,13
+Argentina,2006,1,Apertura,Banfield,14
+Argentina,2006,1,Apertura,Godoy Cruz,15
+Argentina,2006,1,Apertura,Rosario Central,16
+Argentina,2006,1,Apertura,Nueva Chicago,17
+Argentina,2006,1,Apertura,Belgrano,18
+Argentina,2006,1,Apertura,Quilmes,19
+Argentina,2006,1,Apertura,Instituto,20
+Argentina,2006,1,Clausura,San Lorenzo,1
+Argentina,2006,1,Clausura,Boca Juniors,2
+Argentina,2006,1,Clausura,Estudiantes de La Plata,3
+Argentina,2006,1,Clausura,River Plate,4
+Argentina,2006,1,Clausura,Arsenal,5
+Argentina,2006,1,Clausura,Lanús,6
+Argentina,2006,1,Clausura,Colón,7
+Argentina,2006,1,Clausura,Argentinos Juniors,8
+Argentina,2006,1,Clausura,Vélez Sarsfield,9
+Argentina,2006,1,Clausura,Godoy Cruz,10
+Argentina,2006,1,Clausura,Independiente,11
+Argentina,2006,1,Clausura,Rosario Central,12
+Argentina,2006,1,Clausura,Racing Club,13
+Argentina,2006,1,Clausura,Newell's Old Boys,14
+Argentina,2006,1,Clausura,Banfield,15
+Argentina,2006,1,Clausura,Gimnasia y Esgrima La Plata,16
+Argentina,2006,1,Clausura,Nueva Chicago,17
+Argentina,2006,1,Clausura,Belgrano,18
+Argentina,2006,1,Clausura,Quilmes,19
+Argentina,2006,1,Clausura,Instituto,20
+Argentina,2007,1,Apertura,Lanús,1
+Argentina,2007,1,Apertura,Tigre,2
+Argentina,2007,1,Apertura,Banfield,3
+Argentina,2007,1,Apertura,Boca Juniors,4
+Argentina,2007,1,Apertura,Argentinos Juniors,5
+Argentina,2007,1,Apertura,Estudiantes de La Plata,6
+Argentina,2007,1,Apertura,Huracán,7
+Argentina,2007,1,Apertura,San Lorenzo,8
+Argentina,2007,1,Apertura,Independiente,9
+Argentina,2007,1,Apertura,Vélez Sarsfield,10
+Argentina,2007,1,Apertura,Newell's Old Boys,11
+Argentina,2007,1,Apertura,Arsenal,12
+Argentina,2007,1,Apertura,Racing Club,13
+Argentina,2007,1,Apertura,River Plate,14
+Argentina,2007,1,Apertura,Colón,15
+Argentina,2007,1,Apertura,Rosario Central,16
+Argentina,2007,1,Apertura,Olimpo,17
+Argentina,2007,1,Apertura,San Martín (San Juan),18
+Argentina,2007,1,Apertura,Gimnasia y Esgrima La Plata,19
+Argentina,2007,1,Apertura,Central Córdoba (SdE),20
+Argentina,2007,1,Clausura,River Plate,1
+Argentina,2007,1,Clausura,Boca Juniors,2
+Argentina,2007,1,Clausura,Estudiantes de La Plata,3
+Argentina,2007,1,Clausura,San Lorenzo,4
+Argentina,2007,1,Clausura,Vélez Sarsfield,5
+Argentina,2007,1,Clausura,Independiente,6
+Argentina,2007,1,Clausura,Argentinos Juniors,7
+Argentina,2007,1,Clausura,Newell's Old Boys,8
+Argentina,2007,1,Clausura,Rosario Central,9
+Argentina,2007,1,Clausura,Arsenal,10
+Argentina,2007,1,Clausura,Colón,11
+Argentina,2007,1,Clausura,Banfield,12
+Argentina,2007,1,Clausura,Huracán,13
+Argentina,2007,1,Clausura,Tigre,14
+Argentina,2007,1,Clausura,Lanús,15
+Argentina,2007,1,Clausura,Olimpo,16
+Argentina,2007,1,Clausura,Gimnasia y Esgrima La Plata,17
+Argentina,2007,1,Clausura,San Martín (San Juan),18
+Argentina,2007,1,Clausura,Central Córdoba (SdE),19
+Argentina,2007,1,Clausura,Racing Club,20
+Argentina,2008,1,Apertura,Boca Juniors,1
+Argentina,2008,1,Apertura,Tigre,2
+Argentina,2008,1,Apertura,San Lorenzo,3
+Argentina,2008,1,Apertura,Lanús,4
+Argentina,2008,1,Apertura,Newell's Old Boys,5
+Argentina,2008,1,Apertura,Arsenal,6
+Argentina,2008,1,Apertura,Estudiantes de La Plata,7
+Argentina,2008,1,Apertura,Gimnasia y Esgrima La Plata,8
+Argentina,2008,1,Apertura,Vélez Sarsfield,9
+Argentina,2008,1,Apertura,Colón,10
+Argentina,2008,1,Apertura,Argentinos Juniors,11
+Argentina,2008,1,Apertura,Godoy Cruz,12
+Argentina,2008,1,Apertura,Banfield,13
+Argentina,2008,1,Apertura,Racing Club,14
+Argentina,2008,1,Apertura,River Plate,15
+Argentina,2008,1,Apertura,Rosario Central,16
+Argentina,2008,1,Apertura,San Martín (Tucumán),17
+Argentina,2008,1,Apertura,Independiente,18
+Argentina,2008,1,Apertura,Huracán,19
+Argentina,2008,1,Apertura,San Luis,20
+Argentina,2008,1,Clausura,River Plate,1
+Argentina,2008,1,Clausura,Boca Juniors,2
+Argentina,2008,1,Clausura,Estudiantes de La Plata,3
+Argentina,2008,1,Clausura,San Lorenzo,4
+Argentina,2008,1,Clausura,Vélez Sarsfield,5
+Argentina,2008,1,Clausura,Independiente,6
+Argentina,2008,1,Clausura,Argentinos Juniors,7
+Argentina,2008,1,Clausura,Newell's Old Boys,8
+Argentina,2008,1,Clausura,Rosario Central,9
+Argentina,2008,1,Clausura,Arsenal,10
+Argentina,2008,1,Clausura,Colón,11
+Argentina,2008,1,Clausura,Banfield,12
+Argentina,2008,1,Clausura,Huracán,13
+Argentina,2008,1,Clausura,Tigre,14
+Argentina,2008,1,Clausura,Lanús,15
+Argentina,2008,1,Clausura,Olimpo,16
+Argentina,2008,1,Clausura,Gimnasia y Esgrima La Plata,17
+Argentina,2008,1,Clausura,San Martín (San Juan),18
+Argentina,2008,1,Clausura,Central Córdoba (SdE),19
+Argentina,2008,1,Clausura,Racing Club,20
+Argentina,2009,1,Apertura,Banfield,1
+Argentina,2009,1,Apertura,Newell's Old Boys,2
+Argentina,2009,1,Apertura,Colón,3
+Argentina,2009,1,Apertura,Independiente,4
+Argentina,2009,1,Apertura,Vélez Sarsfield,5
+Argentina,2009,1,Apertura,Argentinos Juniors,6
+Argentina,2009,1,Apertura,San Lorenzo,7
+Argentina,2009,1,Apertura,Estudiantes de La Plata,8
+Argentina,2009,1,Apertura,Lanús,9
+Argentina,2009,1,Apertura,Rosario Central,10
+Argentina,2009,1,Apertura,Boca Juniors,11
+Argentina,2009,1,Apertura,Arsenal,12
+Argentina,2009,1,Apertura,Atlético Tucumán,13
+Argentina,2009,1,Apertura,River Plate,14
+Argentina,2009,1,Apertura,Chacarita Juniors,15
+Argentina,2009,1,Apertura,Racing Club,16
+Argentina,2009,1,Apertura,Godoy Cruz,17
+Argentina,2009,1,Apertura,Gimnasia y Esgrima La Plata,18
+Argentina,2009,1,Apertura,Huracán,19
+Argentina,2009,1,Apertura,Tigre,20
+Argentina,2009,1,Clausura,Argentinos Juniors,1
+Argentina,2009,1,Clausura,Estudiantes de La Plata,2
+Argentina,2009,1,Clausura,Godoy Cruz,3
+Argentina,2009,1,Clausura,Independiente,4
+Argentina,2009,1,Clausura,Banfield,5
+Argentina,2009,1,Clausura,Newell's Old Boys,6
+Argentina,2009,1,Clausura,Lanús,7
+Argentina,2009,1,Clausura,Racing Club,8
+Argentina,2009,1,Clausura,Vélez Sarsfield,9
+Argentina,2009,1,Clausura,Huracán,10
+Argentina,2009,1,Clausura,Tigre,11
+Argentina,2009,1,Clausura,Gimnasia y Esgrima La Plata,12
+Argentina,2009,1,Clausura,River Plate,13
+Argentina,2009,1,Clausura,Colón,14
+Argentina,2009,1,Clausura,San Lorenzo,15
+Argentina,2009,1,Clausura,Boca Juniors,16
+Argentina,2009,1,Clausura,Arsenal,17
+Argentina,2009,1,Clausura,Chacarita Juniors,18
+Argentina,2009,1,Clausura,Atlético Tucumán,19
+Argentina,2009,1,Clausura,Rosario Central,20
+Argentina,2010,1,Apertura,Estudiantes de La Plata,1
+Argentina,2010,1,Apertura,Vélez Sarsfield,2
+Argentina,2010,1,Apertura,Arsenal,3
+Argentina,2010,1,Apertura,River Plate,4
+Argentina,2010,1,Apertura,Godoy Cruz,5
+Argentina,2010,1,Apertura,Racing Club,6
+Argentina,2010,1,Apertura,Lanús,7
+Argentina,2010,1,Apertura,All Boys,8
+Argentina,2010,1,Apertura,Newell's Old Boys,9
+Argentina,2010,1,Apertura,Colón,10
+Argentina,2010,1,Apertura,Tigre,11
+Argentina,2010,1,Apertura,Banfield,12
+Argentina,2010,1,Apertura,Boca Juniors,13
+Argentina,2010,1,Apertura,Argentinos Juniors,14
+Argentina,2010,1,Apertura,San Lorenzo,15
+Argentina,2010,1,Apertura,Independiente,16
+Argentina,2010,1,Apertura,Huracán,17
+Argentina,2010,1,Apertura,Gimnasia y Esgrima La Plata,18
+Argentina,2010,1,Apertura,Olimpo,19
+Argentina,2010,1,Apertura,Quilmes,20
+Argentina,2010,1,Clausura,Vélez Sarsfield,1
+Argentina,2010,1,Clausura,Lanús,2
+Argentina,2010,1,Clausura,Godoy Cruz,3
+Argentina,2010,1,Clausura,Olimpo,4
+Argentina,2010,1,Clausura,Argentinos Juniors,5
+Argentina,2010,1,Clausura,Independiente,6
+Argentina,2010,1,Clausura,Boca Juniors,7
+Argentina,2010,1,Clausura,Banfield,8
+Argentina,2010,1,Clausura,River Plate,9
+Argentina,2010,1,Clausura,Arsenal,10
+Argentina,2010,1,Clausura,Tigre,11
+Argentina,2010,1,Clausura,All Boys,12
+Argentina,2010,1,Clausura,Estudiantes de La Plata,13
+Argentina,2010,1,Clausura,San Lorenzo,14
+Argentina,2010,1,Clausura,Racing Club,15
+Argentina,2010,1,Clausura,Colón,16
+Argentina,2010,1,Clausura,Newell's Old Boys,17
+Argentina,2010,1,Clausura,Huracán,18
+Argentina,2010,1,Clausura,Gimnasia y Esgrima La Plata,19
+Argentina,2010,1,Clausura,Quilmes,20
+Argentina,2011,1,Apertura,Boca Juniors,1
+Argentina,2011,1,Apertura,Racing Club,2
+Argentina,2011,1,Apertura,Vélez Sarsfield,3
+Argentina,2011,1,Apertura,Belgrano,4
+Argentina,2011,1,Apertura,Colón,5
+Argentina,2011,1,Apertura,Lanús,6
+Argentina,2011,1,Apertura,Tigre,7
+Argentina,2011,1,Apertura,Independiente,8
+Argentina,2011,1,Apertura,San Martín (San Juan),9
+Argentina,2011,1,Apertura,Atlético de Rafaela,10
+Argentina,2011,1,Apertura,Unión,11
+Argentina,2011,1,Apertura,Godoy Cruz,12
+Argentina,2011,1,Apertura,Arsenal,13
+Argentina,2011,1,Apertura,Estudiantes de La Plata,14
+Argentina,2011,1,Apertura,Argentinos Juniors,15
+Argentina,2011,1,Apertura,All Boys,16
+Argentina,2011,1,Apertura,San Lorenzo,17
+Argentina,2011,1,Apertura,Newell's Old Boys,18
+Argentina,2011,1,Apertura,Olimpo,19
+Argentina,2011,1,Apertura,Banfield,20
+Argentina,2011,1,Clausura,Arsenal,1
+Argentina,2011,1,Clausura,Tigre,2
+Argentina,2011,1,Clausura,All Boys,3
+Argentina,2011,1,Clausura,Boca Juniors,4
+Argentina,2011,1,Clausura,Newell's Old Boys,5
+Argentina,2011,1,Clausura,Colón,6
+Argentina,2011,1,Clausura,Argentinos Juniors,7
+Argentina,2011,1,Clausura,Estudiantes de La Plata,8
+Argentina,2011,1,Clausura,Lanús,9
+Argentina,2011,1,Clausura,Unión,10
+Argentina,2011,1,Clausura,San Lorenzo,11
+Argentina,2011,1,Clausura,Atlético de Rafaela,12
+Argentina,2011,1,Clausura,Belgrano,13
+Argentina,2011,1,Clausura,San Martín (San Juan),14
+Argentina,2011,1,Clausura,Independiente,15
+Argentina,2011,1,Clausura,Racing Club,16
+Argentina,2011,1,Clausura,Godoy Cruz,17
+Argentina,2011,1,Clausura,Olimpo,18
+Argentina,2011,1,Clausura,Banfield,19
+Argentina,2011,1,Clausura,Vélez Sarsfield,20
+Argentina,2012,1,Inicial,Vélez Sarsfield,1
+Argentina,2012,1,Inicial,Newell's Old Boys,2
+Argentina,2012,1,Inicial,Belgrano,3
+Argentina,2012,1,Inicial,Lanús,4
+Argentina,2012,1,Inicial,Racing Club,5
+Argentina,2012,1,Inicial,Boca Juniors,6
+Argentina,2012,1,Inicial,Arsenal,7
+Argentina,2012,1,Inicial,River Plate,8
+Argentina,2012,1,Inicial,Estudiantes de La Plata,9
+Argentina,2012,1,Inicial,Colón,10
+Argentina,2012,1,Inicial,San Lorenzo,11
+Argentina,2012,1,Inicial,Independiente,12
+Argentina,2012,1,Inicial,Atlético de Rafaela,13
+Argentina,2012,1,Inicial,Argentinos Juniors,14
+Argentina,2012,1,Inicial,Godoy Cruz,15
+Argentina,2012,1,Inicial,Quilmes,16
+Argentina,2012,1,Inicial,All Boys,17
+Argentina,2012,1,Inicial,San Martín (San Juan),18
+Argentina,2012,1,Inicial,Tigre,19
+Argentina,2012,1,Inicial,Unión,20
+Argentina,2012,1,Final,Newell's Old Boys,1
+Argentina,2012,1,Final,River Plate,2
+Argentina,2012,1,Final,Lanús,3
+Argentina,2012,1,Final,San Lorenzo,4
+Argentina,2012,1,Final,Boca Juniors,5
+Argentina,2012,1,Final,Arsenal,6
+Argentina,2012,1,Final,Godoy Cruz,7
+Argentina,2012,1,Final,Quilmes,8
+Argentina,2012,1,Final,Vélez Sarsfield,9
+Argentina,2012,1,Final,Estudiantes de La Plata,10
+Argentina,2012,1,Final,Colón,11
+Argentina,2012,1,Final,Argentinos Juniors,12
+Argentina,2012,1,Final,Atlético de Rafaela,13
+Argentina,2012,1,Final,Belgrano,14
+Argentina,2012,1,Final,All Boys,15
+Argentina,2012,1,Final,Racing Club,16
+Argentina,2012,1,Final,San Martín (San Juan),17
+Argentina,2012,1,Final,Independiente,18
+Argentina,2012,1,Final,Tigre,19
+Argentina,2012,1,Final,Unión,20

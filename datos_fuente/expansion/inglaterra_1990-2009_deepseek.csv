@@ -1,0 +1,409 @@
+pais,temporada,division,grupo,club,posicion
+Inglaterra,1990,1,,Arsenal,1
+Inglaterra,1990,1,,Liverpool,2
+Inglaterra,1990,1,,Crystal Palace,3
+Inglaterra,1990,1,,Leeds United,4
+Inglaterra,1990,1,,Manchester City,5
+Inglaterra,1990,1,,Manchester United,6
+Inglaterra,1990,1,,Wimbledon,7
+Inglaterra,1990,1,,Nottingham Forest,8
+Inglaterra,1990,1,,Everton,9
+Inglaterra,1990,1,,Tottenham Hotspur,10
+Inglaterra,1990,1,,Chelsea,11
+Inglaterra,1990,1,,Queens Park Rangers,12
+Inglaterra,1990,1,,Sheffield United,13
+Inglaterra,1990,1,,Southampton,14
+Inglaterra,1990,1,,Norwich City,15
+Inglaterra,1990,1,,Coventry City,16
+Inglaterra,1990,1,,Aston Villa,17
+Inglaterra,1990,1,,Luton Town,18
+Inglaterra,1990,1,,Sunderland,19
+Inglaterra,1990,1,,Derby County,20
+Inglaterra,1991,1,,Leeds United,1
+Inglaterra,1991,1,,Manchester United,2
+Inglaterra,1991,1,,Sheffield Wednesday,3
+Inglaterra,1991,1,,Arsenal,4
+Inglaterra,1991,1,,Manchester City,5
+Inglaterra,1991,1,,Liverpool,6
+Inglaterra,1991,1,,Aston Villa,7
+Inglaterra,1991,1,,Nottingham Forest,8
+Inglaterra,1991,1,,Sheffield United,9
+Inglaterra,1991,1,,Crystal Palace,10
+Inglaterra,1991,1,,Queens Park Rangers,11
+Inglaterra,1991,1,,Everton,12
+Inglaterra,1991,1,,Wimbledon,13
+Inglaterra,1991,1,,Chelsea,14
+Inglaterra,1991,1,,Tottenham Hotspur,15
+Inglaterra,1991,1,,Southampton,16
+Inglaterra,1991,1,,Oldham Athletic,17
+Inglaterra,1991,1,,Norwich City,18
+Inglaterra,1991,1,,Coventry City,19
+Inglaterra,1991,1,,Luton Town,20
+Inglaterra,1991,1,,Notts County,21
+Inglaterra,1991,1,,West Ham United,22
+Inglaterra,1992,1,,Manchester United,1
+Inglaterra,1992,1,,Aston Villa,2
+Inglaterra,1992,1,,Norwich City,3
+Inglaterra,1992,1,,Blackburn Rovers,4
+Inglaterra,1992,1,,Queens Park Rangers,5
+Inglaterra,1992,1,,Liverpool,6
+Inglaterra,1992,1,,Sheffield Wednesday,7
+Inglaterra,1992,1,,Tottenham Hotspur,8
+Inglaterra,1992,1,,Manchester City,9
+Inglaterra,1992,1,,Arsenal,10
+Inglaterra,1992,1,,Chelsea,11
+Inglaterra,1992,1,,Wimbledon,12
+Inglaterra,1992,1,,Everton,13
+Inglaterra,1992,1,,Sheffield United,14
+Inglaterra,1992,1,,Coventry City,15
+Inglaterra,1992,1,,Ipswich Town,16
+Inglaterra,1992,1,,Leeds United,17
+Inglaterra,1992,1,,Southampton,18
+Inglaterra,1992,1,,Oldham Athletic,19
+Inglaterra,1992,1,,Crystal Palace,20
+Inglaterra,1992,1,,Middlesbrough,21
+Inglaterra,1992,1,,Nottingham Forest,22
+Inglaterra,1993,1,,Manchester United,1
+Inglaterra,1993,1,,Blackburn Rovers,2
+Inglaterra,1993,1,,Newcastle United,3
+Inglaterra,1993,1,,Arsenal,4
+Inglaterra,1993,1,,Leeds United,5
+Inglaterra,1993,1,,Wimbledon,6
+Inglaterra,1993,1,,Sheffield Wednesday,7
+Inglaterra,1993,1,,Liverpool,8
+Inglaterra,1993,1,,Queens Park Rangers,9
+Inglaterra,1993,1,,Aston Villa,10
+Inglaterra,1993,1,,Coventry City,11
+Inglaterra,1993,1,,Norwich City,12
+Inglaterra,1993,1,,West Ham United,13
+Inglaterra,1993,1,,Chelsea,14
+Inglaterra,1993,1,,Tottenham Hotspur,15
+Inglaterra,1993,1,,Manchester City,16
+Inglaterra,1993,1,,Everton,17
+Inglaterra,1993,1,,Southampton,18
+Inglaterra,1993,1,,Ipswich Town,19
+Inglaterra,1993,1,,Sheffield United,20
+Inglaterra,1993,1,,Oldham Athletic,21
+Inglaterra,1993,1,,Swindon Town,22
+Inglaterra,1994,1,,Blackburn Rovers,1
+Inglaterra,1994,1,,Manchester United,2
+Inglaterra,1994,1,,Nottingham Forest,3
+Inglaterra,1994,1,,Liverpool,4
+Inglaterra,1994,1,,Leeds United,5
+Inglaterra,1994,1,,Newcastle United,6
+Inglaterra,1994,1,,Tottenham Hotspur,7
+Inglaterra,1994,1,,Queens Park Rangers,8
+Inglaterra,1994,1,,Wimbledon,9
+Inglaterra,1994,1,,Southampton,10
+Inglaterra,1994,1,,Chelsea,11
+Inglaterra,1994,1,,Arsenal,12
+Inglaterra,1994,1,,Sheffield Wednesday,13
+Inglaterra,1994,1,,West Ham United,14
+Inglaterra,1994,1,,Everton,15
+Inglaterra,1994,1,,Coventry City,16
+Inglaterra,1994,1,,Manchester City,17
+Inglaterra,1994,1,,Aston Villa,18
+Inglaterra,1994,1,,Crystal Palace,19
+Inglaterra,1994,1,,Norwich City,20
+Inglaterra,1994,1,,Leicester City,21
+Inglaterra,1994,1,,Ipswich Town,22
+Inglaterra,1995,1,,Manchester United,1
+Inglaterra,1995,1,,Newcastle United,2
+Inglaterra,1995,1,,Liverpool,3
+Inglaterra,1995,1,,Aston Villa,4
+Inglaterra,1995,1,,Arsenal,5
+Inglaterra,1995,1,,Everton,6
+Inglaterra,1995,1,,Blackburn Rovers,7
+Inglaterra,1995,1,,Tottenham Hotspur,8
+Inglaterra,1995,1,,Nottingham Forest,9
+Inglaterra,1995,1,,West Ham United,10
+Inglaterra,1995,1,,Chelsea,11
+Inglaterra,1995,1,,Middlesbrough,12
+Inglaterra,1995,1,,Leeds United,13
+Inglaterra,1995,1,,Wimbledon,14
+Inglaterra,1995,1,,Sheffield Wednesday,15
+Inglaterra,1995,1,,Coventry City,16
+Inglaterra,1995,1,,Southampton,17
+Inglaterra,1995,1,,Manchester City,18
+Inglaterra,1995,1,,Queens Park Rangers,19
+Inglaterra,1995,1,,Bolton Wanderers,20
+Inglaterra,1996,1,,Manchester United,1
+Inglaterra,1996,1,,Newcastle United,2
+Inglaterra,1996,1,,Arsenal,3
+Inglaterra,1996,1,,Liverpool,4
+Inglaterra,1996,1,,Aston Villa,5
+Inglaterra,1996,1,,Chelsea,6
+Inglaterra,1996,1,,Sheffield Wednesday,7
+Inglaterra,1996,1,,Wimbledon,8
+Inglaterra,1996,1,,Leicester City,9
+Inglaterra,1996,1,,Tottenham Hotspur,10
+Inglaterra,1996,1,,Leeds United,11
+Inglaterra,1996,1,,Derby County,12
+Inglaterra,1996,1,,Blackburn Rovers,13
+Inglaterra,1996,1,,West Ham United,14
+Inglaterra,1996,1,,Everton,15
+Inglaterra,1996,1,,Southampton,16
+Inglaterra,1996,1,,Coventry City,17
+Inglaterra,1996,1,,Sunderland,18
+Inglaterra,1996,1,,Middlesbrough,19
+Inglaterra,1996,1,,Nottingham Forest,20
+Inglaterra,1997,1,,Arsenal,1
+Inglaterra,1997,1,,Manchester United,2
+Inglaterra,1997,1,,Liverpool,3
+Inglaterra,1997,1,,Chelsea,4
+Inglaterra,1997,1,,Leeds United,5
+Inglaterra,1997,1,,Blackburn Rovers,6
+Inglaterra,1997,1,,Aston Villa,7
+Inglaterra,1997,1,,West Ham United,8
+Inglaterra,1997,1,,Derby County,9
+Inglaterra,1997,1,,Leicester City,10
+Inglaterra,1997,1,,Coventry City,11
+Inglaterra,1997,1,,Southampton,12
+Inglaterra,1997,1,,Newcastle United,13
+Inglaterra,1997,1,,Tottenham Hotspur,14
+Inglaterra,1997,1,,Wimbledon,15
+Inglaterra,1997,1,,Sheffield Wednesday,16
+Inglaterra,1997,1,,Everton,17
+Inglaterra,1997,1,,Bolton Wanderers,18
+Inglaterra,1997,1,,Barnsley,19
+Inglaterra,1997,1,,Crystal Palace,20
+Inglaterra,1998,1,,Manchester United,1
+Inglaterra,1998,1,,Arsenal,2
+Inglaterra,1998,1,,Chelsea,3
+Inglaterra,1998,1,,Leeds United,4
+Inglaterra,1998,1,,West Ham United,5
+Inglaterra,1998,1,,Aston Villa,6
+Inglaterra,1998,1,,Liverpool,7
+Inglaterra,1998,1,,Derby County,8
+Inglaterra,1998,1,,Middlesbrough,9
+Inglaterra,1998,1,,Leicester City,10
+Inglaterra,1998,1,,Tottenham Hotspur,11
+Inglaterra,1998,1,,Sheffield Wednesday,12
+Inglaterra,1998,1,,Newcastle United,13
+Inglaterra,1998,1,,Everton,14
+Inglaterra,1998,1,,Coventry City,15
+Inglaterra,1998,1,,Wimbledon,16
+Inglaterra,1998,1,,Southampton,17
+Inglaterra,1998,1,,Charlton Athletic,18
+Inglaterra,1998,1,,Blackburn Rovers,19
+Inglaterra,1998,1,,Nottingham Forest,20
+Inglaterra,1999,1,,Manchester United,1
+Inglaterra,1999,1,,Arsenal,2
+Inglaterra,1999,1,,Leeds United,3
+Inglaterra,1999,1,,Liverpool,4
+Inglaterra,1999,1,,Chelsea,5
+Inglaterra,1999,1,,Aston Villa,6
+Inglaterra,1999,1,,Sunderland,7
+Inglaterra,1999,1,,Leicester City,8
+Inglaterra,1999,1,,West Ham United,9
+Inglaterra,1999,1,,Tottenham Hotspur,10
+Inglaterra,1999,1,,Newcastle United,11
+Inglaterra,1999,1,,Middlesbrough,12
+Inglaterra,1999,1,,Everton,13
+Inglaterra,1999,1,,Coventry City,14
+Inglaterra,1999,1,,Southampton,15
+Inglaterra,1999,1,,Derby County,16
+Inglaterra,1999,1,,Bradford City,17
+Inglaterra,1999,1,,Wimbledon,18
+Inglaterra,1999,1,,Sheffield Wednesday,19
+Inglaterra,1999,1,,Watford,20
+Inglaterra,2000,1,,Manchester United,1
+Inglaterra,2000,1,,Arsenal,2
+Inglaterra,2000,1,,Liverpool,3
+Inglaterra,2000,1,,Leeds United,4
+Inglaterra,2000,1,,Ipswich Town,5
+Inglaterra,2000,1,,Chelsea,6
+Inglaterra,2000,1,,Sunderland,7
+Inglaterra,2000,1,,Aston Villa,8
+Inglaterra,2000,1,,Charlton Athletic,9
+Inglaterra,2000,1,,Southampton,10
+Inglaterra,2000,1,,Newcastle United,11
+Inglaterra,2000,1,,Tottenham Hotspur,12
+Inglaterra,2000,1,,Leicester City,13
+Inglaterra,2000,1,,Middlesbrough,14
+Inglaterra,2000,1,,West Ham United,15
+Inglaterra,2000,1,,Everton,16
+Inglaterra,2000,1,,Derby County,17
+Inglaterra,2000,1,,Manchester City,18
+Inglaterra,2000,1,,Coventry City,19
+Inglaterra,2000,1,,Bradford City,20
+Inglaterra,2001,1,,Arsenal,1
+Inglaterra,2001,1,,Liverpool,2
+Inglaterra,2001,1,,Manchester United,3
+Inglaterra,2001,1,,Newcastle United,4
+Inglaterra,2001,1,,Leeds United,5
+Inglaterra,2001,1,,Chelsea,6
+Inglaterra,2001,1,,West Ham United,7
+Inglaterra,2001,1,,Aston Villa,8
+Inglaterra,2001,1,,Tottenham Hotspur,9
+Inglaterra,2001,1,,Blackburn Rovers,10
+Inglaterra,2001,1,,Southampton,11
+Inglaterra,2001,1,,Middlesbrough,12
+Inglaterra,2001,1,,Fulham,13
+Inglaterra,2001,1,,Charlton Athletic,14
+Inglaterra,2001,1,,Everton,15
+Inglaterra,2001,1,,Bolton Wanderers,16
+Inglaterra,2001,1,,Sunderland,17
+Inglaterra,2001,1,,Ipswich Town,18
+Inglaterra,2001,1,,Derby County,19
+Inglaterra,2001,1,,Leicester City,20
+Inglaterra,2002,1,,Manchester United,1
+Inglaterra,2002,1,,Arsenal,2
+Inglaterra,2002,1,,Newcastle United,3
+Inglaterra,2002,1,,Chelsea,4
+Inglaterra,2002,1,,Liverpool,5
+Inglaterra,2002,1,,Blackburn Rovers,6
+Inglaterra,2002,1,,Everton,7
+Inglaterra,2002,1,,Southampton,8
+Inglaterra,2002,1,,Manchester City,9
+Inglaterra,2002,1,,Tottenham Hotspur,10
+Inglaterra,2002,1,,Middlesbrough,11
+Inglaterra,2002,1,,Charlton Athletic,12
+Inglaterra,2002,1,,Birmingham City,13
+Inglaterra,2002,1,,Fulham,14
+Inglaterra,2002,1,,Leeds United,15
+Inglaterra,2002,1,,Aston Villa,16
+Inglaterra,2002,1,,Bolton Wanderers,17
+Inglaterra,2002,1,,West Ham United,18
+Inglaterra,2002,1,,West Bromwich Albion,19
+Inglaterra,2002,1,,Sunderland,20
+Inglaterra,2003,1,,Arsenal,1
+Inglaterra,2003,1,,Chelsea,2
+Inglaterra,2003,1,,Manchester United,3
+Inglaterra,2003,1,,Liverpool,4
+Inglaterra,2003,1,,Newcastle United,5
+Inglaterra,2003,1,,Aston Villa,6
+Inglaterra,2003,1,,Charlton Athletic,7
+Inglaterra,2003,1,,Bolton Wanderers,8
+Inglaterra,2003,1,,Fulham,9
+Inglaterra,2003,1,,Birmingham City,10
+Inglaterra,2003,1,,Middlesbrough,11
+Inglaterra,2003,1,,Southampton,12
+Inglaterra,2003,1,,Portsmouth,13
+Inglaterra,2003,1,,Tottenham Hotspur,14
+Inglaterra,2003,1,,Blackburn Rovers,15
+Inglaterra,2003,1,,Manchester City,16
+Inglaterra,2003,1,,Everton,17
+Inglaterra,2003,1,,Leicester City,18
+Inglaterra,2003,1,,Leeds United,19
+Inglaterra,2003,1,,Wolverhampton Wanderers,20
+Inglaterra,2004,1,,Chelsea,1
+Inglaterra,2004,1,,Arsenal,2
+Inglaterra,2004,1,,Manchester United,3
+Inglaterra,2004,1,,Everton,4
+Inglaterra,2004,1,,Liverpool,5
+Inglaterra,2004,1,,Bolton Wanderers,6
+Inglaterra,2004,1,,Middlesbrough,7
+Inglaterra,2004,1,,Manchester City,8
+Inglaterra,2004,1,,Tottenham Hotspur,9
+Inglaterra,2004,1,,Aston Villa,10
+Inglaterra,2004,1,,Charlton Athletic,11
+Inglaterra,2004,1,,Birmingham City,12
+Inglaterra,2004,1,,Fulham,13
+Inglaterra,2004,1,,Newcastle United,14
+Inglaterra,2004,1,,Blackburn Rovers,15
+Inglaterra,2004,1,,Portsmouth,16
+Inglaterra,2004,1,,West Bromwich Albion,17
+Inglaterra,2004,1,,Crystal Palace,18
+Inglaterra,2004,1,,Norwich City,19
+Inglaterra,2004,1,,Southampton,20
+Inglaterra,2005,1,,Chelsea,1
+Inglaterra,2005,1,,Manchester United,2
+Inglaterra,2005,1,,Liverpool,3
+Inglaterra,2005,1,,Arsenal,4
+Inglaterra,2005,1,,Tottenham Hotspur,5
+Inglaterra,2005,1,,Blackburn Rovers,6
+Inglaterra,2005,1,,Newcastle United,7
+Inglaterra,2005,1,,Bolton Wanderers,8
+Inglaterra,2005,1,,West Ham United,9
+Inglaterra,2005,1,,Wigan Athletic,10
+Inglaterra,2005,1,,Everton,11
+Inglaterra,2005,1,,Fulham,12
+Inglaterra,2005,1,,Charlton Athletic,13
+Inglaterra,2005,1,,Middlesbrough,14
+Inglaterra,2005,1,,Manchester City,15
+Inglaterra,2005,1,,Aston Villa,16
+Inglaterra,2005,1,,Portsmouth,17
+Inglaterra,2005,1,,Birmingham City,18
+Inglaterra,2005,1,,West Bromwich Albion,19
+Inglaterra,2005,1,,Sunderland,20
+Inglaterra,2006,1,,Manchester United,1
+Inglaterra,2006,1,,Chelsea,2
+Inglaterra,2006,1,,Liverpool,3
+Inglaterra,2006,1,,Arsenal,4
+Inglaterra,2006,1,,Tottenham Hotspur,5
+Inglaterra,2006,1,,Everton,6
+Inglaterra,2006,1,,Bolton Wanderers,7
+Inglaterra,2006,1,,Reading,8
+Inglaterra,2006,1,,Portsmouth,9
+Inglaterra,2006,1,,Blackburn Rovers,10
+Inglaterra,2006,1,,Aston Villa,11
+Inglaterra,2006,1,,Middlesbrough,12
+Inglaterra,2006,1,,Newcastle United,13
+Inglaterra,2006,1,,Manchester City,14
+Inglaterra,2006,1,,West Ham United,15
+Inglaterra,2006,1,,Fulham,16
+Inglaterra,2006,1,,Wigan Athletic,17
+Inglaterra,2006,1,,Sheffield United,18
+Inglaterra,2006,1,,Charlton Athletic,19
+Inglaterra,2006,1,,Watford,20
+Inglaterra,2007,1,,Manchester United,1
+Inglaterra,2007,1,,Chelsea,2
+Inglaterra,2007,1,,Arsenal,3
+Inglaterra,2007,1,,Liverpool,4
+Inglaterra,2007,1,,Everton,5
+Inglaterra,2007,1,,Aston Villa,6
+Inglaterra,2007,1,,Blackburn Rovers,7
+Inglaterra,2007,1,,Portsmouth,8
+Inglaterra,2007,1,,Manchester City,9
+Inglaterra,2007,1,,West Ham United,10
+Inglaterra,2007,1,,Tottenham Hotspur,11
+Inglaterra,2007,1,,Newcastle United,12
+Inglaterra,2007,1,,Middlesbrough,13
+Inglaterra,2007,1,,Wigan Athletic,14
+Inglaterra,2007,1,,Sunderland,15
+Inglaterra,2007,1,,Bolton Wanderers,16
+Inglaterra,2007,1,,Fulham,17
+Inglaterra,2007,1,,Reading,18
+Inglaterra,2007,1,,Birmingham City,19
+Inglaterra,2007,1,,Derby County,20
+Inglaterra,2008,1,,Manchester United,1
+Inglaterra,2008,1,,Liverpool,2
+Inglaterra,2008,1,,Chelsea,3
+Inglaterra,2008,1,,Arsenal,4
+Inglaterra,2008,1,,Everton,5
+Inglaterra,2008,1,,Aston Villa,6
+Inglaterra,2008,1,,Fulham,7
+Inglaterra,2008,1,,Tottenham Hotspur,8
+Inglaterra,2008,1,,West Ham United,9
+Inglaterra,2008,1,,Manchester City,10
+Inglaterra,2008,1,,Wigan Athletic,11
+Inglaterra,2008,1,,Stoke City,12
+Inglaterra,2008,1,,Bolton Wanderers,13
+Inglaterra,2008,1,,Portsmouth,14
+Inglaterra,2008,1,,Blackburn Rovers,15
+Inglaterra,2008,1,,Sunderland,16
+Inglaterra,2008,1,,Hull City,17
+Inglaterra,2008,1,,Newcastle United,18
+Inglaterra,2008,1,,Middlesbrough,19
+Inglaterra,2008,1,,West Bromwich Albion,20
+Inglaterra,2009,1,,Chelsea,1
+Inglaterra,2009,1,,Manchester United,2
+Inglaterra,2009,1,,Arsenal,3
+Inglaterra,2009,1,,Tottenham Hotspur,4
+Inglaterra,2009,1,,Manchester City,5
+Inglaterra,2009,1,,Aston Villa,6
+Inglaterra,2009,1,,Liverpool,7
+Inglaterra,2009,1,,Everton,8
+Inglaterra,2009,1,,Birmingham City,9
+Inglaterra,2009,1,,Blackburn Rovers,10
+Inglaterra,2009,1,,Stoke City,11
+Inglaterra,2009,1,,Fulham,12
+Inglaterra,2009,1,,Sunderland,13
+Inglaterra,2009,1,,Bolton Wanderers,14
+Inglaterra,2009,1,,Wolverhampton Wanderers,15
+Inglaterra,2009,1,,Wigan Athletic,16
+Inglaterra,2009,1,,West Ham United,17
+Inglaterra,2009,1,,Burnley,18
+Inglaterra,2009,1,,Hull City,19
+Inglaterra,2009,1,,Portsmouth,20

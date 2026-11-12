@@ -1,0 +1,77 @@
+club,ciudad,estadio,color1,color2,prestigio,division,nombre_aleman
+Hamburgo,Hamburgo,Rothenbaum,#0A3D91,#FFFFFF,816,Oberliga Nord,Hamburger SV
+Werder Bremen,Bremen,Weserstadion,#1D9053,#FFFFFF,557,Oberliga Nord,Werder Bremen
+VfR Neumünster,Neumünster,Stadion an der Geerdtsstraße,#1E5AA8,#FFFFFF,448,Oberliga Nord,VfR Neumünster
+VfL Osnabrück,Osnabrück,Bremer Brücke,#5B2C83,#FFFFFF,538,Oberliga Nord,VfL Osnabrück
+Eintracht Braunschweig,Brunswick,Eintracht-Stadion,#F6C700,#0B5DA8,541,Oberliga Nord,Eintracht Braunschweig
+Hannover 96,Hannover,Niedersachsenstadion,#1A1A1A,#C8102E,692,Oberliga Nord,Hannover 96
+St. Pauli,Hamburgo,Millerntor,#6B3E26,#FFFFFF,540,Oberliga Nord,FC St. Pauli
+Altona 93,Hamburgo,Adolf-Jäger-Kampfbahn,#1A1A1A,#C8102E,526,Oberliga Nord,Altona 93
+Bremerhaven 93,Bremerhaven,Zollinlandplatz,#C8102E,#FFFFFF,545,Oberliga Nord,Bremerhaven 93
+Holstein Kiel,Kiel,Holstein-Stadion,#0A3D91,#C8102E,589,Oberliga Nord,Holstein Kiel
+Bergedorf 85,Hamburgo,Sander Tannen,#1E5AA8,#FFFFFF,250,Oberliga Nord,ASV Bergedorf 85
+Concordia Hamburgo,Hamburgo,Marienthal,#1A1A1A,#FFFFFF,465,Oberliga Nord,SC Concordia Hamburg
+VfV Hildesheim,Hildesheim,Friedrich-Ebert-Sportfeld,#1E5AA8,#FFFFFF,250,Oberliga Nord,VfV 06 Hildesheim
+Phönix Lübeck,Lübeck,Flugplatz,#1A1A1A,#F6C700,333,Oberliga Nord,1. FC Phönix Lübeck
+Eintracht Nordhorn,Nordhorn,Eintracht-Stadion,#1E5AA8,#FFFFFF,407,Oberliga Nord,Eintracht Nordhorn
+Wolfsburgo,Wolfsburgo,VfL-Stadion am Elsterweg,#65B32E,#FFFFFF,422,Oberliga Nord,VfL Wolfsburg
+Westfalia Herne,Herne,Stadion am Schloss Strünkede,#1E5AA8,#FFFFFF,449,Oberliga West,SC Westfalia 04 Herne
+Colonia,Colonia,Müngersdorfer Stadion,#FFFFFF,#C8102E,606,Oberliga West,1. FC Köln
+Fortuna Düsseldorf,Düsseldorf,Rheinstadion,#C8102E,#FFFFFF,610,Oberliga West,Fortuna Düsseldorf
+Bochum,Bochum,Stadion an der Castroper Straße,#1E5AA8,#FFFFFF,445,Oberliga West,VfL Bochum
+Borussia Dortmund,Dortmund,Stadion Rote Erde,#FDE100,#1A1A1A,853,Oberliga West,Borussia Dortmund
+Rot-Weiss Essen,Essen,Georg-Melches-Stadion,#C8102E,#FFFFFF,727,Oberliga West,Rot-Weiss Essen
+Preußen Münster,Münster,Preußenstadion,#1A1A1A,#FFFFFF,541,Oberliga West,Preußen Münster
+Meidericher SV,Duisburgo,Wedaustadion,#0A3D91,#FFFFFF,503,Oberliga West,MSV Duisburg
+Duisburger SV,Duisburgo,Wedaustadion,#1E5AA8,#FFFFFF,531,Oberliga West,Duisburger SV
+Alemannia Aquisgrán,Aquisgrán,Tivoli,#F6C700,#1A1A1A,581,Oberliga West,Alemannia Aachen
+Schalke 04,Gelsenkirchen,Glückauf-Kampfbahn,#004D9D,#FFFFFF,886,Oberliga West,FC Schalke 04
+Rot-Weiß Oberhausen,Oberhausen,Niederrheinstadion,#C8102E,#FFFFFF,419,Oberliga West,Rot-Weiß Oberhausen
+Borussia Mönchengladbach,Mönchengladbach,Bökelberg,#1A1A1A,#FFFFFF,445,Oberliga West,Borussia Mönchengladbach
+Viktoria Colonia,Colonia,Sportpark Höhenberg,#C8102E,#FFFFFF,378,Oberliga West,Viktoria Köln
+Sodingen,Herne,Glück-Auf-Kampfbahn,#1D9053,#FFFFFF,495,Oberliga West,SV Sodingen
+Horst-Emscher,Gelsenkirchen,Fürstenberg-Stadion,#1E5AA8,#FFFFFF,415,Oberliga West,STV Horst-Emscher
+Eintracht Fráncfort,Fráncfort,Waldstadion,#C8102E,#1A1A1A,636,Oberliga Süd,Eintracht Frankfurt
+Kickers Offenbach,Offenbach,Bieberer Berg,#C8102E,#FFFFFF,667,Oberliga Süd,Kickers Offenbach
+Núremberg,Núremberg,Zabo,#8B1A2B,#FFFFFF,900,Oberliga Süd,1. FC Nürnberg
+Bayern Múnich,Múnich,Grünwalder Stadion,#DC052D,#FFFFFF,593,Oberliga Süd,FC Bayern München
+Stuttgart,Stuttgart,Neckarstadion,#FFFFFF,#E32219,828,Oberliga Süd,VfB Stuttgart
+Múnich 1860,Múnich,Grünwalder Stadion,#6CACE4,#FFFFFF,492,Oberliga Süd,TSV 1860 München
+Fürth,Fürth,Ronhof,#1D9053,#FFFFFF,675,Oberliga Süd,SpVgg Greuther Fürth
+VfR Mannheim,Mannheim,Rhein-Neckar-Stadion,#1E5AA8,#C8102E,648,Oberliga Süd,VfR Mannheim
+Karlsruhe,Karlsruhe,Wildparkstadion,#0A3D91,#FFFFFF,702,Oberliga Süd,Karlsruher SC
+Schweinfurt 05,Schweinfurt,Willy-Sachs-Stadion,#1D9053,#FFFFFF,557,Oberliga Süd,1. FC Schweinfurt 05
+FSV Fráncfort,Fráncfort,Bornheimer Hang,#0A3D91,#1A1A1A,541,Oberliga Süd,FSV Frankfurt
+Reutlingen,Reutlingen,Stadion an der Kreuzeiche,#C8102E,#1A1A1A,504,Oberliga Süd,SSV Reutlingen 05
+Ulm 1846,Ulm,Donaustadion,#1A1A1A,#FFFFFF,357,Oberliga Süd,SSV Ulm 1846
+Viktoria Aschaffenburg,Aschaffenburg,Stadion am Schönbusch,#1E5AA8,#FFFFFF,501,Oberliga Süd,Viktoria Aschaffenburg
+BC Augsburgo,Augsburgo,Rosenaustadion,#C8102E,#FFFFFF,511,Oberliga Süd,BC Augsburg
+Waldhof Mannheim,Mannheim,Waldhofstadion,#0A3D91,#1A1A1A,419,Oberliga Süd,SV Waldhof Mannheim
+Pirmasens,Pirmasens,Sportpark Husterhöhe,#1E5AA8,#FFFFFF,588,Oberliga Südwest,FK Pirmasens
+Borussia Neunkirchen,Neunkirchen,Ellenfeldstadion,#1A1A1A,#FFFFFF,535,Oberliga Südwest,Borussia Neunkirchen
+Kaiserslautern,Kaiserslautern,Betzenberg,#C8102E,#FFFFFF,897,Oberliga Südwest,1. FC Kaiserslautern
+Saarbrücken,Saarbrücken,Ludwigspark,#1E5AA8,#1A1A1A,571,Oberliga Südwest,1. FC Saarbrücken
+Phönix Ludwigshafen,Ludwigshafen,Südweststadion,#1E5AA8,#FFFFFF,558,Oberliga Südwest,SV Phönix Ludwigshafen
+Sportfreunde Saarbrücken,Saarbrücken,Kieselhumes,#1D9053,#FFFFFF,341,Oberliga Südwest,Sportfreunde 05 Saarbrücken
+Frankenthal,Frankenthal,Ostparkstadion,#1A1A1A,#FFFFFF,510,Oberliga Südwest,VfR Frankenthal
+Eintracht Trier,Tréveris,Moselstadion,#1E5AA8,#1A1A1A,488,Oberliga Südwest,Eintracht Trier
+Saar 05,Saarbrücken,Kieselhumes,#1A1A1A,#FFFFFF,511,Oberliga Südwest,SV Saar 05 Saarbrücken
+Eintracht Kreuznach,Bad Kreuznach,Friedrich-Moebus-Stadion,#1A1A1A,#FFFFFF,479,Oberliga Südwest,Eintracht Bad Kreuznach
+Mainz 05,Maguncia,Stadion am Bruchweg,#C8102E,#FFFFFF,523,Oberliga Südwest,1. FSV Mainz 05
+Speyer,Espira,Stadion Speyer,#1A1A1A,#FFFFFF,420,Oberliga Südwest,FV 1904 Speyer
+TuRa Ludwigshafen,Ludwigshafen,TuRa-Platz,#1E5AA8,#FFFFFF,462,Oberliga Südwest,TuRa Ludwigshafen
+Wormatia Worms,Worms,Wormatia-Stadion,#1A1A1A,#FFFFFF,539,Oberliga Südwest,Wormatia Worms
+TuS Neuendorf,Coblenza,Stadion Oberwerth,#1A1A1A,#FFFFFF,553,Oberliga Südwest,TuS Koblenz
+Weisenau,Maguncia,Weisenau,#1A1A1A,#FFFFFF,347,Oberliga Südwest,SV Weisenau
+Tasmania Berlín,Berlín,Neuköllner Werner-Seelenbinder-Kampfbahn,#1E5AA8,#FFFFFF,422,Oberliga Berlin,SC Tasmania 1900 Berlin
+Spandauer SV,Berlín,Stadion Neustädter See,#C8102E,#FFFFFF,469,Oberliga Berlin,Spandauer SV
+Hertha Berlín,Berlín,Olympiastadion,#0A3D91,#FFFFFF,562,Oberliga Berlin,Hertha BSC
+Viktoria 89 Berlín,Berlín,Friedrich-Ebert-Stadion,#1A1A1A,#FFFFFF,596,Oberliga Berlin,FC Viktoria 1889 Berlin
+Blau-Weiß 90 Berlín,Berlín,Rathausstadion Mariendorf,#1E5AA8,#FFFFFF,449,Oberliga Berlin,Blau-Weiß 90 Berlin
+Hertha Zehlendorf,Berlín,Ernst-Reuter-Sportfeld,#0A3D91,#FFFFFF,411,Oberliga Berlin,Hertha 03 Zehlendorf
+Tennis Borussia,Berlín,Mommsenstadion,#6B2C91,#FFFFFF,537,Oberliga Berlin,Tennis Borussia Berlin
+Berliner SV 92,Berlín,Hubertussportplatz,#1A1A1A,#FFFFFF,506,Oberliga Berlin,Berliner SV 1892
+Union 06 Berlín,Berlín,Poststadion,#C8102E,#FFFFFF,476,Oberliga Berlin,SC Union 06 Berlin
+Wacker 04 Berlín,Berlín,Wacker-Platz Reinickendorf,#1D9053,#FFFFFF,422,Oberliga Berlin,Wacker 04 Berlin
+BFC Südring,Berlín,Sportplatz Südring,#1A1A1A,#FFFFFF,378,Oberliga Berlin,BFC Südring
+Rapide Wedding,Berlín,Sportplatz Rehberge,#C8102E,#FFFFFF,321,Oberliga Berlin,SV Rapide Wedding

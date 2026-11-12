@@ -1,0 +1,833 @@
+pais,temporada,division,grupo,club,posicion
+Inglaterra,1950,1,,Tottenham Hotspur,1
+Inglaterra,1950,1,,Manchester United,2
+Inglaterra,1950,1,,Blackpool,3
+Inglaterra,1950,1,,Newcastle United,4
+Inglaterra,1950,1,,Arsenal,5
+Inglaterra,1950,1,,Middlesbrough,6
+Inglaterra,1950,1,,Portsmouth,7
+Inglaterra,1950,1,,Bolton Wanderers,8
+Inglaterra,1950,1,,Liverpool,9
+Inglaterra,1950,1,,Burnley,10
+Inglaterra,1950,1,,Derby County,11
+Inglaterra,1950,1,,Sunderland,12
+Inglaterra,1950,1,,Stoke City,13
+Inglaterra,1950,1,,Wolverhampton Wanderers,14
+Inglaterra,1950,1,,Aston Villa,15
+Inglaterra,1950,1,,West Bromwich Albion,16
+Inglaterra,1950,1,,Charlton Athletic,17
+Inglaterra,1950,1,,Fulham,18
+Inglaterra,1950,1,,Huddersfield Town,19
+Inglaterra,1950,1,,Chelsea,20
+Inglaterra,1950,1,,Sheffield Wednesday,21
+Inglaterra,1950,1,,Everton,22
+Inglaterra,1951,1,,Manchester United,1
+Inglaterra,1951,1,,Tottenham Hotspur,2
+Inglaterra,1951,1,,Arsenal,3
+Inglaterra,1951,1,,Portsmouth,4
+Inglaterra,1951,1,,Bolton Wanderers,5
+Inglaterra,1951,1,,Aston Villa,6
+Inglaterra,1951,1,,Preston North End,7
+Inglaterra,1951,1,,Newcastle United,8
+Inglaterra,1951,1,,Blackpool,9
+Inglaterra,1951,1,,Charlton Athletic,10
+Inglaterra,1951,1,,Liverpool,11
+Inglaterra,1951,1,,Sunderland,12
+Inglaterra,1951,1,,West Bromwich Albion,13
+Inglaterra,1951,1,,Burnley,14
+Inglaterra,1951,1,,Manchester City,15
+Inglaterra,1951,1,,Wolverhampton Wanderers,16
+Inglaterra,1951,1,,Derby County,17
+Inglaterra,1951,1,,Middlesbrough,18
+Inglaterra,1951,1,,Stoke City,19
+Inglaterra,1951,1,,Huddersfield Town,20
+Inglaterra,1951,1,,Fulham,21
+Inglaterra,1951,1,,Chelsea,22
+Inglaterra,1952,1,,Arsenal,1
+Inglaterra,1952,1,,Preston North End,2
+Inglaterra,1952,1,,Wolverhampton Wanderers,3
+Inglaterra,1952,1,,West Bromwich Albion,4
+Inglaterra,1952,1,,Charlton Athletic,5
+Inglaterra,1952,1,,Burnley,6
+Inglaterra,1952,1,,Blackpool,7
+Inglaterra,1952,1,,Manchester United,8
+Inglaterra,1952,1,,Sunderland,9
+Inglaterra,1952,1,,Tottenham Hotspur,10
+Inglaterra,1952,1,,Aston Villa,11
+Inglaterra,1952,1,,Cardiff City,12
+Inglaterra,1952,1,,Middlesbrough,13
+Inglaterra,1952,1,,Bolton Wanderers,14
+Inglaterra,1952,1,,Portsmouth,15
+Inglaterra,1952,1,,Newcastle United,16
+Inglaterra,1952,1,,Liverpool,17
+Inglaterra,1952,1,,Sheffield Wednesday,18
+Inglaterra,1952,1,,Chelsea,19
+Inglaterra,1952,1,,Manchester City,20
+Inglaterra,1952,1,,Stoke City,21
+Inglaterra,1952,1,,Derby County,22
+Inglaterra,1953,1,,Wolverhampton Wanderers,1
+Inglaterra,1953,1,,West Bromwich Albion,2
+Inglaterra,1953,1,,Huddersfield Town,3
+Inglaterra,1953,1,,Manchester United,4
+Inglaterra,1953,1,,Bolton Wanderers,5
+Inglaterra,1953,1,,Blackpool,6
+Inglaterra,1953,1,,Burnley,7
+Inglaterra,1953,1,,Chelsea,8
+Inglaterra,1953,1,,Charlton Athletic,9
+Inglaterra,1953,1,,Cardiff City,10
+Inglaterra,1953,1,,Preston North End,11
+Inglaterra,1953,1,,Arsenal,12
+Inglaterra,1953,1,,Aston Villa,13
+Inglaterra,1953,1,,Portsmouth,14
+Inglaterra,1953,1,,Newcastle United,15
+Inglaterra,1953,1,,Tottenham Hotspur,16
+Inglaterra,1953,1,,Manchester City,17
+Inglaterra,1953,1,,Sunderland,18
+Inglaterra,1953,1,,Sheffield Wednesday,19
+Inglaterra,1953,1,,Sheffield United,20
+Inglaterra,1953,1,,Middlesbrough,21
+Inglaterra,1953,1,,Liverpool,22
+Inglaterra,1954,1,,Chelsea,1
+Inglaterra,1954,1,,Wolverhampton Wanderers,2
+Inglaterra,1954,1,,Portsmouth,3
+Inglaterra,1954,1,,Sunderland,4
+Inglaterra,1954,1,,Manchester United,5
+Inglaterra,1954,1,,Aston Villa,6
+Inglaterra,1954,1,,Manchester City,7
+Inglaterra,1954,1,,Newcastle United,8
+Inglaterra,1954,1,,Arsenal,9
+Inglaterra,1954,1,,Burnley,10
+Inglaterra,1954,1,,Everton,11
+Inglaterra,1954,1,,Huddersfield Town,12
+Inglaterra,1954,1,,Sheffield United,13
+Inglaterra,1954,1,,Preston North End,14
+Inglaterra,1954,1,,Charlton Athletic,15
+Inglaterra,1954,1,,Tottenham Hotspur,16
+Inglaterra,1954,1,,West Bromwich Albion,17
+Inglaterra,1954,1,,Bolton Wanderers,18
+Inglaterra,1954,1,,Blackpool,19
+Inglaterra,1954,1,,Cardiff City,20
+Inglaterra,1954,1,,Leicester City,21
+Inglaterra,1954,1,,Sheffield Wednesday,22
+Inglaterra,1955,1,,Manchester United,1
+Inglaterra,1955,1,,Blackpool,2
+Inglaterra,1955,1,,Wolverhampton Wanderers,3
+Inglaterra,1955,1,,Manchester City,4
+Inglaterra,1955,1,,Arsenal,5
+Inglaterra,1955,1,,Birmingham City,6
+Inglaterra,1955,1,,Burnley,7
+Inglaterra,1955,1,,Bolton Wanderers,8
+Inglaterra,1955,1,,Sunderland,9
+Inglaterra,1955,1,,Luton Town,10
+Inglaterra,1955,1,,Newcastle United,11
+Inglaterra,1955,1,,Portsmouth,12
+Inglaterra,1955,1,,West Bromwich Albion,13
+Inglaterra,1955,1,,Charlton Athletic,14
+Inglaterra,1955,1,,Everton,15
+Inglaterra,1955,1,,Chelsea,16
+Inglaterra,1955,1,,Cardiff City,17
+Inglaterra,1955,1,,Tottenham Hotspur,18
+Inglaterra,1955,1,,Preston North End,19
+Inglaterra,1955,1,,Aston Villa,20
+Inglaterra,1955,1,,Huddersfield Town,21
+Inglaterra,1955,1,,Sheffield United,22
+Inglaterra,1956,1,,Manchester United,1
+Inglaterra,1956,1,,Tottenham Hotspur,2
+Inglaterra,1956,1,,Preston North End,3
+Inglaterra,1956,1,,Blackpool,4
+Inglaterra,1956,1,,Arsenal,5
+Inglaterra,1956,1,,Wolverhampton Wanderers,6
+Inglaterra,1956,1,,Burnley,7
+Inglaterra,1956,1,,Leeds United,8
+Inglaterra,1956,1,,Bolton Wanderers,9
+Inglaterra,1956,1,,Aston Villa,10
+Inglaterra,1956,1,,West Bromwich Albion,11
+Inglaterra,1956,1,,Birmingham City,12
+Inglaterra,1956,1,,Chelsea,13
+Inglaterra,1956,1,,Sheffield Wednesday,14
+Inglaterra,1956,1,,Everton,15
+Inglaterra,1956,1,,Luton Town,16
+Inglaterra,1956,1,,Newcastle United,17
+Inglaterra,1956,1,,Manchester City,18
+Inglaterra,1956,1,,Portsmouth,19
+Inglaterra,1956,1,,Sunderland,20
+Inglaterra,1956,1,,Cardiff City,21
+Inglaterra,1956,1,,Charlton Athletic,22
+Inglaterra,1959,1,,Burnley,1
+Inglaterra,1959,1,,Wolverhampton Wanderers,2
+Inglaterra,1959,1,,Tottenham Hotspur,3
+Inglaterra,1959,1,,West Bromwich Albion,4
+Inglaterra,1959,1,,Sheffield Wednesday,5
+Inglaterra,1959,1,,Bolton Wanderers,6
+Inglaterra,1959,1,,Manchester United,7
+Inglaterra,1959,1,,Newcastle United,8
+Inglaterra,1959,1,,Preston North End,9
+Inglaterra,1959,1,,Fulham,10
+Inglaterra,1959,1,,Blackpool,11
+Inglaterra,1959,1,,Leicester City,12
+Inglaterra,1959,1,,Arsenal,13
+Inglaterra,1959,1,,West Ham United,14
+Inglaterra,1959,1,,Everton,15
+Inglaterra,1959,1,,Manchester City,16
+Inglaterra,1959,1,,Blackburn Rovers,17
+Inglaterra,1959,1,,Chelsea,18
+Inglaterra,1959,1,,Birmingham City,19
+Inglaterra,1959,1,,Nottingham Forest,20
+Inglaterra,1959,1,,Leeds United,21
+Inglaterra,1959,1,,Luton Town,22
+Inglaterra,1960,1,,Tottenham Hotspur,1
+Inglaterra,1960,1,,Sheffield Wednesday,2
+Inglaterra,1960,1,,Wolverhampton Wanderers,3
+Inglaterra,1960,1,,Burnley,4
+Inglaterra,1960,1,,Everton,5
+Inglaterra,1960,1,,Leicester City,6
+Inglaterra,1960,1,,Manchester United,7
+Inglaterra,1960,1,,Blackburn Rovers,8
+Inglaterra,1960,1,,Aston Villa,9
+Inglaterra,1960,1,,West Bromwich Albion,10
+Inglaterra,1960,1,,Arsenal,11
+Inglaterra,1960,1,,Chelsea,12
+Inglaterra,1960,1,,Manchester City,13
+Inglaterra,1960,1,,Nottingham Forest,14
+Inglaterra,1960,1,,Cardiff City,15
+Inglaterra,1960,1,,West Ham United,16
+Inglaterra,1960,1,,Fulham,17
+Inglaterra,1960,1,,Bolton Wanderers,18
+Inglaterra,1960,1,,Birmingham City,19
+Inglaterra,1960,1,,Blackpool,20
+Inglaterra,1960,1,,Newcastle United,21
+Inglaterra,1960,1,,Preston North End,22
+Inglaterra,1961,1,,Ipswich Town,1
+Inglaterra,1961,1,,Burnley,2
+Inglaterra,1961,1,,Tottenham Hotspur,3
+Inglaterra,1961,1,,Everton,4
+Inglaterra,1961,1,,Sheffield United,5
+Inglaterra,1961,1,,Sheffield Wednesday,6
+Inglaterra,1961,1,,Aston Villa,7
+Inglaterra,1961,1,,West Ham United,8
+Inglaterra,1961,1,,West Bromwich Albion,9
+Inglaterra,1961,1,,Arsenal,10
+Inglaterra,1961,1,,Bolton Wanderers,11
+Inglaterra,1961,1,,Manchester City,12
+Inglaterra,1961,1,,Blackpool,13
+Inglaterra,1961,1,,Leicester City,14
+Inglaterra,1961,1,,Manchester United,15
+Inglaterra,1961,1,,Blackburn Rovers,16
+Inglaterra,1961,1,,Birmingham City,17
+Inglaterra,1961,1,,Wolverhampton Wanderers,18
+Inglaterra,1961,1,,Nottingham Forest,19
+Inglaterra,1961,1,,Fulham,20
+Inglaterra,1961,1,,Cardiff City,21
+Inglaterra,1961,1,,Chelsea,22
+Inglaterra,1962,1,,Everton,1
+Inglaterra,1962,1,,Tottenham Hotspur,2
+Inglaterra,1962,1,,Burnley,3
+Inglaterra,1962,1,,Leicester City,4
+Inglaterra,1962,1,,Wolverhampton Wanderers,5
+Inglaterra,1962,1,,Sheffield Wednesday,6
+Inglaterra,1962,1,,Arsenal,7
+Inglaterra,1962,1,,Liverpool,8
+Inglaterra,1962,1,,Nottingham Forest,9
+Inglaterra,1962,1,,Sheffield United,10
+Inglaterra,1962,1,,Blackburn Rovers,11
+Inglaterra,1962,1,,West Ham United,12
+Inglaterra,1962,1,,Blackpool,13
+Inglaterra,1962,1,,West Bromwich Albion,14
+Inglaterra,1962,1,,Aston Villa,15
+Inglaterra,1962,1,,Fulham,16
+Inglaterra,1962,1,,Ipswich Town,17
+Inglaterra,1962,1,,Bolton Wanderers,18
+Inglaterra,1962,1,,Manchester United,19
+Inglaterra,1962,1,,Birmingham City,20
+Inglaterra,1962,1,,Manchester City,21
+Inglaterra,1962,1,,Leyton Orient,22
+Inglaterra,1963,1,,Liverpool,1
+Inglaterra,1963,1,,Manchester United,2
+Inglaterra,1963,1,,Everton,3
+Inglaterra,1963,1,,Tottenham Hotspur,4
+Inglaterra,1963,1,,Chelsea,5
+Inglaterra,1963,1,,Sheffield Wednesday,6
+Inglaterra,1963,1,,Blackburn Rovers,7
+Inglaterra,1963,1,,Arsenal,8
+Inglaterra,1963,1,,Burnley,9
+Inglaterra,1963,1,,West Bromwich Albion,10
+Inglaterra,1963,1,,Leicester City,11
+Inglaterra,1963,1,,Sheffield United,12
+Inglaterra,1963,1,,Nottingham Forest,13
+Inglaterra,1963,1,,West Ham United,14
+Inglaterra,1963,1,,Fulham,15
+Inglaterra,1963,1,,Wolverhampton Wanderers,16
+Inglaterra,1963,1,,Stoke City,17
+Inglaterra,1963,1,,Blackpool,18
+Inglaterra,1963,1,,Aston Villa,19
+Inglaterra,1963,1,,Birmingham City,20
+Inglaterra,1963,1,,Bolton Wanderers,21
+Inglaterra,1963,1,,Ipswich Town,22
+Inglaterra,1964,1,,Manchester United,1
+Inglaterra,1964,1,,Leeds United,2
+Inglaterra,1964,1,,Chelsea,3
+Inglaterra,1964,1,,Everton,4
+Inglaterra,1964,1,,Nottingham Forest,5
+Inglaterra,1964,1,,Tottenham Hotspur,6
+Inglaterra,1964,1,,Liverpool,7
+Inglaterra,1964,1,,Sheffield Wednesday,8
+Inglaterra,1964,1,,West Ham United,9
+Inglaterra,1964,1,,Blackburn Rovers,10
+Inglaterra,1964,1,,Stoke City,11
+Inglaterra,1964,1,,Burnley,12
+Inglaterra,1964,1,,Arsenal,13
+Inglaterra,1964,1,,West Bromwich Albion,14
+Inglaterra,1964,1,,Sunderland,15
+Inglaterra,1964,1,,Aston Villa,16
+Inglaterra,1964,1,,Blackpool,17
+Inglaterra,1964,1,,Leicester City,18
+Inglaterra,1964,1,,Sheffield United,19
+Inglaterra,1964,1,,Fulham,20
+Inglaterra,1964,1,,Wolverhampton Wanderers,21
+Inglaterra,1964,1,,Birmingham City,22
+Inglaterra,1965,1,,Liverpool,1
+Inglaterra,1965,1,,Leeds United,2
+Inglaterra,1965,1,,Burnley,3
+Inglaterra,1965,1,,Manchester United,4
+Inglaterra,1965,1,,Chelsea,5
+Inglaterra,1965,1,,West Bromwich Albion,6
+Inglaterra,1965,1,,Leicester City,7
+Inglaterra,1965,1,,Tottenham Hotspur,8
+Inglaterra,1965,1,,Sheffield United,9
+Inglaterra,1965,1,,Stoke City,10
+Inglaterra,1965,1,,Everton,11
+Inglaterra,1965,1,,West Ham United,12
+Inglaterra,1965,1,,Blackpool,13
+Inglaterra,1965,1,,Arsenal,14
+Inglaterra,1965,1,,Newcastle United,15
+Inglaterra,1965,1,,Aston Villa,16
+Inglaterra,1965,1,,Sheffield Wednesday,17
+Inglaterra,1965,1,,Nottingham Forest,18
+Inglaterra,1965,1,,Sunderland,19
+Inglaterra,1965,1,,Fulham,20
+Inglaterra,1965,1,,Northampton Town,21
+Inglaterra,1965,1,,Blackburn Rovers,22
+Inglaterra,1966,1,,Manchester United,1
+Inglaterra,1966,1,,Nottingham Forest,2
+Inglaterra,1966,1,,Tottenham Hotspur,3
+Inglaterra,1966,1,,Leeds United,4
+Inglaterra,1966,1,,Liverpool,5
+Inglaterra,1966,1,,Everton,6
+Inglaterra,1966,1,,Arsenal,7
+Inglaterra,1966,1,,Leicester City,8
+Inglaterra,1966,1,,Chelsea,9
+Inglaterra,1966,1,,Sheffield United,10
+Inglaterra,1966,1,,Sheffield Wednesday,11
+Inglaterra,1966,1,,Stoke City,12
+Inglaterra,1966,1,,West Bromwich Albion,13
+Inglaterra,1966,1,,Burnley,14
+Inglaterra,1966,1,,Manchester City,15
+Inglaterra,1966,1,,West Ham United,16
+Inglaterra,1966,1,,Sunderland,17
+Inglaterra,1966,1,,Fulham,18
+Inglaterra,1966,1,,Southampton,19
+Inglaterra,1966,1,,Newcastle United,20
+Inglaterra,1966,1,,Aston Villa,21
+Inglaterra,1966,1,,Blackpool,22
+Inglaterra,1967,1,,Manchester City,1
+Inglaterra,1967,1,,Manchester United,2
+Inglaterra,1967,1,,Liverpool,3
+Inglaterra,1967,1,,Leeds United,4
+Inglaterra,1967,1,,Everton,5
+Inglaterra,1967,1,,Chelsea,6
+Inglaterra,1967,1,,Tottenham Hotspur,7
+Inglaterra,1967,1,,West Bromwich Albion,8
+Inglaterra,1967,1,,Arsenal,9
+Inglaterra,1967,1,,Newcastle United,10
+Inglaterra,1967,1,,Nottingham Forest,11
+Inglaterra,1967,1,,West Ham United,12
+Inglaterra,1967,1,,Leicester City,13
+Inglaterra,1967,1,,Burnley,14
+Inglaterra,1967,1,,Sunderland,15
+Inglaterra,1967,1,,Southampton,16
+Inglaterra,1967,1,,Wolverhampton Wanderers,17
+Inglaterra,1967,1,,Stoke City,18
+Inglaterra,1967,1,,Sheffield Wednesday,19
+Inglaterra,1967,1,,Coventry City,20
+Inglaterra,1967,1,,Sheffield United,21
+Inglaterra,1967,1,,Fulham,22
+Inglaterra,1968,1,,Leeds United,1
+Inglaterra,1968,1,,Liverpool,2
+Inglaterra,1968,1,,Everton,3
+Inglaterra,1968,1,,Arsenal,4
+Inglaterra,1968,1,,Chelsea,5
+Inglaterra,1968,1,,Tottenham Hotspur,6
+Inglaterra,1968,1,,Southampton,7
+Inglaterra,1968,1,,West Ham United,8
+Inglaterra,1968,1,,Newcastle United,9
+Inglaterra,1968,1,,West Bromwich Albion,10
+Inglaterra,1968,1,,Manchester United,11
+Inglaterra,1968,1,,Ipswich Town,12
+Inglaterra,1968,1,,Manchester City,13
+Inglaterra,1968,1,,Burnley,14
+Inglaterra,1968,1,,Sheffield Wednesday,15
+Inglaterra,1968,1,,Wolverhampton Wanderers,16
+Inglaterra,1968,1,,Sunderland,17
+Inglaterra,1968,1,,Nottingham Forest,18
+Inglaterra,1968,1,,Stoke City,19
+Inglaterra,1968,1,,Coventry City,20
+Inglaterra,1968,1,,Leicester City,21
+Inglaterra,1968,1,,Queens Park Rangers,22
+Inglaterra,1969,1,,Everton,1
+Inglaterra,1969,1,,Leeds United,2
+Inglaterra,1969,1,,Chelsea,3
+Inglaterra,1969,1,,Derby County,4
+Inglaterra,1969,1,,Liverpool,5
+Inglaterra,1969,1,,Coventry City,6
+Inglaterra,1969,1,,Newcastle United,7
+Inglaterra,1969,1,,Manchester United,8
+Inglaterra,1969,1,,Stoke City,9
+Inglaterra,1969,1,,Manchester City,10
+Inglaterra,1969,1,,Tottenham Hotspur,11
+Inglaterra,1969,1,,Arsenal,12
+Inglaterra,1969,1,,Wolverhampton Wanderers,13
+Inglaterra,1969,1,,Burnley,14
+Inglaterra,1969,1,,Nottingham Forest,15
+Inglaterra,1969,1,,West Bromwich Albion,16
+Inglaterra,1969,1,,West Ham United,17
+Inglaterra,1969,1,,Ipswich Town,18
+Inglaterra,1969,1,,Southampton,19
+Inglaterra,1969,1,,Crystal Palace,20
+Inglaterra,1969,1,,Sunderland,21
+Inglaterra,1969,1,,Sheffield Wednesday,22
+Inglaterra,1970,1,,Arsenal,1
+Inglaterra,1970,1,,Leeds United,2
+Inglaterra,1970,1,,Tottenham Hotspur,3
+Inglaterra,1970,1,,Wolverhampton Wanderers,4
+Inglaterra,1970,1,,Liverpool,5
+Inglaterra,1970,1,,Manchester City,6
+Inglaterra,1970,1,,Chelsea,7
+Inglaterra,1970,1,,Leicester City,8
+Inglaterra,1970,1,,Manchester United,9
+Inglaterra,1970,1,,Derby County,10
+Inglaterra,1970,1,,Coventry City,11
+Inglaterra,1970,1,,Newcastle United,12
+Inglaterra,1970,1,,Stoke City,13
+Inglaterra,1970,1,,West Bromwich Albion,14
+Inglaterra,1970,1,,Everton,15
+Inglaterra,1970,1,,Huddersfield Town,16
+Inglaterra,1970,1,,Nottingham Forest,17
+Inglaterra,1970,1,,Ipswich Town,18
+Inglaterra,1970,1,,West Ham United,19
+Inglaterra,1970,1,,Crystal Palace,20
+Inglaterra,1970,1,,Burnley,21
+Inglaterra,1970,1,,Blackpool,22
+Inglaterra,1971,1,,Derby County,1
+Inglaterra,1971,1,,Leeds United,2
+Inglaterra,1971,1,,Liverpool,3
+Inglaterra,1971,1,,Manchester City,4
+Inglaterra,1971,1,,Arsenal,5
+Inglaterra,1971,1,,Tottenham Hotspur,6
+Inglaterra,1971,1,,Chelsea,7
+Inglaterra,1971,1,,Manchester United,8
+Inglaterra,1971,1,,Wolverhampton Wanderers,9
+Inglaterra,1971,1,,Sheffield United,10
+Inglaterra,1971,1,,Newcastle United,11
+Inglaterra,1971,1,,Leicester City,12
+Inglaterra,1971,1,,Ipswich Town,13
+Inglaterra,1971,1,,West Ham United,14
+Inglaterra,1971,1,,Everton,15
+Inglaterra,1971,1,,West Bromwich Albion,16
+Inglaterra,1971,1,,Stoke City,17
+Inglaterra,1971,1,,Coventry City,18
+Inglaterra,1971,1,,Southampton,19
+Inglaterra,1971,1,,Crystal Palace,20
+Inglaterra,1971,1,,Nottingham Forest,21
+Inglaterra,1971,1,,Huddersfield Town,22
+Inglaterra,1972,1,,Liverpool,1
+Inglaterra,1972,1,,Arsenal,2
+Inglaterra,1972,1,,Leeds United,3
+Inglaterra,1972,1,,Ipswich Town,4
+Inglaterra,1972,1,,Wolverhampton Wanderers,5
+Inglaterra,1972,1,,West Ham United,6
+Inglaterra,1972,1,,Derby County,7
+Inglaterra,1972,1,,Tottenham Hotspur,8
+Inglaterra,1972,1,,Newcastle United,9
+Inglaterra,1972,1,,Birmingham City,10
+Inglaterra,1972,1,,Manchester City,11
+Inglaterra,1972,1,,Chelsea,12
+Inglaterra,1972,1,,Southampton,13
+Inglaterra,1972,1,,Sheffield United,14
+Inglaterra,1972,1,,Stoke City,15
+Inglaterra,1972,1,,Leicester City,16
+Inglaterra,1972,1,,Everton,17
+Inglaterra,1972,1,,Manchester United,18
+Inglaterra,1972,1,,Coventry City,19
+Inglaterra,1972,1,,Norwich City,20
+Inglaterra,1972,1,,Crystal Palace,21
+Inglaterra,1972,1,,West Bromwich Albion,22
+Inglaterra,1973,1,,Leeds United,1
+Inglaterra,1973,1,,Liverpool,2
+Inglaterra,1973,1,,Derby County,3
+Inglaterra,1973,1,,Ipswich Town,4
+Inglaterra,1973,1,,Stoke City,5
+Inglaterra,1973,1,,Burnley,6
+Inglaterra,1973,1,,Everton,7
+Inglaterra,1973,1,,Queens Park Rangers,8
+Inglaterra,1973,1,,Leicester City,9
+Inglaterra,1973,1,,Arsenal,10
+Inglaterra,1973,1,,Tottenham Hotspur,11
+Inglaterra,1973,1,,Wolverhampton Wanderers,12
+Inglaterra,1973,1,,Sheffield United,13
+Inglaterra,1973,1,,Manchester City,14
+Inglaterra,1973,1,,Newcastle United,15
+Inglaterra,1973,1,,Coventry City,16
+Inglaterra,1973,1,,Chelsea,17
+Inglaterra,1973,1,,West Ham United,18
+Inglaterra,1973,1,,Birmingham City,19
+Inglaterra,1973,1,,Southampton,20
+Inglaterra,1973,1,,Manchester United,21
+Inglaterra,1973,1,,Norwich City,22
+Inglaterra,1974,1,,Derby County,1
+Inglaterra,1974,1,,Liverpool,2
+Inglaterra,1974,1,,Ipswich Town,3
+Inglaterra,1974,1,,Everton,4
+Inglaterra,1974,1,,Stoke City,5
+Inglaterra,1974,1,,Sheffield United,6
+Inglaterra,1974,1,,Middlesbrough,7
+Inglaterra,1974,1,,Manchester City,8
+Inglaterra,1974,1,,Leeds United,9
+Inglaterra,1974,1,,Burnley,10
+Inglaterra,1974,1,,Queens Park Rangers,11
+Inglaterra,1974,1,,Wolverhampton Wanderers,12
+Inglaterra,1974,1,,West Ham United,13
+Inglaterra,1974,1,,Coventry City,14
+Inglaterra,1974,1,,Newcastle United,15
+Inglaterra,1974,1,,Arsenal,16
+Inglaterra,1974,1,,Birmingham City,17
+Inglaterra,1974,1,,Leicester City,18
+Inglaterra,1974,1,,Tottenham Hotspur,19
+Inglaterra,1974,1,,Luton Town,20
+Inglaterra,1974,1,,Chelsea,21
+Inglaterra,1974,1,,Carlisle United,22
+Inglaterra,1975,1,,Liverpool,1
+Inglaterra,1975,1,,Queens Park Rangers,2
+Inglaterra,1975,1,,Manchester United,3
+Inglaterra,1975,1,,Derby County,4
+Inglaterra,1975,1,,Leeds United,5
+Inglaterra,1975,1,,Ipswich Town,6
+Inglaterra,1975,1,,Leicester City,7
+Inglaterra,1975,1,,Manchester City,8
+Inglaterra,1975,1,,Tottenham Hotspur,9
+Inglaterra,1975,1,,Norwich City,10
+Inglaterra,1975,1,,Everton,11
+Inglaterra,1975,1,,Stoke City,12
+Inglaterra,1975,1,,Middlesbrough,13
+Inglaterra,1975,1,,Coventry City,14
+Inglaterra,1975,1,,Newcastle United,15
+Inglaterra,1975,1,,Aston Villa,16
+Inglaterra,1975,1,,Arsenal,17
+Inglaterra,1975,1,,West Ham United,18
+Inglaterra,1975,1,,Birmingham City,19
+Inglaterra,1975,1,,Wolverhampton Wanderers,20
+Inglaterra,1975,1,,Burnley,21
+Inglaterra,1975,1,,Sheffield United,22
+Inglaterra,1976,1,,Liverpool,1
+Inglaterra,1976,1,,Manchester City,2
+Inglaterra,1976,1,,Ipswich Town,3
+Inglaterra,1976,1,,Aston Villa,4
+Inglaterra,1976,1,,Newcastle United,5
+Inglaterra,1976,1,,Manchester United,6
+Inglaterra,1976,1,,West Bromwich Albion,7
+Inglaterra,1976,1,,Arsenal,8
+Inglaterra,1976,1,,Everton,9
+Inglaterra,1976,1,,Leeds United,10
+Inglaterra,1976,1,,Leicester City,11
+Inglaterra,1976,1,,Middlesbrough,12
+Inglaterra,1976,1,,Birmingham City,13
+Inglaterra,1976,1,,Queens Park Rangers,14
+Inglaterra,1976,1,,Derby County,15
+Inglaterra,1976,1,,Norwich City,16
+Inglaterra,1976,1,,West Ham United,17
+Inglaterra,1976,1,,Bristol City,18
+Inglaterra,1976,1,,Coventry City,19
+Inglaterra,1976,1,,Sunderland,20
+Inglaterra,1976,1,,Stoke City,21
+Inglaterra,1976,1,,Tottenham Hotspur,22
+Inglaterra,1977,1,,Nottingham Forest,1
+Inglaterra,1977,1,,Liverpool,2
+Inglaterra,1977,1,,Everton,3
+Inglaterra,1977,1,,Manchester City,4
+Inglaterra,1977,1,,Arsenal,5
+Inglaterra,1977,1,,West Bromwich Albion,6
+Inglaterra,1977,1,,Coventry City,7
+Inglaterra,1977,1,,Aston Villa,8
+Inglaterra,1977,1,,Leeds United,9
+Inglaterra,1977,1,,Manchester United,10
+Inglaterra,1977,1,,Birmingham City,11
+Inglaterra,1977,1,,Derby County,12
+Inglaterra,1977,1,,Norwich City,13
+Inglaterra,1977,1,,Middlesbrough,14
+Inglaterra,1977,1,,Wolverhampton Wanderers,15
+Inglaterra,1977,1,,Chelsea,16
+Inglaterra,1977,1,,Bristol City,17
+Inglaterra,1977,1,,Ipswich Town,18
+Inglaterra,1977,1,,Queens Park Rangers,19
+Inglaterra,1977,1,,West Ham United,20
+Inglaterra,1977,1,,Newcastle United,21
+Inglaterra,1977,1,,Leicester City,22
+Inglaterra,1978,1,,Liverpool,1
+Inglaterra,1978,1,,Nottingham Forest,2
+Inglaterra,1978,1,,West Bromwich Albion,3
+Inglaterra,1978,1,,Everton,4
+Inglaterra,1978,1,,Leeds United,5
+Inglaterra,1978,1,,Ipswich Town,6
+Inglaterra,1978,1,,Arsenal,7
+Inglaterra,1978,1,,Aston Villa,8
+Inglaterra,1978,1,,Manchester United,9
+Inglaterra,1978,1,,Coventry City,10
+Inglaterra,1978,1,,Tottenham Hotspur,11
+Inglaterra,1978,1,,Middlesbrough,12
+Inglaterra,1978,1,,Bristol City,13
+Inglaterra,1978,1,,Southampton,14
+Inglaterra,1978,1,,Manchester City,15
+Inglaterra,1978,1,,Norwich City,16
+Inglaterra,1978,1,,Bolton Wanderers,17
+Inglaterra,1978,1,,Wolverhampton Wanderers,18
+Inglaterra,1978,1,,Derby County,19
+Inglaterra,1978,1,,Queens Park Rangers,20
+Inglaterra,1978,1,,Birmingham City,21
+Inglaterra,1978,1,,Chelsea,22
+Inglaterra,1979,1,,Liverpool,1
+Inglaterra,1979,1,,Manchester United,2
+Inglaterra,1979,1,,Ipswich Town,3
+Inglaterra,1979,1,,Arsenal,4
+Inglaterra,1979,1,,Nottingham Forest,5
+Inglaterra,1979,1,,Wolverhampton Wanderers,6
+Inglaterra,1979,1,,Aston Villa,7
+Inglaterra,1979,1,,Southampton,8
+Inglaterra,1979,1,,Middlesbrough,9
+Inglaterra,1979,1,,West Bromwich Albion,10
+Inglaterra,1979,1,,Leeds United,11
+Inglaterra,1979,1,,Norwich City,12
+Inglaterra,1979,1,,Crystal Palace,13
+Inglaterra,1979,1,,Tottenham Hotspur,14
+Inglaterra,1979,1,,Coventry City,15
+Inglaterra,1979,1,,Brighton & Hove Albion,16
+Inglaterra,1979,1,,Manchester City,17
+Inglaterra,1979,1,,Stoke City,18
+Inglaterra,1979,1,,Everton,19
+Inglaterra,1979,1,,Bristol City,20
+Inglaterra,1979,1,,Derby County,21
+Inglaterra,1979,1,,Bolton Wanderers,22
+Inglaterra,1980,1,,Aston Villa,1
+Inglaterra,1980,1,,Ipswich Town,2
+Inglaterra,1980,1,,Arsenal,3
+Inglaterra,1980,1,,West Bromwich Albion,4
+Inglaterra,1980,1,,Liverpool,5
+Inglaterra,1980,1,,Southampton,6
+Inglaterra,1980,1,,Nottingham Forest,7
+Inglaterra,1980,1,,Manchester United,8
+Inglaterra,1980,1,,Leeds United,9
+Inglaterra,1980,1,,Tottenham Hotspur,10
+Inglaterra,1980,1,,Stoke City,11
+Inglaterra,1980,1,,Manchester City,12
+Inglaterra,1980,1,,Birmingham City,13
+Inglaterra,1980,1,,Middlesbrough,14
+Inglaterra,1980,1,,Everton,15
+Inglaterra,1980,1,,Coventry City,16
+Inglaterra,1980,1,,Sunderland,17
+Inglaterra,1980,1,,Wolverhampton Wanderers,18
+Inglaterra,1980,1,,Brighton & Hove Albion,19
+Inglaterra,1980,1,,Norwich City,20
+Inglaterra,1980,1,,Leicester City,21
+Inglaterra,1980,1,,Crystal Palace,22
+Inglaterra,1981,1,,Liverpool,1
+Inglaterra,1981,1,,Ipswich Town,2
+Inglaterra,1981,1,,Manchester United,3
+Inglaterra,1981,1,,Tottenham Hotspur,4
+Inglaterra,1981,1,,Arsenal,5
+Inglaterra,1981,1,,Swansea City,6
+Inglaterra,1981,1,,Southampton,7
+Inglaterra,1981,1,,Everton,8
+Inglaterra,1981,1,,West Ham United,9
+Inglaterra,1981,1,,Manchester City,10
+Inglaterra,1981,1,,Aston Villa,11
+Inglaterra,1981,1,,Nottingham Forest,12
+Inglaterra,1981,1,,Brighton & Hove Albion,13
+Inglaterra,1981,1,,Coventry City,14
+Inglaterra,1981,1,,Notts County,15
+Inglaterra,1981,1,,Birmingham City,16
+Inglaterra,1981,1,,West Bromwich Albion,17
+Inglaterra,1981,1,,Stoke City,18
+Inglaterra,1981,1,,Sunderland,19
+Inglaterra,1981,1,,Leeds United,20
+Inglaterra,1981,1,,Wolverhampton Wanderers,21
+Inglaterra,1981,1,,Middlesbrough,22
+Inglaterra,1982,1,,Liverpool,1
+Inglaterra,1982,1,,Watford,2
+Inglaterra,1982,1,,Manchester United,3
+Inglaterra,1982,1,,Tottenham Hotspur,4
+Inglaterra,1982,1,,Nottingham Forest,5
+Inglaterra,1982,1,,Aston Villa,6
+Inglaterra,1982,1,,Everton,7
+Inglaterra,1982,1,,West Ham United,8
+Inglaterra,1982,1,,Ipswich Town,9
+Inglaterra,1982,1,,Arsenal,10
+Inglaterra,1982,1,,West Bromwich Albion,11
+Inglaterra,1982,1,,Southampton,12
+Inglaterra,1982,1,,Stoke City,13
+Inglaterra,1982,1,,Norwich City,14
+Inglaterra,1982,1,,Notts County,15
+Inglaterra,1982,1,,Sunderland,16
+Inglaterra,1982,1,,Birmingham City,17
+Inglaterra,1982,1,,Luton Town,18
+Inglaterra,1982,1,,Coventry City,19
+Inglaterra,1982,1,,Manchester City,20
+Inglaterra,1982,1,,Swansea City,21
+Inglaterra,1982,1,,Brighton & Hove Albion,22
+Inglaterra,1983,1,,Liverpool,1
+Inglaterra,1983,1,,Southampton,2
+Inglaterra,1983,1,,Nottingham Forest,3
+Inglaterra,1983,1,,Manchester United,4
+Inglaterra,1983,1,,Queens Park Rangers,5
+Inglaterra,1983,1,,Arsenal,6
+Inglaterra,1983,1,,Everton,7
+Inglaterra,1983,1,,Tottenham Hotspur,8
+Inglaterra,1983,1,,West Ham United,9
+Inglaterra,1983,1,,Aston Villa,10
+Inglaterra,1983,1,,Watford,11
+Inglaterra,1983,1,,Ipswich Town,12
+Inglaterra,1983,1,,Sunderland,13
+Inglaterra,1983,1,,Norwich City,14
+Inglaterra,1983,1,,Leicester City,15
+Inglaterra,1983,1,,Luton Town,16
+Inglaterra,1983,1,,West Bromwich Albion,17
+Inglaterra,1983,1,,Stoke City,18
+Inglaterra,1983,1,,Coventry City,19
+Inglaterra,1983,1,,Birmingham City,20
+Inglaterra,1983,1,,Notts County,21
+Inglaterra,1983,1,,Wolverhampton Wanderers,22
+Inglaterra,1984,1,,Everton,1
+Inglaterra,1984,1,,Liverpool,2
+Inglaterra,1984,1,,Tottenham Hotspur,3
+Inglaterra,1984,1,,Manchester United,4
+Inglaterra,1984,1,,Southampton,5
+Inglaterra,1984,1,,Chelsea,6
+Inglaterra,1984,1,,Arsenal,7
+Inglaterra,1984,1,,Sheffield Wednesday,8
+Inglaterra,1984,1,,Nottingham Forest,9
+Inglaterra,1984,1,,Aston Villa,10
+Inglaterra,1984,1,,Watford,11
+Inglaterra,1984,1,,West Bromwich Albion,12
+Inglaterra,1984,1,,Luton Town,13
+Inglaterra,1984,1,,Newcastle United,14
+Inglaterra,1984,1,,Leicester City,15
+Inglaterra,1984,1,,West Ham United,16
+Inglaterra,1984,1,,Ipswich Town,17
+Inglaterra,1984,1,,Coventry City,18
+Inglaterra,1984,1,,Queens Park Rangers,19
+Inglaterra,1984,1,,Norwich City,20
+Inglaterra,1984,1,,Sunderland,21
+Inglaterra,1984,1,,Stoke City,22
+Inglaterra,1985,1,,Liverpool,1
+Inglaterra,1985,1,,Everton,2
+Inglaterra,1985,1,,West Ham United,3
+Inglaterra,1985,1,,Manchester United,4
+Inglaterra,1985,1,,Sheffield Wednesday,5
+Inglaterra,1985,1,,Chelsea,6
+Inglaterra,1985,1,,Arsenal,7
+Inglaterra,1985,1,,Nottingham Forest,8
+Inglaterra,1985,1,,Luton Town,9
+Inglaterra,1985,1,,Tottenham Hotspur,10
+Inglaterra,1985,1,,Newcastle United,11
+Inglaterra,1985,1,,Watford,12
+Inglaterra,1985,1,,Queens Park Rangers,13
+Inglaterra,1985,1,,Southampton,14
+Inglaterra,1985,1,,Manchester City,15
+Inglaterra,1985,1,,Aston Villa,16
+Inglaterra,1985,1,,Coventry City,17
+Inglaterra,1985,1,,Oxford United,18
+Inglaterra,1985,1,,Leicester City,19
+Inglaterra,1985,1,,Ipswich Town,20
+Inglaterra,1985,1,,Birmingham City,21
+Inglaterra,1985,1,,West Bromwich Albion,22
+Inglaterra,1986,1,,Everton,1
+Inglaterra,1986,1,,Liverpool,2
+Inglaterra,1986,1,,Tottenham Hotspur,3
+Inglaterra,1986,1,,Arsenal,4
+Inglaterra,1986,1,,Norwich City,5
+Inglaterra,1986,1,,Wimbledon,6
+Inglaterra,1986,1,,Luton Town,7
+Inglaterra,1986,1,,Nottingham Forest,8
+Inglaterra,1986,1,,Watford,9
+Inglaterra,1986,1,,Coventry City,10
+Inglaterra,1986,1,,Manchester United,11
+Inglaterra,1986,1,,Southampton,12
+Inglaterra,1986,1,,Sheffield Wednesday,13
+Inglaterra,1986,1,,Chelsea,14
+Inglaterra,1986,1,,West Ham United,15
+Inglaterra,1986,1,,Queens Park Rangers,16
+Inglaterra,1986,1,,Newcastle United,17
+Inglaterra,1986,1,,Oxford United,18
+Inglaterra,1986,1,,Charlton Athletic,19
+Inglaterra,1986,1,,Leicester City,20
+Inglaterra,1986,1,,Manchester City,21
+Inglaterra,1986,1,,Aston Villa,22
+Inglaterra,1987,1,,Liverpool,1
+Inglaterra,1987,1,,Manchester United,2
+Inglaterra,1987,1,,Nottingham Forest,3
+Inglaterra,1987,1,,Everton,4
+Inglaterra,1987,1,,Queens Park Rangers,5
+Inglaterra,1987,1,,Arsenal,6
+Inglaterra,1987,1,,Wimbledon,7
+Inglaterra,1987,1,,Newcastle United,8
+Inglaterra,1987,1,,Luton Town,9
+Inglaterra,1987,1,,Coventry City,10
+Inglaterra,1987,1,,Sheffield Wednesday,11
+Inglaterra,1987,1,,Southampton,12
+Inglaterra,1987,1,,Tottenham Hotspur,13
+Inglaterra,1987,1,,Norwich City,14
+Inglaterra,1987,1,,Derby County,15
+Inglaterra,1987,1,,West Ham United,16
+Inglaterra,1987,1,,Charlton Athletic,17
+Inglaterra,1987,1,,Chelsea,18
+Inglaterra,1987,1,,Portsmouth,19
+Inglaterra,1987,1,,Watford,20
+Inglaterra,1987,1,,Oxford United,21
+Inglaterra,1987,1,,Leicester City,22
+Inglaterra,1988,1,,Arsenal,1
+Inglaterra,1988,1,,Liverpool,2
+Inglaterra,1988,1,,Nottingham Forest,3
+Inglaterra,1988,1,,Norwich City,4
+Inglaterra,1988,1,,Derby County,5
+Inglaterra,1988,1,,Tottenham Hotspur,6
+Inglaterra,1988,1,,Coventry City,7
+Inglaterra,1988,1,,Everton,8
+Inglaterra,1988,1,,Queens Park Rangers,9
+Inglaterra,1988,1,,Millwall,10
+Inglaterra,1988,1,,Manchester United,11
+Inglaterra,1988,1,,Wimbledon,12
+Inglaterra,1988,1,,Southampton,13
+Inglaterra,1988,1,,Charlton Athletic,14
+Inglaterra,1988,1,,Sheffield Wednesday,15
+Inglaterra,1988,1,,Luton Town,16
+Inglaterra,1988,1,,Aston Villa,17
+Inglaterra,1988,1,,Middlesbrough,18
+Inglaterra,1988,1,,West Ham United,19
+Inglaterra,1988,1,,Newcastle United,20
+Inglaterra,1989,1,,Liverpool,1
+Inglaterra,1989,1,,Aston Villa,2
+Inglaterra,1989,1,,Tottenham Hotspur,3
+Inglaterra,1989,1,,Arsenal,4
+Inglaterra,1989,1,,Chelsea,5
+Inglaterra,1989,1,,Everton,6
+Inglaterra,1989,1,,Southampton,7
+Inglaterra,1989,1,,Wimbledon,8
+Inglaterra,1989,1,,Nottingham Forest,9
+Inglaterra,1989,1,,Norwich City,10
+Inglaterra,1989,1,,Queens Park Rangers,11
+Inglaterra,1989,1,,Coventry City,12
+Inglaterra,1989,1,,Manchester United,13
+Inglaterra,1989,1,,Manchester City,14
+Inglaterra,1989,1,,Crystal Palace,15
+Inglaterra,1989,1,,Derby County,16
+Inglaterra,1989,1,,Luton Town,17
+Inglaterra,1989,1,,Sheffield Wednesday,18
+Inglaterra,1989,1,,Charlton Athletic,19
+Inglaterra,1989,1,,Millwall,20

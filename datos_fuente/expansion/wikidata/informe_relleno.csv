@@ -1,0 +1,4987 @@
+pais,temporada,club,jugadores_reales,faltan_para_18,club_grande
+Alemania,1958,Altona 93,14,4,
+Alemania,1958,Bergedorf 85,4,14,
+Alemania,1958,Bremerhaven 93,13,5,
+Alemania,1958,Concordia Hamburgo,8,10,
+Alemania,1958,Eintracht Nordhorn,2,16,
+Alemania,1958,Hannover 96,12,6,
+Alemania,1958,Holstein Kiel,12,6,
+Alemania,1958,Phönix Lübeck,4,14,
+Alemania,1958,St. Pauli,12,6,
+Alemania,1958,VfR Neumünster,1,17,
+Alemania,1958,VfV Hildesheim,3,15,
+Alemania,1958,Werder Bremen,13,5,sí
+Alemania,1958,Wolfsburgo,6,12,
+Alemania,1958,Alemannia Aquisgrán,10,8,
+Alemania,1958,Bochum,16,2,
+Alemania,1958,Borussia Mönchengladbach,15,3,sí
+Alemania,1958,Duisburger SV,6,12,
+Alemania,1958,Horst-Emscher,1,17,
+Alemania,1958,Preußen Münster,13,5,
+Alemania,1958,Rot-Weiß Oberhausen,13,5,
+Alemania,1958,Sodingen,9,9,
+Alemania,1958,Viktoria Colonia,6,12,
+Alemania,1958,BC Augsburgo,6,12,
+Alemania,1958,FSV Fráncfort,10,8,
+Alemania,1958,Fürth,10,8,
+Alemania,1958,Kickers Offenbach,15,3,
+Alemania,1958,Múnich 1860,16,2,
+Alemania,1958,Reutlingen,3,15,
+Alemania,1958,Schweinfurt 05,6,12,
+Alemania,1958,Ulm 1846,8,10,
+Alemania,1958,VfR Mannheim,10,8,
+Alemania,1958,Viktoria Aschaffenburg,2,16,
+Alemania,1958,Waldhof Mannheim,9,9,
+Alemania,1958,Eintracht Kreuznach,5,13,
+Alemania,1958,Eintracht Trier,10,8,
+Alemania,1958,Frankenthal,2,16,
+Alemania,1958,Mainz 05,10,8,
+Alemania,1958,Phönix Ludwigshafen,3,15,
+Alemania,1958,Pirmasens,7,11,
+Alemania,1958,Saar 05,6,12,
+Alemania,1958,Speyer,1,17,
+Alemania,1958,Sportfreunde Saarbrücken,3,15,
+Alemania,1958,TuS Neuendorf,6,12,
+Alemania,1958,Weisenau,4,14,
+Alemania,1958,Wormatia Worms,5,13,
+Alemania,1958,TuRa Ludwigshafen,0,18,
+Alemania,1958,Berliner SV 92,11,7,
+Alemania,1958,Blau-Weiß 90 Berlín,2,16,
+Alemania,1958,Hertha Berlín,15,3,sí
+Alemania,1958,Hertha Zehlendorf,1,17,
+Alemania,1958,Spandauer SV,2,16,
+Alemania,1958,Tasmania Berlín,9,9,
+Alemania,1958,Tennis Borussia,7,11,
+Alemania,1958,Wacker 04 Berlín,1,17,
+Alemania,1958,Viktoria 89 Berlín,0,18,
+Alemania,1958,Union 06 Berlín,0,18,
+Alemania,1958,BFC Südring,1,17,
+Alemania,1958,Rapide Wedding,0,18,
+España,1950,Atlético Madrid,13,5,sí
+España,1950,Sevilla,8,10,sí
+España,1950,Valencia,8,10,sí
+España,1950,Real Sociedad,12,6,sí
+España,1950,Real Valladolid,4,14,
+España,1950,Celta de Vigo,6,12,
+España,1950,Real Madrid,15,3,sí
+España,1950,Real Santander,4,14,
+España,1950,Español,5,13,
+España,1950,Deportivo de La Coruña,10,8,
+España,1950,Málaga,1,17,
+España,1950,Murcia,4,14,
+España,1950,Alcoyano,4,14,
+España,1950,Lleida,3,15,
+España,1951,Real Madrid,15,3,sí
+España,1951,Atlético Madrid,8,10,sí
+España,1951,Valencia,8,10,sí
+España,1951,Sevilla,7,11,sí
+España,1951,Español,7,11,
+España,1951,Real Valladolid,3,15,
+España,1951,Celta de Vigo,6,12,
+España,1951,Real Sociedad,12,6,sí
+España,1951,Deportivo de La Coruña,8,10,
+España,1951,Zaragoza,10,8,
+España,1951,Real Gijón,8,10,
+España,1951,Real Santander,3,15,
+España,1951,Las Palmas,3,15,
+España,1951,Atlético Tetuán,0,18,
+España,1952,Valencia,7,11,sí
+España,1952,Real Madrid,16,2,sí
+España,1952,Español,8,10,
+España,1952,Sevilla,7,11,sí
+España,1952,Atlético Bilbao,17,1,sí
+España,1952,Real Gijón,6,12,
+España,1952,Atlético Madrid,10,8,sí
+España,1952,Real Oviedo,8,10,
+España,1952,Real Sociedad,13,5,sí
+España,1952,Real Santander,7,11,
+España,1952,Real Valladolid,6,12,
+España,1952,Celta de Vigo,6,12,
+España,1952,Deportivo de La Coruña,10,8,
+España,1952,Málaga,2,16,
+España,1952,Zaragoza,8,10,
+España,1953,Real Madrid,17,1,sí
+España,1953,Barcelona,15,3,sí
+España,1953,Valencia,7,11,sí
+España,1953,Español,11,7,
+España,1953,Sevilla,8,10,sí
+España,1953,Deportivo de La Coruña,10,8,
+España,1953,Real Santander,5,13,
+España,1953,Real Sociedad,12,6,sí
+España,1953,Celta de Vigo,8,10,
+España,1953,Atlético Madrid,10,8,sí
+España,1953,Real Valladolid,9,9,
+España,1953,Osasuna,2,16,
+España,1953,Jaén,3,15,
+España,1953,Real Oviedo,8,10,
+España,1953,Real Gijón,6,12,
+España,1954,Sevilla,8,10,sí
+España,1954,Valencia,7,11,sí
+España,1954,Hércules,5,13,
+España,1954,Deportivo de La Coruña,9,9,
+España,1954,Atlético Madrid,15,3,sí
+España,1954,Real Valladolid,9,9,
+España,1954,Alavés,2,16,
+España,1954,Celta de Vigo,7,11,
+España,1954,Las Palmas,2,16,
+España,1954,Español,11,7,
+España,1954,Real Sociedad,12,6,sí
+España,1954,Real Santander,4,14,
+España,1954,Málaga,1,17,
+España,1955,Atlético Bilbao,16,2,sí
+España,1955,Barcelona,16,2,sí
+España,1955,Sevilla,9,9,sí
+España,1955,Atlético Madrid,14,4,sí
+España,1955,Valencia,7,11,sí
+España,1955,Español,10,8,
+España,1955,Real Sociedad,10,8,sí
+España,1955,Real Valladolid,9,9,
+España,1955,Celta de Vigo,5,13,
+España,1955,Las Palmas,2,16,
+España,1955,Deportivo de La Coruña,11,7,
+España,1955,Murcia,0,18,
+España,1955,Alavés,2,16,
+España,1955,Cultural Leonesa,3,15,
+España,1955,Hércules,5,13,
+España,1956,Sevilla,7,11,sí
+España,1956,Atlético Madrid,12,6,sí
+España,1956,Osasuna,4,14,
+España,1956,Español,6,12,
+España,1956,Real Valladolid,8,10,
+España,1956,Zaragoza,10,8,
+España,1956,Las Palmas,6,12,
+España,1956,Valencia,8,10,sí
+España,1956,Real Sociedad,9,9,sí
+España,1956,Celta de Vigo,6,12,
+España,1956,Jaén,5,13,
+España,1956,Deportivo de La Coruña,9,9,
+España,1956,Condal (filial del Barcelona),0,18,
+España,1957,Atlético Madrid,12,6,sí
+España,1957,Valencia,8,10,sí
+España,1957,Osasuna,5,13,
+España,1957,Celta de Vigo,7,11,
+España,1957,Español,6,12,
+España,1957,Real Sociedad,8,10,sí
+España,1957,Sevilla,10,8,sí
+España,1957,Las Palmas,7,11,
+España,1957,Real Gijón,2,16,
+España,1957,Granada,10,8,
+España,1957,Zaragoza,10,8,
+España,1957,Real Valladolid,6,12,
+España,1957,Jaén,3,15,
+España,1959,Sevilla,9,9,sí
+España,1959,Real Oviedo,15,3,
+España,1959,Real Betis,7,11,
+España,1959,Español,9,9,
+España,1959,Valencia,10,8,sí
+España,1959,Elche,11,7,
+España,1959,Zaragoza,14,4,
+España,1959,Granada,11,7,
+España,1959,Real Valladolid,13,5,
+España,1959,Real Sociedad,12,6,sí
+España,1959,Osasuna,12,6,
+España,1959,Las Palmas,11,7,
+España,1960,Valencia,6,12,sí
+España,1960,Real Betis,12,6,
+España,1960,Real Sociedad,13,5,sí
+España,1960,Mallorca,7,11,
+España,1960,Español,8,10,
+España,1960,Sevilla,9,9,sí
+España,1960,Real Santander,15,3,
+España,1960,Real Oviedo,14,4,
+España,1960,Elche,7,11,
+España,1960,Real Valladolid,12,6,
+España,1960,Granada,7,11,
+España,1961,Atlético Madrid,17,1,sí
+España,1961,Zaragoza,16,2,
+España,1961,Sevilla,13,5,sí
+España,1961,Valencia,10,8,sí
+España,1961,Elche,10,8,
+España,1961,Real Betis,16,2,
+España,1961,Real Oviedo,16,2,
+España,1961,Mallorca,8,10,
+España,1961,Osasuna,9,9,
+España,1961,Español,8,10,
+España,1961,Real Santander,12,6,
+España,1961,Real Sociedad,7,11,sí
+España,1961,Tenerife,10,8,
+España,1962,Real Oviedo,13,5,
+España,1962,Real Valladolid,13,5,
+España,1962,Zaragoza,15,3,
+España,1962,Valencia,10,8,sí
+España,1962,Elche,12,6,
+España,1962,Real Betis,14,4,
+España,1962,Sevilla,9,9,sí
+España,1962,Córdoba,5,13,
+España,1962,Mallorca,9,9,
+España,1962,Deportivo de La Coruña,11,7,
+España,1962,Osasuna,10,8,
+España,1962,Málaga,3,15,
+España,1963,Real Betis,8,10,
+España,1963,Zaragoza,16,2,
+España,1963,Elche,11,7,
+España,1963,Valencia,11,7,sí
+España,1963,Atlético Madrid,14,4,sí
+España,1963,Sevilla,9,9,sí
+España,1963,Levante,4,14,
+España,1963,Córdoba,5,13,
+España,1963,Murcia,9,9,
+España,1963,Español,12,6,
+España,1963,Real Oviedo,9,9,
+España,1963,Pontevedra,3,15,
+España,1963,Real Valladolid,10,8,
+España,1964,Zaragoza,14,4,
+España,1964,Valencia,10,8,sí
+España,1964,Córdoba,6,12,
+España,1964,Elche,9,9,
+España,1964,Las Palmas,5,13,
+España,1964,Sevilla,7,11,sí
+España,1964,Español,11,7,
+España,1964,Real Betis,4,14,
+España,1964,Murcia,8,10,
+España,1964,Levante,5,13,
+España,1964,Real Oviedo,8,10,
+España,1964,Deportivo de La Coruña,11,7,
+España,1965,Atlético Madrid,15,3,sí
+España,1965,Zaragoza,13,5,
+España,1965,Elche,9,9,
+España,1965,Pontevedra,4,14,
+España,1965,Sevilla,8,10,sí
+España,1965,Valencia,7,11,sí
+España,1965,Las Palmas,6,12,
+España,1965,Córdoba,4,14,
+España,1965,Español,10,8,
+España,1965,Málaga,2,16,
+España,1965,Sabadell,8,10,
+España,1965,Mallorca,8,10,
+España,1965,Real Betis,6,12,
+España,1966,Español,8,10,
+España,1966,Atlético Madrid,17,1,sí
+España,1966,Zaragoza,10,8,
+España,1966,Valencia,8,10,sí
+España,1966,Sabadell,7,11,
+España,1966,Elche,7,11,
+España,1966,Pontevedra,6,12,
+España,1966,Las Palmas,7,11,
+España,1966,Córdoba,3,15,
+España,1966,Sevilla,7,11,sí
+España,1966,Granada,6,12,
+España,1966,Hércules,4,14,
+España,1966,Deportivo de La Coruña,14,4,
+España,1967,Las Palmas,5,13,
+España,1967,Valencia,8,10,sí
+España,1967,Zaragoza,12,6,
+España,1967,Atlético Madrid,17,1,sí
+España,1967,Pontevedra,7,11,
+España,1967,Español,7,11,
+España,1967,Málaga,0,18,
+España,1967,Elche,8,10,
+España,1967,Sabadell,7,11,
+España,1967,Córdoba,3,15,
+España,1967,Real Sociedad,14,4,sí
+España,1967,Real Betis,5,13,
+España,1967,Sevilla,8,10,sí
+España,1968,Las Palmas,5,13,
+España,1968,Sabadell,9,9,
+España,1968,Valencia,8,10,sí
+España,1968,Atlético Madrid,15,3,sí
+España,1968,Real Sociedad,13,5,sí
+España,1968,Granada,4,14,
+España,1968,Elche,11,7,
+España,1968,Deportivo de La Coruña,7,11,
+España,1968,Pontevedra,5,13,
+España,1968,Zaragoza,11,7,
+España,1968,Málaga,1,17,
+España,1968,Español,9,9,
+España,1968,Córdoba,4,14,
+España,1969,Atlético Madrid,17,1,sí
+España,1969,Sevilla,6,12,sí
+España,1969,Valencia,11,7,sí
+España,1969,Real Sociedad,13,5,sí
+España,1969,Zaragoza,6,12,
+España,1969,Las Palmas,5,13,
+España,1969,Celta de Vigo,9,9,
+España,1969,Elche,11,7,
+España,1969,Granada,5,13,
+España,1969,Sabadell,6,12,
+España,1969,Deportivo de La Coruña,5,13,
+España,1969,Mallorca,5,13,
+España,1969,Pontevedra,5,13,
+España,1970,Valencia,12,6,sí
+España,1970,Atlético Madrid,17,1,sí
+España,1970,Celta de Vigo,7,11,
+España,1970,Sevilla,8,10,sí
+España,1970,Real Sociedad,15,3,sí
+España,1970,Málaga,2,16,
+España,1970,Granada,5,13,
+España,1970,Español,9,9,
+España,1970,Real Gijón,10,8,
+España,1970,Sabadell,2,16,
+España,1970,Las Palmas,5,13,
+España,1970,Elche,9,9,
+España,1970,Zaragoza,6,12,
+España,1971,Valencia,12,6,sí
+España,1971,Las Palmas,5,13,
+España,1971,Granada,6,12,
+España,1971,Málaga,2,16,
+España,1971,Real Sociedad,15,3,sí
+España,1971,Celta de Vigo,8,10,
+España,1971,Real Gijón,10,8,
+España,1971,Español,10,8,
+España,1971,Real Betis,5,13,
+España,1971,Deportivo de La Coruña,9,9,
+España,1971,Burgos,5,13,
+España,1971,Sevilla,7,11,sí
+España,1971,Córdoba,5,13,
+España,1971,Sabadell,5,13,
+España,1972,Español,10,8,
+España,1972,Real Madrid,16,2,sí
+España,1972,Castellón,10,8,
+España,1972,Valencia,14,4,sí
+España,1972,Real Sociedad,16,2,sí
+España,1972,Zaragoza,8,10,
+España,1972,Málaga,4,14,
+España,1972,Las Palmas,5,13,
+España,1972,Real Oviedo,9,9,
+España,1972,Granada,5,13,
+España,1972,Real Gijón,9,9,
+España,1972,Celta de Vigo,8,10,
+España,1972,Real Betis,6,12,
+España,1972,Deportivo de La Coruña,8,10,
+España,1972,Burgos,3,15,
+España,1973,Zaragoza,9,9,
+España,1973,Real Sociedad,15,3,sí
+España,1973,Granada,7,11,
+España,1973,Málaga,3,15,
+España,1973,Español,11,7,
+España,1973,Valencia,15,3,sí
+España,1973,Las Palmas,4,14,
+España,1973,Celta de Vigo,8,10,
+España,1973,Real Gijón,10,8,
+España,1973,Elche,9,9,
+España,1973,Murcia,6,12,
+España,1973,Castellón,9,9,
+España,1973,Real Santander,9,9,
+España,1973,Real Oviedo,11,7,
+España,1974,Zaragoza,9,9,
+España,1974,Hércules,9,9,
+España,1974,Salamanca,4,14,
+España,1974,Elche,9,9,
+España,1974,Real Betis,8,10,
+España,1974,Español,15,3,
+España,1974,Valencia,13,5,sí
+España,1974,Las Palmas,5,13,
+España,1974,Real Gijón,10,8,
+España,1974,Granada,9,9,
+España,1974,Málaga,3,15,
+España,1974,Celta de Vigo,7,11,
+España,1974,Murcia,8,10,
+España,1975,Español,13,5,
+España,1975,Hércules,13,5,
+España,1975,Real Betis,10,8,
+España,1975,Real Sociedad,16,2,sí
+España,1975,Salamanca,3,15,
+España,1975,Valencia,11,7,sí
+España,1975,Sevilla,13,5,sí
+España,1975,Real Santander,10,8,
+España,1975,Las Palmas,5,13,
+España,1975,Zaragoza,9,9,
+España,1975,Elche,11,7,
+España,1975,Real Oviedo,9,9,
+España,1975,Granada,9,9,
+España,1975,Real Gijón,14,4,
+España,1976,Las Palmas,7,11,
+España,1976,Real Betis,10,8,
+España,1976,Español,13,5,
+España,1976,Valencia,14,4,sí
+España,1976,Real Sociedad,16,2,sí
+España,1976,Sevilla,12,6,sí
+España,1976,Elche,6,12,
+España,1976,Salamanca,5,13,
+España,1976,Hércules,13,5,
+España,1976,Burgos,10,8,
+España,1976,Real Santander,9,9,
+España,1976,Zaragoza,10,8,
+España,1976,Celta de Vigo,6,12,
+España,1976,Málaga,2,16,
+España,1977,Valencia,12,6,sí
+España,1977,Real Gijón,16,2,
+España,1977,Atlético Madrid,17,1,sí
+España,1977,Las Palmas,6,12,
+España,1977,Sevilla,12,6,sí
+España,1977,Salamanca,8,10,
+España,1977,Rayo Vallecano,4,14,
+España,1977,Real Sociedad,14,4,sí
+España,1977,Burgos,8,10,
+España,1977,Real Santander,11,7,
+España,1977,Español,13,5,
+España,1977,Hércules,12,6,
+España,1977,Real Betis,10,8,
+España,1977,Elche,5,13,
+España,1977,Cádiz,15,3,
+España,1978,Real Gijón,14,4,
+España,1978,Atlético Madrid,17,1,sí
+España,1978,Real Sociedad,16,2,sí
+España,1978,Las Palmas,4,14,
+España,1978,Valencia,14,4,sí
+España,1978,Español,10,8,
+España,1978,Salamanca,9,9,
+España,1978,Sevilla,13,5,sí
+España,1978,Hércules,11,7,
+España,1978,Burgos,7,11,
+España,1978,Zaragoza,11,7,
+España,1978,Rayo Vallecano,3,15,
+España,1978,Celta de Vigo,7,11,
+España,1978,Real Santander,8,10,
+España,1978,Recreativo de Huelva,6,12,
+España,1979,Real Gijón,15,3,
+España,1979,Real Betis,11,7,
+España,1979,Valencia,15,3,sí
+España,1979,Sevilla,11,7,sí
+España,1979,Salamanca,3,15,
+España,1979,AD Almería,2,16,
+España,1979,Zaragoza,12,6,
+España,1979,Las Palmas,2,16,
+España,1979,Atlético Madrid,16,2,sí
+España,1979,Español,16,2,
+España,1979,Hércules,11,7,
+España,1979,Rayo Vallecano,3,15,
+España,1979,Burgos,7,11,
+España,1979,Málaga,0,18,
+España,1980,Atlético Madrid,13,5,sí
+España,1980,Valencia,15,3,sí
+España,1980,Real Betis,11,7,
+España,1980,Real Gijón,15,3,
+España,1980,Sevilla,7,11,sí
+España,1980,Español,15,3,
+España,1980,Osasuna,8,10,
+España,1980,Real Valladolid,7,11,
+España,1980,Hércules,10,8,
+España,1980,Zaragoza,10,8,
+España,1980,Las Palmas,3,15,
+España,1980,Murcia,4,14,
+España,1980,Salamanca,3,15,
+España,1980,AD Almería,3,15,
+España,1981,Real Sociedad,17,1,sí
+España,1981,Valencia,16,2,sí
+España,1981,Real Betis,13,5,
+España,1981,Sevilla,8,10,sí
+España,1981,Atlético Madrid,16,2,sí
+España,1981,Real Valladolid,5,13,
+España,1981,Osasuna,7,11,
+España,1981,Zaragoza,11,7,
+España,1981,Real Santander,6,12,
+España,1981,Español,17,1,
+España,1981,Real Gijón,15,3,
+España,1981,Las Palmas,1,17,
+España,1981,Cádiz,11,7,
+España,1981,Hércules,11,7,
+España,1981,Castellón,5,13,
+España,1982,Atlético Madrid,13,5,sí
+España,1982,Sevilla,9,9,sí
+España,1982,Zaragoza,12,6,
+España,1982,Real Sociedad,16,2,sí
+España,1982,Real Gijón,17,1,
+España,1982,Español,13,5,
+España,1982,Málaga,3,15,
+España,1982,Real Betis,14,4,
+España,1982,Real Valladolid,9,9,
+España,1982,Salamanca,4,14,
+España,1982,Osasuna,8,10,
+España,1982,Las Palmas,2,16,
+España,1982,Celta de Vigo,6,12,
+España,1982,Real Santander,6,12,
+España,1983,Atlético Madrid,15,3,sí
+España,1983,Real Betis,13,5,
+España,1983,Real Sociedad,17,1,sí
+España,1983,Zaragoza,10,8,
+España,1983,Sevilla,10,8,sí
+España,1983,Málaga,2,16,
+España,1983,Español,9,9,
+España,1983,Murcia,9,9,
+España,1983,Valencia,16,2,sí
+España,1983,Real Gijón,16,2,
+España,1983,Real Valladolid,11,7,
+España,1983,Osasuna,13,5,
+España,1983,Cádiz,9,9,
+España,1983,Mallorca,7,11,
+España,1983,Salamanca,4,14,
+España,1984,Atlético Madrid,15,3,sí
+España,1984,Osasuna,14,4,
+España,1984,Español,9,9,
+España,1984,Valencia,17,1,sí
+España,1984,Zaragoza,12,6,
+España,1984,Real Santander,11,7,
+España,1984,Sevilla,12,6,sí
+España,1984,Real Valladolid,13,5,
+España,1984,Real Betis,14,4,
+España,1984,Hércules,12,6,
+España,1984,Málaga,1,17,
+España,1984,Elche,10,8,
+España,1984,Murcia,9,9,
+España,1985,Zaragoza,16,2,
+España,1985,Atlético Madrid,15,3,sí
+España,1985,Real Gijón,15,3,
+España,1985,Real Betis,14,4,
+España,1985,Sevilla,12,6,sí
+España,1985,Real Valladolid,14,4,
+España,1985,Español,12,6,
+España,1985,Real Santander,7,11,
+España,1985,Las Palmas,5,13,
+España,1985,Osasuna,16,2,
+España,1985,Cádiz,11,7,
+España,1985,Valencia,14,4,sí
+España,1985,Hércules,12,6,
+España,1985,Celta de Vigo,6,12,
+España,1986,Español,14,4,
+España,1986,Real Gijón,16,2,
+España,1986,Zaragoza,15,3,
+España,1986,Mallorca,7,11,
+España,1986,Real Betis,16,2,
+España,1986,Real Valladolid,13,5,
+España,1986,Murcia,16,2,
+España,1986,Sevilla,9,9,sí
+España,1986,Las Palmas,3,15,
+España,1986,Sabadell,10,8,
+España,1986,Osasuna,16,2,
+España,1986,Real Santander,5,13,
+España,1986,Cádiz,10,8,
+España,1987,Celta de Vigo,13,5,
+España,1987,Real Valladolid,15,3,
+España,1987,Real Gijón,17,1,
+España,1987,Sevilla,11,7,sí
+España,1987,Cádiz,11,7,
+España,1987,Logroñés,8,10,
+España,1987,Valencia,9,9,sí
+España,1987,Español,17,1,
+España,1987,Real Betis,14,4,
+España,1987,Murcia,14,4,
+España,1987,Mallorca,11,7,
+España,1987,Sabadell,5,13,
+España,1987,Las Palmas,2,16,
+España,1988,Valencia,15,3,sí
+España,1988,Real Valladolid,11,7,
+España,1988,Celta de Vigo,11,7,
+España,1988,Sevilla,14,4,sí
+España,1988,Osasuna,16,2,
+España,1988,Real Sociedad,16,2,sí
+España,1988,Real Oviedo,17,1,
+España,1988,Real Gijón,14,4,
+España,1988,Logroñés,10,8,
+España,1988,Cádiz,10,8,
+España,1988,Málaga,10,8,
+España,1988,Español,15,3,
+España,1988,Real Betis,16,2,
+España,1988,Murcia,14,4,
+España,1988,Elche,8,10,
+España,1989,Valencia,16,2,sí
+España,1989,Sevilla,15,3,sí
+España,1989,Logroñés,13,5,
+España,1989,Osasuna,15,3,
+España,1989,Mallorca,16,2,
+España,1989,Real Oviedo,16,2,
+España,1989,Real Gijón,16,2,
+España,1989,Castellón,7,11,
+España,1989,Cádiz,10,8,
+España,1989,Real Valladolid,15,3,
+España,1989,Málaga,9,9,
+España,1989,Tenerife,13,5,
+España,1989,Celta de Vigo,13,5,
+España,1989,Rayo Vallecano,8,10,
+España,1990,Osasuna,16,2,
+España,1990,Real Gijón,16,2,
+España,1990,Real Oviedo,17,1,
+España,1990,Valencia,15,3,sí
+España,1990,Sevilla,16,2,sí
+España,1990,Real Valladolid,17,1,
+España,1990,Logroñés,8,10,
+España,1990,Real Burgos,10,8,
+España,1990,Tenerife,15,3,
+España,1990,Español,16,2,
+España,1990,Cádiz,10,8,
+España,1990,Castellón,6,12,
+España,1991,Valencia,16,2,sí
+España,1991,Albacete,9,9,
+España,1991,Real Burgos,11,7,
+España,1991,Logroñés,16,2,
+España,1991,Sevilla,13,5,sí
+España,1991,Tenerife,15,3,
+España,1991,Español,17,1,
+España,1991,Cádiz,8,10,
+España,1991,Real Valladolid,17,1,
+España,1992,Valencia,17,1,sí
+España,1992,Sevilla,14,4,sí
+España,1992,Celta de Vigo,16,2,
+España,1992,Rayo Vallecano,13,5,
+España,1992,Logroñés,14,4,
+España,1992,Albacete,16,2,
+España,1992,Español,17,1,
+España,1992,Cádiz,9,9,
+España,1992,Real Burgos,12,6,
+España,1993,Sevilla,14,4,sí
+España,1993,Real Santander,15,3,
+España,1993,Albacete,17,1,
+España,1993,Logroñés,15,3,
+España,1993,Rayo Vallecano,15,3,
+España,1993,Real Valladolid,12,6,
+España,1993,Lleida,12,6,
+España,1994,Sevilla,17,1,sí
+España,1994,Español,16,2,
+España,1994,Real Oviedo,17,1,
+España,1994,Real Santander,16,2,
+España,1994,Celta de Vigo,17,1,
+España,1994,Compostela,15,3,
+España,1994,Albacete,15,3,
+España,1994,Real Valladolid,15,3,
+España,1994,Logroñés,15,3,
+España,1995,Español,17,1,
+España,1995,Compostela,16,2,
+España,1995,Rayo Vallecano,14,4,
+España,1995,Albacete,14,4,
+España,1995,Mérida CP,14,4,
+España,1995,Salamanca,14,4,
+España,1996,Rayo Vallecano,13,5,
+España,1996,Extremadura,11,7,
+España,1996,Hércules,17,1,
+España,2000,Numancia,17,1,
+España,2017,Gerona,0,18,
+España,2018,Gerona,0,18,
+España,2020,Cádiz,15,3,
+España,2020,Levante,17,1,
+España,2021,Cádiz,16,2,
+España,2022,Gerona,0,18,
+España,2022,Cádiz,15,3,
+España,2023,Gerona,0,18,
+España,2023,Cádiz,12,6,
+España,2024,Valencia,17,1,sí
+España,2024,Gerona,0,18,
+España,2025,Levante,15,3,
+España,2025,Gerona,0,18,
+Italia,1950,Sampdoria,0,18,
+Italia,1951,Sampdoria,0,18,
+Italia,1952,Sampdoria,1,17,
+Italia,1953,Napoli,17,1,sí
+Italia,1953,Sampdoria,0,18,
+Italia,1954,Sampdoria,0,18,
+Italia,1954,Triestina,17,1,
+Italia,1955,Sampdoria,0,18,
+Italia,1955,Napoli,17,1,sí
+Italia,1956,Sampdoria,0,18,
+Italia,1957,Sampdoria,0,18,
+Italia,1959,Sampdoria,1,17,
+Italia,1960,Sampdoria,2,16,
+Italia,1960,Padova,17,1,
+Italia,1961,Sampdoria,2,16,
+Italia,1961,Venezia,12,6,
+Italia,1962,Sampdoria,7,11,
+Italia,1962,Venezia,15,3,
+Italia,1963,Messina,8,10,
+Italia,1963,Sampdoria,0,18,
+Italia,1964,Varese,16,2,
+Italia,1964,Sampdoria,0,18,
+Italia,1964,Messina,9,9,
+Italia,1965,Sampdoria,0,18,
+Italia,1966,Brescia,17,1,
+Italia,1966,Venezia,6,12,
+Italia,1967,Sampdoria,0,18,
+Italia,1968,Cagliari,17,1,
+Italia,1968,Sampdoria,0,18,
+Italia,1969,Sampdoria,0,18,
+Italia,1969,Bari,17,1,
+Italia,1970,Sampdoria,0,18,
+Italia,1971,Sampdoria,0,18,
+Italia,1972,Sampdoria,0,18,
+Italia,1973,Vicenza,17,1,
+Italia,1973,Sampdoria,0,18,
+Italia,1974,Sampdoria,0,18,
+Italia,1975,Sampdoria,0,18,
+Italia,1976,Verona,17,1,
+Italia,1976,Sampdoria,0,18,
+Italia,1979,Ascoli,17,1,
+Italia,1982,Sampdoria,0,18,
+Italia,1983,Sampdoria,0,18,
+Italia,1985,Sampdoria,0,18,
+Italia,1980,Ascoli,17,1,
+Italia,1980,Brescia,17,1,
+Italia,1984,Sampdoria,0,18,
+Italia,1986,Sampdoria,0,18,
+Italia,1987,Sampdoria,0,18,
+Italia,1988,Sampdoria,0,18,
+Italia,1988,Verona,17,1,
+Italia,1989,Sampdoria,0,18,
+Italia,1990,Sampdoria,0,18,
+Italia,1991,Sampdoria,0,18,
+Italia,1992,Sampdoria,0,18,
+Italia,1993,Sampdoria,0,18,
+Italia,1994,Sampdoria,0,18,
+Italia,1995,Sampdoria,0,18,
+Italia,1996,Sampdoria,0,18,
+Italia,1997,Sampdoria,0,18,
+Italia,1998,Sampdoria,0,18,
+Italia,2003,Sampdoria,0,18,
+Italia,2004,Sampdoria,0,18,
+Italia,2005,Sampdoria,0,18,
+Italia,2006,Sampdoria,0,18,
+Italia,2007,Sampdoria,0,18,
+Italia,2008,Sampdoria,0,18,
+Italia,2009,Sampdoria,0,18,
+Italia,2010,Sampdoria,0,18,
+Italia,2012,Sampdoria,0,18,
+Italia,2013,Sampdoria,0,18,
+Italia,2014,Sampdoria,0,18,
+Italia,2015,Sampdoria,0,18,
+Italia,2016,Sampdoria,0,18,
+Italia,2017,Sampdoria,0,18,
+Italia,2017,SPAL,13,5,
+Italia,2018,Sampdoria,0,18,
+Italia,2018,SPAL,13,5,
+Italia,2019,Sampdoria,0,18,
+Italia,2019,Lecce,15,3,
+Italia,2020,Sampdoria,0,18,
+Italia,2021,Sampdoria,0,18,
+Italia,2021,Venezia,10,8,
+Italia,2022,Monza,9,9,
+Italia,2022,Cremonese,17,1,
+Italia,2022,Sampdoria,0,18,
+Italia,2023,Monza,11,7,
+Italia,2024,Como,15,3,
+Italia,2024,Lecce,17,1,
+Italia,2024,Venezia,5,13,
+Italia,2024,Monza,10,8,
+Italia,2025,Lecce,15,3,
+Italia,2025,Cremonese,15,3,
+Inglaterra,1950,Derby County,14,4,
+Inglaterra,1950,Fulham,17,1,
+Inglaterra,1951,Preston North End,15,3,
+Inglaterra,1951,Derby County,14,4,
+Inglaterra,1952,Derby County,13,5,
+Inglaterra,1953,Charlton Athletic,16,2,
+Inglaterra,1954,Sheffield United,16,2,
+Inglaterra,1955,Luton Town,14,4,
+Inglaterra,1956,Leeds United,13,5,sí
+Inglaterra,1956,Luton Town,15,3,
+Inglaterra,1959,Luton Town,16,2,
+Inglaterra,1960,Sheffield Wednesday,17,1,
+Inglaterra,1961,Blackburn Rovers,17,1,
+Inglaterra,1962,West Bromwich Albion,16,2,
+Inglaterra,1962,Leyton Orient,13,5,
+Inglaterra,1963,Blackburn Rovers,14,4,
+Inglaterra,1963,West Bromwich Albion,15,3,
+Inglaterra,1963,Nottingham Forest,16,2,
+Inglaterra,1964,Leicester City,17,1,
+Inglaterra,1964,Sheffield United,16,2,
+Inglaterra,1965,Sheffield United,17,1,
+Inglaterra,1965,Northampton Town,16,2,
+Inglaterra,1966,Nottingham Forest,17,1,
+Inglaterra,1966,Sheffield United,15,3,
+Inglaterra,1966,Fulham,17,1,
+Inglaterra,1967,Sheffield Wednesday,17,1,
+Inglaterra,1967,Sheffield United,14,4,
+Inglaterra,1969,Sheffield Wednesday,16,2,
+Inglaterra,1970,Leicester City,16,2,
+Inglaterra,1973,Leicester City,17,1,
+Inglaterra,1974,Carlisle United,12,6,
+Inglaterra,1976,Middlesbrough,16,2,
+Inglaterra,1977,Norwich City,17,1,
+Inglaterra,1979,Brighton & Hove Albion,15,3,
+Inglaterra,1981,Notts County,13,5,
+Inglaterra,1982,Notts County,15,3,
+Inglaterra,1983,Notts County,17,1,
+Inglaterra,1986,Wimbledon,0,18,
+Inglaterra,1987,Wimbledon,0,18,
+Inglaterra,1988,Wimbledon,0,18,
+Inglaterra,1989,Wimbledon,0,18,
+Inglaterra,1990,Wimbledon,0,18,
+Inglaterra,1991,Wimbledon,0,18,
+Inglaterra,1992,Wimbledon,0,18,
+Inglaterra,1993,Wimbledon,0,18,
+Inglaterra,1994,Wimbledon,0,18,
+Inglaterra,1995,Wimbledon,0,18,
+Inglaterra,1996,Wimbledon,0,18,
+Inglaterra,1997,Wimbledon,0,18,
+Inglaterra,1998,Wimbledon,0,18,
+Inglaterra,1999,Wimbledon,0,18,
+Inglaterra,2023,Sheffield United,17,1,
+Alemania,1963,Colonia,15,3,sí
+Alemania,1963,Meidericher SV,13,5,
+Alemania,1963,Stuttgart,15,3,sí
+Alemania,1963,Hamburgo,16,2,sí
+Alemania,1963,Múnich 1860,0,18,
+Alemania,1963,Schalke 04,13,5,sí
+Alemania,1963,Werder Bremen,13,5,sí
+Alemania,1963,Eintracht Braunschweig,16,2,
+Alemania,1963,Kaiserslautern,12,6,sí
+Alemania,1963,Karlsruhe,10,8,
+Alemania,1963,Hertha Berlín,14,4,sí
+Alemania,1963,Preußen Münster,10,8,
+Alemania,1963,Saarbrücken,10,8,
+Alemania,1964,Werder Bremen,16,2,sí
+Alemania,1964,Múnich 1860,0,18,
+Alemania,1964,Hannover 96,11,7,
+Alemania,1964,Meidericher SV,14,4,
+Alemania,1964,Eintracht Braunschweig,17,1,
+Alemania,1964,Borussia Neunkirchen,17,1,
+Alemania,1964,Stuttgart,17,1,sí
+Alemania,1964,Kaiserslautern,13,5,sí
+Alemania,1964,Hertha Berlín,17,1,sí
+Alemania,1964,Karlsruhe,9,9,
+Alemania,1964,Schalke 04,14,4,sí
+Alemania,1965,Múnich 1860,0,18,
+Alemania,1965,Werder Bremen,16,2,sí
+Alemania,1965,Meidericher SV,15,3,
+Alemania,1965,Hamburgo,14,4,sí
+Alemania,1965,Eintracht Braunschweig,16,2,
+Alemania,1965,Hannover 96,13,5,
+Alemania,1965,Borussia Mönchengladbach,13,5,sí
+Alemania,1965,Schalke 04,13,5,sí
+Alemania,1965,Kaiserslautern,15,3,sí
+Alemania,1965,Karlsruhe,7,11,
+Alemania,1965,Tasmania Berlín,6,12,
+Alemania,1966,Múnich 1860,0,18,
+Alemania,1966,Kaiserslautern,17,1,sí
+Alemania,1966,Colonia,16,2,sí
+Alemania,1966,Borussia Mönchengladbach,15,3,sí
+Alemania,1966,Hannover 96,14,4,
+Alemania,1966,Meidericher SV,14,4,
+Alemania,1966,Karlsruhe,7,11,
+Alemania,1966,Hamburgo,15,3,sí
+Alemania,1966,Schalke 04,13,5,sí
+Alemania,1966,Rot-Weiss Essen,13,5,
+Alemania,1966,Fortuna Düsseldorf,17,1,
+Alemania,1967,Borussia Mönchengladbach,17,1,sí
+Alemania,1967,Eintracht Braunschweig,16,2,
+Alemania,1967,Hannover 96,12,6,
+Alemania,1967,Alemannia Aquisgrán,8,10,
+Alemania,1967,Múnich 1860,0,18,
+Alemania,1967,Hamburgo,17,1,sí
+Alemania,1967,Schalke 04,12,6,sí
+Alemania,1967,Borussia Neunkirchen,12,6,
+Alemania,1967,Karlsruhe,12,6,
+Alemania,1968,Bayern Múnich,17,1,sí
+Alemania,1968,Alemannia Aquisgrán,8,10,
+Alemania,1968,Eintracht Braunschweig,15,3,
+Alemania,1968,Stuttgart,17,1,sí
+Alemania,1968,Hamburgo,16,2,sí
+Alemania,1968,Schalke 04,15,3,sí
+Alemania,1968,Múnich 1860,0,18,
+Alemania,1968,Hannover 96,11,7,
+Alemania,1968,Hertha Berlín,16,2,sí
+Alemania,1968,Colonia,17,1,sí
+Alemania,1968,Kickers Offenbach,12,6,
+Alemania,1969,Hertha Berlín,16,2,sí
+Alemania,1969,Colonia,17,1,sí
+Alemania,1969,Hamburgo,17,1,sí
+Alemania,1969,Stuttgart,16,2,sí
+Alemania,1969,Schalke 04,17,1,sí
+Alemania,1969,Werder Bremen,17,1,sí
+Alemania,1969,Rot-Weiss Essen,14,4,
+Alemania,1969,Hannover 96,12,6,
+Alemania,1969,Rot-Weiß Oberhausen,8,10,
+Alemania,1969,Meidericher SV,15,3,
+Alemania,1969,Múnich 1860,0,18,
+Alemania,1969,Alemannia Aquisgrán,8,10,
+Alemania,1970,Borussia Mönchengladbach,16,2,sí
+Alemania,1970,Eintracht Braunschweig,16,2,
+Alemania,1970,Schalke 04,17,1,sí
+Alemania,1970,Hannover 96,14,4,
+Alemania,1970,Werder Bremen,15,3,sí
+Alemania,1970,Colonia,15,3,sí
+Alemania,1970,Stuttgart,17,1,sí
+Alemania,1970,Arminia Bielefeld,5,13,
+Alemania,1970,Rot-Weiß Oberhausen,11,7,
+Alemania,1970,Rot-Weiss Essen,15,3,
+Alemania,1971,Schalke 04,14,4,sí
+Alemania,1971,Borussia Mönchengladbach,17,1,sí
+Alemania,1971,Eintracht Fráncfort,17,1,sí
+Alemania,1971,Stuttgart,16,2,sí
+Alemania,1971,Fortuna Düsseldorf,16,2,
+Alemania,1971,Rot-Weiß Oberhausen,16,2,
+Alemania,1971,Hannover 96,16,2,
+Alemania,1971,Arminia Bielefeld,11,7,
+Alemania,1972,Wuppertaler SV,17,1,
+Alemania,1972,Kickers Offenbach,12,6,
+Alemania,1972,Eintracht Fráncfort,17,1,sí
+Alemania,1972,Schalke 04,14,4,sí
+Alemania,1972,Eintracht Braunschweig,16,2,
+Alemania,1972,Rot-Weiß Oberhausen,12,6,
+Alemania,1973,Fortuna Düsseldorf,17,1,
+Alemania,1973,Eintracht Fráncfort,14,4,sí
+Alemania,1973,Hertha Berlín,17,1,sí
+Alemania,1973,Kickers Offenbach,17,1,
+Alemania,1973,Rot-Weiss Essen,16,2,
+Alemania,1973,Fortuna Koln,12,6,
+Alemania,1973,Hannover 96,17,1,
+Alemania,1974,Eintracht Fráncfort,13,5,sí
+Alemania,1974,Hamburgo,16,2,sí
+Alemania,1974,Fortuna Düsseldorf,17,1,
+Alemania,1974,Eintracht Braunschweig,16,2,
+Alemania,1974,Rot-Weiss Essen,13,5,
+Alemania,1974,Kaiserslautern,16,2,sí
+Alemania,1974,Meidericher SV,14,4,
+Alemania,1975,Hamburgo,17,1,sí
+Alemania,1975,Eintracht Braunschweig,17,1,
+Alemania,1975,Kaiserslautern,17,1,sí
+Alemania,1975,Rot-Weiss Essen,13,5,
+Alemania,1975,Eintracht Fráncfort,14,4,sí
+Alemania,1975,Meidericher SV,16,2,
+Alemania,1975,Hertha Berlín,17,1,sí
+Alemania,1975,Karlsruhe,13,5,
+Alemania,1975,Kickers Offenbach,17,1,
+Alemania,1975,Uerdingen,15,3,
+Alemania,1976,Eintracht Fráncfort,17,1,sí
+Alemania,1976,Meidericher SV,16,2,
+Alemania,1976,Fortuna Düsseldorf,17,1,
+Alemania,1976,Kaiserslautern,16,2,sí
+Alemania,1976,Saarbrücken,16,2,
+Alemania,1976,Karlsruhe,13,5,
+Alemania,1976,Rot-Weiss Essen,15,3,
+Alemania,1977,Fortuna Düsseldorf,17,1,
+Alemania,1977,Kaiserslautern,17,1,sí
+Alemania,1977,Borussia Dortmund,17,1,sí
+Alemania,1977,Múnich 1860,0,18,
+Alemania,1977,Saarbrücken,12,6,
+Alemania,1977,St. Pauli,16,2,
+Alemania,1978,Fortuna Düsseldorf,17,1,
+Alemania,1978,Eintracht Braunschweig,17,1,
+Alemania,1978,Meidericher SV,14,4,
+Alemania,1978,Arminia Bielefeld,8,10,
+Alemania,1978,SV Darmstadt 98,13,5,
+Alemania,1979,Hamburgo,17,1,sí
+Alemania,1979,Schalke 04,16,2,sí
+Alemania,1979,Múnich 1860,0,18,
+Alemania,1979,Meidericher SV,17,1,
+Alemania,1979,Uerdingen,12,6,
+Alemania,1980,Bochum,17,1,
+Alemania,1980,Karlsruhe,16,2,
+Alemania,1980,Meidericher SV,17,1,
+Alemania,1980,Arminia Bielefeld,13,5,
+Alemania,1980,Múnich 1860,0,18,
+Alemania,1980,Schalke 04,16,2,sí
+Alemania,1980,Uerdingen,17,1,
+Alemania,1981,Arminia Bielefeld,14,4,
+Alemania,1981,Núremberg,17,1,
+Alemania,1981,SV Darmstadt 98,16,2,
+Alemania,1982,Arminia Bielefeld,15,3,
+Alemania,1982,Fortuna Düsseldorf,17,1,
+Alemania,1982,Hertha Berlín,14,4,sí
+Alemania,1983,Arminia Bielefeld,12,6,
+Alemania,1983,Uerdingen,15,3,
+Alemania,1983,Fortuna Düsseldorf,17,1,
+Alemania,1983,Eintracht Fráncfort,17,1,sí
+Alemania,1984,Hamburgo,15,3,sí
+Alemania,1984,Uerdingen,13,5,
+Alemania,1984,Eintracht Fráncfort,14,4,sí
+Alemania,1984,Arminia Bielefeld,17,1,
+Alemania,1984,Karlsruhe,15,3,
+Alemania,1985,Uerdingen,14,4,
+Alemania,1985,Waldhof Mannheim,17,1,
+Alemania,1985,Eintracht Fráncfort,17,1,sí
+Alemania,1985,Saarbrücken,17,1,
+Alemania,1985,Hannover 96,13,5,
+Alemania,1986,Hamburgo,17,1,sí
+Alemania,1986,Uerdingen,17,1,
+Alemania,1986,Waldhof Mannheim,16,2,
+Alemania,1986,FC 08 Homburg,17,1,
+Alemania,1986,Blau-Weiß 90 Berlín,2,16,
+Alemania,1987,Hannover 96,16,2,
+Alemania,1987,Karlsruhe,17,1,
+Alemania,1988,Borussia Dortmund,16,2,sí
+Alemania,1993,VfB Leipzig,0,18,
+Alemania,1994,Múnich 1860,0,18,
+Alemania,1995,Múnich 1860,0,18,
+Alemania,1996,Múnich 1860,0,18,
+Alemania,1997,Múnich 1860,0,18,
+Alemania,1998,Múnich 1860,0,18,
+Alemania,1999,Múnich 1860,0,18,
+Alemania,1999,Ulm 1846,0,18,
+Alemania,2000,Múnich 1860,0,18,
+Alemania,2001,Múnich 1860,0,18,
+Alemania,2002,Múnich 1860,0,18,
+Alemania,2003,Múnich 1860,0,18,
+Alemania,2022,Schalke 04,17,1,sí
+Alemania,2023,Bochum,17,1,
+Alemania,2023,SV Darmstadt 98,12,6,
+Alemania,2024,Bochum,16,2,
+Francia,1950,Niza,14,4,sí
+Francia,1950,Lille,17,1,sí
+Francia,1950,Le Havre,12,6,
+Francia,1950,Nîmes,13,5,
+Francia,1950,Burdeos,11,7,sí
+Francia,1950,Saint-Étienne,14,4,sí
+Francia,1950,Estrasburgo,17,1,
+Francia,1950,Roubaix-Tourcoing,14,4,
+Francia,1950,Nancy,3,15,
+Francia,1950,Sochaux,13,5,sí
+Francia,1950,Rennes,14,4,
+Francia,1950,Sète,9,9,
+Francia,1950,Lens,8,10,
+Francia,1950,Toulouse,8,10,
+Francia,1950,Stade Français,12,6,
+Francia,1951,Niza,15,3,sí
+Francia,1951,Burdeos,10,8,sí
+Francia,1951,Lille,15,3,sí
+Francia,1951,Metz,10,8,
+Francia,1951,Nîmes,12,6,
+Francia,1951,Le Havre,13,5,
+Francia,1951,Roubaix-Tourcoing,13,5,
+Francia,1951,Saint-Étienne,12,6,sí
+Francia,1951,Sète,9,9,
+Francia,1951,Nancy,3,15,
+Francia,1951,Sochaux,15,3,sí
+Francia,1951,Lens,11,7,
+Francia,1951,Lyon,13,5,sí
+Francia,1952,Stade de Reims,15,3,sí
+Francia,1952,Sochaux,16,2,sí
+Francia,1952,Burdeos,13,5,sí
+Francia,1952,Lille,15,3,sí
+Francia,1952,Nîmes,16,2,
+Francia,1952,Lens,9,9,
+Francia,1952,Nancy,2,16,
+Francia,1952,Stade Français,17,1,
+Francia,1952,Sète,8,10,
+Francia,1952,Saint-Étienne,13,5,sí
+Francia,1952,Metz,10,8,
+Francia,1952,Niza,16,2,sí
+Francia,1952,Le Havre,9,9,
+Francia,1952,Roubaix-Tourcoing,15,3,
+Francia,1952,Rennes,15,3,
+Francia,1952,Racing de París,17,1,
+Francia,1952,Montpellier,16,2,
+Francia,1953,Lille,14,4,sí
+Francia,1953,Stade de Reims,14,4,sí
+Francia,1953,Burdeos,13,5,sí
+Francia,1953,Toulouse,7,11,
+Francia,1953,Saint-Étienne,16,2,sí
+Francia,1953,Estrasburgo,15,3,
+Francia,1953,Lens,12,6,
+Francia,1953,Niza,17,1,sí
+Francia,1953,Nîmes,11,7,
+Francia,1953,Mónaco,14,4,sí
+Francia,1953,Sochaux,15,3,sí
+Francia,1953,Metz,11,7,
+Francia,1953,Nancy,3,15,
+Francia,1953,Roubaix-Tourcoing,12,6,
+Francia,1953,Stade Français,16,2,
+Francia,1953,Le Havre,13,5,
+Francia,1953,Sète,7,11,
+Francia,1954,Stade de Reims,14,4,sí
+Francia,1954,Toulouse,6,12,
+Francia,1954,Estrasburgo,16,2,
+Francia,1954,Sochaux,14,4,sí
+Francia,1954,Burdeos,16,2,sí
+Francia,1954,Saint-Étienne,16,2,sí
+Francia,1954,Niza,17,1,sí
+Francia,1954,Nîmes,12,6,
+Francia,1954,Lyon,14,4,sí
+Francia,1954,Nancy,3,15,
+Francia,1954,Mónaco,14,4,sí
+Francia,1954,Metz,11,7,
+Francia,1954,Lille,13,5,sí
+Francia,1954,Troyes,8,10,
+Francia,1954,Roubaix-Tourcoing,15,3,
+Francia,1955,Niza,15,3,sí
+Francia,1955,Lens,17,1,
+Francia,1955,Mónaco,13,5,sí
+Francia,1955,Racing de París,16,2,
+Francia,1955,Toulouse,5,13,
+Francia,1955,Lyon,13,5,sí
+Francia,1955,Sedan,14,4,
+Francia,1955,Nancy,1,17,
+Francia,1955,Sochaux,12,6,sí
+Francia,1955,Nîmes,14,4,
+Francia,1955,Estrasburgo,15,3,
+Francia,1955,Metz,9,9,
+Francia,1955,Lille,16,2,sí
+Francia,1955,Burdeos,11,7,sí
+Francia,1955,Troyes,9,9,
+Francia,1956,Lens,15,3,
+Francia,1956,Racing de París,13,5,
+Francia,1956,Sochaux,11,7,sí
+Francia,1956,Toulouse,6,12,
+Francia,1956,Sedan,14,4,
+Francia,1956,Nîmes,13,5,
+Francia,1956,Angers,9,9,
+Francia,1956,Lyon,14,4,sí
+Francia,1956,Metz,7,11,
+Francia,1956,Estrasburgo,15,3,
+Francia,1956,Nancy,1,17,
+Francia,1957,Stade de Reims,17,1,sí
+Francia,1957,Nîmes,15,3,
+Francia,1957,Angers,10,8,
+Francia,1957,Mónaco,15,3,sí
+Francia,1957,Sedan,11,7,
+Francia,1957,Lille,14,4,sí
+Francia,1957,Lyon,13,5,sí
+Francia,1957,Racing de París,13,5,
+Francia,1957,Toulouse,10,8,
+Francia,1957,Lens,16,2,
+Francia,1957,Sochaux,11,7,sí
+Francia,1957,Niza,14,4,sí
+Francia,1957,Alès,0,18,
+Francia,1957,Metz,8,10,
+Francia,1957,Béziers,0,18,
+Francia,1959,Racing de París,17,1,
+Francia,1959,Mónaco,13,5,sí
+Francia,1959,Toulouse,8,10,
+Francia,1959,Le Havre,11,7,
+Francia,1959,Limoges,11,7,
+Francia,1959,Sedan,16,2,
+Francia,1959,Angers,12,6,
+Francia,1959,Stade Français,11,7,
+Francia,1959,Lyon,15,3,sí
+Francia,1959,Sochaux,11,7,sí
+Francia,1959,Toulon,9,9,
+Francia,1959,Estrasburgo,13,5,
+Francia,1959,Burdeos,14,4,sí
+Francia,1960,Mónaco,15,3,sí
+Francia,1960,Rouen,13,5,
+Francia,1960,Angers,10,8,
+Francia,1960,Nancy,4,14,
+Francia,1960,Sedan,15,3,
+Francia,1960,Le Havre,8,10,
+Francia,1960,Toulouse,7,11,
+Francia,1960,Stade Français,8,10,
+Francia,1960,Grenoble,8,10,
+Francia,1960,Limoges,14,4,
+Francia,1960,Troyes,5,13,
+Francia,1961,Racing de París,17,1,
+Francia,1961,Nîmes,17,1,
+Francia,1961,Nancy,2,16,
+Francia,1961,Mónaco,17,1,sí
+Francia,1961,Lens,16,2,
+Francia,1961,Montpellier,16,2,
+Francia,1961,Toulouse,6,12,
+Francia,1961,Stade Français,14,4,
+Francia,1961,Rouen,12,6,
+Francia,1961,Rennes,17,1,
+Francia,1961,Niza,16,2,sí
+Francia,1961,Angers,14,4,
+Francia,1961,Lyon,11,7,sí
+Francia,1961,Sochaux,13,5,sí
+Francia,1961,Le Havre,6,12,
+Francia,1961,Metz,13,5,
+Francia,1962,Mónaco,15,3,sí
+Francia,1962,Stade de Reims,17,1,sí
+Francia,1962,Sedan,15,3,
+Francia,1962,Lyon,14,4,sí
+Francia,1962,Nîmes,16,2,
+Francia,1962,Toulouse,10,8,
+Francia,1962,Rouen,9,9,
+Francia,1962,Valenciennes,17,1,
+Francia,1962,Racing de París,15,3,
+Francia,1962,Rennes,17,1,
+Francia,1962,Niza,13,5,sí
+Francia,1962,Angers,14,4,
+Francia,1962,Estrasburgo,15,3,
+Francia,1962,Stade Français,16,2,
+Francia,1962,Lens,14,4,
+Francia,1962,Grenoble,13,5,
+Francia,1962,Nancy,2,16,
+Francia,1962,Montpellier,14,4,
+Francia,1963,Mónaco,12,6,sí
+Francia,1963,Lens,14,4,
+Francia,1963,Lyon,13,5,sí
+Francia,1963,Toulouse,6,12,
+Francia,1963,Valenciennes,16,2,
+Francia,1963,Burdeos,14,4,sí
+Francia,1963,Estrasburgo,15,3,
+Francia,1963,Angers,9,9,
+Francia,1963,Rennes,16,2,
+Francia,1963,Sedan,13,5,
+Francia,1963,Rouen,13,5,
+Francia,1963,Stade Français,16,2,
+Francia,1963,Racing de París,15,3,
+Francia,1963,Niza,14,4,sí
+Francia,1964,Burdeos,17,1,sí
+Francia,1964,Valenciennes,16,2,
+Francia,1964,Rennes,17,1,
+Francia,1964,Estrasburgo,15,3,
+Francia,1964,Lyon,15,3,sí
+Francia,1964,Lens,16,2,
+Francia,1964,Lille,10,8,sí
+Francia,1964,Sochaux,13,5,sí
+Francia,1964,Toulouse,6,12,
+Francia,1964,Mónaco,12,6,sí
+Francia,1964,Angers,9,9,
+Francia,1964,Sedan,13,5,
+Francia,1964,Stade Français,13,5,
+Francia,1964,Rouen,13,5,
+Francia,1964,Nîmes,14,4,
+Francia,1964,Toulon,1,17,
+Francia,1965,Burdeos,17,1,sí
+Francia,1965,Valenciennes,17,1,
+Francia,1965,Toulouse,4,14,
+Francia,1965,Saint-Étienne,17,1,sí
+Francia,1965,Sochaux,12,6,sí
+Francia,1965,Estrasburgo,13,5,
+Francia,1965,Sedan,11,7,
+Francia,1965,Niza,11,7,sí
+Francia,1965,Angers,8,10,
+Francia,1965,Lens,12,6,
+Francia,1965,Mónaco,7,11,sí
+Francia,1965,Rouen,11,7,
+Francia,1965,Stade Français,7,11,
+Francia,1965,Lyon,16,2,sí
+Francia,1965,Nîmes,14,4,
+Francia,1965,Lille,9,9,sí
+Francia,1965,Cannes,9,9,
+Francia,1965,Red Star,9,9,
+Francia,1966,Angers,11,7,
+Francia,1966,Burdeos,17,1,sí
+Francia,1966,Sedan,14,4,
+Francia,1966,Niza,10,8,sí
+Francia,1966,Lens,11,7,
+Francia,1966,Lille,9,9,sí
+Francia,1966,Estrasburgo,13,5,
+Francia,1966,Sochaux,10,8,sí
+Francia,1966,Mónaco,10,8,sí
+Francia,1966,Lyon,16,2,sí
+Francia,1966,Rouen,10,8,
+Francia,1966,Toulouse,4,14,
+Francia,1966,Nîmes,16,2,
+Francia,1966,Stade de Reims,12,6,sí
+Francia,1966,Paris FC,0,18,
+Francia,1967,Niza,12,6,sí
+Francia,1967,Sochaux,10,8,sí
+Francia,1967,Metz,12,6,
+Francia,1967,Burdeos,16,2,sí
+Francia,1967,Ajaccio,16,2,
+Francia,1967,Sedan,13,5,
+Francia,1967,Mónaco,14,4,sí
+Francia,1967,Lyon,14,4,sí
+Francia,1967,Red Star,11,7,
+Francia,1967,Rouen,8,10,
+Francia,1967,Estrasburgo,10,8,
+Francia,1967,Lens,12,6,
+Francia,1967,Angers,11,7,
+Francia,1967,Lille,10,8,sí
+Francia,1967,Aix,7,11,
+Francia,1968,Burdeos,16,2,sí
+Francia,1968,Metz,12,6,
+Francia,1968,Rouen,11,7,
+Francia,1968,Sedan,11,7,
+Francia,1968,Bastia,13,5,
+Francia,1968,Valenciennes,16,2,
+Francia,1968,Lyon,16,2,sí
+Francia,1968,Sochaux,12,6,sí
+Francia,1968,Estrasburgo,12,6,
+Francia,1968,Nîmes,13,5,
+Francia,1968,Red Star,13,5,
+Francia,1968,Ajaccio,13,5,
+Francia,1968,Mónaco,12,6,sí
+Francia,1968,Niza,13,5,sí
+Francia,1969,Sedan,13,5,
+Francia,1969,Angoulême,10,8,
+Francia,1969,Estrasburgo,11,7,
+Francia,1969,Burdeos,16,2,sí
+Francia,1969,Angers,10,8,
+Francia,1969,Metz,15,3,
+Francia,1969,Sochaux,11,7,sí
+Francia,1969,Nîmes,16,2,
+Francia,1969,Rouen,13,5,
+Francia,1969,Red Star,11,7,
+Francia,1969,Lyon,14,4,sí
+Francia,1969,Ajaccio,15,3,
+Francia,1969,Bastia,12,6,
+Francia,1970,Marsella,17,1,sí
+Francia,1970,Burdeos,13,5,sí
+Francia,1970,Ajaccio,13,5,
+Francia,1970,Lyon,16,2,sí
+Francia,1970,Stade de Reims,12,6,sí
+Francia,1970,Sochaux,16,2,sí
+Francia,1970,Angers,12,6,
+Francia,1970,Nancy,14,4,
+Francia,1970,Niza,13,5,sí
+Francia,1970,Red Star,12,6,
+Francia,1970,Angoulême,13,5,
+Francia,1970,Bastia,10,8,
+Francia,1970,Estrasburgo,13,5,
+Francia,1970,Sedan,11,7,
+Francia,1971,Angers,11,7,
+Francia,1971,Lyon,15,3,sí
+Francia,1971,Niza,12,6,sí
+Francia,1971,Bastia,13,5,
+Francia,1971,Nancy,17,1,
+Francia,1971,Burdeos,15,3,sí
+Francia,1971,Ajaccio,11,7,
+Francia,1971,Stade de Reims,16,2,sí
+Francia,1971,Red Star,13,5,
+Francia,1971,Lille,17,1,sí
+Francia,1971,Mónaco,13,5,sí
+Francia,1971,Angoulême,13,5,
+Francia,1972,Niza,15,3,sí
+Francia,1972,Angers,13,5,
+Francia,1972,Stade de Reims,16,2,sí
+Francia,1972,Bastia,13,5,
+Francia,1972,Paris FC,0,18,
+Francia,1972,Lyon,15,3,sí
+Francia,1972,Burdeos,14,4,sí
+Francia,1972,Metz,15,3,
+Francia,1972,Estrasburgo,14,4,
+Francia,1972,Sedan,11,7,
+Francia,1972,Red Star,14,4,
+Francia,1972,Ajaccio,13,5,
+Francia,1973,Lyon,15,3,sí
+Francia,1973,Angers,12,6,
+Francia,1973,Niza,17,1,sí
+Francia,1973,Stade de Reims,14,4,sí
+Francia,1973,Bastia,15,3,
+Francia,1973,Lens,13,5,
+Francia,1973,Metz,16,2,
+Francia,1973,Burdeos,15,3,sí
+Francia,1973,Troyes,14,4,
+Francia,1973,Paris FC,0,18,
+Francia,1973,Sedan,12,6,
+Francia,1974,Lyon,17,1,sí
+Francia,1974,Lens,17,1,
+Francia,1974,Mónaco,17,1,sí
+Francia,1974,Estrasburgo,17,1,
+Francia,1974,Stade de Reims,15,3,sí
+Francia,1974,Burdeos,16,2,sí
+Francia,1974,Niza,15,3,sí
+Francia,1974,Lille,15,3,sí
+Francia,1974,Troyes,15,3,
+Francia,1974,Angers,16,2,
+Francia,1974,Red Star,13,5,
+Francia,1975,Niza,16,2,sí
+Francia,1975,Stade de Reims,15,3,sí
+Francia,1975,Metz,15,3,
+Francia,1975,Lille,15,3,sí
+Francia,1975,Troyes,14,4,
+Francia,1975,Lyon,17,1,sí
+Francia,1975,Avignon,12,6,
+Francia,1976,Nancy,16,2,
+Francia,1976,Niza,14,4,sí
+Francia,1976,Metz,15,3,
+Francia,1976,Burdeos,15,3,sí
+Francia,1976,Stade de Reims,14,4,sí
+Francia,1976,Troyes,13,5,
+Francia,1976,Laval,0,18,
+Francia,1976,Angers,14,4,
+Francia,1976,Lille,15,3,sí
+Francia,1977,Nancy,15,3,
+Francia,1977,Niza,14,4,sí
+Francia,1977,Laval,0,18,
+Francia,1977,Metz,16,2,
+Francia,1977,Stade de Reims,16,2,sí
+Francia,1977,Troyes,13,5,
+Francia,1977,Rouen,13,5,
+Francia,1978,Metz,17,1,
+Francia,1978,Nancy,16,2,
+Francia,1978,Niza,12,6,sí
+Francia,1978,Laval,0,18,
+Francia,1978,Angers,15,3,
+Francia,1978,Paris FC,0,18,
+Francia,1978,Stade de Reims,16,2,sí
+Francia,1979,Valenciennes,16,2,
+Francia,1979,Nancy,15,3,
+Francia,1979,Laval,0,18,
+Francia,1979,Niza,11,7,sí
+Francia,1979,Bastia,17,1,
+Francia,1979,Metz,16,2,
+Francia,1979,Brest,0,18,
+Francia,1980,Burdeos,17,1,sí
+Francia,1980,Nancy,15,3,
+Francia,1980,Auxerre,17,1,
+Francia,1980,Bastia,17,1,
+Francia,1980,Niza,14,4,sí
+Francia,1980,Laval,0,18,
+Francia,1980,Lille,17,1,sí
+Francia,1980,Tours,17,1,
+Francia,1980,Angers,15,3,
+Francia,1981,Laval,0,18,
+Francia,1981,Nancy,13,5,
+Francia,1981,Brest,1,17,
+Francia,1981,Lille,16,2,sí
+Francia,1981,Lyon,16,2,sí
+Francia,1981,Valenciennes,13,5,
+Francia,1981,Niza,16,2,sí
+Francia,1982,Laval,0,18,
+Francia,1982,Nancy,14,4,
+Francia,1982,Metz,17,1,
+Francia,1982,Brest,2,16,
+Francia,1982,Saint-Étienne,17,1,sí
+Francia,1982,Estrasburgo,15,3,
+Francia,1982,Lyon,17,1,sí
+Francia,1982,Mulhouse,12,6,
+Francia,1983,Bastia,16,2,
+Francia,1983,Laval,0,18,
+Francia,1983,Metz,16,2,
+Francia,1983,Rouen,17,1,
+Francia,1983,Nancy,15,3,
+Francia,1983,Toulon,14,4,
+Francia,1983,Brest,1,17,
+Francia,1983,Saint-Étienne,17,1,sí
+Francia,1983,Nîmes,16,2,
+Francia,1984,Brest,1,17,
+Francia,1984,Laval,0,18,
+Francia,1984,Nancy,14,4,
+Francia,1984,Bastia,14,4,
+Francia,1984,Estrasburgo,15,3,
+Francia,1985,Metz,17,1,
+Francia,1985,Auxerre,17,1,
+Francia,1985,Laval,0,18,
+Francia,1985,Brest,1,17,
+Francia,1985,Sochaux,17,1,sí
+Francia,1985,Le Havre,9,9,
+Francia,1985,Nancy,15,3,
+Francia,1985,Estrasburgo,15,3,
+Francia,1985,Bastia,14,4,
+Francia,1986,Auxerre,17,1,
+Francia,1986,Brest,1,17,
+Francia,1986,Laval,0,18,
+Francia,1986,Niza,15,3,sí
+Francia,1986,Saint-Étienne,17,1,sí
+Francia,1986,Le Havre,8,10,
+Francia,1986,Nancy,16,2,
+Francia,1987,Lille,17,1,sí
+Francia,1987,Laval,0,18,
+Francia,1987,Brest,0,18,
+Francia,1987,Le Havre,13,5,
+Francia,1988,Sochaux,17,1,sí
+Francia,1988,Caen,0,18,
+Francia,1988,Laval,0,18,
+Francia,1989,Brest,0,18,
+Francia,1989,Caen,0,18,
+Francia,1989,Racing de París,16,2,
+Francia,1989,Mulhouse,13,5,
+Francia,1990,Caen,0,18,
+Francia,1990,Brest,0,18,
+Francia,1990,Nancy,14,4,
+Francia,1991,Caen,0,18,
+Francia,1991,Le Havre,16,2,
+Francia,1991,Toulon,17,1,
+Francia,1992,Caen,0,18,
+Francia,1992,Le Havre,16,2,
+Francia,1992,Toulon,17,1,
+Francia,1993,Caen,0,18,
+Francia,1993,Martigues,17,1,
+Francia,1995,Gueugnon,17,1,
+Francia,1995,Martigues,17,1,
+Francia,1996,Caen,0,18,
+Francia,2004,Caen,0,18,
+Francia,2007,Caen,0,18,
+Francia,2008,Caen,0,18,
+Francia,2010,Caen,0,18,
+Francia,2010,Brest,0,18,
+Francia,2010,Arles-Avignon,0,18,
+Francia,2011,Brest,0,18,
+Francia,2011,Caen,0,18,
+Francia,2012,Brest,0,18,
+Francia,2014,Caen,0,18,
+Francia,2015,Caen,0,18,
+Francia,2016,Caen,0,18,
+Francia,2017,Caen,0,18,
+Francia,2018,Estrasburgo,17,1,
+Francia,2018,Caen,0,18,
+Francia,2019,Montpellier,15,3,
+Francia,2019,Brest,0,18,
+Francia,2020,Montpellier,13,5,
+Francia,2020,Estrasburgo,14,4,
+Francia,2020,Brest,0,18,
+Francia,2021,Estrasburgo,15,3,
+Francia,2021,Brest,0,18,
+Francia,2021,Montpellier,13,5,
+Francia,2022,Montpellier,15,3,
+Francia,2022,Brest,0,18,
+Francia,2022,Estrasburgo,16,2,
+Francia,2023,Brest,0,18,
+Francia,2023,Montpellier,14,4,
+Francia,2023,Estrasburgo,13,5,
+Francia,2023,Le Havre,16,2,
+Francia,2024,Estrasburgo,13,5,
+Francia,2024,Brest,0,18,
+Francia,2024,Angers,16,2,
+Francia,2024,Le Havre,16,2,
+Francia,2024,Montpellier,14,4,
+Portugal,1994,Vitória de Guimarães,14,4,
+Portugal,1994,Farense,12,6,
+Portugal,1994,União de Leiria,5,13,
+Portugal,1994,Marítimo,10,8,
+Portugal,1994,Tirsense,6,12,
+Portugal,1994,Braga,14,4,
+Portugal,1994,Salgueiros,11,7,
+Portugal,1994,Belenenses,17,1,
+Portugal,1994,Gil Vicente,7,11,
+Portugal,1994,Chaves,3,15,
+Portugal,1994,Estrela da Amadora,14,4,
+Portugal,1994,União da Madeira,10,8,
+Portugal,1994,Beira-Mar,8,10,
+Portugal,1995,Vitória de Guimarães,15,3,
+Portugal,1995,União de Leiria,7,11,
+Portugal,1995,Braga,13,5,
+Portugal,1995,Marítimo,11,7,
+Portugal,1995,Farense,10,8,
+Portugal,1995,Salgueiros,7,11,
+Portugal,1995,Gil Vicente,11,7,
+Portugal,1995,Estrela da Amadora,10,8,
+Portugal,1995,Chaves,2,16,
+Portugal,1995,Leça,8,10,
+Portugal,1995,Felgueiras,13,5,
+Portugal,1995,Campomaiorense,6,12,
+Portugal,1995,Tirsense,9,9,
+Portugal,1996,Braga,12,6,
+Portugal,1996,Vitória de Guimarães,11,7,
+Portugal,1996,Salgueiros,8,10,
+Portugal,1996,Estrela da Amadora,9,9,
+Portugal,1996,Marítimo,13,5,
+Portugal,1996,Chaves,10,8,
+Portugal,1996,Farense,9,9,
+Portugal,1996,Vitória de Setúbal,17,1,
+Portugal,1996,Belenenses,17,1,
+Portugal,1996,Leça,5,13,
+Portugal,1996,Rio Ave,7,11,
+Portugal,1996,Espinho,6,12,
+Portugal,1996,União de Leiria,9,9,
+Portugal,1996,Gil Vicente,5,13,
+Portugal,1997,Vitória de Guimarães,17,1,
+Portugal,1997,Marítimo,12,6,
+Portugal,1997,Estrela da Amadora,11,7,
+Portugal,1997,Salgueiros,10,8,
+Portugal,1997,Rio Ave,8,10,
+Portugal,1997,Braga,15,3,
+Portugal,1997,Campomaiorense,10,8,
+Portugal,1997,Leça,5,13,
+Portugal,1997,Farense,7,11,
+Portugal,1997,Académica,10,8,
+Portugal,1997,Chaves,8,10,
+Portugal,1997,Varzim,6,12,
+Portugal,1997,Belenenses,17,1,
+Portugal,1998,Vitória de Setúbal,16,2,
+Portugal,1998,União de Leiria,13,5,
+Portugal,1998,Estrela da Amadora,12,6,
+Portugal,1998,Braga,9,9,
+Portugal,1998,Marítimo,12,6,
+Portugal,1998,Farense,12,6,
+Portugal,1998,Salgueiros,11,7,
+Portugal,1998,Campomaiorense,17,1,
+Portugal,1998,Rio Ave,7,11,
+Portugal,1998,Beira-Mar,13,5,
+Portugal,1998,Chaves,12,6,
+Portugal,1998,Académica,12,6,
+Portugal,1999,Gil Vicente,14,4,
+Portugal,1999,Marítimo,16,2,
+Portugal,1999,Vitória de Guimarães,16,2,
+Portugal,1999,Estrela da Amadora,12,6,
+Portugal,1999,Braga,16,2,
+Portugal,1999,União de Leiria,15,3,
+Portugal,1999,Campomaiorense,12,6,
+Portugal,1999,Farense,17,1,
+Portugal,1999,Salgueiros,12,6,
+Portugal,1999,Rio Ave,8,10,
+Portugal,1999,Vitória de Setúbal,15,3,
+Portugal,1999,Santa Clara,13,5,
+Portugal,2000,União de Leiria,12,6,
+Portugal,2000,Belenenses,17,1,
+Portugal,2000,Beira-Mar,12,6,
+Portugal,2000,Paços de Ferreira,11,7,
+Portugal,2000,Marítimo,17,1,
+Portugal,2000,Salgueiros,14,4,
+Portugal,2000,Farense,17,1,
+Portugal,2000,Gil Vicente,11,7,
+Portugal,2000,Campomaiorense,14,4,
+Portugal,2000,Aves,10,8,
+Portugal,2000,Estrela da Amadora,14,4,
+Portugal,2001,União de Leiria,16,2,
+Portugal,2001,Paços de Ferreira,11,7,
+Portugal,2001,Braga,15,3,
+Portugal,2001,Beira-Mar,14,4,
+Portugal,2001,Gil Vicente,16,2,
+Portugal,2001,Varzim,13,5,
+Portugal,2001,Salgueiros,14,4,
+Portugal,2001,Farense,10,8,
+Portugal,2001,Alverca,17,1,
+Portugal,2002,Vitória de Guimarães,17,1,
+Portugal,2002,União de Leiria,15,3,
+Portugal,2002,Paços de Ferreira,14,4,
+Portugal,2002,Moreirense,13,5,
+Portugal,2002,Varzim,16,2,
+Portugal,2002,Santa Clara,17,1,
+Portugal,2002,Vitória de Setúbal,17,1,
+Portugal,2003,Rio Ave,15,3,
+Portugal,2003,Moreirense,14,4,
+Portugal,2004,Rio Ave,16,2,
+Portugal,2004,Moreirense,15,3,
+Portugal,2016,Feirense,14,4,
+Portugal,2017,Aves,16,2,
+Portugal,2017,Feirense,11,7,
+Portugal,2018,Boavista,17,1,
+Portugal,2018,Aves,17,1,
+Portugal,2018,Feirense,12,6,
+Portugal,2019,Rio Ave,17,1,
+Portugal,2019,Famalicão,13,5,
+Portugal,2019,Belenenses,17,1,
+Portugal,2020,Famalicão,11,7,
+Portugal,2020,Belenenses,17,1,
+Portugal,2020,Rio Ave,14,4,
+Portugal,2020,Farense,17,1,
+Portugal,2021,Gil Vicente,17,1,
+Portugal,2021,Famalicão,12,6,
+Portugal,2021,Vizela,3,15,
+Portugal,2021,Moreirense,17,1,
+Portugal,2021,Belenenses,15,3,
+Portugal,2022,Famalicão,14,4,
+Portugal,2022,Boavista,17,1,
+Portugal,2022,Casa Pia,4,14,
+Portugal,2022,Vizela,6,12,
+Portugal,2022,Rio Ave,14,4,
+Portugal,2022,Gil Vicente,17,1,
+Portugal,2023,Moreirense,14,4,
+Portugal,2023,Famalicão,12,6,
+Portugal,2023,Casa Pia,5,13,
+Portugal,2023,Farense,13,5,
+Portugal,2023,Rio Ave,13,5,
+Portugal,2023,Estrela da Amadora,2,16,
+Portugal,2023,Boavista,16,2,
+Portugal,2023,Vizela,5,13,
+Portugal,2024,Santa Clara,13,5,
+Portugal,2024,Famalicão,7,11,
+Portugal,2024,Casa Pia,8,10,
+Portugal,2024,Moreirense,11,7,
+Portugal,2024,Rio Ave,14,4,
+Portugal,2024,Nacional,16,2,
+Portugal,2024,Estrela da Amadora,2,16,
+Portugal,2024,Farense,14,4,
+Portugal,2024,AVS,0,18,
+Portugal,2024,Boavista,11,7,
+Alemania,1954,Viktoria 89 Berlín,0,18,
+Alemania,1954,Tennis Borussia,1,17,
+Alemania,1954,Berliner SV 92,5,13,
+Alemania,1954,Minerva 93 Berlín,0,18,
+Alemania,1954,Union 06 Berlín,1,17,
+Alemania,1954,Spandauer SV,1,17,
+Alemania,1954,Hertha Berlín,5,13,sí
+Alemania,1954,Wacker 04 Berlín,1,17,
+Alemania,1954,Alemannia 90 Berlín,0,18,
+Alemania,1954,Blau-Weiß 90 Berlín,0,18,
+Alemania,1954,BFC Südring,0,18,
+Alemania,1954,BFC Nordstern,0,18,
+Alemania,1954,Hamburgo,5,13,sí
+Alemania,1954,Bremerhaven 93,0,18,
+Alemania,1954,Werder Bremen,3,15,sí
+Alemania,1954,Altona 93,1,17,
+Alemania,1954,Hannover 96,4,14,
+Alemania,1954,Eintracht Braunschweig,8,10,
+Alemania,1954,St. Pauli,1,17,
+Alemania,1954,Eimsbütteler TV,0,18,
+Alemania,1954,VfL Osnabrück,5,13,
+Alemania,1954,Holstein Kiel,0,18,
+Alemania,1954,VfB Oldenburg,0,18,
+Alemania,1954,Arminia Hannover,1,17,
+Alemania,1954,Göttingen 05,0,18,
+Alemania,1954,Wolfsburgo,0,18,
+Alemania,1954,Bremer SV,0,18,
+Alemania,1954,Harburger TB,0,18,
+Alemania,1954,Kickers Offenbach,3,15,
+Alemania,1954,Reutlingen,0,18,
+Alemania,1954,Schweinfurt 05,0,18,
+Alemania,1954,Eintracht Fráncfort,11,7,sí
+Alemania,1954,Karlsruhe,4,14,
+Alemania,1954,FSV Fráncfort,2,16,
+Alemania,1954,BC Augsburgo,0,18,
+Alemania,1954,Schwaben Augsburgo,0,18,
+Alemania,1954,Núremberg,7,11,
+Alemania,1954,VfR Mannheim,2,16,
+Alemania,1954,Fürth,3,15,
+Alemania,1954,Stuttgarter Kickers,7,11,
+Alemania,1954,Stuttgart,8,10,sí
+Alemania,1954,Jahn Ratisbona,0,18,
+Alemania,1954,Hessen Kassel,2,16,
+Alemania,1954,Kaiserslautern,14,4,sí
+Alemania,1954,Wormatia Worms,1,17,
+Alemania,1954,Saarbrücken,16,2,
+Alemania,1954,TuS Neuendorf,1,17,
+Alemania,1954,Pirmasens,2,16,
+Alemania,1954,Phönix Ludwigshafen,0,18,
+Alemania,1954,TuRa Ludwigshafen,0,18,
+Alemania,1954,Frankenthal,0,18,
+Alemania,1954,Saar 05,0,18,
+Alemania,1954,Borussia Neunkirchen,8,10,
+Alemania,1954,Eintracht Trier,1,17,
+Alemania,1954,VfR Kaiserslautern,4,14,
+Alemania,1954,Eintracht Kreuznach,0,18,
+Alemania,1954,Mainz 05,1,17,
+Alemania,1954,Speyer,0,18,
+Alemania,1954,Sportfreunde Saarbrücken,1,17,
+Alemania,1954,Rot-Weiss Essen,10,8,
+Alemania,1954,Sodingen,3,15,
+Alemania,1954,Bayer Leverkusen,2,16,sí
+Alemania,1954,Borussia Dortmund,10,8,sí
+Alemania,1954,Schalke 04,7,11,sí
+Alemania,1954,Fortuna Düsseldorf,5,13,
+Alemania,1954,Colonia,7,11,sí
+Alemania,1954,Duisburger SV,0,18,
+Alemania,1954,Preußen Münster,4,14,
+Alemania,1954,Preußen Dellbrück,0,18,
+Alemania,1954,Alemannia Aquisgrán,3,15,
+Alemania,1954,Schwarz-Weiß Essen,2,16,
+Alemania,1954,Westfalia Herne,4,14,
+Alemania,1954,Borussia Mönchengladbach,3,15,sí
+Alemania,1954,Meidericher SV,2,16,
+Alemania,1954,Bochum,1,17,
+Alemania,1955,Viktoria 89 Berlín,0,18,
+Alemania,1955,Minerva 93 Berlín,0,18,
+Alemania,1955,Berliner SV 92,5,13,
+Alemania,1955,Spandauer SV,1,17,
+Alemania,1955,Blau-Weiß 90 Berlín,0,18,
+Alemania,1955,Union 06 Berlín,0,18,
+Alemania,1955,Tennis Borussia,1,17,
+Alemania,1955,Hertha Zehlendorf,1,17,
+Alemania,1955,Tasmania Berlín,1,17,
+Alemania,1955,Hertha Berlín,4,14,sí
+Alemania,1955,Alemannia 90 Berlín,0,18,
+Alemania,1955,Wacker 04 Berlín,0,18,
+Alemania,1955,Hamburgo,7,11,sí
+Alemania,1955,Hannover 96,6,12,
+Alemania,1955,Arminia Hannover,0,18,
+Alemania,1955,Holstein Kiel,0,18,
+Alemania,1955,VfR Neumünster,0,18,
+Alemania,1955,Werder Bremen,4,14,sí
+Alemania,1955,Bremerhaven 93,1,17,
+Alemania,1955,Göttingen 05,0,18,
+Alemania,1955,Altona 93,1,17,
+Alemania,1955,VfL Osnabrück,6,12,
+Alemania,1955,Eintracht Braunschweig,9,9,
+Alemania,1955,Eintracht Nordhorn,0,18,
+Alemania,1955,St. Pauli,2,16,
+Alemania,1955,Wolfsburgo,0,18,
+Alemania,1955,VfB Oldenburg,0,18,
+Alemania,1955,Eimsbütteler TV,0,18,
+Alemania,1955,Karlsruhe,5,13,
+Alemania,1955,Stuttgart,6,12,sí
+Alemania,1955,VfR Mannheim,1,17,
+Alemania,1955,Kickers Offenbach,3,15,
+Alemania,1955,Viktoria Aschaffenburg,2,16,
+Alemania,1955,Eintracht Fráncfort,13,5,sí
+Alemania,1955,Núremberg,5,13,
+Alemania,1955,Schweinfurt 05,0,18,
+Alemania,1955,FSV Fráncfort,2,16,
+Alemania,1955,Jahn Ratisbona,0,18,
+Alemania,1955,BC Augsburgo,0,18,
+Alemania,1955,Schwaben Augsburgo,0,18,
+Alemania,1955,Fürth,3,15,
+Alemania,1955,Stuttgarter Kickers,8,10,
+Alemania,1955,Reutlingen,0,18,
+Alemania,1955,Múnich 1860,0,18,
+Alemania,1955,Kaiserslautern,12,6,sí
+Alemania,1955,TuS Neuendorf,2,16,
+Alemania,1955,Saarbrücken,15,3,
+Alemania,1955,Pirmasens,2,16,
+Alemania,1955,Frankenthal,0,18,
+Alemania,1955,Borussia Neunkirchen,10,8,
+Alemania,1955,Phönix Ludwigshafen,0,18,
+Alemania,1955,Eintracht Kreuznach,0,18,
+Alemania,1955,Saar 05,0,18,
+Alemania,1955,Mainz 05,2,16,
+Alemania,1955,Wormatia Worms,1,17,
+Alemania,1955,Eintracht Trier,0,18,
+Alemania,1955,VfR Kaiserslautern,1,17,
+Alemania,1955,SpVgg Andernach,0,18,
+Alemania,1955,FV Engers,0,18,
+Alemania,1955,TuRa Ludwigshafen,0,18,
+Alemania,1955,Borussia Dortmund,10,8,sí
+Alemania,1955,Schalke 04,7,11,sí
+Alemania,1955,Alemannia Aquisgrán,3,15,
+Alemania,1955,Duisburger SV,0,18,
+Alemania,1955,Rot-Weiss Essen,9,9,
+Alemania,1955,Fortuna Düsseldorf,6,12,
+Alemania,1955,Colonia,8,10,sí
+Alemania,1955,Schwarz-Weiß Essen,3,15,
+Alemania,1955,Sodingen,5,13,
+Alemania,1955,Wuppertaler SV,3,15,
+Alemania,1955,Borussia Mönchengladbach,5,13,sí
+Alemania,1955,Preußen Münster,3,15,
+Alemania,1955,Westfalia Herne,5,13,
+Alemania,1955,Preußen Dellbrück,0,18,
+Alemania,1955,Bayer Leverkusen,2,16,sí
+Alemania,1955,Hamborn 07,1,17,
+Alemania,1956,Hertha Berlín,6,12,sí
+Alemania,1956,Tennis Borussia,2,16,
+Alemania,1956,Union 06 Berlín,0,18,
+Alemania,1956,Viktoria 89 Berlín,0,18,
+Alemania,1956,Blau-Weiß 90 Berlín,0,18,
+Alemania,1956,Tasmania Berlín,1,17,
+Alemania,1956,Spandauer SV,1,17,
+Alemania,1956,Berliner SV 92,7,11,
+Alemania,1956,Hertha Zehlendorf,0,18,
+Alemania,1956,Minerva 93 Berlín,0,18,
+Alemania,1956,BFC Südring,0,18,
+Alemania,1956,Rapide Wedding,0,18,
+Alemania,1956,Hamburgo,7,11,sí
+Alemania,1956,Holstein Kiel,0,18,
+Alemania,1956,Hannover 96,5,13,
+Alemania,1956,St. Pauli,1,17,
+Alemania,1956,Werder Bremen,6,12,sí
+Alemania,1956,VfL Osnabrück,9,9,
+Alemania,1956,Eintracht Braunschweig,8,10,
+Alemania,1956,VfR Neumünster,0,18,
+Alemania,1956,Bremerhaven 93,2,16,
+Alemania,1956,Göttingen 05,0,18,
+Alemania,1956,Altona 93,1,17,
+Alemania,1956,Concordia Hamburgo,0,18,
+Alemania,1956,Eintracht Nordhorn,1,17,
+Alemania,1956,Wolfsburgo,1,17,
+Alemania,1956,Arminia Hannover,1,17,
+Alemania,1956,Heider SV,1,17,
+Alemania,1956,Núremberg,5,13,
+Alemania,1956,Kickers Offenbach,3,15,
+Alemania,1956,Karlsruhe,9,9,
+Alemania,1956,Stuttgart,9,9,sí
+Alemania,1956,Eintracht Fráncfort,15,3,sí
+Alemania,1956,Fürth,3,15,
+Alemania,1956,VfR Mannheim,1,17,
+Alemania,1956,Viktoria Aschaffenburg,2,16,
+Alemania,1956,Jahn Ratisbona,0,18,
+Alemania,1956,FSV Fráncfort,2,16,
+Alemania,1956,Schweinfurt 05,0,18,
+Alemania,1956,BC Augsburgo,0,18,
+Alemania,1956,Stuttgarter Kickers,8,10,
+Alemania,1956,Schwaben Augsburgo,0,18,
+Alemania,1956,Freiburger FC,1,17,
+Alemania,1956,Kaiserslautern,14,4,sí
+Alemania,1956,Saarbrücken,14,4,
+Alemania,1956,Frankenthal,0,18,
+Alemania,1956,Phönix Ludwigshafen,0,18,
+Alemania,1956,Borussia Neunkirchen,9,9,
+Alemania,1956,TuS Neuendorf,1,17,
+Alemania,1956,Saar 05,0,18,
+Alemania,1956,Pirmasens,1,17,
+Alemania,1956,Wormatia Worms,1,17,
+Alemania,1956,Mainz 05,3,15,
+Alemania,1956,Eintracht Kreuznach,1,17,
+Alemania,1956,Eintracht Trier,1,17,
+Alemania,1956,VfR Kaiserslautern,1,17,
+Alemania,1956,Speyer,0,18,
+Alemania,1956,SpVgg Andernach,0,18,
+Alemania,1956,Sportfreunde Saarbrücken,1,17,
+Alemania,1956,Borussia Dortmund,11,7,sí
+Alemania,1956,Duisburger SV,0,18,
+Alemania,1956,Colonia,6,12,sí
+Alemania,1956,Schalke 04,7,11,sí
+Alemania,1956,Alemannia Aquisgrán,2,16,
+Alemania,1956,Fortuna Düsseldorf,6,12,
+Alemania,1956,Meidericher SV,3,15,
+Alemania,1956,Rot-Weiss Essen,11,7,
+Alemania,1956,Wuppertaler SV,5,13,
+Alemania,1956,Bochum,1,17,
+Alemania,1956,Westfalia Herne,4,14,
+Alemania,1956,Preußen Dellbrück,0,18,
+Alemania,1956,Preußen Münster,3,15,
+Alemania,1956,Sodingen,4,14,
+Alemania,1956,Schwarz-Weiß Essen,4,14,
+Alemania,1956,Borussia Mönchengladbach,6,12,sí
+Alemania,1957,Tennis Borussia,2,16,
+Alemania,1957,Viktoria 89 Berlín,0,18,
+Alemania,1957,Spandauer SV,1,17,
+Alemania,1957,Berliner SV 92,6,12,
+Alemania,1957,Tasmania Berlín,2,16,
+Alemania,1957,Hertha Berlín,6,12,sí
+Alemania,1957,Hertha Zehlendorf,0,18,
+Alemania,1957,Blau-Weiß 90 Berlín,0,18,
+Alemania,1957,Union 06 Berlín,0,18,
+Alemania,1957,Wacker 04 Berlín,0,18,
+Alemania,1957,Minerva 93 Berlín,0,18,
+Alemania,1957,Alemannia 90 Berlín,0,18,
+Alemania,1957,Hamburgo,8,10,sí
+Alemania,1957,Eintracht Braunschweig,9,9,
+Alemania,1957,Altona 93,1,17,
+Alemania,1957,VfL Osnabrück,10,8,
+Alemania,1957,Bremerhaven 93,2,16,
+Alemania,1957,Concordia Hamburgo,0,18,
+Alemania,1957,Werder Bremen,5,13,sí
+Alemania,1957,Holstein Kiel,2,16,
+Alemania,1957,St. Pauli,2,16,
+Alemania,1957,Hannover 96,4,14,
+Alemania,1957,Wolfsburgo,1,17,
+Alemania,1957,VfR Neumünster,0,18,
+Alemania,1957,Eintracht Nordhorn,1,17,
+Alemania,1957,Phönix Lübeck,1,17,
+Alemania,1957,VfB Lübeck,2,16,
+Alemania,1957,Göttingen 05,0,18,
+Alemania,1957,Karlsruhe,8,10,
+Alemania,1957,Núremberg,6,12,
+Alemania,1957,Eintracht Fráncfort,17,1,sí
+Alemania,1957,Fürth,3,15,
+Alemania,1957,Kickers Offenbach,3,15,
+Alemania,1957,Múnich 1860,0,18,
+Alemania,1957,Schweinfurt 05,0,18,
+Alemania,1957,Stuttgart,11,7,sí
+Alemania,1957,VfR Mannheim,1,17,
+Alemania,1957,Viktoria Aschaffenburg,0,18,
+Alemania,1957,BC Augsburgo,0,18,
+Alemania,1957,FSV Fráncfort,2,16,
+Alemania,1957,Reutlingen,0,18,
+Alemania,1957,Jahn Ratisbona,0,18,
+Alemania,1957,Stuttgarter Kickers,7,11,
+Alemania,1957,Pirmasens,2,16,
+Alemania,1957,Kaiserslautern,11,7,sí
+Alemania,1957,Borussia Neunkirchen,9,9,
+Alemania,1957,Phönix Ludwigshafen,0,18,
+Alemania,1957,Wormatia Worms,1,17,
+Alemania,1957,Mainz 05,3,15,
+Alemania,1957,Eintracht Kreuznach,1,17,
+Alemania,1957,Saarbrücken,12,6,
+Alemania,1957,Saar 05,0,18,
+Alemania,1957,TuRa Ludwigshafen,0,18,
+Alemania,1957,TuS Neuendorf,1,17,
+Alemania,1957,Frankenthal,1,17,
+Alemania,1957,Speyer,0,18,
+Alemania,1957,Eintracht Trier,2,16,
+Alemania,1957,VfR Kaiserslautern,1,17,
+Alemania,1957,SV St.Ingbert,1,17,
+Alemania,1957,Schalke 04,8,10,sí
+Alemania,1957,Colonia,8,10,sí
+Alemania,1957,Alemannia Aquisgrán,2,16,
+Alemania,1957,Meidericher SV,5,13,
+Alemania,1957,Borussia Dortmund,10,8,sí
+Alemania,1957,Preußen Münster,3,15,
+Alemania,1957,Rot-Weiss Essen,8,10,
+Alemania,1957,Fortuna Düsseldorf,9,9,
+Alemania,1957,Viktoria Colonia,3,15,
+Alemania,1957,Duisburger SV,0,18,
+Alemania,1957,Rot-Weiß Oberhausen,2,16,
+Alemania,1957,Westfalia Herne,4,14,
+Alemania,1957,Sodingen,5,13,
+Alemania,1957,Bochum,3,15,
+Alemania,1957,Wuppertaler SV,6,12,
+Alemania,1957,Hamborn 07,2,16,
+Alemania,1959,Tasmania Berlín,2,16,
+Alemania,1959,Hertha Berlín,9,9,sí
+Alemania,1959,Spandauer SV,0,18,
+Alemania,1959,Berliner SV 92,9,9,
+Alemania,1959,Wacker 04 Berlín,2,16,
+Alemania,1959,Tennis Borussia,3,15,
+Alemania,1959,Viktoria 89 Berlín,0,18,
+Alemania,1959,Hertha Zehlendorf,0,18,
+Alemania,1959,Blau-Weiß 90 Berlín,0,18,
+Alemania,1959,SV Norden-Nordwest Berlin,1,17,
+Alemania,1959,Union 06 Berlín,0,18,
+Alemania,1959,Hamburgo,6,12,sí
+Alemania,1959,Werder Bremen,8,10,sí
+Alemania,1959,VfL Osnabrück,9,9,
+Alemania,1959,St. Pauli,2,16,
+Alemania,1959,Bremerhaven 93,3,15,
+Alemania,1959,Hannover 96,4,14,
+Alemania,1959,VfV Hildesheim,1,17,
+Alemania,1959,Eintracht Braunschweig,10,8,
+Alemania,1959,Holstein Kiel,1,17,
+Alemania,1959,VfR Neumünster,0,18,
+Alemania,1959,Altona 93,1,17,
+Alemania,1959,Concordia Hamburgo,3,15,
+Alemania,1959,Bergedorf 85,0,18,
+Alemania,1959,VfB Lübeck,3,15,
+Alemania,1959,Phönix Lübeck,3,15,
+Alemania,1959,Eintracht Osnabrück,0,18,
+Alemania,1959,Karlsruhe,9,9,
+Alemania,1959,Kickers Offenbach,4,14,
+Alemania,1959,Múnich 1860,2,16,
+Alemania,1959,Núremberg,15,3,
+Alemania,1959,Stuttgart,14,4,sí
+Alemania,1959,Reutlingen,0,18,
+Alemania,1959,FSV Fráncfort,2,16,
+Alemania,1959,VfR Mannheim,0,18,
+Alemania,1959,Fürth,3,15,
+Alemania,1959,Schweinfurt 05,1,17,
+Alemania,1959,Bayern Hof,1,17,
+Alemania,1959,Ulm 1846,0,18,
+Alemania,1959,Viktoria Aschaffenburg,1,17,
+Alemania,1959,Pirmasens,3,15,
+Alemania,1959,Borussia Neunkirchen,11,7,
+Alemania,1959,Saarbrücken,12,6,
+Alemania,1959,Phönix Ludwigshafen,0,18,
+Alemania,1959,Kaiserslautern,12,6,sí
+Alemania,1959,SC Ludwigshafen,0,18,
+Alemania,1959,Wormatia Worms,3,15,
+Alemania,1959,TuRa Ludwigshafen,0,18,
+Alemania,1959,Saar 05,0,18,
+Alemania,1959,Sportfreunde Saarbrücken,2,16,
+Alemania,1959,Frankenthal,1,17,
+Alemania,1959,Mainz 05,4,14,
+Alemania,1959,Eintracht Kreuznach,2,16,
+Alemania,1959,Eintracht Trier,2,16,
+Alemania,1959,VfR Kaiserslautern,2,16,
+Alemania,1959,Speyer,0,18,
+Alemania,1959,Westfalia Herne,4,14,
+Alemania,1959,Borussia Dortmund,14,4,sí
+Alemania,1959,Schalke 04,11,7,sí
+Alemania,1959,Duisburger SV,0,18,
+Alemania,1959,Rot-Weiss Essen,11,7,
+Alemania,1959,Viktoria Colonia,3,15,
+Alemania,1959,Meidericher SV,10,8,
+Alemania,1959,Alemannia Aquisgrán,1,17,
+Alemania,1959,Preußen Münster,6,12,
+Alemania,1959,Bochum,5,13,
+Alemania,1959,Hamborn 07,4,14,
+Alemania,1959,Rot-Weiß Oberhausen,5,13,
+Alemania,1959,Borussia Mönchengladbach,8,10,sí
+Alemania,1959,Fortuna Düsseldorf,7,11,
+Alemania,1959,Schwarz-Weiß Essen,7,11,
+Alemania,1960,Hertha Berlín,10,8,sí
+Alemania,1960,Tasmania Berlín,2,16,
+Alemania,1960,Tennis Borussia,4,14,
+Alemania,1960,Spandauer SV,0,18,
+Alemania,1960,Wacker 04 Berlín,0,18,
+Alemania,1960,Viktoria 89 Berlín,0,18,
+Alemania,1960,BFC Südring,0,18,
+Alemania,1960,Berliner SV 92,8,10,
+Alemania,1960,Hertha Zehlendorf,0,18,
+Alemania,1960,Kickers 1900 Berlin,0,18,
+Alemania,1960,Hamburgo,14,4,sí
+Alemania,1960,Werder Bremen,14,4,sí
+Alemania,1960,VfL Osnabrück,8,10,
+Alemania,1960,St. Pauli,2,16,
+Alemania,1960,Hannover 96,6,12,
+Alemania,1960,Altona 93,1,17,
+Alemania,1960,Holstein Kiel,1,17,
+Alemania,1960,VfV Hildesheim,2,16,
+Alemania,1960,Eintracht Braunschweig,9,9,
+Alemania,1960,VfB Oldenburg,2,16,
+Alemania,1960,VfR Neumünster,1,17,
+Alemania,1960,Concordia Hamburgo,2,16,
+Alemania,1960,Bergedorf 85,0,18,
+Alemania,1960,Bremerhaven 93,0,18,
+Alemania,1960,VfB Lübeck,1,17,
+Alemania,1960,Heider SV,2,16,
+Alemania,1960,Núremberg,13,5,
+Alemania,1960,Karlsruhe,7,11,
+Alemania,1960,Kickers Offenbach,5,13,
+Alemania,1960,Reutlingen,0,18,
+Alemania,1960,Múnich 1860,2,16,
+Alemania,1960,Stuttgart,15,3,sí
+Alemania,1960,VfR Mannheim,2,16,
+Alemania,1960,Bayern Hof,0,18,
+Alemania,1960,Fürth,2,16,
+Alemania,1960,FSV Fráncfort,1,17,
+Alemania,1960,Waldhof Mannheim,2,16,
+Alemania,1960,Schweinfurt 05,1,17,
+Alemania,1960,Ulm 1846,1,17,
+Alemania,1960,Jahn Ratisbona,0,18,
+Alemania,1960,Saarbrücken,10,8,
+Alemania,1960,Borussia Neunkirchen,11,7,
+Alemania,1960,Pirmasens,7,11,
+Alemania,1960,Kaiserslautern,14,4,sí
+Alemania,1960,Mainz 05,2,16,
+Alemania,1960,Sportfreunde Saarbrücken,2,16,
+Alemania,1960,Wormatia Worms,5,13,
+Alemania,1960,Saar 05,1,17,
+Alemania,1960,TuRa Ludwigshafen,0,18,
+Alemania,1960,Phönix Ludwigshafen,0,18,
+Alemania,1960,TuS Neuendorf,1,17,
+Alemania,1960,Eintracht Kreuznach,3,15,
+Alemania,1960,Eintracht Trier,2,16,
+Alemania,1960,SC Ludwigshafen,0,18,
+Alemania,1960,Frankenthal,1,17,
+Alemania,1960,SV Niederlahnstein,0,18,
+Alemania,1960,Colonia,14,4,sí
+Alemania,1960,Borussia Dortmund,16,2,sí
+Alemania,1960,Schalke 04,13,5,sí
+Alemania,1960,Rot-Weiß Oberhausen,5,13,
+Alemania,1960,Westfalia Herne,4,14,
+Alemania,1960,Borussia Mönchengladbach,8,10,sí
+Alemania,1960,Hamborn 07,5,13,
+Alemania,1960,Alemannia Aquisgrán,3,15,
+Alemania,1960,Preußen Münster,6,12,
+Alemania,1960,Viktoria Colonia,3,15,
+Alemania,1960,Meidericher SV,8,10,
+Alemania,1960,TSV Marl-Hüls,1,17,
+Alemania,1960,Duisburger SV,1,17,
+Alemania,1960,Sodingen,4,14,
+Alemania,1960,Rot-Weiss Essen,13,5,
+Alemania,1960,Bochum,4,14,
+Alemania,1961,Tasmania Berlín,3,15,
+Alemania,1961,Hertha Berlín,10,8,sí
+Alemania,1961,Tennis Borussia,2,16,
+Alemania,1961,Spandauer SV,0,18,
+Alemania,1961,Berliner SV 92,8,10,
+Alemania,1961,BFC Südring,0,18,
+Alemania,1961,Hertha Zehlendorf,2,16,
+Alemania,1961,Wacker 04 Berlín,0,18,
+Alemania,1961,Viktoria 89 Berlín,0,18,
+Alemania,1961,Union 06 Berlín,0,18,
+Alemania,1961,Hamburgo,11,7,sí
+Alemania,1961,Werder Bremen,11,7,sí
+Alemania,1961,VfV Hildesheim,2,16,
+Alemania,1961,St. Pauli,3,15,
+Alemania,1961,Holstein Kiel,0,18,
+Alemania,1961,Eintracht Braunschweig,15,3,
+Alemania,1961,VfL Osnabrück,11,7,
+Alemania,1961,VfR Neumünster,2,16,
+Alemania,1961,Bergedorf 85,1,17,
+Alemania,1961,VfB Oldenburg,0,18,
+Alemania,1961,Altona 93,3,15,
+Alemania,1961,Concordia Hamburgo,0,18,
+Alemania,1961,Hannover 96,8,10,
+Alemania,1961,Bremerhaven 93,0,18,
+Alemania,1961,Bremer SV,1,17,
+Alemania,1961,Eintracht Nordhorn,1,17,
+Alemania,1961,Núremberg,16,2,
+Alemania,1961,Eintracht Fráncfort,17,1,sí
+Alemania,1961,Kickers Offenbach,5,13,
+Alemania,1961,Stuttgart,17,1,sí
+Alemania,1961,Bayern Hof,0,18,
+Alemania,1961,Múnich 1860,1,17,
+Alemania,1961,Reutlingen,1,17,
+Alemania,1961,Karlsruhe,4,14,
+Alemania,1961,VfR Mannheim,1,17,
+Alemania,1961,BC Augsburgo,0,18,
+Alemania,1961,Fürth,2,16,
+Alemania,1961,Schwaben Augsburgo,1,17,
+Alemania,1961,Schweinfurt 05,0,18,
+Alemania,1961,FSV Fráncfort,1,17,
+Alemania,1961,Waldhof Mannheim,2,16,
+Alemania,1961,Borussia Neunkirchen,13,5,
+Alemania,1961,Pirmasens,5,13,
+Alemania,1961,Saarbrücken,8,10,
+Alemania,1961,Kaiserslautern,11,7,sí
+Alemania,1961,Wormatia Worms,5,13,
+Alemania,1961,TuRa Ludwigshafen,0,18,
+Alemania,1961,SC Ludwigshafen,0,18,
+Alemania,1961,Sportfreunde Saarbrücken,2,16,
+Alemania,1961,Saar 05,0,18,
+Alemania,1961,Mainz 05,3,15,
+Alemania,1961,BSC Oppau,2,16,
+Alemania,1961,TuS Neuendorf,2,16,
+Alemania,1961,Eintracht Kreuznach,1,17,
+Alemania,1961,VfR Kaiserslautern,1,17,
+Alemania,1961,Eintracht Trier,0,18,
+Alemania,1961,Phönix Ludwigshafen,0,18,
+Alemania,1961,Colonia,14,4,sí
+Alemania,1961,Schalke 04,13,5,sí
+Alemania,1961,Rot-Weiß Oberhausen,3,15,
+Alemania,1961,Schwarz-Weiß Essen,5,13,
+Alemania,1961,Meidericher SV,11,7,
+Alemania,1961,Westfalia Herne,6,12,
+Alemania,1961,Preußen Münster,10,8,
+Alemania,1961,Borussia Dortmund,17,1,sí
+Alemania,1961,Fortuna Düsseldorf,13,5,
+Alemania,1961,Viktoria Colonia,4,14,
+Alemania,1961,Alemannia Aquisgrán,5,13,
+Alemania,1961,Hamborn 07,3,15,
+Alemania,1961,Borussia Mönchengladbach,10,8,sí
+Alemania,1961,TSV Marl-Hüls,1,17,
+Alemania,1961,Sodingen,6,12,
+Alemania,1961,Duisburger SV,0,18,
+Alemania,1962,Hertha Berlín,11,7,sí
+Alemania,1962,Tasmania Berlín,4,14,
+Alemania,1962,Tennis Borussia,0,18,
+Alemania,1962,Spandauer SV,0,18,
+Alemania,1962,Hertha Zehlendorf,1,17,
+Alemania,1962,Wacker 04 Berlín,2,16,
+Alemania,1962,BFC Südring,0,18,
+Alemania,1962,Berliner SV 92,8,10,
+Alemania,1962,Viktoria 89 Berlín,0,18,
+Alemania,1962,SC Tegel,0,18,
+Alemania,1962,Hamburgo,12,6,sí
+Alemania,1962,Werder Bremen,11,7,sí
+Alemania,1962,Eintracht Braunschweig,12,6,
+Alemania,1962,VfR Neumünster,1,17,
+Alemania,1962,Holstein Kiel,1,17,
+Alemania,1962,St. Pauli,3,15,
+Alemania,1962,VfL Osnabrück,7,11,
+Alemania,1962,VfV Hildesheim,1,17,
+Alemania,1962,Hannover 96,7,11,
+Alemania,1962,Arminia Hannover,3,15,
+Alemania,1962,Bergedorf 85,1,17,
+Alemania,1962,VfB Oldenburg,0,18,
+Alemania,1962,Bremerhaven 93,0,18,
+Alemania,1962,Concordia Hamburgo,0,18,
+Alemania,1962,Altona 93,2,16,
+Alemania,1962,VfB Lübeck,1,17,
+Alemania,1962,Múnich 1860,0,18,
+Alemania,1962,Karlsruhe,14,4,
+Alemania,1962,Stuttgart,14,4,sí
+Alemania,1962,Kickers Offenbach,5,13,
+Alemania,1962,Ulm 1846,0,18,
+Alemania,1962,Fürth,1,17,
+Alemania,1962,Hessen Kassel,5,13,
+Alemania,1962,Schweinfurt 05,0,18,
+Alemania,1962,VfR Mannheim,1,17,
+Alemania,1962,Bayern Hof,0,18,
+Alemania,1962,Reutlingen,0,18,
+Alemania,1962,Schwaben Augsburgo,0,18,
+Alemania,1962,BC Augsburgo,1,17,
+Alemania,1962,Kaiserslautern,14,4,sí
+Alemania,1962,Borussia Neunkirchen,11,7,
+Alemania,1962,Pirmasens,5,13,
+Alemania,1962,Wormatia Worms,4,14,
+Alemania,1962,Saarbrücken,14,4,
+Alemania,1962,Sportfreunde Saarbrücken,2,16,
+Alemania,1962,SC Ludwigshafen,2,16,
+Alemania,1962,TuRa Ludwigshafen,0,18,
+Alemania,1962,Saar 05,0,18,
+Alemania,1962,TuS Neuendorf,1,17,
+Alemania,1962,Frankenthal,1,17,
+Alemania,1962,Mainz 05,4,14,
+Alemania,1962,VfR Kaiserslautern,3,15,
+Alemania,1962,BSC Oppau,1,17,
+Alemania,1962,Eintracht Kreuznach,2,16,
+Alemania,1962,SV Niederlahnstein,0,18,
+Alemania,1962,Meidericher SV,12,6,
+Alemania,1962,Preußen Münster,12,6,
+Alemania,1962,Alemannia Aquisgrán,3,15,
+Alemania,1962,Schalke 04,10,8,sí
+Alemania,1962,Schwarz-Weiß Essen,7,11,
+Alemania,1962,Viktoria Colonia,5,13,
+Alemania,1962,Bayer Leverkusen,11,7,sí
+Alemania,1962,Rot-Weiß Oberhausen,3,15,
+Alemania,1962,Borussia Mönchengladbach,11,7,sí
+Alemania,1962,Hamborn 07,5,13,
+Alemania,1962,Fortuna Düsseldorf,10,8,
+Alemania,1962,Westfalia Herne,3,15,
+Alemania,1962,Wuppertaler SV,7,11,
+Alemania,1962,TSV Marl-Hüls,1,17,
+Portugal,1951,Sporting de Portugal,14,4,sí
+Portugal,1951,Benfica,13,5,sí
+Portugal,1951,Oporto,8,10,sí
+Portugal,1951,Belenenses,5,13,
+Portugal,1951,Boavista,1,17,
+Portugal,1951,Covilhã,0,18,
+Portugal,1951,Académica,4,14,
+Portugal,1951,Braga,1,17,
+Portugal,1951,Estoril,1,17,
+Portugal,1951,Vitória de Guimarães,0,18,
+Portugal,1951,Barreirense,0,18,
+Portugal,1951,Atlético CP,3,15,
+Portugal,1951,Salgueiros,0,18,
+Portugal,1951,Oriental,0,18,
+Portugal,1952,Sporting de Portugal,11,7,sí
+Portugal,1952,Benfica,13,5,sí
+Portugal,1952,Belenenses,6,12,
+Portugal,1952,Oporto,8,10,sí
+Portugal,1952,Barreirense,0,18,
+Portugal,1952,Vitória de Setúbal,0,18,
+Portugal,1952,Lusitano de Évora,2,16,
+Portugal,1952,Vitória de Guimarães,1,17,
+Portugal,1952,Boavista,1,17,
+Portugal,1952,Covilhã,1,17,
+Portugal,1952,Académica,3,15,
+Portugal,1952,Atlético CP,2,16,
+Portugal,1952,Estoril,2,16,
+Portugal,1952,Salgueiros,0,18,
+Portugal,1953,Sporting de Portugal,12,6,sí
+Portugal,1953,Oporto,9,9,sí
+Portugal,1953,Benfica,12,6,sí
+Portugal,1953,Belenenses,7,11,
+Portugal,1953,Braga,2,16,
+Portugal,1953,Atlético CP,2,16,
+Portugal,1953,Covilhã,3,15,
+Portugal,1953,Vitória de Guimarães,1,17,
+Portugal,1953,Barreirense,0,18,
+Portugal,1953,Lusitano de Évora,3,15,
+Portugal,1953,Boavista,1,17,
+Portugal,1953,Vitória de Setúbal,0,18,
+Portugal,1953,Oriental,2,16,
+Portugal,1953,Académica,3,15,
+Portugal,1954,Benfica,13,5,sí
+Portugal,1954,Belenenses,7,11,
+Portugal,1954,Sporting de Portugal,13,5,sí
+Portugal,1954,Oporto,9,9,sí
+Portugal,1954,Braga,2,16,
+Portugal,1954,Académica,4,14,
+Portugal,1954,CUF,1,17,
+Portugal,1954,Vitória de Setúbal,1,17,
+Portugal,1954,Atlético CP,2,16,
+Portugal,1954,Lusitano de Évora,2,16,
+Portugal,1954,Barreirense,0,18,
+Portugal,1954,Covilhã,3,15,
+Portugal,1954,Boavista,1,17,
+Portugal,1954,Vitória de Guimarães,1,17,
+Portugal,1955,Oporto,8,10,sí
+Portugal,1955,Benfica,14,4,sí
+Portugal,1955,Belenenses,6,12,
+Portugal,1955,Sporting de Portugal,14,4,sí
+Portugal,1955,Covilhã,4,14,
+Portugal,1955,Barreirense,3,15,
+Portugal,1955,Torreense,2,16,
+Portugal,1955,Lusitano de Évora,3,15,
+Portugal,1955,Vitória de Setúbal,3,15,
+Portugal,1955,CUF,2,16,
+Portugal,1955,Caldas,0,18,
+Portugal,1955,Atlético CP,1,17,
+Portugal,1955,Braga,0,18,
+Portugal,1955,Vitória de Guimarães,0,18,
+Portugal,1956,Benfica,15,3,sí
+Portugal,1956,Oporto,8,10,sí
+Portugal,1956,Belenenses,7,11,
+Portugal,1956,Sporting de Portugal,14,4,sí
+Portugal,1956,Lusitano de Évora,2,16,
+Portugal,1956,Académica,5,13,
+Portugal,1956,Torreense,1,17,
+Portugal,1956,Oriental,0,18,
+Portugal,1956,CUF,1,17,
+Portugal,1956,Vitória de Setúbal,3,15,
+Portugal,1956,Barreirense,2,16,
+Portugal,1956,Covilhã,3,15,
+Portugal,1956,Atlético CP,1,17,
+Portugal,1956,Braga,1,17,
+Portugal,1957,Sporting de Portugal,13,5,sí
+Portugal,1957,Oporto,8,10,sí
+Portugal,1957,Benfica,15,3,sí
+Portugal,1957,Belenenses,7,11,
+Portugal,1957,Braga,1,17,
+Portugal,1957,Lusitano de Évora,2,16,
+Portugal,1957,Barreirense,3,15,
+Portugal,1957,Torreense,1,17,
+Portugal,1957,Académica,6,12,
+Portugal,1957,Vitória de Guimarães,1,17,
+Portugal,1957,Vitória de Setúbal,2,16,
+Portugal,1957,Covilhã,3,15,
+Portugal,1957,Salgueiros,0,18,
+Portugal,1957,Oriental,0,18,
+Portugal,1959,Belenenses,9,9,
+Portugal,1959,Oporto,11,7,sí
+Portugal,1959,CUF,0,18,
+Portugal,1959,Académica,6,12,
+Portugal,1959,Vitória de Guimarães,2,16,
+Portugal,1959,Leixões,3,15,
+Portugal,1959,Covilhã,2,16,
+Portugal,1959,Lusitano de Évora,1,17,
+Portugal,1959,Atlético CP,3,15,
+Portugal,1959,Vitória de Setúbal,1,17,
+Portugal,1959,Braga,0,18,
+Portugal,1959,Torreense,0,18,
+Portugal,1960,Oporto,11,7,sí
+Portugal,1960,Vitória de Guimarães,4,14,
+Portugal,1960,Belenenses,13,5,
+Portugal,1960,CUF,2,16,
+Portugal,1960,Académica,5,13,
+Portugal,1960,Leixões,2,16,
+Portugal,1960,Covilhã,3,15,
+Portugal,1960,Lusitano de Évora,1,17,
+Portugal,1960,Atlético CP,1,17,
+Portugal,1960,Braga,2,16,
+Portugal,1960,Vitória de Setúbal,1,17,
+Portugal,1960,Salgueiros,0,18,
+Portugal,1961,Sporting de Portugal,15,3,sí
+Portugal,1961,Oporto,12,6,sí
+Portugal,1961,CUF,2,16,
+Portugal,1961,Belenenses,9,9,
+Portugal,1961,Atlético CP,2,16,
+Portugal,1961,Leixões,3,15,
+Portugal,1961,Olhanense,1,17,
+Portugal,1961,Vitória de Guimarães,2,16,
+Portugal,1961,Académica,6,12,
+Portugal,1961,Covilhã,2,16,
+Portugal,1961,Lusitano de Évora,1,17,
+Portugal,1961,Vitória de Setúbal,4,14,
+Portugal,1961,Salgueiros,0,18,
+Portugal,1962,Oporto,10,8,sí
+Portugal,1962,Sporting de Portugal,16,2,sí
+Portugal,1962,Belenenses,9,9,
+Portugal,1962,Leixões,1,17,
+Portugal,1962,Vitória de Guimarães,2,16,
+Portugal,1962,CUF,3,15,
+Portugal,1962,Atlético CP,4,14,
+Portugal,1962,Vitória de Setúbal,5,13,
+Portugal,1962,Académica,9,9,
+Portugal,1962,Covilhã,1,17,
+Portugal,1962,Lusitano de Évora,1,17,
+Portugal,1962,Olhanense,1,17,
+Portugal,1962,Torreense,0,18,
+Portugal,1963,Oporto,10,8,sí
+Portugal,1963,Sporting de Portugal,16,2,sí
+Portugal,1963,Vitória de Guimarães,0,18,
+Portugal,1963,CUF,4,14,
+Portugal,1963,Belenenses,6,12,
+Portugal,1963,Vitória de Setúbal,5,13,
+Portugal,1963,Leixões,0,18,
+Portugal,1963,Académica,5,13,
+Portugal,1963,Atlético CP,1,17,
+Portugal,1963,Covilhã,1,17,
+Portugal,1963,Lusitano de Évora,1,17,
+Portugal,1963,Olhanense,0,18,
+Portugal,1963,Barreirense,2,16,
+Portugal,1964,Oporto,9,9,sí
+Portugal,1964,CUF,3,15,
+Portugal,1964,Académica,5,13,
+Portugal,1964,Sporting de Portugal,15,3,sí
+Portugal,1964,Vitória de Setúbal,5,13,
+Portugal,1964,Belenenses,4,14,
+Portugal,1964,Vitória de Guimarães,1,17,
+Portugal,1964,Leixões,1,17,
+Portugal,1964,Covilhã,2,16,
+Portugal,1964,Atlético CP,3,15,
+Portugal,1964,Lusitano de Évora,1,17,
+Portugal,1964,Olhanense,0,18,
+Portugal,1964,Torreense,0,18,
+Portugal,1965,Sporting de Portugal,14,4,sí
+Portugal,1965,Oporto,9,9,sí
+Portugal,1965,Vitória de Guimarães,3,15,
+Portugal,1965,Belenenses,2,16,
+Portugal,1965,CUF,2,16,
+Portugal,1965,Académica,7,11,
+Portugal,1965,Leixões,1,17,
+Portugal,1965,Vitória de Setúbal,8,10,
+Portugal,1965,Atlético CP,4,14,
+Portugal,1965,Covilhã,2,16,
+Portugal,1965,Lusitano de Évora,2,16,
+Portugal,1965,Olhanense,0,18,
+Portugal,1965,Torreense,0,18,
+Portugal,1966,Académica,8,10,
+Portugal,1966,Oporto,7,11,sí
+Portugal,1966,Sporting de Portugal,16,2,sí
+Portugal,1966,Vitória de Setúbal,10,8,
+Portugal,1966,Belenenses,2,16,
+Portugal,1966,CUF,3,15,
+Portugal,1966,Vitória de Guimarães,2,16,
+Portugal,1966,Leixões,1,17,
+Portugal,1966,Atlético CP,4,14,
+Portugal,1966,Covilhã,1,17,
+Portugal,1966,Lusitano de Évora,0,18,
+Portugal,1966,Olhanense,0,18,
+Portugal,1966,Torreense,0,18,
+Portugal,1967,Sporting de Portugal,16,2,sí
+Portugal,1967,Oporto,7,11,sí
+Portugal,1967,Académica,9,9,
+Portugal,1967,Vitória de Setúbal,11,7,
+Portugal,1967,Belenenses,3,15,
+Portugal,1967,CUF,2,16,
+Portugal,1967,Vitória de Guimarães,2,16,
+Portugal,1967,Leixões,2,16,
+Portugal,1967,Atlético CP,2,16,
+Portugal,1967,Covilhã,1,17,
+Portugal,1967,Lusitano de Évora,0,18,
+Portugal,1967,Olhanense,0,18,
+Portugal,1967,Torreense,0,18,
+Portugal,1968,Oporto,4,14,sí
+Portugal,1968,Vitória de Guimarães,2,16,
+Portugal,1968,Vitória de Setúbal,12,6,
+Portugal,1968,Sporting de Portugal,15,3,sí
+Portugal,1968,Académica,13,5,
+Portugal,1968,Belenenses,3,15,
+Portugal,1968,CUF,1,17,
+Portugal,1968,Leixões,4,14,
+Portugal,1968,Atlético CP,4,14,
+Portugal,1968,Covilhã,1,17,
+Portugal,1968,Lusitano de Évora,0,18,
+Portugal,1968,Olhanense,0,18,
+Portugal,1968,Torreense,0,18,
+Portugal,1969,Sporting de Portugal,16,2,sí
+Portugal,1969,Vitória de Setúbal,12,6,
+Portugal,1969,Barreirense,2,16,
+Portugal,1969,Académica,10,8,
+Portugal,1969,Oporto,4,14,sí
+Portugal,1969,Belenenses,4,14,
+Portugal,1969,Vitória de Guimarães,3,15,
+Portugal,1969,Leixões,4,14,
+Portugal,1969,Atlético CP,3,15,
+Portugal,1969,Covilhã,1,17,
+Portugal,1969,Lusitano de Évora,0,18,
+Portugal,1969,Olhanense,0,18,
+Portugal,1969,Torreense,0,18,
+Portugal,1970,Sporting de Portugal,17,1,sí
+Portugal,1970,Oporto,7,11,sí
+Portugal,1970,Vitória de Setúbal,9,9,
+Portugal,1970,Académica,9,9,
+Portugal,1970,Boavista,4,14,
+Portugal,1970,Belenenses,5,13,
+Portugal,1970,CUF,3,15,
+Portugal,1970,Tirsense,1,17,
+Portugal,1970,Barreirense,3,15,
+Portugal,1970,Farense,1,17,
+Portugal,1970,Vitória de Guimarães,2,16,
+Portugal,1970,Leixões,3,15,
+Portugal,1970,Varzim,0,18,
+Portugal,1971,Vitória de Setúbal,10,8,
+Portugal,1971,Sporting de Portugal,17,1,sí
+Portugal,1971,CUF,3,15,
+Portugal,1971,Oporto,7,11,sí
+Portugal,1971,Vitória de Guimarães,4,14,
+Portugal,1971,Belenenses,6,12,
+Portugal,1971,Barreirense,2,16,
+Portugal,1971,Farense,1,17,
+Portugal,1971,Atlético CP,5,13,
+Portugal,1971,Boavista,5,13,
+Portugal,1971,União de Tomar,3,15,
+Portugal,1971,Beira-Mar,1,17,
+Portugal,1971,Leixões,5,13,
+Portugal,1971,Académica,9,9,
+Portugal,1971,Tirsense,1,17,
+Portugal,1972,Belenenses,7,11,
+Portugal,1972,Vitória de Setúbal,7,11,
+Portugal,1972,Oporto,11,7,sí
+Portugal,1972,Sporting de Portugal,17,1,sí
+Portugal,1972,Vitória de Guimarães,4,14,
+Portugal,1972,Boavista,3,15,
+Portugal,1972,CUF,3,15,
+Portugal,1972,Leixões,4,14,
+Portugal,1972,Barreirense,1,17,
+Portugal,1972,Farense,0,18,
+Portugal,1972,Beira-Mar,1,17,
+Portugal,1972,Montijo,2,16,
+Portugal,1972,União de Coimbra,2,16,
+Portugal,1972,Atlético CP,6,12,
+Portugal,1972,União de Tomar,3,15,
+Portugal,1973,Vitória de Setúbal,7,11,
+Portugal,1973,Oporto,10,8,sí
+Portugal,1973,Belenenses,7,11,
+Portugal,1973,Vitória de Guimarães,5,13,
+Portugal,1973,Farense,2,16,
+Portugal,1973,CUF,3,15,
+Portugal,1973,Boavista,2,16,
+Portugal,1973,Académica,7,11,
+Portugal,1973,Olhanense,0,18,
+Portugal,1973,Oriental,3,15,
+Portugal,1973,Beira-Mar,0,18,
+Portugal,1973,Leixões,6,12,
+Portugal,1973,Barreirense,2,16,
+Portugal,1973,Montijo,4,14,
+Portugal,1974,Oporto,15,3,sí
+Portugal,1974,Boavista,6,12,
+Portugal,1974,Vitória de Guimarães,8,10,
+Portugal,1974,Belenenses,5,13,
+Portugal,1974,Vitória de Setúbal,10,8,
+Portugal,1974,CUF,3,15,
+Portugal,1974,Leixões,6,12,
+Portugal,1974,Atlético CP,3,15,
+Portugal,1974,Farense,2,16,
+Portugal,1974,União de Tomar,3,15,
+Portugal,1974,Oriental,1,17,
+Portugal,1974,Académica,5,13,
+Portugal,1974,Olhanense,1,17,
+Portugal,1974,Espinho,0,18,
+Portugal,1975,Boavista,6,12,
+Portugal,1975,Belenenses,6,12,
+Portugal,1975,Oporto,14,4,sí
+Portugal,1975,Sporting de Portugal,15,3,sí
+Portugal,1975,Vitória de Guimarães,6,12,
+Portugal,1975,Braga,2,16,
+Portugal,1975,Estoril,7,11,
+Portugal,1975,Vitória de Setúbal,7,11,
+Portugal,1975,Atlético CP,1,17,
+Portugal,1975,Académica,7,11,
+Portugal,1975,Leixões,4,14,
+Portugal,1975,Beira-Mar,1,17,
+Portugal,1975,União de Tomar,2,16,
+Portugal,1975,Farense,2,16,
+Portugal,1975,CUF,4,14,
+Portugal,1976,Sporting de Portugal,13,5,sí
+Portugal,1976,Oporto,16,2,sí
+Portugal,1976,Boavista,7,11,
+Portugal,1976,Académica,7,11,
+Portugal,1976,Vitória de Setúbal,8,10,
+Portugal,1976,Varzim,5,13,
+Portugal,1976,Braga,5,13,
+Portugal,1976,Vitória de Guimarães,3,15,
+Portugal,1976,Belenenses,4,14,
+Portugal,1976,Estoril,5,13,
+Portugal,1976,Portimonense,3,15,
+Portugal,1976,Beira-Mar,5,13,
+Portugal,1976,Montijo,1,17,
+Portugal,1976,Leixões,3,15,
+Portugal,1976,Atlético CP,3,15,
+Portugal,1977,Oporto,15,3,sí
+Portugal,1977,Sporting de Portugal,14,4,sí
+Portugal,1977,Braga,6,12,
+Portugal,1977,Belenenses,5,13,
+Portugal,1977,Vitória de Guimarães,5,13,
+Portugal,1977,Boavista,7,11,
+Portugal,1977,Académica,5,13,
+Portugal,1977,Vitória de Setúbal,8,10,
+Portugal,1977,Varzim,4,14,
+Portugal,1977,Estoril,5,13,
+Portugal,1977,Marítimo,5,13,
+Portugal,1977,Portimonense,3,15,
+Portugal,1977,Espinho,3,15,
+Portugal,1977,Riopele,2,16,
+Portugal,1977,Feirense,1,17,
+Portugal,1978,Oporto,16,2,sí
+Portugal,1978,Sporting de Portugal,13,5,sí
+Portugal,1978,Braga,8,10,
+Portugal,1978,Varzim,4,14,
+Portugal,1978,Vitória de Guimarães,4,14,
+Portugal,1978,Vitória de Setúbal,6,12,
+Portugal,1978,Belenenses,3,15,
+Portugal,1978,Boavista,11,7,
+Portugal,1978,Marítimo,4,14,
+Portugal,1978,Estoril,6,12,
+Portugal,1978,Beira-Mar,3,15,
+Portugal,1978,Famalicão,5,13,
+Portugal,1978,Barreirense,4,14,
+Portugal,1978,Académica,4,14,
+Portugal,1978,Académico de Viseu,0,18,
+Portugal,1979,Sporting de Portugal,13,5,sí
+Portugal,1979,Boavista,9,9,
+Portugal,1979,Belenenses,6,12,
+Portugal,1979,Vitória de Guimarães,5,13,
+Portugal,1979,Espinho,3,15,
+Portugal,1979,Portimonense,3,15,
+Portugal,1979,Braga,7,11,
+Portugal,1979,Varzim,6,12,
+Portugal,1979,Marítimo,4,14,
+Portugal,1979,Vitória de Setúbal,3,15,
+Portugal,1979,União de Leiria,5,13,
+Portugal,1979,Estoril,5,13,
+Portugal,1979,Beira-Mar,4,14,
+Portugal,1979,Rio Ave,2,16,
+Portugal,1980,Sporting de Portugal,14,4,sí
+Portugal,1980,Boavista,7,11,
+Portugal,1980,Vitória de Guimarães,8,10,
+Portugal,1980,Braga,8,10,
+Portugal,1980,Vitória de Setúbal,5,13,
+Portugal,1980,Portimonense,2,16,
+Portugal,1980,Espinho,3,15,
+Portugal,1980,Penafiel,3,15,
+Portugal,1980,Belenenses,6,12,
+Portugal,1980,Amora,7,11,
+Portugal,1980,Académico de Viseu,1,17,
+Portugal,1980,Varzim,6,12,
+Portugal,1980,Marítimo,3,15,
+Portugal,1980,Académica,6,12,
+Portugal,1981,Sporting de Portugal,15,3,sí
+Portugal,1981,Vitória de Guimarães,9,9,
+Portugal,1981,Rio Ave,5,13,
+Portugal,1981,Portimonense,4,14,
+Portugal,1981,Braga,6,12,
+Portugal,1981,Vitória de Setúbal,5,13,
+Portugal,1981,Boavista,9,9,
+Portugal,1981,Espinho,1,17,
+Portugal,1981,Amora,5,13,
+Portugal,1981,Estoril,6,12,
+Portugal,1981,Penafiel,2,16,
+Portugal,1981,Académico de Viseu,0,18,
+Portugal,1981,Belenenses,4,14,
+Portugal,1981,União de Leiria,3,15,
+Portugal,1982,Sporting de Portugal,17,1,sí
+Portugal,1982,Vitória de Guimarães,7,11,
+Portugal,1982,Boavista,8,10,
+Portugal,1982,Braga,8,10,
+Portugal,1982,Vitória de Setúbal,8,10,
+Portugal,1982,Rio Ave,3,15,
+Portugal,1982,Portimonense,6,12,
+Portugal,1982,Salgueiros,2,16,
+Portugal,1982,Estoril,5,13,
+Portugal,1982,Varzim,7,11,
+Portugal,1982,Espinho,1,17,
+Portugal,1982,Marítimo,2,16,
+Portugal,1982,Amora,6,12,
+Portugal,1982,Alcobaça,3,15,
+Portugal,1983,Braga,8,10,
+Portugal,1983,Vitória de Setúbal,9,9,
+Portugal,1983,Vitória de Guimarães,7,11,
+Portugal,1983,Boavista,12,6,
+Portugal,1983,Varzim,7,11,
+Portugal,1983,Rio Ave,4,14,
+Portugal,1983,Portimonense,6,12,
+Portugal,1983,Salgueiros,2,16,
+Portugal,1983,Farense,7,11,
+Portugal,1983,Penafiel,2,16,
+Portugal,1983,Estoril,7,11,
+Portugal,1983,Águeda,3,15,
+Portugal,1983,Espinho,3,15,
+Portugal,1984,Boavista,15,3,
+Portugal,1984,Portimonense,5,13,
+Portugal,1984,Belenenses,8,10,
+Portugal,1984,Académica,7,11,
+Portugal,1984,Braga,8,10,
+Portugal,1984,Vitória de Guimarães,6,12,
+Portugal,1984,Penafiel,4,14,
+Portugal,1984,Vitória de Setúbal,9,9,
+Portugal,1984,Salgueiros,2,16,
+Portugal,1984,Rio Ave,3,15,
+Portugal,1984,Farense,2,16,
+Portugal,1984,Varzim,7,11,
+Portugal,1984,Vizela,2,16,
+Portugal,1985,Vitória de Guimarães,11,7,
+Portugal,1985,Boavista,14,4,
+Portugal,1985,Chaves,6,12,
+Portugal,1985,Portimonense,3,15,
+Portugal,1985,Belenenses,12,6,
+Portugal,1985,Braga,8,10,
+Portugal,1985,Académica,7,11,
+Portugal,1985,Salgueiros,3,15,
+Portugal,1985,Marítimo,5,13,
+Portugal,1985,Aves,1,17,
+Portugal,1985,Vitória de Setúbal,5,13,
+Portugal,1985,Penafiel,4,14,
+Portugal,1985,Covilhã,2,16,
+Portugal,1986,Vitória de Guimarães,15,3,
+Portugal,1986,Chaves,6,12,
+Portugal,1986,Belenenses,12,6,
+Portugal,1986,Varzim,6,12,
+Portugal,1986,Boavista,15,3,
+Portugal,1986,Braga,10,8,
+Portugal,1986,Académica,7,11,
+Portugal,1986,Portimonense,4,14,
+Portugal,1986,Marítimo,8,10,
+Portugal,1986,Rio Ave,4,14,
+Portugal,1986,Salgueiros,5,13,
+Portugal,1986,Farense,8,10,
+Portugal,1986,Elvas,0,18,
+Portugal,1987,Belenenses,15,3,
+Portugal,1987,Boavista,11,7,
+Portugal,1987,Espinho,4,14,
+Portugal,1987,Chaves,5,13,
+Portugal,1987,Vitória de Setúbal,12,6,
+Portugal,1987,Marítimo,8,10,
+Portugal,1987,Penafiel,5,13,
+Portugal,1987,Braga,9,9,
+Portugal,1987,Farense,11,7,
+Portugal,1987,Portimonense,5,13,
+Portugal,1987,Vitória de Guimarães,13,5,
+Portugal,1987,Elvas,0,18,
+Portugal,1987,Académica,8,10,
+Portugal,1987,Varzim,4,14,
+Portugal,1987,Rio Ave,2,16,
+Portugal,1987,Salgueiros,2,16,
+Portugal,1987,Covilhã,3,15,
+Portugal,1988,Boavista,13,5,
+Portugal,1988,Vitória de Setúbal,13,5,
+Portugal,1988,Braga,7,11,
+Portugal,1988,Belenenses,15,3,
+Portugal,1988,Estrela da Amadora,11,7,
+Portugal,1988,Vitória de Guimarães,11,7,
+Portugal,1988,Nacional,4,14,
+Portugal,1988,Portimonense,4,14,
+Portugal,1988,Marítimo,7,11,
+Portugal,1988,Chaves,4,14,
+Portugal,1988,Penafiel,5,13,
+Portugal,1988,Beira-Mar,3,15,
+Portugal,1988,Fafe,2,16,
+Portugal,1988,Espinho,3,15,
+Portugal,1988,Farense,10,8,
+Portugal,1988,Leixões,5,13,
+Portugal,1988,Académico de Viseu,5,13,
+Portugal,1989,Vitória de Guimarães,9,9,
+Portugal,1989,Chaves,7,11,
+Portugal,1989,Vitória de Setúbal,11,7,
+Portugal,1989,Boavista,9,9,
+Portugal,1989,Tirsense,3,15,
+Portugal,1989,Marítimo,7,11,
+Portugal,1989,Beira-Mar,9,9,
+Portugal,1989,Braga,7,11,
+Portugal,1989,Estrela da Amadora,9,9,
+Portugal,1989,Nacional,6,12,
+Portugal,1989,Penafiel,5,13,
+Portugal,1989,União da Madeira,2,16,
+Portugal,1989,Portimonense,3,15,
+Portugal,1989,Feirense,4,14,
+Portugal,1990,Boavista,15,3,
+Portugal,1990,Salgueiros,7,11,
+Portugal,1990,Beira-Mar,10,8,
+Portugal,1990,Braga,7,11,
+Portugal,1990,Chaves,6,12,
+Portugal,1990,Vitória de Guimarães,11,7,
+Portugal,1990,Marítimo,6,12,
+Portugal,1990,Farense,9,9,
+Portugal,1990,União da Madeira,5,13,
+Portugal,1990,Gil Vicente,9,9,
+Portugal,1990,Famalicão,2,16,
+Portugal,1990,Penafiel,6,12,
+Portugal,1990,Tirsense,5,13,
+Portugal,1990,Vitória de Setúbal,15,3,
+Portugal,1990,Estrela da Amadora,10,8,
+Portugal,1990,Belenenses,17,1,
+Portugal,1990,Nacional,6,12,
+Portugal,1991,Vitória de Guimarães,15,3,
+Portugal,1991,Farense,9,9,
+Portugal,1991,Marítimo,13,5,
+Portugal,1991,Beira-Mar,9,9,
+Portugal,1991,Chaves,6,12,
+Portugal,1991,Estoril,6,12,
+Portugal,1991,Braga,6,12,
+Portugal,1991,Paços de Ferreira,9,9,
+Portugal,1991,Gil Vicente,8,10,
+Portugal,1991,Famalicão,6,12,
+Portugal,1991,Salgueiros,12,6,
+Portugal,1991,Torreense,2,16,
+Portugal,1991,Penafiel,5,13,
+Portugal,1991,União da Madeira,6,12,
+Portugal,1992,Marítimo,10,8,
+Portugal,1992,Farense,8,10,
+Portugal,1992,Belenenses,13,5,
+Portugal,1992,Beira-Mar,6,12,
+Portugal,1992,Gil Vicente,11,7,
+Portugal,1992,Paços de Ferreira,8,10,
+Portugal,1992,Vitória de Guimarães,17,1,
+Portugal,1992,Braga,12,6,
+Portugal,1992,Estoril,10,8,
+Portugal,1992,Famalicão,7,11,
+Portugal,1992,Salgueiros,10,8,
+Portugal,1992,Tirsense,6,12,
+Portugal,1992,Espinho,2,16,
+Portugal,1992,Chaves,7,11,
+Argentina,1950,Racing Club,12,6,sí
+Argentina,1950,Boca Juniors,7,11,sí
+Argentina,1950,Independiente,5,13,sí
+Argentina,1950,River Plate,13,5,sí
+Argentina,1950,San Lorenzo,4,14,sí
+Argentina,1950,Estudiantes de La Plata,5,13,sí
+Argentina,1950,Banfield,2,16,
+Argentina,1950,Chacarita Juniors,0,18,
+Argentina,1950,Platense,0,18,
+Argentina,1950,Vélez Sarsfield,3,15,sí
+Argentina,1950,Newell's Old Boys,3,15,sí
+Argentina,1950,Gimnasia y Esgrima La Plata,2,16,
+Argentina,1950,Ferro Carril Oeste,1,17,
+Argentina,1950,Atlanta,1,17,
+Argentina,1950,Quilmes,3,15,
+Argentina,1950,Huracán,3,15,
+Argentina,1950,Tigre,1,17,
+Argentina,1950,Rosario Central,5,13,sí
+Argentina,1951,Racing Club,10,8,sí
+Argentina,1951,Banfield,3,15,
+Argentina,1951,Independiente,4,14,sí
+Argentina,1951,Lanús,3,15,
+Argentina,1951,Boca Juniors,10,8,sí
+Argentina,1951,San Lorenzo,4,14,sí
+Argentina,1951,Chacarita Juniors,0,18,
+Argentina,1951,Vélez Sarsfield,3,15,sí
+Argentina,1951,Estudiantes de La Plata,5,13,sí
+Argentina,1951,Newell's Old Boys,4,14,sí
+Argentina,1951,Ferro Carril Oeste,0,18,
+Argentina,1951,Platense,0,18,
+Argentina,1951,Huracán,3,15,
+Argentina,1951,Atlanta,2,16,
+Argentina,1951,Quilmes,1,17,
+Argentina,1951,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1952,Racing Club,11,7,sí
+Argentina,1952,Independiente,6,12,sí
+Argentina,1952,Huracán,4,14,
+Argentina,1952,Banfield,2,16,
+Argentina,1952,Vélez Sarsfield,3,15,sí
+Argentina,1952,Lanús,3,15,
+Argentina,1952,San Lorenzo,2,16,sí
+Argentina,1952,Platense,0,18,
+Argentina,1952,Boca Juniors,9,9,sí
+Argentina,1952,Chacarita Juniors,0,18,
+Argentina,1952,Estudiantes de La Plata,3,15,sí
+Argentina,1952,Rosario Central,6,12,sí
+Argentina,1952,Ferro Carril Oeste,1,17,
+Argentina,1952,Newell's Old Boys,2,16,sí
+Argentina,1952,Atlanta,0,18,
+Argentina,1953,River Plate,16,2,sí
+Argentina,1953,Vélez Sarsfield,4,14,sí
+Argentina,1953,Racing Club,10,8,sí
+Argentina,1953,Independiente,6,12,sí
+Argentina,1953,San Lorenzo,7,11,sí
+Argentina,1953,Gimnasia y Esgrima La Plata,2,16,
+Argentina,1953,Boca Juniors,12,6,sí
+Argentina,1953,Chacarita Juniors,0,18,
+Argentina,1953,Rosario Central,6,12,sí
+Argentina,1953,Lanús,3,15,
+Argentina,1953,Platense,0,18,
+Argentina,1953,Huracán,5,13,
+Argentina,1953,Banfield,2,16,
+Argentina,1953,Ferro Carril Oeste,4,14,
+Argentina,1953,Newell's Old Boys,3,15,sí
+Argentina,1953,Estudiantes de La Plata,3,15,sí
+Argentina,1954,Boca Juniors,10,8,sí
+Argentina,1954,Independiente,7,11,sí
+Argentina,1954,River Plate,15,3,sí
+Argentina,1954,Platense,0,18,
+Argentina,1954,Lanús,5,13,
+Argentina,1954,Ferro Carril Oeste,2,16,
+Argentina,1954,San Lorenzo,7,11,sí
+Argentina,1954,Chacarita Juniors,0,18,
+Argentina,1954,Vélez Sarsfield,3,15,sí
+Argentina,1954,Racing Club,8,10,sí
+Argentina,1954,Newell's Old Boys,4,14,sí
+Argentina,1954,Rosario Central,3,15,sí
+Argentina,1954,Tigre,4,14,
+Argentina,1954,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1954,Huracán,6,12,
+Argentina,1954,Banfield,2,16,
+Argentina,1955,River Plate,16,2,sí
+Argentina,1955,Racing Club,8,10,sí
+Argentina,1955,Boca Juniors,11,7,sí
+Argentina,1955,Independiente,9,9,sí
+Argentina,1955,Lanús,4,14,
+Argentina,1955,Tigre,6,12,
+Argentina,1955,Ferro Carril Oeste,3,15,
+Argentina,1955,San Lorenzo,5,13,sí
+Argentina,1955,Huracán,6,12,
+Argentina,1955,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1955,Vélez Sarsfield,3,15,sí
+Argentina,1955,Chacarita Juniors,0,18,
+Argentina,1955,Newell's Old Boys,5,13,sí
+Argentina,1955,Estudiantes de La Plata,5,13,sí
+Argentina,1955,Rosario Central,2,16,sí
+Argentina,1955,Platense,0,18,
+Argentina,1956,River Plate,16,2,sí
+Argentina,1956,Lanús,4,14,
+Argentina,1956,Boca Juniors,10,8,sí
+Argentina,1956,Racing Club,8,10,sí
+Argentina,1956,Vélez Sarsfield,4,14,sí
+Argentina,1956,Rosario Central,4,14,sí
+Argentina,1956,Independiente,11,7,sí
+Argentina,1956,San Lorenzo,3,15,sí
+Argentina,1956,Ferro Carril Oeste,2,16,
+Argentina,1956,Newell's Old Boys,4,14,sí
+Argentina,1956,Gimnasia y Esgrima La Plata,2,16,
+Argentina,1956,Estudiantes de La Plata,3,15,sí
+Argentina,1956,Huracán,5,13,
+Argentina,1956,Argentinos Juniors,2,16,
+Argentina,1956,Tigre,3,15,
+Argentina,1956,Chacarita Juniors,0,18,
+Argentina,1957,River Plate,14,4,sí
+Argentina,1957,San Lorenzo,6,12,sí
+Argentina,1957,Racing Club,10,8,sí
+Argentina,1957,Boca Juniors,9,9,sí
+Argentina,1957,Vélez Sarsfield,3,15,sí
+Argentina,1957,Huracán,6,12,
+Argentina,1957,Estudiantes de La Plata,6,12,sí
+Argentina,1957,Independiente,11,7,sí
+Argentina,1957,Newell's Old Boys,5,13,sí
+Argentina,1957,Argentinos Juniors,1,17,
+Argentina,1957,Rosario Central,3,15,sí
+Argentina,1957,Atlanta,3,15,
+Argentina,1957,Tigre,1,17,
+Argentina,1957,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1957,Lanús,4,14,
+Argentina,1957,Ferro Carril Oeste,1,17,
+Argentina,1959,San Lorenzo,10,8,sí
+Argentina,1959,Racing Club,14,4,sí
+Argentina,1959,Independiente,14,4,sí
+Argentina,1959,Newell's Old Boys,14,4,sí
+Argentina,1959,Atlanta,11,7,
+Argentina,1959,Boca Juniors,15,3,sí
+Argentina,1959,Estudiantes de La Plata,13,5,sí
+Argentina,1959,Lanús,12,6,
+Argentina,1959,Vélez Sarsfield,11,7,sí
+Argentina,1959,Argentinos Juniors,11,7,
+Argentina,1959,Gimnasia y Esgrima La Plata,15,3,
+Argentina,1959,Rosario Central,12,6,sí
+Argentina,1959,Central Córdoba,8,10,
+Argentina,1960,River Plate,16,2,sí
+Argentina,1960,Argentinos Juniors,11,7,
+Argentina,1960,Racing Club,14,4,sí
+Argentina,1960,San Lorenzo,11,7,sí
+Argentina,1960,Vélez Sarsfield,6,12,sí
+Argentina,1960,Huracán,15,3,
+Argentina,1960,Chacarita Juniors,17,1,
+Argentina,1960,Atlanta,12,6,
+Argentina,1960,Gimnasia y Esgrima La Plata,8,10,
+Argentina,1960,Lanús,17,1,
+Argentina,1960,Ferro Carril Oeste,15,3,
+Argentina,1960,Newell's Old Boys,17,1,sí
+Argentina,1961,San Lorenzo,14,4,sí
+Argentina,1961,Atlanta,8,10,
+Argentina,1961,Vélez Sarsfield,8,10,sí
+Argentina,1961,Chacarita Juniors,7,11,
+Argentina,1961,Gimnasia y Esgrima La Plata,11,7,
+Argentina,1961,Huracán,14,4,
+Argentina,1961,Argentinos Juniors,11,7,
+Argentina,1961,Lanús,11,7,
+Argentina,1961,Rosario Central,17,1,sí
+Argentina,1961,Estudiantes de La Plata,13,5,sí
+Argentina,1961,Ferro Carril Oeste,5,13,
+Argentina,1961,Los Andes,13,5,
+Argentina,1962,Boca Juniors,17,1,sí
+Argentina,1962,Gimnasia y Esgrima La Plata,10,8,
+Argentina,1962,Independiente,17,1,sí
+Argentina,1962,Chacarita Juniors,3,15,
+Argentina,1962,Rosario Central,12,6,sí
+Argentina,1962,Atlanta,12,6,
+Argentina,1962,Huracán,13,5,
+Argentina,1962,Argentinos Juniors,16,2,
+Argentina,1962,Ferro Carril Oeste,15,3,
+Argentina,1962,Vélez Sarsfield,13,5,sí
+Argentina,1962,Estudiantes de La Plata,15,3,sí
+Argentina,1962,Quilmes,16,2,
+Argentina,1963,Independiente,14,4,sí
+Argentina,1963,River Plate,17,1,sí
+Argentina,1963,Racing Club,12,6,sí
+Argentina,1963,Atlanta,9,9,
+Argentina,1963,Huracán,17,1,
+Argentina,1963,Estudiantes de La Plata,11,7,sí
+Argentina,1963,Rosario Central,11,7,sí
+Argentina,1963,Argentinos Juniors,11,7,
+Argentina,1963,Gimnasia y Esgrima La Plata,15,3,
+Argentina,1963,Vélez Sarsfield,8,10,sí
+Argentina,1963,Chacarita Juniors,7,11,
+Argentina,1964,Independiente,11,7,sí
+Argentina,1964,San Lorenzo,9,9,sí
+Argentina,1964,Atlanta,5,13,
+Argentina,1964,Racing Club,11,7,sí
+Argentina,1964,Banfield,9,9,
+Argentina,1964,Vélez Sarsfield,10,8,sí
+Argentina,1964,Huracán,6,12,
+Argentina,1964,Ferro Carril Oeste,4,14,
+Argentina,1964,Rosario Central,5,13,sí
+Argentina,1964,Chacarita Juniors,0,18,
+Argentina,1964,Gimnasia y Esgrima La Plata,5,13,
+Argentina,1964,Estudiantes de La Plata,9,9,sí
+Argentina,1964,Argentinos Juniors,4,14,
+Argentina,1964,Newell's Old Boys,3,15,sí
+Argentina,1965,River Plate,16,2,sí
+Argentina,1965,Vélez Sarsfield,6,12,sí
+Argentina,1965,Ferro Carril Oeste,2,16,
+Argentina,1965,Racing Club,11,7,sí
+Argentina,1965,Estudiantes de La Plata,12,6,sí
+Argentina,1965,Platense,0,18,
+Argentina,1965,San Lorenzo,10,8,sí
+Argentina,1965,Banfield,6,12,
+Argentina,1965,Rosario Central,9,9,sí
+Argentina,1965,Newell's Old Boys,7,11,sí
+Argentina,1965,Independiente,10,8,sí
+Argentina,1965,Huracán,5,13,
+Argentina,1965,Atlanta,5,13,
+Argentina,1965,Lanús,4,14,
+Argentina,1965,Argentinos Juniors,6,12,
+Argentina,1965,Gimnasia y Esgrima La Plata,5,13,
+Argentina,1965,Chacarita Juniors,0,18,
+Argentina,1966,Racing Club,11,7,sí
+Argentina,1966,Boca Juniors,14,4,sí
+Argentina,1966,San Lorenzo,12,6,sí
+Argentina,1966,Vélez Sarsfield,7,11,sí
+Argentina,1966,Independiente,11,7,sí
+Argentina,1966,Estudiantes de La Plata,11,7,sí
+Argentina,1966,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1966,Argentinos Juniors,3,15,
+Argentina,1966,Atlanta,5,13,
+Argentina,1966,Newell's Old Boys,3,15,sí
+Argentina,1966,Rosario Central,8,10,sí
+Argentina,1966,Banfield,7,11,
+Argentina,1966,Lanús,2,16,
+Argentina,1966,Huracán,3,15,
+Argentina,1966,Colón,5,13,
+Argentina,1966,Platense,0,18,
+Argentina,1966,Ferro Carril Oeste,0,18,
+Argentina,1966,Quilmes,3,15,
+Argentina,1966,Chacarita Juniors,0,18,
+Argentina,1967,Racing Club,16,2,sí
+Argentina,1967,Estudiantes de La Plata,10,8,sí
+Argentina,1967,Vélez Sarsfield,5,13,sí
+Argentina,1967,San Lorenzo,12,6,sí
+Argentina,1967,Independiente,13,5,sí
+Argentina,1967,Rosario Central,9,9,sí
+Argentina,1967,Atlanta,3,15,
+Argentina,1967,Colón,4,14,
+Argentina,1967,Newell's Old Boys,3,15,sí
+Argentina,1967,Gimnasia y Esgrima La Plata,2,16,
+Argentina,1967,Deportivo Español,3,15,
+Argentina,1967,Platense,0,18,
+Argentina,1967,Boca Juniors,12,6,sí
+Argentina,1967,River Plate,15,3,sí
+Argentina,1967,Banfield,7,11,
+Argentina,1967,Chacarita Juniors,0,18,
+Argentina,1967,Lanús,4,14,
+Argentina,1967,Quilmes,7,11,
+Argentina,1967,Argentinos Juniors,2,16,
+Argentina,1967,Ferro Carril Oeste,1,17,
+Argentina,1967,Unión,4,14,
+Argentina,1967,Huracán,7,11,
+Argentina,1968,San Lorenzo,17,1,sí
+Argentina,1968,Estudiantes de La Plata,14,4,sí
+Argentina,1968,Lanús,3,15,
+Argentina,1968,Racing Club,12,6,sí
+Argentina,1968,Boca Juniors,12,6,sí
+Argentina,1968,Colón,4,14,
+Argentina,1968,Newell's Old Boys,4,14,sí
+Argentina,1968,Banfield,8,10,
+Argentina,1968,Atlanta,3,15,
+Argentina,1968,Ferro Carril Oeste,3,15,
+Argentina,1968,Platense,0,18,
+Argentina,1968,Independiente,12,6,sí
+Argentina,1968,Vélez Sarsfield,5,13,sí
+Argentina,1968,River Plate,12,6,sí
+Argentina,1968,Huracán,6,12,
+Argentina,1968,Quilmes,8,10,
+Argentina,1968,Argentinos Juniors,0,18,
+Argentina,1968,Chacarita Juniors,0,18,
+Argentina,1968,Gimnasia y Esgrima La Plata,5,13,
+Argentina,1968,Rosario Central,13,5,sí
+Argentina,1968,Unión,4,14,
+Argentina,1968,Estudiantes de Buenos Aires,0,18,
+Argentina,1969,Boca Juniors,8,10,sí
+Argentina,1969,Chacarita Juniors,0,18,
+Argentina,1969,Vélez Sarsfield,4,14,sí
+Argentina,1969,Independiente,16,2,sí
+Argentina,1969,San Lorenzo,16,2,sí
+Argentina,1969,Atlanta,5,13,
+Argentina,1969,Argentinos Juniors,4,14,
+Argentina,1969,Colón,1,17,
+Argentina,1969,Unión,2,16,
+Argentina,1969,Deportivo Morón,2,16,
+Argentina,1969,Lanús,3,15,
+Argentina,1969,Racing Club,14,4,sí
+Argentina,1969,River Plate,16,2,sí
+Argentina,1969,Estudiantes de La Plata,15,3,sí
+Argentina,1969,Huracán,7,11,
+Argentina,1969,Gimnasia y Esgrima La Plata,8,10,
+Argentina,1969,Rosario Central,10,8,sí
+Argentina,1969,Newell's Old Boys,7,11,sí
+Argentina,1969,Banfield,5,13,
+Argentina,1969,Ferro Carril Oeste,6,12,
+Argentina,1969,Quilmes,3,15,
+Argentina,1969,Platense,0,18,
+Argentina,1970,Independiente,11,7,sí
+Argentina,1970,River Plate,12,6,sí
+Argentina,1970,San Lorenzo,14,4,sí
+Argentina,1970,Boca Juniors,9,9,sí
+Argentina,1970,Newell's Old Boys,7,11,sí
+Argentina,1970,Estudiantes de La Plata,13,5,sí
+Argentina,1970,Racing Club,12,6,sí
+Argentina,1970,Vélez Sarsfield,4,14,sí
+Argentina,1970,Huracán,9,9,
+Argentina,1970,Rosario Central,12,6,sí
+Argentina,1970,Chacarita Juniors,0,18,
+Argentina,1970,Colón,0,18,
+Argentina,1970,Gimnasia y Esgrima La Plata,7,11,
+Argentina,1970,Argentinos Juniors,5,13,
+Argentina,1970,Atlanta,4,14,
+Argentina,1970,Banfield,3,15,
+Argentina,1970,Lanús,2,16,
+Argentina,1970,Quilmes,3,15,
+Argentina,1970,Unión,2,16,
+Argentina,1970,Platense,0,18,
+Argentina,1970,Los Andes,2,16,
+Argentina,1971,Independiente,16,2,sí
+Argentina,1971,Vélez Sarsfield,4,14,sí
+Argentina,1971,Chacarita Juniors,0,18,
+Argentina,1971,Newell's Old Boys,8,10,sí
+Argentina,1971,River Plate,12,6,sí
+Argentina,1971,Estudiantes de La Plata,6,12,sí
+Argentina,1971,Boca Juniors,11,7,sí
+Argentina,1971,Rosario Central,14,4,sí
+Argentina,1971,Huracán,7,11,
+Argentina,1971,Ferro Carril Oeste,5,13,
+Argentina,1971,Gimnasia y Esgrima La Plata,7,11,
+Argentina,1971,Racing Club,11,7,sí
+Argentina,1971,Atlanta,4,14,
+Argentina,1971,Colón,2,16,
+Argentina,1971,Banfield,4,14,
+Argentina,1971,Argentinos Juniors,5,13,
+Argentina,1971,Platense,0,18,
+Argentina,1971,Unión,1,17,
+Argentina,1972,Racing Club,5,13,sí
+Argentina,1972,Huracán,9,9,
+Argentina,1972,River Plate,11,7,sí
+Argentina,1972,Vélez Sarsfield,6,12,sí
+Argentina,1972,Boca Juniors,9,9,sí
+Argentina,1972,Independiente,15,3,sí
+Argentina,1972,Estudiantes de La Plata,5,13,sí
+Argentina,1972,Rosario Central,10,8,sí
+Argentina,1972,Newell's Old Boys,7,11,sí
+Argentina,1972,Colón,2,16,
+Argentina,1972,Chacarita Juniors,0,18,
+Argentina,1972,Gimnasia y Esgrima La Plata,6,12,
+Argentina,1972,Atlanta,2,16,
+Argentina,1972,Argentinos Juniors,6,12,
+Argentina,1972,Ferro Carril Oeste,4,14,
+Argentina,1972,Lanús,4,14,
+Argentina,1972,Banfield,2,16,
+Argentina,1973,Huracán,11,7,
+Argentina,1973,Boca Juniors,11,7,sí
+Argentina,1973,San Lorenzo,13,5,sí
+Argentina,1973,Independiente,17,1,sí
+Argentina,1973,River Plate,11,7,sí
+Argentina,1973,Vélez Sarsfield,4,14,sí
+Argentina,1973,Estudiantes de La Plata,7,11,sí
+Argentina,1973,Rosario Central,9,9,sí
+Argentina,1973,Newell's Old Boys,7,11,sí
+Argentina,1973,Chacarita Juniors,0,18,
+Argentina,1973,Racing Club,8,10,sí
+Argentina,1973,Gimnasia y Esgrima La Plata,4,14,
+Argentina,1973,Colón,4,14,
+Argentina,1973,Atlanta,2,16,
+Argentina,1973,Argentinos Juniors,5,13,
+Argentina,1973,Ferro Carril Oeste,5,13,
+Argentina,1973,Banfield,2,16,
+Argentina,1973,All Boys,0,18,
+Argentina,1974,Rosario Central,10,8,sí
+Argentina,1974,Huracán,10,8,
+Argentina,1974,Boca Juniors,9,9,sí
+Argentina,1974,Colón,4,14,
+Argentina,1974,Independiente,10,8,sí
+Argentina,1974,San Lorenzo,10,8,sí
+Argentina,1974,Atlanta,1,17,
+Argentina,1974,All Boys,0,18,
+Argentina,1974,Banfield,2,16,
+Argentina,1974,Newell's Old Boys,8,10,sí
+Argentina,1974,River Plate,9,9,sí
+Argentina,1974,Vélez Sarsfield,2,16,sí
+Argentina,1974,Estudiantes de La Plata,9,9,sí
+Argentina,1974,Racing Club,8,10,sí
+Argentina,1974,Ferro Carril Oeste,7,11,
+Argentina,1974,Gimnasia y Esgrima La Plata,5,13,
+Argentina,1974,Argentinos Juniors,4,14,
+Argentina,1974,Chacarita Juniors,0,18,
+Argentina,1975,River Plate,11,7,sí
+Argentina,1975,Huracán,10,8,
+Argentina,1975,Boca Juniors,12,6,sí
+Argentina,1975,Unión,7,11,
+Argentina,1975,Estudiantes de La Plata,13,5,sí
+Argentina,1975,Newell's Old Boys,7,11,sí
+Argentina,1975,Rosario Central,9,9,sí
+Argentina,1975,Independiente,10,8,sí
+Argentina,1975,Racing Club,9,9,sí
+Argentina,1975,San Lorenzo,8,10,sí
+Argentina,1975,Vélez Sarsfield,4,14,sí
+Argentina,1975,Colón,1,17,
+Argentina,1975,Ferro Carril Oeste,5,13,
+Argentina,1975,Gimnasia y Esgrima La Plata,4,14,
+Argentina,1975,Argentinos Juniors,2,16,
+Argentina,1975,Atlanta,1,17,
+Argentina,1975,Chacarita Juniors,0,18,
+Argentina,1975,Banfield,0,18,
+Argentina,1975,All Boys,0,18,
+Argentina,1975,Temperley,0,18,
+Argentina,1976,Huracán,7,11,
+Argentina,1976,Estudiantes de La Plata,10,8,sí
+Argentina,1976,Independiente,10,8,sí
+Argentina,1976,Boca Juniors,15,3,sí
+Argentina,1976,River Plate,13,5,sí
+Argentina,1976,Racing Club,9,9,sí
+Argentina,1976,Newell's Old Boys,8,10,sí
+Argentina,1976,Rosario Central,7,11,sí
+Argentina,1976,Vélez Sarsfield,4,14,sí
+Argentina,1976,San Lorenzo,6,12,sí
+Argentina,1976,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1976,Colón,0,18,
+Argentina,1976,Ferro Carril Oeste,6,12,
+Argentina,1976,Argentinos Juniors,2,16,
+Argentina,1976,Atlanta,3,15,
+Argentina,1976,Chacarita Juniors,0,18,
+Argentina,1976,Banfield,1,17,
+Argentina,1976,All Boys,0,18,
+Argentina,1976,San Telmo,0,18,
+Argentina,1976,Temperley,0,18,
+Argentina,1977,River Plate,12,6,sí
+Argentina,1977,Independiente,11,7,sí
+Argentina,1977,Vélez Sarsfield,5,13,sí
+Argentina,1977,Boca Juniors,17,1,sí
+Argentina,1977,Huracán,7,11,
+Argentina,1977,Estudiantes de La Plata,6,12,sí
+Argentina,1977,Racing Club,10,8,sí
+Argentina,1977,Newell's Old Boys,12,6,sí
+Argentina,1977,Rosario Central,6,12,sí
+Argentina,1977,San Lorenzo,8,10,sí
+Argentina,1977,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1977,Colón,3,15,
+Argentina,1977,Ferro Carril Oeste,4,14,
+Argentina,1977,Argentinos Juniors,5,13,
+Argentina,1977,Atlanta,1,17,
+Argentina,1977,Chacarita Juniors,0,18,
+Argentina,1977,Banfield,1,17,
+Argentina,1977,All Boys,0,18,
+Argentina,1977,Lanús,4,14,
+Argentina,1977,Platense,0,18,
+Argentina,1978,Quilmes,6,12,
+Argentina,1978,Unión,6,12,
+Argentina,1978,San Lorenzo,8,10,sí
+Argentina,1978,River Plate,12,6,sí
+Argentina,1978,Independiente,12,6,sí
+Argentina,1978,Newell's Old Boys,8,10,sí
+Argentina,1978,Estudiantes de La Plata,7,11,sí
+Argentina,1978,Vélez Sarsfield,8,10,sí
+Argentina,1978,Racing Club,8,10,sí
+Argentina,1978,Rosario Central,6,12,sí
+Argentina,1978,Colón,2,16,
+Argentina,1978,Huracán,5,13,
+Argentina,1978,Gimnasia y Esgrima La Plata,4,14,
+Argentina,1978,Ferro Carril Oeste,10,8,
+Argentina,1978,Argentinos Juniors,2,16,
+Argentina,1978,Atlanta,0,18,
+Argentina,1978,Chacarita Juniors,0,18,
+Argentina,1978,Platense,0,18,
+Argentina,1978,Banfield,1,17,
+Argentina,1978,Estudiantes de Buenos Aires,0,18,
+Argentina,1979,River Plate,13,5,sí
+Argentina,1979,Vélez Sarsfield,12,6,sí
+Argentina,1979,Newell's Old Boys,9,9,sí
+Argentina,1979,Racing Club,5,13,sí
+Argentina,1979,Unión,4,14,
+Argentina,1979,San Lorenzo,11,7,sí
+Argentina,1979,Atlanta,0,18,
+Argentina,1979,Argentinos Juniors,4,14,
+Argentina,1979,Chacarita Juniors,0,18,
+Argentina,1979,Platense,0,18,
+Argentina,1979,Banfield,0,18,
+Argentina,1979,Rosario Central,9,9,sí
+Argentina,1979,Independiente,10,8,sí
+Argentina,1979,Estudiantes de La Plata,10,8,sí
+Argentina,1979,Colón,2,16,
+Argentina,1979,Ferro Carril Oeste,12,6,
+Argentina,1979,Huracán,4,14,
+Argentina,1979,All Boys,0,18,
+Argentina,1979,Gimnasia y Esgrima La Plata,1,17,
+Argentina,1979,Quilmes,6,12,
+Argentina,1979,Lanús,0,18,
+Argentina,1980,River Plate,14,4,sí
+Argentina,1980,Argentinos Juniors,7,11,
+Argentina,1980,Talleres,6,12,
+Argentina,1980,Independiente,12,6,sí
+Argentina,1980,Newell's Old Boys,12,6,sí
+Argentina,1980,Boca Juniors,13,5,sí
+Argentina,1980,Vélez Sarsfield,15,3,sí
+Argentina,1980,Estudiantes de La Plata,14,4,sí
+Argentina,1980,Rosario Central,7,11,sí
+Argentina,1980,Racing Club,4,14,sí
+Argentina,1980,Huracán,2,16,
+Argentina,1980,San Lorenzo,7,11,sí
+Argentina,1980,Colón,5,13,
+Argentina,1980,Ferro Carril Oeste,16,2,
+Argentina,1980,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1980,Atlanta,1,17,
+Argentina,1980,Chacarita Juniors,0,18,
+Argentina,1980,Platense,0,18,
+Argentina,1980,Quilmes,6,12,
+Argentina,1980,All Boys,0,18,
+Argentina,1980,Tigre,4,14,
+Argentina,1981,Boca Juniors,12,6,sí
+Argentina,1981,Ferro Carril Oeste,15,3,
+Argentina,1981,Newell's Old Boys,10,8,sí
+Argentina,1981,River Plate,14,4,sí
+Argentina,1981,Racing Club,5,13,sí
+Argentina,1981,Independiente,16,2,sí
+Argentina,1981,Talleres,8,10,
+Argentina,1981,Argentinos Juniors,11,7,
+Argentina,1981,Estudiantes de La Plata,11,7,sí
+Argentina,1981,Rosario Central,4,14,sí
+Argentina,1981,San Lorenzo,7,11,sí
+Argentina,1981,Vélez Sarsfield,13,5,sí
+Argentina,1981,Huracán,8,10,
+Argentina,1981,Colón,2,16,
+Argentina,1981,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1981,Atlanta,3,15,
+Argentina,1981,Chacarita Juniors,0,18,
+Argentina,1981,Platense,0,18,
+Argentina,1981,Quilmes,4,14,
+Argentina,1981,All Boys,0,18,
+Argentina,1987,Newell's Old Boys,16,2,sí
+Argentina,1987,San Lorenzo,11,7,sí
+Argentina,1987,Racing Club,9,9,sí
+Argentina,1987,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1987,Vélez Sarsfield,13,5,sí
+Argentina,1987,Rosario Central,8,10,sí
+Argentina,1987,Deportivo Español,3,15,
+Argentina,1987,Talleres,7,11,
+Argentina,1987,Instituto,5,13,
+Argentina,1987,Boca Juniors,9,9,sí
+Argentina,1987,Independiente,17,1,sí
+Argentina,1987,Banfield,2,16,
+Argentina,1987,Unión,11,7,
+Argentina,1987,Ferro Carril Oeste,9,9,
+Argentina,1987,Platense,0,18,
+Argentina,1987,Armenio,2,16,
+Argentina,1987,Estudiantes de La Plata,16,2,sí
+Argentina,1987,San Martín de Tucumán,0,18,
+Argentina,1988,Boca Juniors,14,4,sí
+Argentina,1988,Deportivo Español,3,15,
+Argentina,1988,San Lorenzo,10,8,sí
+Argentina,1988,Talleres,8,10,
+Argentina,1988,Argentinos Juniors,10,8,
+Argentina,1988,Gimnasia y Esgrima La Plata,5,13,
+Argentina,1988,Vélez Sarsfield,8,10,sí
+Argentina,1988,Racing Club,11,7,sí
+Argentina,1988,Newell's Old Boys,17,1,sí
+Argentina,1988,Rosario Central,8,10,sí
+Argentina,1988,Ferro Carril Oeste,8,10,
+Argentina,1988,Platense,0,18,
+Argentina,1988,Estudiantes de La Plata,12,6,sí
+Argentina,1988,Instituto,2,16,
+Argentina,1988,San Martín de Tucumán,0,18,
+Argentina,1988,Armenio,2,16,
+Argentina,1988,Banfield,2,16,
+Argentina,1988,Unión,6,12,
+Argentina,1989,Independiente,15,3,sí
+Argentina,1989,Boca Juniors,15,3,sí
+Argentina,1989,Rosario Central,7,11,sí
+Argentina,1989,Vélez Sarsfield,12,6,sí
+Argentina,1989,Newell's Old Boys,13,5,sí
+Argentina,1989,San Lorenzo,13,5,sí
+Argentina,1989,Ferro Carril Oeste,8,10,
+Argentina,1989,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1989,Argentinos Juniors,12,6,
+Argentina,1989,Talleres,8,10,
+Argentina,1989,Deportivo Español,3,15,
+Argentina,1989,Platense,0,18,
+Argentina,1989,Racing Club,9,9,sí
+Argentina,1989,Estudiantes de La Plata,15,3,sí
+Argentina,1989,Instituto,2,16,
+Argentina,1989,Unión,8,10,
+Argentina,1989,San Martín de Tucumán,0,18,
+Argentina,1989,Banfield,1,17,
+Argentina,1989,Armenio,1,17,
+Argentina,1990,Newell's Old Boys,12,6,sí
+Argentina,1990,Vélez Sarsfield,14,4,sí
+Argentina,1990,Argentinos Juniors,11,7,
+Argentina,1990,Rosario Central,8,10,sí
+Argentina,1990,Ferro Carril Oeste,8,10,
+Argentina,1990,Estudiantes de La Plata,12,6,sí
+Argentina,1990,Boca Juniors,11,7,sí
+Argentina,1990,Huracán,3,15,
+Argentina,1990,San Lorenzo,13,5,sí
+Argentina,1990,Talleres,1,17,
+Argentina,1990,Racing Club,7,11,sí
+Argentina,1990,Gimnasia y Esgrima La Plata,10,8,
+Argentina,1990,Platense,0,18,
+Argentina,1990,Chaco For Ever,0,18,
+Argentina,1990,Deportivo Mandiyú,6,12,
+Argentina,1990,Deportivo Español,5,13,
+Argentina,1990,Unión,8,10,
+Argentina,1990,Lanús,4,14,
+Argentina,1991,Boca Juniors,15,3,sí
+Argentina,1991,San Lorenzo,16,2,sí
+Argentina,1991,Gimnasia y Esgrima La Plata,8,10,
+Argentina,1991,Deportivo Mandiyú,7,11,
+Argentina,1991,Platense,0,18,
+Argentina,1991,Talleres,4,14,
+Argentina,1991,Argentinos Juniors,10,8,
+Argentina,1991,Ferro Carril Oeste,7,11,
+Argentina,1991,Independiente,14,4,sí
+Argentina,1991,Huracán,8,10,
+Argentina,1991,Racing Club,12,6,sí
+Argentina,1991,Deportivo Español,8,10,
+Argentina,1991,Belgrano,4,14,
+Argentina,1991,Rosario Central,9,9,sí
+Argentina,1991,Estudiantes de La Plata,12,6,sí
+Argentina,1991,Newell's Old Boys,17,1,sí
+Argentina,1991,Unión,7,11,
+Argentina,1991,Quilmes,5,13,
+Argentina,1992,San Lorenzo,11,7,sí
+Argentina,1992,Ferro Carril Oeste,4,14,
+Argentina,1992,Huracán,9,9,
+Argentina,1992,Estudiantes de La Plata,16,2,sí
+Argentina,1992,Belgrano,2,16,
+Argentina,1992,Lanús,6,12,
+Argentina,1992,Talleres,7,11,
+Argentina,1992,Platense,0,18,
+Argentina,1992,Argentinos Juniors,9,9,
+Argentina,1992,Gimnasia y Esgrima La Plata,11,7,
+Argentina,1992,Racing Club,15,3,sí
+Argentina,1992,Rosario Central,15,3,sí
+Argentina,1992,Deportivo Español,5,13,
+Argentina,1992,San Martín de Tucumán,0,18,
+Argentina,1992,Unión,3,15,
+Argentina,1995,Racing Club,17,1,sí
+Argentina,1995,Lanús,15,3,
+Argentina,1995,Huracán,15,3,
+Argentina,1995,Gimnasia y Esgrima de Jujuy,3,15,
+Argentina,1995,Colón,9,9,
+Argentina,1995,Rosario Central,16,2,sí
+Argentina,1995,Gimnasia y Esgrima La Plata,14,4,
+Argentina,1995,Argentinos Juniors,16,2,
+Argentina,1995,Banfield,10,8,
+Argentina,1995,Ferro Carril Oeste,10,8,
+Argentina,1995,Platense,0,18,
+Argentina,1995,Belgrano,7,11,
+Argentina,1995,Deportivo Español,10,8,
+Argentina,1996,Lanús,14,4,
+Argentina,1996,Rosario Central,16,2,sí
+Argentina,1996,Gimnasia y Esgrima La Plata,14,4,
+Argentina,1996,Colón,9,9,
+Argentina,1996,Estudiantes de La Plata,16,2,sí
+Argentina,1996,Gimnasia y Esgrima de Jujuy,4,14,
+Argentina,1996,Ferro Carril Oeste,12,6,
+Argentina,1996,Platense,0,18,
+Argentina,1996,Unión,10,8,
+Argentina,1996,Huracán de Corrientes,5,13,
+Argentina,1996,Banfield,13,5,
+Argentina,1996,Argentinos Juniors,15,3,
+Argentina,1996,Deportivo Español,11,7,
+Argentina,1998,Gimnasia y Esgrima La Plata,16,2,
+Argentina,1998,Lanús,16,2,
+Argentina,1998,Colón,11,7,
+Argentina,1998,Talleres,12,6,
+Argentina,1998,Belgrano,11,7,
+Argentina,1998,Ferro Carril Oeste,12,6,
+Argentina,1998,Platense,0,18,
+Argentina,1998,Huracán,14,4,
+Argentina,1999,Talleres,14,4,
+Argentina,1999,Gimnasia y Esgrima La Plata,17,1,
+Argentina,1999,Chacarita Juniors,0,18,
+Argentina,1999,Instituto,3,15,
+Argentina,1999,Belgrano,12,6,
+Argentina,1999,Gimnasia y Esgrima de Jujuy,8,10,
+Argentina,1999,Ferro Carril Oeste,16,2,
+Argentina,2000,Gimnasia y Esgrima La Plata,17,1,
+Argentina,2000,Talleres,14,4,
+Argentina,2000,Huracán,15,3,
+Argentina,2000,Chacarita Juniors,0,18,
+Argentina,2000,Unión,13,5,
+Argentina,2000,Almagro,10,8,
+Argentina,2000,Los Andes,13,5,
+Argentina,2000,Belgrano,14,4,
+Argentina,2001,Colón,15,3,
+Argentina,2001,Chacarita Juniors,0,18,
+Argentina,2001,Belgrano,13,5,
+Argentina,2001,Talleres,17,1,
+Argentina,2001,Banfield,16,2,
+Argentina,2002,Colón,17,1,
+Argentina,2002,Talleres,17,1,
+Argentina,2002,Chacarita Juniors,0,18,
+Argentina,2002,Olimpo,12,6,
+Argentina,2002,Banfield,15,3,
+Argentina,2003,Chacarita Juniors,0,18,
+Argentina,2003,Atlético de Rafaela,0,18,
+Argentina,2003,Olimpo,14,4,
+Argentina,2003,Instituto,13,5,
+Argentina,2004,Almagro,9,9,
+Argentina,2004,Instituto,15,3,
+Argentina,2004,Atlético de Rafaela,0,18,
+Argentina,2005,Instituto,16,2,
+Argentina,2005,Unión,16,2,
+Argentina,2006,Godoy Cruz,15,3,
+Argentina,2006,Instituto,14,4,
+Argentina,2007,San Martín de San Juan,14,4,
+Argentina,2007,Central Córdoba de Santiago,0,18,
+Argentina,2008,San Martín de Tucumán,0,18,
+Argentina,2008,San Luis,1,17,
+Argentina,2009,Atlético Tucumán,17,1,
+Argentina,2009,Chacarita Juniors,0,18,
+Argentina,2010,All Boys,0,18,
+Argentina,2010,Olimpo,17,1,
+Argentina,2011,Atlético de Rafaela,1,17,
+Argentina,2011,All Boys,0,18,
+Argentina,2012,Atlético de Rafaela,2,16,
+Argentina,2012,All Boys,0,18,
+Argentina,2013,Atlético de Rafaela,3,15,
+Argentina,2013,All Boys,0,18,
+Argentina,2015,Aldosivi,15,3,
+Argentina,2015,San Martín de San Juan,13,5,
+Argentina,2015,Defensa y Justicia,15,3,
+Argentina,2015,Sarmiento,0,18,
+Argentina,2015,Temperley,0,18,
+Argentina,2015,Atlético de Rafaela,2,16,
+Argentina,2015,Crucero del Norte,10,8,
+Argentina,2017,Godoy Cruz,16,2,
+Argentina,2017,Huracán,13,5,
+Argentina,2017,Defensa y Justicia,15,3,
+Argentina,2017,Unión,17,1,
+Argentina,2017,Argentinos Juniors,15,3,
+Argentina,2017,Atlético Tucumán,11,7,
+Argentina,2017,Banfield,15,3,
+Argentina,2017,San Martín de San Juan,12,6,
+Argentina,2017,Patronato,0,18,
+Argentina,2017,Newell's Old Boys,17,1,sí
+Argentina,2017,Temperley,0,18,
+Argentina,2017,Chacarita Juniors,0,18,
+Argentina,2017,Olimpo,17,1,
+Argentina,2018,Defensa y Justicia,15,3,
+Argentina,2018,Atlético Tucumán,11,7,
+Argentina,2018,Unión,17,1,
+Argentina,2018,Huracán,12,6,
+Argentina,2018,Aldosivi,8,10,
+Argentina,2018,Godoy Cruz,14,4,
+Argentina,2018,Newell's Old Boys,17,1,sí
+Argentina,2018,Banfield,14,4,
+Argentina,2018,Patronato,0,18,
+Argentina,2018,San Martín de San Juan,10,8,
+Argentina,2018,Belgrano,16,2,
+Argentina,2018,San Martín de Tucumán,0,18,
+Argentina,2018,Argentinos Juniors,15,3,
+Argentina,2019,Argentinos Juniors,13,5,
+Argentina,2019,Defensa y Justicia,13,5,
+Argentina,2019,Newell's Old Boys,17,1,sí
+Argentina,2019,Atlético Tucumán,10,8,
+Argentina,2019,Unión,17,1,
+Argentina,2019,Banfield,16,2,
+Argentina,2019,Central Córdoba de Santiago,0,18,
+Argentina,2019,Patronato,0,18,
+Argentina,2019,Huracán,13,5,
+Argentina,2019,Aldosivi,8,10,
+Argentina,2021,Defensa y Justicia,12,6,
+Argentina,2021,Huracán,13,5,
+Argentina,2021,Aldosivi,9,9,
+Argentina,2021,Argentinos Juniors,14,4,
+Argentina,2021,Rosario Central,17,1,sí
+Argentina,2021,Platense,0,18,
+Argentina,2021,Newell's Old Boys,16,2,sí
+Argentina,2021,Banfield,12,6,
+Argentina,2021,Central Córdoba de Santiago,0,18,
+Argentina,2021,Patronato,0,18,
+Argentina,2021,Sarmiento,0,18,
+Argentina,2021,Atlético Tucumán,10,8,
+Argentina,2022,Huracán,13,5,
+Argentina,2022,Atlético Tucumán,10,8,
+Argentina,2022,Argentinos Juniors,15,3,
+Argentina,2022,Patronato,0,18,
+Argentina,2022,Newell's Old Boys,15,3,sí
+Argentina,2022,Defensa y Justicia,11,7,
+Argentina,2022,Central Córdoba de Santiago,0,18,
+Argentina,2022,Barracas Central,4,14,
+Argentina,2022,Platense,0,18,
+Argentina,2022,Rosario Central,15,3,sí
+Argentina,2022,Sarmiento,0,18,
+Argentina,2022,Banfield,9,9,
+Argentina,2022,Aldosivi,9,9,
+Argentina,2023,Talleres,17,1,
+Argentina,2023,Defensa y Justicia,11,7,
+Argentina,2023,Rosario Central,11,7,sí
+Argentina,2023,Argentinos Juniors,16,2,
+Argentina,2023,Atlético Tucumán,8,10,
+Argentina,2023,Belgrano,7,11,
+Argentina,2023,Newell's Old Boys,14,4,sí
+Argentina,2023,Barracas Central,1,17,
+Argentina,2023,Tigre,15,3,
+Argentina,2023,Platense,0,18,
+Argentina,2023,Instituto,7,11,
+Argentina,2023,Sarmiento,0,18,
+Argentina,2023,Banfield,8,10,
+Argentina,2023,Gimnasia y Esgrima La Plata,16,2,
+Argentina,2023,Central Córdoba de Santiago,0,18,
+Argentina,2023,Huracán,12,6,
+Argentina,2023,Colón,14,4,
+Argentina,2024,Talleres,15,3,
+Argentina,2024,Huracán,13,5,
+Argentina,2024,Atlético Tucumán,6,12,
+Argentina,2024,Unión,14,4,
+Argentina,2024,Platense,0,18,
+Argentina,2024,Independiente Rivadavia,5,13,
+Argentina,2024,Instituto,5,13,
+Argentina,2024,Lanús,17,1,
+Argentina,2024,Belgrano,7,11,
+Argentina,2024,Deportivo Riestra,1,17,
+Argentina,2024,Tigre,12,6,
+Argentina,2024,Gimnasia y Esgrima La Plata,16,2,
+Argentina,2024,Rosario Central,12,6,sí
+Argentina,2024,Defensa y Justicia,10,8,
+Argentina,2024,Central Córdoba de Santiago,0,18,
+Argentina,2024,Argentinos Juniors,14,4,
+Argentina,2024,Newell's Old Boys,13,5,sí
+Argentina,2024,Sarmiento,0,18,
+Argentina,2024,Banfield,8,10,
+Argentina,2024,Barracas Central,2,16,
+Argentina,2025,Rosario Central,12,6,sí
+Argentina,2025,Argentinos Juniors,14,4,
+Argentina,2025,Independiente Rivadavia,4,14,
+Argentina,2025,Racing Club,16,2,sí
+Argentina,2025,Lanús,14,4,
+Argentina,2025,Barracas Central,0,18,
+Argentina,2025,Deportivo Riestra,1,17,
+Argentina,2025,Huracán,10,8,
+Argentina,2025,Central Córdoba de Santiago,0,18,
+Argentina,2025,Unión,12,6,
+Argentina,2025,Defensa y Justicia,10,8,
+Argentina,2025,Gimnasia y Esgrima La Plata,16,2,
+Argentina,2025,Belgrano,7,11,
+Argentina,2025,Platense,0,18,
+Argentina,2025,Banfield,8,10,
+Argentina,2025,Sarmiento,0,18,
+Argentina,2025,Talleres,12,6,
+Argentina,2025,Atlético Tucumán,7,11,
+Argentina,2025,Instituto,5,13,
+Argentina,2025,Newell's Old Boys,11,7,sí
+Argentina,2025,Aldosivi,8,10,
+Argentina,2025,Godoy Cruz,17,1,
+Argentina,2025,San Martín de San Juan,3,15,
+Argentina,2025,Tigre,11,7,
+Argentina,1982,Estudiantes de La Plata,12,6,sí
+Argentina,1982,Independiente,16,2,sí
+Argentina,1982,Boca Juniors,9,9,sí
+Argentina,1982,Newell's Old Boys,12,6,sí
+Argentina,1982,Vélez Sarsfield,15,3,sí
+Argentina,1982,Huracán,6,12,
+Argentina,1982,Racing Club,4,14,sí
+Argentina,1982,Rosario Central,1,17,sí
+Argentina,1982,Ferro Carril Oeste,15,3,
+Argentina,1982,Talleres,8,10,
+Argentina,1982,Instituto,2,16,
+Argentina,1982,Argentinos Juniors,7,11,
+Argentina,1982,Platense,0,18,
+Argentina,1982,Nueva Chicago,3,15,
+Argentina,1982,Racing Club,4,14,sí
+Argentina,1982,Unión,3,15,
+Argentina,1982,Quilmes,3,15,
+Argentina,1982,Sarmiento,0,18,
+Argentina,1983,Independiente,13,5,sí
+Argentina,1983,San Lorenzo,8,10,sí
+Argentina,1983,Ferro Carril Oeste,15,3,
+Argentina,1983,Vélez Sarsfield,10,8,sí
+Argentina,1983,Unión,7,11,
+Argentina,1983,Estudiantes de La Plata,9,9,sí
+Argentina,1983,Boca Juniors,8,10,sí
+Argentina,1983,Argentinos Juniors,12,6,
+Argentina,1983,Newell's Old Boys,14,4,sí
+Argentina,1983,Instituto,6,12,
+Argentina,1983,Platense,0,18,
+Argentina,1983,Temperley,0,18,
+Argentina,1983,Talleres,6,12,
+Argentina,1983,Huracán,5,13,
+Argentina,1983,Nueva Chicago,3,15,
+Argentina,1983,Rosario Central,2,16,sí
+Argentina,1983,Racing Club,3,15,sí
+Argentina,1983,Racing Club,3,15,sí
+Argentina,1984,Argentinos Juniors,16,2,
+Argentina,1984,Ferro Carril Oeste,11,7,
+Argentina,1984,Estudiantes de La Plata,10,8,sí
+Argentina,1984,River Plate,16,2,sí
+Argentina,1984,Racing Club,8,10,sí
+Argentina,1984,Vélez Sarsfield,10,8,sí
+Argentina,1984,Newell's Old Boys,13,5,sí
+Argentina,1984,San Lorenzo,7,11,sí
+Argentina,1984,Talleres,6,12,
+Argentina,1984,Chacarita Juniors,0,18,
+Argentina,1984,Instituto,4,14,
+Argentina,1984,Platense,0,18,
+Argentina,1984,Temperley,0,18,
+Argentina,1984,Independiente,15,3,sí
+Argentina,1984,Unión,8,10,
+Argentina,1984,Boca Juniors,5,13,sí
+Argentina,1984,Huracán,5,13,
+Argentina,1984,Rosario Central,3,15,sí
+Argentina,1984,Atlanta,4,14,
+Argentina,1985,Newell's Old Boys,13,5,sí
+Argentina,1985,Deportivo Español,3,15,
+Argentina,1985,Boca Juniors,10,8,sí
+Argentina,1985,Ferro Carril Oeste,12,6,
+Argentina,1985,San Lorenzo,11,7,sí
+Argentina,1985,Talleres,4,14,
+Argentina,1985,Independiente,12,6,sí
+Argentina,1985,Gimnasia y Esgrima La Plata,6,12,
+Argentina,1985,Instituto,8,10,
+Argentina,1985,Vélez Sarsfield,9,9,sí
+Argentina,1985,Huracán,3,15,
+Argentina,1985,Unión,6,12,
+Argentina,1985,Temperley,0,18,
+Argentina,1985,Estudiantes de La Plata,11,7,sí
+Argentina,1985,Platense,0,18,
+Argentina,1985,Racing Club,5,13,sí
+Argentina,1985,Chacarita Juniors,0,18,
+Argentina,1986,Rosario Central,8,10,sí
+Argentina,1986,Newell's Old Boys,13,5,sí
+Argentina,1986,Independiente,14,4,sí
+Argentina,1986,Boca Juniors,9,9,sí
+Argentina,1986,Racing Club,14,4,sí
+Argentina,1986,Ferro Carril Oeste,12,6,
+Argentina,1986,San Lorenzo,13,5,sí
+Argentina,1986,Instituto,4,14,
+Argentina,1986,Vélez Sarsfield,10,8,sí
+Argentina,1986,Talleres,9,9,
+Argentina,1986,Estudiantes de La Plata,16,2,sí
+Argentina,1986,Gimnasia y Esgrima La Plata,3,15,
+Argentina,1986,Deportivo Español,3,15,
+Argentina,1986,Racing Club,14,4,sí
+Argentina,1986,Unión,8,10,
+Argentina,1986,Temperley,0,18,
+Argentina,1986,Platense,0,18,
+Argentina,1986,Deportivo Italiano,1,17,
+Argentina,1993,Racing Club,7,11,sí
+Argentina,1993,Lanús,9,9,
+Argentina,1993,Gimnasia y Esgrima La Plata,10,8,
+Argentina,1993,San Lorenzo,13,5,sí
+Argentina,1993,Banfield,8,10,
+Argentina,1993,Ferro Carril Oeste,3,15,
+Argentina,1993,Argentinos Juniors,16,2,
+Argentina,1993,Huracán,12,6,
+Argentina,1993,Deportivo Mandiyú,4,14,
+Argentina,1993,Platense,0,18,
+Argentina,1993,Gimnasia y Tiro,0,18,
+Argentina,1993,Belgrano,9,9,
+Argentina,1993,Rosario Central,15,3,sí
+Argentina,1993,Deportivo Español,8,10,
+Argentina,1994,San Lorenzo,16,2,sí
+Argentina,1994,Argentinos Juniors,13,5,
+Argentina,1994,Belgrano,6,12,
+Argentina,1994,Lanús,13,5,
+Argentina,1994,Banfield,11,7,
+Argentina,1994,Gimnasia y Esgrima La Plata,11,7,
+Argentina,1994,Independiente,15,3,sí
+Argentina,1994,Racing Club,14,4,sí
+Argentina,1994,Huracán,10,8,
+Argentina,1994,Platense,0,18,
+Argentina,1994,Ferro Carril Oeste,4,14,
+Argentina,1994,Gimnasia y Esgrima de Jujuy,2,16,
+Argentina,1994,Deportivo Español,12,6,
+Argentina,1994,Deportivo Mandiyú,9,9,
+Argentina,1994,Talleres,9,9,
+Argentina,1997,San Lorenzo,15,3,sí
+Argentina,1997,Gimnasia y Esgrima La Plata,15,3,
+Argentina,1997,Argentinos Juniors,15,3,
+Argentina,1997,Platense,0,18,
+Argentina,1997,Lanús,17,1,
+Argentina,1997,Ferro Carril Oeste,10,8,
+Argentina,1997,Gimnasia y Esgrima de Jujuy,9,9,
+Argentina,1997,Colón,10,8,
+Argentina,1997,Unión,12,6,
+Argentina,1997,Deportivo Español,17,1,
+Argentina,1997,Huracán,14,4,
+Argentina,1997,Gimnasia y Tiro,0,18,
+Argentina,2014,Atlético de Rafaela,2,16,
+Argentina,2014,Olimpo,16,2,
+Argentina,2016,Atlético Tucumán,14,4,
+Argentina,2016,Defensa y Justicia,15,3,
+Argentina,2016,Huracán,16,2,
+Argentina,2016,San Martín de San Juan,11,7,
+Argentina,2016,Patronato,0,18,
+Argentina,2016,Sarmiento,0,18,
+Argentina,2016,Aldosivi,15,3,
+Argentina,2016,Temperley,0,18,
+Argentina,2016,Banfield,14,4,
+Argentina,2016,Quilmes,16,2,
+Argentina,2016,Atlético de Rafaela,1,17,
+Brasil,1951,Fluminense,6,12,sí
+Brasil,1951,Bangu,6,12,
+Brasil,1951,Botafogo,1,17,sí
+Brasil,1951,Flamengo,11,7,sí
+Brasil,1951,Vasco da Gama,15,3,sí
+Brasil,1951,America-RJ,1,17,
+Brasil,1951,Olaria,1,17,
+Brasil,1951,São Cristóvão,2,16,
+Brasil,1951,Bonsucesso,0,18,
+Brasil,1951,Madureira,2,16,
+Brasil,1951,Canto do Rio,0,18,
+Brasil,1951,Corinthians,7,11,sí
+Brasil,1951,Palmeiras,6,12,sí
+Brasil,1951,Portuguesa,8,10,
+Brasil,1951,São Paulo,7,11,sí
+Brasil,1951,Santos,3,15,sí
+Brasil,1951,Guarani,2,16,
+Brasil,1951,Ponte Preta,0,18,
+Brasil,1951,Radium,0,18,
+Brasil,1951,Comercial-SP,0,18,
+Brasil,1951,Portuguesa Santista,1,17,
+Brasil,1951,Juventus-SP,0,18,
+Brasil,1951,XV de Piracicaba,1,17,
+Brasil,1951,Nacional-SP,0,18,
+Brasil,1951,Ypiranga-SP,0,18,
+Brasil,1951,Jabaquara,0,18,
+Brasil,1952,Vasco da Gama,13,5,sí
+Brasil,1952,Flamengo,10,8,sí
+Brasil,1952,Fluminense,10,8,sí
+Brasil,1952,Bangu,5,13,
+Brasil,1952,Botafogo,1,17,sí
+Brasil,1952,America-RJ,0,18,
+Brasil,1952,Olaria,0,18,
+Brasil,1952,Madureira,1,17,
+Brasil,1952,São Cristóvão,1,17,
+Brasil,1952,Canto do Rio,0,18,
+Brasil,1952,Bonsucesso,1,17,
+Brasil,1952,Corinthians,8,10,sí
+Brasil,1952,São Paulo,8,10,sí
+Brasil,1952,Portuguesa,6,12,
+Brasil,1952,Palmeiras,5,13,sí
+Brasil,1952,Santos,4,14,sí
+Brasil,1952,XV de Piracicaba,0,18,
+Brasil,1952,XV de Jaú,0,18,
+Brasil,1952,Comercial-SP,0,18,
+Brasil,1952,Guarani,1,17,
+Brasil,1952,Ypiranga-SP,0,18,
+Brasil,1952,Ponte Preta,1,17,
+Brasil,1952,Nacional-SP,0,18,
+Brasil,1952,Portuguesa Santista,0,18,
+Brasil,1952,Juventus-SP,0,18,
+Brasil,1952,Jabaquara,0,18,
+Brasil,1952,Radium,0,18,
+Brasil,1954,Flamengo,13,5,sí
+Brasil,1954,America-RJ,0,18,
+Brasil,1954,Bangu,6,12,
+Brasil,1954,Vasco da Gama,12,6,sí
+Brasil,1954,Fluminense,11,7,sí
+Brasil,1954,Botafogo,1,17,sí
+Brasil,1954,São Cristóvão,1,17,
+Brasil,1954,Madureira,1,17,
+Brasil,1954,Bonsucesso,1,17,
+Brasil,1954,Olaria,0,18,
+Brasil,1954,Portuguesa-RJ,0,18,
+Brasil,1954,Canto do Rio,0,18,
+Brasil,1954,Corinthians,7,11,sí
+Brasil,1954,Palmeiras,5,13,sí
+Brasil,1954,Santos,3,15,sí
+Brasil,1954,São Paulo,10,8,sí
+Brasil,1954,Portuguesa,5,13,
+Brasil,1954,Ponte Preta,2,16,
+Brasil,1954,XV de Jaú,0,18,
+Brasil,1954,Guarani,0,18,
+Brasil,1954,Linense,0,18,
+Brasil,1954,São Bento,0,18,
+Brasil,1954,Noroeste,0,18,
+Brasil,1954,XV de Piracicaba,1,17,
+Brasil,1954,Juventus-SP,1,17,
+Brasil,1954,Ypiranga-SP,0,18,
+Brasil,1955,Flamengo,14,4,sí
+Brasil,1955,Vasco da Gama,10,8,sí
+Brasil,1955,Fluminense,8,10,sí
+Brasil,1955,America-RJ,2,16,
+Brasil,1955,Bangu,5,13,
+Brasil,1955,Bonsucesso,0,18,
+Brasil,1955,Botafogo,2,16,sí
+Brasil,1955,Portuguesa-RJ,0,18,
+Brasil,1955,Olaria,0,18,
+Brasil,1955,São Cristóvão,0,18,
+Brasil,1955,Canto do Rio,0,18,
+Brasil,1955,Madureira,1,17,
+Brasil,1955,Santos,5,13,sí
+Brasil,1955,Corinthians,7,11,sí
+Brasil,1955,São Paulo,10,8,sí
+Brasil,1955,Palmeiras,4,14,sí
+Brasil,1955,Portuguesa,7,11,
+Brasil,1955,Guarani,0,18,
+Brasil,1955,XV de Jaú,0,18,
+Brasil,1955,Taubaté,0,18,
+Brasil,1955,Ponte Preta,1,17,
+Brasil,1955,XV de Piracicaba,2,16,
+Brasil,1955,São Bento,0,18,
+Brasil,1955,Linense,0,18,
+Brasil,1955,Noroeste,0,18,
+Brasil,1955,Jabaquara,1,17,
+Brasil,1956,Vasco da Gama,10,8,sí
+Brasil,1956,Fluminense,6,12,sí
+Brasil,1956,Botafogo,2,16,sí
+Brasil,1956,Flamengo,12,6,sí
+Brasil,1956,America-RJ,1,17,
+Brasil,1956,Bangu,6,12,
+Brasil,1956,Olaria,0,18,
+Brasil,1956,Bonsucesso,2,16,
+Brasil,1956,Madureira,0,18,
+Brasil,1956,Canto do Rio,2,16,
+Brasil,1956,São Cristóvão,0,18,
+Brasil,1956,Portuguesa-RJ,0,18,
+Brasil,1956,Santos,7,11,sí
+Brasil,1956,Corinthians,7,11,sí
+Brasil,1956,São Paulo,10,8,sí
+Brasil,1956,Portuguesa,6,12,
+Brasil,1956,Palmeiras,6,12,sí
+Brasil,1956,São Bento,1,17,
+Brasil,1956,XV de Piracicaba,1,17,
+Brasil,1956,XV de Jaú,0,18,
+Brasil,1956,Taubaté,0,18,
+Brasil,1956,Juventus-SP,0,18,
+Brasil,1956,Ponte Preta,0,18,
+Brasil,1956,Noroeste,1,17,
+Brasil,1956,Ferroviária,0,18,
+Brasil,1956,Guarani,0,18,
+Brasil,1956,Jabaquara,0,18,
+Brasil,1956,Nacional-SP,0,18,
+Brasil,1956,Linense,0,18,
+Brasil,1956,Comercial-SP,0,18,
+Brasil,1957,Botafogo,1,17,sí
+Brasil,1957,Fluminense,6,12,sí
+Brasil,1957,Flamengo,7,11,sí
+Brasil,1957,Vasco da Gama,11,7,sí
+Brasil,1957,Bangu,4,14,
+Brasil,1957,America-RJ,1,17,
+Brasil,1957,Canto do Rio,2,16,
+Brasil,1957,São Cristóvão,0,18,
+Brasil,1957,Portuguesa-RJ,0,18,
+Brasil,1957,Madureira,0,18,
+Brasil,1957,Bonsucesso,0,18,
+Brasil,1957,Olaria,0,18,
+Brasil,1957,São Paulo,12,6,sí
+Brasil,1957,Santos,6,12,sí
+Brasil,1957,Corinthians,9,9,sí
+Brasil,1957,Portuguesa,4,14,
+Brasil,1957,Palmeiras,7,11,sí
+Brasil,1957,Noroeste,0,18,
+Brasil,1957,XV de Piracicaba,1,17,
+Brasil,1957,Jabaquara,1,17,
+Brasil,1957,Ponte Preta,2,16,
+Brasil,1957,Botafogo-SP,0,18,
+Brasil,1957,Juventus-SP,1,17,
+Brasil,1957,São Bento,1,17,
+Brasil,1957,Portuguesa Santista,0,18,
+Brasil,1957,Ferroviária,0,18,
+Brasil,1957,Guarani,4,14,
+Brasil,1957,Ypiranga-SP,0,18,
+Brasil,1957,Nacional-SP,0,18,
+Brasil,1957,Linense,0,18,
+Brasil,1957,Comercial-SP,0,18,
+Brasil,1957,Taubaté,0,18,
+Brasil,1959,Fluminense,8,10,sí
+Brasil,1959,Botafogo,3,15,sí
+Brasil,1959,Bangu,3,15,
+Brasil,1959,Vasco da Gama,8,10,sí
+Brasil,1959,America-RJ,3,15,
+Brasil,1959,Flamengo,11,7,sí
+Brasil,1959,Madureira,1,17,
+Brasil,1959,Canto do Rio,1,17,
+Brasil,1959,Olaria,2,16,
+Brasil,1959,Bonsucesso,0,18,
+Brasil,1959,São Cristóvão,0,18,
+Brasil,1959,Portuguesa-RJ,0,18,
+Brasil,1959,Palmeiras,14,4,sí
+Brasil,1959,Santos,8,10,sí
+Brasil,1959,São Paulo,10,8,sí
+Brasil,1959,Ferroviária,4,14,
+Brasil,1959,Corinthians,11,7,sí
+Brasil,1959,Portuguesa,3,15,
+Brasil,1959,Botafogo-SP,2,16,
+Brasil,1959,Taubaté,0,18,
+Brasil,1959,Noroeste,1,17,
+Brasil,1959,Juventus-SP,2,16,
+Brasil,1959,XV de Piracicaba,1,17,
+Brasil,1959,Jabaquara,0,18,
+Brasil,1959,Guarani,1,17,
+Brasil,1959,Comercial-SP,0,18,
+Brasil,1959,Portuguesa Santista,1,17,
+Brasil,1959,Ponte Preta,3,15,
+Brasil,1959,América-SP,0,18,
+Brasil,1959,Nacional-SP,0,18,
+Brasil,1959,XV de Jaú,0,18,
+Brasil,1959,São Bento,1,17,
+Brasil,1960,America-RJ,2,16,
+Brasil,1960,Fluminense,7,11,sí
+Brasil,1960,Botafogo,3,15,sí
+Brasil,1960,Flamengo,13,5,sí
+Brasil,1960,Vasco da Gama,5,13,sí
+Brasil,1960,Bangu,6,12,
+Brasil,1960,Olaria,3,15,
+Brasil,1960,Canto do Rio,0,18,
+Brasil,1960,Bonsucesso,1,17,
+Brasil,1960,Portuguesa-RJ,0,18,
+Brasil,1960,Madureira,2,16,
+Brasil,1960,São Cristóvão,0,18,
+Brasil,1960,Santos,10,8,sí
+Brasil,1960,Portuguesa,6,12,
+Brasil,1960,Corinthians,9,9,sí
+Brasil,1960,Palmeiras,12,6,sí
+Brasil,1960,Noroeste,2,16,
+Brasil,1960,Ferroviária,2,16,
+Brasil,1960,Guarani,3,15,
+Brasil,1960,São Paulo,8,10,sí
+Brasil,1960,XV de Piracicaba,1,17,
+Brasil,1960,Botafogo-SP,1,17,
+Brasil,1960,Comercial-SP,0,18,
+Brasil,1960,Taubaté,0,18,
+Brasil,1960,Portuguesa Santista,0,18,
+Brasil,1960,Jabaquara,2,16,
+Brasil,1960,América-SP,0,18,
+Brasil,1960,Ponte Preta,1,17,
+Brasil,1960,Corinthians de Presidente Prudente,0,18,
+Brasil,1960,Esportiva,0,18,
+Brasil,1966,Bangu,3,15,
+Brasil,1966,Flamengo,8,10,sí
+Brasil,1966,Fluminense,5,13,sí
+Brasil,1966,Botafogo,2,16,sí
+Brasil,1966,Vasco da Gama,3,15,sí
+Brasil,1966,America-RJ,1,17,
+Brasil,1966,Olaria,1,17,
+Brasil,1966,Bonsucesso,1,17,
+Brasil,1966,Portuguesa-RJ,0,18,
+Brasil,1966,Campo Grande,0,18,
+Brasil,1966,São Cristóvão,0,18,
+Brasil,1966,Madureira,1,17,
+Brasil,1966,Palmeiras,13,5,sí
+Brasil,1966,Corinthians,6,12,sí
+Brasil,1966,Santos,14,4,sí
+Brasil,1966,Comercial-SP,0,18,
+Brasil,1966,São Paulo,9,9,sí
+Brasil,1966,Portuguesa,8,10,
+Brasil,1966,Botafogo-SP,2,16,
+Brasil,1966,Prudentina,0,18,
+Brasil,1966,São Bento,2,16,
+Brasil,1966,Portuguesa Santista,0,18,
+Brasil,1966,América-SP,1,17,
+Brasil,1966,Juventus-SP,0,18,
+Brasil,1966,Guarani,1,17,
+Brasil,1966,Noroeste,0,18,
+Brasil,1966,Bragantino,0,18,
+Brasil,1967,Botafogo,2,16,sí
+Brasil,1967,Bangu,2,16,
+Brasil,1967,Fluminense,6,12,sí
+Brasil,1967,America-RJ,1,17,
+Brasil,1967,Flamengo,12,6,sí
+Brasil,1967,Vasco da Gama,6,12,sí
+Brasil,1967,Olaria,1,17,
+Brasil,1967,Campo Grande,1,17,
+Brasil,1967,Bonsucesso,1,17,
+Brasil,1967,Madureira,0,18,
+Brasil,1967,Portuguesa-RJ,1,17,
+Brasil,1967,São Cristóvão,0,18,
+Brasil,1967,Santos,15,3,sí
+Brasil,1967,São Paulo,7,11,sí
+Brasil,1967,Corinthians,3,15,sí
+Brasil,1967,Palmeiras,12,6,sí
+Brasil,1967,Portuguesa,7,11,
+Brasil,1967,Ferroviária,1,17,
+Brasil,1967,América-SP,0,18,
+Brasil,1967,Guarani,1,17,
+Brasil,1967,Comercial-SP,0,18,
+Brasil,1967,São Bento,2,16,
+Brasil,1967,Botafogo-SP,2,16,
+Brasil,1967,Portuguesa Santista,0,18,
+Brasil,1967,Juventus-SP,0,18,
+Brasil,1967,Prudentina,0,18,
+Brasil,1968,Botafogo,1,17,sí
+Brasil,1968,Vasco da Gama,3,15,sí
+Brasil,1968,Flamengo,13,5,sí
+Brasil,1968,America-RJ,1,17,
+Brasil,1968,Bangu,1,17,
+Brasil,1968,Bonsucesso,1,17,
+Brasil,1968,Campo Grande,0,18,
+Brasil,1968,Portuguesa-RJ,0,18,
+Brasil,1968,Olaria,1,17,
+Brasil,1968,São Cristóvão,0,18,
+Brasil,1968,Madureira,0,18,
+Brasil,1968,Santos,14,4,sí
+Brasil,1968,Corinthians,4,14,sí
+Brasil,1968,Ferroviária,1,17,
+Brasil,1968,São Paulo,7,11,sí
+Brasil,1968,Portuguesa,7,11,
+Brasil,1968,São Bento,1,17,
+Brasil,1968,XV de Piracicaba,1,17,
+Brasil,1968,Guarani,0,18,
+Brasil,1968,Botafogo-SP,1,17,
+Brasil,1968,Portuguesa Santista,0,18,
+Brasil,1968,Palmeiras,11,7,sí
+Brasil,1968,Juventus-SP,0,18,
+Brasil,1968,Comercial-SP,0,18,
+Brasil,1968,América-SP,2,16,
+Brasil,1969,Fluminense,9,9,sí
+Brasil,1969,Botafogo,1,17,sí
+Brasil,1969,America-RJ,1,17,
+Brasil,1969,Flamengo,11,7,sí
+Brasil,1969,Vasco da Gama,4,14,sí
+Brasil,1969,Bangu,2,16,
+Brasil,1969,Bonsucesso,2,16,
+Brasil,1969,Portuguesa-RJ,0,18,
+Brasil,1969,Campo Grande,0,18,
+Brasil,1969,Olaria,1,17,
+Brasil,1969,São Cristóvão,0,18,
+Brasil,1969,Madureira,0,18,
+Brasil,1969,Santos,11,7,sí
+Brasil,1969,Palmeiras,7,11,sí
+Brasil,1969,Corinthians,4,14,sí
+Brasil,1969,São Paulo,11,7,sí
+Brasil,1969,Portuguesa,7,11,
+Brasil,1969,Guarani,1,17,
+Brasil,1969,Ferroviária,1,17,
+Brasil,1969,São Bento,1,17,
+Brasil,1969,Portuguesa Santista,1,17,
+Brasil,1969,América-SP,2,16,
+Brasil,1969,XV de Piracicaba,1,17,
+Brasil,1969,Botafogo-SP,1,17,
+Brasil,1969,Juventus-SP,1,17,
+Brasil,1969,Comercial-SP,0,18,
+Brasil,1970,Vasco da Gama,9,9,sí
+Brasil,1970,Fluminense,11,7,sí
+Brasil,1970,America-RJ,2,16,
+Brasil,1970,Botafogo,2,16,sí
+Brasil,1970,Flamengo,10,8,sí
+Brasil,1970,Bangu,2,16,
+Brasil,1970,Olaria,0,18,
+Brasil,1970,Madureira,0,18,
+Brasil,1970,São Cristóvão,0,18,
+Brasil,1970,Campo Grande,1,17,
+Brasil,1970,Portuguesa-RJ,0,18,
+Brasil,1970,Bonsucesso,2,16,
+Brasil,1970,São Paulo,12,6,sí
+Brasil,1970,Palmeiras,8,10,sí
+Brasil,1970,Ponte Preta,2,16,
+Brasil,1970,Santos,13,5,sí
+Brasil,1970,Corinthians,8,10,sí
+Brasil,1970,Portuguesa,2,16,
+Brasil,1970,Ferroviária,1,17,
+Brasil,1970,Guarani,2,16,
+Brasil,1970,São Bento,0,18,
+Brasil,1970,Botafogo-SP,1,17,
+Brasil,1972,Flamengo,15,3,sí
+Brasil,1972,Fluminense,17,1,sí
+Brasil,1972,Vasco da Gama,11,7,sí
+Brasil,1972,Botafogo,5,13,sí
+Brasil,1972,America-RJ,1,17,
+Brasil,1972,Bangu,1,17,
+Brasil,1972,Olaria,2,16,
+Brasil,1972,São Cristóvão,0,18,
+Brasil,1972,Madureira,0,18,
+Brasil,1972,Campo Grande,0,18,
+Brasil,1972,Portuguesa-RJ,0,18,
+Brasil,1972,Bonsucesso,1,17,
+Brasil,1972,Palmeiras,10,8,sí
+Brasil,1972,São Paulo,12,6,sí
+Brasil,1972,Santos,15,3,sí
+Brasil,1972,Corinthians,8,10,sí
+Brasil,1972,Portuguesa,3,15,
+Brasil,1972,Ponte Preta,3,15,
+Brasil,1972,Juventus-SP,0,18,
+Brasil,1972,Ferroviária,2,16,
+Brasil,1972,América-SP,0,18,
+Brasil,1972,São Bento,1,17,
+Brasil,1972,Guarani,1,17,
+Brasil,1972,Comercial-SP,0,18,
+Brasil,1950,Vasco da Gama,14,4,sí
+Brasil,1950,America-RJ,0,18,
+Brasil,1950,Bangu,1,17,
+Brasil,1950,Botafogo,1,17,sí
+Brasil,1950,Olaria,1,17,
+Brasil,1950,Fluminense,6,12,sí
+Brasil,1950,Flamengo,8,10,sí
+Brasil,1950,Madureira,2,16,
+Brasil,1950,Bonsucesso,0,18,
+Brasil,1950,Canto do Rio,2,16,
+Brasil,1950,São Cristóvão,1,17,
+Brasil,1950,Palmeiras,10,8,sí
+Brasil,1950,São Paulo,11,7,sí
+Brasil,1950,Santos,4,14,sí
+Brasil,1950,Portuguesa,4,14,
+Brasil,1950,Corinthians,6,12,sí
+Brasil,1950,Guarani,0,18,
+Brasil,1950,Ypiranga-SP,0,18,
+Brasil,1950,Juventus-SP,1,17,
+Brasil,1950,XV de Piracicaba,1,17,
+Brasil,1950,Portuguesa Santista,0,18,
+Brasil,1950,Nacional-SP,0,18,
+Brasil,1950,Jabaquara,0,18,
+Brasil,1953,Flamengo,11,7,sí
+Brasil,1953,Fluminense,9,9,sí
+Brasil,1953,Botafogo,1,17,sí
+Brasil,1953,Vasco da Gama,16,2,sí
+Brasil,1953,America-RJ,0,18,
+Brasil,1953,Bangu,5,13,
+Brasil,1953,Madureira,2,16,
+Brasil,1953,Olaria,0,18,
+Brasil,1953,São Cristóvão,0,18,
+Brasil,1953,Bonsucesso,1,17,
+Brasil,1953,Portuguesa-RJ,0,18,
+Brasil,1953,Canto do Rio,0,18,
+Brasil,1953,São Paulo,10,8,sí
+Brasil,1953,Palmeiras,8,10,sí
+Brasil,1953,Corinthians,8,10,sí
+Brasil,1953,Portuguesa,6,12,
+Brasil,1953,Guarani,1,17,
+Brasil,1953,Ponte Preta,3,15,
+Brasil,1953,Santos,3,15,sí
+Brasil,1953,XV de Piracicaba,0,18,
+Brasil,1953,Comercial de São Paulo,0,18,
+Brasil,1953,Linense,0,18,
+Brasil,1953,XV de Jaú,0,18,
+Brasil,1953,Ypiranga-SP,0,18,
+Brasil,1953,Juventus-SP,1,17,
+Brasil,1953,Portuguesa Santista,0,18,
+Brasil,1953,Nacional-SP,0,18,
+Brasil,1961,Botafogo,5,13,sí
+Brasil,1961,Vasco da Gama,4,14,sí
+Brasil,1961,Flamengo,11,7,sí
+Brasil,1961,Bangu,3,15,
+Brasil,1961,America-RJ,1,17,
+Brasil,1961,Olaria,2,16,
+Brasil,1961,Fluminense,9,9,sí
+Brasil,1961,São Cristóvão,0,18,
+Brasil,1961,Portuguesa-RJ,0,18,
+Brasil,1961,Canto do Rio,0,18,
+Brasil,1961,Bonsucesso,1,17,
+Brasil,1961,Madureira,3,15,
+Brasil,1961,Santos,15,3,sí
+Brasil,1961,Palmeiras,13,5,sí
+Brasil,1961,São Paulo,10,8,sí
+Brasil,1961,Portuguesa,5,13,
+Brasil,1961,Ferroviária,2,16,
+Brasil,1961,Guarani,3,15,
+Brasil,1961,Corinthians,9,9,sí
+Brasil,1961,Botafogo-SP,0,18,
+Brasil,1961,Comercial-SP,0,18,
+Brasil,1961,Esportiva Guaratinguetá,0,18,
+Brasil,1961,XV de Piracicaba,0,18,
+Brasil,1961,Juventus-SP,0,18,
+Brasil,1961,Taubaté,0,18,
+Brasil,1961,Noroeste,2,16,
+Brasil,1961,Jabaquara,4,14,
+Brasil,1961,Portuguesa Santista,1,17,
+Brasil,1962,Botafogo,4,14,sí
+Brasil,1962,Flamengo,9,9,sí
+Brasil,1962,Fluminense,11,7,sí
+Brasil,1962,Vasco da Gama,5,13,sí
+Brasil,1962,Bangu,3,15,
+Brasil,1962,Olaria,0,18,
+Brasil,1962,America-RJ,0,18,
+Brasil,1962,Bonsucesso,1,17,
+Brasil,1962,Campo Grande,2,16,
+Brasil,1962,São Cristóvão,2,16,
+Brasil,1962,Portuguesa-RJ,0,18,
+Brasil,1962,Madureira,2,16,
+Brasil,1962,Canto do Rio,0,18,
+Brasil,1962,Santos,13,5,sí
+Brasil,1962,São Paulo,9,9,sí
+Brasil,1962,Corinthians,5,13,sí
+Brasil,1962,Palmeiras,10,8,sí
+Brasil,1962,Portuguesa,5,13,
+Brasil,1962,Botafogo-SP,1,17,
+Brasil,1962,Ferroviária,4,14,
+Brasil,1962,Guarani,2,16,
+Brasil,1962,Comercial-SP,0,18,
+Brasil,1962,Esportiva,0,18,
+Brasil,1962,Juventus-SP,0,18,
+Brasil,1962,Noroeste,0,18,
+Brasil,1962,XV de Piracicaba,0,18,
+Brasil,1962,Prudentina,0,18,
+Brasil,1962,Jabaquara,0,18,
+Brasil,1962,Taubaté,0,18,
+Brasil,1963,Flamengo,8,10,sí
+Brasil,1963,Fluminense,9,9,sí
+Brasil,1963,Bangu,5,13,
+Brasil,1963,Botafogo,8,10,sí
+Brasil,1963,America-RJ,2,16,
+Brasil,1963,Vasco da Gama,5,13,sí
+Brasil,1963,São Cristóvão,1,17,
+Brasil,1963,Campo Grande,2,16,
+Brasil,1963,Olaria,1,17,
+Brasil,1963,Portuguesa-RJ,1,17,
+Brasil,1963,Bonsucesso,3,15,
+Brasil,1963,Canto do Rio,1,17,
+Brasil,1963,Madureira,0,18,
+Brasil,1964,Fluminense,5,13,sí
+Brasil,1964,Bangu,4,14,
+Brasil,1964,Flamengo,5,13,sí
+Brasil,1964,Botafogo,3,15,sí
+Brasil,1964,America-RJ,1,17,
+Brasil,1964,Vasco da Gama,3,15,sí
+Brasil,1964,Bonsucesso,0,18,
+Brasil,1964,Portuguesa-RJ,1,17,
+Brasil,1964,Campo Grande,0,18,
+Brasil,1964,São Cristóvão,0,18,
+Brasil,1964,Olaria,0,18,
+Brasil,1964,Madureira,0,18,
+Brasil,1964,Canto do Rio,0,18,
+Brasil,1964,Santos,10,8,sí
+Brasil,1964,Palmeiras,13,5,sí
+Brasil,1964,Portuguesa,7,11,
+Brasil,1964,Corinthians,7,11,sí
+Brasil,1964,São Paulo,9,9,sí
+Brasil,1964,América-SP,0,18,
+Brasil,1964,Guarani,2,16,
+Brasil,1964,Comercial-SP,0,18,
+Brasil,1964,São Bento,2,16,
+Brasil,1964,Botafogo-SP,1,17,
+Brasil,1964,Juventus-SP,1,17,
+Brasil,1964,Prudentina,0,18,
+Brasil,1964,Ferroviária,0,18,
+Brasil,1964,XV de Piracicaba,0,18,
+Brasil,1964,Noroeste,0,18,
+Brasil,1964,Esportiva de Guaratinguetá,0,18,
+Brasil,1965,Flamengo,9,9,sí
+Brasil,1965,Bangu,3,15,
+Brasil,1965,Fluminense,7,11,sí
+Brasil,1965,Botafogo,4,14,sí
+Brasil,1965,Vasco da Gama,5,13,sí
+Brasil,1965,Bonsucesso,0,18,
+Brasil,1965,America-RJ,0,18,
+Brasil,1965,Portuguesa-RJ,0,18,
+Brasil,1965,Santos,13,5,sí
+Brasil,1965,Palmeiras,14,4,sí
+Brasil,1965,Corinthians,8,10,sí
+Brasil,1965,Portuguesa,7,11,
+Brasil,1965,São Paulo,9,9,sí
+Brasil,1965,São Bento,2,16,
+Brasil,1965,Guarani,1,17,
+Brasil,1965,Comercial-SP,0,18,
+Brasil,1965,Prudentina,0,18,
+Brasil,1965,América-SP,1,17,
+Brasil,1965,Noroeste,0,18,
+Brasil,1965,Juventus-SP,1,17,
+Brasil,1965,Botafogo-SP,1,17,
+Brasil,1965,Portuguesa Santista,0,18,
+Brasil,1965,XV de Piracicaba,0,18,
+Brasil,1965,Ferroviária,0,18,
+Inglaterra,1957,Luton Town,15,3,
+Inglaterra,1957,Nottingham Forest,12,6,
+Inglaterra,1957,Leeds United,15,3,sí
+Inglaterra,1957,Portsmouth,16,2,
+Francia,1994,Martigues,17,1,
+Francia,1994,Caen,0,18,
+Portugal,1950,Sporting de Portugal,16,2,sí
+Portugal,1950,Oporto,7,11,sí
+Portugal,1950,Benfica,14,4,sí
+Portugal,1950,Atlético CP,2,16,
+Portugal,1950,Oriental,0,18,
+Portugal,1950,Covilhã,0,18,
+Portugal,1950,Braga,1,17,
+Portugal,1950,Académica,3,15,
+Portugal,1950,Belenenses,5,13,
+Portugal,1950,Boavista,1,17,
+Portugal,1950,Estoril,1,17,
+Portugal,1950,Vitória de Setúbal,1,17,
+Portugal,1950,Vitória de Guimarães,0,18,
+Portugal,1950,Olhanense,1,17,
+Portugal,1993,Marítimo,16,2,
+Portugal,1993,Farense,7,11,
+Portugal,1993,Belenenses,11,7,
+Portugal,1993,Beira-Mar,7,11,
+Portugal,1993,Gil Vicente,7,11,
+Portugal,1993,Paços de Ferreira,7,11,
+Portugal,1993,Vitória de Guimarães,17,1,
+Portugal,1993,Braga,11,7,
+Portugal,1993,Estoril,13,5,
+Portugal,1993,Famalicão,8,10,
+Portugal,1993,Salgueiros,9,9,
+Portugal,1993,Estrela da Amadora,9,9,
+Portugal,1993,União da Madeira,11,7,
+Portugal,1993,Vitória de Setúbal,15,3,
+Brasil,1981,Grêmio,11,7,sí
+Brasil,1981,São Paulo,16,2,sí
+Brasil,1981,Ponte Preta,6,12,
+Brasil,1981,Botafogo,3,15,sí
+Brasil,1981,Vasco da Gama,7,11,sí
+Brasil,1981,Flamengo,12,6,sí
+Brasil,1981,Operário-MS,0,18,
+Brasil,1981,Internacional,15,3,sí
+Brasil,1981,Santos,7,11,sí
+Brasil,1981,Sport,1,17,
+Brasil,1981,Fluminense,8,10,sí
+Brasil,1981,Vitória,1,17,
+Brasil,1981,CSA,1,17,
+Brasil,1981,Atlético Mineiro,10,8,sí
+Brasil,1981,Náutico,0,18,
+Brasil,1981,Bahia,2,16,
+Brasil,1982,Flamengo,13,5,sí
+Brasil,1982,Grêmio,12,6,sí
+Brasil,1982,Guarani,7,11,
+Brasil,1982,Corinthians,9,9,sí
+Brasil,1982,Fluminense,7,11,sí
+Brasil,1982,São Paulo,14,4,sí
+Brasil,1982,Santos,7,11,sí
+Brasil,1982,Bangu,4,14,
+Brasil,1982,Sport,2,16,
+Brasil,1982,Vasco da Gama,8,10,sí
+Brasil,1982,Anapolina,0,18,
+Brasil,1982,São José-SP,1,17,
+Brasil,1982,Operário-MS,0,18,
+Brasil,1982,Bahia,0,18,
+Brasil,1982,Londrina,2,16,
+Brasil,1982,Ceará,0,18,
+Brasil,1982,Ponte Preta,6,12,
+Brasil,1982,Botafogo,3,15,sí
+Brasil,1982,Atlético Mineiro,11,7,sí
+Brasil,1982,XV de Jaú,0,18,
+Brasil,1983,Flamengo,15,3,sí
+Brasil,1983,Santos,10,8,sí
+Brasil,1983,Atlético Mineiro,9,9,sí
+Brasil,1983,Atlético Paranaense,2,16,
+Brasil,1983,São Paulo,11,7,sí
+Brasil,1983,Vasco da Gama,10,8,sí
+Brasil,1983,Goiás,1,17,
+Brasil,1983,Sport,1,17,
+Brasil,1983,Palmeiras,7,11,sí
+Brasil,1983,Corinthians,9,9,sí
+Brasil,1983,America-RJ,4,14,
+Brasil,1983,Ferroviária,1,17,
+Brasil,1983,Náutico,4,14,
+Brasil,1983,Grêmio,12,6,sí
+Brasil,1983,Colorado,0,18,
+Brasil,1983,Guarani,5,13,
+Brasil,1983,Cruzeiro,3,15,sí
+Brasil,1983,Fluminense,13,5,sí
+Brasil,1983,Internacional,14,4,sí
+Brasil,1983,Ponte Preta,9,9,
+Brasil,1984,Fluminense,12,6,sí
+Brasil,1984,Vasco da Gama,14,4,sí
+Brasil,1984,Grêmio,8,10,sí
+Brasil,1984,Corinthians,13,5,sí
+Brasil,1984,Flamengo,16,2,sí
+Brasil,1984,Náutico,3,15,
+Brasil,1984,Portuguesa,4,14,
+Brasil,1984,Coritiba,3,15,
+Brasil,1984,Santos,8,10,sí
+Brasil,1984,Santo André,1,17,
+Brasil,1984,Atlético Paranaense,1,17,
+Brasil,1984,America-RJ,4,14,
+Brasil,1984,Operário-MS,0,18,
+Brasil,1984,Goiás,0,18,
+Brasil,1984,Fortaleza,1,17,
+Brasil,1984,Uberlândia,1,17,
+Brasil,1984,São Paulo,12,6,sí
+Brasil,1984,Santa Cruz,3,15,
+Brasil,1984,Atlético Mineiro,11,7,sí
+Brasil,1984,Palmeiras,6,12,sí
+Brasil,1985,Coritiba,2,16,
+Brasil,1985,Bangu,5,13,
+Brasil,1985,Brasil de Pelotas,1,17,
+Brasil,1985,Atlético Mineiro,9,9,sí
+Brasil,1985,Sport,2,16,
+Brasil,1985,Ponte Preta,6,12,
+Brasil,1985,Ceará,0,18,
+Brasil,1985,Joinville,3,15,
+Brasil,1985,Flamengo,14,4,sí
+Brasil,1985,Internacional,12,6,sí
+Brasil,1985,Vasco da Gama,12,6,sí
+Brasil,1985,Bahia,3,15,
+Brasil,1985,CSA,0,18,
+Brasil,1985,Mixto,0,18,
+Brasil,1985,Guarani,11,7,
+Brasil,1985,Corinthians,11,7,sí
+Brasil,1985,Fluminense,12,6,sí
+Brasil,1985,Grêmio,14,4,sí
+Brasil,1985,Botafogo,5,13,sí
+Brasil,1985,Náutico,3,15,
+Brasil,1986,São Paulo,14,4,sí
+Brasil,1986,Guarani,9,9,
+Brasil,1986,Atlético Mineiro,13,5,sí
+Brasil,1986,America-RJ,2,16,
+Brasil,1986,Bahia,5,13,
+Brasil,1986,Fluminense,9,9,sí
+Brasil,1986,Corinthians,11,7,sí
+Brasil,1986,Cruzeiro,6,12,sí
+Brasil,1986,Criciúma,3,15,
+Brasil,1986,Palmeiras,11,7,sí
+Brasil,1986,Portuguesa,3,15,
+Brasil,1986,Inter de Limeira,1,17,
+Brasil,1986,Flamengo,15,3,sí
+Brasil,1986,Joinville,3,15,
+Brasil,1986,Grêmio,9,9,sí
+Brasil,1986,Internacional,7,11,sí
+Brasil,1986,Atlético Paranaense,4,14,
+Brasil,1986,Santos,10,8,sí
+Brasil,1986,Rio Branco-ES,0,18,
+Brasil,1987,Sport,6,12,
+Brasil,1987,Guarani,9,9,
+Brasil,1987,Atlético Mineiro,10,8,sí
+Brasil,1987,Internacional,7,11,sí
+Brasil,1987,Criciúma,1,17,
+Brasil,1987,Portuguesa,5,13,
+Brasil,1987,Inter de Limeira,0,18,
+Brasil,1987,Treze,0,18,
+Brasil,1987,Rio Branco-ES,0,18,
+Brasil,1987,Atlético Goianiense,1,17,
+Brasil,1987,Ceará,0,18,
+Brasil,1987,Náutico,5,13,
+Brasil,1987,Joinville,2,16,
+Brasil,1987,CSA,0,18,
+Brasil,1987,America-RJ,0,18,
+Brasil,1988,Bahia,6,12,
+Brasil,1988,Internacional,8,10,sí
+Brasil,1988,Fluminense,10,8,sí
+Brasil,1988,Grêmio,10,8,sí
+Brasil,1988,Vasco da Gama,16,2,sí
+Brasil,1988,Sport,4,14,
+Brasil,1988,Cruzeiro,7,11,sí
+Brasil,1988,Portuguesa,10,8,
+Brasil,1988,Atlético Mineiro,10,8,sí
+Brasil,1988,São Paulo,12,6,sí
+Brasil,1988,Coritiba,9,9,
+Brasil,1988,Goiás,0,18,
+Brasil,1988,Guarani,10,8,
+Brasil,1988,Corinthians,10,8,sí
+Brasil,1988,Palmeiras,9,9,sí
+Brasil,1988,Botafogo,3,15,sí
+Brasil,1988,Santos,6,12,sí
+Brasil,1988,Atlético Paranaense,4,14,
+Brasil,1988,Vitória,5,13,
+Brasil,1993,Vitória,9,9,
+Brasil,1993,Corinthians,17,1,sí
+Brasil,1993,Santos,12,6,sí
+Brasil,1993,Guarani,11,7,
+Brasil,1993,Cruzeiro,12,6,sí
+Brasil,1993,Atlético Mineiro,10,8,sí
+Brasil,1993,Bragantino,8,10,
+Brasil,1993,Vasco da Gama,11,7,sí
+Brasil,1993,Grêmio,13,5,sí
+Brasil,1993,Internacional,14,4,sí
+Brasil,1993,Fluminense,4,14,sí
+Brasil,1993,Botafogo,2,16,sí
+Brasil,1993,Sport,6,12,
+Brasil,1994,Guarani,10,8,
+Brasil,1994,Botafogo,3,15,sí
+Brasil,1994,Bahia,8,10,
+Brasil,1994,Santos,15,3,sí
+Brasil,1994,Portuguesa,11,7,
+Brasil,1994,Sport,5,13,
+Brasil,1994,Internacional,17,1,sí
+Brasil,1994,Vasco da Gama,15,3,sí
+Brasil,1994,Grêmio,11,7,sí
+Brasil,1994,Fluminense,15,3,sí
+Brasil,1994,Paraná,7,11,
+Brasil,1994,Atlético Mineiro,14,4,sí
+Brasil,1994,Bragantino,6,12,
+Brasil,1994,Cruzeiro,17,1,sí
+Brasil,1994,Atlético Paranaense,9,9,
+Brasil,1994,Remo,7,11,
+Brasil,1995,Botafogo,3,15,sí
+Brasil,1995,Santos,13,5,sí
+Brasil,1995,Fluminense,10,8,sí
+Brasil,1995,Bragantino,5,13,
+Brasil,1995,Atlético Mineiro,15,3,sí
+Brasil,1995,Goiás,0,18,
+Brasil,1995,Internacional,15,3,sí
+Brasil,1995,Juventude,8,10,
+Brasil,1995,Sport,7,11,
+Brasil,1995,Portuguesa,10,8,
+Brasil,1995,Paraná,10,8,
+Brasil,1995,Criciúma,1,17,
+Brasil,1995,Paysandu,1,17,
+Brasil,1996,Grêmio,17,1,sí
+Brasil,1996,Guarani,13,5,
+Brasil,1996,Portuguesa,16,2,
+Brasil,1996,Goiás,0,18,
+Brasil,1996,Sport,8,10,
+Brasil,1996,Internacional,14,4,sí
+Brasil,1996,Coritiba,12,6,
+Brasil,1996,Vitória,9,9,
+Brasil,1996,Paraná,11,7,
+Brasil,1996,Botafogo,5,13,sí
+Brasil,1996,Juventude,10,8,
+Brasil,1999,Coritiba,14,4,
+Brasil,1999,Guarani,17,1,
+Brasil,1999,Botafogo,7,11,sí
+Brasil,1999,Paraná,14,4,
+Brasil,1999,Gama,10,8,
+Brasil,1999,Juventude,16,2,
+Brasil,1999,Botafogo-SP,12,6,
+Brasil,1999,Sport,12,6,
+Brasil,1999,Bahia,8,10,
+Brasil,2000,Sport,17,1,
+Brasil,2000,Internacional,15,3,sí
+Brasil,2000,Goiás,3,15,
+Brasil,2000,Ponte Preta,17,1,
+Brasil,2000,Bahia,12,6,
+Brasil,2000,Botafogo,9,9,sí
+Brasil,2001,Botafogo,8,10,sí
+Brasil,2001,Goiás,10,8,
+Brasil,2001,Bahia,14,4,
+Brasil,2003,Goiás,5,13,
+Brasil,2003,Criciúma,14,4,
+Brasil,2003,Fortaleza,10,8,
+Brasil,2003,Paysandu,5,13,
+Brasil,2004,Goiás,6,12,
+Brasil,2004,Paysandu,14,4,
+Brasil,2004,Botafogo,9,9,sí
+Brasil,2005,Goiás,16,2,
+Brasil,2005,Botafogo,14,4,sí
+Brasil,2005,Fortaleza,13,5,
+Brasil,2006,Goiás,14,4,
+Brasil,2006,Botafogo,14,4,sí
+Brasil,2007,Goiás,15,3,
+Brasil,2007,América-RN,0,18,
+Brasil,2008,Botafogo,11,7,sí
+Brasil,2008,Goiás,13,5,
+Brasil,2009,Goiás,11,7,
+Brasil,2009,Botafogo,11,7,sí
+Brasil,2010,Botafogo,13,5,sí
+Brasil,2010,Goiás,12,6,
+Brasil,2010,Grêmio Prudente,0,18,
+Brasil,2011,Botafogo,14,4,sí
+Brasil,2012,Botafogo,12,6,sí
+Brasil,2013,Botafogo,7,11,sí
+Brasil,2013,Goiás,3,15,
+Brasil,2014,Goiás,3,15,
+Brasil,2014,Botafogo,11,7,sí
+Brasil,2015,Goiás,3,15,
+Brasil,2016,Botafogo,6,12,sí
+Brasil,2017,Botafogo,6,12,sí
+Brasil,2017,Bahia,16,2,
+Brasil,2017,Atlético Goianiense,14,4,
+Brasil,2018,Botafogo,5,13,sí
+Brasil,2018,Bahia,14,4,
+Brasil,2018,Ceará,17,1,
+Brasil,2018,América Mineiro,16,2,
+Brasil,2018,Paraná,6,12,
+Brasil,2019,Fortaleza,12,6,
+Brasil,2019,Goiás,2,16,
+Brasil,2019,Bahia,15,3,
+Brasil,2019,Botafogo,7,11,sí
+Brasil,2019,CSA,2,16,
+Brasil,2020,Fortaleza,8,10,
+Brasil,2020,Ceará,16,2,
+Brasil,2020,Atlético Goianiense,8,10,
+Brasil,2020,Bahia,14,4,
+Brasil,2020,Bragantino,14,4,
+Brasil,2020,Botafogo,8,10,sí
+Brasil,2020,Goiás,2,16,
+Brasil,2021,Fortaleza,7,11,
+Brasil,2021,Bragantino,13,5,
+Brasil,2021,América Mineiro,16,2,
+Brasil,2021,Atlético Goianiense,8,10,
+Brasil,2021,Cuiabá,2,16,
+Brasil,2021,Juventude,10,8,
+Brasil,2021,Bahia,11,7,
+Brasil,2022,Fortaleza,8,10,
+Brasil,2022,América Mineiro,14,4,
+Brasil,2022,Botafogo,6,12,sí
+Brasil,2022,Goiás,2,16,
+Brasil,2022,Bragantino,14,4,
+Brasil,2022,Cuiabá,3,15,
+Brasil,2022,Ceará,17,1,
+Brasil,2022,Atlético Goianiense,7,11,
+Brasil,2022,Juventude,10,8,
+Brasil,2023,Botafogo,7,11,sí
+Brasil,2023,Bragantino,12,6,
+Brasil,2023,Fortaleza,5,13,
+Brasil,2023,Cuiabá,3,15,
+Brasil,2023,Bahia,9,9,
+Brasil,2023,Goiás,2,16,
+Brasil,2023,América Mineiro,14,4,
+Brasil,2024,Botafogo,10,8,sí
+Brasil,2024,Fortaleza,3,15,
+Brasil,2024,Bahia,10,8,
+Brasil,2024,Vitória,15,3,
+Brasil,2024,Juventude,6,12,
+Brasil,2024,Bragantino,10,8,
+Brasil,2024,Criciúma,6,12,
+Brasil,2024,Atlético Goianiense,7,11,
+Brasil,2024,Cuiabá,3,15,
+Brasil,2025,Mirassol,0,18,
+Brasil,2025,Botafogo,8,10,sí
+Brasil,2025,Bahia,7,11,
+Brasil,2025,Bragantino,7,11,
+Brasil,2025,Vitória,11,7,
+Brasil,2025,Ceará,8,10,
+Brasil,2025,Fortaleza,3,15,
+Brasil,2025,Juventude,3,15,
+Brasil,2025,Sport,14,4,
+Brasil,1989,São Paulo,12,6,sí
+Brasil,1989,Cruzeiro,8,10,sí
+Brasil,1989,Botafogo,5,13,sí
+Brasil,1989,Palmeiras,12,6,sí
+Brasil,1989,Corinthians,9,9,sí
+Brasil,1989,Portuguesa,8,10,
+Brasil,1989,Atlético Mineiro,9,9,sí
+Brasil,1989,Goiás,0,18,
+Brasil,1989,Grêmio,8,10,sí
+Brasil,1989,Santos,9,9,sí
+Brasil,1989,Náutico,3,15,
+Brasil,1989,Inter de Limeira,3,15,
+Brasil,1989,Fluminense,6,12,sí
+Brasil,1989,Internacional,9,9,sí
+Brasil,1989,Vitória,6,12,
+Brasil,1989,Bahia,3,15,
+Brasil,1989,Atlético Paranaense,4,14,
+Brasil,1989,Guarani,7,11,
+Brasil,1989,Sport,3,15,
+Brasil,1989,Coritiba,5,13,
+Brasil,1990,Corinthians,9,9,sí
+Brasil,1990,Grêmio,9,9,sí
+Brasil,1990,Bahia,6,12,
+Brasil,1990,Atlético Mineiro,8,10,sí
+Brasil,1990,Santos,11,7,sí
+Brasil,1990,Palmeiras,13,5,sí
+Brasil,1990,Bragantino,9,9,
+Brasil,1990,Goiás,0,18,
+Brasil,1990,Cruzeiro,9,9,sí
+Brasil,1990,Vasco da Gama,13,5,sí
+Brasil,1990,Botafogo,5,13,sí
+Brasil,1990,Náutico,3,15,
+Brasil,1990,Internacional,12,6,sí
+Brasil,1990,Portuguesa,10,8,
+Brasil,1990,Fluminense,4,14,sí
+Brasil,1990,Vitória,3,15,
+Brasil,1990,São José-SP,3,15,
+Brasil,1990,Inter de Limeira,0,18,
+Brasil,1991,São Paulo,16,2,sí
+Brasil,1991,Bragantino,7,11,
+Brasil,1991,Atlético Mineiro,7,11,sí
+Brasil,1991,Fluminense,5,13,sí
+Brasil,1991,Corinthians,9,9,sí
+Brasil,1991,Palmeiras,11,7,sí
+Brasil,1991,Internacional,13,5,sí
+Brasil,1991,Santos,9,9,sí
+Brasil,1991,Portuguesa,7,11,
+Brasil,1991,Vasco da Gama,13,5,sí
+Brasil,1991,Botafogo,6,12,sí
+Brasil,1991,Bahia,5,13,
+Brasil,1991,Náutico,2,16,
+Brasil,1991,Goiás,0,18,
+Brasil,1991,Cruzeiro,12,6,sí
+Brasil,1991,Atlético Paranaense,11,7,
+Brasil,1991,Sport,2,16,
+Brasil,1991,Grêmio,14,4,sí
+Brasil,1991,Vitória,3,15,
+Brasil,1992,Botafogo,5,13,sí
+Brasil,1992,Bragantino,8,10,
+Brasil,1992,Vasco da Gama,16,2,sí
+Brasil,1992,Corinthians,14,4,sí
+Brasil,1992,Santos,13,5,sí
+Brasil,1992,Cruzeiro,14,4,sí
+Brasil,1992,Guarani,13,5,
+Brasil,1992,Palmeiras,16,2,sí
+Brasil,1992,Sport,6,12,
+Brasil,1992,Atlético Mineiro,6,12,sí
+Brasil,1992,Fluminense,7,11,sí
+Brasil,1992,Atlético Paranaense,5,13,
+Brasil,1992,Portuguesa,8,10,
+Brasil,1992,Goiás,0,18,
+Brasil,1992,Bahia,4,14,
+Brasil,1992,Náutico,4,14,
+Brasil,1992,Paysandu,1,17,
+Brasil,1997,Internacional,16,2,sí
+Brasil,1997,Portuguesa,15,3,
+Brasil,1997,Juventude,4,14,
+Brasil,1997,Botafogo,5,13,sí
+Brasil,1997,Sport,12,6,
+Brasil,1997,Paraná,9,9,
+Brasil,1997,Coritiba,12,6,
+Brasil,1997,América de Natal,5,13,
+Brasil,1997,Goiás,0,18,
+Brasil,1997,Bragantino,5,13,
+Brasil,1997,Bahia,16,2,
+Brasil,1997,Criciúma,7,11,
+Brasil,1997,União São João,5,13,
+Brasil,1998,Portuguesa,17,1,
+Brasil,1998,Coritiba,17,1,
+Brasil,1998,Sport,7,11,
+Brasil,1998,Internacional,15,3,sí
+Brasil,1998,Vitória,17,1,
+Brasil,1998,Botafogo,6,12,sí
+Brasil,1998,Juventude,9,9,
+Brasil,1998,Guarani,17,1,
+Brasil,1998,Paraná,11,7,
+Brasil,1998,América Mineiro,14,4,
+Brasil,1998,Goiás,0,18,
+Brasil,1998,Bragantino,6,12,
+Brasil,1998,América de Natal,2,16,
+Brasil,2002,Goiás,6,12,
+Brasil,2002,Bahia,13,5,
+Brasil,2002,Paysandu,4,14,
+Brasil,2002,Paraná,15,3,
+Brasil,2002,Gama,13,5,
+Brasil,2002,Botafogo,11,7,sí
+Brasil,1971,Atlético Mineiro,12,6,sí
+Brasil,1971,São Paulo,15,3,sí
+Brasil,1971,Botafogo,4,14,sí
+Brasil,1971,Corinthians,7,11,sí
+Brasil,1971,Internacional,6,12,sí
+Brasil,1971,Grêmio,4,14,sí
+Brasil,1971,Palmeiras,8,10,sí
+Brasil,1971,Cruzeiro,12,6,sí
+Brasil,1971,Santos,13,5,sí
+Brasil,1971,Coritiba,4,14,
+Brasil,1971,America-RJ,1,17,
+Brasil,1971,Vasco da Gama,12,6,sí
+Brasil,1971,Bahia,1,17,
+Brasil,1971,Flamengo,11,7,sí
+Brasil,1971,Santa Cruz,3,15,
+Brasil,1971,Fluminense,11,7,sí
+Brasil,1971,Portuguesa,4,14,
+Brasil,1971,América Mineiro,1,17,
+Brasil,1971,Sport,1,17,
+Brasil,1971,Ceará,0,18,
+Brasil,1973,Palmeiras,9,9,sí
+Brasil,1973,Grêmio,6,12,sí
+Brasil,1973,Cruzeiro,16,2,sí
+Brasil,1973,Santos,11,7,sí
+Brasil,1973,América Mineiro,0,18,
+Brasil,1973,Fortaleza,0,18,
+Brasil,1973,São Paulo,14,4,sí
+Brasil,1973,Goiás,0,18,
+Brasil,1973,Vitória,3,15,
+Brasil,1973,Coritiba,3,15,
+Brasil,1973,Internacional,7,11,sí
+Brasil,1973,Guarani,4,14,
+Brasil,1973,Botafogo,5,13,sí
+Brasil,1973,Vasco da Gama,9,9,sí
+Brasil,1973,Corinthians,9,9,sí
+Brasil,1973,Ceará,0,18,
+Brasil,1973,Atlético Mineiro,11,7,sí
+Brasil,1973,Bahia,0,18,
+Brasil,1973,Tiradentes-PI,0,18,
+Brasil,1973,Santa Cruz,4,14,
+Brasil,1974,Vasco da Gama,12,6,sí
+Brasil,1974,Cruzeiro,15,3,sí
+Brasil,1974,Santos,7,11,sí
+Brasil,1974,Internacional,9,9,sí
+Brasil,1974,Grêmio,6,12,sí
+Brasil,1974,Flamengo,11,7,sí
+Brasil,1974,Atlético Mineiro,10,8,sí
+Brasil,1974,Vitória,4,14,
+Brasil,1974,Atlético Paranaense,1,17,
+Brasil,1974,São Paulo,14,4,sí
+Brasil,1974,Palmeiras,8,10,sí
+Brasil,1974,Guarani,3,15,
+Brasil,1974,America-RJ,3,15,
+Brasil,1974,Náutico,1,17,
+Brasil,1974,Corinthians,7,11,sí
+Brasil,1974,Fortaleza,1,17,
+Brasil,1974,Operário-MS,0,18,
+Brasil,1974,Portuguesa,1,17,
+Brasil,1974,Coritiba,2,16,
+Brasil,1974,Bahia,0,18,
+Brasil,1975,Internacional,12,6,sí
+Brasil,1975,Cruzeiro,15,3,sí
+Brasil,1975,Fluminense,14,4,sí
+Brasil,1975,Santa Cruz,4,14,
+Brasil,1975,São Paulo,14,4,sí
+Brasil,1975,Corinthians,6,12,sí
+Brasil,1975,Flamengo,13,5,sí
+Brasil,1975,America-RJ,4,14,
+Brasil,1975,Palmeiras,3,15,sí
+Brasil,1975,Guarani,4,14,
+Brasil,1975,Sport,2,16,
+Brasil,1975,Portuguesa,2,16,
+Brasil,1975,Náutico,1,17,
+Brasil,1975,Grêmio,7,11,sí
+Brasil,1975,Botafogo,3,15,sí
+Brasil,1975,Nacional-AM,0,18,
+Brasil,1975,Goiás,0,18,
+Brasil,1975,Remo,1,17,
+Brasil,1975,Vasco da Gama,8,10,sí
+Brasil,1975,Atlético Mineiro,10,8,sí
+Brasil,1976,Internacional,12,6,sí
+Brasil,1976,Corinthians,9,9,sí
+Brasil,1976,Atlético Mineiro,12,6,sí
+Brasil,1976,Fluminense,15,3,sí
+Brasil,1976,Flamengo,12,6,sí
+Brasil,1976,Grêmio,8,10,sí
+Brasil,1976,Palmeiras,6,12,sí
+Brasil,1976,Bahia,0,18,
+Brasil,1976,Coritiba,3,15,
+Brasil,1976,Guarani,5,13,
+Brasil,1976,Santa Cruz,3,15,
+Brasil,1976,Vasco da Gama,9,9,sí
+Brasil,1976,Botafogo-SP,2,16,
+Brasil,1976,Ponte Preta,7,11,
+Brasil,1976,Caxias,1,17,
+Brasil,1976,Náutico,0,18,
+Brasil,1976,CRB,1,17,
+Brasil,1976,Portuguesa,2,16,
+Brasil,1976,Botafogo,5,13,sí
+Brasil,1976,America-RJ,4,14,
+Brasil,1977,São Paulo,15,3,sí
+Brasil,1977,Atlético Mineiro,10,8,sí
+Brasil,1977,Operário-MS,0,18,
+Brasil,1977,Londrina,1,17,
+Brasil,1977,Botafogo,5,13,sí
+Brasil,1977,Palmeiras,8,10,sí
+Brasil,1977,Ponte Preta,8,10,
+Brasil,1977,Corinthians,7,11,sí
+Brasil,1977,Flamengo,14,4,sí
+Brasil,1977,Santa Cruz,3,15,
+Brasil,1977,Bahia,1,17,
+Brasil,1977,Vasco da Gama,12,6,sí
+Brasil,1977,Grêmio,9,9,sí
+Brasil,1977,Remo,1,17,
+Brasil,1977,Botafogo-SP,2,16,
+Brasil,1977,Cruzeiro,13,5,sí
+Brasil,1977,América de Natal,1,17,
+Brasil,1977,America-RJ,4,14,
+Brasil,1977,Desportiva Ferroviária,2,16,
+Brasil,1977,Sport,4,14,
+Brasil,1978,Guarani,4,14,
+Brasil,1978,Palmeiras,8,10,sí
+Brasil,1978,Internacional,9,9,sí
+Brasil,1978,Vasco da Gama,10,8,sí
+Brasil,1978,Santa Cruz,1,17,
+Brasil,1978,Grêmio,9,9,sí
+Brasil,1978,Bahia,0,18,
+Brasil,1978,Sport,2,16,
+Brasil,1978,Botafogo,4,14,sí
+Brasil,1978,Cruzeiro,5,13,sí
+Brasil,1978,Portuguesa,3,15,
+Brasil,1978,Corinthians,8,10,sí
+Brasil,1978,Botafogo-SP,1,17,
+Brasil,1978,Goiás,0,18,
+Brasil,1978,Caxias,2,16,
+Brasil,1978,Flamengo,16,2,sí
+Brasil,1978,Ponte Preta,9,9,
+Brasil,1978,Coritiba,4,14,
+Brasil,1978,São Paulo,17,1,sí
+Brasil,1978,Operário-MS,0,18,
+Brasil,1979,Internacional,11,7,sí
+Brasil,1979,Vasco da Gama,7,11,sí
+Brasil,1979,Coritiba,3,15,
+Brasil,1979,Palmeiras,12,6,sí
+Brasil,1979,Operário-MS,0,18,
+Brasil,1979,Cruzeiro,6,12,sí
+Brasil,1979,Goiás,0,18,
+Brasil,1979,Vitória,0,18,
+Brasil,1979,Uberlândia,3,15,
+Brasil,1979,Atlético Mineiro,8,10,sí
+Brasil,1979,Atlético Paranaense,1,17,
+Brasil,1979,Flamengo,12,6,sí
+Brasil,1979,XV de Piracicaba,0,18,
+Brasil,1979,Comercial-SP,0,18,
+Brasil,1979,São Bento,2,16,
+Brasil,1979,Guarani,6,12,
+Brasil,1979,Uberaba,0,18,
+Brasil,1979,Desportiva Ferroviária,0,18,
+Brasil,1979,Londrina,0,18,
+Brasil,1979,América Mineiro,0,18,
+Brasil,1980,Flamengo,14,4,sí
+Brasil,1980,Atlético Mineiro,10,8,sí
+Brasil,1980,Internacional,10,8,sí
+Brasil,1980,Coritiba,0,18,
+Brasil,1980,Corinthians,10,8,sí
+Brasil,1980,Grêmio,9,9,sí
+Brasil,1980,Santos,6,12,sí
+Brasil,1980,Vasco da Gama,9,9,sí
+Brasil,1980,São Paulo,12,6,sí
+Brasil,1980,Cruzeiro,5,13,sí
+Brasil,1980,Fluminense,10,8,sí
+Brasil,1980,Ponte Preta,7,11,
+Brasil,1980,Palmeiras,5,13,sí
+Brasil,1980,Botafogo,2,16,sí
+Brasil,1980,Desportiva Ferroviária,0,18,
+Brasil,1980,Guarani,5,13,
+Brasil,1980,Santa Cruz,1,17,
+Brasil,1980,Remo,0,18,
+Brasil,1980,Colorado,0,18,
+Brasil,1980,Botafogo-PB,0,18,

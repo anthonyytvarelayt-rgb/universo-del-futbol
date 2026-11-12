@@ -1,0 +1,281 @@
+pais,temporada,division,grupo,club,posicion
+Portugal,2010,1,,Porto,1
+Portugal,2010,1,,Benfica,2
+Portugal,2010,1,,Sporting CP,3
+Portugal,2010,1,,Braga,4
+Portugal,2010,1,,Vitória de Guimarães,5
+Portugal,2010,1,,Nacional,6
+Portugal,2010,1,,Paços de Ferreira,7
+Portugal,2010,1,,Rio Ave,8
+Portugal,2010,1,,Marítimo,9
+Portugal,2010,1,,União de Leiria,10
+Portugal,2010,1,,Olhanense,11
+Portugal,2010,1,,Vitória de Setúbal,12
+Portugal,2010,1,,Beira-Mar,13
+Portugal,2010,1,,Académica,14
+Portugal,2010,1,,Portimonense,15
+Portugal,2010,1,,Naval,16
+Portugal,2011,1,,Porto,1
+Portugal,2011,1,,Benfica,2
+Portugal,2011,1,,Braga,3
+Portugal,2011,1,,Sporting CP,4
+Portugal,2011,1,,Marítimo,5
+Portugal,2011,1,,Vitória de Guimarães,6
+Portugal,2011,1,,Nacional,7
+Portugal,2011,1,,Olhanense,8
+Portugal,2011,1,,Gil Vicente,9
+Portugal,2011,1,,Paços de Ferreira,10
+Portugal,2011,1,,Vitória de Setúbal,11
+Portugal,2011,1,,Beira-Mar,12
+Portugal,2011,1,,Rio Ave,13
+Portugal,2011,1,,Académica,14
+Portugal,2011,1,,Feirense,15
+Portugal,2011,1,,União de Leiria,16
+Portugal,2012,1,,Porto,1
+Portugal,2012,1,,Benfica,2
+Portugal,2012,1,,Paços de Ferreira,3
+Portugal,2012,1,,Braga,4
+Portugal,2012,1,,Estoril,5
+Portugal,2012,1,,Rio Ave,6
+Portugal,2012,1,,Sporting CP,7
+Portugal,2012,1,,Nacional,8
+Portugal,2012,1,,Vitória de Guimarães,9
+Portugal,2012,1,,Marítimo,10
+Portugal,2012,1,,Académica,11
+Portugal,2012,1,,Vitória de Setúbal,12
+Portugal,2012,1,,Gil Vicente,13
+Portugal,2012,1,,Olhanense,14
+Portugal,2012,1,,Moreirense,15
+Portugal,2012,1,,Beira-Mar,16
+Portugal,2013,1,,Benfica,1
+Portugal,2013,1,,Sporting CP,2
+Portugal,2013,1,,Porto,3
+Portugal,2013,1,,Estoril,4
+Portugal,2013,1,,Nacional,5
+Portugal,2013,1,,Marítimo,6
+Portugal,2013,1,,Vitória de Setúbal,7
+Portugal,2013,1,,Académica,8
+Portugal,2013,1,,Braga,9
+Portugal,2013,1,,Vitória de Guimarães,10
+Portugal,2013,1,,Rio Ave,11
+Portugal,2013,1,,Arouca,12
+Portugal,2013,1,,Gil Vicente,13
+Portugal,2013,1,,Belenenses,14
+Portugal,2013,1,,Paços de Ferreira,15
+Portugal,2013,1,,Olhanense,16
+Portugal,2014,1,,Benfica,1
+Portugal,2014,1,,Porto,2
+Portugal,2014,1,,Sporting CP,3
+Portugal,2014,1,,Braga,4
+Portugal,2014,1,,Vitória de Guimarães,5
+Portugal,2014,1,,Belenenses,6
+Portugal,2014,1,,Nacional,7
+Portugal,2014,1,,Paços de Ferreira,8
+Portugal,2014,1,,Marítimo,9
+Portugal,2014,1,,Rio Ave,10
+Portugal,2014,1,,Moreirense,11
+Portugal,2014,1,,Estoril,12
+Portugal,2014,1,,Boavista,13
+Portugal,2014,1,,Vitória de Setúbal,14
+Portugal,2014,1,,Académica,15
+Portugal,2014,1,,Arouca,16
+Portugal,2014,1,,Gil Vicente,17
+Portugal,2014,1,,Penafiel,18
+Portugal,2015,1,,Benfica,1
+Portugal,2015,1,,Sporting CP,2
+Portugal,2015,1,,Porto,3
+Portugal,2015,1,,Braga,4
+Portugal,2015,1,,Arouca,5
+Portugal,2015,1,,Rio Ave,6
+Portugal,2015,1,,Paços de Ferreira,7
+Portugal,2015,1,,Estoril,8
+Portugal,2015,1,,Marítimo,9
+Portugal,2015,1,,Nacional,10
+Portugal,2015,1,,Belenenses,11
+Portugal,2015,1,,Vitória de Setúbal,12
+Portugal,2015,1,,Moreirense,13
+Portugal,2015,1,,Vitória de Guimarães,14
+Portugal,2015,1,,Boavista,15
+Portugal,2015,1,,União da Madeira,16
+Portugal,2015,1,,Académica,17
+Portugal,2015,1,,Tondela,18
+Portugal,2016,1,,Benfica,1
+Portugal,2016,1,,Porto,2
+Portugal,2016,1,,Sporting CP,3
+Portugal,2016,1,,Vitória de Guimarães,4
+Portugal,2016,1,,Braga,5
+Portugal,2016,1,,Marítimo,6
+Portugal,2016,1,,Rio Ave,7
+Portugal,2016,1,,Feirense,8
+Portugal,2016,1,,Boavista,9
+Portugal,2016,1,,Estoril,10
+Portugal,2016,1,,Chaves,11
+Portugal,2016,1,,Vitória de Setúbal,12
+Portugal,2016,1,,Belenenses,13
+Portugal,2016,1,,Paços de Ferreira,14
+Portugal,2016,1,,Moreirense,15
+Portugal,2016,1,,Nacional,16
+Portugal,2016,1,,Arouca,17
+Portugal,2016,1,,Tondela,18
+Portugal,2017,1,,Porto,1
+Portugal,2017,1,,Benfica,2
+Portugal,2017,1,,Sporting CP,3
+Portugal,2017,1,,Braga,4
+Portugal,2017,1,,Rio Ave,5
+Portugal,2017,1,,Chaves,6
+Portugal,2017,1,,Marítimo,7
+Portugal,2017,1,,Boavista,8
+Portugal,2017,1,,Vitória de Guimarães,9
+Portugal,2017,1,,Portimonense,10
+Portugal,2017,1,,Tondela,11
+Portugal,2017,1,,Belenenses,12
+Portugal,2017,1,,Desportivo das Aves,13
+Portugal,2017,1,,Vitória de Setúbal,14
+Portugal,2017,1,,Moreirense,15
+Portugal,2017,1,,Paços de Ferreira,16
+Portugal,2017,1,,Estoril,17
+Portugal,2017,1,,Feirense,18
+Portugal,2018,1,,Benfica,1
+Portugal,2018,1,,Porto,2
+Portugal,2018,1,,Sporting CP,3
+Portugal,2018,1,,Braga,4
+Portugal,2018,1,,Vitória de Guimarães,5
+Portugal,2018,1,,Moreirense,6
+Portugal,2018,1,,Rio Ave,7
+Portugal,2018,1,,Boavista,8
+Portugal,2018,1,,Belenenses SAD,9
+Portugal,2018,1,,Santa Clara,10
+Portugal,2018,1,,Marítimo,11
+Portugal,2018,1,,Portimonense,12
+Portugal,2018,1,,Vitória de Setúbal,13
+Portugal,2018,1,,Tondela,14
+Portugal,2018,1,,Nacional,15
+Portugal,2018,1,,Desportivo das Aves,16
+Portugal,2018,1,,Feirense,17
+Portugal,2018,1,,Chaves,18
+Portugal,2019,1,,Porto,1
+Portugal,2019,1,,Benfica,2
+Portugal,2019,1,,Braga,3
+Portugal,2019,1,,Sporting CP,4
+Portugal,2019,1,,Rio Ave,5
+Portugal,2019,1,,Vitória de Guimarães,6
+Portugal,2019,1,,Moreirense,7
+Portugal,2019,1,,Gil Vicente,8
+Portugal,2019,1,,Boavista,9
+Portugal,2019,1,,Santa Clara,10
+Portugal,2019,1,,Marítimo,11
+Portugal,2019,1,,Paços de Ferreira,12
+Portugal,2019,1,,Famalicão,13
+Portugal,2019,1,,Belenenses SAD,14
+Portugal,2019,1,,Tondela,15
+Portugal,2019,1,,Vitória de Setúbal,16
+Portugal,2019,1,,Desportivo das Aves,17
+Portugal,2019,1,,Portimonense,18
+Portugal,2020,1,,Sporting CP,1
+Portugal,2020,1,,Porto,2
+Portugal,2020,1,,Benfica,3
+Portugal,2020,1,,Braga,4
+Portugal,2020,1,,Paços de Ferreira,5
+Portugal,2020,1,,Santa Clara,6
+Portugal,2020,1,,Vitória de Guimarães,7
+Portugal,2020,1,,Moreirense,8
+Portugal,2020,1,,Famalicão,9
+Portugal,2020,1,,Belenenses SAD,10
+Portugal,2020,1,,Gil Vicente,11
+Portugal,2020,1,,Tondela,12
+Portugal,2020,1,,Boavista,13
+Portugal,2020,1,,Portimonense,14
+Portugal,2020,1,,Marítimo,15
+Portugal,2020,1,,Rio Ave,16
+Portugal,2020,1,,Farense,17
+Portugal,2020,1,,Nacional,18
+Portugal,2021,1,,Porto,1
+Portugal,2021,1,,Sporting CP,2
+Portugal,2021,1,,Benfica,3
+Portugal,2021,1,,Braga,4
+Portugal,2021,1,,Gil Vicente,5
+Portugal,2021,1,,Vitória de Guimarães,6
+Portugal,2021,1,,Santa Clara,7
+Portugal,2021,1,,Famalicão,8
+Portugal,2021,1,,Estoril,9
+Portugal,2021,1,,Portimonense,10
+Portugal,2021,1,,Boavista,11
+Portugal,2021,1,,Paços de Ferreira,12
+Portugal,2021,1,,Marítimo,13
+Portugal,2021,1,,Arouca,14
+Portugal,2021,1,,Moreirense,15
+Portugal,2021,1,,Tondela,16
+Portugal,2021,1,,Belenenses SAD,17
+Portugal,2021,1,,Pacos de Ferreira,18
+Portugal,2022,1,,Benfica,1
+Portugal,2022,1,,Porto,2
+Portugal,2022,1,,Braga,3
+Portugal,2022,1,,Sporting CP,4
+Portugal,2022,1,,Arouca,5
+Portugal,2022,1,,Vitória de Guimarães,6
+Portugal,2022,1,,Famalicão,7
+Portugal,2022,1,,Casa Pia,8
+Portugal,2022,1,,Boavista,9
+Portugal,2022,1,,Rio Ave,10
+Portugal,2022,1,,Gil Vicente,11
+Portugal,2022,1,,Estoril,12
+Portugal,2022,1,,Portimonense,13
+Portugal,2022,1,,Santa Clara,14
+Portugal,2022,1,,Marítimo,15
+Portugal,2022,1,,Paços de Ferreira,16
+Portugal,2022,1,,Desportivo das Aves,17
+Portugal,2022,1,,Pacos de Ferreira,18
+Portugal,2023,1,,Sporting CP,1
+Portugal,2023,1,,Benfica,2
+Portugal,2023,1,,Porto,3
+Portugal,2023,1,,Braga,4
+Portugal,2023,1,,Vitória de Guimarães,5
+Portugal,2023,1,,Moreirense,6
+Portugal,2023,1,,Arouca,7
+Portugal,2023,1,,Famalicão,8
+Portugal,2023,1,,Casa Pia,9
+Portugal,2023,1,,Farense,10
+Portugal,2023,1,,Rio Ave,11
+Portugal,2023,1,,Gil Vicente,12
+Portugal,2023,1,,Estoril,13
+Portugal,2023,1,,Boavista,14
+Portugal,2023,1,,Portimonense,15
+Portugal,2023,1,,Chaves,16
+Portugal,2023,1,,Vizela,17
+Portugal,2023,1,,Desportivo das Aves,18
+Portugal,2024,1,,Sporting CP,1
+Portugal,2024,1,,Benfica,2
+Portugal,2024,1,,Porto,3
+Portugal,2024,1,,Braga,4
+Portugal,2024,1,,Vitória de Guimarães,5
+Portugal,2024,1,,Moreirense,6
+Portugal,2024,1,,Santa Clara,7
+Portugal,2024,1,,Famalicão,8
+Portugal,2024,1,,Estoril,9
+Portugal,2024,1,,Casa Pia,10
+Portugal,2024,1,,Rio Ave,11
+Portugal,2024,1,,Arouca,12
+Portugal,2024,1,,Gil Vicente,13
+Portugal,2024,1,,Nacional,14
+Portugal,2024,1,,Farense,15
+Portugal,2024,1,,Boavista,16
+Portugal,2024,1,,AVS,17
+Portugal,2024,1,,Estrela da Amadora,18
+Portugal,2025,1,,Porto,1
+Portugal,2025,1,,Sporting CP,2
+Portugal,2025,1,,Benfica,3
+Portugal,2025,1,,Braga,4
+Portugal,2025,1,,Vitória de Guimarães,5
+Portugal,2025,1,,Moreirense,6
+Portugal,2025,1,,Famalicão,7
+Portugal,2025,1,,Casa Pia,8
+Portugal,2025,1,,Santa Clara,9
+Portugal,2025,1,,Estoril,10
+Portugal,2025,1,,Gil Vicente,11
+Portugal,2025,1,,Rio Ave,12
+Portugal,2025,1,,Nacional,13
+Portugal,2025,1,,Arouca,14
+Portugal,2025,1,,Farense,15
+Portugal,2025,1,,Estrela da Amadora,16
+Portugal,2025,1,,Casa Pia,17
+Portugal,2025,1,,AVS,18

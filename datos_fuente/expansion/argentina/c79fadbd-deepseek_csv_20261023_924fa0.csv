@@ -1,0 +1,246 @@
+pais,temporada,division,grupo,club,posicion
+Argentina,2013,1,Inicial,San Lorenzo,1
+Argentina,2013,1,Inicial,Lanús,2
+Argentina,2013,1,Inicial,Vélez Sarsfield,3
+Argentina,2013,1,Inicial,Newell's Old Boys,4
+Argentina,2013,1,Inicial,Arsenal,5
+Argentina,2013,1,Inicial,Belgrano,6
+Argentina,2013,1,Inicial,Boca Juniors,7
+Argentina,2013,1,Inicial,Atlético de Rafaela,8
+Argentina,2013,1,Inicial,Estudiantes de La Plata,9
+Argentina,2013,1,Inicial,Rosario Central,10
+Argentina,2013,1,Inicial,Gimnasia y Esgrima La Plata,11
+Argentina,2013,1,Inicial,Tigre,12
+Argentina,2013,1,Inicial,Argentinos Juniors,13
+Argentina,2013,1,Inicial,Godoy Cruz,14
+Argentina,2013,1,Inicial,Olimpo,15
+Argentina,2013,1,Inicial,All Boys,16
+Argentina,2013,1,Inicial,River Plate,17
+Argentina,2013,1,Inicial,Quilmes,18
+Argentina,2013,1,Inicial,Racing Club,19
+Argentina,2013,1,Inicial,Colón,20
+Argentina,2014,1,Final,River Plate,1
+Argentina,2014,1,Final,Boca Juniors,2
+Argentina,2014,1,Final,Estudiantes de La Plata,3
+Argentina,2014,1,Final,Godoy Cruz,4
+Argentina,2014,1,Final,Gimnasia y Esgrima La Plata,5
+Argentina,2014,1,Final,Vélez Sarsfield,6
+Argentina,2014,1,Final,Colón,7
+Argentina,2014,1,Final,Rosario Central,8
+Argentina,2014,1,Final,Lanús,9
+Argentina,2014,1,Final,Olimpo,10
+Argentina,2014,1,Final,San Lorenzo,11
+Argentina,2014,1,Final,Newell's Old Boys,12
+Argentina,2014,1,Final,Tigre,13
+Argentina,2014,1,Final,Quilmes,14
+Argentina,2014,1,Final,Belgrano,15
+Argentina,2014,1,Final,Atlético de Rafaela,16
+Argentina,2014,1,Final,Arsenal,17
+Argentina,2014,1,Final,Racing Club,18
+Argentina,2014,1,Final,Argentinos Juniors,19
+Argentina,2014,1,Final,All Boys,20
+Argentina,2015,1,,Boca Juniors,1
+Argentina,2015,1,,San Lorenzo,2
+Argentina,2015,1,,Rosario Central,3
+Argentina,2015,1,,Racing Club,4
+Argentina,2015,1,,Independiente,5
+Argentina,2015,1,,Belgrano,6
+Argentina,2015,1,,Estudiantes de La Plata,7
+Argentina,2015,1,,Banfield,8
+Argentina,2015,1,,River Plate,9
+Argentina,2015,1,,Tigre,10
+Argentina,2015,1,,Quilmes,11
+Argentina,2015,1,,Gimnasia y Esgrima La Plata,12
+Argentina,2015,1,,Lanús,13
+Argentina,2015,1,,Unión,14
+Argentina,2015,1,,Aldosivi,15
+Argentina,2015,1,,Newell's Old Boys,16
+Argentina,2015,1,,San Martín (SJ),17
+Argentina,2015,1,,Olimpo,18
+Argentina,2015,1,,Colón,19
+Argentina,2015,1,,Argentinos Juniors,20
+Argentina,2015,1,,Defensa y Justicia,21
+Argentina,2015,1,,Godoy Cruz,22
+Argentina,2015,1,,Huracán,23
+Argentina,2015,1,,Sarmiento,24
+Argentina,2015,1,,Temperley,25
+Argentina,2015,1,,Nueva Chicago,26
+Argentina,2015,1,,Vélez Sarsfield,27
+Argentina,2015,1,,Arsenal,28
+Argentina,2015,1,,Atlético de Rafaela,29
+Argentina,2015,1,,Crucero del Norte,30
+Argentina,2016,1,Zona 2,Lanús,1
+Argentina,2016,1,Zona 2,Estudiantes de La Plata,2
+Argentina,2016,1,Zona 2,Atlético Tucumán,3
+Argentina,2016,1,Zona 2,Defensa y Justicia,4
+Argentina,2016,1,Zona 2,Huracán,5
+Argentina,2016,1,Zona 2,Racing Club,6
+Argentina,2016,1,Zona 2,San Martín (SJ),7
+Argentina,2016,1,Zona 2,Unión,8
+Argentina,2016,1,Zona 2,Tigre,9
+Argentina,2016,1,Zona 2,Boca Juniors,10
+Argentina,2016,1,Zona 2,Aldosivi,11
+Argentina,2016,1,Zona 2,Newell's Old Boys,12
+Argentina,2016,1,Zona 2,Temperley,13
+Argentina,2016,1,Zona 2,Argentinos Juniors,14
+Argentina,2016,1,Zona 2,Atlético de Rafaela,15
+Argentina,2017,1,,Boca Juniors,1
+Argentina,2017,1,,Godoy Cruz,2
+Argentina,2017,1,,San Lorenzo,3
+Argentina,2017,1,,Huracán,4
+Argentina,2017,1,,Talleres,5
+Argentina,2017,1,,Independiente,6
+Argentina,2017,1,,Racing Club,7
+Argentina,2017,1,,River Plate,8
+Argentina,2017,1,,Defensa y Justicia,9
+Argentina,2017,1,,Unión,10
+Argentina,2017,1,,Colón,11
+Argentina,2017,1,,Argentinos Juniors,12
+Argentina,2017,1,,Belgrano,13
+Argentina,2017,1,,Vélez Sarsfield,14
+Argentina,2017,1,,Atlético Tucumán,15
+Argentina,2017,1,,Estudiantes de La Plata,16
+Argentina,2017,1,,Banfield,17
+Argentina,2017,1,,San Martín (SJ),18
+Argentina,2017,1,,Patronato,19
+Argentina,2017,1,,Rosario Central,20
+Argentina,2017,1,,Lanús,21
+Argentina,2017,1,,Newell's Old Boys,22
+Argentina,2017,1,,Gimnasia y Esgrima La Plata,23
+Argentina,2017,1,,Tigre,24
+Argentina,2017,1,,Temperley,25
+Argentina,2017,1,,Chacarita Juniors,26
+Argentina,2017,1,,Arsenal,27
+Argentina,2017,1,,Olimpo,28
+Argentina,2018,1,,Racing Club,1
+Argentina,2018,1,,Defensa y Justicia,2
+Argentina,2018,1,,Boca Juniors,3
+Argentina,2018,1,,River Plate,4
+Argentina,2018,1,,Atlético Tucumán,5
+Argentina,2018,1,,Vélez Sarsfield,6
+Argentina,2018,1,,Independiente,7
+Argentina,2018,1,,Unión,8
+Argentina,2018,1,,Tigre,9
+Argentina,2018,1,,Huracán,10
+Argentina,2018,1,,Lanús,11
+Argentina,2018,1,,Talleres,12
+Argentina,2018,1,,Aldosivi,13
+Argentina,2018,1,,Godoy Cruz,14
+Argentina,2018,1,,Newell's Old Boys,15
+Argentina,2018,1,,Banfield,16
+Argentina,2018,1,,Estudiantes de La Plata,17
+Argentina,2018,1,,Gimnasia y Esgrima La Plata,18
+Argentina,2018,1,,Patronato,19
+Argentina,2018,1,,Rosario Central,20
+Argentina,2018,1,,San Martín (SJ),21
+Argentina,2018,1,,Belgrano,22
+Argentina,2018,1,,San Lorenzo,23
+Argentina,2018,1,,Colón,24
+Argentina,2018,1,,San Martín (T),25
+Argentina,2018,1,,Argentinos Juniors,26
+Argentina,2019,1,,Boca Juniors,1
+Argentina,2019,1,,River Plate,2
+Argentina,2019,1,,Vélez Sarsfield,3
+Argentina,2019,1,,Racing Club,4
+Argentina,2019,1,,Argentinos Juniors,5
+Argentina,2019,1,,Defensa y Justicia,6
+Argentina,2019,1,,Lanús,7
+Argentina,2019,1,,San Lorenzo,8
+Argentina,2019,1,,Rosario Central,9
+Argentina,2019,1,,Newell's Old Boys,10
+Argentina,2019,1,,Arsenal,11
+Argentina,2019,1,,Talleres,12
+Argentina,2019,1,,Estudiantes de La Plata,13
+Argentina,2019,1,,Independiente,14
+Argentina,2019,1,,Atlético Tucumán,15
+Argentina,2019,1,,Unión,16
+Argentina,2019,1,,Banfield,17
+Argentina,2019,1,,Central Córdoba (SdE),18
+Argentina,2019,1,,Gimnasia y Esgrima La Plata,19
+Argentina,2019,1,,Patronato,20
+Argentina,2019,1,,Huracán,21
+Argentina,2019,1,,Aldosivi,22
+Argentina,2019,1,,Colón,23
+Argentina,2019,1,,Godoy Cruz,24
+Argentina,2021,1,,River Plate,1
+Argentina,2021,1,,Defensa y Justicia,2
+Argentina,2021,1,,Talleres,3
+Argentina,2021,1,,Boca Juniors,4
+Argentina,2021,1,,Vélez Sarsfield,5
+Argentina,2021,1,,Estudiantes de La Plata,6
+Argentina,2021,1,,Colón,7
+Argentina,2021,1,,Huracán,8
+Argentina,2021,1,,Independiente,9
+Argentina,2021,1,,Lanús,10
+Argentina,2021,1,,Gimnasia y Esgrima La Plata,11
+Argentina,2021,1,,Unión,12
+Argentina,2021,1,,Aldosivi,13
+Argentina,2021,1,,Argentinos Juniors,14
+Argentina,2021,1,,Racing Club,15
+Argentina,2021,1,,Rosario Central,16
+Argentina,2021,1,,Godoy Cruz,17
+Argentina,2021,1,,Platense,18
+Argentina,2021,1,,Newell's Old Boys,19
+Argentina,2021,1,,Banfield,20
+Argentina,2021,1,,San Lorenzo,21
+Argentina,2021,1,,Central Córdoba (SdE),22
+Argentina,2021,1,,Patronato,23
+Argentina,2021,1,,Sarmiento,24
+Argentina,2021,1,,Atlético Tucumán,25
+Argentina,2021,1,,Arsenal,26
+Argentina,2022,1,,Boca Juniors,1
+Argentina,2022,1,,Racing Club,2
+Argentina,2022,1,,River Plate,3
+Argentina,2022,1,,Huracán,4
+Argentina,2022,1,,Atlético Tucumán,5
+Argentina,2022,1,,San Lorenzo,6
+Argentina,2022,1,,Tigre,7
+Argentina,2022,1,,Argentinos Juniors,8
+Argentina,2022,1,,Gimnasia y Esgrima La Plata,9
+Argentina,2022,1,,Patronato,10
+Argentina,2022,1,,Newell's Old Boys,11
+Argentina,2022,1,,Defensa y Justicia,12
+Argentina,2022,1,,Talleres,13
+Argentina,2022,1,,Independiente,14
+Argentina,2022,1,,Godoy Cruz,15
+Argentina,2022,1,,Central Córdoba (SdE),16
+Argentina,2022,1,,Barracas Central,17
+Argentina,2022,1,,Estudiantes de La Plata,18
+Argentina,2022,1,,Platense,19
+Argentina,2022,1,,Rosario Central,20
+Argentina,2022,1,,Sarmiento,21
+Argentina,2022,1,,Unión,22
+Argentina,2022,1,,Arsenal,23
+Argentina,2022,1,,Banfield,24
+Argentina,2022,1,,Colón,25
+Argentina,2022,1,,Vélez Sarsfield,26
+Argentina,2022,1,,Lanús,27
+Argentina,2022,1,,Aldosivi,28
+Argentina,2023,1,,River Plate,1
+Argentina,2023,1,,Talleres,2
+Argentina,2023,1,,San Lorenzo,3
+Argentina,2023,1,,Lanús,4
+Argentina,2023,1,,Estudiantes de La Plata,5
+Argentina,2023,1,,Defensa y Justicia,6
+Argentina,2023,1,,Boca Juniors,7
+Argentina,2023,1,,Rosario Central,8
+Argentina,2023,1,,Godoy Cruz,9
+Argentina,2023,1,,Argentinos Juniors,10
+Argentina,2023,1,,Atlético Tucumán,11
+Argentina,2023,1,,Racing Club,12
+Argentina,2023,1,,Belgrano,13
+Argentina,2023,1,,Newell's Old Boys,14
+Argentina,2023,1,,Barracas Central,15
+Argentina,2023,1,,Tigre,16
+Argentina,2023,1,,Platense,17
+Argentina,2023,1,,Instituto,18
+Argentina,2023,1,,Sarmiento,19
+Argentina,2023,1,,Unión,20
+Argentina,2023,1,,Banfield,21
+Argentina,2023,1,,Gimnasia y Esgrima La Plata,22
+Argentina,2023,1,,Central Córdoba (SdE),23
+Argentina,2023,1,,Independiente,24
+Argentina,2023,1,,Vélez Sarsfield,25
+Argentina,2023,1,,Huracán,26
+Argentina,2023,1,,Colón,27
+Argentina,2023,1,,Arsenal,28

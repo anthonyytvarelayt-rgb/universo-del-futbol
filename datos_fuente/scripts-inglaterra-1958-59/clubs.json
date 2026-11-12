@@ -1,0 +1,310 @@
+[
+{
+"div": "First",
+"pos": 1,
+"code": "WOL",
+"art": "Wolverhampton Wanderers F.C.",
+"name": "Wolverhampton Wanderers"
+},
+{
+"div": "First",
+"pos": 2,
+"code": "MUN",
+"art": "Manchester United F.C.",
+"name": "Manchester United"
+},
+{
+"div": "First",
+"pos": 3,
+"code": "ARS",
+"art": "Arsenal F.C.",
+"name": "Arsenal"
+},
+{
+"div": "First",
+"pos": 4,
+"code": "BOL",
+"art": "Bolton Wanderers F.C.",
+"name": "Bolton Wanderers"
+},
+{
+"div": "First",
+"pos": 5,
+"code": "WBA",
+"art": "West Bromwich Albion F.C.",
+"name": "West Bromwich Albion"
+},
+{
+"div": "First",
+"pos": 6,
+"code": "WHU",
+"art": "West Ham United F.C.",
+"name": "West Ham United"
+},
+{
+"div": "First",
+"pos": 7,
+"code": "BUR",
+"art": "Burnley F.C.",
+"name": "Burnley"
+},
+{
+"div": "First",
+"pos": 8,
+"code": "BLP",
+"art": "Blackpool F.C.",
+"name": "Blackpool"
+},
+{
+"div": "First",
+"pos": 9,
+"code": "BIR",
+"art": "Birmingham City F.C.",
+"name": "Birmingham City"
+},
+{
+"div": "First",
+"pos": 10,
+"code": "BLA",
+"art": "Blackburn Rovers F.C.",
+"name": "Blackburn Rovers"
+},
+{
+"div": "First",
+"pos": 11,
+"code": "NEW",
+"art": "Newcastle United F.C.",
+"name": "Newcastle United"
+},
+{
+"div": "First",
+"pos": 12,
+"code": "PNE",
+"art": "Preston North End F.C.",
+"name": "Preston North End"
+},
+{
+"div": "First",
+"pos": 13,
+"code": "NFO",
+"art": "Nottingham Forest F.C.",
+"name": "Nottingham Forest"
+},
+{
+"div": "First",
+"pos": 14,
+"code": "CHE",
+"art": "Chelsea F.C.",
+"name": "Chelsea"
+},
+{
+"div": "First",
+"pos": 15,
+"code": "LEE",
+"art": "Leeds United F.C.",
+"name": "Leeds United"
+},
+{
+"div": "First",
+"pos": 16,
+"code": "EVE",
+"art": "Everton F.C.",
+"name": "Everton"
+},
+{
+"div": "First",
+"pos": 17,
+"code": "LUT",
+"art": "Luton Town F.C.",
+"name": "Luton Town"
+},
+{
+"div": "First",
+"pos": 18,
+"code": "TOT",
+"art": "Tottenham Hotspur F.C.",
+"name": "Tottenham Hotspur"
+},
+{
+"div": "First",
+"pos": 19,
+"code": "LEI",
+"art": "Leicester City F.C.",
+"name": "Leicester City"
+},
+{
+"div": "First",
+"pos": 20,
+"code": "MCI",
+"art": "Manchester City F.C.",
+"name": "Manchester City"
+},
+{
+"div": "First",
+"pos": 21,
+"code": "AVL",
+"art": "Aston Villa F.C.",
+"name": "Aston Villa"
+},
+{
+"div": "First",
+"pos": 22,
+"code": "POR",
+"art": "Portsmouth F.C.",
+"name": "Portsmouth"
+},
+{
+"div": "Second",
+"pos": 1,
+"code": "SHW",
+"art": "Sheffield Wednesday F.C.",
+"name": "Sheffield Wednesday"
+},
+{
+"div": "Second",
+"pos": 2,
+"code": "FUL",
+"art": "Fulham F.C.",
+"name": "Fulham"
+},
+{
+"div": "Second",
+"pos": 3,
+"code": "SHU",
+"art": "Sheffield United F.C.",
+"name": "Sheffield United"
+},
+{
+"div": "Second",
+"pos": 4,
+"code": "LIV",
+"art": "Liverpool F.C.",
+"name": "Liverpool"
+},
+{
+"div": "Second",
+"pos": 5,
+"code": "STK",
+"art": "Stoke City F.C.",
+"name": "Stoke City"
+},
+{
+"div": "Second",
+"pos": 6,
+"code": "BRV",
+"art": "Bristol Rovers F.C.",
+"name": "Bristol Rovers"
+},
+{
+"div": "Second",
+"pos": 7,
+"code": "DER",
+"art": "Derby County F.C.",
+"name": "Derby County"
+},
+{
+"div": "Second",
+"pos": 8,
+"code": "CHA",
+"art": "Charlton Athletic F.C.",
+"name": "Charlton Athletic"
+},
+{
+"div": "Second",
+"pos": 9,
+"code": "CAR",
+"art": "Cardiff City F.C.",
+"name": "Cardiff City"
+},
+{
+"div": "Second",
+"pos": 10,
+"code": "BRC",
+"art": "Bristol City F.C.",
+"name": "Bristol City"
+},
+{
+"div": "Second",
+"pos": 11,
+"code": "SWA",
+"art": "Swansea City A.F.C.",
+"name": "Swansea Town"
+},
+{
+"div": "Second",
+"pos": 12,
+"code": "BHA",
+"art": "Brighton & Hove Albion F.C.",
+"name": "Brighton & Hove Albion"
+},
+{
+"div": "Second",
+"pos": 13,
+"code": "MID",
+"art": "Middlesbrough F.C.",
+"name": "Middlesbrough"
+},
+{
+"div": "Second",
+"pos": 14,
+"code": "HUD",
+"art": "Huddersfield Town A.F.C.",
+"name": "Huddersfield Town"
+},
+{
+"div": "Second",
+"pos": 15,
+"code": "SUN",
+"art": "Sunderland A.F.C.",
+"name": "Sunderland"
+},
+{
+"div": "Second",
+"pos": 16,
+"code": "IPS",
+"art": "Ipswich Town F.C.",
+"name": "Ipswich Town"
+},
+{
+"div": "Second",
+"pos": 17,
+"code": "LEY",
+"art": "Leyton Orient F.C.",
+"name": "Leyton Orient"
+},
+{
+"div": "Second",
+"pos": 18,
+"code": "SCU",
+"art": "Scunthorpe United F.C.",
+"name": "Scunthorpe United"
+},
+{
+"div": "Second",
+"pos": 19,
+"code": "LIN",
+"art": "Lincoln City F.C.",
+"name": "Lincoln City"
+},
+{
+"div": "Second",
+"pos": 20,
+"code": "ROT",
+"art": "Rotherham United F.C.",
+"name": "Rotherham United"
+},
+{
+"div": "Second",
+"pos": 21,
+"code": "GRI",
+"art": "Grimsby Town F.C.",
+"name": "Grimsby Town"
+},
+{
+"div": "Second",
+"pos": 22,
+"code": "BAR",
+"art": "Barnsley F.C.",
+"name": "Barnsley"
+}
+]

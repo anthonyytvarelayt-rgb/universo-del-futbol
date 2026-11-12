@@ -1,0 +1,854 @@
+pais,temporada,division,grupo,club,posicion
+Argentina,1967,1,Metropolitano Zona A,Racing Club,1
+Argentina,1967,1,Metropolitano Zona A,Estudiantes de La Plata,2
+Argentina,1967,1,Metropolitano Zona A,Vélez Sarsfield,3
+Argentina,1967,1,Metropolitano Zona A,San Lorenzo,4
+Argentina,1967,1,Metropolitano Zona A,Independiente,5
+Argentina,1967,1,Metropolitano Zona A,Rosario Central,6
+Argentina,1967,1,Metropolitano Zona A,Atlanta,7
+Argentina,1967,1,Metropolitano Zona A,Colón,8
+Argentina,1967,1,Metropolitano Zona A,Newell's Old Boys,9
+Argentina,1967,1,Metropolitano Zona A,Gimnasia y Esgrima La Plata,10
+Argentina,1967,1,Metropolitano Zona A,Deportivo Español,11
+Argentina,1967,1,Metropolitano Zona B,Platense,1
+Argentina,1967,1,Metropolitano Zona B,Boca Juniors,2
+Argentina,1967,1,Metropolitano Zona B,River Plate,3
+Argentina,1967,1,Metropolitano Zona B,Banfield,4
+Argentina,1967,1,Metropolitano Zona B,Chacarita Juniors,5
+Argentina,1967,1,Metropolitano Zona B,Lanús,6
+Argentina,1967,1,Metropolitano Zona B,Quilmes,7
+Argentina,1967,1,Metropolitano Zona B,Argentinos Juniors,8
+Argentina,1967,1,Metropolitano Zona B,Ferro Carril Oeste,9
+Argentina,1967,1,Metropolitano Zona B,Unión,10
+Argentina,1967,1,Metropolitano Zona B,Huracán,11
+Argentina,1967,1,Nacional,Independiente,1
+Argentina,1967,1,Nacional,Estudiantes de La Plata,2
+Argentina,1967,1,Nacional,Vélez Sarsfield,3
+Argentina,1967,1,Nacional,Rosario Central,4
+Argentina,1967,1,Nacional,Boca Juniors,5
+Argentina,1967,1,Nacional,River Plate,6
+Argentina,1967,1,Nacional,San Lorenzo,7
+Argentina,1967,1,Nacional,Atlanta,8
+Argentina,1967,1,Nacional,Banfield,9
+Argentina,1967,1,Nacional,Central Córdoba (SdE),10
+Argentina,1967,1,Nacional,Chacarita Juniors,11
+Argentina,1967,1,Nacional,San Martín (Mendoza),12
+Argentina,1967,1,Nacional,Central Norte,13
+Argentina,1967,1,Nacional,Deportivo Ñublense,14
+Argentina,1967,1,Nacional,Almagro,15
+Argentina,1967,1,Nacional,Defensores de Belgrano,16
+Argentina,1968,1,Metropolitano Zona A,San Lorenzo,1
+Argentina,1968,1,Metropolitano Zona A,Estudiantes de La Plata,2
+Argentina,1968,1,Metropolitano Zona A,Lanús,3
+Argentina,1968,1,Metropolitano Zona A,Racing Club,4
+Argentina,1968,1,Metropolitano Zona A,Boca Juniors,5
+Argentina,1968,1,Metropolitano Zona A,Colón,6
+Argentina,1968,1,Metropolitano Zona A,Newell's Old Boys,7
+Argentina,1968,1,Metropolitano Zona A,Banfield,8
+Argentina,1968,1,Metropolitano Zona A,Atlanta,9
+Argentina,1968,1,Metropolitano Zona A,Ferro Carril Oeste,10
+Argentina,1968,1,Metropolitano Zona A,Platense,11
+Argentina,1968,1,Metropolitano Zona B,Independiente,1
+Argentina,1968,1,Metropolitano Zona B,Vélez Sarsfield,2
+Argentina,1968,1,Metropolitano Zona B,River Plate,3
+Argentina,1968,1,Metropolitano Zona B,Huracán,4
+Argentina,1968,1,Metropolitano Zona B,Quilmes,5
+Argentina,1968,1,Metropolitano Zona B,Argentinos Juniors,6
+Argentina,1968,1,Metropolitano Zona B,Chacarita Juniors,7
+Argentina,1968,1,Metropolitano Zona B,Gimnasia y Esgrima La Plata,8
+Argentina,1968,1,Metropolitano Zona B,Rosario Central,9
+Argentina,1968,1,Metropolitano Zona B,Unión,10
+Argentina,1968,1,Metropolitano Zona B,Estudiantes (BA),11
+Argentina,1968,1,Nacional Zona A,Vélez Sarsfield,1
+Argentina,1968,1,Nacional Zona A,River Plate,2
+Argentina,1968,1,Nacional Zona A,Racing Club,3
+Argentina,1968,1,Nacional Zona A,Rosario Central,4
+Argentina,1968,1,Nacional Zona A,Boca Juniors,5
+Argentina,1968,1,Nacional Zona A,Colón,6
+Argentina,1968,1,Nacional Zona A,San Lorenzo,7
+Argentina,1968,1,Nacional Zona A,Independiente,8
+Argentina,1968,1,Nacional Zona A,Atlanta,9
+Argentina,1968,1,Nacional Zona A,Newell's Old Boys,10
+Argentina,1968,1,Nacional Zona A,Estudiantes de La Plata,11
+Argentina,1968,1,Nacional Zona A,Gimnasia y Esgrima La Plata,12
+Argentina,1968,1,Nacional Zona A,San Martín (Tucumán),13
+Argentina,1968,1,Nacional Zona A,Atlético Tucumán,14
+Argentina,1968,1,Nacional Zona A,Central Córdoba (SdE),15
+Argentina,1968,1,Nacional Zona A,Defensores de Belgrano,16
+Argentina,1968,1,Nacional Zona B,Talleres (Córdoba),1
+Argentina,1968,1,Nacional Zona B,Unión,2
+Argentina,1968,1,Nacional Zona B,Instituto,3
+Argentina,1968,1,Nacional Zona B,Godoy Cruz,4
+Argentina,1968,1,Nacional Zona B,San Martín (Mendoza),5
+Argentina,1968,1,Nacional Zona B,Independiente Rivadavia,6
+Argentina,1968,1,Nacional Zona B,Atlético Paraná,7
+Argentina,1968,1,Nacional Zona B,Chaco For Ever,8
+Argentina,1968,1,Nacional Zona B,Don Orione,9
+Argentina,1968,1,Nacional Zona B,Almirante Brown,10
+Argentina,1968,1,Nacional Zona B,Deportivo Morón,11
+Argentina,1968,1,Nacional Zona B,Nueva Chicago,12
+Argentina,1968,1,Nacional Zona B,Tigre,13
+Argentina,1968,1,Nacional Zona B,Los Andes,14
+Argentina,1968,1,Nacional Zona B,El Porvenir,15
+Argentina,1968,1,Nacional Zona B,Excursionistas,16
+Argentina,1969,1,Metropolitano Zona A,Boca Juniors,1
+Argentina,1969,1,Metropolitano Zona A,Chacarita Juniors,2
+Argentina,1969,1,Metropolitano Zona A,Vélez Sarsfield,3
+Argentina,1969,1,Metropolitano Zona A,Independiente,4
+Argentina,1969,1,Metropolitano Zona A,San Lorenzo,5
+Argentina,1969,1,Metropolitano Zona A,Atlanta,6
+Argentina,1969,1,Metropolitano Zona A,Argentinos Juniors,7
+Argentina,1969,1,Metropolitano Zona A,Colón,8
+Argentina,1969,1,Metropolitano Zona A,Unión,9
+Argentina,1969,1,Metropolitano Zona A,Deportivo Morón,10
+Argentina,1969,1,Metropolitano Zona A,Lanús,11
+Argentina,1969,1,Metropolitano Zona B,Racing Club,1
+Argentina,1969,1,Metropolitano Zona B,River Plate,2
+Argentina,1969,1,Metropolitano Zona B,Estudiantes de La Plata,3
+Argentina,1969,1,Metropolitano Zona B,Huracán,4
+Argentina,1969,1,Metropolitano Zona B,Gimnasia y Esgrima La Plata,5
+Argentina,1969,1,Metropolitano Zona B,Rosario Central,6
+Argentina,1969,1,Metropolitano Zona B,Newell's Old Boys,7
+Argentina,1969,1,Metropolitano Zona B,Banfield,8
+Argentina,1969,1,Metropolitano Zona B,Ferro Carril Oeste,9
+Argentina,1969,1,Metropolitano Zona B,Quilmes,10
+Argentina,1969,1,Metropolitano Zona B,Platense,11
+Argentina,1969,1,Nacional,Boca Juniors,1
+Argentina,1969,1,Nacional,River Plate,2
+Argentina,1969,1,Nacional,San Lorenzo,3
+Argentina,1969,1,Nacional,Independiente,4
+Argentina,1969,1,Nacional,Quilmes,5
+Argentina,1969,1,Nacional,Vélez Sarsfield,6
+Argentina,1969,1,Nacional,Chacarita Juniors,7
+Argentina,1969,1,Nacional,Racing Club,8
+Argentina,1969,1,Nacional,Huracán,9
+Argentina,1969,1,Nacional,Estudiantes de La Plata,10
+Argentina,1969,1,Nacional,Rosario Central,11
+Argentina,1969,1,Nacional,Newell's Old Boys,12
+Argentina,1969,1,Nacional,Gimnasia y Esgrima La Plata,13
+Argentina,1969,1,Nacional,Atlanta,14
+Argentina,1969,1,Nacional,Colón,15
+Argentina,1969,1,Nacional,Unión,16
+Argentina,1969,1,Nacional,San Martín (Tucumán),17
+Argentina,1969,1,Nacional,Atlético Tucumán,18
+Argentina,1970,1,Metropolitano,Independiente,1
+Argentina,1970,1,Metropolitano,River Plate,2
+Argentina,1970,1,Metropolitano,San Lorenzo,3
+Argentina,1970,1,Metropolitano,Boca Juniors,4
+Argentina,1970,1,Metropolitano,Newell's Old Boys,5
+Argentina,1970,1,Metropolitano,Estudiantes de La Plata,6
+Argentina,1970,1,Metropolitano,Racing Club,7
+Argentina,1970,1,Metropolitano,Vélez Sarsfield,8
+Argentina,1970,1,Metropolitano,Huracán,9
+Argentina,1970,1,Metropolitano,Rosario Central,10
+Argentina,1970,1,Metropolitano,Chacarita Juniors,11
+Argentina,1970,1,Metropolitano,Colón,12
+Argentina,1970,1,Metropolitano,Gimnasia y Esgrima La Plata,13
+Argentina,1970,1,Metropolitano,Argentinos Juniors,14
+Argentina,1970,1,Metropolitano,Atlanta,15
+Argentina,1970,1,Metropolitano,Banfield,16
+Argentina,1970,1,Metropolitano,Lanús,17
+Argentina,1970,1,Metropolitano,Quilmes,18
+Argentina,1970,1,Metropolitano,Unión,19
+Argentina,1970,1,Metropolitano,Platense,20
+Argentina,1970,1,Metropolitano,Los Andes,21
+Argentina,1970,1,Nacional Zona A,Chacarita Juniors,1
+Argentina,1970,1,Nacional Zona A,Gimnasia y Esgrima La Plata,2
+Argentina,1970,1,Nacional Zona A,San Lorenzo,3
+Argentina,1970,1,Nacional Zona A,Independiente,4
+Argentina,1970,1,Nacional Zona A,Atlanta,5
+Argentina,1970,1,Nacional Zona A,Colón,6
+Argentina,1970,1,Nacional Zona A,Quilmes,7
+Argentina,1970,1,Nacional Zona A,Unión,8
+Argentina,1970,1,Nacional Zona A,Argentinos Juniors,9
+Argentina,1970,1,Nacional Zona A,Atlético Tucumán,10
+Argentina,1970,1,Nacional Zona B,Boca Juniors,1
+Argentina,1970,1,Nacional Zona B,Rosario Central,2
+Argentina,1970,1,Nacional Zona B,River Plate,3
+Argentina,1970,1,Nacional Zona B,Vélez Sarsfield,4
+Argentina,1970,1,Nacional Zona B,Newell's Old Boys,5
+Argentina,1970,1,Nacional Zona B,Estudiantes de La Plata,6
+Argentina,1970,1,Nacional Zona B,Racing Club,7
+Argentina,1970,1,Nacional Zona B,Huracán,8
+Argentina,1970,1,Nacional Zona B,San Martín (Tucumán),9
+Argentina,1970,1,Nacional Zona B,Talleres (Córdoba),10
+Argentina,1971,1,Metropolitano,Independiente,1
+Argentina,1971,1,Metropolitano,Vélez Sarsfield,2
+Argentina,1971,1,Metropolitano,Chacarita Juniors,3
+Argentina,1971,1,Metropolitano,Newell's Old Boys,4
+Argentina,1971,1,Metropolitano,San Lorenzo,5
+Argentina,1971,1,Metropolitano,River Plate,6
+Argentina,1971,1,Metropolitano,Estudiantes de La Plata,7
+Argentina,1971,1,Metropolitano,Boca Juniors,8
+Argentina,1971,1,Metropolitano,Rosario Central,9
+Argentina,1971,1,Metropolitano,Huracán,10
+Argentina,1971,1,Metropolitano,Ferro Carril Oeste,11
+Argentina,1971,1,Metropolitano,Gimnasia y Esgrima La Plata,12
+Argentina,1971,1,Metropolitano,Racing Club,13
+Argentina,1971,1,Metropolitano,Atlanta,14
+Argentina,1971,1,Metropolitano,Colón,15
+Argentina,1971,1,Metropolitano,Banfield,16
+Argentina,1971,1,Metropolitano,Argentinos Juniors,17
+Argentina,1971,1,Metropolitano,Platense,18
+Argentina,1971,1,Metropolitano,Unión,19
+Argentina,1971,1,Nacional Zona A,Independiente,1
+Argentina,1971,1,Nacional Zona A,Newell's Old Boys,2
+Argentina,1971,1,Nacional Zona A,Vélez Sarsfield,3
+Argentina,1971,1,Nacional Zona A,San Lorenzo,4
+Argentina,1971,1,Nacional Zona A,Rosario Central,5
+Argentina,1971,1,Nacional Zona A,Chacarita Juniors,6
+Argentina,1971,1,Nacional Zona A,Colón,7
+Argentina,1971,1,Nacional Zona A,Atlético Tucumán,8
+Argentina,1971,1,Nacional Zona A,San Martín (Tucumán),9
+Argentina,1971,1,Nacional Zona A,Central Córdoba (SdE),10
+Argentina,1971,1,Nacional Zona A,Central Norte,11
+Argentina,1971,1,Nacional Zona A,Deportivo Morón,12
+Argentina,1971,1,Nacional Zona A,Defensores de Belgrano,13
+Argentina,1971,1,Nacional Zona A,Almagro,14
+Argentina,1971,1,Nacional Zona B,Rosario Central,1
+Argentina,1971,1,Nacional Zona B,River Plate,2
+Argentina,1971,1,Nacional Zona B,Boca Juniors,3
+Argentina,1971,1,Nacional Zona B,Estudiantes de La Plata,4
+Argentina,1971,1,Nacional Zona B,Huracán,5
+Argentina,1971,1,Nacional Zona B,Racing Club,6
+Argentina,1971,1,Nacional Zona B,Gimnasia y Esgrima La Plata,7
+Argentina,1971,1,Nacional Zona B,Belgrano (Córdoba),8
+Argentina,1971,1,Nacional Zona B,Talleres (Córdoba),9
+Argentina,1971,1,Nacional Zona B,Instituto,10
+Argentina,1971,1,Nacional Zona B,Godoy Cruz,11
+Argentina,1971,1,Nacional Zona B,Independiente Rivadavia,12
+Argentina,1971,1,Nacional Zona B,San Martín (Mendoza),13
+Argentina,1971,1,Nacional Zona B,Atlético Paraná,14
+Argentina,1972,1,Metropolitano,San Lorenzo,1
+Argentina,1972,1,Metropolitano,Racing Club,2
+Argentina,1972,1,Metropolitano,Huracán,3
+Argentina,1972,1,Metropolitano,River Plate,4
+Argentina,1972,1,Metropolitano,Vélez Sarsfield,5
+Argentina,1972,1,Metropolitano,Boca Juniors,6
+Argentina,1972,1,Metropolitano,Independiente,7
+Argentina,1972,1,Metropolitano,Estudiantes de La Plata,8
+Argentina,1972,1,Metropolitano,Rosario Central,9
+Argentina,1972,1,Metropolitano,Newell's Old Boys,10
+Argentina,1972,1,Metropolitano,Colón,11
+Argentina,1972,1,Metropolitano,Chacarita Juniors,12
+Argentina,1972,1,Metropolitano,Gimnasia y Esgrima La Plata,13
+Argentina,1972,1,Metropolitano,Atlanta,14
+Argentina,1972,1,Metropolitano,Argentinos Juniors,15
+Argentina,1972,1,Metropolitano,Ferro Carril Oeste,16
+Argentina,1972,1,Metropolitano,Lanús,17
+Argentina,1972,1,Metropolitano,Banfield,18
+Argentina,1972,1,Nacional Zona A,San Lorenzo,1
+Argentina,1972,1,Nacional Zona A,River Plate,2
+Argentina,1972,1,Nacional Zona A,Vélez Sarsfield,3
+Argentina,1972,1,Nacional Zona A,San Martín (Mendoza),4
+Argentina,1972,1,Nacional Zona A,Atlanta,5
+Argentina,1972,1,Nacional Zona A,Huracán,6
+Argentina,1972,1,Nacional Zona A,Independiente,7
+Argentina,1972,1,Nacional Zona A,Rosario Central,8
+Argentina,1972,1,Nacional Zona A,Chacarita Juniors,9
+Argentina,1972,1,Nacional Zona A,Colón,10
+Argentina,1972,1,Nacional Zona A,Argentinos Juniors,11
+Argentina,1972,1,Nacional Zona A,Gimnasia y Esgrima La Plata,12
+Argentina,1972,1,Nacional Zona A,Central Córdoba (SdE),13
+Argentina,1972,1,Nacional Zona B,Boca Juniors,1
+Argentina,1972,1,Nacional Zona B,Estudiantes de La Plata,2
+Argentina,1972,1,Nacional Zona B,Racing Club,3
+Argentina,1972,1,Nacional Zona B,Newell's Old Boys,4
+Argentina,1972,1,Nacional Zona B,Ferro Carril Oeste,5
+Argentina,1972,1,Nacional Zona B,Belgrano (Córdoba),6
+Argentina,1972,1,Nacional Zona B,Talleres (Córdoba),7
+Argentina,1972,1,Nacional Zona B,Instituto,8
+Argentina,1972,1,Nacional Zona B,Godoy Cruz,9
+Argentina,1972,1,Nacional Zona B,Independiente Rivadavia,10
+Argentina,1972,1,Nacional Zona B,Atlético Tucumán,11
+Argentina,1972,1,Nacional Zona B,San Martín (Tucumán),12
+Argentina,1972,1,Nacional Zona B,Chaco For Ever,13
+Argentina,1973,1,Metropolitano,Huracán,1
+Argentina,1973,1,Metropolitano,Boca Juniors,2
+Argentina,1973,1,Metropolitano,San Lorenzo,3
+Argentina,1973,1,Metropolitano,Independiente,4
+Argentina,1973,1,Metropolitano,River Plate,5
+Argentina,1973,1,Metropolitano,Vélez Sarsfield,6
+Argentina,1973,1,Metropolitano,Estudiantes de La Plata,7
+Argentina,1973,1,Metropolitano,Rosario Central,8
+Argentina,1973,1,Metropolitano,Newell's Old Boys,9
+Argentina,1973,1,Metropolitano,Chacarita Juniors,10
+Argentina,1973,1,Metropolitano,Racing Club,11
+Argentina,1973,1,Metropolitano,Gimnasia y Esgrima La Plata,12
+Argentina,1973,1,Metropolitano,Colón,13
+Argentina,1973,1,Metropolitano,Atlanta,14
+Argentina,1973,1,Metropolitano,Argentinos Juniors,15
+Argentina,1973,1,Metropolitano,Ferro Carril Oeste,16
+Argentina,1973,1,Metropolitano,Banfield,17
+Argentina,1973,1,Metropolitano,All Boys,18
+Argentina,1973,1,Nacional Zona A,San Lorenzo,1
+Argentina,1973,1,Nacional Zona A,River Plate,2
+Argentina,1973,1,Nacional Zona A,Vélez Sarsfield,3
+Argentina,1973,1,Nacional Zona A,Estudiantes de La Plata,4
+Argentina,1973,1,Nacional Zona A,Newell's Old Boys,5
+Argentina,1973,1,Nacional Zona A,San Lorenzo (Mar del Plata),6
+Argentina,1973,1,Nacional Zona A,Atlanta,7
+Argentina,1973,1,Nacional Zona A,Colón,8
+Argentina,1973,1,Nacional Zona A,Chacarita Juniors,9
+Argentina,1973,1,Nacional Zona A,Gimnasia y Esgrima La Plata,10
+Argentina,1973,1,Nacional Zona A,Atlético Tucumán,11
+Argentina,1973,1,Nacional Zona A,San Martín (Tucumán),12
+Argentina,1973,1,Nacional Zona A,Central Córdoba (SdE),13
+Argentina,1973,1,Nacional Zona A,Central Norte,14
+Argentina,1973,1,Nacional Zona A,Deportivo Morón,15
+Argentina,1973,1,Nacional Zona B,Boca Juniors,1
+Argentina,1973,1,Nacional Zona B,Huracán,2
+Argentina,1973,1,Nacional Zona B,Independiente,3
+Argentina,1973,1,Nacional Zona B,Racing Club,4
+Argentina,1973,1,Nacional Zona B,Rosario Central,5
+Argentina,1973,1,Nacional Zona B,Argentinos Juniors,6
+Argentina,1973,1,Nacional Zona B,Ferro Carril Oeste,7
+Argentina,1973,1,Nacional Zona B,Banfield,8
+Argentina,1973,1,Nacional Zona B,Belgrano (Córdoba),9
+Argentina,1973,1,Nacional Zona B,Talleres (Córdoba),10
+Argentina,1973,1,Nacional Zona B,Instituto,11
+Argentina,1973,1,Nacional Zona B,Godoy Cruz,12
+Argentina,1973,1,Nacional Zona B,Independiente Rivadavia,13
+Argentina,1973,1,Nacional Zona B,San Martín (Mendoza),14
+Argentina,1973,1,Nacional Zona B,Atlético Paraná,15
+Argentina,1974,1,Metropolitano Zona A,Rosario Central,1
+Argentina,1974,1,Metropolitano Zona A,Huracán,2
+Argentina,1974,1,Metropolitano Zona A,Boca Juniors,3
+Argentina,1974,1,Metropolitano Zona A,Colón,4
+Argentina,1974,1,Metropolitano Zona A,Independiente,5
+Argentina,1974,1,Metropolitano Zona A,San Lorenzo,6
+Argentina,1974,1,Metropolitano Zona A,Atlanta,7
+Argentina,1974,1,Metropolitano Zona A,All Boys,8
+Argentina,1974,1,Metropolitano Zona A,Banfield,9
+Argentina,1974,1,Metropolitano Zona B,Newell's Old Boys,1
+Argentina,1974,1,Metropolitano Zona B,River Plate,2
+Argentina,1974,1,Metropolitano Zona B,Vélez Sarsfield,3
+Argentina,1974,1,Metropolitano Zona B,Estudiantes de La Plata,4
+Argentina,1974,1,Metropolitano Zona B,Racing Club,5
+Argentina,1974,1,Metropolitano Zona B,Ferro Carril Oeste,6
+Argentina,1974,1,Metropolitano Zona B,Gimnasia y Esgrima La Plata,7
+Argentina,1974,1,Metropolitano Zona B,Argentinos Juniors,8
+Argentina,1974,1,Metropolitano Zona B,Chacarita Juniors,9
+Argentina,1974,1,Nacional Zona A,Boca Juniors,1
+Argentina,1974,1,Nacional Zona A,Rosario Central,2
+Argentina,1974,1,Nacional Zona A,Banfield,3
+Argentina,1974,1,Nacional Zona A,Independiente,4
+Argentina,1974,1,Nacional Zona A,Atlanta,5
+Argentina,1974,1,Nacional Zona A,Huracán,6
+Argentina,1974,1,Nacional Zona A,Colón,7
+Argentina,1974,1,Nacional Zona A,San Martín (Tucumán),8
+Argentina,1974,1,Nacional Zona A,Atlético Tucumán,9
+Argentina,1974,1,Nacional Zona B,San Lorenzo,1
+Argentina,1974,1,Nacional Zona B,River Plate,2
+Argentina,1974,1,Nacional Zona B,Vélez Sarsfield,3
+Argentina,1974,1,Nacional Zona B,Estudiantes de La Plata,4
+Argentina,1974,1,Nacional Zona B,Racing Club,5
+Argentina,1974,1,Nacional Zona B,Newell's Old Boys,6
+Argentina,1974,1,Nacional Zona B,Ferro Carril Oeste,7
+Argentina,1974,1,Nacional Zona B,Gimnasia y Esgrima La Plata,8
+Argentina,1974,1,Nacional Zona B,Argentinos Juniors,9
+Argentina,1975,1,Metropolitano,River Plate,1
+Argentina,1975,1,Metropolitano,Huracán,2
+Argentina,1975,1,Metropolitano,Boca Juniors,3
+Argentina,1975,1,Metropolitano,Unión,4
+Argentina,1975,1,Metropolitano,Estudiantes de La Plata,5
+Argentina,1975,1,Metropolitano,Newell's Old Boys,6
+Argentina,1975,1,Metropolitano,Rosario Central,7
+Argentina,1975,1,Metropolitano,Independiente,8
+Argentina,1975,1,Metropolitano,Racing Club,9
+Argentina,1975,1,Metropolitano,San Lorenzo,10
+Argentina,1975,1,Metropolitano,Vélez Sarsfield,11
+Argentina,1975,1,Metropolitano,Colón,12
+Argentina,1975,1,Metropolitano,Ferro Carril Oeste,13
+Argentina,1975,1,Metropolitano,Gimnasia y Esgrima La Plata,14
+Argentina,1975,1,Metropolitano,Argentinos Juniors,15
+Argentina,1975,1,Metropolitano,Atlanta,16
+Argentina,1975,1,Metropolitano,Chacarita Juniors,17
+Argentina,1975,1,Metropolitano,Banfield,18
+Argentina,1975,1,Metropolitano,All Boys,19
+Argentina,1975,1,Metropolitano,Temperley,20
+Argentina,1975,1,Nacional Zona A,River Plate,1
+Argentina,1975,1,Nacional Zona A,Estudiantes de La Plata,2
+Argentina,1975,1,Nacional Zona A,Huracán,3
+Argentina,1975,1,Nacional Zona A,Independiente,4
+Argentina,1975,1,Nacional Zona A,Rosario Central,5
+Argentina,1975,1,Nacional Zona A,Colón,6
+Argentina,1975,1,Nacional Zona A,Gimnasia y Esgrima La Plata,7
+Argentina,1975,1,Nacional Zona A,Atlético Tucumán,8
+Argentina,1975,1,Nacional Zona B,Boca Juniors,1
+Argentina,1975,1,Nacional Zona B,San Lorenzo,2
+Argentina,1975,1,Nacional Zona B,Racing Club,3
+Argentina,1975,1,Nacional Zona B,Newell's Old Boys,4
+Argentina,1975,1,Nacional Zona B,Vélez Sarsfield,5
+Argentina,1975,1,Nacional Zona B,Ferro Carril Oeste,6
+Argentina,1975,1,Nacional Zona B,Argentinos Juniors,7
+Argentina,1975,1,Nacional Zona B,San Martín (Tucumán),8
+Argentina,1975,1,Nacional Zona C,Talleres (Córdoba),1
+Argentina,1975,1,Nacional Zona C,Unión,2
+Argentina,1975,1,Nacional Zona C,Atlanta,3
+Argentina,1975,1,Nacional Zona C,Chacarita Juniors,4
+Argentina,1975,1,Nacional Zona C,Instituto,5
+Argentina,1975,1,Nacional Zona C,Belgrano (Córdoba),6
+Argentina,1975,1,Nacional Zona C,Godoy Cruz,7
+Argentina,1975,1,Nacional Zona C,San Martín (Mendoza),8
+Argentina,1975,1,Nacional Zona D,Independiente Rivadavia,1
+Argentina,1975,1,Nacional Zona D,Atlético Paraná,2
+Argentina,1975,1,Nacional Zona D,Chaco For Ever,3
+Argentina,1975,1,Nacional Zona D,Central Norte,4
+Argentina,1975,1,Nacional Zona D,Deportivo Morón,5
+Argentina,1975,1,Nacional Zona D,Almagro,6
+Argentina,1975,1,Nacional Zona D,Defensores de Belgrano,7
+Argentina,1975,1,Nacional Zona D,Excursionistas,8
+Argentina,1976,1,Metropolitano,Huracán,1
+Argentina,1976,1,Metropolitano,Estudiantes de La Plata,2
+Argentina,1976,1,Metropolitano,Independiente,3
+Argentina,1976,1,Metropolitano,Boca Juniors,4
+Argentina,1976,1,Metropolitano,River Plate,5
+Argentina,1976,1,Metropolitano,Racing Club,6
+Argentina,1976,1,Metropolitano,Newell's Old Boys,7
+Argentina,1976,1,Metropolitano,Rosario Central,8
+Argentina,1976,1,Metropolitano,Vélez Sarsfield,9
+Argentina,1976,1,Metropolitano,San Lorenzo,10
+Argentina,1976,1,Metropolitano,Gimnasia y Esgrima La Plata,11
+Argentina,1976,1,Metropolitano,Colón,12
+Argentina,1976,1,Metropolitano,Ferro Carril Oeste,13
+Argentina,1976,1,Metropolitano,Argentinos Juniors,14
+Argentina,1976,1,Metropolitano,Atlanta,15
+Argentina,1976,1,Metropolitano,Chacarita Juniors,16
+Argentina,1976,1,Metropolitano,Banfield,17
+Argentina,1976,1,Metropolitano,All Boys,18
+Argentina,1976,1,Metropolitano,San Telmo,19
+Argentina,1976,1,Metropolitano,Temperley,20
+Argentina,1976,1,Nacional Zona A,River Plate,1
+Argentina,1976,1,Nacional Zona A,Gimnasia y Esgrima La Plata,2
+Argentina,1976,1,Nacional Zona A,Independiente,3
+Argentina,1976,1,Nacional Zona A,Atlanta,4
+Argentina,1976,1,Nacional Zona A,Colón,5
+Argentina,1976,1,Nacional Zona A,Argentinos Juniors,6
+Argentina,1976,1,Nacional Zona A,Atlético Tucumán,7
+Argentina,1976,1,Nacional Zona A,San Martín (Tucumán),8
+Argentina,1976,1,Nacional Zona B,Boca Juniors,1
+Argentina,1976,1,Nacional Zona B,Huracán,2
+Argentina,1976,1,Nacional Zona B,Estudiantes de La Plata,3
+Argentina,1976,1,Nacional Zona B,Racing Club,4
+Argentina,1976,1,Nacional Zona B,Newell's Old Boys,5
+Argentina,1976,1,Nacional Zona B,Ferro Carril Oeste,6
+Argentina,1976,1,Nacional Zona B,San Lorenzo,7
+Argentina,1976,1,Nacional Zona B,Central Córdoba (SdE),8
+Argentina,1976,1,Nacional Zona C,Rosario Central,1
+Argentina,1976,1,Nacional Zona C,Vélez Sarsfield,2
+Argentina,1976,1,Nacional Zona C,Chacarita Juniors,3
+Argentina,1976,1,Nacional Zona C,Banfield,4
+Argentina,1976,1,Nacional Zona C,Talleres (Córdoba),5
+Argentina,1976,1,Nacional Zona C,Instituto,6
+Argentina,1976,1,Nacional Zona C,Belgrano (Córdoba),7
+Argentina,1976,1,Nacional Zona C,Godoy Cruz,8
+Argentina,1976,1,Nacional Zona D,Unión,1
+Argentina,1976,1,Nacional Zona D,Independiente Rivadavia,2
+Argentina,1976,1,Nacional Zona D,San Martín (Mendoza),3
+Argentina,1976,1,Nacional Zona D,Atlético Paraná,4
+Argentina,1976,1,Nacional Zona D,Chaco For Ever,5
+Argentina,1976,1,Nacional Zona D,Central Norte,6
+Argentina,1976,1,Nacional Zona D,Deportivo Morón,7
+Argentina,1976,1,Nacional Zona D,Almagro,8
+Argentina,1977,1,Metropolitano,River Plate,1
+Argentina,1977,1,Metropolitano,Independiente,2
+Argentina,1977,1,Metropolitano,Vélez Sarsfield,3
+Argentina,1977,1,Metropolitano,Boca Juniors,4
+Argentina,1977,1,Metropolitano,Huracán,5
+Argentina,1977,1,Metropolitano,Estudiantes de La Plata,6
+Argentina,1977,1,Metropolitano,Racing Club,7
+Argentina,1977,1,Metropolitano,Newell's Old Boys,8
+Argentina,1977,1,Metropolitano,Rosario Central,9
+Argentina,1977,1,Metropolitano,San Lorenzo,10
+Argentina,1977,1,Metropolitano,Gimnasia y Esgrima La Plata,11
+Argentina,1977,1,Metropolitano,Colón,12
+Argentina,1977,1,Metropolitano,Ferro Carril Oeste,13
+Argentina,1977,1,Metropolitano,Argentinos Juniors,14
+Argentina,1977,1,Metropolitano,Atlanta,15
+Argentina,1977,1,Metropolitano,Chacarita Juniors,16
+Argentina,1977,1,Metropolitano,Banfield,17
+Argentina,1977,1,Metropolitano,All Boys,18
+Argentina,1977,1,Metropolitano,Lanús,19
+Argentina,1977,1,Metropolitano,Platense,20
+Argentina,1977,1,Nacional Zona A,Newell's Old Boys,1
+Argentina,1977,1,Nacional Zona A,San Lorenzo,2
+Argentina,1977,1,Nacional Zona A,Independiente Rivadavia,3
+Argentina,1977,1,Nacional Zona A,Atlanta,4
+Argentina,1977,1,Nacional Zona A,Argentinos Juniors,5
+Argentina,1977,1,Nacional Zona A,Unión,6
+Argentina,1977,1,Nacional Zona A,Atlético Ledesma,7
+Argentina,1977,1,Nacional Zona A,All Boys,8
+Argentina,1977,1,Nacional Zona B,Estudiantes de La Plata,1
+Argentina,1977,1,Nacional Zona B,Boca Juniors,2
+Argentina,1977,1,Nacional Zona B,Rosario Central,3
+Argentina,1977,1,Nacional Zona B,Los Andes,4
+Argentina,1977,1,Nacional Zona B,Quilmes,5
+Argentina,1977,1,Nacional Zona B,Cipolletti,6
+Argentina,1977,1,Nacional Zona B,Chacarita Juniors,7
+Argentina,1977,1,Nacional Zona B,Central Norte,8
+Argentina,1977,1,Nacional Zona C,Talleres (Córdoba),1
+Argentina,1977,1,Nacional Zona C,Racing Club,2
+Argentina,1977,1,Nacional Zona C,River Plate,3
+Argentina,1977,1,Nacional Zona C,Vélez Sarsfield,4
+Argentina,1977,1,Nacional Zona C,Platense,5
+Argentina,1977,1,Nacional Zona C,Sarmiento (Chaco),6
+Argentina,1977,1,Nacional Zona C,Colón,7
+Argentina,1977,1,Nacional Zona C,Gimnasia y Esgrima (Jujuy),8
+Argentina,1977,1,Nacional Zona D,Independiente,1
+Argentina,1977,1,Nacional Zona D,Belgrano (Córdoba),2
+Argentina,1977,1,Nacional Zona D,Huracán,3
+Argentina,1977,1,Nacional Zona D,Atlanta,4
+Argentina,1977,1,Nacional Zona D,Argentinos Juniors,5
+Argentina,1977,1,Nacional Zona D,Unión,6
+Argentina,1977,1,Nacional Zona D,Atlético Ledesma,7
+Argentina,1977,1,Nacional Zona D,All Boys,8
+Argentina,1978,1,Metropolitano,Quilmes,1
+Argentina,1978,1,Metropolitano,Boca Juniors,2
+Argentina,1978,1,Metropolitano,Unión,3
+Argentina,1978,1,Metropolitano,San Lorenzo,4
+Argentina,1978,1,Metropolitano,River Plate,5
+Argentina,1978,1,Metropolitano,Independiente,6
+Argentina,1978,1,Metropolitano,Newell's Old Boys,7
+Argentina,1978,1,Metropolitano,Estudiantes de La Plata,8
+Argentina,1978,1,Metropolitano,Vélez Sarsfield,9
+Argentina,1978,1,Metropolitano,Racing Club,10
+Argentina,1978,1,Metropolitano,Rosario Central,11
+Argentina,1978,1,Metropolitano,Colón,12
+Argentina,1978,1,Metropolitano,Huracán,13
+Argentina,1978,1,Metropolitano,Gimnasia y Esgrima La Plata,14
+Argentina,1978,1,Metropolitano,Ferro Carril Oeste,15
+Argentina,1978,1,Metropolitano,Argentinos Juniors,16
+Argentina,1978,1,Metropolitano,Atlanta,17
+Argentina,1978,1,Metropolitano,Chacarita Juniors,18
+Argentina,1978,1,Metropolitano,Platense,19
+Argentina,1978,1,Metropolitano,Banfield,20
+Argentina,1978,1,Metropolitano,Estudiantes (BA),21
+Argentina,1978,1,Nacional Zona A,Talleres (Córdoba),1
+Argentina,1978,1,Nacional Zona A,Racing Club,2
+Argentina,1978,1,Nacional Zona A,Newell's Old Boys,3
+Argentina,1978,1,Nacional Zona A,At. Ledesma,4
+Argentina,1978,1,Nacional Zona A,Patronato,5
+Argentina,1978,1,Nacional Zona A,Estudiantes de La Plata,6
+Argentina,1978,1,Nacional Zona A,Gimnasia y Esgrima (Mendoza),7
+Argentina,1978,1,Nacional Zona A,Juventud Antoniana,8
+Argentina,1978,1,Nacional Zona B,Independiente,1
+Argentina,1978,1,Nacional Zona B,River Plate,2
+Argentina,1978,1,Nacional Zona B,Boca Juniors,3
+Argentina,1978,1,Nacional Zona B,Vélez Sarsfield,4
+Argentina,1978,1,Nacional Zona B,San Lorenzo,5
+Argentina,1978,1,Nacional Zona B,Unión,6
+Argentina,1978,1,Nacional Zona B,Huracán,7
+Argentina,1978,1,Nacional Zona B,Colón,8
+Argentina,1979,1,Metropolitano Zona A,River Plate,1
+Argentina,1979,1,Metropolitano Zona A,Vélez Sarsfield,2
+Argentina,1979,1,Metropolitano Zona A,Newell's Old Boys,3
+Argentina,1979,1,Metropolitano Zona A,Racing Club,4
+Argentina,1979,1,Metropolitano Zona A,Unión,5
+Argentina,1979,1,Metropolitano Zona A,San Lorenzo,6
+Argentina,1979,1,Metropolitano Zona A,Atlanta,7
+Argentina,1979,1,Metropolitano Zona A,Argentinos Juniors,8
+Argentina,1979,1,Metropolitano Zona A,Chacarita Juniors,9
+Argentina,1979,1,Metropolitano Zona A,Platense,10
+Argentina,1979,1,Metropolitano Zona A,Banfield,11
+Argentina,1979,1,Metropolitano Zona B,Rosario Central,1
+Argentina,1979,1,Metropolitano Zona B,Independiente,2
+Argentina,1979,1,Metropolitano Zona B,Estudiantes de La Plata,3
+Argentina,1979,1,Metropolitano Zona B,Boca Juniors,4
+Argentina,1979,1,Metropolitano Zona B,Colón,5
+Argentina,1979,1,Metropolitano Zona B,Ferro Carril Oeste,6
+Argentina,1979,1,Metropolitano Zona B,Huracán,7
+Argentina,1979,1,Metropolitano Zona B,All Boys,8
+Argentina,1979,1,Metropolitano Zona B,Gimnasia y Esgrima La Plata,9
+Argentina,1979,1,Metropolitano Zona B,Quilmes,10
+Argentina,1979,1,Metropolitano Zona B,Lanús,11
+Argentina,1979,1,Nacional Zona A,Vélez Sarsfield,1
+Argentina,1979,1,Nacional Zona A,Unión,2
+Argentina,1979,1,Nacional Zona A,Ferro Carril Oeste,3
+Argentina,1979,1,Nacional Zona A,San Martín (Tucumán),4
+Argentina,1979,1,Nacional Zona A,Atlético Tucumán,5
+Argentina,1979,1,Nacional Zona A,Racing Club,6
+Argentina,1979,1,Nacional Zona A,Central Córdoba (SdE),7
+Argentina,1979,1,Nacional Zona B,River Plate,1
+Argentina,1979,1,Nacional Zona B,Independiente,2
+Argentina,1979,1,Nacional Zona B,Talleres (Córdoba),3
+Argentina,1979,1,Nacional Zona B,Huracán,4
+Argentina,1979,1,Nacional Zona B,Colón,5
+Argentina,1979,1,Nacional Zona B,Instituto,6
+Argentina,1979,1,Nacional Zona B,Atlético Paraná,7
+Argentina,1979,1,Nacional Zona C,Rosario Central,1
+Argentina,1979,1,Nacional Zona C,Newell's Old Boys,2
+Argentina,1979,1,Nacional Zona C,Quilmes,3
+Argentina,1979,1,Nacional Zona C,Boca Juniors,4
+Argentina,1979,1,Nacional Zona C,Estudiantes de La Plata,5
+Argentina,1979,1,Nacional Zona C,Godoy Cruz,6
+Argentina,1979,1,Nacional Zona C,Chaco For Ever,7
+Argentina,1979,1,Nacional Zona D,San Lorenzo,1
+Argentina,1979,1,Nacional Zona D,Atlanta,2
+Argentina,1979,1,Nacional Zona D,Argentinos Juniors,3
+Argentina,1979,1,Nacional Zona D,Gimnasia y Esgrima La Plata,4
+Argentina,1979,1,Nacional Zona D,Platense,5
+Argentina,1979,1,Nacional Zona D,Independiente Rivadavia,6
+Argentina,1979,1,Nacional Zona D,San Martín (Mendoza),7
+Argentina,1980,1,Metropolitano,River Plate,1
+Argentina,1980,1,Metropolitano,Argentinos Juniors,2
+Argentina,1980,1,Metropolitano,Talleres (Córdoba),3
+Argentina,1980,1,Metropolitano,Independiente,4
+Argentina,1980,1,Metropolitano,Newell's Old Boys,5
+Argentina,1980,1,Metropolitano,Boca Juniors,6
+Argentina,1980,1,Metropolitano,Vélez Sarsfield,7
+Argentina,1980,1,Metropolitano,Estudiantes de La Plata,8
+Argentina,1980,1,Metropolitano,Rosario Central,9
+Argentina,1980,1,Metropolitano,Racing Club,10
+Argentina,1980,1,Metropolitano,Huracán,11
+Argentina,1980,1,Metropolitano,San Lorenzo,12
+Argentina,1980,1,Metropolitano,Colón,13
+Argentina,1980,1,Metropolitano,Ferro Carril Oeste,14
+Argentina,1980,1,Metropolitano,Gimnasia y Esgrima La Plata,15
+Argentina,1980,1,Metropolitano,Atlanta,16
+Argentina,1980,1,Metropolitano,Chacarita Juniors,17
+Argentina,1980,1,Metropolitano,Platense,18
+Argentina,1980,1,Metropolitano,Quilmes,19
+Argentina,1980,1,Metropolitano,All Boys,20
+Argentina,1980,1,Metropolitano,Tigre,21
+Argentina,1980,1,Nacional Zona A,Rosario Central,1
+Argentina,1980,1,Nacional Zona A,Racing (C),2
+Argentina,1980,1,Nacional Zona A,Newell's Old Boys,3
+Argentina,1980,1,Nacional Zona A,Independiente,4
+Argentina,1980,1,Nacional Zona A,Ferro Carril Oeste,5
+Argentina,1980,1,Nacional Zona A,Atlético Concepción,6
+Argentina,1980,1,Nacional Zona A,Quilmes,7
+Argentina,1980,1,Nacional Zona A,Central Norte,8
+Argentina,1980,1,Nacional Zona A,Chaco For Ever,9
+Argentina,1980,1,Nacional Zona B,Argentinos Juniors,1
+Argentina,1980,1,Nacional Zona B,Unión,2
+Argentina,1980,1,Nacional Zona B,Talleres (Córdoba),3
+Argentina,1980,1,Nacional Zona B,Boca Juniors,4
+Argentina,1980,1,Nacional Zona B,Estudiantes de La Plata,5
+Argentina,1980,1,Nacional Zona B,San Lorenzo,6
+Argentina,1980,1,Nacional Zona B,Atlanta,7
+Argentina,1980,1,Nacional Zona B,San Martín (Tucumán),8
+Argentina,1980,1,Nacional Zona B,Godoy Cruz,9
+Argentina,1980,1,Nacional Zona C,Newell's Old Boys,1
+Argentina,1980,1,Nacional Zona C,Independiente,2
+Argentina,1980,1,Nacional Zona C,Ferro Carril Oeste,3
+Argentina,1980,1,Nacional Zona C,Atlético Concepción,4
+Argentina,1980,1,Nacional Zona C,Quilmes,5
+Argentina,1980,1,Nacional Zona C,Central Norte,6
+Argentina,1980,1,Nacional Zona C,Chaco For Ever,7
+Argentina,1980,1,Nacional Zona D,Rosario Central,1
+Argentina,1980,1,Nacional Zona D,Racing (C),2
+Argentina,1980,1,Nacional Zona D,Talleres (Córdoba),3
+Argentina,1980,1,Nacional Zona D,Boca Juniors,4
+Argentina,1980,1,Nacional Zona D,Estudiantes de La Plata,5
+Argentina,1980,1,Nacional Zona D,San Lorenzo,6
+Argentina,1980,1,Nacional Zona D,Atlanta,7
+Argentina,1980,1,Nacional Zona D,San Martín (Tucumán),8
+Argentina,1980,1,Nacional Zona D,Godoy Cruz,9
+Argentina,1981,1,Metropolitano,Boca Juniors,1
+Argentina,1981,1,Metropolitano,Ferro Carril Oeste,2
+Argentina,1981,1,Metropolitano,Newell's Old Boys,3
+Argentina,1981,1,Metropolitano,River Plate,4
+Argentina,1981,1,Metropolitano,Racing Club,5
+Argentina,1981,1,Metropolitano,Independiente,6
+Argentina,1981,1,Metropolitano,Talleres (Córdoba),7
+Argentina,1981,1,Metropolitano,Argentinos Juniors,8
+Argentina,1981,1,Metropolitano,Estudiantes de La Plata,9
+Argentina,1981,1,Metropolitano,Rosario Central,10
+Argentina,1981,1,Metropolitano,San Lorenzo,11
+Argentina,1981,1,Metropolitano,Vélez Sarsfield,12
+Argentina,1981,1,Metropolitano,Huracán,13
+Argentina,1981,1,Metropolitano,Colón,14
+Argentina,1981,1,Metropolitano,Gimnasia y Esgrima La Plata,15
+Argentina,1981,1,Metropolitano,Atlanta,16
+Argentina,1981,1,Metropolitano,Chacarita Juniors,17
+Argentina,1981,1,Metropolitano,Platense,18
+Argentina,1981,1,Metropolitano,Quilmes,19
+Argentina,1981,1,Metropolitano,All Boys,20
+Argentina,1981,1,Nacional Zona A,Rosario Central,1
+Argentina,1981,1,Nacional Zona A,Gimnasia y Esgrima (J),2
+Argentina,1981,1,Nacional Zona A,Independiente,3
+Argentina,1981,1,Nacional Zona A,Vélez Sarsfield,4
+Argentina,1981,1,Nacional Zona A,Racing de Córdoba,5
+Argentina,1981,1,Nacional Zona A,Newell's Old Boys,6
+Argentina,1981,1,Nacional Zona A,Platense,7
+Argentina,1981,1,Nacional Zona A,Atlético Tucumán,8
+Argentina,1981,1,Nacional Zona B,River Plate,1
+Argentina,1981,1,Nacional Zona B,Boca Juniors,2
+Argentina,1981,1,Nacional Zona B,Ferro Carril Oeste,3
+Argentina,1981,1,Nacional Zona B,Estudiantes de La Plata,4
+Argentina,1981,1,Nacional Zona B,Racing Club,5
+Argentina,1981,1,Nacional Zona B,Talleres (Córdoba),6
+Argentina,1981,1,Nacional Zona B,Argentinos Juniors,7
+Argentina,1981,1,Nacional Zona B,San Lorenzo,8
+Argentina,1981,1,Nacional Zona C,Independiente,1
+Argentina,1981,1,Nacional Zona C,Vélez Sarsfield,2
+Argentina,1981,1,Nacional Zona C,Racing de Córdoba,3
+Argentina,1981,1,Nacional Zona C,Newell's Old Boys,4
+Argentina,1981,1,Nacional Zona C,Platense,5
+Argentina,1981,1,Nacional Zona C,Atlético Tucumán,6
+Argentina,1981,1,Nacional Zona D,Boca Juniors,1
+Argentina,1981,1,Nacional Zona D,Instituto,2
+Argentina,1981,1,Nacional Zona D,Estudiantes de La Plata,3
+Argentina,1981,1,Nacional Zona D,San Lorenzo,4
+Argentina,1981,1,Nacional Zona D,Atlético Tucumán,5
+Argentina,1982,1,Metropolitano,Ferro Carril Oeste,1
+Argentina,1982,1,Metropolitano,Independiente,2
+Argentina,1982,1,Metropolitano,Boca Juniors,3
+Argentina,1982,1,Metropolitano,River Plate,4
+Argentina,1982,1,Metropolitano,Estudiantes de La Plata,5
+Argentina,1982,1,Metropolitano,Racing Club,6
+Argentina,1982,1,Metropolitano,Newell's Old Boys,7
+Argentina,1982,1,Metropolitano,Rosario Central,8
+Argentina,1982,1,Metropolitano,Vélez Sarsfield,9
+Argentina,1982,1,Metropolitano,San Lorenzo,10
+Argentina,1982,1,Metropolitano,Huracán,11
+Argentina,1982,1,Metropolitano,Argentinos Juniors,12
+Argentina,1982,1,Metropolitano,Talleres (Córdoba),13
+Argentina,1982,1,Metropolitano,Colón,14
+Argentina,1982,1,Metropolitano,Gimnasia y Esgrima La Plata,15
+Argentina,1982,1,Metropolitano,Atlanta,16
+Argentina,1982,1,Metropolitano,Chacarita Juniors,17
+Argentina,1982,1,Metropolitano,Platense,18
+Argentina,1982,1,Metropolitano,Quilmes,19
+Argentina,1982,1,Metropolitano,All Boys,20
+Argentina,1982,1,Nacional,Ferro Carril Oeste,1
+Argentina,1982,1,Nacional,Independiente,2
+Argentina,1982,1,Nacional,Boca Juniors,3
+Argentina,1982,1,Nacional,River Plate,4
+Argentina,1982,1,Nacional,Estudiantes de La Plata,5
+Argentina,1982,1,Nacional,Racing Club,6
+Argentina,1982,1,Nacional,Newell's Old Boys,7
+Argentina,1982,1,Nacional,Rosario Central,8
+Argentina,1982,1,Nacional,Vélez Sarsfield,9
+Argentina,1982,1,Nacional,San Lorenzo,10
+Argentina,1982,1,Nacional,Huracán,11
+Argentina,1982,1,Nacional,Argentinos Juniors,12
+Argentina,1982,1,Nacional,Talleres (Córdoba),13
+Argentina,1982,1,Nacional,Colón,14
+Argentina,1982,1,Nacional,Gimnasia y Esgrima La Plata,15
+Argentina,1982,1,Nacional,Atlanta,16
+Argentina,1982,1,Nacional,Chacarita Juniors,17
+Argentina,1982,1,Nacional,Platense,18
+Argentina,1982,1,Nacional,Quilmes,19
+Argentina,1982,1,Nacional,All Boys,20
+Argentina,1983,1,Metropolitano,Independiente,1
+Argentina,1983,1,Metropolitano,San Lorenzo,2
+Argentina,1983,1,Metropolitano,Ferro Carril Oeste,3
+Argentina,1983,1,Metropolitano,Boca Juniors,4
+Argentina,1983,1,Metropolitano,River Plate,5
+Argentina,1983,1,Metropolitano,Racing Club,6
+Argentina,1983,1,Metropolitano,Estudiantes de La Plata,7
+Argentina,1983,1,Metropolitano,Newell's Old Boys,8
+Argentina,1983,1,Metropolitano,Vélez Sarsfield,9
+Argentina,1983,1,Metropolitano,Rosario Central,10
+Argentina,1983,1,Metropolitano,Huracán,11
+Argentina,1983,1,Metropolitano,Argentinos Juniors,12
+Argentina,1983,1,Metropolitano,Talleres (Córdoba),13
+Argentina,1983,1,Metropolitano,Colón,14
+Argentina,1983,1,Metropolitano,Gimnasia y Esgrima La Plata,15
+Argentina,1983,1,Metropolitano,Atlanta,16
+Argentina,1983,1,Metropolitano,Chacarita Juniors,17
+Argentina,1983,1,Metropolitano,Platense,18
+Argentina,1983,1,Metropolitano,Quilmes,19
+Argentina,1983,1,Metropolitano,All Boys,20
+Argentina,1983,1,Nacional,Independiente,1
+Argentina,1983,1,Nacional,San Lorenzo,2
+Argentina,1983,1,Nacional,Ferro Carril Oeste,3
+Argentina,1983,1,Nacional,Boca Juniors,4
+Argentina,1983,1,Nacional,River Plate,5
+Argentina,1983,1,Nacional,Racing Club,6
+Argentina,1983,1,Nacional,Estudiantes de La Plata,7
+Argentina,1983,1,Nacional,Newell's Old Boys,8
+Argentina,1983,1,Nacional,Vélez Sarsfield,9
+Argentina,1983,1,Nacional,Rosario Central,10
+Argentina,1983,1,Nacional,Huracán,11
+Argentina,1983,1,Nacional,Argentinos Juniors,12
+Argentina,1983,1,Nacional,Talleres (Córdoba),13
+Argentina,1983,1,Nacional,Colón,14
+Argentina,1983,1,Nacional,Gimnasia y Esgrima La Plata,15
+Argentina,1983,1,Nacional,Atlanta,16
+Argentina,1983,1,Nacional,Chacarita Juniors,17
+Argentina,1983,1,Nacional,Platense,18
+Argentina,1983,1,Nacional,Quilmes,19
+Argentina,1983,1,Nacional,All Boys,20
+Argentina,1984,1,Metropolitano,Argentinos Juniors,1
+Argentina,1984,1,Metropolitano,Ferro Carril Oeste,2
+Argentina,1984,1,Metropolitano,Estudiantes de La Plata,3
+Argentina,1984,1,Metropolitano,River Plate,4
+Argentina,1984,1,Metropolitano,Racing Club,5
+Argentina,1984,1,Metropolitano,Boca Juniors,6
+Argentina,1984,1,Metropolitano,Independiente,7
+Argentina,1984,1,Metropolitano,San Lorenzo,8
+Argentina,1984,1,Metropolitano,Newell's Old Boys,9
+Argentina,1984,1,Metropolitano,Vélez Sarsfield,10
+Argentina,1984,1,Metropolitano,Rosario Central,11
+Argentina,1984,1,Metropolitano,Huracán,12
+Argentina,1984,1,Metropolitano,Talleres (Córdoba),13
+Argentina,1984,1,Metropolitano,Colón,14
+Argentina,1984,1,Metropolitano,Gimnasia y Esgrima La Plata,15
+Argentina,1984,1,Metropolitano,Atlanta,16
+Argentina,1984,1,Metropolitano,Chacarita Juniors,17
+Argentina,1984,1,Metropolitano,Platense,18
+Argentina,1984,1,Metropolitano,Quilmes,19
+Argentina,1984,1,Metropolitano,All Boys,20
+Argentina,1984,1,Nacional,Argentinos Juniors,1
+Argentina,1984,1,Nacional,Ferro Carril Oeste,2
+Argentina,1984,1,Nacional,Estudiantes de La Plata,3
+Argentina,1984,1,Nacional,River Plate,4
+Argentina,1984,1,Nacional,Racing Club,5
+Argentina,1984,1,Nacional,Boca Juniors,6
+Argentina,1984,1,Nacional,Independiente,7
+Argentina,1984,1,Nacional,San Lorenzo,8
+Argentina,1984,1,Nacional,Newell's Old Boys,9
+Argentina,1984,1,Nacional,Vélez Sarsfield,10
+Argentina,1984,1,Nacional,Rosario Central,11
+Argentina,1984,1,Nacional,Huracán,12
+Argentina,1984,1,Nacional,Talleres (Córdoba),13
+Argentina,1984,1,Nacional,Colón,14
+Argentina,1984,1,Nacional,Gimnasia y Esgrima La Plata,15
+Argentina,1984,1,Nacional,Atlanta,16
+Argentina,1984,1,Nacional,Chacarita Juniors,17
+Argentina,1984,1,Nacional,Platense,18
+Argentina,1984,1,Nacional,Quilmes,19
+Argentina,1984,1,Nacional,All Boys,20
+Argentina,1985,1,Nacional,Argentinos Juniors,1
+Argentina,1985,1,Nacional,Ferro Carril Oeste,2
+Argentina,1985,1,Nacional,Estudiantes de La Plata,3
+Argentina,1985,1,Nacional,River Plate,4
+Argentina,1985,1,Nacional,Racing Club,5
+Argentina,1985,1,Nacional,Boca Juniors,6
+Argentina,1985,1,Nacional,Independiente,7
+Argentina,1985,1,Nacional,San Lorenzo,8
+Argentina,1985,1,Nacional,Newell's Old Boys,9
+Argentina,1985,1,Nacional,Vélez Sarsfield,10
+Argentina,1985,1,Nacional,Rosario Central,11
+Argentina,1985,1,Nacional,Huracán,12
+Argentina,1985,1,Nacional,Talleres (Córdoba),13
+Argentina,1985,1,Nacional,Colón,14
+Argentina,1985,1,Nacional,Gimnasia y Esgrima La Plata,15
+Argentina,1985,1,Nacional,Atlanta,16
+Argentina,1985,1,Nacional,Chacarita Juniors,17
+Argentina,1985,1,Nacional,Platense,18
+Argentina,1985,1,Nacional,Quilmes,19
+Argentina,1985,1,Nacional,All Boys,20
+Argentina,1986,1,Primera División,River Plate,1
+Argentina,1986,1,Primera División,Newell's Old Boys,2
+Argentina,1986,1,Primera División,Estudiantes de La Plata,3
+Argentina,1986,1,Primera División,Racing Club,4
+Argentina,1986,1,Primera División,Boca Juniors,5
+Argentina,1986,1,Primera División,Independiente,6
+Argentina,1986,1,Primera División,San Lorenzo,7
+Argentina,1986,1,Primera División,Vélez Sarsfield,8
+Argentina,1986,1,Primera División,Rosario Central,9
+Argentina,1986,1,Primera División,Huracán,10
+Argentina,1986,1,Primera División,Argentinos Juniors,11
+Argentina,1986,1,Primera División,Ferro Carril Oeste,12
+Argentina,1986,1,Primera División,Talleres (Córdoba),13
+Argentina,1986,1,Primera División,Colón,14
+Argentina,1986,1,Primera División,Gimnasia y Esgrima La Plata,15
+Argentina,1986,1,Primera División,Atlanta,16
+Argentina,1986,1,Primera División,Chacarita Juniors,17
+Argentina,1986,1,Primera División,Platense,18
+Argentina,1986,1,Primera División,Quilmes,19
+Argentina,1986,1,Primera División,All Boys,20

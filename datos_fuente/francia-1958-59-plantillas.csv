@@ -1,0 +1,860 @@
+division,club,nombre,pos,nac,pais,liga,nivel,techo
+Division 1,Alès,Jean Tokpa,DEL,1934-01-01,Costa de Marfil,36 / 15,644,659
+Division 1,Alès,Gilbert Wilson,DEL,1934-01-31,Togo,30 / 8,603,618
+Division 1,Alès,Claude Malet,POR,1930-09-30,Francia,40 / 0,586,594
+Division 1,Alès,Dahman Defnoun,DEF,1935-05-08,Argelia,37 / 1,586,601
+Division 1,Alès,Guy Nungesser,DEF,1931-02-19,Francia,40 / 0,586,636
+Division 1,Alès,Paul Szeremeta,MED,1933-02-10,Francia,31 / 1,575,583
+Division 1,Alès,Jean Pelazzo,DEF,1929-09-07,Francia,26 / 0,557,560
+Division 1,Alès,Roger Herrmann,DEF,1935-02-09,Francia,22 / 0,545,560
+Division 1,Alès,Pierre Zapata,DEL,1931-07-08,Francia,20 / 2,545,553
+Division 1,Alès,Ali Ben Fadah,MED,1935-01-10,Argelia,22 / 2,544,559
+Division 1,Alès,Boudjemaa Bourtal,DEL,1933-08-22,Argelia,20 / 1,542,550
+Division 1,Alès,André Vigne,MED,1930-07-01,Francia,20 / 0,537,540
+Division 1,Alès,Santiago Bessonnart,MED,1933-05-03,Uruguay,19 / 3,533,566
+Division 1,Alès,Yves Delset,MED,1933-03-11,Francia,18 / 2,530,538
+Division 1,Alès,Fernand Sénéquier,DEL,1931-05-06,Francia,15 / 2,528,536
+Division 1,Alès,André Moll,DEF,1931-11-02,Francia,15 / 0,519,527
+Division 1,Alès,Touré Sékou,DEL,1934-05-01,Costa de Marfil,11 / 2,515,530
+Division 1,Alès,Jean Liander,DEL,1934-12-12,Francia,6 / 1,491,506
+Division 1,Alès,Jacobert Ekoué,MED,1934-03-13,Camerún,7 / 2,490,505
+Division 1,Alès,Gyula Nagy,MED,1924-04-07,Hungría,11 / 2,476,476
+Division 1,Alès,Gérard Banide,POR,1936-07-12,Francia,1 / 0,469,484
+Division 1,Alès,Pierre Duroure,MED,1941-05-06,Francia,4 / 1,450,480
+Division 1,Angers,Stéphane Bruey,DEL,1932-12-11,Francia,42 / 22,747,755
+Division 1,Angers,Ignace Wognin,DEL,1931-11-20,Costa de Marfil,39 / 19,736,744
+Division 1,Angers,René Dereuddre,MED,1930-06-22,Francia,44 / 11,704,707
+Division 1,Angers,Jules Sbroglia,DEF,1929-07-10,Francia,44 / 1,668,671
+Division 1,Angers,Wladislaw Kowalski,DEF,1927-09-13,Francia,44 / 0,668,668
+Division 1,Angers,Kazimir Hnatow,MED,1929-11-09,Francia,44 / 4,668,671
+Division 1,Angers,Eugène Fragassi,POR,1924-09-01,Francia,41 / 0,648,648
+Division 1,Angers,Jacques Rousseau,DEL,1933-04-27,Francia,30 / 1,648,656
+Division 1,Angers,Claude Bourrigault,MED,1932-01-28,Francia,31 / 7,647,655
+Division 1,Angers,Jean-Marie Couronne,MED,1936-05-03,Francia,30 / 7,644,659
+Division 1,Angers,Antoine Pasquini,DEF,1928-03-06,Francia,28 / 0,638,638
+Division 1,Angers,Francis Camoin,DEF,1932-07-16,Francia,25 / 0,628,636
+Division 1,Angers,Guelso Zaetta,MED,1931-12-20,Francia,20 / 2,612,620
+Division 1,Angers,Marcel Loncle,MED,1936-01-05,Francia,18 / 8,606,621
+Division 1,Angers,Robert Devis,POR,1933-05-02,Francia,3 / 0,558,566
+Division 1,Angers,Jacky Parchard,MED,1940-09-01,Francia,1 / 0,521,551
+Division 1,Estrasburgo,Antoni Grochulski,DEL,1938-09-08,Polonia,35 / 19,730,760
+Division 1,Estrasburgo,Gérard Bourbotte,DEL,1934-02-07,Francia,31 / 13,727,742
+Division 1,Estrasburgo,Fritz Kominek,MED,1927-01-17,Austria,38 / 6,720,720
+Division 1,Estrasburgo,Maurice Visioli,POR,1934-10-24,Francia,36 / 0,684,699
+Division 1,Estrasburgo,René Hauss,DEF,1927-12-25,Francia,38 / 0,684,684
+Division 1,Estrasburgo,Stéphan Brezniak,MED,1927-09-19,Francia,40 / 5,684,684
+Division 1,Estrasburgo,Roger Tivoli,MED,1935-05-30,Francia,36 / 11,684,699
+Division 1,Estrasburgo,Edmond Haan,MED,1924-05-25,Francia,37 / 0,683,683
+Division 1,Estrasburgo,Zbigniew Misiaszek,MED,1933-10-02,Francia,33 / 1,681,696
+Division 1,Estrasburgo,Roger Rivarel,DEL,1935-08-26,Francia,24 / 3,661,676
+Division 1,Estrasburgo,Louis Schweitzer,DEF,1932-11-21,Francia,25 / 1,652,660
+Division 1,Estrasburgo,Edmond Owczarczak,DEF,1936-05-15,Francia,25 / 1,652,667
+Division 1,Estrasburgo,Jacky Cornuel,DEL,1935-10-04,Francia,12 / 2,615,630
+Division 1,Estrasburgo,Antoine Hertrich,DEL,1929-06-15,Francia,11 / 0,603,606
+Division 1,Estrasburgo,Raymond Fenus,DEL,1938-03-04,Francia,6 / 2,594,624
+Division 1,Estrasburgo,Raymond Kleitz,POR,1929-04-11,Francia,4 / 0,578,581
+Division 1,Estrasburgo,Roger Greiling,MED,1933-07-28,Francia,4 / 0,578,586
+Division 1,Estrasburgo,Robert Elkaim,DEF,1937-07-15,Francia,2 / 0,571,601
+Division 1,Estrasburgo,Jacques Roque,MED,1929-04-29,Francia,2 / 1,571,574
+Division 1,Estrasburgo,Benito Antoni,DEL,1939-05-15,Italia,1 / 0,538,568
+Division 1,Lens,Ahmed Oudjani,DEL,1937-03-19,Argelia,45 / 19,720,750
+Division 1,Lens,Maryan Wisniewski,DEL,1937-02-01,Francia,20 / 3,692,762
+Division 1,Lens,Michel Stiévenard,DEL,1937-09-21,Francia,37 / 6,677,707
+Division 1,Lens,Bernard Placzek,DEF,1936-05-30,Francia,39 / 1,660,675
+Division 1,Lens,Joseph Carlier,DEF,1931-03-17,Francia,38 / 4,660,668
+Division 1,Lens,Raymond Fiori,DEF,1931-01-24,Francia,44 / 0,660,668
+Division 1,Lens,Bernard Chiarelli,MED,1934-02-24,Francia,39 / 7,660,760
+Division 1,Lens,Michel Lafranceschina,MED,1939-02-28,Francia,36 / 14,623,754
+Division 1,Lens,Arnold Sowinski,POR,1931-03-17,Francia,26 / 0,622,630
+Division 1,Lens,Yvon Clément,POR,1937-03-10,Francia,19 / 0,600,630
+Division 1,Lens,Léon Gorczewski,MED,1935-04-19,Francia,19 / 0,600,615
+Division 1,Lens,Stephan Ziemczak,MED,1936-08-14,Francia,17 / 2,594,609
+Division 1,Lens,Jean-Pierre Turci,DEF,1938-11-06,Francia,25 / 0,588,618
+Division 1,Lens,Eugène Grévin,MED,1931-11-23,Francia,14 / 3,585,593
+Division 1,Lens,Jean Deloffre,MED,1939-10-05,Francia,24 / 8,585,651
+Division 1,Lens,Jean-Marie Élise,DEF,1939-02-02,Francia,21 / 0,577,607
+Division 1,Lens,Maurice Raspotnik,MED,1939-05-09,Francia,18 / 0,568,598
+Division 1,Lens,Jean-Pierre Buadès,DEL,1936-01-01,Francia,6 / 2,567,582
+Division 1,Lens,Henri Desfossé,DEL,1936 (solo año),Francia,1 / 1,546,576
+Division 1,Lens,André Wabinski,DEL,1940-02-12,Francia,5 / 0,527,557
+Division 1,Lens,Freddy Harabasz,MED,1941-02-14,Francia,1 / 0,515,545
+Division 1,Lens,Jean Grabowski,DEL,1940-07-02,Francia,1 / 0,514,544
+Division 1,Lille,René Fatoux,DEL,1935-12-12,Francia,32 / 18,772,787
+Division 1,Lille,Fernand Devlaminck,DEL,1932-10-22,Francia,37 / 16,761,769
+Division 1,Lille,Guillaume Bieganski,DEF,1932-11-03,Francia,39 / 0,736,744
+Division 1,Lille,Yvon Douis,MED,1935-05-16,Francia,38 / 10,718,733
+Division 1,Lille,Casimir Novotarski,DEL,1932-11-26,Francia,36 / 1,704,712
+Division 1,Lille,François Heutte,MED,1938-02-21,Francia,34 / 10,700,784
+Division 1,Lille,Antoine Pazur,DEF,1931-01-03,Francia,31 / 0,699,707
+Division 1,Lille,Enzo Zamparini,DEF,1934-11-14,Francia,32 / 1,695,754
+Division 1,Lille,Roland Clauws,MED,1933-12-06,Francia,26 / 1,675,754
+Division 1,Lille,Stéphane Walczak,DEL,1936-07-30,Francia,24 / 2,675,690
+Division 1,Lille,Jacques Debeillex,DEF,1934-05-13,Francia,24 / 0,667,754
+Division 1,Lille,Boguslaw Konieczka,DEF,1938-12-18,Francia,32 / 0,665,695
+Division 1,Lille,Georges Duffuler,POR,1925-10-13,Francia,23 / 0,663,668
+Division 1,Lille,Jean Van Gool,POR,1931-01-28,Francia,19 / 0,650,658
+Division 1,Lille,Daniel Viaene,DEL,1937-11-29,Francia,18 / 0,646,676
+Division 1,Lille,Louis Bourgeois,MED,1937-07-31,Francia,8 / 0,609,764
+Division 1,Lille,André Guilcher,MED,1931-05-05,Francia,5 / 0,598,606
+Division 1,Lille,Jacques Delepaut,DEF,1926-09-11,Francia,1 / 0,584,589
+Division 1,Lille,Bernard Stachowiak,DEF,1939-11-03,Francia,2 / 0,557,587
+Division 1,Lille,Christian Jecker,DEF,1940-11-15,Francia,1 / 0,554,584
+Division 1,Limoges,Monday Ossey,DEL,1933-07-26,Gabón,31 / 13,641,649
+Division 1,Limoges,Paul Sauvage,DEL,1939-03-17,Francia,38 / 11,608,782
+Division 1,Limoges,Raymond Abad,POR,1930-12-17,Francia,40 / 0,598,606
+Division 1,Limoges,Henri Kowal,DEF,1930-10-03,Francia,37 / 0,598,606
+Division 1,Limoges,Bernard Delcampe,MED,1932-09-12,Francia,40 / 5,598,606
+Division 1,Limoges,Pierre Flamion,DEL,1924-03-13,Francia,11 / 1,593,593
+Division 1,Limoges,Henri Burda,DEF,1926-01-04,Francia,32 / 5,591,591
+Division 1,Limoges,Pierre-René Tholon,DEF,1933-09-13,Francia,29 / 3,580,595
+Division 1,Limoges,Jean Thomas,MED,1929-06-08,Francia,26 / 0,569,572
+Division 1,Limoges,Guy Hatchi,MED,1934-03-18,Francia,26 / 1,569,620
+Division 1,Limoges,Jean-Claude Kuhnapfel,DEF,1931-10-20,Francia,25 / 2,566,574
+Division 1,Limoges,François Konrady,MED,1930-06-05,Francia,25 / 2,566,569
+Division 1,Limoges,Marcel Pascal,DEF,1924-12-31,Francia,27 / 0,560,560
+Division 1,Limoges,Raymond Cicci,MED,1929-08-11,Francia,17 / 0,544,547
+Division 1,Limoges,Faustin Coffié,DEL,1933-02-10,Costa de Marfil,15 / 3,543,551
+Division 1,Limoges,Jean Loiseau,DEF,1933-03-07,Francia,9 / 0,509,517
+Division 1,Limoges,Alexis Bob,DEL,1936-02-10,Congo,5 / 2,504,519
+Division 1,Limoges,Armand Cabrera,DEF,,Francia,5 / 0,495,503
+Division 1,Limoges,Pierre Boucher,MED,1939-04-21,Francia,10 / 1,483,513
+Division 1,Limoges,Pierre Péaud,POR,1936-11-05,Francia,1 / 0,481,511
+Division 1,Limoges,Henri Majerowiez,DEF,1937-04-29,Francia,1 / 0,481,511
+Division 1,Lyon,Lucien Cossou,DEL,1936-01-29,Francia,41 / 22,740,755
+Division 1,Lyon,Henri Lewandowicz,DEL,1936-01-04,Francia,33 / 13,709,724
+Division 1,Lyon,André Lerond,DEF,1930-12-06,Francia,41 / 0,707,715
+Division 1,Lyon,Émile Daniel,DEL,1927-09-06,Francia,36 / 1,669,669
+Division 1,Lyon,Aimé Mignot,DEF,1932-12-09,Francia,41 / 0,665,673
+Division 1,Lyon,Robert Mouynet,DEF,1930-03-25,Francia,40 / 1,665,668
+Division 1,Lyon,Pires Constantino,MED,1929-10-20,Brasil,39 / 12,665,668
+Division 1,Lyon,Camille Ninel,MED,1928-03-23,Francia,33 / 1,659,659
+Division 1,Lyon,Antoine Dalla Cieca,MED,1931-11-15,Francia,32 / 8,655,663
+Division 1,Lyon,Émile Antonio,MED,1928-04-22,Francia,28 / 2,641,641
+Division 1,Lyon,Elefterios Manolios,POR,1935-06-04,Francia,20 / 0,614,672
+Division 1,Lyon,Pierre Beetschen,POR,1934-01-03,Suiza,18 / 0,606,621
+Division 1,Lyon,Robert Salen,DEL,1935-12-06,Francia,12 / 4,603,639
+Division 1,Lyon,Marcel Le Borgne,MED,1939-09-09,Francia,23 / 0,593,623
+Division 1,Lyon,Raymond Dutto,DEF,1935-12-09,Francia,14 / 0,592,607
+Division 1,Lyon,Lucien Gardon,DEL,1937-05-25,Francia,7 / 4,585,615
+Division 1,Lyon,Roland Steibel,DEL,1934-04-19,Francia,9 / 2,583,598
+Division 1,Lyon,Raymond Gardon,DEF,1937-05-25,Francia,4 / 0,558,588
+Division 1,Lyon,Jean Djorkaeff,DEF,1939-10-27,Francia,7 / 3,539,809
+Division 1,Lyon,Jean Sabathier,POR,1938-09-20,Francia,6 / 0,535,565
+Division 1,Marsella,Jean-Jacques Marcel,MED,1931-06-13,Francia,33 / 5,825,833
+Division 1,Marsella,Célestin Oliver,MED,1930-07-12,Francia,38 / 12,705,708
+Division 1,Marsella,Norbert Eschmann,MED,1933-09-19,Suiza,36 / 5,699,714
+Division 1,Marsella,Pierre Tillon,DEL,1931-04-23,Francia,30 / 5,688,696
+Division 1,Marsella,Bassidiki Touré,DEL,1939-12-07,Malí,33 / 8,679,709
+Division 1,Marsella,Jean Molla,DEF,1933-10-01,Francia,33 / 0,675,704
+Division 1,Marsella,Maurice Gransart,DEF,1930-07-08,Francia,37 / 1,675,679
+Division 1,Marsella,Max Alauzun,MED,1937-12-13,Francia,35 / 1,675,705
+Division 1,Marsella,Jean-Louis Leonetti,DEF,1938-07-14,Francia,22 / 2,637,670
+Division 1,Marsella,Ahmed Ben Larbi Lahcen,DEL,1935-01-25,Marruecos,14 / 5,629,644
+Division 1,Marsella,Camille Fischbach,POR,1932-04-20,Francia,19 / 0,625,639
+Division 1,Marsella,Pierre Peri,POR,1936-03-21,Francia,17 / 0,618,633
+Division 1,Marsella,Christian Ramon,DEF,1934-07-16,Francia,16 / 0,614,629
+Division 1,Marsella,Jean Hédiart,DEL,1931-01-29,Francia,11 / 0,602,610
+Division 1,Marsella,Lucien Farmanian,MED,1930-01-07,Francia,11 / 2,596,599
+Division 1,Marsella,Marius Vescovali,MED,1938-01-30,Francia,9 / 0,588,618
+Division 1,Marsella,Yeso Amalfi,MED,1925-12-06,Brasil,7 / 0,581,581
+Division 1,Marsella,Pierre Guix,MED,1934-01-15,España,7 / 0,581,596
+Division 1,Marsella,Étienne Sansonetti,DEL,1935-12-05,Francia,5 / 1,578,719
+Division 1,Marsella,Jean-Jacques Ikonga,MED,1934-03-11,Congo,6 / 2,577,592
+Division 1,Marsella,Jean-Claude Tonda,POR,1936-01-02,Francia,4 / 0,570,585
+Division 1,Marsella,Albert Durand,MED,1937-01-05,Francia,3 / 0,566,596
+Division 1,Marsella,Pierre Bedelian,DEF,1935-11-20,Francia,2 / 0,562,577
+Division 1,Marsella,Gyorgy Bobik,DEF,1937-04-03,Hungría,2 / 0,562,592
+Division 1,Marsella,Francis Poleschi,DEF,1931-04-23,Francia,1 / 0,559,567
+Division 1,Marsella,Robert Mallet,MED,1932-11-01,Francia,1 / 0,559,567
+Division 1,Marsella,Édouard Bakalian,MED,1934-04-10,Francia,1 / 0,559,574
+Division 1,Marsella,Régis Bruneton,MED,1939-02-14,Francia,7 / 1,551,719
+Division 1,Mónaco,Ernst Stojaspal,DEL,1925-01-14,Austria,27 / 12,853,853
+Division 1,Mónaco,Raymond Kaelbel,DEF,1932-01-31,Francia,37 / 5,819,827
+Division 1,Mónaco,Albertus Carlier,DEL,1929-06-23,Países Bajos,36 / 6,740,743
+Division 1,Mónaco,François Ludo,DEF,1930-03-04,Francia,35 / 2,687,690
+Division 1,Mónaco,Marcel Novak,DEF,1934-07-10,Francia,39 / 1,687,702
+Division 1,Mónaco,Georges Thomas,DEF,1931-12-31,Francia,35 / 0,687,695
+Division 1,Mónaco,Jean-Marie Courtin,MED,1935-07-07,Francia,36 / 6,687,702
+Division 1,Mónaco,Djibrill Karimou,DEL,1933-06-06,Togo,24 / 8,687,695
+Division 1,Mónaco,Henri Biancheri,MED,1932-07-30,Francia,32 / 1,683,691
+Division 1,Mónaco,Léon Glowacki,DEL,1928-02-19,Francia,26 / 5,682,682
+Division 1,Mónaco,Michel Hidalgo,MED,1933-03-22,Francia,30 / 4,675,683
+Division 1,Mónaco,Yvon Garofalo,POR,1934-07-24,Francia,24 / 0,654,669
+Division 1,Mónaco,Jean-Paul Filippi,DEF,1938-05-18,Francia,22 / 0,646,676
+Division 1,Mónaco,Serge Roy,DEL,1932-11-09,Francia,13 / 7,643,651
+Division 1,Mónaco,Henri Alberto,POR,1933-11-18,Francia,11 / 0,607,642
+Division 1,Mónaco,Hami Brixi,MED,,Francia,5 / 0,585,593
+Division 1,Mónaco,Saïd Brahimi,DEL,1931-03-14,Francia,1 / 0,582,590
+Division 1,Mónaco,Eddy Labatut,POR,1933-02-02,Francia,4 / 0,581,589
+Division 1,Mónaco,Ernest Bodini,MED,1934-05-22,Francia,4 / 0,581,596
+Division 1,Mónaco,Louis Pirroni,DEF,1924-11-06,Francia,7 / 0,576,576
+Division 1,Mónaco,Lucien Mariette,MED,1935-03-06,Francia,2 / 0,574,589
+Division 1,Mónaco,Alain Leroy,DEL,1935-01-25,Francia,1 / 0,570,585
+Division 1,Mónaco,Vincent Traini,DEL,1939-03-31,Francia,4 / 1,555,585
+Division 1,Mónaco,Guy Fouque,MED,1941-05-01,Francia,4 / 0,551,581
+Division 1,Mónaco,Raymond Sottimano,POR,1939-04-18,Francia,3 / 0,548,578
+Division 1,Nancy,Léon Deladérière,DEL,1927-06-26,Francia,36 / 12,727,727
+Division 1,Nancy,Ladislas Nagy,POR,1931-12-16,Francia,36 / 0,621,629
+Division 1,Nancy,Jean-Antoine Redin,DEF,1934-09-04,Francia,39 / 1,621,636
+Division 1,Nancy,Raoul Schollhammer,DEF,1932-02-04,Francia,39 / 0,621,629
+Division 1,Nancy,Hervé Collot,DEF,1932-08-04,Francia,40 / 0,621,629
+Division 1,Nancy,Bernard Lefevre,MED,1930-06-22,Francia,37 / 12,621,636
+Division 1,Nancy,Alain Jubert,MED,1936-12-25,Francia,36 / 15,621,651
+Division 1,Nancy,Pierre Nabat,MED,1933-12-05,Francia,37 / 10,621,636
+Division 1,Nancy,Florio Chivilo,DEF,1931-12-16,Francia,30 / 0,606,614
+Division 1,Nancy,Jean Templin,DEL,1928-12-14,Francia,27 / 2,605,608
+Division 1,Nancy,Pierre Valentek,MED,1934-06-29,Francia,29 / 2,602,617
+Division 1,Nancy,Jacques Villermin,DEF,1936-05-30,Francia,17 / 0,561,576
+Division 1,Nancy,Marcel Klayer,DEF,1935-09-05,Francia,9 / 0,533,548
+Division 1,Nancy,Silvio Serafin,DEL,1938-04-03,Francia,7 / 2,533,563
+Division 1,Nancy,Bruno Ferrero,POR,1933-11-24,Francia,4 / 0,515,549
+Division 1,Nancy,Albert Pellegrini,MED,1934-03-27,Francia,4 / 0,515,530
+Division 1,Nancy,Brynley Griffith,DEF,1933-04-17,Gales,2 / 0,509,517
+Division 1,Nancy,William Mas,MED,1934-03-28,Francia,2 / 1,508,523
+Division 1,Nancy,Gérard Jacob,DEF,1938-08-22,Francia,1 / 0,505,535
+Division 1,Nancy,Daniel Kaiser,DEL,1938-09-19,Francia,7 / 0,495,525
+Division 1,Nancy,Michel Chevalier,DEL,1940-08-25,Francia,1 / 1,480,510
+Division 1,Niza,Victor Nurenberg,DEL,1930-12-22,Luxemburgo,40 / 17,895,903
+Division 1,Niza,Jacques Foix,DEL,1930-11-26,Francia,42 / 18,871,879
+Division 1,Niza,Georges Lamia,POR,1933-03-14,Francia,41 / 0,769,777
+Division 1,Niza,César Gonzales,DEF,1926-12-07,Argentina,40 / 2,769,769
+Division 1,Niza,Alberto Muro,MED,1927-04-27,Argentina,39 / 18,769,769
+Division 1,Niza,Koczur Ferry,MED,1930-09-02,Francia,36 / 0,769,777
+Division 1,Niza,François Milazzo,MED,1934-02-09,Francia,35 / 3,767,782
+Division 1,Niza,Omar Barrou,DEL,1934-04-08,Malí,25 / 7,760,775
+Division 1,Niza,André Chorda,DEF,1938-02-20,Francia,33 / 0,759,789
+Division 1,Niza,Alain Cornu,DEF,1936-12-12,Francia,32 / 1,756,786
+Division 1,Niza,Jean-Pierre Alba,MED,1938-03-27,Francia,32 / 10,756,786
+Division 1,Niza,Vincent Scanella,DEF,1934-04-11,Francia,28 / 3,744,759
+Division 1,Niza,Jacques Faivre,DEL,1932-11-25,Francia,17 / 3,717,725
+Division 1,Niza,Alphonse Martinez,DEF,1928-06-07,Francia,15 / 0,700,700
+Division 1,Niza,André Boragno,MED,1935-09-07,Francia,2 / 0,657,672
+Division 1,Niza,Pierre Villard,DEF,1935-06-22,Francia,1 / 0,654,669
+Division 1,Niza,Michel Toth,MED,1929-01-25,Francia,1 / 0,654,657
+Division 1,Niza,Hassan Moulay,DEL,1936-12-20,Malí,1 / 0,654,684
+Division 1,Niza,Jérôme Nicolaï,POR,1935-01-09,Francia,1 / 0,652,667
+Division 1,Niza,René Vergé,DEL,1933-05-12,Francia,1 / 0,652,660
+Division 1,Nîmes,Hassan Akesbi,DEL,1934-12-05,Marruecos,43 / 30,821,836
+Division 1,Nîmes,Henri Skiba,DEL,1927-07-14,Francia,39 / 24,810,810
+Division 1,Nîmes,Emilio Salaber,DEL,1937-02-16,España,40 / 8,751,781
+Division 1,Nîmes,Bernard Rahis,DEL,1933-02-12,Francia,31 / 8,733,741
+Division 1,Nîmes,Maurice Lafont,DEF,1927-09-13,Francia,43 / 3,729,729
+Division 1,Nîmes,Alexandre Roszak,POR,1931-09-29,Francia,44 / 0,723,731
+Division 1,Nîmes,Mustapha Bettache,DEF,1931-01-20,Marruecos,43 / 0,723,731
+Division 1,Nîmes,Jean Victor Bandera,DEF,1934-03-18,Francia,43 / 1,723,738
+Division 1,Nîmes,Robert Venturi,DEF,1933-02-16,Francia,41 / 0,723,731
+Division 1,Nîmes,Pierre Barlaguet,MED,1931-10-18,Francia,42 / 2,723,731
+Division 1,Nîmes,Daniel Duc,MED,1933-11-18,Francia,37 / 5,722,737
+Division 1,Nîmes,Amokrane Oualiken,DEL,1933-04-06,Argelia,18 / 3,672,680
+Division 1,Nîmes,André Schwager,MED,1927-11-09,Francia,10 / 0,635,635
+Division 1,Nîmes,Belhadj Djilali Mehdi,DEL,1934 (solo año),Marruecos,5 / 2,627,642
+Division 1,Nîmes,Salah Djebaïli,MED,1935-04-17,Argelia,3 / 2,613,628
+Division 1,Nîmes,Daniel Charles-Alfred,DEF,1934-05-09,Francia,1 / 0,607,622
+Division 1,Nîmes,Raymond Doua,DEF,1936-02-03,Francia,1 / 0,607,622
+Division 1,Racing de París,Thadée Cisowski,DEL,1927-02-16,Francia,31 / 30,900,900
+Division 1,Racing de París,Roger Marche,DEF,1924-03-05,Francia,41 / 0,879,879
+Division 1,Racing de París,Joseph Ujlaki,MED,1929-08-10,Francia,37 / 10,849,852
+Division 1,Racing de París,Pierre Grillet,DEL,1932-03-21,Francia,30 / 10,819,827
+Division 1,Racing de París,Joël Pillard,DEL,1933-07-23,Francia,40 / 15,812,820
+Division 1,Racing de París,Bruno Bollini,DEF,1933-09-14,Francia,40 / 1,765,780
+Division 1,Racing de París,Bernard Lelong,DEF,1929-06-18,Francia,41 / 0,759,762
+Division 1,Racing de París,Ahmed Tibari,MED,1934-11-30,Marruecos,40 / 2,759,774
+Division 1,Racing de París,Jean Guillot,MED,1931-08-31,Francia,40 / 13,759,767
+Division 1,Racing de París,Guy Sénac,MED,1933-03-13,Francia,39 / 2,759,767
+Division 1,Racing de París,Casimir Koza,DEL,1935-01-27,Francia,13 / 8,716,731
+Division 1,Racing de París,Daniel Varini,POR,1934-06-25,Francia,22 / 0,715,730
+Division 1,Racing de París,Jean Taillandier,POR,1938-01-22,Francia,15 / 0,691,721
+Division 1,Racing de París,Joseph Hartmann,DEL,1935-12-19,Francia,6 / 1,664,754
+Division 1,Racing de París,Levon Djolakian,POR,1937-07-18,Francia,5 / 0,656,686
+Division 1,Racing de París,Bolek Ugorenko,MED,1931-10-15,Francia,5 / 0,656,664
+Division 1,Racing de París,Paul Sadat,DEL,1938-12-26,Francia,11 / 0,647,677
+Division 1,Racing de París,Joseph Svoboda,MED,1937-06-11,Francia,2 / 0,646,676
+Division 1,Racing de París,Pierre Bodin,DEF,1934-03-23,Francia,1 / 0,643,658
+Division 1,Racing de París,Francis Magny,MED,1939-12-15,Francia,3 / 1,619,649
+Division 1,Rennes,Antoine Cuissard,DEF,1924-07-19,Francia,22 / 6,723,723
+Division 1,Rennes,Guy Méano,DEL,1934-11-11,Francia,35 / 11,683,698
+Division 1,Rennes,Jacques Poulain,DEF,1932-08-06,Francia,39 / 0,642,650
+Division 1,Rennes,Khennane Mahi,MED,1936-10-21,Francia,42 / 27,642,672
+Division 1,Rennes,Stanislas Dombeck,MED,1931-09-26,Francia,39 / 7,642,650
+Division 1,Rennes,René Gaulon,MED,1927-07-27,Benín,41 / 2,642,642
+Division 1,Rennes,Théodore Skudlapski,MED,1935-11-17,Francia,42 / 13,642,657
+Division 1,Rennes,Joseph Donnard,DEF,1932-03-22,Francia,34 / 0,637,645
+Division 1,Rennes,Nicolas Imbernon,DEF,1929-11-30,Francia,32 / 1,630,633
+Division 1,Rennes,André Le Menn,DEF,1934-03-02,Francia,30 / 0,623,638
+Division 1,Rennes,Jacques Rouillé,POR,1936-06-28,Francia,20 / 0,590,605
+Division 1,Rennes,Antoine Pascual,DEF,1933-12-03,Francia,15 / 0,572,587
+Division 1,Rennes,Yves Boutet,DEF,1936-12-03,Francia,15 / 0,572,602
+Division 1,Rennes,Pierre Teysseyre,MED,1932-02-04,Francia,13 / 2,566,574
+Division 1,Rennes,André Ascensio,MED,1938-06-04,Francia,11 / 1,560,590
+Division 1,Rennes,Patrice Mayet,DEF,1934-03-17,Francia,9 / 2,552,567
+Division 1,Rennes,Yves Audigane,POR,1939-12-04,Francia,17 / 0,549,579
+Division 1,Rennes,Bernard Josse,POR,1932-01-17,Francia,6 / 0,542,550
+Division 1,Rennes,Rémy Lebret,DEL,1936-02-04,Francia,4 / 0,536,551
+Division 1,Rennes,Émile Legangnoux,MED,1925-02-12,Francia,7 / 0,535,535
+Division 1,Saint-Étienne,Eugène N'Jo Léa,DEL,1931-07-15,Francia,39 / 23,804,812
+Division 1,Saint-Étienne,Claude Abbes,POR,1927-05-24,Francia,31 / 0,754,754
+Division 1,Saint-Étienne,René Domingo,MED,1928-12-28,Francia,42 / 2,728,731
+Division 1,Saint-Étienne,François Wicart,DEF,1926-01-03,Francia,37 / 0,722,722
+Division 1,Saint-Étienne,Georges Peyroche,MED,1937-01-27,Francia,35 / 5,719,749
+Division 1,Saint-Étienne,Henri Braizat,DEL,1936-07-23,Francia,24 / 9,718,733
+Division 1,Saint-Étienne,Juan Casado,DEF,1937-05-07,Francia,34 / 0,716,746
+Division 1,Saint-Étienne,Yvon Goujon,MED,1937-01-21,Francia,33 / 14,712,742
+Division 1,Saint-Étienne,Jean Oleksiak,MED,1935-03-16,Francia,33 / 6,712,727
+Division 1,Saint-Étienne,René Ferrier,MED,1936-12-07,Francia,24 / 4,694,724
+Division 1,Saint-Étienne,Robert Herbin,DEF,1939-03-30,Francia,34 / 0,686,716
+Division 1,Saint-Étienne,Richard Tylinski,DEF,1937-09-18,Francia,19 / 0,671,701
+Division 1,Saint-Étienne,Michel Cristobal,DEL,1934-03-10,Francia,11 / 1,642,657
+Division 1,Saint-Étienne,Ferenc Nyers,DEL,1927-03-03,Hungría,8 / 3,640,640
+Division 1,Saint-Étienne,Robert Philippe,POR,1937-08-01,Francia,11 / 0,639,669
+Division 1,Saint-Étienne,Gérard Coinçon,MED,1939-03-18,Francia,19 / 5,635,665
+Division 1,Saint-Étienne,Joseph Damai,DEL,1936-05-05,Costa de Marfil,5 / 1,622,637
+Division 1,Saint-Étienne,Pierre Sbaiz,DEF,1937-02-12,Francia,5 / 0,618,648
+Division 1,Saint-Étienne,Michel Tylinski,DEF,1934-05-18,Francia,4 / 0,615,630
+Division 1,Saint-Étienne,Jean-Baptiste Bordas,MED,1938-02-08,Francia,1 / 0,605,635
+Division 1,Saint-Étienne,Christian Garcia,MED,,Francia,1 / 0,605,613
+Division 1,Saint-Étienne,Roland Mitoraj,MED,1940-02-05,Francia,8 / 4,598,648
+Division 1,Saint-Étienne,Ginès Gonzales,DEF,1938-09-11,Francia,2 / 0,578,617
+Division 1,Saint-Étienne,Jean-Pierre Biscarrat,DEF,1940-04-08,Francia,1 / 0,575,605
+Division 1,Saint-Étienne,Noël Grousseau,MED,1940-12-26,Francia,1 / 1,575,605
+Division 1,Sedan,Marcel Mouchel,DEL,1927-02-13,Francia,39 / 13,710,710
+Division 1,Sedan,Dominique Rustichelli,DEL,1934-06-26,Francia,38 / 11,704,719
+Division 1,Sedan,Claude Brény,DEL,1932-01-10,Francia,41 / 9,694,702
+Division 1,Sedan,Thadée Polak,DEF,1932-06-02,Francia,42 / 0,664,672
+Division 1,Sedan,Maxime Fulgenzi,DEF,1934-06-26,Francia,41 / 13,664,679
+Division 1,Sedan,Louis Lemasson,DEF,1929-02-22,Francia,38 / 1,664,667
+Division 1,Sedan,Christian Oliver,MED,1932-10-26,Francia,38 / 7,664,672
+Division 1,Sedan,Michel Lefèbvre,MED,1929-04-23,Francia,44 / 12,664,667
+Division 1,Sedan,Synakowski Maryan,DEF,1936-03-14,Francia,31 / 2,643,694
+Division 1,Sedan,Pierre Bernard,POR,1932-01-27,Francia,21 / 0,612,662
+Division 1,Sedan,Pierre Vincent,POR,1932-01-31,Francia,21 / 0,611,619
+Division 1,Sedan,Zacharie Noah,DEF,1937-02-02,Camerún,21 / 0,611,641
+Division 1,Sedan,Germain Gaeremynck,DEL,1935-09-12,Francia,16 / 3,606,621
+Division 1,Sedan,Albert Robert,DEL,1928-05-27,Francia,17 / 0,599,599
+Division 1,Sedan,Pierre Barré,DEF,1937-12-05,Francia,15 / 0,591,621
+Division 1,Sedan,Christian Perrin,MED,1937-08-14,Francia,4 / 0,556,586
+Division 1,Sedan,Marian Halberda,MED,1934-11-27,Francia,4 / 0,556,571
+Division 1,Sedan,Jean Wira,POR,1934-11-12,Francia,2 / 0,550,565
+Division 1,Sedan,Félix Farina,DEF,1932-02-22,Italia,2 / 0,550,558
+Division 1,Sedan,Michel Vandamme,MED,1935-08-02,Francia,1 / 0,547,562
+Division 1,Sedan,Jacques Stamm,DEL,1939-04-04,Francia,7 / 1,540,570
+Division 1,Sedan,André Perrin,DEL,1941-08-28,Francia,1 / 0,517,660
+Division 1,Sochaux,Yngve Brodd,MED,1930-06-09,Suecia,39 / 11,807,810
+Division 1,Sochaux,Samuel Edimo N'Ganga,DEL,1934-12-26,Camerún,46 / 19,799,814
+Division 1,Sochaux,René Gardien,DEL,1928-02-10,Francia,41 / 13,797,797
+Division 1,Sochaux,Julien Stopyra,DEL,1933-01-10,Francia,43 / 14,786,794
+Division 1,Sochaux,Georges Bout,DEF,1933-07-08,Francia,42 / 0,741,749
+Division 1,Sochaux,Pierre Lubrano,DEF,1935-03-29,Francia,43 / 0,741,756
+Division 1,Sochaux,Jean-Pierre Knayer,MED,1931-11-05,Francia,39 / 0,740,748
+Division 1,Sochaux,Serge Bourdoncle,MED,1936-01-24,Francia,38 / 10,738,753
+Division 1,Sochaux,Joseph Tellechea,MED,1926-11-27,Francia,32 / 1,732,732
+Division 1,Sochaux,Lucien Mille,MED,1927-10-17,Francia,33 / 6,721,721
+Division 1,Sochaux,André Mazimann,DEF,1934-04-08,Francia,31 / 0,717,732
+Division 1,Sochaux,Raymond Barthelmebs,POR,1934-04-11,Francia,31 / 0,716,731
+Division 1,Sochaux,Raphael Tellechea,MED,1930-05-04,Francia,25 / 1,695,710
+Division 1,Sochaux,Michel Albertin,DEL,1935-09-17,Francia,14 / 4,676,691
+Division 1,Sochaux,Paul Wendé,POR,1937-05-13,Francia,15 / 0,666,696
+Division 1,Sochaux,Pierre Ninot,MED,1937-06-06,Francia,1 / 0,624,654
+Division 1,Sochaux,Jean Fauvergue,MED,1940-06-11,Francia,3 / 0,600,630
+Division 1,Sochaux,Claude Quittet,DEF,1941-03-12,Francia,1 / 0,594,734
+Division 1,Stade de Reims,Just Fontaine,DEL,1933-08-18,Francia,42 / 36,915,925
+Division 1,Stade de Reims,Roger Piantoni,DEL,1931-12-26,Francia,42 / 29,875,880
+Division 1,Stade de Reims,Jean Vincent,MED,1930-11-29,Francia,49 / 15,855,858
+Division 1,Stade de Reims,Robert Jonquet,DEF,1925-05-03,Francia,46 / 0,840,840
+Division 1,Stade de Reims,Armand Penverne,DEF,1926-11-26,Francia,47 / 3,830,830
+Division 1,Stade de Reims,Dominique Colonna,POR,1928-09-04,Francia,40 / 0,784,799
+Division 1,Stade de Reims,René Bliard,DEL,1932-10-18,Francia,37 / 13,781,789
+Division 1,Stade de Reims,Michel Leblond,DEL,1932-05-10,Francia,47 / 3,776,784
+Division 1,Stade de Reims,Bruno Rodzik,DEF,1935-05-29,Francia,48 / 0,756,827
+Division 1,Stade de Reims,Raoul Giraudo,DEF,1932-05-19,Francia,33 / 0,729,764
+Division 1,Stade de Reims,Robert Lamartine,DEL,1935-06-15,Francia,44 / 12,729,764
+Division 1,Stade de Reims,René Jacquet,POR,1933-06-27,Francia,10 / 0,693,701
+Division 1,Stade de Reims,Robert Siatka,MED,1934-06-20,Francia,36 / 2,689,767
+Division 1,Stade de Reims,Claude Jacques,POR,1934 (solo año),Francia,1 / 0,667,682
+Division 1,Stade de Reims,Raymond Baratto,MED,1934-01-23,Francia,13 / 1,663,764
+Division 1,Stade de Reims,Guy Gouttes,DEF,1937-06-05,Francia,7 / 0,649,699
+Division 1,Stade de Reims,Jean Desruisseaux,MED,1934-12-22,Francia,11 / 6,649,764
+Division 1,Stade de Reims,Guy Sparza,DEL,1940-02-06,Francia,4 / 1,649,679
+Division 1,Stade de Reims,Claude Dubaele,MED,1940-01-19,Francia,2 / 0,640,676
+Division 1,Stade de Reims,André Mergen,POR,1940 (solo año),Francia,1 / 0,637,667
+Division 1,Stade de Reims,Abdallah Azhar,MED,1939-09-21,Marruecos,1 / 1,637,667
+Division 1,Stade de Reims,Robert Berard,MED,1939-12-26,Francia,11 / 2,633,764
+Division 1,Toulouse,Aulis Rytkönen,MED,1929-01-05,Finlandia,17 / 3,739,742
+Division 1,Toulouse,Erny Schultz,DEL,1931-01-29,Francia,40 / 18,727,735
+Division 1,Toulouse,Pierre Cahuzac,MED,1927-07-03,Francia,40 / 3,676,676
+Division 1,Toulouse,Marius Bruat,DEF,1930-06-27,Francia,39 / 1,670,673
+Division 1,Toulouse,Guy Roussel,POR,1935-11-17,Francia,39 / 0,664,679
+Division 1,Toulouse,Jean Wendling,DEF,1934-04-29,Francia,43 / 0,664,814
+Division 1,Toulouse,Lucien Muller,MED,1934-09-03,Francia,43 / 16,664,814
+Division 1,Toulouse,Pierre Dorsini,MED,1934-04-23,Francia,40 / 12,664,679
+Division 1,Toulouse,Georges Amanieu,MED,1934-03-27,Francia,35 / 1,660,675
+Division 1,Toulouse,Richard Boucher,DEF,1932-01-01,Francia,27 / 2,638,656
+Division 1,Toulouse,Armand Fouillen,DEL,1933-01-17,Francia,25 / 3,638,646
+Division 1,Toulouse,Daniel Brych,DEF,1934-05-20,Francia,27 / 3,634,649
+Division 1,Toulouse,Robert Bocchi,MED,1935-01-04,Francia,21 / 3,613,628
+Division 1,Toulouse,Henri Fernandez,MED,1934-08-24,Francia,19 / 1,608,623
+Division 1,Toulouse,Simon Czerwonka,MED,1935-06-16,Francia,6 / 1,564,579
+Division 1,Toulouse,Mohamed Lekkak,DEL,1937-06-02,Argelia,5 / 1,564,594
+Division 1,Toulouse,Yvon-Samuel Robinet,DEL,1934-08-09,Francia,2 / 0,551,566
+Division 1,Toulouse,Jean Mouthon,DEF,1937-04-16,Francia,1 / 0,548,578
+Division 1,Toulouse,André Giuseppin,POR,1939-11-22,Francia,3 / 0,524,554
+Division 1,Valenciennes,Ginès Liron,DEL,1935-03-13,Francia,44 / 22,697,712
+Division 1,Valenciennes,Jean-Claude Baulu,DEL,1936-06-15,Francia,44 / 12,665,680
+Division 1,Valenciennes,Yvon-Raymond Lubiato,DEL,1933-10-15,Francia,33 / 11,653,668
+Division 1,Valenciennes,Wolfgang Matzky,DEF,1931-12-14,Austria,40 / 0,627,635
+Division 1,Valenciennes,Jacques Legrand,MED,1931-12-19,Francia,38 / 10,627,635
+Division 1,Valenciennes,Édouard Stako,MED,1934-01-11,Francia,43 / 9,627,642
+Division 1,Valenciennes,Joseph Puccar,MED,1932-03-06,Francia,42 / 1,627,635
+Division 1,Valenciennes,Joseph Cauwelier,DEF,1925-08-13,Francia,44 / 3,626,626
+Division 1,Valenciennes,Lucien Schaeffer,POR,1928-06-06,Francia,34 / 0,617,617
+Division 1,Valenciennes,Louis Provelli,DEF,1939-04-21,Francia,38 / 0,597,627
+Division 1,Valenciennes,Alain Balaguer,MED,,Francia,24 / 0,585,593
+Division 1,Valenciennes,Daniel Fabbro,DEF,1934-04-17,Francia,24 / 0,584,599
+Division 1,Valenciennes,Marcel Dantheny,POR,1936-01-09,Francia,11 / 0,542,557
+Division 1,Valenciennes,Jean Markiewicz,MED,1938-03-11,Francia,10 / 0,539,679
+Division 1,Valenciennes,Bolec Kocik,DEF,1938-05-03,Francia,7 / 0,531,561
+Division 1,Valenciennes,Max Carrié,MED,1935-06-14,Francia,7 / 0,530,545
+Division 1,Valenciennes,Antoine Léonetti,MED,1937-08-07,Francia,1 / 0,510,540
+Division 1,Valenciennes,Jean-Claude Bielicki,MED,1938-03-17,Francia,1 / 0,510,540
+Division 1,Valenciennes, Fievet,DEL,,Francia,1 / 0,510,518
+Division 1,Valenciennes,Gérard Quillot,DEF,1939-04-08,Francia,6 / 1,496,526
+Division 1,Valenciennes,René Rocco,MED,1938-11-03,Francia,2 / 0,484,556
+Division 1,Valenciennes,Henri Makowski,MED,1938-11-16,Francia,1 / 1,480,510
+Division 2,Aix,Albert Decugis,DEL,1934-05-20,Francia,31 / 7,552,567
+Division 2,Aix,René Vergé,DEL,1933-05-12,Francia,29 / 7,546,554
+Division 2,Aix,Francis Peri,DEF,1932-08-01,Francia,40 / 4,535,543
+Division 2,Aix,Roland Blanc,DEF,1931-10-25,Francia,36 / 0,535,543
+Division 2,Aix,Raymond Ungaro,DEF,1935-03-28,Francia,35 / 3,535,550
+Division 2,Aix,Vladislas Zinkiewikcz,MED,1933-10-01,Francia,38 / 0,535,550
+Division 2,Aix,René Vernier,MED,1925-06-09,Francia,33 / 10,525,525
+Division 2,Aix,Erik Jensen,DEL,1925-06-10,Dinamarca,30 / 2,524,524
+Division 2,Aix,Roger Moine,POR,1935-05-09,Francia,31 / 0,523,538
+Division 2,Aix,Gunnar Johansson,DEF,1924-02-29,Suecia,37 / 0,516,516
+Division 2,Aix,Marcel Santini,MED,1938-07-30,Francia,26 / 0,506,536
+Division 2,Aix,Maurice Aquaron,DEL,1932-02-21,Francia,16 / 5,493,501
+Division 2,Aix,Nicolas Alziari,DEL,,Francia,11 / 6,479,487
+Division 2,Aix,Georges Alexandre,DEL,1935-07-17,Francia,7 / 1,443,458
+Division 2,Aix,Alfred Adinolfi,MED,1938-05-16,Francia,7 / 1,439,469
+Division 2,Aix,Bernard Lejeune,POR,1933-12-10,Francia,5 / 0,432,447
+Division 2,Aix,Max Pierazzi,MED,1938-04-04,Francia,5 / 1,432,462
+Division 2,Aix,André Degioanni,DEL,1940-01-15,Francia,9 / 4,432,462
+Division 2,Aix,Francis Rossi,DEF,1938-01-02,Francia,4 / 0,430,460
+Division 2,Aix, Laroumagne,POR,,Francia,2 / 0,423,431
+Division 2,Aix, Fournier,POR,,Francia,1 / 0,418,426
+Division 2,Aix,Michel Prévot,DEL,1938-09-03,Francia,3 / 0,395,425
+Division 2,Aix,Georges Carnus,POR,1940-08-13,Francia,2 / 0,392,756
+Division 2,Aix,Paul Peyracchia,MED,1938 (solo año),Francia,1 / 0,388,418
+Division 2,Aix,David Manouelian,DEL,1940-11-01,Francia,1 / 0,388,418
+Division 2,Besançon,André Gauchon,DEL,1932-10-22,Francia,40 / 17,640,648
+Division 2,Besançon,Brahim Zahar,DEL,1935-03-25,Marruecos,26 / 18,622,637
+Division 2,Besançon,Alphonse Cassar,DEL,1932-04-25,Francia,38 / 9,613,621
+Division 2,Besançon,Robert Bahl,DEL,1928-08-21,Francia,35 / 7,608,608
+Division 2,Besançon,Maurice Hincker,DEL,1935-10-11,Francia,35 / 3,592,607
+Division 2,Besançon,Jean-Pierre Kautzmann,POR,1932-04-24,Francia,36 / 0,580,588
+Division 2,Besançon,Gilbert Bernadet,DEF,1929-11-09,Francia,39 / 1,580,583
+Division 2,Besançon,Jacques Sucré,MED,1929-05-15,Francia,41 / 10,580,583
+Division 2,Besançon,Daniel Pernin,DEF,1932-12-21,Francia,33 / 0,574,582
+Division 2,Besançon,Rémy Rousseau,DEL,1931-10-13,Francia,23 / 7,567,575
+Division 2,Besançon,Jean Koos,DEF,1932-08-07,Francia,30 / 0,563,571
+Division 2,Besançon,Denis Devaux,DEF,1939-01-09,Francia,38 / 0,550,669
+Division 2,Besançon,Lucien Bruat,DEF,1933-10-13,Francia,21 / 1,532,547
+Division 2,Besançon,Valentin Bamana,DEL,1937-09-06,Congo,14 / 2,516,546
+Division 2,Besançon,Gilbert Ielsch,POR,1933-07-14,Francia,6 / 0,481,489
+Division 2,Besançon,Abdallah Henni,MED,1935-05-07,Argelia,4 / 1,474,489
+Division 2,Besançon, Lachaux,DEF,,Francia,1 / 0,464,472
+Division 2,Besançon, Cossou,MED,,Francia,1 / 0,464,472
+Division 2,Besançon,Marc Laurent,DEL,1934-01-08,Francia,1 / 0,464,479
+Division 2,Burdeos,Edmond Boulle,DEL,1934-10-09,Francia,41 / 25,768,783
+Division 2,Burdeos,Xercès Louis,MED,1926-10-30,Francia,41 / 1,755,755
+Division 2,Burdeos,Lucien Bonnet,DEL,1933-11-27,Francia,36 / 10,722,737
+Division 2,Burdeos,Roland Guillas,MED,1936-09-23,Francia,36 / 7,689,719
+Division 2,Burdeos,Jacques Cazebonne,POR,1926-09-19,Francia,42 / 0,683,683
+Division 2,Burdeos,Guy Calleja,DEF,1938-05-29,Francia,38 / 5,683,713
+Division 2,Burdeos,Jean-Claude Casties,DEF,1936-11-11,Francia,39 / 3,683,713
+Division 2,Burdeos,Alphonse Le Gall,DEL,1931-10-06,Francia,22 / 5,658,666
+Division 2,Burdeos,Michel Cartau,DEF,1936-04-25,Francia,28 / 0,656,671
+Division 2,Burdeos,Gunnar Andersson,DEL,1928-08-14,Francia,14 / 10,654,654
+Division 2,Burdeos,Louis Carra,DEF,1932-05-16,Francia,27 / 0,652,660
+Division 2,Burdeos,Gilbert Moevi,DEF,1934-09-01,Francia,24 / 0,645,660
+Division 2,Burdeos,René Fernandez,DEL,1934-06-02,Francia,24 / 0,645,660
+Division 2,Burdeos,Jean Audebert,DEF,1931-08-06,Francia,13 / 5,606,614
+Division 2,Burdeos,Raymond Wozniezko,MED,1930-01-17,Francia,13 / 0,606,609
+Division 2,Burdeos,Robert Charré,DEF,1929-06-06,Francia,11 / 0,602,605
+Division 2,Burdeos,Francisco Navarro,DEF,1933-04-07,Marruecos,5 / 2,580,630
+Division 2,Burdeos,Liberto Leiza,DEL,1933-05-08,España,4 / 1,580,588
+Division 2,Burdeos,Georges Gardes,DEL,1934-02-01,Francia,5 / 0,580,595
+Division 2,Burdeos,Jean-Claude Ranouil,POR,1937-09-20,Francia,1 / 0,566,639
+Division 2,Burdeos, Dupart,DEF,,Francia,1 / 0,566,574
+Division 2,Burdeos,Gabriel Abossolo,MED,1939-01-16,Camerún,8 / 1,559,639
+Division 2,Béziers,Ernst Stojaspal,DEL,1925-01-14,Austria,10 / 4,647,647
+Division 2,Béziers,Jean Bonato,DEL,1932-12-14,Francia,39 / 13,627,635
+Division 2,Béziers,René Vignal,POR,1926-08-12,Francia,17 / 0,621,621
+Division 2,Béziers,Fernand Sieber,DEF,1928-06-09,Francia,40 / 0,581,581
+Division 2,Béziers,Milan Grobarcik,DEF,1933-11-09,Francia,42 / 0,581,596
+Division 2,Béziers,Michel Luzi,MED,1929-01-25,Francia,39 / 10,581,584
+Division 2,Béziers,Saïd Amara,MED,1933-03-11,Argelia,38 / 10,581,614
+Division 2,Béziers,Christian Guinard,MED,1930-11-19,Francia,36 / 0,581,589
+Division 2,Béziers,Louis Delhaye,DEF,1929-05-16,Francia,29 / 0,559,562
+Division 2,Béziers,Yves Albert,DEL,1935-06-11,Francia,28 / 1,559,574
+Division 2,Béziers,Camille Passi,DEL,1937-09-30,Congo,15 / 4,528,558
+Division 2,Béziers,Jean Rigoulot,POR,1930-10-26,Francia,18 / 0,521,529
+Division 2,Béziers,Louis Saez,MED,1935-05-16,Francia,17 / 5,519,534
+Division 2,Béziers,Marian Kosior,DEL,,Francia,11 / 3,509,517
+Division 2,Béziers,Gyula Nagy,MED,1924-04-07,Hungría,22 / 3,507,507
+Division 2,Béziers,Marius Tagliagossi,DEL,1933-09-21,Francia,6 / 4,496,511
+Division 2,Béziers,Michel Cristobal,DEL,1934-03-10,Francia,10 / 0,494,509
+Division 2,Béziers,Emilio Ferlatti,POR,1933-02-24,Italia,7 / 0,484,492
+Division 2,Béziers,Santiago Bessonnart,MED,1933-05-03,Uruguay,6 / 0,481,531
+Division 2,Béziers,André Campo,DEF,1923-04-22,Francia,18 / 1,474,474
+Division 2,Béziers, Buret,DEL,,Francia,2 / 2,474,482
+Division 2,Béziers,Jean-Claude Onik,DEF,1934-05-13,Francia,2 / 0,467,482
+Division 2,Béziers,Benito Antoni,DEL,1939-05-15,Italia,8 / 2,465,495
+Division 2,Béziers,Pierre Bourdel,DEF,1939-12-08,Francia,2 / 0,437,522
+Division 2,CA Paris,Jean Desgranges,MED,1929-04-22,Francia,34 / 4,560,563
+Division 2,CA Paris,André Thieffine,DEF,1929-04-18,Francia,37 / 0,554,557
+Division 2,CA Paris,Dante Tedesco,MED,1932-05-20,Francia,33 / 14,554,562
+Division 2,CA Paris,Raymond Mercier,MED,1930-03-13,Francia,38 / 1,554,557
+Division 2,CA Paris,Marcel Bravo,MED,1936-01-16,Francia,35 / 0,554,569
+Division 2,CA Paris,Claude Bernard,MED,1935-02-20,Francia,36 / 0,554,569
+Division 2,CA Paris,Daniel Ferrand,POR,1933-06-06,Francia,32 / 0,553,561
+Division 2,CA Paris,Jean-Michel Emmel,MED,1938-01-07,Francia,25 / 1,527,557
+Division 2,CA Paris,Jules Basti,DEF,1932-06-30,Francia,24 / 2,524,532
+Division 2,CA Paris,Wladislav Smolenski,DEF,1933-12-01,Francia,24 / 0,524,539
+Division 2,CA Paris,Jean Delmas,MED,1927-03-15,Francia,24 / 2,524,524
+Division 2,CA Paris,Abdennour Hamini,MED,1938-05-16,Francia,19 / 4,504,534
+Division 2,CA Paris,Yeso Amalfi,MED,1925-12-06,Brasil,16 / 0,494,494
+Division 2,CA Paris,Jacques Andrieux,DEF,1940-02-22,Francia,19 / 1,474,504
+Division 2,CA Paris, Gehanno,DEL,,Francia,5 / 2,461,469
+Division 2,CA Paris,Robert Abraham,POR,1937 (solo año),Francia,7 / 0,460,490
+Division 2,CA Paris,Gaston Rossi,MED,1933-11-08,Francia,6 / 0,457,472
+Division 2,CA Paris,Boris Joly,DEF,1937-03-03,Francia,5 / 0,452,482
+Division 2,CA Paris,Jacques Mazzucconi,MED,1935-12-16,Francia,5 / 1,452,467
+Division 2,CA Paris, Fontaliran,DEL,,Francia,4 / 0,449,457
+Division 2,CA Paris, Marsollier,DEL,,Francia,1 / 0,438,446
+Division 2,Cannes,Laurent Robuschi,DEL,1935-10-05,Francia,42 / 23,664,681
+Division 2,Cannes,John Westwood,DEL,1927-12-03,Inglaterra,31 / 7,598,598
+Division 2,Cannes,Jean Lamberti,DEF,1936-07-04,Francia,39 / 5,588,603
+Division 2,Cannes,Jacques Flamant,MED,1933-01-07,Francia,40 / 3,588,596
+Division 2,Cannes,Jacques Grattarola,MED,1930-02-16,Francia,36 / 3,588,591
+Division 2,Cannes,Jean Béraudo,MED,1930-11-02,Francia,39 / 0,588,596
+Division 2,Cannes,René Ferrand,POR,1927-12-26,Francia,28 / 0,562,562
+Division 2,Cannes,Claude Heynard-Rolland,MED,1934-06-19,Francia,25 / 3,552,567
+Division 2,Cannes,Marc Schreiber,MED,1935-07-10,Francia,24 / 0,549,564
+Division 2,Cannes,Armand Goiran,DEF,1933-02-13,Francia,23 / 1,546,554
+Division 2,Cannes,Edmond Plewa,DEL,1927-09-15,Francia,22 / 1,545,545
+Division 2,Cannes,Pierre Casoni,DEF,1929-07-15,Francia,23 / 0,544,547
+Division 2,Cannes,Joseph Lui,MED,1932-11-18,Francia,21 / 0,539,547
+Division 2,Cannes,Joseph Féraud,DEL,1929-08-12,Francia,14 / 1,518,521
+Division 2,Cannes,Slavoljub Petrovic,DEL,1936-02-08,Yugoslavia,13 / 1,515,530
+Division 2,Cannes,Yves Pachis,POR,1936-10-30,Francia,14 / 0,514,544
+Division 2,Cannes,Gérard Bertrand,MED,1936-10-21,Francia,11 / 2,504,537
+Division 2,Cannes,Jean-Claude Laugier,DEL,1938-11-05,Francia,12 / 4,495,525
+Division 2,Cannes,James Afrika,MED,1935-12-01,Camerún,3 / 1,478,493
+Division 2,Cannes,Bosko Tanaskovic,DEF,,Yugoslavia,1 / 0,471,479
+Division 2,Cannes,Francis Mori,DEF,1939-11-11,Francia,1 / 0,441,471
+Division 2,Forbach,Daniel Carpentier,DEF,1927-02-19,Francia,34 / 1,576,576
+Division 2,Forbach,Bruno Ferrero,POR,1933-11-24,Francia,36 / 0,564,579
+Division 2,Forbach,Roland Wattecamps,DEF,1927-06-17,Francia,39 / 6,564,564
+Division 2,Forbach,Aloise Zimmermann,MED,1932-01-29,Francia,37 / 5,564,572
+Division 2,Forbach,Edmond Walinski,MED,1930-10-24,Francia,39 / 1,564,572
+Division 2,Forbach,Gustave Bettenfeld,MED,1932-07-14,Francia,34 / 16,564,572
+Division 2,Forbach,René Lestienne,MED,1932-12-28,Francia,32 / 9,559,567
+Division 2,Forbach,Roger Hocquart,DEF,1933-09-21,Francia,27 / 0,541,556
+Division 2,Forbach,Turqui Bouzidi,MED,1933-04-07,Francia,24 / 4,530,538
+Division 2,Forbach,Serge Polo,DEF,1933-06-08,Francia,21 / 0,520,528
+Division 2,Forbach,Étienne Wesolek,DEF,1930-10-20,Francia,21 / 1,520,528
+Division 2,Forbach,Roger Moy,MED,1937-03-25,Francia,21 / 10,520,620
+Division 2,Forbach,Diego Cuenca,DEL,1927-12-04,España,12 / 3,500,500
+Division 2,Forbach,Simon Kryslak,MED,1928-10-09,Francia,15 / 5,498,501
+Division 2,Forbach,Bernard Hiegel,DEF,1940-05-05,Francia,23 / 2,497,724
+Division 2,Forbach,Fernand Rachel,DEF,1936-04-20,Francia,10 / 0,480,495
+Division 2,Forbach,Adrien Willigsecker,DEL,1936-01-23,Francia,10 / 0,480,495
+Division 2,Forbach,Francis Cathani,MED,1931-10-12,Francia,9 / 1,476,484
+Division 2,Forbach,Jean Altpeter,POR,1935-01-14,Francia,4 / 0,458,473
+Division 2,Forbach, Morello,POR,,Francia,1 / 0,447,455
+Division 2,Forbach,Kurt Schindlauer,MED,1929-01-30,Francia,1 / 0,447,450
+Division 2,Grenoble,François Remetter,POR,1928-08-08,Francia,41 / 0,708,708
+Division 2,Grenoble,Leongino Unzaïn,DEL,1925-05-16,Paraguay,33 / 11,620,620
+Division 2,Grenoble,Denis Papastradides,DEL,1937-08-15,Francia,24 / 12,599,629
+Division 2,Grenoble,Louis Desgranges,DEF,1935-07-23,Francia,40 / 3,588,603
+Division 2,Grenoble,Pierre Phelipon,DEF,1935-02-05,Francia,37 / 0,588,603
+Division 2,Grenoble,Paul Carrier,MED,1930-03-04,Francia,36 / 3,588,591
+Division 2,Grenoble,Joseph Piatek,MED,1931-03-09,Francia,41 / 7,588,596
+Division 2,Grenoble,Jean-Pierre Cappon,MED,1930-08-01,Francia,41 / 4,588,591
+Division 2,Grenoble,Charles Vidal,MED,1933-10-13,Francia,33 / 18,582,597
+Division 2,Grenoble,Ruben Bravo,MED,1923-11-16,Argentina,34 / 7,568,568
+Division 2,Grenoble,Martial Jacques,DEL,1932-08-20,Francia,24 / 4,567,575
+Division 2,Grenoble,Gérard Fossoud,DEF,1935-08-20,Francia,28 / 0,565,580
+Division 2,Grenoble,Jacques Ligron,DEL,1931-09-26,Francia,11 / 4,522,530
+Division 2,Grenoble,Casimir Ratajski,DEF,1935-02-19,Francia,12 / 0,510,525
+Division 2,Grenoble,Raymond Matthey-Dorey,DEF,1925-06-01,Francia,12 / 0,505,505
+Division 2,Grenoble,Agnès Tanasi,DEL,1933-08-04,Francia,7 / 3,505,513
+Division 2,Grenoble,Zygmont Blaszczyk,DEF,1928-04-18,Francia,9 / 0,499,499
+Division 2,Grenoble,Jean Thomassin,DEL,1938-06-14,Francia,3 / 0,479,509
+Division 2,Grenoble, Ravaud,MED,,Francia,1 / 0,472,480
+Division 2,Grenoble,Michel Yanda,DEL,,Francia,1 / 0,472,480
+Division 2,Grenoble,Louis Cérantola,POR,1939-03-30,Francia,2 / 0,445,475
+Division 2,Grenoble,Robert Hostache,DEF,1941-04-25,Francia,1 / 1,442,472
+Division 2,Grenoble,Albert Fornetti,DEF,1922-11-17,Francia,2 / 0,420,420
+Division 2,Le Havre,André Strappe,DEL,1928-02-23,Francia,38 / 16,840,840
+Division 2,Le Havre,Eduardo Di Loreto,DEL,1929-10-28,Argentina,35 / 30,735,738
+Division 2,Le Havre,Jacques Ferrari,DEL,1933-07-07,Francia,35 / 12,678,686
+Division 2,Le Havre,Frederic N'Doumbé,DEL,1935-01-09,Camerún,41 / 9,674,689
+Division 2,Le Havre,Hocine Bouchache,DEL,1932-04-20,Argelia,26 / 15,658,666
+Division 2,Le Havre,Christian Villenave,POR,1927-08-11,Francia,41 / 0,643,643
+Division 2,Le Havre,Albert Eloy,DEF,1927-06-30,Francia,45 / 0,643,643
+Division 2,Le Havre,Jean-Louis Lagadec,DEF,1933-05-23,Francia,45 / 3,643,689
+Division 2,Le Havre,Kacem Hassouna,DEF,1926-11-26,Túnez,42 / 1,643,643
+Division 2,Le Havre,Édouard Salzborn,MED,1927-08-29,Francia,42 / 6,643,643
+Division 2,Le Havre,Jacques Meyer,MED,1930-04-08,Francia,40 / 5,643,646
+Division 2,Le Havre,Jean Saunier,DEL,1929-09-17,Francia,27 / 6,636,639
+Division 2,Le Havre,Valentin Navarro,DEL,1931-10-19,Francia,16 / 4,588,596
+Division 2,Le Havre,Roger Ganczarzyck,MED,1930-12-05,Francia,19 / 6,581,589
+Division 2,Le Havre,Jean Rocci,DEF,1934-05-16,Francia,12 / 1,561,576
+Division 2,Le Havre,Ebenezer Moudio,MED,1933-03-02,Camerún,7 / 0,545,553
+Division 2,Le Havre,Lehel Somlay,POR,1936-06-26,Hungría,4 / 0,535,550
+Division 2,Le Havre,Jean-Jacques Berne,MED,1935-07-17,Francia,4 / 0,535,550
+Division 2,Le Havre,Xavier Hesse,DEL,1935-09-29,Francia,4 / 0,535,550
+Division 2,Le Havre,Louis Broccolicchi,DEF,1928-07-05,Francia,2 / 0,529,529
+Division 2,Le Havre,Norbert Beuzit,DEL,1936-02-21,Francia,1 / 1,529,544
+Division 2,Le Havre,Frédéric Guilbert,DEL,1933-09-13,Francia,1 / 0,526,541
+Division 2,Le Havre,Pierre Aubin,DEL,,Suiza,1 / 0,526,534
+Division 2,Le Havre,Lionel Veyret,POR,1940-04-13,Francia,3 / 0,502,532
+Division 2,Le Havre,Guy Thomas,DEF,1940-02-19,Francia,1 / 0,496,526
+Division 2,Metz,Stanislas Curyl,DEL,1929-04-24,Francia,42 / 13,696,699
+Division 2,Metz,Serge Zénier,DEL,1933-07-30,Francia,45 / 13,681,689
+Division 2,Metz,Antonio Acosta,DEL,1929-07-26,Paraguay,33 / 9,657,660
+Division 2,Metz,Jean Rongoni,DEL,1932-01-08,Francia,35 / 4,646,654
+Division 2,Metz,Alberto Corazza,POR,1930-01-28,Italia,40 / 0,641,656
+Division 2,Metz,René Fuchs,DEF,1928-10-31,Francia,41 / 1,641,644
+Division 2,Metz,Alfred Sbroglia,DEF,1932-11-28,Francia,44 / 7,641,649
+Division 2,Metz,Claude Dosdat,DEF,1929-06-11,Francia,44 / 0,641,644
+Division 2,Metz,André Hess,MED,1933-03-05,Francia,43 / 4,641,649
+Division 2,Metz,Basile Pryslak,MED,1935-01-21,Francia,30 / 0,614,629
+Division 2,Metz,Jacques Muller,DEL,1931-06-17,Francia,19 / 5,599,607
+Division 2,Metz,Antonio Aloni,MED,1929-12-09,Italia,22 / 2,591,594
+Division 2,Metz,Louis Gasparini,MED,1934-11-22,Francia,20 / 6,583,598
+Division 2,Metz,Gérard Moresco,DEL,1934-11-16,Francia,6 / 1,543,558
+Division 2,Metz,Roger Renaudin,POR,1932-03-16,Francia,5 / 0,536,544
+Division 2,Metz,Raymond Rikal,DEF,1932-07-04,Francia,4 / 0,533,541
+Division 2,Metz,Gilbert Rausch,DEF,1934-04-12,Francia,3 / 1,530,545
+Division 2,Metz,Augustin Kouadjo,MED,1939 (solo año),Costa de Marfil,13 / 0,530,560
+Division 2,Metz,Paul Hardy,DEF,1935-10-29,Francia,2 / 0,527,542
+Division 2,Metz,Roger Rohr,DEF,1936-09-13,Francia,1 / 0,524,554
+Division 2,Metz,Roland Masucci,MED,1937-08-31,Francia,1 / 0,524,554
+Division 2,Metz,Jean-Louis Heinrich,POR,1943-05-22,Francia,1 / 0,494,524
+Division 2,Metz,Michel Heinrich,DEF,1940-02-01,Francia,1 / 0,494,555
+Division 2,Montpellier,René Mandaron,DEF,1933-09-13,Francia,35 / 0,610,625
+Division 2,Montpellier,Henri Gouès,DEF,1933-04-13,Francia,38 / 2,610,618
+Division 2,Montpellier,Serge Aubert,DEF,1934-05-10,Francia,38 / 3,610,625
+Division 2,Montpellier,Marc Bourrier,MED,1934-09-21,Francia,35 / 3,610,638
+Division 2,Montpellier,Guy Van Sam,MED,1935-12-20,Francia,35 / 19,610,698
+Division 2,Montpellier,Barthelemy Mesas,MED,1931-01-27,Francia,33 / 1,610,618
+Division 2,Montpellier,Gérard Leroy,MED,1935-08-23,Francia,31 / 12,605,620
+Division 2,Montpellier,Joseph Bonnel,MED,1939-01-04,Francia,38 / 11,580,794
+Division 2,Montpellier,François Mercurio,MED,1930-01-19,Francia,24 / 2,579,582
+Division 2,Montpellier,Alain Dessons,POR,1939-09-08,Francia,31 / 0,575,605
+Division 2,Montpellier,Gaspard Ebélé Kondo,MED,1932-11-27,Camerún,19 / 2,560,568
+Division 2,Montpellier,Gunnar Andersson,DEL,1928-08-14,Francia,8 / 4,543,543
+Division 2,Montpellier,Georges Ben Amar,DEF,1925-05-06,Francia,13 / 0,532,532
+Division 2,Montpellier,Samuel Etondé,DEL,1938-11-03,Camerún,14 / 3,525,555
+Division 2,Montpellier,Roland Predal,POR,1931-04-09,Francia,8 / 0,520,528
+Division 2,Montpellier,Yves René Michel,DEL,1940-05-06,Francia,13 / 1,513,543
+Division 2,Montpellier,Robert Fabre,DEF,1930-09-29,Francia,4 / 0,505,513
+Division 2,Montpellier,Victor Pokossy,DEL,1935-09-07,Camerún,4 / 0,505,520
+Division 2,Montpellier,Pierre Vincent,DEL,1936-05-11,Francia,1 / 0,494,509
+Division 2,Montpellier,Louis Favre,DEL,1923-10-23,Francia,7 / 0,479,479
+Division 2,Nantes,Ernst Melchior,DEL,1920-06-26,Austria,36 / 16,660,660
+Division 2,Nantes,Martin Moudio,DEL,1935-09-04,Camerún,27 / 9,574,589
+Division 2,Nantes,Dominique Collados,DEL,1931-08-31,Francia,26 / 7,561,569
+Division 2,Nantes,Louis Pinat,POR,1929-08-12,Francia,36 / 0,551,554
+Division 2,Nantes,Maurice Balloche,DEF,1928-11-14,Francia,34 / 0,551,554
+Division 2,Nantes,André Bouteiller,MED,1932-02-01,Francia,37 / 7,551,559
+Division 2,Nantes,Robert Samson,MED,1934-03-10,Francia,36 / 0,551,566
+Division 2,Nantes,Thadée M'Nick,MED,1933-09-22,Francia,29 / 3,542,557
+Division 2,Nantes,Louis Dikabo,MED,1933-10-20,Camerún,22 / 1,515,530
+Division 2,Nantes,Christian de Vaufleury,MED,1929-01-18,Francia,20 / 0,507,510
+Division 2,Nantes,Patrice Mayet,DEF,1934-03-17,Francia,19 / 0,504,519
+Division 2,Nantes,Ernest Bodini,MED,1934-05-22,Francia,16 / 1,492,507
+Division 2,Nantes,Raymond Wozniezko,MED,1930-01-17,Francia,12 / 1,477,492
+Division 2,Nantes,André Le Menn,DEF,1934-03-02,Francia,9 / 0,465,480
+Division 2,Nantes,Saïd Guessoum,MED,1934-03-25,Francia,9 / 1,465,480
+Division 2,Nantes,Félix Farina,DEF,1932-02-22,Italia,8 / 0,462,470
+Division 2,Nantes,René Caugant,DEL,1938-08-21,Francia,7 / 1,462,492
+Division 2,Nantes,Samuel Doualla,MED,1934-08-27,Camerún,7 / 0,458,473
+Division 2,Nantes,Gilbert Rivalland,MED,1934-10-19,Francia,6 / 0,454,469
+Division 2,Nantes,Armand Limberger,DEF,1931-10-08,Francia,5 / 0,450,458
+Division 2,Nantes,Paul Verpillat,MED,1938-01-12,Francia,5 / 0,450,480
+Division 2,Nantes,Guy Belin,DEF,1937-11-17,Francia,4 / 0,446,476
+Division 2,Nantes,Jacques Carpentier,DEL,1934-05-14,Francia,4 / 0,446,461
+Division 2,Nantes,Pierre Girardeau,POR,1932-06-28,Francia,2 / 0,439,447
+Division 2,Nantes,André Guilcher,MED,1931-05-05,Francia,2 / 0,439,447
+Division 2,Nantes,Henri Ebouaney,DEL,1936-01-08,Camerún,1 / 1,438,453
+Division 2,Nantes,Gilbert Le Chenadec,DEF,1938-07-13,Francia,1 / 0,435,518
+Division 2,Nantes, Kingué,MED,,Francia,1 / 0,435,443
+Division 2,Nantes,Roger Pohon,MED,1940-01-25,Francia,6 / 1,424,454
+Division 2,Nantes,Daniel Eon,POR,1939-12-20,Francia,1 / 0,405,435
+Division 2,Nantes,René Pann,DEL,1939-01-18,Francia,1 / 0,405,435
+Division 2,Perpignan,René Ramon,DEL,1926-11-22,Francia,39 / 16,604,604
+Division 2,Perpignan,Charles Camand,DEL,1930-05-21,Argelia,35 / 5,564,567
+Division 2,Perpignan,Joseph Ibanez,DEL,1927-01-21,Francia,36 / 1,551,551
+Division 2,Perpignan,Lucien Pagès,POR,1934-08-18,Francia,42 / 0,547,562
+Division 2,Perpignan,Albert Petitfils,MED,1933-12-22,Francia,40 / 8,547,562
+Division 2,Perpignan,Georges Rous,MED,1938-02-05,Francia,36 / 1,547,577
+Division 2,Perpignan,Fernand Pellegrin,DEL,1935-01-29,Francia,41 / 0,547,562
+Division 2,Perpignan,Roland Duluc,DEL,1930-06-03,Francia,30 / 4,544,547
+Division 2,Perpignan,Luciano Plaza,MED,1937-01-12,España,31 / 2,531,561
+Division 2,Perpignan,Diego Cuenca,DEL,1927-12-04,España,20 / 4,510,510
+Division 2,Perpignan,Gabriel Caullery,DEF,1936-03-07,Francia,24 / 0,508,523
+Division 2,Perpignan,Georges Ipetet,DEL,1935-01-05,Congo,15 / 2,485,500
+Division 2,Perpignan,Antoine Serrano,DEF,1934-06-30,Francia,16 / 0,481,496
+Division 2,Perpignan,Jean Domenger,DEL,1930-08-27,Francia,15 / 0,477,480
+Division 2,Perpignan,Nadir Bendrama,MED,1934-05-10,Argelia,13 / 1,471,486
+Division 2,Perpignan,Jean Loiseau,DEF,1933-03-07,Francia,7 / 0,451,459
+Division 2,Perpignan, Guillot,MED,,Francia,7 / 0,451,459
+Division 2,Perpignan,Benaïssa Sakraoui,DEL,1937-04-19,Argelia,5 / 0,444,474
+Division 2,Perpignan,Pierre Sinibaldi,DEL,1924-02-29,Francia,5 / 2,440,440
+Division 2,Perpignan,Modeste Sabate,DEF,,Francia,2 / 0,434,442
+Division 2,Perpignan,Ambroise Mendengué,MED,1934-07-14,Camerún,1 / 0,430,445
+Division 2,Perpignan,Émile Mela,DEL,1939-04-12,Francia,2 / 0,404,434
+Division 2,Red Star,Léon Allart,DEF,1934-09-21,Francia,43 / 0,592,607
+Division 2,Red Star,Guillaume Le Boëdec,DEF,1929-11-14,Francia,41 / 1,592,595
+Division 2,Red Star,Jean Kaczmarek,MED,1933-11-04,Francia,42 / 4,592,607
+Division 2,Red Star,François Dambrine,DEL,1934-08-03,Francia,32 / 4,592,607
+Division 2,Red Star,Robert Prunelle,DEL,1930-05-05,Francia,39 / 0,592,595
+Division 2,Red Star,Robert Loubière,MED,1929-08-28,Francia,35 / 1,587,590
+Division 2,Red Star,Jean Gondouin,MED,1928-07-20,Francia,33 / 0,581,581
+Division 2,Red Star,Roger Ranzoni,MED,1931-02-07,Francia,32 / 4,576,584
+Division 2,Red Star,Manuel Andrada,DEL,1927-01-16,Paraguay,27 / 4,575,575
+Division 2,Red Star,Casimir Koza,DEL,1935-01-27,Francia,18 / 9,564,620
+Division 2,Red Star,Marc Bachortz,POR,1938-06-15,Francia,27 / 0,561,591
+Division 2,Red Star,Christian Cheyssac,DEL,1931-08-14,Francia,21 / 5,560,568
+Division 2,Red Star,Yvon-Samuel Robinet,DEL,1934-08-09,Francia,20 / 3,550,565
+Division 2,Red Star,Joseph Moreira,POR,1934-10-26,Francia,17 / 0,527,633
+Division 2,Red Star,Henri Fernandez,MED,1934-08-24,Francia,14 / 2,517,532
+Division 2,Red Star,Henri Diratz,MED,1937-09-20,Francia,13 / 1,515,545
+Division 2,Red Star,Gilles Carpentier,MED,1938-05-29,Francia,8 / 2,499,529
+Division 2,Red Star,Georges Oquinarena,MED,1934-06-08,Francia,4 / 1,485,500
+Division 2,Red Star,Jacques Dumareix,MED,1937-05-27,Francia,3 / 0,482,512
+Division 2,Red Star,Bernard Uguen,DEF,1935-11-21,Francia,2 / 0,478,493
+Division 2,Red Star,Jean Prouff,MED,1919-09-12,Francia,3 / 0,464,464
+Division 2,Red Star,Daniel Bailliez,DEL,1940-12-27,Francia,7 / 0,464,494
+Division 2,Red Star,Daniel Rodighiero,DEL,1940-09-20,Francia,2 / 0,448,580
+Division 2,Roubaix-Tourcoing,Robert Lemaître,DEF,1929-03-07,Francia,32 / 8,613,616
+Division 2,Roubaix-Tourcoing,Roger Colliot,DEF,1925-09-02,Francia,41 / 0,611,611
+Division 2,Roubaix-Tourcoing,René Sergent,MED,1931-03-03,Francia,40 / 7,611,619
+Division 2,Roubaix-Tourcoing,Jean Cueff,MED,1931-11-06,Francia,36 / 0,611,619
+Division 2,Roubaix-Tourcoing,Maurice Lakière,MED,1933-05-21,Francia,40 / 2,611,619
+Division 2,Roubaix-Tourcoing,Julien Buge,DEF,1935-03-22,Francia,35 / 2,610,625
+Division 2,Roubaix-Tourcoing,Aimé Gori,MED,1936-04-04,Francia,34 / 20,608,722
+Division 2,Roubaix-Tourcoing,Guy Hernas,MED,1934-03-24,Francia,34 / 12,607,622
+Division 2,Roubaix-Tourcoing,Claude Rey,DEF,1935-09-22,Francia,33 / 1,605,639
+Division 2,Roubaix-Tourcoing,Fernand Lopez,DEL,1933-08-30,Francia,23 / 4,585,593
+Division 2,Roubaix-Tourcoing,Charles Samoy,POR,1939-04-30,Francia,36 / 0,581,611
+Division 2,Roubaix-Tourcoing,Arsène Meynard,DEL,1931-10-30,Francia,19 / 1,559,567
+Division 2,Roubaix-Tourcoing,Guy Friederich,MED,1928-08-19,Francia,14 / 2,539,539
+Division 2,Roubaix-Tourcoing,Michel Dutilleul,MED,1935-01-06,Francia,9 / 0,522,537
+Division 2,Roubaix-Tourcoing,Roger Boury,MED,1925-12-30,Francia,6 / 1,517,517
+Division 2,Roubaix-Tourcoing,Claude Lora,POR,1934-11-23,Francia,5 / 0,508,523
+Division 2,Roubaix-Tourcoing,Pierre Montbailly,MED,,Francia,2 / 0,498,506
+Division 2,Roubaix-Tourcoing,Henri Delbecq,MED,1936-10-17,Bélgica,1 / 0,494,524
+Division 2,Roubaix-Tourcoing, Hugues,DEL,,Francia,1 / 0,494,502
+Division 2,Roubaix-Tourcoing,Gabriel Deschodt,DEL,,Francia,1 / 0,494,502
+Division 2,Roubaix-Tourcoing,Claude Casier,DEL,,Francia,1 / 0,494,502
+Division 2,Roubaix-Tourcoing,Jean-Claude Mafille,MED,1939-01-10,Francia,7 / 0,487,517
+Division 2,Rouen,Claude Corbel,DEL,1932-05-25,Francia,38 / 14,638,646
+Division 2,Rouen,Antoine Keller,DEL,1930-10-31,Francia,22 / 19,623,631
+Division 2,Rouen,Yves Legrand,DEL,1935-02-04,Francia,27 / 6,592,607
+Division 2,Rouen,Jacques Davion,DEF,1931-04-15,Francia,33 / 0,586,594
+Division 2,Rouen,Jacques Lefèvre,DEF,1931-06-14,Francia,37 / 0,586,594
+Division 2,Rouen,Gilbert Fruhauff,MED,1933-04-03,Francia,35 / 8,586,594
+Division 2,Rouen,Jean-Louis Buron,MED,1934-04-04,Francia,36 / 4,586,653
+Division 2,Rouen,Pierre Barrin,MED,1933-05-27,Francia,33 / 1,586,594
+Division 2,Rouen,Abdelhamid Skander,MED,1928-05-13,Argelia,36 / 6,586,586
+Division 2,Rouen,Claude Hugues,POR,1932-04-02,Francia,31 / 0,581,631
+Division 2,Rouen,Claude Latron,DEL,1934-04-07,Francia,18 / 10,576,672
+Division 2,Rouen,Arthur Johnsson,MED,1931 (solo año),Togo,23 / 2,552,560
+Division 2,Rouen,Jean Toutain,DEF,1933-01-22,Francia,9 / 0,500,508
+Division 2,Rouen,Michel Sénéchal,DEF,1939-03-03,Francia,14 / 0,489,519
+Division 2,Rouen,Daniel Druda,MED,1939-06-23,Francia,12 / 1,481,511
+Division 2,Rouen,Paul Lévin,DEF,1924-10-12,Francia,8 / 0,478,478
+Division 2,Rouen,Albert Duchene,POR,1940-06-03,Francia,10 / 0,474,504
+Division 2,Rouen,Roger Rizzi,MED,1937-09-05,Francia,2 / 0,474,504
+Division 2,Rouen,Aake Hjalmarsson,MED,1922-07-26,Suecia,14 / 5,457,457
+Division 2,Rouen,Philippe Poulain,DEF,1941-01-12,Francia,4 / 0,451,484
+Division 2,Rouen,Jean-Pierre Destrumelle,MED,1941-01-02,Francia,3 / 0,447,719
+Division 2,Rouen,Jean-Claude Billet,DEF,1939-09-14,Francia,1 / 0,440,470
+Division 2,Rouen,Alain Rio,MED,1939-04-08,Francia,1 / 0,440,470
+Division 2,Rouen,Max Schirschin,DEF,1921-01-29,Alemania,4 / 0,389,389
+Division 2,Stade Français,Petrus Van Rhijn,DEL,1931-03-22,Países Bajos,34 / 34,727,735
+Division 2,Stade Français,Michel Perchey,DEL,1934-10-08,Francia,37 / 15,688,703
+Division 2,Stade Français,Pierre Dumas,DEL,1933-08-26,Francia,33 / 10,658,666
+Division 2,Stade Français,François Stasiak,DEF,1936-09-18,Francia,43 / 0,632,662
+Division 2,Stade Français,Jean Bacconnier,DEL,1936-05-05,Francia,41 / 0,632,647
+Division 2,Stade Français,Yves Cluzel,POR,1932-06-01,Francia,36 / 0,630,638
+Division 2,Stade Français,Pierre Wadoux,MED,1928-12-05,Francia,35 / 3,627,630
+Division 2,Stade Français,Raymond Bellot,MED,1929-06-09,Francia,34 / 4,623,626
+Division 2,Stade Français,Amadou Wadé,DEL,1932-07-06,Senegal,18 / 10,609,617
+Division 2,Stade Français,Claude Pérard,DEF,1931-02-15,Francia,28 / 0,604,612
+Division 2,Stade Français,Simon Zimny,DEF,1927-05-18,Francia,23 / 0,593,593
+Division 2,Stade Français,Roger Novaro,MED,1933-11-15,Francia,23 / 4,587,602
+Division 2,Stade Français,Bronas Trusas,MED,1934-08-11,Francia,22 / 2,584,599
+Division 2,Stade Français,Jean Davanne,MED,1936-12-26,Francia,22 / 0,584,614
+Division 2,Stade Français,Ignace Valorisek,MED,1930-02-22,Francia,20 / 8,577,580
+Division 2,Stade Français,Jean Gutewiez,DEL,1933-04-04,Francia,7 / 2,542,550
+Division 2,Stade Français,Michel Santier,MED,1937-09-16,Francia,9 / 0,541,571
+Division 2,Stade Français,Gérard Coutant,POR,1932-01-11,Francia,7 / 0,535,543
+Division 2,Sète,Gabriel Rossi,DEF,1930-05-06,Francia,35 / 0,654,657
+Division 2,Sète,Allaoua Khima,DEF,1930-12-17,Argelia,40 / 3,654,662
+Division 2,Sète,René Polo,MED,1935-08-19,Francia,41 / 9,654,669
+Division 2,Sète,Toussaint Léandri,MED,1931-11-26,Francia,34 / 10,651,659
+Division 2,Sète,Mohamed Khettaf,MED,1933-03-10,Francia,33 / 3,648,656
+Division 2,Sète,Maurice Wattebled,MED,1930-12-03,Francia,32 / 0,644,652
+Division 2,Sète,Alexius Klemenczak,DEF,1926-09-18,Francia,29 / 2,634,634
+Division 2,Sète,Benjamin Akouaté,DEL,1935-08-23,Costa de Marfil,22 / 6,633,648
+Division 2,Sète,Gérard Zaniewski,DEF,1934-11-19,Francia,26 / 1,624,639
+Division 2,Sète,Jean Cerrato,POR,1934-10-17,Francia,26 / 0,623,638
+Division 2,Sète,Gaston Zokoua,MED,1935-04-22,Costa de Marfil,21 / 4,607,622
+Division 2,Sète,Hilaire Dioulo,DEL,1940 (solo año),Costa de Marfil,26 / 2,601,631
+Division 2,Sète,Georges Alexandre,DEL,1935-07-17,Francia,16 / 2,596,611
+Division 2,Sète,Léon Solomonidès,DEF,1932-03-21,Francia,17 / 2,592,600
+Division 2,Sète,Claude Ortega,POR,1934-11-26,Francia,16 / 0,590,605
+Division 2,Sète,Jacques Bernard,MED,1936-06-16,Francia,16 / 3,590,611
+Division 2,Sète,Ernest Yapi,MED,1938-11-01,Costa de Marfil,19 / 0,569,599
+Division 2,Sète,René Mouret,MED,1937-01-23,Francia,7 / 2,558,588
+Division 2,Sète,Yves Noguet,DEF,1930-07-10,Francia,2 / 0,541,544
+Division 2,Sète, Perez,MED,,Francia,2 / 0,541,549
+Division 2,Toulon,Abderrahman Meftah,DEL,1927-07-16,Francia,40 / 32,709,709
+Division 2,Toulon,Théodore Lenfant,DEL,1929-06-01,Francia,41 / 20,665,668
+Division 2,Toulon,Jean Forzano,DEL,1934-05-15,Francia,34 / 1,598,613
+Division 2,Toulon,Jean Camilla,DEF,1934-09-29,Francia,40 / 2,597,612
+Division 2,Toulon,Robert Vicot,DEF,1931-10-29,Francia,40 / 3,597,605
+Division 2,Toulon,Omar Ben Driss,MED,1934-03-25,Marruecos,38 / 14,597,612
+Division 2,Toulon,Bernard Roubaud,MED,1935-01-18,Francia,38 / 11,597,612
+Division 2,Toulon,Henri Pellegrino,MED,1930-12-03,Francia,37 / 0,597,605
+Division 2,Toulon,Marcel Duval,POR,1924-09-14,Francia,41 / 0,577,577
+Division 2,Toulon,Gérard Moresco,DEL,1934-11-16,Francia,21 / 4,565,580
+Division 2,Toulon,Étienne Vibourel,MED,1932-06-19,Francia,19 / 0,542,550
+Division 2,Toulon,Barthélémy Gallard,MED,1924-02-02,Francia,23 / 1,524,524
+Division 2,Toulon,Jean-Marie Trivière,DEF,1937-03-21,Francia,13 / 0,521,551
+Division 2,Toulon,Robert Blanc,DEF,1932-03-24,Francia,11 / 0,515,523
+Division 2,Toulon,André Sudre,DEL,1936-05-08,Francia,6 / 2,505,520
+Division 2,Toulon,Georges Karabétian,DEF,1934-12-11,Francia,4 / 0,490,505
+Division 2,Toulon,Jean Fournier,MED,1935-05-23,Francia,4 / 0,490,588
+Division 2,Toulon,Jean-Luc Le Diabat,DEF,1937-12-13,Francia,1 / 0,480,510
+Division 2,Troyes,Claude Daverio,DEL,1936-04-24,Francia,36 / 5,602,617
+Division 2,Troyes,Michel Lachot,DEL,1935-02-09,Francia,27 / 10,593,608
+Division 2,Troyes,Bernard Versini,POR,1935-02-07,Francia,41 / 0,583,598
+Division 2,Troyes,Jacques Diebold,DEF,1934-11-28,Francia,42 / 2,583,598
+Division 2,Troyes,Jean Thuane,DEF,1925-10-10,Francia,39 / 1,583,583
+Division 2,Troyes,Laurent-Pierre Baden,MED,1934-10-24,Francia,39 / 8,583,598
+Division 2,Troyes,Pierre Tournier,MED,1934-02-25,Francia,42 / 7,583,598
+Division 2,Troyes,Raymond Lipiec,MED,1935-06-03,Francia,40 / 6,583,598
+Division 2,Troyes,Jean Tison,MED,1933-01-19,Francia,35 / 12,581,631
+Division 2,Troyes,Marcel Artelesa,DEF,1938-07-02,Francia,31 / 1,567,771
+Division 2,Troyes,Étienne Gire,DEF,1936-03-09,Francia,27 / 0,554,569
+Division 2,Troyes,Henri Tremodeux,MED,1934-04-27,Francia,24 / 3,544,559
+Division 2,Troyes,Joseph Aucourt,DEF,1927-01-12,Francia,21 / 0,534,534
+Division 2,Troyes,Abdallah Henni,MED,1935-05-07,Argelia,9 / 1,493,508
+Division 2,Troyes,Daniel Lesaint,MED,1939-05-10,Francia,10 / 3,467,497
+Division 2,Troyes,Jean-Claude Billet,DEF,1939-09-14,Francia,3 / 0,443,473
+Division 2,Troyes,Jean-Louis Mourier,POR,1938-11-27,Francia,2 / 0,440,470

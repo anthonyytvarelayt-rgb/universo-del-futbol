@@ -1,0 +1,51 @@
+division,club,nombre,pos,nac,pais,liga,nivel,techo,debut,tipo,nota
+Primeira Divisão,Atlético CP,Carlos Angeja,DEL,1936-11-12,Portugal,24 / 8,576,591,1959,regresa,jugó en Portugal antes de 1958-59 (Belenenses)
+Primeira Divisão,Belenenses,Nascimento,POR,1937-05-05,Portugal,6 / 0,554,569,1959,cantera,
+Primeira Divisão,Benfica,José Torres,DEL,1938-09-08,Portugal,14 / 13,736,766,1959,cantera,viene de Torres Novas
+Primeira Divisão,Benfica,Fernando Cruz,DEF,1940-08-12,Portugal,21 / 0,689,780,1959,cantera,
+Primeira Divisão,Leixões,Raul Machado,DEF,1937-09-22,Portugal,25 / 1,494,780,1959,cantera,
+Primeira Divisão,Leixões,Jacinto,DEF,1941-01-28,Portugal,13 / 0,409,439,1959,cantera,sin partidos en la fuente: 13 por temporada supuestos
+Primeira Divisão,Oporto,Humaitá,DEL,1940,Brasil,23 / 13,733,763,1959,extranjero,
+Primeira Divisão,Sporting de Portugal,Juan Seminario,DEL,1936-07-22,Perú,20 / 8,866,881,1959,extranjero,"viene de Deportivo Municipal; ya existe en los datos de italia: traspasar, no crear de nuevo"
+Primeira Divisão,Sporting de Portugal,Lúcio Soares,DEF,1934,Portugal,13 / 0,687,695,1959,cantera,sin partidos en la fuente: 13 por temporada supuestos
+Segunda Divisão,Olhanense,Luciano Fernandes,DEF,1940-08-06,Portugal,11 / 0,429,459,1959,cantera,
+Primeira Divisão,Barreirense,Adolfo Calisto,DEF,1944-01-04,Portugal,13 / 0,452,792,1960,cantera,sin partidos en la fuente: 13 por temporada supuestos
+Primeira Divisão,Belenenses,Fernando Peres,DEL,1943-01-08,Portugal,18 / 7,608,834,1960,cantera,
+Primeira Divisão,Belenenses,Estevão Mansidão,MED,1940-08-11,Portugal,12 / 3,582,633,1960,cantera,
+Primeira Divisão,Benfica,Eusébio,DEL,1942-01-25,Portugal,26 / 39,780,960,1960,cantera,viene de Sporting Lourenço Marques (colonias); ajuste a mano: la regla da 852/882 (techo imposible de alcanzar con la fórmula); 960 como en la Copa de Europa
+Primeira Divisão,Benfica,Germano,DEF,1932-12-23,Portugal,12 / 1,737,745,1960,regresa,jugó en Portugal antes de 1958-59 (Atlético)
+Primeira Divisão,Benfica,Barroca,POR,1937-05-23,Portugal,2 / 0,631,646,1960,cantera,
+Primeira Divisão,Benfica,Manuel Pinto,DEF,1938-12-14,Portugal,1 / 0,627,657,1960,cantera,
+Primeira Divisão,Braga,Bino,MED,1940-06-06,Portugal,17 / 4,509,539,1960,cantera,
+Primeira Divisão,Braga,Ceninho,DEL,1933,Brasil,13 / 0,497,505,1960,extranjero,viene de Internacional; sin partidos en la fuente: 13 por temporada supuestos
+Primeira Divisão,CUF,José Carlos,DEF,1941-09-22,Portugal,26 / 0,493,843,1960,cantera,
+Primeira Divisão,Oporto,Serafim Pereira,DEL,1943-07-25,Portugal,19 / 6,644,688,1960,cantera,
+Primeira Divisão,Sporting de Portugal,Ernesto Figueiredo,DEL,1937-07-06,Portugal,19 / 12,764,779,1960,cantera,viene de Cernache
+Primeira Divisão,Sporting de Portugal,Pedro Gomes,DEF,1941-10-16,Portugal,13 / 0,657,687,1960,cantera,
+Primeira Divisão,Sporting de Portugal,Alexandre Baptista,DEF,1941-02-17,Portugal,9 / 0,639,669,1960,cantera,
+Primeira Divisão,Vitória de Guimarães,Pedras,MED,1941-10-29,Portugal,19 / 9,472,520,1960,cantera,
+Primeira Divisão,Académica,João Lourenço,DEL,1942-04-08,Portugal,19 / 13,551,753,1961,cantera,viene de Alcobaça
+Primeira Divisão,Benfica,António Simões,DEL,1943-12-14,Portugal,26 / 4,730,837,1961,cantera,
+Primeira Divisão,Benfica,Sidónio,DEF,1939-04-16,Portugal,2 / 0,631,646,1961,cantera,
+Primeira Divisão,Benfica,Peres,MED,1939-02-03,Portugal,1 / 0,627,642,1961,cantera,
+Primeira Divisão,Benfica,Armando Ramalho,POR,1938-06-15,Portugal,0 / 0,622,637,1961,cantera,
+Primeira Divisão,Benfica,Alfredo Espírito Santo,DEL,1938-04-18,Portugal,0 / 0,622,637,1961,cantera,
+Primeira Divisão,Benfica,Nartanga,DEL,1937-04-06,Portugal,0 / 0,622,637,1961,cantera,
+Primeira Divisão,Benfica,Jorge Calado,MED,1942-06-07,Portugal,3 / 0,606,636,1961,cantera,
+Primeira Divisão,Benfica,Amândio,DEF,1943-03-24,Portugal,1 / 0,597,627,1961,cantera,
+Primeira Divisão,Benfica,Moreira,MED,1941-10-20,Portugal,1 / 0,597,627,1961,cantera,
+Primeira Divisão,Benfica,Maximiano,DEF,1942-02-25,Portugal,0 / 0,592,622,1961,cantera,
+Primeira Divisão,Leixões,Jaburú,DEL,1933-04-19,Brasil,13 / 0,479,482,1961,regresa,"jugó en Portugal antes de 1958-59 (FC Porto); ya existe en los datos de espana: traspasar, no crear de nuevo; sin partidos en la fuente: 13 por temporada supuestos"
+Primeira Divisão,Oporto,Azumir Veríssimo,DEL,1935-07-07,Portugal,18 / 19,722,730,1961,cantera,viene de Madureira
+Primeira Divisão,Oporto,Custódio Pinto,MED,1942-02-09,Portugal,24 / 8,643,712,1961,cantera,
+Primeira Divisão,Sporting de Portugal,Aníbal,POR,1932-10-20,Brasil,0 / 0,667,670,1961,extranjero,viene de {{Futebol Palmeiras|país=antes}}
+Segunda Divisão,Vitória de Setúbal,Jaime Graça,MED,1942-01-30,Portugal,21 / 6,495,837,1961,cantera,
+Primeira Divisão,Académica,Vasco Gervásio,MED,1943-12-05,Portugal,26 / 4,530,560,1962,cantera,
+Primeira Divisão,Académica,Rui Rodrigues,DEF,1943-05-17,Portugal,23 / 2,516,634,1962,cantera,
+Primeira Divisão,Académica,Manuel Duarte,DEL,1945-05-29,Portugal,6 / 3,446,476,1962,cantera,
+Primeira Divisão,Atlético CP,Marinho,DEL,1943-09-03,Portugal,13 / 0,461,768,1962,cantera,sin partidos en la fuente: 13 por temporada supuestos
+Primeira Divisão,Belenenses,Vítor Godinho,DEL,1944-10-27,Portugal,26 / 3,630,660,1962,cantera,
+Primeira Divisão,Benfica,José Rita,POR,1932,Portugal,13 / 0,682,682,1962,regresa,"jugó en Portugal antes de 1958-59 (Olhanense, S.C. Covilhã, Sporting); sin partidos en la fuente: 13 por temporada supuestos"
+Primeira Divisão,Oporto,Joaquim Jorge,DEF,1939-02-18,Portugal,13 / 1,622,637,1962,cantera,viene de Sporting Beira (colonias)
+Primeira Divisão,Vitória de Guimarães,Lua,DEL,1938-10-03,Brasil,26 / 19,657,672,1962,extranjero,viene de Santa Cruz
+Primeira Divisão,Vitória de Setúbal,José Maria Júnior,MED,1943-06-07,Portugal,26 / 9,518,548,1962,cantera,

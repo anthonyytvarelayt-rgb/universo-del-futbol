@@ -1,0 +1,471 @@
+pais,temporada,division,grupo,club,posicion
+Brasil,2003,1,,Cruzeiro,1
+Brasil,2003,1,,Santos,2
+Brasil,2003,1,,São Paulo,3
+Brasil,2003,1,,São Caetano,4
+Brasil,2003,1,,Coritiba,5
+Brasil,2003,1,,Internacional,6
+Brasil,2003,1,,Atlético Mineiro,7
+Brasil,2003,1,,Flamengo,8
+Brasil,2003,1,,Goiás,9
+Brasil,2003,1,,Paraná,10
+Brasil,2003,1,,Figueirense,11
+Brasil,2003,1,,Atlético Paranaense,12
+Brasil,2003,1,,Guarani,13
+Brasil,2003,1,,Criciúma,14
+Brasil,2003,1,,Corinthians,15
+Brasil,2003,1,,Vitória,16
+Brasil,2003,1,,Vasco da Gama,17
+Brasil,2003,1,,Juventude,18
+Brasil,2003,1,,Grêmio,19
+Brasil,2003,1,,Fluminense,20
+Brasil,2003,1,,Ponte Preta,21
+Brasil,2003,1,,Bahia,22
+Brasil,2003,1,,Fortaleza,23
+Brasil,2003,1,,Paysandu,24
+Brasil,2004,1,,Santos,1
+Brasil,2004,1,,Atlético Paranaense,2
+Brasil,2004,1,,São Paulo,3
+Brasil,2004,1,,Palmeiras,4
+Brasil,2004,1,,Corinthians,5
+Brasil,2004,1,,Goiás,6
+Brasil,2004,1,,Juventude,7
+Brasil,2004,1,,Internacional,8
+Brasil,2004,1,,Fluminense,9
+Brasil,2004,1,,Ponte Preta,10
+Brasil,2004,1,,Figueirense,11
+Brasil,2004,1,,Coritiba,12
+Brasil,2004,1,,Cruzeiro,13
+Brasil,2004,1,,Paysandu,14
+Brasil,2004,1,,Paraná,15
+Brasil,2004,1,,Vasco da Gama,16
+Brasil,2004,1,,Flamengo,17
+Brasil,2004,1,,São Caetano,18
+Brasil,2004,1,,Atlético Mineiro,19
+Brasil,2004,1,,Botafogo,20
+Brasil,2004,1,,Criciúma,21
+Brasil,2004,1,,Guarani,22
+Brasil,2004,1,,Vitória,23
+Brasil,2004,1,,Grêmio,24
+Brasil,2005,1,,Corinthians,1
+Brasil,2005,1,,Internacional,2
+Brasil,2005,1,,Goiás,3
+Brasil,2005,1,,Palmeiras,4
+Brasil,2005,1,,Fluminense,5
+Brasil,2005,1,,Atlético Paranaense,6
+Brasil,2005,1,,Paraná,7
+Brasil,2005,1,,Cruzeiro,8
+Brasil,2005,1,,Botafogo,9
+Brasil,2005,1,,Santos,10
+Brasil,2005,1,,São Paulo,11
+Brasil,2005,1,,Vasco da Gama,12
+Brasil,2005,1,,Fortaleza,13
+Brasil,2005,1,,Juventude,14
+Brasil,2005,1,,Flamengo,15
+Brasil,2005,1,,Figueirense,16
+Brasil,2005,1,,São Caetano,17
+Brasil,2005,1,,Coritiba,18
+Brasil,2005,1,,Atlético Mineiro,19
+Brasil,2005,1,,Paysandu,20
+Brasil,2005,1,,Brasiliense,21
+Brasil,2005,1,,Ponte Preta,22
+Brasil,2006,1,,São Paulo,1
+Brasil,2006,1,,Internacional,2
+Brasil,2006,1,,Grêmio,3
+Brasil,2006,1,,Santos,4
+Brasil,2006,1,,Paraná,5
+Brasil,2006,1,,Vasco da Gama,6
+Brasil,2006,1,,Figueirense,7
+Brasil,2006,1,,Goiás,8
+Brasil,2006,1,,Corinthians,9
+Brasil,2006,1,,Cruzeiro,10
+Brasil,2006,1,,Flamengo,11
+Brasil,2006,1,,Botafogo,12
+Brasil,2006,1,,Atlético Paranaense,13
+Brasil,2006,1,,Juventude,14
+Brasil,2006,1,,Fluminense,15
+Brasil,2006,1,,Palmeiras,16
+Brasil,2006,1,,Ponte Preta,17
+Brasil,2006,1,,Fortaleza,18
+Brasil,2006,1,,Santa Cruz,19
+Brasil,2006,1,,São Caetano,20
+Brasil,2007,1,,São Paulo,1
+Brasil,2007,1,,Santos,2
+Brasil,2007,1,,Flamengo,3
+Brasil,2007,1,,Fluminense,4
+Brasil,2007,1,,Cruzeiro,5
+Brasil,2007,1,,Grêmio,6
+Brasil,2007,1,,Palmeiras,7
+Brasil,2007,1,,Atlético Mineiro,8
+Brasil,2007,1,,Botafogo,9
+Brasil,2007,1,,Vasco da Gama,10
+Brasil,2007,1,,Internacional,11
+Brasil,2007,1,,Atlético Paranaense,12
+Brasil,2007,1,,Figueirense,13
+Brasil,2007,1,,Sport,14
+Brasil,2007,1,,Náutico,15
+Brasil,2007,1,,Goiás,16
+Brasil,2007,1,,Corinthians,17
+Brasil,2007,1,,Juventude,18
+Brasil,2007,1,,Paraná,19
+Brasil,2007,1,,América-RN,20
+Brasil,2008,1,,São Paulo,1
+Brasil,2008,1,,Grêmio,2
+Brasil,2008,1,,Cruzeiro,3
+Brasil,2008,1,,Palmeiras,4
+Brasil,2008,1,,Flamengo,5
+Brasil,2008,1,,Internacional,6
+Brasil,2008,1,,Botafogo,7
+Brasil,2008,1,,Goiás,8
+Brasil,2008,1,,Coritiba,9
+Brasil,2008,1,,Vitória,10
+Brasil,2008,1,,Sport,11
+Brasil,2008,1,,Atlético Mineiro,12
+Brasil,2008,1,,Atlético Paranaense,13
+Brasil,2008,1,,Fluminense,14
+Brasil,2008,1,,Santos,15
+Brasil,2008,1,,Náutico,16
+Brasil,2008,1,,Figueirense,17
+Brasil,2008,1,,Vasco da Gama,18
+Brasil,2008,1,,Portuguesa,19
+Brasil,2008,1,,Ipatinga,20
+Brasil,2009,1,,Flamengo,1
+Brasil,2009,1,,Internacional,2
+Brasil,2009,1,,São Paulo,3
+Brasil,2009,1,,Cruzeiro,4
+Brasil,2009,1,,Palmeiras,5
+Brasil,2009,1,,Avaí,6
+Brasil,2009,1,,Atlético Mineiro,7
+Brasil,2009,1,,Grêmio,8
+Brasil,2009,1,,Goiás,9
+Brasil,2009,1,,Corinthians,10
+Brasil,2009,1,,Grêmio Barueri,11
+Brasil,2009,1,,Santos,12
+Brasil,2009,1,,Vitória,13
+Brasil,2009,1,,Atlético Paranaense,14
+Brasil,2009,1,,Botafogo,15
+Brasil,2009,1,,Fluminense,16
+Brasil,2009,1,,Coritiba,17
+Brasil,2009,1,,Santo André,18
+Brasil,2009,1,,Náutico,19
+Brasil,2009,1,,Sport,20
+Brasil,2010,1,,Fluminense,1
+Brasil,2010,1,,Cruzeiro,2
+Brasil,2010,1,,Corinthians,3
+Brasil,2010,1,,Grêmio,4
+Brasil,2010,1,,Atlético Paranaense,5
+Brasil,2010,1,,Botafogo,6
+Brasil,2010,1,,Internacional,7
+Brasil,2010,1,,Santos,8
+Brasil,2010,1,,São Paulo,9
+Brasil,2010,1,,Palmeiras,10
+Brasil,2010,1,,Vasco da Gama,11
+Brasil,2010,1,,Ceará,12
+Brasil,2010,1,,Atlético Mineiro,13
+Brasil,2010,1,,Flamengo,14
+Brasil,2010,1,,Avaí,15
+Brasil,2010,1,,Atlético Goianiense,16
+Brasil,2010,1,,Vitória,17
+Brasil,2010,1,,Guarani,18
+Brasil,2010,1,,Goiás,19
+Brasil,2010,1,,Grêmio Prudente,20
+Brasil,2011,1,,Corinthians,1
+Brasil,2011,1,,Vasco da Gama,2
+Brasil,2011,1,,Fluminense,3
+Brasil,2011,1,,Flamengo,4
+Brasil,2011,1,,Internacional,5
+Brasil,2011,1,,São Paulo,6
+Brasil,2011,1,,Figueirense,7
+Brasil,2011,1,,Coritiba,8
+Brasil,2011,1,,Botafogo,9
+Brasil,2011,1,,Santos,10
+Brasil,2011,1,,Palmeiras,11
+Brasil,2011,1,,Grêmio,12
+Brasil,2011,1,,Atlético Goianiense,13
+Brasil,2011,1,,Bahia,14
+Brasil,2011,1,,Atlético Mineiro,15
+Brasil,2011,1,,Cruzeiro,16
+Brasil,2011,1,,Atlético Paranaense,17
+Brasil,2011,1,,Ceará,18
+Brasil,2011,1,,América Mineiro,19
+Brasil,2011,1,,Avaí,20
+Brasil,2012,1,,Fluminense,1
+Brasil,2012,1,,Atlético Mineiro,2
+Brasil,2012,1,,Grêmio,3
+Brasil,2012,1,,São Paulo,4
+Brasil,2012,1,,Vasco da Gama,5
+Brasil,2012,1,,Corinthians,6
+Brasil,2012,1,,Botafogo,7
+Brasil,2012,1,,Santos,8
+Brasil,2012,1,,Cruzeiro,9
+Brasil,2012,1,,Internacional,10
+Brasil,2012,1,,Flamengo,11
+Brasil,2012,1,,Náutico,12
+Brasil,2012,1,,Coritiba,13
+Brasil,2012,1,,Ponte Preta,14
+Brasil,2012,1,,Bahia,15
+Brasil,2012,1,,Portuguesa,16
+Brasil,2012,1,,Sport,17
+Brasil,2012,1,,Palmeiras,18
+Brasil,2012,1,,Atlético Goianiense,19
+Brasil,2012,1,,Figueirense,20
+Brasil,2013,1,,Cruzeiro,1
+Brasil,2013,1,,Grêmio,2
+Brasil,2013,1,,Atlético Paranaense,3
+Brasil,2013,1,,Botafogo,4
+Brasil,2013,1,,Vitória,5
+Brasil,2013,1,,Goiás,6
+Brasil,2013,1,,Santos,7
+Brasil,2013,1,,Atlético Mineiro,8
+Brasil,2013,1,,Corinthians,9
+Brasil,2013,1,,Coritiba,10
+Brasil,2013,1,,Bahia,11
+Brasil,2013,1,,Internacional,12
+Brasil,2013,1,,Criciúma,13
+Brasil,2013,1,,Fluminense,14
+Brasil,2013,1,,Flamengo,15
+Brasil,2013,1,,Portuguesa,16
+Brasil,2013,1,,Vasco da Gama,17
+Brasil,2013,1,,Ponte Preta,18
+Brasil,2013,1,,Náutico,19
+Brasil,2013,1,,Atlético Goianiense,20
+Brasil,2014,1,,Cruzeiro,1
+Brasil,2014,1,,Sao Paulo,2
+Brasil,2014,1,,Internacional,3
+Brasil,2014,1,,Corinthians,4
+Brasil,2014,1,,Atletico Mineiro,5
+Brasil,2014,1,,Fluminense,6
+Brasil,2014,1,,Gremio,7
+Brasil,2014,1,,Atletico Paranaense,8
+Brasil,2014,1,,Santos,9
+Brasil,2014,1,,Flamengo,10
+Brasil,2014,1,,Sport,11
+Brasil,2014,1,,Goias,12
+Brasil,2014,1,,Figueirense,13
+Brasil,2014,1,,Coritiba,14
+Brasil,2014,1,,Chapecoense,15
+Brasil,2014,1,,Palmeiras,16
+Brasil,2014,1,,Vitoria,17
+Brasil,2014,1,,Bahia,18
+Brasil,2014,1,,Botafogo,19
+Brasil,2014,1,,Criciuma,20
+Brasil,2015,1,,Corinthians,1
+Brasil,2015,1,,Atletico Mineiro,2
+Brasil,2015,1,,Gremio,3
+Brasil,2015,1,,Sao Paulo,4
+Brasil,2015,1,,Internacional,5
+Brasil,2015,1,,Sport,6
+Brasil,2015,1,,Santos,7
+Brasil,2015,1,,Cruzeiro,8
+Brasil,2015,1,,Palmeiras,9
+Brasil,2015,1,,Atletico Paranaense,10
+Brasil,2015,1,,Flamengo,11
+Brasil,2015,1,,Fluminense,12
+Brasil,2015,1,,Chapecoense,13
+Brasil,2015,1,,Coritiba,14
+Brasil,2015,1,,Figueirense,15
+Brasil,2015,1,,Vasco da Gama,16
+Brasil,2015,1,,Goias,17
+Brasil,2015,1,,Joinville,18
+Brasil,2015,1,,Avai,19
+Brasil,2015,1,,Ponte Preta,20
+Brasil,2016,1,,Palmeiras,1
+Brasil,2016,1,,Santos,2
+Brasil,2016,1,,Flamengo,3
+Brasil,2016,1,,Atletico Mineiro,4
+Brasil,2016,1,,Botafogo,5
+Brasil,2016,1,,Atletico Paranaense,6
+Brasil,2016,1,,Corinthians,7
+Brasil,2016,1,,Ponte Preta,8
+Brasil,2016,1,,Gremio,9
+Brasil,2016,1,,Sao Paulo,10
+Brasil,2016,1,,Internacional,11
+Brasil,2016,1,,Cruzeiro,12
+Brasil,2016,1,,Fluminense,13
+Brasil,2016,1,,Coritiba,14
+Brasil,2016,1,,Chapecoense,15
+Brasil,2016,1,,Vitoria,16
+Brasil,2016,1,,Sport,17
+Brasil,2016,1,,Santa Cruz,18
+Brasil,2016,1,,Figueirense,19
+Brasil,2016,1,,America Mineiro,20
+Brasil,2017,1,,Corinthians,1
+Brasil,2017,1,,Palmeiras,2
+Brasil,2017,1,,Santos,3
+Brasil,2017,1,,Gremio,4
+Brasil,2017,1,,Cruzeiro,5
+Brasil,2017,1,,Flamengo,6
+Brasil,2017,1,,Vasco da Gama,7
+Brasil,2017,1,,Chapecoense,8
+Brasil,2017,1,,Atletico Mineiro,9
+Brasil,2017,1,,Botafogo,10
+Brasil,2017,1,,Atletico Paranaense,11
+Brasil,2017,1,,Bahia,12
+Brasil,2017,1,,Sao Paulo,13
+Brasil,2017,1,,Fluminense,14
+Brasil,2017,1,,Sport,15
+Brasil,2017,1,,Vitoria,16
+Brasil,2017,1,,Coritiba,17
+Brasil,2017,1,,Avai,18
+Brasil,2017,1,,Ponte Preta,19
+Brasil,2017,1,,Atletico Goianiense,20
+Brasil,2018,1,,Palmeiras,1
+Brasil,2018,1,,Flamengo,2
+Brasil,2018,1,,Internacional,3
+Brasil,2018,1,,Gremio,4
+Brasil,2018,1,,Sao Paulo,5
+Brasil,2018,1,,Atletico Mineiro,6
+Brasil,2018,1,,Atletico Paranaense,7
+Brasil,2018,1,,Cruzeiro,8
+Brasil,2018,1,,Botafogo,9
+Brasil,2018,1,,Santos,10
+Brasil,2018,1,,Bahia,11
+Brasil,2018,1,,Fluminense,12
+Brasil,2018,1,,Corinthians,13
+Brasil,2018,1,,Chapecoense,14
+Brasil,2018,1,,Ceara,15
+Brasil,2018,1,,Vasco da Gama,16
+Brasil,2018,1,,Sport,17
+Brasil,2018,1,,America Mineiro,18
+Brasil,2018,1,,Vitoria,19
+Brasil,2018,1,,Parana,20
+Brasil,2019,1,,Flamengo,1
+Brasil,2019,1,,Santos,2
+Brasil,2019,1,,Palmeiras,3
+Brasil,2019,1,,Gremio,4
+Brasil,2019,1,,Atletico Paranaense,5
+Brasil,2019,1,,Sao Paulo,6
+Brasil,2019,1,,Internacional,7
+Brasil,2019,1,,Corinthians,8
+Brasil,2019,1,,Fortaleza,9
+Brasil,2019,1,,Goias,10
+Brasil,2019,1,,Bahia,11
+Brasil,2019,1,,Vasco da Gama,12
+Brasil,2019,1,,Atletico Mineiro,13
+Brasil,2019,1,,Fluminense,14
+Brasil,2019,1,,Botafogo,15
+Brasil,2019,1,,Ceara,16
+Brasil,2019,1,,Cruzeiro,17
+Brasil,2019,1,,CSA,18
+Brasil,2019,1,,Chapecoense,19
+Brasil,2019,1,,Avai,20
+Brasil,2020,1,,Flamengo,1
+Brasil,2020,1,,Internacional,2
+Brasil,2020,1,,Atletico Mineiro,3
+Brasil,2020,1,,Sao Paulo,4
+Brasil,2020,1,,Fluminense,5
+Brasil,2020,1,,Gremio,6
+Brasil,2020,1,,Palmeiras,7
+Brasil,2020,1,,Santos,8
+Brasil,2020,1,,Sport,9
+Brasil,2020,1,,Fortaleza,10
+Brasil,2020,1,,Ceara,11
+Brasil,2020,1,,Atletico Goianiense,12
+Brasil,2020,1,,Bahia,13
+Brasil,2020,1,,Corinthians,14
+Brasil,2020,1,,Vasco da Gama,15
+Brasil,2020,1,,Athletico Paranaense,16
+Brasil,2020,1,,Red Bull Bragantino,17
+Brasil,2020,1,,Botafogo,18
+Brasil,2020,1,,Coritiba,19
+Brasil,2020,1,,Goias,20
+Brasil,2021,1,,Atletico Mineiro,1
+Brasil,2021,1,,Flamengo,2
+Brasil,2021,1,,Palmeiras,3
+Brasil,2021,1,,Fortaleza,4
+Brasil,2021,1,,Corinthians,5
+Brasil,2021,1,,Red Bull Bragantino,6
+Brasil,2021,1,,Fluminense,7
+Brasil,2021,1,,America Mineiro,8
+Brasil,2021,1,,Atletico Goianiense,9
+Brasil,2021,1,,Santos,10
+Brasil,2021,1,,Ceara,11
+Brasil,2021,1,,Internacional,12
+Brasil,2021,1,,Sao Paulo,13
+Brasil,2021,1,,Athletico Paranaense,14
+Brasil,2021,1,,Cuiaba,15
+Brasil,2021,1,,Juventude,16
+Brasil,2021,1,,Gremio,17
+Brasil,2021,1,,Bahia,18
+Brasil,2021,1,,Sport,19
+Brasil,2021,1,,Chapecoense,20
+Brasil,2022,1,,Palmeiras,1
+Brasil,2022,1,,Internacional,2
+Brasil,2022,1,,Fluminense,3
+Brasil,2022,1,,Corinthians,4
+Brasil,2022,1,,Flamengo,5
+Brasil,2022,1,,Athletico Paranaense,6
+Brasil,2022,1,,Atletico Mineiro,7
+Brasil,2022,1,,Fortaleza,8
+Brasil,2022,1,,Sao Paulo,9
+Brasil,2022,1,,America Mineiro,10
+Brasil,2022,1,,Botafogo,11
+Brasil,2022,1,,Santos,12
+Brasil,2022,1,,Goias,13
+Brasil,2022,1,,Red Bull Bragantino,14
+Brasil,2022,1,,Coritiba,15
+Brasil,2022,1,,Cuiaba,16
+Brasil,2022,1,,Ceara,17
+Brasil,2022,1,,Atletico Goianiense,18
+Brasil,2022,1,,Avai,19
+Brasil,2022,1,,Juventude,20
+Brasil,2023,1,,Palmeiras,1
+Brasil,2023,1,,Gremio,2
+Brasil,2023,1,,Atletico Mineiro,3
+Brasil,2023,1,,Flamengo,4
+Brasil,2023,1,,Botafogo,5
+Brasil,2023,1,,Red Bull Bragantino,6
+Brasil,2023,1,,Fluminense,7
+Brasil,2023,1,,Athletico Paranaense,8
+Brasil,2023,1,,Internacional,9
+Brasil,2023,1,,Fortaleza,10
+Brasil,2023,1,,Cuiaba,11
+Brasil,2023,1,,Corinthians,12
+Brasil,2023,1,,Sao Paulo,13
+Brasil,2023,1,,Bahia,14
+Brasil,2023,1,,Cruzeiro,15
+Brasil,2023,1,,Vasco da Gama,16
+Brasil,2023,1,,Santos,17
+Brasil,2023,1,,Goias,18
+Brasil,2023,1,,Coritiba,19
+Brasil,2023,1,,America Mineiro,20
+Brasil,2024,1,,Botafogo,1
+Brasil,2024,1,,Palmeiras,2
+Brasil,2024,1,,Flamengo,3
+Brasil,2024,1,,Fortaleza,4
+Brasil,2024,1,,Internacional,5
+Brasil,2024,1,,Sao Paulo,6
+Brasil,2024,1,,Corinthians,7
+Brasil,2024,1,,Bahia,8
+Brasil,2024,1,,Cruzeiro,9
+Brasil,2024,1,,Vasco da Gama,10
+Brasil,2024,1,,Vitoria,11
+Brasil,2024,1,,Atletico Mineiro,12
+Brasil,2024,1,,Fluminense,13
+Brasil,2024,1,,Gremio,14
+Brasil,2024,1,,Juventude,15
+Brasil,2024,1,,Red Bull Bragantino,16
+Brasil,2024,1,,Athletico Paranaense,17
+Brasil,2024,1,,Criciuma,18
+Brasil,2024,1,,Atletico Goianiense,19
+Brasil,2024,1,,Cuiaba,20
+Brasil,2025,1,,Flamengo,1
+Brasil,2025,1,,Palmeiras,2
+Brasil,2025,1,,Cruzeiro,3
+Brasil,2025,1,,Mirassol,4
+Brasil,2025,1,,Fluminense,5
+Brasil,2025,1,,Botafogo,6
+Brasil,2025,1,,Bahia,7
+Brasil,2025,1,,Sao Paulo,8
+Brasil,2025,1,,Gremio,9
+Brasil,2025,1,,Red Bull Bragantino,10
+Brasil,2025,1,,Atletico Mineiro,11
+Brasil,2025,1,,Corinthians,12
+Brasil,2025,1,,Vasco da Gama,13
+Brasil,2025,1,,Santos,14
+Brasil,2025,1,,Vitoria,15
+Brasil,2025,1,,Internacional,16
+Brasil,2025,1,,Ceara,17
+Brasil,2025,1,,Fortaleza,18
+Brasil,2025,1,,Juventude,19
+Brasil,2025,1,,Sport,20

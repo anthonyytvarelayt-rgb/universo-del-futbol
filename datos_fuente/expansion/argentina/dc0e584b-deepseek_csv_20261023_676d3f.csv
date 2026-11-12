@@ -1,0 +1,192 @@
+pais,temporada,division,grupo,club,posicion
+Argentina,1993,1,Apertura,River Plate,1
+Argentina,1993,1,Apertura,Vélez Sarsfield,2
+Argentina,1993,1,Apertura,Racing Club,3
+Argentina,1993,1,Apertura,Boca Juniors,4
+Argentina,1993,1,Apertura,Independiente,5
+Argentina,1993,1,Apertura,Lanús,6
+Argentina,1993,1,Apertura,Gimnasia y Esgrima La Plata,7
+Argentina,1993,1,Apertura,San Lorenzo,8
+Argentina,1993,1,Clausura,Independiente,1
+Argentina,1993,1,Clausura,Huracán,2
+Argentina,1993,1,Clausura,Rosario Central,3
+Argentina,1994,1,Apertura,River Plate,1
+Argentina,1994,1,Apertura,San Lorenzo,2
+Argentina,1994,1,Apertura,Vélez Sarsfield,3
+Argentina,1994,1,Clausura,San Lorenzo,1
+Argentina,1994,1,Clausura,Gimnasia y Esgrima La Plata,2
+Argentina,1995,1,Apertura,Vélez Sarsfield,1
+Argentina,1995,1,Apertura,Racing Club,2
+Argentina,1995,1,Apertura,Lanús,3
+Argentina,1995,1,Apertura,Boca Juniors,4
+Argentina,1995,1,Apertura,San Lorenzo,5
+Argentina,1995,1,Apertura,Huracán,6
+Argentina,1995,1,Apertura,River Plate,7
+Argentina,1995,1,Apertura,Gimnasia y Esgrima de Jujuy,8
+Argentina,1995,1,Apertura,Estudiantes de La Plata,9
+Argentina,1995,1,Apertura,Colón,10
+Argentina,1995,1,Apertura,Independiente,11
+Argentina,1995,1,Apertura,Rosario Central,12
+Argentina,1995,1,Apertura,Gimnasia y Esgrima La Plata,13
+Argentina,1995,1,Apertura,Newell's Old Boys,14
+Argentina,1995,1,Apertura,Argentinos Juniors,15
+Argentina,1995,1,Apertura,Banfield,16
+Argentina,1995,1,Apertura,Ferro Carril Oeste,17
+Argentina,1995,1,Apertura,Platense,18
+Argentina,1995,1,Apertura,Belgrano,19
+Argentina,1995,1,Apertura,Deportivo Español,20
+Argentina,1995,1,Clausura,Vélez Sarsfield,1
+Argentina,1995,1,Clausura,Gimnasia y Esgrima La Plata,2
+Argentina,1995,1,Clausura,Lanús,3
+Argentina,1996,1,Apertura,River Plate,1
+Argentina,1996,1,Apertura,Independiente,2
+Argentina,1996,1,Apertura,Lanús,3
+Argentina,1996,1,Apertura,Racing Club,4
+Argentina,1996,1,Apertura,Rosario Central,5
+Argentina,1996,1,Apertura,Gimnasia y Esgrima La Plata,6
+Argentina,1996,1,Apertura,San Lorenzo,7
+Argentina,1996,1,Apertura,Colón,8
+Argentina,1996,1,Apertura,Newell's Old Boys,9
+Argentina,1996,1,Apertura,Boca Juniors,10
+Argentina,1996,1,Apertura,Estudiantes de La Plata,11
+Argentina,1996,1,Apertura,Gimnasia y Esgrima de Jujuy,12
+Argentina,1996,1,Apertura,Vélez Sarsfield,13
+Argentina,1996,1,Apertura,Ferro Carril Oeste,14
+Argentina,1996,1,Apertura,Platense,15
+Argentina,1996,1,Apertura,Unión,16
+Argentina,1996,1,Apertura,Huracán Corrientes,17
+Argentina,1996,1,Apertura,Banfield,18
+Argentina,1996,1,Apertura,Argentinos Juniors,19
+Argentina,1996,1,Apertura,Deportivo Español,20
+Argentina,1996,1,Clausura,River Plate,1
+Argentina,1996,1,Clausura,Colón,2
+Argentina,1997,1,Apertura,River Plate,1
+Argentina,1997,1,Apertura,Independiente,2
+Argentina,1997,1,Apertura,Lanús,3
+Argentina,1997,1,Apertura,Racing Club,4
+Argentina,1997,1,Apertura,Rosario Central,5
+Argentina,1997,1,Apertura,Gimnasia y Esgrima La Plata,6
+Argentina,1997,1,Apertura,San Lorenzo,7
+Argentina,1997,1,Apertura,Colón,8
+Argentina,1997,1,Apertura,Newell's Old Boys,9
+Argentina,1997,1,Apertura,Boca Juniors,10
+Argentina,1997,1,Apertura,Estudiantes de La Plata,11
+Argentina,1997,1,Apertura,Gimnasia y Esgrima de Jujuy,12
+Argentina,1997,1,Apertura,Vélez Sarsfield,13
+Argentina,1997,1,Apertura,Ferro Carril Oeste,14
+Argentina,1997,1,Apertura,Platense,15
+Argentina,1997,1,Apertura,Unión,16
+Argentina,1997,1,Apertura,Argentinos Juniors,17
+Argentina,1997,1,Apertura,Deportivo Español,18
+Argentina,1997,1,Apertura,Banfield,19
+Argentina,1997,1,Apertura,Huracán,20
+Argentina,1997,1,Clausura,Vélez Sarsfield,1
+Argentina,1997,1,Clausura,Lanús,2
+Argentina,1997,1,Clausura,Gimnasia y Esgrima La Plata,3
+Argentina,1998,1,Apertura,Boca Juniors,1
+Argentina,1998,1,Apertura,Gimnasia y Esgrima La Plata,2
+Argentina,1998,1,Apertura,Racing Club,3
+Argentina,1998,1,Apertura,Lanús,4
+Argentina,1998,1,Apertura,Colón,5
+Argentina,1998,1,Apertura,San Lorenzo,6
+Argentina,1998,1,Apertura,Argentinos Juniors,7
+Argentina,1998,1,Apertura,Newell's Old Boys,8
+Argentina,1998,1,Apertura,Unión,9
+Argentina,1998,1,Apertura,Rosario Central,10
+Argentina,1998,1,Apertura,Vélez Sarsfield,11
+Argentina,1998,1,Apertura,Estudiantes de La Plata,12
+Argentina,1998,1,Apertura,Independiente,13
+Argentina,1998,1,Apertura,River Plate,14
+Argentina,1998,1,Apertura,Talleres,15
+Argentina,1998,1,Apertura,Belgrano,16
+Argentina,1998,1,Apertura,Ferro Carril Oeste,17
+Argentina,1998,1,Apertura,Platense,18
+Argentina,1998,1,Apertura,Huracán,19
+Argentina,1998,1,Apertura,Vélez Sarsfield,20
+Argentina,1998,1,Clausura,Boca Juniors,1
+Argentina,1999,1,Apertura,River Plate,1
+Argentina,1999,1,Apertura,Rosario Central,2
+Argentina,1999,1,Apertura,San Lorenzo,3
+Argentina,1999,1,Apertura,Boca Juniors,4
+Argentina,1999,1,Apertura,Independiente,5
+Argentina,1999,1,Apertura,Colón,6
+Argentina,1999,1,Apertura,Newell's Old Boys,7
+Argentina,1999,1,Apertura,Vélez Sarsfield,8
+Argentina,1999,1,Apertura,Unión,9
+Argentina,1999,1,Apertura,Talleres,10
+Argentina,1999,1,Apertura,Estudiantes de La Plata,11
+Argentina,1999,1,Apertura,Gimnasia y Esgrima La Plata,12
+Argentina,1999,1,Apertura,Lanús,13
+Argentina,1999,1,Apertura,Argentinos Juniors,14
+Argentina,1999,1,Apertura,Chacarita Juniors,15
+Argentina,1999,1,Apertura,Instituto,16
+Argentina,1999,1,Apertura,Racing Club,17
+Argentina,1999,1,Apertura,Belgrano,18
+Argentina,1999,1,Apertura,Gimnasia y Esgrima de Jujuy,19
+Argentina,1999,1,Apertura,Ferro Carril Oeste,20
+Argentina,1999,1,Clausura,River Plate,1
+Argentina,2000,1,Apertura,Boca Juniors,1
+Argentina,2000,1,Apertura,River Plate,2
+Argentina,2000,1,Apertura,Gimnasia y Esgrima La Plata,3
+Argentina,2000,1,Apertura,Talleres,4
+Argentina,2000,1,Apertura,San Lorenzo,5
+Argentina,2000,1,Apertura,Vélez Sarsfield,6
+Argentina,2000,1,Apertura,Estudiantes de La Plata,7
+Argentina,2000,1,Apertura,Huracán,8
+Argentina,2000,1,Apertura,Chacarita Juniors,9
+Argentina,2000,1,Apertura,Colón,10
+Argentina,2000,1,Apertura,Unión,11
+Argentina,2000,1,Apertura,Independiente,12
+Argentina,2000,1,Apertura,Rosario Central,13
+Argentina,2000,1,Apertura,Newell's Old Boys,14
+Argentina,2000,1,Apertura,Lanús,15
+Argentina,2000,1,Apertura,Boca Juniors,16
+Argentina,2000,1,Apertura,Argentinos Juniors,17
+Argentina,2000,1,Apertura,Almagro,18
+Argentina,2000,1,Apertura,Los Andes,19
+Argentina,2000,1,Apertura,Belgrano,20
+Argentina,2000,1,Clausura,San Lorenzo,1
+Argentina,2000,1,Clausura,River Plate,2
+Argentina,2001,1,Apertura,Racing Club,1
+Argentina,2001,1,Apertura,River Plate,2
+Argentina,2001,1,Apertura,Boca Juniors,3
+Argentina,2001,1,Apertura,Colón,4
+Argentina,2001,1,Apertura,San Lorenzo,5
+Argentina,2001,1,Apertura,Estudiantes de La Plata,6
+Argentina,2001,1,Apertura,Gimnasia y Esgrima La Plata,7
+Argentina,2001,1,Apertura,Chacarita Juniors,8
+Argentina,2001,1,Apertura,Belgrano,9
+Argentina,2001,1,Apertura,Independiente,10
+Argentina,2001,1,Apertura,Newell's Old Boys,11
+Argentina,2001,1,Apertura,Rosario Central,12
+Argentina,2001,1,Apertura,Vélez Sarsfield,13
+Argentina,2001,1,Apertura,Lanús,14
+Argentina,2001,1,Apertura,Talleres,15
+Argentina,2001,1,Apertura,Huracán,16
+Argentina,2001,1,Apertura,Unión,17
+Argentina,2001,1,Apertura,Argentinos Juniors,18
+Argentina,2001,1,Apertura,Banfield,19
+Argentina,2001,1,Apertura,Argentinos Juniors,20
+Argentina,2001,1,Clausura,River Plate,1
+Argentina,2002,1,Apertura,Independiente,1
+Argentina,2002,1,Apertura,River Plate,2
+Argentina,2002,1,Apertura,Boca Juniors,3
+Argentina,2002,1,Apertura,San Lorenzo,4
+Argentina,2002,1,Apertura,Racing Club,5
+Argentina,2002,1,Apertura,Vélez Sarsfield,6
+Argentina,2002,1,Apertura,Rosario Central,7
+Argentina,2002,1,Apertura,Newell's Old Boys,8
+Argentina,2002,1,Apertura,Colón,9
+Argentina,2002,1,Apertura,Estudiantes de La Plata,10
+Argentina,2002,1,Apertura,Lanús,11
+Argentina,2002,1,Apertura,Gimnasia y Esgrima La Plata,12
+Argentina,2002,1,Apertura,Talleres,13
+Argentina,2002,1,Apertura,Chacarita Juniors,14
+Argentina,2002,1,Apertura,Argentinos Juniors,15
+Argentina,2002,1,Apertura,Olimpo,16
+Argentina,2002,1,Apertura,Banfield,17
+Argentina,2002,1,Apertura,Huracán,18
+Argentina,2002,1,Apertura,Unión,19
+Argentina,2002,1,Apertura,Arsenal de Sarandí,20
+Argentina,2002,1,Clausura,River Plate,1
+Argentina,2002,1,Clausura,Boca Juniors,2

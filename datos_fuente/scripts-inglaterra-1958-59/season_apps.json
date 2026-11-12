@@ -1,0 +1,820 @@
+{
+"Wolverhampton Wanderers": {
+"Greenwich Mean Time": {
+"name": "GMT",
+"apps": 42,
+"g": 44
+},
+"Captain (association football)": {
+"name": "Captain",
+"apps": 39,
+"g": 2
+},
+"Peter Broadbent (footballer)": {
+"name": "Peter Broadbent",
+"apps": 20,
+"g": 0
+},
+"Jimmy Murray (English footballer)": {
+"name": "Jimmy Murray",
+"apps": 21,
+"g": 0
+},
+"Norman Deeley": {
+"name": "Norman Deeley",
+"apps": 17,
+"g": 2
+},
+"Bobby Mason": {
+"name": "Bobby Mason",
+"apps": 13,
+"g": 0
+},
+"Mickey Lill": {
+"name": "Mickey Lill",
+"apps": 12,
+"g": 1
+},
+"Gerry Harris": {
+"name": "Gerry Harris",
+"apps": 40,
+"g": 2
+},
+"Billy Wright (footballer born 1924)": {
+"name": "Billy Wright",
+"apps": 39,
+"g": 2
+},
+"Malcolm Finlayson": {
+"name": "Malcolm Finlayson",
+"apps": 39,
+"g": 2
+},
+"Eddie Stuart": {
+"name": "Eddie Stuart",
+"apps": 38,
+"g": 2
+}
+},
+"Everton": {},
+"Chelsea": {
+"Ted Drake": {
+"name": "Ted Drake",
+"apps": 9,
+"g": 30
+},
+"Gronemann": {
+"name": "Gronemann",
+"apps": 25,
+"g": null
+},
+"Mike Harrison (footballer, born 1940)": {
+"name": "Harrison",
+"apps": 13,
+"g": null
+},
+"George Lees (footballer)": {
+"name": "Lees",
+"apps": 6,
+"g": null
+},
+"Jimmy Greaves": {
+"name": "Greaves",
+"apps": 44,
+"g": 70
+},
+"Schøne": {
+"name": "Schøne",
+"apps": 7,
+"g": 4
+},
+"Peter Brabrook": {
+"name": "Brabrook",
+"apps": 30,
+"g": 5
+},
+"Aleksandar Petaković": {
+"name": "Petaković",
+"apps": 3,
+"g": null
+},
+"Branislav Mihajlović": {
+"name": "Mihajlović",
+"apps": 42,
+"g": 86
+}
+},
+"Liverpool": {
+"Bobby Murdoch (footballer born 1936)": {
+"name": "Bobby Murdoch",
+"apps": 2,
+"g": null
+},
+"Alan A'Court": {
+"name": "Alan A'Court",
+"apps": 39,
+"g": 7
+},
+"Alan Arnell": {
+"name": "Alan Arnell",
+"apps": 12,
+"g": 5
+},
+"Alan Banks (footballer)": {
+"name": "Alan Banks",
+"apps": 3,
+"g": 2
+},
+"Louis Bimpson": {
+"name": "Louis Bimpson",
+"apps": 15,
+"g": 11
+},
+"Gerry Byrne (footballer, born 1938)": {
+"name": "Gerry Byrne",
+"apps": 1,
+"g": 0
+},
+"Bobby Campbell (English footballer)": {
+"name": "Bobby Campbell",
+"apps": 10,
+"g": 1
+},
+"Jimmy Harrower (footballer, born 1935)": {
+"name": "Jimmy Harrower",
+"apps": 37,
+"g": 6
+},
+"Billy Liddell": {
+"name": "Billy Liddell",
+"apps": 19,
+"g": 14
+},
+"Jimmy Melia": {
+"name": "Jimmy Melia",
+"apps": 39,
+"g": 21
+},
+"John Molyneux (footballer)": {
+"name": "John Molyneux",
+"apps": 37,
+"g": 1
+},
+"Ronnie Moran": {
+"name": "Ronnie Moran",
+"apps": 40,
+"g": 0
+},
+"Fred Morris (footballer, born 1929)": {
+"name": "Fred Morris",
+"apps": 40,
+"g": 12
+},
+"Johnny Morrissey": {
+"name": "Johnny Morrissey",
+"apps": 2,
+"g": 0
+},
+"Bobby Murdoch (footballer, born 1936)": {
+"name": "Bobby Murdoch",
+"apps": 2,
+"g": 0
+},
+"Doug Rudham": {
+"name": "Doug Rudham",
+"apps": 1,
+"g": 0
+},
+"Roy Saunders": {
+"name": "Roy Saunders",
+"apps": 4,
+"g": 0
+},
+"Geoff Twentyman": {
+"name": "Geoff Twentyman",
+"apps": 25,
+"g": 4
+},
+"Johnny Wheeler": {
+"name": "Johnny Wheeler",
+"apps": 41,
+"g": 1
+},
+"Dick White (footballer)": {
+"name": "Dick White",
+"apps": 42,
+"g": 0
+},
+"Barry Wilkinson": {
+"name": "Barry Wilkinson",
+"apps": 12,
+"g": 0
+},
+"Tommy Younger": {
+"name": "Tommy Younger",
+"apps": 41,
+"g": 0
+},
+"Own goal": {
+"name": "Own goal",
+"apps": 8,
+"g": 33
+},
+"Fred Morris (footballer born 1929)": {
+"name": "Morris",
+"apps": 43,
+"g": 48
+}
+},
+"Aston Villa": {
+"Gerry Hitchens": {
+"name": "Gerry Hitchens",
+"apps": 41,
+"g": null
+},
+"Vic Crowe": {
+"name": "Vic Crowe",
+"apps": 39,
+"g": null
+},
+"Jackie Sewell": {
+"name": "Jackie Sewell",
+"apps": 38,
+"g": null
+},
+"Les Smith (footballer, born 1927)": {
+"name": "Les Smith",
+"apps": 35,
+"g": null
+},
+"Johnny Dixon (footballer)": {
+"name": "Johnny Dixon",
+"apps": 34,
+"g": null
+},
+"Peter Aldis": {
+"name": "Peter Aldis",
+"apps": 33,
+"g": null
+},
+"Billy Myerscough": {
+"name": "Billy Myerscough",
+"apps": 32,
+"g": null
+},
+"Stan Crowther (footballer)": {
+"name": "Stan Crowther",
+"apps": 29,
+"g": null
+},
+"Stan Lynn": {
+"name": "Stan Lynn",
+"apps": 27,
+"g": null
+},
+"Ron Wylie": {
+"name": "Ron Wylie",
+"apps": 26,
+"g": null
+},
+"Doug Winton": {
+"name": "Doug Winton",
+"apps": 18,
+"g": null
+},
+"Pat Saward": {
+"name": "Pat Saward",
+"apps": 14,
+"g": null
+},
+"Gordon Lee (footballer)": {
+"name": "Gordon Lee",
+"apps": 14,
+"g": null
+},
+"John Sharples (footballer, born 1934)": {
+"name": "John Sharples",
+"apps": 13,
+"g": null
+},
+"Derek Pace": {
+"name": "Derek Pace",
+"apps": 12,
+"g": null
+},
+"George Ashfield": {
+"name": "George Ashfield",
+"apps": 9,
+"g": null
+},
+"Wally Hazelden": {
+"name": "Wally Hazelden",
+"apps": 8,
+"g": null
+},
+"Roy Chapman": {
+"name": "Roy Chapman",
+"apps": 8,
+"g": null
+},
+"Dennis Jackson": {
+"name": "Dennis Jackson",
+"apps": 5,
+"g": null
+},
+"Ken Barrett (English footballer)": {
+"name": "Ken Barrett",
+"apps": 5,
+"g": null
+},
+"Les Jones (footballer, born 1930)": {
+"name": "Les Jones",
+"apps": 5,
+"g": null
+},
+"Ken Roberts (footballer, born 1936)": {
+"name": "Ken Roberts",
+"apps": 2,
+"g": null
+},
+"Trevor Birch (footballer, born 1933)": {
+"name": "Trevor Birch",
+"apps": 2,
+"g": null
+},
+"Jackie Hinchliffe": {
+"name": "Jackie Hinchliffe",
+"apps": 2,
+"g": null
+},
+"Arthur Sabin": {
+"name": "Arthur Sabin",
+"apps": 1,
+"g": null
+}
+},
+"Manchester City": {
+"Burnley": {
+"name": "Burnley",
+"apps": 3,
+"g": null
+},
+"Bolton Wanderers": {
+"name": "Bolton Wanderers",
+"apps": 3,
+"g": null
+},
+"Preston North End": {
+"name": "Preston North End",
+"apps": 1,
+"g": null
+},
+"Filbert Street": {
+"name": "Filbert Street",
+"apps": 3,
+"g": null
+},
+"Maine Road": {
+"name": "Maine Road",
+"apps": 1,
+"g": null
+},
+"Kenilworth Road": {
+"name": "Kenilworth Road",
+"apps": 5,
+"g": null
+},
+"Arsenal Stadium": {
+"name": "Highbury",
+"apps": 4,
+"g": null
+},
+"Manchester United": {
+"name": "Manchester United",
+"apps": 1,
+"g": null
+},
+"Leeds United": {
+"name": "Leeds United",
+"apps": 1,
+"g": null
+},
+"Wolverhampton Wanderers": {
+"name": "Wolverhampton Wanderers",
+"apps": 2,
+"g": null
+},
+"Newcastle United": {
+"name": "Newcastle United",
+"apps": 4,
+"g": null
+},
+"Tottenham Hotspur": {
+"name": "Tottenham Hotspur",
+"apps": 1,
+"g": null
+},
+"Nottingham Forest": {
+"name": "Nottingham Forest",
+"apps": 4,
+"g": null
+},
+"Bloomfield Road": {
+"name": "Bloomfield Road",
+"apps": 0,
+"g": null
+},
+"Blackburn Rovers": {
+"name": "Blackburn Rovers",
+"apps": 1,
+"g": null
+},
+"Aston Villa": {
+"name": "Aston Villa",
+"apps": 1,
+"g": null
+},
+"West Ham United": {
+"name": "West Ham United",
+"apps": 1,
+"g": null
+},
+"St Andrews (stadium)": {
+"name": "St Andrews",
+"apps": 6,
+"g": null
+},
+"Goodison Park": {
+"name": "Goodison Park",
+"apps": 3,
+"g": null
+},
+"Fratton Park": {
+"name": "Fratton Park",
+"apps": 3,
+"g": null
+},
+"West Bromwich Albion": {
+"name": "West Bromwich Albion",
+"apps": 2,
+"g": null
+},
+"Stamford Bridge (stadium)": {
+"name": "Stamford Bridge",
+"apps": 2,
+"g": null
+},
+"Blundell Park": {
+"name": "Blundell Park",
+"apps": 2,
+"g": null
+}
+},
+"West Ham United": {
+"Ernie Gregory": {
+"name": "Ernie Gregory",
+"apps": 32,
+"g": 1
+},
+"John Bond (footballer)": {
+"name": "John Bond",
+"apps": 42,
+"g": 7
+},
+"Noel Cantwell": {
+"name": "Noel Cantwell",
+"apps": 42,
+"g": 3
+},
+"Andy Malcolm": {
+"name": "Andy Malcolm",
+"apps": 42,
+"g": 1
+},
+"Ken Brown (footballer)": {
+"name": "Ken Brown",
+"apps": 42,
+"g": 1
+},
+"Mike Grice": {
+"name": "Mike Grice",
+"apps": 42,
+"g": 6
+},
+"Phil Woosnam": {
+"name": "Phil Woosnam",
+"apps": 13,
+"g": 2
+},
+"Vic Keeble": {
+"name": "Vic Keeble",
+"apps": 32,
+"g": 20
+},
+"John Dick (footballer born 1930)": {
+"name": "John Dick",
+"apps": 41,
+"g": 27
+},
+"Malcolm Musgrove": {
+"name": "Malcolm Musgrove",
+"apps": 40,
+"g": 7
+},
+"Andy Nelson (footballer)": {
+"name": "Andy Nelson",
+"apps": 12,
+"g": 1
+},
+"Joe Kirkup": {
+"name": "Joe Kirkup",
+"apps": 11,
+"g": null
+},
+"Noel Dwyer": {
+"name": "Noel Dwyer",
+"apps": 10,
+"g": null
+},
+"Bill Lansdowne": {
+"name": "Bill Lansdowne",
+"apps": 6,
+"g": 1
+},
+"Harry Obeney": {
+"name": "Harry Obeney",
+"apps": 6,
+"g": 3
+},
+"Bobby Moore": {
+"name": "Bobby Moore",
+"apps": 5,
+"g": null
+},
+"Andy Smillie": {
+"name": "Andy Smillie",
+"apps": 4,
+"g": 1
+},
+"Billy Dare": {
+"name": "Billy Dare",
+"apps": 2,
+"g": 1
+},
+"Doug Wragg": {
+"name": "Doug Wragg",
+"apps": 2,
+"g": null
+}
+},
+"Birmingham City": {
+"Leeds United": {
+"name": "Leeds United",
+"apps": 4,
+"g": null
+},
+"Birmingham City": {
+"name": "Birmingham City",
+"apps": 42,
+"g": 20
+},
+"Blackburn Rovers": {
+"name": "Blackburn Rovers",
+"apps": 42,
+"g": 17
+},
+"Newcastle United": {
+"name": "Newcastle United",
+"apps": 42,
+"g": 17
+},
+"Gil Merrick": {
+"name": "Gil Merrick",
+"apps": 34,
+"g": 0
+},
+"Johnny Schofield": {
+"name": "Johnny Schofield",
+"apps": 8,
+"g": 0
+},
+"dab=footballer, born 1932": {
+"name": "George Allen",
+"apps": 27,
+"g": 0
+},
+"Brian Farmer": {
+"name": "Brian Farmer",
+"apps": 13,
+"g": 0
+},
+"dab=footballer, born 1924": {
+"name": "Ken Green",
+"apps": 15,
+"g": 0
+},
+"dab=footballer": {
+"name": "Jeff Hall",
+"apps": 29,
+"g": 0
+},
+"Dick Neal Jr.": {
+"name": "Dick Neal",
+"apps": 39,
+"g": 4
+},
+"Graham Sissons": {
+"name": "Graham Sissons",
+"apps": 16,
+"g": 0
+},
+"dab=footballer, born 1936": {
+"name": "Trevor Smith",
+"apps": 27,
+"g": 0
+},
+"dab=English footballer": {
+"name": "Johnny Watts",
+"apps": 38,
+"g": 1
+},
+"Gordon Astall": {
+"name": "Gordon Astall",
+"apps": 26,
+"g": 8
+},
+"Eddy Brown": {
+"name": "Eddy Brown",
+"apps": 17,
+"g": 8
+},
+"Johnny Gordon": {
+"name": "Johnny Gordon",
+"apps": 33,
+"g": 10
+},
+"Mike Hellawell": {
+"name": "Mike Hellawell",
+"apps": 1,
+"g": 0
+},
+"dab=footballer born 1933": {
+"name": "Harry Hooper",
+"apps": 34,
+"g": 8
+},
+"Bud Houghton": {
+"name": "Bud Houghton",
+"apps": 2,
+"g": 1
+},
+"dab=footballer, born 1935": {
+"name": "Alex Jackson",
+"apps": 6,
+"g": 6
+},
+"dab=footballer, born 1940": {
+"name": "David Jones",
+"apps": 4,
+"g": 0
+},
+"Bunny Larkin": {
+"name": "Bunny Larkin",
+"apps": 31,
+"g": 18
+},
+"dab=footballer, born 1922": {
+"name": "Peter Murphy",
+"apps": 10,
+"g": 4
+},
+"Bryan Orritt": {
+"name": "Bryan Orritt",
+"apps": 12,
+"g": 1
+},
+"Robin Stubbs": {
+"name": "Robin Stubbs",
+"apps": 12,
+"g": 9
+},
+"dab=footballer, born 1937": {
+"name": "Brian Taylor",
+"apps": 26,
+"g": 5
+}
+},
+"Arsenal": {},
+"Manchester United": {
+"Harry Gregg": {
+"name": "Harry Gregg",
+"apps": 41,
+"g": 0
+},
+"Ray Wood": {
+"name": "Ray Wood",
+"apps": 1,
+"g": 0
+},
+"Joe Carolan": {
+"name": "Joe Carolan",
+"apps": 23,
+"g": 0
+},
+"Bill Foulkes": {
+"name": "Bill Foulkes",
+"apps": 32,
+"g": 0
+},
+"Ian Greaves": {
+"name": "Ian Greaves",
+"apps": 34,
+"g": 0
+},
+"Shay Brennan": {
+"name": "Shay Brennan",
+"apps": 1,
+"g": 0
+},
+"Ronnie Cope": {
+"name": "Ronnie Cope",
+"apps": 32,
+"g": 2
+},
+"Stan Crowther (footballer)": {
+"name": "Stan Crowther",
+"apps": 2,
+"g": 0
+},
+"Freddie Goodwin": {
+"name": "Freddie Goodwin",
+"apps": 42,
+"g": 6
+},
+"Bobby Harrop": {
+"name": "Bobby Harrop",
+"apps": 5,
+"g": 0
+},
+"Wilf McGuinness": {
+"name": "Wilf McGuinness",
+"apps": 39,
+"g": 1
+},
+"Warren Bradley (footballer)": {
+"name": "Warren Bradley",
+"apps": 24,
+"g": 12
+},
+"Bobby Charlton": {
+"name": "Bobby Charlton",
+"apps": 38,
+"g": 29
+},
+"Alex Dawson": {
+"name": "Alex Dawson",
+"apps": 11,
+"g": 4
+},
+"Reg Hunter": {
+"name": "Reg Hunter",
+"apps": 1,
+"g": 0
+},
+"Kenny Morgans": {
+"name": "Kenny Morgans",
+"apps": 2,
+"g": 0
+},
+"Mark Pearson (footballer)": {
+"name": "Mark Pearson",
+"apps": 4,
+"g": 1
+},
+"Albert Quixall": {
+"name": "Albert Quixall",
+"apps": 33,
+"g": 4
+},
+"Albert Scanlon": {
+"name": "Albert Scanlon",
+"apps": 42,
+"g": 16
+},
+"Ernie Taylor (footballer born 1925)": {
+"name": "Ernie Taylor",
+"apps": 11,
+"g": 0
+},
+"Dennis Viollet": {
+"name": "Dennis Viollet",
+"apps": 37,
+"g": 21
+},
+"Colin Webster": {
+"name": "Colin Webster",
+"apps": 7,
+"g": 5
+}
+}
+}

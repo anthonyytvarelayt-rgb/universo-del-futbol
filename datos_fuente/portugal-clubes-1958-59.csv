@@ -1,0 +1,39 @@
+club,ciudad,estadio,color1,color2,prestigio
+Benfica,Lisboa,Estádio da Luz,#E30613,#FFFFFF,849
+Sporting de Portugal,Lisboa,Estádio José Alvalade,#008057,#FFFFFF,860
+Oporto,Porto,Estádio das Antas,#003893,#FFFFFF,715
+Belenenses,Lisboa,Estádio do Restelo,#0047AB,#FFFFFF,637
+Académica,Coimbra,Estádio Municipal de Coimbra,#000000,#FFFFFF,444
+Vitória de Setúbal,Setúbal,Estádio do Bonfim,#007A33,#FFFFFF,417
+Vitória de Guimarães,Guimarães,Campo da Amorosa,#FFFFFF,#000000,387
+Barreirense,Barreiro,Campo D. Manuel de Mello,#D50032,#FFFFFF,405
+Braga,Braga,Estádio 1.º de Maio,#D50032,#FFFFFF,424
+Covilhã,Covilhã,Estádio José dos Santos Pinto,#007A33,#FFFFFF,398
+Lusitano de Évora,Évora,Campo Estrela,#007A33,#FFFFFF,405
+CUF,Barreiro,Estádio Alfredo da Silva,#007A33,#FFFFFF,363
+Torreense,Torres Vedras,Estádio Manuel Marques,#003893,#FFFFFF,382
+Caldas,Caldas da Rainha,Campo da Mata,#003893,#FFFFFF,313
+Atlético CP,Lisboa,Estádio da Tapadinha,#002F6C,#FFFFFF,425
+Leixões,Matosinhos,Campo de Santana,#D50032,#FFFFFF,309
+Boavista,Porto,Estádio do Bessa,#000000,#FFFFFF,355
+Penafiel,Penafiel,Campo Municipal de Penafiel,#D50032,#000000,300
+Sanjoanense,São João da Madeira,Estádio Conde Dias Garcia,#000000,#FFFFFF,300
+Peniche,Peniche,Campo do GD Peniche,#E30613,#FFFFFF,300
+Portimonense,Portimão,Estádio Municipal de Portimão,#000000,#FFFFFF,300
+Farense,Faro,Estádio de São Luís,#000000,#FFFFFF,300
+Chaves,Chaves,Estádio Municipal de Chaves,#003893,#E30613,300
+Montijo,Montijo,Campo Luís de Almeida Fidalgo,#E30613,#FFFFFF,300
+Oliveirense,Oliveira de Azeméis,Estádio Carlos Osório,#FFD100,#000000,300
+Oriental,Lisboa,Campo Engenheiro Carlos Salema,#E30613,#FFFFFF,344
+Tirsense,Santo Tirso,Estádio Abel Alves de Figueiredo,#000000,#FFFFFF,300
+Vila Real,Vila Real,Campo do Monte da Forca,#E30613,#FFFFFF,300
+Salgueiros,Porto,Estádio Engenheiro Vidal Pinheiro,#E30613,#FFFFFF,316
+Elvas,Elvas,Estádio Municipal de Elvas,#003893,#FFFFFF,309
+Olhanense,Olhão,Estádio José Arcanjo,#D50032,#000000,373
+Estoril,Estoril,Estádio António Coimbra da Mota,#FFD100,#002F6C,351
+Espinho,Espinho,Campo da Avenida,#000000,#FFFFFF,300
+Feirense,Santa Maria da Feira,Estádio Marcolino de Castro,#003893,#FFFFFF,300
+Famalicão,Vila Nova de Famalicão,Campo Municipal de Famalicão,#003893,#FFFFFF,300
+Beira-Mar,Aveiro,Estádio Mário Duarte,#FFD100,#000000,300
+Almada,Almada,Campo do Pragal,#E30613,#FFFFFF,300
+Juventude de Évora,Évora,Estádio Sanches de Miranda,#003893,#FFFFFF,300

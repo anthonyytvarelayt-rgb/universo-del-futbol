@@ -1,12 +1,12 @@
-# Monta motor/base.json, la base única que lee el motor para empezar en cualquier temporada, desde datos/base/:
+# Monta datos/base.js, la base única que lee el motor para empezar en cualquier temporada, desde datos_fuente/base/:
 #   ligas.csv, clubes.csv, jugadores.csv, carreras.csv, entrenadores.csv, derbis.csv y paises.json (formato de cada país).
 # Antes de escribir, revisa los datos (columnas, fechas, niveles, campeones, carreras) y aparta lo que no pasa.
-# Uso: python3 motor/base.py            (escribe motor/base.json y datos/base/revision.txt)
+# Uso: python3 herramientas/base.py   (escribe datos/base.js y datos_fuente/base/revision.txt)
 import csv, json, os, re
 from collections import Counter, defaultdict
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-BASE = os.path.join(AQUI, '..', 'datos', 'base')
+BASE = os.path.join(AQUI, '..', 'datos_fuente', 'base')
 POSICIONES = {'POR', 'DEF', 'MED', 'DEL'}
 avisos = []
 
@@ -87,7 +87,7 @@ for orden, f in enumerate(leer('carreras.csv')):
 # si ya está, solo se le añaden los clubes posteriores. Fuera: jugadoras (mujeres.txt) y, por tamaño, quien nunca
 # estuvo entre los 22 mejores de un club en una temporada de ligas.csv.
 import unicodedata
-WD = os.path.join(AQUI, '..', 'datos', 'expansion', 'wikidata')
+WD = os.path.join(AQUI, '..', 'datos_fuente', 'expansion', 'wikidata')
 def toks(x): return set(re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', x).encode('ascii', 'ignore').decode().lower()).split())
 n_wd = {'nuevos': 0, 'unidos': 0, 'mujeres': 0, 'sin_sitio': 0}
 if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
@@ -228,7 +228,8 @@ for j in jugadores.values():
 base = {'paises': config['paises'], 'ajustes': config.get('ajustes', {}), 'clubes': clubes, 'ligas': ligas,
         'jugadores': [j for j in jugadores.values() if j['carrera']], 'entrenadores': entrenadores,
         'derbis': leer('derbis.csv'), 'europa': europa, 'aniosDisponibles': anios, 'aniosJugables': anios_jugables}
-json.dump(base, open(os.path.join(AQUI, 'base.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+SALIDA = os.path.join(AQUI, '..', 'datos', 'base.js')
+open(SALIDA, 'w', encoding='utf-8').write('window.BASE_DATOS = ' + json.dumps(base, ensure_ascii=False, separators=(',', ':')) + ';\n')
 open(os.path.join(BASE, 'revision.txt'), 'w', encoding='utf-8').write('\n'.join(avisos) + '\n')
 print({'ligas': len(ligas), 'clubes': len(clubes), 'jugadores': len(base['jugadores']), 'entrenadores': len(entrenadores),
-       'anios': anios, 'jugables': anios_jugables, 'avisos': len(avisos), 'MB': round(os.path.getsize(os.path.join(AQUI, 'base.json')) / 1e6, 2)})
+       'anios': anios, 'jugables': anios_jugables, 'avisos': len(avisos), 'MB': round(os.path.getsize(SALIDA) / 1e6, 2)})

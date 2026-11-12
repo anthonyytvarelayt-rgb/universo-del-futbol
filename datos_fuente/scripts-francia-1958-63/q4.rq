@@ -1,0 +1,6 @@
+SELECT ?p ?t ?birth WHERE {
+  ?art schema:about ?p ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?t .
+  ?p wdt:P106 wd:Q937857 .
+  OPTIONAL { ?p wdt:P569 ?birth }
+  FILTER(!BOUND(?birth) || (YEAR(?birth)>=1912 && YEAR(?birth)<=1946))
+}
