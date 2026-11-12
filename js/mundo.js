@@ -678,6 +678,20 @@
       if (real) racha('liga ' + o.pais, o.campeon, real, 'liga');
     });
   }
+  // Rivalidades: dos jugadores que pasan tres temporadas entre los tres mejores del mundo se vuelven rivales.
+  // Desde entonces, cuando se enfrentan, los dos se crecen (ver motor.js).
+  function rivalidades(M, R, novedades) {
+    const d = M.duelos || (M.duelos = {});
+    const top = R.G.filter((x) => x.pj >= 20 && x.j && !x.j.relleno).sort((a, b) => b.notaTemp - a.notaTemp).slice(0, 3);
+    for (let i = 0; i < top.length; i++) for (let k = i + 1; k < top.length; k++) {
+      const a = top[i], b = top[k], id = [a.j.n, b.j.n].sort().join('|');
+      d[id] = (d[id] || 0) + 1;
+      if (d[id] === 3 && !a.j.rival && !b.j.rival && a.eq !== b.eq) {
+        a.j.rival = b.j.n; b.j.rival = a.j.n;
+        novedades.push({ tipo: 'rivalidad', a: a.j.n, b: b.j.n, clubA: a.eq.nombre, clubB: b.eq.nombre });
+      }
+    }
+  }
   // Lesión grave: de vez en cuando un jugador se rompe y pierde parte de lo que era. Al año siguiente algunos vuelven
   // como si nada y otros ya no son los mismos. Es raro, pero cambia carreras.
   function lesionGrave(M, c, j, x, edad, r, novedades) {
@@ -1159,6 +1173,7 @@
     resumen.retiros = envejecer(M, R, r);
     resumen.novedades = resumen.retiros.novedades;
     marcas(M, R, resumen.novedades);
+    rivalidades(M, R, resumen.novedades);
     resumen.mercado = mercado(M, r);
     M.fichajes.push(...resumen.mercado);
     M.anio++;

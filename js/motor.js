@@ -281,6 +281,8 @@
     const gr = (j, id) => (j.ins && j.ins[id] != null ? j.ins[id] + 1 : 0);
     const minutos = 90 * o.duracion;
     const xiL = o.xiL || alineacion(local, o.fueraL, o.selL || nv), xiV = o.xiV || alineacion(visita, o.fueraV, o.selV || nv);
+    // Rivales declarados (ver mundo.js): cuando se ven las caras, los dos se crecen.
+    [[xiL, xiV], [xiV, xiL]].forEach(([mios, suyos]) => mios.forEach((j) => { if (j.rival && suyos.some((x) => x.n === j.rival)) { nvDia.set(j, nv(j) + 15); pot.delete(j); } }));
     const estilos = [estiloPartido(local, visita, true), estiloPartido(visita, local, o.neutral)];
     const st = new Map();
     const s = (j) => { if (!st.has(j)) st.set(j, { g: 0, a: 0, tiros: 0, ocas: 0, cortes: 0, paradas: 0, enc: 0, regates: 0, pases: 0, pasesOk: 0, pen: 0, penFallado: 0, roja: 0, amarilla: 0, lesion: 0, salida: minutos }); return st.get(j); };
