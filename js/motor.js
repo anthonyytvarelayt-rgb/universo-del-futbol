@@ -89,8 +89,8 @@
   const PASES_ROL = { POR: 0.45, DEF: 1.0, MED: 1.5, EXT: 0.8, DC: 0.65 };
   const ACIERTO_ROL = { POR: 0.58, DEF: 0.72, MED: 0.73, EXT: 0.65, DC: 0.62 };
   const VOLUMEN = {
-    DC: { g: 0.02, a: 0.015, r: 0, c: 0, z: 0 },
-    EXT: { g: 0.025, a: 0.02, r: 0.004, c: 0, z: 0 },
+    DC: { g: 0.021, a: 0.016, r: 0.001, c: 0, z: 0 },
+    EXT: { g: 0.022, a: 0.018, r: 0.002, c: 0, z: 0 },
     MED: { g: 0.03, a: 0.02, r: 0.003, c: 0.003, z: 0, p: 0.0002 },
     DEF: { g: 0.04, a: 0.02, r: 0.002, c: 0.008, z: 0.03 },
     POR: { g: 0, a: 0, r: 0, c: 0, z: 0.04 }
@@ -333,9 +333,9 @@
         const e = st.get(j);
         const ro = rol(j);
         let n = 6 + res + (r() - 0.5) * 0.6;
-        n += (e.g - e.pen) * (ro === 'DC' ? 1.3 : 1.5) + e.pen * 0.8 + e.a * (ro === 'DC' ? 0.8 : 0.9) + e.tiros * 0.08;
+        n += (e.g - e.pen) * (ro === 'DC' || ro === 'EXT' ? 1.4 : 1.5) + e.pen * 0.8 + e.a * (ro === 'DC' ? 0.8 : 0.9) + e.tiros * 0.08;
         n += (e.pasesOk - e.pases * ((ACIERTO_ROL[ro] || 0.7) + aciertoEpoca(o.anio))) * 0.02 * 600 / pasesEpoca(o.anio);
-        n += e.ocas * (ro === 'DC' ? 0.06 : 0.1) + e.regates * (ro === 'EXT' ? 0.2 : 0.14);
+        n += e.ocas * (ro === 'DC' ? 0.06 : ro === 'EXT' ? 0.08 : 0.1) + e.regates * (ro === 'EXT' ? 0.11 : 0.14);
         if (ro === 'POR') n += e.paradas * 0.22 - e.enc * 0.35 + (gc === 0 ? 0.7 : 0) + (e.penParado ? 0.8 : 0);
         if (ro === 'DEF') n += e.cortes * 0.24 + (gc === 0 ? 0.5 : 0) - gc * 0.15;
         if (ro === 'MED') n += e.cortes * 0.12;
@@ -437,7 +437,9 @@
       const mediaNota = x.sumaNota / x.pj;
       // Cada rol suma por lo suyo: el extremo por regates y pases, el defensa por cortes y porterías a cero.
       const ro = rol(x.j), V = VOLUMEN[ro] || VOLUMEN.DC;
-      const plus = Math.min(1.0, x.g * V.g + x.a * V.a + x.regates * V.r + x.cortes * V.c + x.ceros * V.z + x.pasesOk * (V.p || 0)) + campeones.filter((c) => c === x.eq).length * 0.15;
+      const bruto = x.g * V.g + x.a * V.a + x.regates * V.r + x.cortes * V.c + x.ceros * V.z + x.pasesOk * (V.p || 0);
+      // Hasta 1 cuenta entero; lo que pasa de ahí cuenta la mitad (una temporada de 60 goles tiene que notarse).
+      const plus = Math.min(1.2, bruto <= 1 ? bruto : 1 + (bruto - 1) * 0.5) + campeones.filter((c) => c === x.eq).length * 0.15;
       const notaTemp = Math.min(10, mediaNota + plus * Math.min(1, x.pj / 25));
       return Object.assign(x, { nombre: x.j.n, pos: x.j.pos, rol: ro, club: x.eq.nombre, nota: mediaNota, notaTemp });
     });

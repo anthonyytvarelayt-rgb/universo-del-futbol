@@ -238,7 +238,12 @@
       }
       // Liga de Campeones: dos grupos desde 1991, cuatro desde 1994 y ocho desde 1999 (si hay equipos para llenarlos).
       const grupos = M.anio >= 1999 ? 8 : M.anio >= 1994 ? 4 : M.anio >= 1991 ? 2 : 0;
-      EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
+      // En Europa la diferencia de nivel pesa algo más que en la liga: los grandes se guardan lo mejor para estas noches.
+      const escalaLiga = Motor.P.escala;
+      Motor.P.escala = escalaLiga * CONTRASTE_EUROPA;
+      try {
+        EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
+      } finally { Motor.P.escala = escalaLiga; }
       EU.goleadorReal = E.goleadorReal;
     }
     // Copa del Generalísimo: todos los clubes de Primera y Segunda.
@@ -645,6 +650,8 @@
   // Mercado de verano: vuelta de cedidos, filiales, fichajes por prestigio y necesidad, cesiones y libres.
   const IDEAL = { POR: 2, DEF: 7, MED: 6, DEL: 7 };
   const CUPO_EXTRANJEROS = 3, NIVEL_EXTRANJERO = 720;
+  const CONTRASTE_EUROPA = 0.65;
+  const IDEAL_ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
   // Portugal, Argentina, Brasil y la Alemania semiamateur casi nada; Inglaterra, cerrada hasta 1978.
   const ATRACCION = { Italia: { 1946: 1 }, España: { 1950: 1 }, Francia: { 1950: 0.5 }, Portugal: { 1950: 0.15 }, Argentina: { 1950: 0.15 },
@@ -716,7 +723,8 @@
       if (!extranjero(j, comprador.pais)) return true;
       if (!(comprador.pais in abierto)) abierto[comprador.pais] = Epoca.reglas(comprador.pais, nuevoAnio).extranjerosNuevos;
       const P = M.paises.find((x) => x.pais === comprador.pais);
-      const cupo = fluidez === 1 ? 9 : (P && P.cupo && porAnio(P.cupo[comprador.division], nuevoAnio)) || CUPO_EXTRANJEROS;
+      // Desde 1996 (Bosman) el cupo de extranjeros ya no frena a nadie: los grandes tienen quince o veinte.
+      const cupo = fluidez === 1 ? 99 : (P && P.cupo && porAnio(P.cupo[comprador.division], nuevoAnio)) || CUPO_EXTRANJEROS;
       return abierto[comprador.pais] && comprador.jugadores.filter((x) => extranjero(x, comprador.pais)).length < cupo;
     };
     // El campeón se conforma y los grandes que no ganaron se refuerzan más: así ninguna racha dura veinte años.
@@ -750,6 +758,33 @@
       const a = destinos[Math.floor(r() * Math.min(4, destinos.length))];
       j.cedido = null; fichados.add(j); mover(j, v, a, 'fichaje');
     }));
+    // Las figuras se juntan en los grandes (desde 1980, y del todo desde 1996). Sin esto, con los años los mejores del
+    // mundo quedaban repartidos por cincuenta clubes (De Bruyne en el Auxerre, Neymar toda su carrera en el Santos), los
+    // grandes se desinflaban y cualquiera ganaba la Champions. Cada verano, los mejores jugadores del mundo que no están
+    // en un club de élite reciben la oferta de uno donde serían titulares; cuanto mejor el jugador, más probable.
+    if (fluidez > 0) {
+      const europeos = [...fuerzas.keys()].filter((c) => !NO_EUROPA.includes(c.pais));
+      const elite = europeos.filter((c) => c.prestigio >= 770).sort((a, b) => b.prestigio - a.prestigio).slice(0, 14);
+      const esElite = new Set(elite), llegadas = new Map();
+      const estrellas = [];
+      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if (!j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
+      estrellas.sort((a, b) => b.j.niv - a.j.niv);
+      const N = Math.round(40 + 110 * fluidez);
+      estrellas.slice(0, N).forEach(({ j, v }, k) => {
+        if (esElite.has(v) || fichados.has(j)) return;
+        const K = CONSTANTES[j.n];
+        if (K && K.club === v.nombre && nuevoAnio <= K.fiel) return;
+        // Cuanto más arriba en la lista, menos tarda en salir: el número 1 se va casi seguro, el 100 una vez de cada cuatro.
+        if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez)) return;
+        const titular = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
+        const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 3 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c)
+          && fuerzas.get(c) > (fuerzas.get(v) || 0)).map((c) => ({ c, gana: j.niv - titular(c) + 120 * r() })).sort((a, b) => b.gana - a.gana);
+        if (!destinos.length) return;
+        const c = destinos[0].c;
+        llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
+        mover(j, v, c, 'fichaje');
+      });
+    }
     orden.forEach((comprador) => {
       let compras = 0;
       if (sobrado(comprador)) return;

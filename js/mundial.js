@@ -38,8 +38,11 @@
     const todos = Object.values(eqs);
     const partidos = [];   // en orden: lo que la página va enseñando paso a paso
     let paso = 0;
-    const ocas = Motor.P.ocasiones;
+    const ocas = Motor.P.ocasiones, escalaP = Motor.P.escala;
     Motor.P.ocasiones = ocas * (AJUSTE_OCASIONES[ed.anio] || 1);
+    // En un Mundial la diferencia de nivel pesa más que en un partido de liga: a partido único, con la escala de liga
+    // ganaba un tapado uno de cada cinco torneos (Ghana, Polonia); en la historia real siempre gana un grande.
+    Motor.P.escala = escalaP * (typeof CONTRASTE_MUNDIAL !== 'undefined' ? CONTRASTE_MUNDIAL : 0.62);
     try {
       // Un partido: en campo neutral salvo que juegue el anfitrión, que siempre hace de local.
       const jugar = (A, B, extra) => {
@@ -229,6 +232,7 @@
         fases: fasesRes, partidos, jugadores: G.map(resumenJugador), premios: premios(ed, G, fasesRes, eqs) };
     } finally {
       Motor.P.ocasiones = ocas;
+      Motor.P.escala = escalaP;
     }
   }
 

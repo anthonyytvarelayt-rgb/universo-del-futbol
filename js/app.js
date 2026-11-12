@@ -315,7 +315,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 13, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 14, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -597,10 +597,21 @@ function premiosMundo(V) {
   const enEuropa = (x) => !NO_EUROPA_LIGA.includes(x.eq.pais), europeo = (x) => !x.j || !x.j.nacion || !NO_EUROPEOS.test(x.j.nacion);
   const porNota = (a, b) => b.notaTemp - a.notaTemp, joven = (x) => Motor.edad(x.j, V.anio + 1) <= 21;
   const goles = (x) => x.g * (V.anio >= 1996 && GRANDES_LIGAS.includes(x.eq.pais) ? 2 : V.anio >= 1996 ? 1.5 : 1);
+  // El Balón de Oro no es solo la nota: pesan los títulos. Ganar la Copa de Europa, la liga o el Mundial sube al
+  // candidato; así el mejor del mundo no gana dieciséis seguidos si su equipo no gana nada.
+  const R = V.R || {}, ligas = new Set([R.T && R.T.tabla[0] && R.T.tabla[0].nombre].concat((R.otros || []).map((o) => o.campeon)).filter(Boolean));
+  const finalEU = R.EU && cerradaV(V) ? R.EU.rondas[R.EU.rondas.length - 1].cruces[0] : null;
+  const sel = (n) => sinTildes(n || '').replace('alemania federal', 'alemania').replace('rfa', 'alemania');
+  const MU = R.MU && cerradaV(V) ? R.MU : null;
+  const merito = (x) => x.notaTemp
+    + (ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
+    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
+    + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) : 0);
+  const porMerito = (a, b) => merito(b) - merito(a);
   const calc = {
-    balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porNota, 15),
+    balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porMerito, 15),
     bota: () => mejorDe(G.filter(enEuropa), (a, b) => goles(b) - goles(a) || a.pj - b.pj),
-    fifa: () => r.mejor, onze: () => mejorDe(G.filter(enEuropa), porNota, 15),
+    fifa: () => mejorDe(G, porMerito, 15), onze: () => mejorDe(G.filter(enEuropa), porNota, 15),
     golden: () => mejorDe(G.filter((x) => enEuropa(x) && joven(x)), porNota, 12), kopa: () => r.revelacion, yashin: () => r.portero
   };
   const linea = { bota: (j) => `${j.g} goles${V.anio >= 1996 ? ` · ${goles(j)} puntos` : ''}`, yashin: (j) => `${j.enc} goles en ${j.pj} partidos` };
@@ -1732,6 +1743,6 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 13) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 14) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
