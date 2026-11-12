@@ -124,7 +124,7 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
             j['carrera'] += [p for p in ps if p[2] > ultimo]
             if not j['nacion'] and f['nacionalidad']: j['nacion'] = f['nacionalidad'].strip()
             n_wd['unidos'] += 1; continue
-        j = {'n': clave[0], 'nac': clave[1], 'nacion': f['nacionalidad'].strip(), 'pos': pos, 'max': interno(maxi), 'carrera': sorted(ps, key=lambda p: p[2]), '_m': maxi}
+        j = {'n': clave[0], 'nac': clave[1], 'nacion': f['nacionalidad'].strip(), 'pos': pos, 'max': interno(maxi), 'carrera': sorted(ps, key=lambda p: p[2]), '_m': maxi, '_wd': f['wikidata']}
         if f.get('rol'): j['rol'] = f['rol'].strip()
         nuevos[clave] = j
     # Temporadas de cada uno en cada club, y los 22 mejores de cada club y temporada
@@ -206,6 +206,34 @@ if os.environ.get('DIAG'):
         print(t, {p: f"{sum(1 for n, _ in v if n >= 11)}/{len(v)}" + (' ' + ','.join(f'{c}:{n}' for n, c in sorted(v)[:3]) if p == 'España' else '') for p, v in arriba.items() if p not in se_rellena or p == 'España'})
 
 europa = json.load(open(os.path.join(AQUI, 'europa_1958-63.json'), encoding='utf-8')) if os.path.exists(os.path.join(AQUI, 'europa_1958-63.json')) else []
+# ---- Limpieza (etapa 1 del plan) ----
+# 1) Alemania tiene un solo nombre. 2) Nacionalidad que falta en Wikidata: país de nacimiento (nacimiento_wikidata.csv).
+# 3) Posición: Wikidata da varias a los atacantes (Messi "centrocampista" y "delantero") y la primera mandaba; quien
+#    viene de Wikidata como MED y marca como un delantero (un gol cada tres partidos, con 60 o más) es DEL.
+# 4) correcciones.csv: arreglos a mano (pos, nacion, nombre) que mandan sobre todo lo demás.
+UNA_NACION = {'RFA': 'Alemania', 'Alemania Occidental': 'Alemania', 'Alemania Federal': 'Alemania', 'Reino Unido': 'Inglaterra',
+              'Unión Soviética': 'URSS', 'Reino de los Países Bajos': 'Países Bajos', 'República de Irlanda': 'Irlanda', 'Estados Unidos de América': 'Estados Unidos'}
+_nace = {}
+_ruta = os.path.join(WD, 'nacimiento_wikidata.csv')
+if os.path.exists(_ruta):
+    for f in csv.DictReader(open(_ruta, encoding='utf-8')): _nace[f['wikidata']] = f['pais']
+n_limpia = Counter()
+for j in jugadores.values():
+    q = j.pop('_wd', None)
+    if not j['nacion'] and q in _nace: j['nacion'] = _nace[q]; n_limpia['nacion de nacimiento'] += 1
+    if j['nacion'] in UNA_NACION: j['nacion'] = UNA_NACION[j['nacion']]; n_limpia['nacion unificada'] += 1
+    if q and j['pos'] == 'MED':
+        pj = sum(p[4] or 0 for p in j['carrera'] if p[4] and p[5] is not None); g = sum(p[5] or 0 for p in j['carrera'] if p[4] and p[5] is not None)
+        if pj >= 60 and g / pj >= 0.33: j['pos'] = 'DEL'; n_limpia['MED a DEL por goles'] += 1
+_por = defaultdict(list)
+for j in jugadores.values(): _por[j['n']].append(j)
+for f in leer('correcciones.csv'):
+    js = [j for j in _por.get(f['nombre'], []) if j['nac'][:4] == f['anio']]
+    if not js: avisos.append(f"correcciones: no encuentro a {f['nombre']} ({f['anio']})"); continue
+    for j in js:
+        j[{'nombre': 'n'}.get(f['campo'], f['campo'])] = f['valor']; n_limpia['a mano'] += 1
+print('limpieza', dict(n_limpia))
+
 # Nombres únicos: dos jugadores distintos con el mismo nombre (García, Rodri...) se confundían en la página
 # (al tocar el nombre salía la ficha del otro, con otra posición). El mejor conserva el nombre; el resto lleva
 # su nombre completo o el año de nacimiento.
