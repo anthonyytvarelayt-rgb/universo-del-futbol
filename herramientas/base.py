@@ -232,6 +232,13 @@ for f in leer('correcciones.csv'):
     if not js: avisos.append(f"correcciones: no encuentro a {f['nombre']} ({f['anio']})"); continue
     for j in js:
         j[{'nombre': 'n'}.get(f['campo'], f['campo'])] = f['valor']; n_limpia['a mano'] += 1
+# 5) niveles_figuras.csv: nivel máximo (escala 1-1000) de las figuras valoradas a mano, por lotes de otras IA ya revisados.
+_por = defaultdict(list)
+for j in jugadores.values(): _por[j['n']].append(j)
+for f in leer('niveles_figuras.csv'):
+    js = [j for j in _por.get(f['nombre'], []) if j['nac'][:4] == f['anio']]
+    if not js: avisos.append(f"niveles_figuras: no encuentro a {f['nombre']} ({f['anio']})"); continue
+    max(js, key=lambda j: j['max'])['max'] = interno(entero(f['nivel'])); n_limpia['nivel de figura'] += 1
 print('limpieza', dict(n_limpia))
 
 # Nombres únicos: dos jugadores distintos con el mismo nombre (García, Rodri...) se confundían en la página

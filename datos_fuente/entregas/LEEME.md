@@ -22,3 +22,7 @@ Cada entrega se guarda aquí tal cual llegó, en una carpeta con su fecha. Nada 
 - **Posiciones: buenas.** Aplicadas a los 109 que ya están en la base (59 líneas en base/correcciones.csv: 17 cambios de puesto y el rol extremo/delantero centro). Las posiciones finas (MCO, LIB, SD…) se guardan aquí para la etapa 3; el motor hoy solo distingue POR, DEF, MED, DEL-centro y DEL-extremo.
 - **Niveles: no entran.** Todos entre 885 y 1000 (Nobby Stiles 885, Di Stéfano y Cruyff 990): no usa la escala del juego ni la cima fijada por Anthony (Maradona y Di Stéfano 950, Cruyff 920, Beckenbauer 900, Puskás 880, Eusébio 860, Charlton 800, Banks 720). Sirve el orden, no el número. Hay que pedirlo otra vez con la tabla de anclas (expansion/wikidata/figuras_a_mano.csv, 777 figuras ya valoradas).
 - 41 nombres no están en la base porque jugaron fuera de los 8 países (Yashin, Masopust, Spencer…): correcto; solo harían falta para Mundiales y clubes de fuera.
+
+## 2026-11-12_chatgpt_150_figuras_niveles (ChatGPT, pedido 1 rehecho con anclas)
+
+Las 16 anclas respetadas, rango 600-1000, año de nacimiento en todos. **Niveles: dentro** para los 123 que están en la base (base/niveles_figuras.csv, lo aplica base.py). Los otros 27 jugaron fuera de los 8 países. Suben de media 83 puntos: los jugadores de las plantillas de 1958 venían de una fórmula que se quedaba corta con las figuras (Bobby Moore 579 → 780, Matthews 228 → 760, Džajić 492 → 750).
