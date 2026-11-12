@@ -405,3 +405,14 @@ button.partido:hover b, .fila-btn:hover { opacity: .85; }
 .insignia.g2 { border-left-color: var(--oro); }
 .insignia.g3 { border-left-color: #7C5CFF; background: color-mix(in srgb, #7C5CFF 10%, var(--tarjeta)); }
 .resultado .insignia { flex-direction: row; white-space: nowrap; font-weight: 600; }
+/* El archivo de décadas conserva cada capítulo como una página desplegable. */
+.libro-decadas { margin: 28px 0; }
+.decada { margin: 14px 0; border: 1px solid var(--gris); border-radius: 6px; }
+.decada > summary { cursor: pointer; padding: 20px; }
+.decada > summary strong { display: block; font: bold 1.7rem Georgia, serif; margin: 8px 0; }
+.decada > summary > span:last-child { font-size: .9rem; }
+.decada-pagina { padding: 0 24px 24px; max-width: 80ch; line-height: 1.7; overflow-wrap: anywhere; }
+.decada-pagina h3 { margin-top: 24px; }
+.decada-sucesos { border-top: 1px solid var(--gris); padding: 12px 0; }
+.decada-sucesos summary { cursor: pointer; font-weight: bold; }
+@media (max-width: 600px) { .decada-pagina { padding: 0 14px 18px; } }
