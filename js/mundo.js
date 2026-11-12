@@ -228,9 +228,10 @@
       if (E.sinDatos) {
         const mios = eqs.filter((c) => M.clubes.includes(c)).map((c) => Motor.fuerzaBruta(c)).sort((a, b) => a - b);
         const medio = mios.length ? mios[Math.floor(mios.length / 2)] : 0;
+        const enJuego = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => enJuego.add(j.n)));
         if (medio) eqs.forEach((c) => {
           if (M.clubes.includes(c)) return;
-          if (c.generado) return plantillaExtranjera(c, medio * c.generado * 0.92, M.anio);
+          if (c.generado) return plantillaExtranjera(c, medio * c.generado * 0.92, M.anio, enJuego);
           const delta = medio * (0.86 + 0.08 * ((hashN(c.nombre + M.anio, 3) % 1000) / 1000)) - Motor.fuerzaBruta(c);
           if (delta < 0) c.jugadores.forEach((j) => { j.niv += delta; });
         });
@@ -301,14 +302,31 @@
   // Países que nacen más tarde (o dejan de existir): sus clubes solo entran en esos años.
   const EXTRANJERO_AÑOS = { 'Shakhtar Donetsk': [1992, 9999], 'Zenit': [1992, 9999], 'Copenhague': [1992, 9999], 'Spartak Moscú': [1955, 9999] };
   const fuerzaExtranjero = (x, anio) => { let f = x[2]; x.slice(3).forEach(([a, b, v]) => { if (anio >= a && anio <= b) f = v; }); return f; };
-  function plantillaExtranjera(c, nivel, anio) {
+  // Jugadores reales de clubes de fuera de la partida, por años (herramientas/plantillas_fuera.py los saca de datos_fuente/fuera/).
+  // [nombre, puesto, rol, desde, hasta, año de nacimiento, país]
+  /*PLANTILLAS_FUERA*/
+  const PLANTILLAS_FUERA = {
+    "Ajax": [["Heinz Stuy","POR","POR",1965,1979,1945,"Países Bajos"],["Wim Suurbier","DEF","DEF",1965,1977,1945,"Países Bajos"],["Ruud Krol","DEF","DEF",1966,1979,1949,"Países Bajos"],["Barry Hulshoff","DEF","DEF",1966,1976,1946,"Países Bajos"],["Velibor Vasović","DEF","DEF",1966,1971,1939,"Yugoslavia"],["Horst Blankenburg","DEF","DEF",1970,1975,1947,"Alemania"],["Arie Haan","MED","MED",1969,1976,1948,"Países Bajos"],["Johan Neeskens","MED","MED",1970,1974,1951,"Países Bajos"],["Gerrie Mühren","MED","MED",1969,1975,1946,"Países Bajos"],["Sjaak Swart","DEL","EXT",1958,1972,1938,"Países Bajos"],["Johnny Rep","DEL","EXT",1972,1975,1951,"Países Bajos"],["Piet Keizer","DEL","EXT",1961,1975,1943,"Países Bajos"],["Johan Cruyff","DEL","DC",1964,1973,1947,"Países Bajos"],["Dick van Dijk","DEL","DC",1967,1973,1946,"Países Bajos"],["Edwin van der Sar","POR","POR",1990,1999,1970,"Países Bajos"],["Frank de Boer","DEF","DEF",1988,1999,1970,"Países Bajos"],["Danny Blind","DEF","DEF",1986,1999,1961,"Países Bajos"],["Frank Rijkaard","MED","MED",1987,1995,1962,"Países Bajos"],["Clarence Seedorf","MED","MED",1992,1995,1976,"Países Bajos"],["Edgar Davids","MED","MED",1991,1996,1973,"Países Bajos"],["Jari Litmanen","MED","MED",1991,1999,1971,"Finlandia"],["Marc Overmars","DEL","EXT",1992,1997,1973,"Países Bajos"],["Finidi George","DEL","EXT",1993,1996,1971,"Nigeria"],["Patrick Kluivert","DEL","DC",1994,1997,1976,"Países Bajos"]],
+    "Anderlecht": [["Jean Trappeniers","POR","POR",1958,1971,1942,"Bélgica"],["Jacky Munaron","POR","POR",1977,1988,1956,"Bélgica"],["Georges Heylens","DEF","DEF",1958,1973,1941,"Bélgica"],["Jean Cornelis","DEF","DEF",1958,1971,1941,"Bélgica"],["Laurent Verbiest","DEF","DEF",1958,1968,1939,"Bélgica"],["Gilbert Van Binst","DEF","DEF",1972,1979,1951,"Bélgica"],["Hugo Broos","DEF","DEF",1971,1984,1952,"Bélgica"],["Morten Olsen","DEF","DEF",1980,1986,1949,"Dinamarca"],["Luka Peruzović","DEF","DEF",1979,1987,1952,"Yugoslavia"],["Pierre Hanon","MED","MED",1958,1966,1936,"Bélgica"],["Martin Lippens","MED","MED",1958,1967,1934,"Bélgica"],["Franky Vercauteren","DEL","EXT",1975,1986,1956,"Bélgica"],["Arie Haan","MED","MED",1974,1981,1948,"Países Bajos"],["Ludo Coeck","MED","MED",1972,1987,1955,"Bélgica"],["Juan Lozano","MED","MED",1981,1987,1955,"España"],["Enzo Scifo","MED","MED",1982,1986,1966,"Bélgica"],["Paul Van Himst","DEL","DC",1959,1972,1943,"Bélgica"],["Jan Mulder","DEL","DC",1964,1972,1945,"Países Bajos"],["Jef Jurion","MED","MED",1958,1967,1937,"Bélgica"],["Jacques Stockman","DEL","DC",1958,1967,1938,"Bélgica"],["Wilfried Puis","DEL","EXT",1962,1971,1943,"Bélgica"],["Rob Rensenbrink","DEL","EXT",1973,1978,1947,"Países Bajos"],["François Van der Elst","DEL","EXT",1976,1980,1954,"Bélgica"],["Erwin Vandenbergh","DEL","DC",1981,1986,1959,"Bélgica"]],
+    "Celtic": [["Ronnie Simpson","POR","POR",1965,1971,1930,"Escocia"],["Evan Williams","POR","POR",1963,1971,1943,"Escocia"],["Jim Craig","DEF","DEF",1962,1975,1943,"Escocia"],["Danny McGrain","DEF","DEF",1967,1982,1950,"Escocia"],["Tommy Gemmell","DEF","DEF",1959,1973,1943,"Escocia"],["Billy McNeill","DEF","DEF",1958,1975,1940,"Escocia"],["John Clark","DEF","DEF",1959,1971,1941,"Escocia"],["Bobby Murdoch","MED","MED",1961,1976,1944,"Escocia"],["Bertie Auld","MED","MED",1958,1971,1938,"Escocia"],["George Connelly","MED","MED",1964,1978,1949,"Escocia"],["David Hay","MED","MED",1967,1974,1948,"Escocia"],["Jimmy Johnstone","DEL","EXT",1961,1979,1944,"Escocia"],["Bobby Lennox","DEL","EXT",1961,1974,1943,"Escocia"],["Willie Wallace","DEL","DC",1966,1971,1940,"Escocia"],["Stevie Chalmers","DEL","DC",1958,1971,1935,"Escocia"],["John Hughes","DEL","DC",1959,1971,1943,"Escocia"],["Lou Macari","MED","MED",1965,1977,1949,"Escocia"],["Kenny Dalglish","DEL","DC",1969,1977,1951,"Escocia"],["Henrik Larsson","DEL","DC",1997,2004,1971,"Suecia"]]
+  };
+  /*FIN_PLANTILLAS_FUERA*/
+  // Plantilla de un club de fuera: primero sus jugadores reales de ese año (si los tenemos y no están ya jugando en
+  // una liga de la partida), en los mejores sitios de su puesto; lo que falte, suplentes anónimos.
+  function plantillaExtranjera(c, nivel, anio, enJuego) {
     const P = [['POR', 2], ['DEF', 5], ['MED', 4], ['DEL', 5]];
+    const reales = (PLANTILLAS_FUERA[c.nombre] || []).filter((r) => anio >= r[3] && anio < r[4] && anio - r[5] >= 17 && !(enJuego && enJuego.has(r[0])));
     let k = 0;
-    c.jugadores = P.flatMap(([pos, n]) => Array.from({ length: n }, (_, i) => {
-      k++;
-      const niv = Math.round(nivel * (1.05 - 0.035 * i) * (0.985 + 0.03 * ((hashN(c.nombre + anio, k) % 100) / 100)));
-      return { n: `Suplente ${k} (${c.nombre})`, pos, nac: `${anio - 23 - (k % 9)}-01-01`, niv, tec: niv, pj: 0, g: 0, relleno: true, rol: pos === 'DEL' ? 'DC' : pos };
-    }));
+    c.jugadores = P.flatMap(([pos, n]) => {
+      const mios = reales.filter((r) => r[1] === pos).slice(0, n);
+      return Array.from({ length: n }, (_, i) => {
+        k++;
+        const niv = Math.round(nivel * (1.05 - 0.035 * i) * (0.985 + 0.03 * ((hashN(c.nombre + anio, k) % 100) / 100)));
+        const r = mios[i];
+        if (r) return { n: r[0], pos, nac: `${r[5]}-07-01`, nacion: r[6], niv, tec: niv, pj: 0, g: 0, deFuera: true, rol: r[2] };
+        return { n: `Suplente ${k} (${c.nombre})`, pos, nac: `${anio - 23 - (k % 9)}-01-01`, niv, tec: niv, pj: 0, g: 0, relleno: true, rol: pos === 'DEL' ? 'DC' : pos };
+      });
+    });
   }
   function europaSinDatos(M) {
     const ultima = M.europa.filter((x) => x.anio < M.anio).sort((a, b) => b.anio - a.anio);
@@ -382,8 +400,9 @@
     // Sin liga nacional (Brasil antes de 1959) se juegan igual sus campeonatos estatales.
     if (!reg.hayLiga && !P.estatales) return base;
     const op = (k) => ({ semilla: semilla + k, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: caracter(P.pais, M.anio) });
-    base.ligas = P.grupos.map((g, i) => ({ grupo: g.nombre, nivel: g.nivel, T: Motor.temporada(M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre), op(7 * i + 3)) }))
-      .filter((l) => l.T.tabla.length > 1);
+    // Un grupo sin clubes ese año (formatos que cambian, como las zonas del Metropolitano argentino) no se juega.
+    base.ligas = P.grupos.map((g, i) => ({ g, i, cs: M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre) })).filter((x) => x.cs.length > 1)
+      .map(({ g, i, cs }) => ({ grupo: g.nombre, nivel: g.nivel, T: Motor.temporada(cs, op(7 * i + 3)) }));
     const top = base.ligas.filter((l) => l.nivel === 1);
     base.campeones = top.map((l) => ({ grupo: l.grupo, club: l.T.tabla[0].nombre }));
     if (top.length === 1) {
