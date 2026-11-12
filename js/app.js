@@ -1656,7 +1656,8 @@ function libroDecadas(ts) {
       ['rivalidad', 'Las rivalidades', (x) => `${x.a} (${x.clubA}) y ${x.b} (${x.clubB}) iniciaron su duelo`],
       ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`]
     ].map(([tipo, titulo, relatar]) => {
-      const xs = novedades.filter((x) => x.tipo === tipo);
+      // De las insignias solo las grandes (oro y excepcional): las demás son cientos por década.
+      const xs = novedades.filter((x) => x.tipo === tipo && (tipo !== 'insignia' || x.grado >= 2) && (tipo !== 'lesion' || x.niv >= 870));
       return `<details class="decada-sucesos"><summary>${titulo} · ${xs.length}</summary>${xs.length ? anos.map((V) => {
         const noticias = xs.filter((x) => x.temporada === V.temporada);
         return noticias.length ? parrafo(`${V.temporada}: ${noticias.map(relatar).join('; ')}.`) : '';
