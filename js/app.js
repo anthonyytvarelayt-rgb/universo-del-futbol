@@ -315,7 +315,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 17, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 18, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1014,17 +1014,21 @@ const GRADO_TXT = ['bronce', 'plata', 'oro', 'excepcional'];
 function sorpresasHtml(V) {
   const nov = V.veranoHecho ? V.novedades || [] : [];
   const joyas = nov.filter((x) => x.tipo === 'joya').sort((a, b) => b.tec - a.tec).slice(0, 3).map((x) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La joya inesperada</span>${marcaDif(`De verdad su mejor nivel fue ${nivel(x.real)}`)}</div><h2 class="titulo medio">${nombreJ(x.jugador)} explota en el ${esc(x.club)}</h2><p>Tiene ${x.edad} años y nivel ${nivel(x.niv)}, pero esta temporada ha dado un salto que nadie vio venir. Los ojeadores ya hablan de un techo de ${nivel(x.tec)}. En este universo su carrera puede ser otra.</p></article>`).join('');
+  const graves = nov.filter((x) => x.tipo === 'lesion' && x.niv >= 870).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => `<article class="noticia"><span class="rotulo rojo">Lesión grave</span><h2 class="titulo medio">${nombreJ(x.jugador)} se rompe</h2><p>El jugador del ${esc(x.club)}, de ${x.edad} años, estará meses parado. Tenía nivel ${nivel(x.niv)} y vuelve con ${nivel(x.queda)}. Dentro de un año se sabrá si recupera lo que era.</p></article>`).join('');
+  const vueltas = nov.filter((x) => x.tipo === 'regreso' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => `<article class="noticia"><span class="rotulo rojo">El regreso</span><h2 class="titulo medio">${nombreJ(x.jugador)} vuelve a ser el que era</h2><p>Un año después de su lesión grave, el jugador del ${esc(x.club)} ha recuperado su nivel: ${nivel(x.niv)}.</p></article>`).join('');
+  const records = nov.filter((x) => x.tipo === 'record').map((x) => `<article class="noticia"><span class="rotulo rojo">Récord histórico</span><h2 class="titulo medio">${esc(x.titulo)}</h2><p>${esc(x.texto)}</p></article>`).join('');
   const peso = (x) => x.grado * 1000 + (x.id === 'bandera' || x.id === 'hierro' ? -400 : 0) + x.niv;
   const ins = nov.filter((x) => x.tipo === 'insignia' && (x.grado >= 1 || x.niv >= 870)).sort((a, b) => peso(b) - peso(a)).slice(0, 10);
   const caja = ins.length ? `<div class="caja"><span class="rotulo">Insignias ganadas esta temporada</span>${ins.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.club)} · ${esc(Mundo.INSIGNIAS[x.id].efecto)}</small></span></span><span class="insignia g${x.grado}">${esc(x.nombre)}${Mundo.INSIGNIAS[x.id].temporal ? '' : ' · ' + GRADO_TXT[x.grado]}</span></div>`).join('')}</div>` : '';
-  return joyas + caja;
+  return records + joyas + graves + vueltas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
-  if (!ids.length && !j.joya) return '';
+  if (!ids.length && !j.joya && !j.grave) return '';
   const chips = ids.sort((a, b) => j.ins[b] - j.ins[a]).map((id) => { const I = Mundo.INSIGNIAS[id]; return `<span class="insignia g${j.ins[id]}" title="${esc(I.efecto)}. ${j.cnt && j.cnt[id] != null ? j.cnt[id] + ' ' + esc(I.cuenta) : ''}"><b>${esc(I.nombre)}</b> ${I.temporal ? '' : GRADO_TXT[j.ins[id]]}<small>${esc(I.efecto)}</small></span>`; }).join('');
   const joya = j.joya ? `<span class="insignia g2"><b>Joya inesperada</b> ${j.joya}<small>Explotó en ${j.joya}: en la vida real no llegó tan alto</small></span>` : '';
-  return `<div><span class="rotulo">Insignias ganadas en esta partida</span><div class="insignias">${joya}${chips}</div></div>`;
+  const grave = j.grave ? `<span class="insignia"><b>Lesión grave</b> ${j.grave.anio}<small>${j.grave.vuelve ? 'Volvió a su nivel un año después' : 'Se rompió a los ' + j.grave.edad + ' años'}</small></span>` : '';
+  return `<div><span class="rotulo">Marcado por esta partida</span><div class="insignias">${joya}${chips}${grave}</div></div>`;
 }
 
 // ---------- Figuras: goles, asistencias, regates, pases y nota (de un país o del mundo) ----------
@@ -1771,6 +1775,6 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 17) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 18) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();

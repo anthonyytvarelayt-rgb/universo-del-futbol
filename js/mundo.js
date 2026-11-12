@@ -647,6 +647,56 @@
     });
   }
   const gradoDe = (j, id) => (j.ins && j.ins[id] != null ? j.ins[id] + 1 : 0);
+  // ---- Récords reales: cuando alguien los bate en la partida, es noticia ----
+  const MARCAS_REALES = {
+    temporada: [73, 'los 73 goles de Messi en 2011-12'],
+    mundial: [13, 'los 13 goles de Just Fontaine en el Mundial de 1958'],
+    europa: [5, 'las cinco Copas de Europa seguidas del Real Madrid (1956-60)'],
+    ligas: { 'España': [5, 'las cinco Ligas seguidas del Real Madrid'], Italia: [9, 'los nueve scudetti seguidos de la Juventus'], Inglaterra: [4, 'las cuatro ligas seguidas del Manchester City'],
+      Alemania: [11, 'las once Bundesligas seguidas del Bayern'], Francia: [7, 'las siete ligas seguidas del Lyon'], Portugal: [5, 'las cinco ligas seguidas del Oporto'] }
+  };
+  function marcas(M, R, novedades) {
+    const m = M.marcas || (M.marcas = { mejor: {}, racha: {} });
+    const bate = (id, valor, real, titulo, texto) => {
+      if (valor <= real[0] || valor <= (m.mejor[id] || 0)) return;
+      m.mejor[id] = valor;
+      novedades.push({ tipo: 'record', titulo, texto: `${texto} Supera ${real[1]}.` });
+    };
+    const top = [...R.G].sort((a, b) => b.g - a.g)[0];
+    if (top) bate('temporada', top.g, MARCAS_REALES.temporada, `${top.j.n} marca ${top.g} goles en una temporada`, `Nadie había marcado tanto en un año: ${top.g} goles con el ${top.eq.nombre}.`);
+    const gm = R.MU && R.MU.goleadores && R.MU.goleadores[0];
+    if (gm) bate('mundial', gm.g, MARCAS_REALES.mundial, `${gm.n || gm.nombre} marca ${gm.g} goles en un Mundial`, `Récord de goles en una sola Copa del Mundo.`);
+    const racha = (id, campeon, real, que) => {
+      if (!campeon) return;
+      const x = m.racha[id];
+      m.racha[id] = x && x.club === campeon ? { club: campeon, n: x.n + 1 } : { club: campeon, n: 1 };
+      bate(id, m.racha[id].n, real, `${campeon} gana su ${m.racha[id].n}.ª ${que} seguida`, `Una racha que no se había visto nunca.`);
+    };
+    if (R.EU) racha('europa', R.EU.campeon, MARCAS_REALES.europa, 'Copa de Europa');
+    [{ pais: 'España', campeon: R.T && R.T.tabla[0] && R.T.tabla[0].nombre }].concat(R.otros || []).forEach((o) => {
+      const real = MARCAS_REALES.ligas[o.pais];
+      if (real) racha('liga ' + o.pais, o.campeon, real, 'liga');
+    });
+  }
+  // Lesión grave: de vez en cuando un jugador se rompe y pierde parte de lo que era. Al año siguiente algunos vuelven
+  // como si nada y otros ya no son los mismos. Es raro, pero cambia carreras.
+  function lesionGrave(M, c, j, x, edad, r, novedades) {
+    if (j.relleno || j.cons) return;
+    const sobra = Math.max(0, j.niv - 600);
+    if (j.grave && j.grave.anio === M.anio) {
+      // Un año después: ¿vuelve?
+      if (r() < 0.45) { j.niv += j.grave.perdio * 0.9; j.grave.vuelve = true; novedades.push({ tipo: 'regreso', jugador: j.n, club: c.nombre, niv: Math.round(j.niv), edad }); }
+      else j.tec = Math.min(j.tec || j.niv, j.niv + 15);
+      return;
+    }
+    if (j.grave || !x || x.pj < 10) return;
+    const p = 0.004 * (edad >= 30 ? 1.6 : 1) * (1 - 0.15 * gradoDe(j, 'hierro'));
+    if (r() >= p) return;
+    const perdio = sobra * (0.12 + 0.18 * r()) + 10;
+    j.niv -= perdio;
+    j.grave = { anio: M.anio + 1, perdio: Math.round(perdio), edad };
+    novedades.push({ tipo: 'lesion', jugador: j.n, club: c.nombre, niv: Math.round(j.niv + perdio), queda: Math.round(j.niv), edad });
+  }
   // Crecimiento, declive y retiros al terminar la temporada.
   function envejecer(M, R, r) {
     const pj = new Map(R.G.map((x) => [x.j, x]));
@@ -693,6 +743,7 @@
           if (tarde > 0) j.niv -= (j.tec || j.niv) * 0.012 * tarde * (0.6 + 0.4 * Math.min(1.5, cv.ritmo));
           j.tec = Math.min(j.tec || j.niv, j.niv + 20);
         }
+        lesionGrave(M, c, j, x, edad, r, novedades);
         j.niv = Math.max(250, Math.min(1130, j.niv));
         // Estado de forma de la temporada que viene: hasta el mejor tiene un año flojo y un buen jugador, el año de su vida.
         j.temp = Math.round(normal(r) * 22) + 5 * gradoDe(j, 'bandera') + 15 * gradoDe(j, 'gracia');
@@ -1107,6 +1158,7 @@
     banquillos(M, R);
     resumen.retiros = envejecer(M, R, r);
     resumen.novedades = resumen.retiros.novedades;
+    marcas(M, R, resumen.novedades);
     resumen.mercado = mercado(M, r);
     M.fichajes.push(...resumen.mercado);
     M.anio++;
