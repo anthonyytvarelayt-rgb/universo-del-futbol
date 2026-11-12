@@ -675,7 +675,14 @@
     if (R.EU) racha('europa', R.EU.campeon, MARCAS_REALES.europa, 'Copa de Europa');
     [{ pais: 'España', campeon: R.T && R.T.tabla[0] && R.T.tabla[0].nombre }].concat(R.otros || []).forEach((o) => {
       const real = MARCAS_REALES.ligas[o.pais];
-      if (real) racha('liga ' + o.pais, o.campeon, real, 'liga');
+      racha('liga ' + o.pais, o.campeon, real || [99, '']);
+      // Todo imperio cae: a partir de la cuarta liga seguida el campeón se acomoda un poco más cada año
+      // (salvo los clubes que mandan por decreto en su época, como el Madrid de las cinco Copas).
+      const x = m.racha['liga ' + o.pais], c = x && x.n >= 4 && M.clubes.find((y) => y.nombre === x.club);
+      if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) {
+        const baja = Math.min(24, 6 * (x.n - 3));
+        c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
+      }
     });
   }
   // Rivalidades: dos jugadores que pasan tres temporadas entre los tres mejores del mundo se vuelven rivales.
@@ -797,6 +804,7 @@
   const CONTRASTE_EUROPA = 0.75;
   // Los clubes de países que no se juegan, frente al campeón mediano de la partida.
   const FUERA_RELATIVO = 0.92;
+  const QUIMICA = 28;
   const CONTRASTE_EUROPA_HOY = 1;
   const IDEAL_ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
@@ -1183,6 +1191,13 @@
     rivalidades(M, R, resumen.novedades);
     resumen.mercado = mercado(M, r);
     M.fichajes.push(...resumen.mercado);
+    // El año del vestuario: cada club tiene temporadas en las que todo sale y otras en las que nada funciona,
+    // con la misma plantilla. Sin esto el más fuerte ganaba veinte ligas de veintidós.
+    M.clubes.forEach((c) => {
+      const fijo = CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta);
+      c.quimica = fijo ? 0 : Math.round(normal(r) * QUIMICA);
+      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + c.quimica; });
+    });
     M.anio++;
     constantes(M);
     return resumen;
