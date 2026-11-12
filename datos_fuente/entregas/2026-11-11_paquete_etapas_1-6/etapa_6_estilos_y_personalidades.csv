@@ -1,0 +1,30 @@
+tipo_entidad,nombre,estilo_o_arquetipo,efecto_en_partidos_y_carrera
+Club,Real Madrid,Ataque vertical y pegada,"Remontadas épicas, prioridad estrellas mundiales, máxima exigencia en Copa de Europa"
+Club,FC Barcelona,Posesión y juego de posición,"Prioridad cantera y extremos/mediocentros técnicos, presión tras pérdida"
+Club,Atlético de Madrid,Bloque sólido y contragolpe,"Alta intensidad defensiva, eficacia a balón parado y transiciones rápidas"
+Club,Athletic Club,Identidad de cantera e intensidad,"Exclusivo jugadores vascos/cantera, centros laterales y presión alta"
+Club,AFC Ajax,Fútbol Total y escuela formativa,"4-3-3 ofensivo, salida limpia desde atrás, promoción constante de jóvenes"
+Club,AC Milan,Control táctico y jerarquía europea,"Defensa organizada, mediocampo mixto y delanteros de élite"
+Club,Juventus,Pragmatismo competitivo (Fino alla Fine),"Solidez defensiva, oficio en ventaja y fichajes de líderes nacionales"
+Club,Inter de Milán,Transición letal y solidez,Herencia del Catenaccio moderno y carrileros profundos
+Club,Bayern Múnich,Dominio físico y presión asfixiante,"Ataque por bandas, ritmo alto los 90 minutos y hegemonía en Bundesliga"
+Club,Liverpool FC,Ritmo intenso (Heavy Metal / Pass & Move),"Presión alta, fortaleza en Anfield y ataques rápidos"
+Club,Manchester United,Ataque por bandas y tradición,"Extremos encaradores, cantera histórica y goles en los minutos finales"
+Club,Boca Juniors,"Garra, mística copera y fortaleza en casa","Juego directo, carácter en eliminatorias de Libertadores"
+Club,River Plate,Juego asociativo y paladar negro,"Mediocampistas creativos, presión alta y semillero histórico"
+Club,Santos FC,Fútbol arte y talento ofensivo,Libertad creativa para regateadores y delanteros jóvenes
+Entrenador,Helenio Herrera,Catenaccio y contragolpe,"+12% defensa del equipo, líbero marcador y ataques relámpago"
+Entrenador,Rinus Michels,Fútbol Total,"+10% pase y presión, intercambio posicional y línea defensiva adelantada"
+Entrenador,Johan Cruyff,Dream Team (Posesión ofensiva),"+15% creación de ocasiones, 3-4-3 / 4-3-3 con extremos abiertos"
+Entrenador,Arrigo Sacchi,Presión zonal y bloque compacto,"Líneas juntas en 25 metros, achique de espacios y fuera de juego"
+Entrenador,Alex Ferguson,Mentalidad ganadora y amplitud,+10% rendimiento en los últimos 15 minutos y gestión de vestuario
+Entrenador,Pep Guardiola,Juego de posición y control total,"+15% posesión y pases, salida desde el portero y superioridad en el medio"
+Entrenador,Carlo Ancelotti,Gestión de estrellas y adaptación,+10% química de plantilla y rendimiento en eliminatorias de Champions
+Entrenador,José Mourinho,Organización defensiva y transiciones,+12% defensa en partidos grandes y neutralización de la estrella rival
+Entrenador,Diego Simeone,Cholismo (Intensidad y bloque bajo/medio),"+12% defensa y físico, competitividad máxima en duelos directos"
+Entrenador,Jürgen Klopp,Gegenpressing,+15% robo en campo rival y velocidad de transición ofensiva
+Carácter Jugador,Competidor Nato,"Sube su rendimiento en finales y nunca baja los brazos (Pelé, Cristiano, Di Stéfano, Ramos, Puyol)",
+Carácter Jugador,Genio Creativo,"Decide partidos cerrados con jugadas individuales impredecibles (Messi, Maradona, Ronaldinho, Garrincha, Best)",
+Carácter Jugador,Maestro Táctico,"Ordena al equipo en el campo y mejora a sus compañeros (Cruyff, Beckenbauer, Xavi, Maldini, Busquets)",
+Carácter Jugador,Depredador de Área,"Vive para el gol, letal al primer toque (Gerd Müller, Romário, Van Basten, Ronaldo, Haaland)",
+Carácter Jugador,Guerrero Incansable,"Multiplica las recuperaciones y sostiene el ritmo físico del equipo (Matthäus, Neeskens, Kanté, Davids)",

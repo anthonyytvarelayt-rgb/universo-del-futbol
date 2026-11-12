@@ -1,0 +1,28 @@
+codigo_insignia,categoria,efecto_en_motor
+Rey,Ofensiva / Global,+5% a todos los atributos en fases finales de Mundial y Copa Libertadores
+Genio,Creación / Regate,+12% probabilidad de generar ocasión clara mediante pase filtrado o regate en zona de tres cuartos
+MrChampions,Competición,+10% en definición y posicionamiento a partir de cuartos de final de Copa de Europa / Champions
+Finalizador,Tiro,+10% efectividad en mano a mano contra el portero
+Cañonero,Tiro,+15% probabilidad de gol en disparos desde fuera del área
+Cazagoles,Tiro / Desmarque,+12% probabilidad de rematar rechaces y centros al primer palo
+Regateador,Regate,+12% éxito en duelos 1 contra 1 en banda o frontal
+Velocista,Ritmo,+10% ventaja en balones largos al espacio a la espalda de la defensa
+Explosivo,Ritmo / Regate,Aceleración superior en los primeros metros tras control orientado
+Creador,Pase,+10% precisión en pases clave y asistencias
+Visionario,Pase,Desbloquea cambios de orientación y pases largos al hueco con +12% de éxito
+Reloj,Pase / Control,Reduce un 20% las pérdidas de balón del equipo y controla el ritmo del partido
+Todocampista,Global / Motor,Aporta tanto en recuperación defensiva como en llegada al área rival sin penalización de cansancio
+Motor,Físico / Medio,+15% resistencia al cansancio durante la temporada y prórrogas
+Libero,Defensa / Salida,+12% en intercepciones y permite iniciar jugadas desde la defensa con precisión de mediocentro
+Muro,Defensa,+12% éxito en entradas y bloqueos dentro del área propia
+Anticipacion,Defensa,Roba balones antes de que el delantero rival pueda girar
+JuegoAereo,Físico / Remate,+15% efectividad en cabezazos ofensivos y defensivos (córners y centros)
+EspecialistaBP,Balón Parado,+18% efectividad en tiros libres directos y penaltis
+PartidosGrandes,Mentalidad,"Aumenta el rendimiento (+5% nivel efectivo) en finales, clásicos y eliminatorias directas"
+Lider,Mentalidad,Sube +2% el nivel efectivo de los compañeros en el once titular
+Eterno,Longevidad,Reduce a la mitad el declive de atributos por edad a partir de los 33 años
+GolMinuto93,Mentalidad,Aumenta drásticamente la probabilidad de marcar en los últimos 10 minutos cuando el equipo empata o pierde
+ArañaNegra,Portero,+12% en paradas a disparos dentro del área y intimidación en 1 contra 1
+Parapenaltis,Portero,+20% probabilidad de detener penaltis en partido y tandas
+PorteroLibero,Portero,Corta balones largos a la espalda de la defensa y mejora la salida de balón (+15%)
+ReflejosFelinos,Portero,+10% en paradas a bocajarro y dobles intervenciones

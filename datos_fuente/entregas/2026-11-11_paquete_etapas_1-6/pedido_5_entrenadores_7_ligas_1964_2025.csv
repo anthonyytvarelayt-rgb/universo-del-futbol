@@ -1,0 +1,91 @@
+club,pais_liga,año_inicio,año_fin,nombre_entrenador,nacionalidad,año_nacimiento
+Inter de Milán,Italia,1960,1968,Helenio Herrera,Argentina,1910
+AC Milan,Italia,1961,1963,Nereo Rocco,Italia,1912
+AC Milan,Italia,1967,1973,Nereo Rocco,Italia,1912
+Juventus,Italia,1976,1986,Giovanni Trapattoni,Italia,1939
+Inter de Milán,Italia,1986,1991,Giovanni Trapattoni,Italia,1939
+AC Milan,Italia,1987,1991,Arrigo Sacchi,Italia,1946
+AC Milan,Italia,1991,1996,Fabio Capello,Italia,1946
+Juventus,Italia,1994,1999,Marcello Lippi,Italia,1948
+AS Roma,Italia,1999,2004,Fabio Capello,Italia,1946
+AC Milan,Italia,2001,2009,Carlo Ancelotti,Italia,1959
+Inter de Milán,Italia,2004,2008,Roberto Mancini,Italia,1964
+Inter de Milán,Italia,2008,2010,José Mourinho,Portugal,1963
+Juventus,Italia,2011,2014,Antonio Conte,Italia,1969
+Juventus,Italia,2014,2019,Massimiliano Allegri,Italia,1967
+SSC Napoli,Italia,2015,2018,Maurizio Sarri,Italia,1959
+Atalanta BC,Italia,2016,2025,Gian Piero Gasperini,Italia,1958
+Inter de Milán,Italia,2019,2021,Antonio Conte,Italia,1969
+AC Milan,Italia,2019,2024,Stefano Pioli,Italia,1965
+SSC Napoli,Italia,2021,2023,Luciano Spalletti,Italia,1959
+Inter de Milán,Italia,2021,2025,Simone Inzaghi,Italia,1976
+Liverpool FC,Inglaterra,1959,1974,Bill Shankly,Escocia,1913
+Manchester United,Inglaterra,1945,1969,Matt Busby,Escocia,1909
+Leeds United,Inglaterra,1961,1974,Don Revie,Inglaterra,1927
+Liverpool FC,Inglaterra,1974,1983,Bob Paisley,Inglaterra,1919
+Nottingham Forest,Inglaterra,1975,1993,Brian Clough,Inglaterra,1935
+Liverpool FC,Inglaterra,1985,1991,Kenny Dalglish,Escocia,1951
+Manchester United,Inglaterra,1986,2013,Alex Ferguson,Escocia,1941
+Arsenal FC,Inglaterra,1996,2018,Arsène Wenger,Francia,1949
+Chelsea FC,Inglaterra,2004,2007,José Mourinho,Portugal,1963
+Liverpool FC,Inglaterra,2004,2010,Rafael Benítez,España,1960
+Chelsea FC,Inglaterra,2009,2011,Carlo Ancelotti,Italia,1959
+Manchester City,Inglaterra,2009,2013,Roberto Mancini,Italia,1964
+Leicester City,Inglaterra,2015,2017,Claudio Ranieri,Italia,1951
+Liverpool FC,Inglaterra,2015,2024,Jürgen Klopp,Alemania,1967
+Manchester City,Inglaterra,2016,2025,Pep Guardiola,España,1971
+Chelsea FC,Inglaterra,2016,2018,Antonio Conte,Italia,1969
+Arsenal FC,Inglaterra,2019,2025,Mikel Arteta,España,1982
+Liverpool FC,Inglaterra,2024,2025,Arne Slot,Países Bajos,1978
+Borussia Mönchengladbach,Alemania,1964,1975,Hennes Weisweiler,Alemania,1919
+Bayern Múnich,Alemania,1970,1975,Udo Lattek,Alemania,1935
+Bayern Múnich,Alemania,1975,1977,Dettmar Cramer,Alemania,1925
+Hamburgo SV,Alemania,1981,1987,Ernst Happel,Austria,1925
+Bayern Múnich,Alemania,1983,1987,Udo Lattek,Alemania,1935
+Bayern Múnich,Alemania,1987,1991,Jupp Heynckes,Alemania,1945
+Werder Bremen,Alemania,1981,1995,Otto Rehhagel,Alemania,1938
+Borussia Dortmund,Alemania,1991,1997,Ottmar Hitzfeld,Alemania,1949
+Bayern Múnich,Alemania,1998,2004,Ottmar Hitzfeld,Alemania,1949
+Borussia Dortmund,Alemania,2008,2015,Jürgen Klopp,Alemania,1967
+Bayern Múnich,Alemania,2011,2013,Jupp Heynckes,Alemania,1945
+Bayern Múnich,Alemania,2013,2016,Pep Guardiola,España,1971
+Bayern Múnich,Alemania,2019,2021,Hansi Flick,Alemania,1965
+Bayer Leverkusen,Alemania,2022,2025,Xabi Alonso,España,1981
+AS Saint-Étienne,Francia,1967,1972,Albert Batteux,Francia,1919
+AS Saint-Étienne,Francia,1972,1983,Robert Herbin,Francia,1939
+AJ Auxerre,Francia,1961,2005,Guy Roux,Francia,1938
+Olympique de Marsella,Francia,1990,1993,Raymond Goethals,Bélgica,1921
+AS Monaco,Francia,1987,1994,Arsène Wenger,Francia,1949
+Olympique de Lyon,Francia,2002,2005,Paul Le Guen,Francia,1964
+Olympique de Lyon,Francia,2005,2007,Gérard Houllier,Francia,1947
+Paris Saint-Germain,Francia,2013,2016,Laurent Blanc,Francia,1965
+AS Monaco,Francia,2014,2018,Leonardo Jardim,Portugal,1974
+Paris Saint-Germain,Francia,2018,2020,Thomas Tuchel,Alemania,1973
+Paris Saint-Germain,Francia,2023,2025,Luis Enrique,España,1970
+SL Benfica,Portugal,1959,1962,Béla Guttmann,Hungría,1899
+SL Benfica,Portugal,1982,1984,Sven-Göran Eriksson,Suecia,1948
+FC Porto,Portugal,1984,1987,Artur Jorge,Portugal,1946
+SL Benfica,Portugal,1989,1992,Sven-Göran Eriksson,Suecia,1948
+FC Porto,Portugal,1994,1996,Bobby Robson,Inglaterra,1933
+FC Porto,Portugal,2002,2004,José Mourinho,Portugal,1963
+SL Benfica,Portugal,2009,2015,Jorge Jesus,Portugal,1954
+FC Porto,Portugal,2010,2011,André Villas-Boas,Portugal,1977
+FC Porto,Portugal,2017,2024,Sérgio Conceição,Portugal,1974
+Sporting CP,Portugal,2020,2024,Rúben Amorim,Portugal,1985
+Estudiantes de La Plata,Argentina,1965,1970,Osvaldo Zubeldía,Argentina,1927
+River Plate,Argentina,1975,1981,Ángel Labruna,Argentina,1918
+Boca Juniors,Argentina,1976,1980,Juan Carlos Lorenzo,Argentina,1922
+Vélez Sarsfield,Argentina,1993,1996,Carlos Bianchi,Argentina,1949
+River Plate,Argentina,1995,1999,Ramón Díaz,Argentina,1959
+Boca Juniors,Argentina,1998,2004,Carlos Bianchi,Argentina,1949
+Estudiantes de La Plata,Argentina,2009,2011,Alejandro Sabella,Argentina,1954
+River Plate,Argentina,2014,2022,Marcelo Gallardo,Argentina,1976
+Santos FC,Brasil,1954,1966,Lula,Brasil,1912
+Cruzeiro,Brasil,1975,1977,Zezé Moreira,Brasil,1907
+Flamengo,Brasil,1981,1983,Paulo César Carpegiani,Brasil,1949
+São Paulo FC,Brasil,1990,1996,Telê Santana,Brasil,1931
+Grêmio,Brasil,1993,1996,Luiz Felipe Scolari,Brasil,1948
+Palmeiras,Brasil,1997,2000,Luiz Felipe Scolari,Brasil,1948
+Corinthians,Brasil,2010,2013,Tite,Brasil,1961
+Flamengo,Brasil,2019,2020,Jorge Jesus,Portugal,1954
+Palmeiras,Brasil,2020,2025,Abel Ferreira,Portugal,1978

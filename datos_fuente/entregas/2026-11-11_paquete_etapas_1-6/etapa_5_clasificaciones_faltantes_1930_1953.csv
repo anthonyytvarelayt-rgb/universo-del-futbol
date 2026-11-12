@@ -1,0 +1,79 @@
+pais,año,campeon,subcampeon,tercero
+Francia,1930,FC Sochaux,US Suisse Paris,Olympique de Marsella
+Francia,1931,Club Français,Olympique Lillois,Olympique de Marsella
+Francia,1932,Olympique Lillois,AS Cannes,Olympique de Marsella
+Portugal,1935,FC Porto,Sporting CP,SL Benfica
+Portugal,1936,SL Benfica,FC Porto,Sporting CP
+Portugal,1937,SL Benfica,CF Os Belenenses,Sporting CP
+Portugal,1938,SL Benfica,FC Porto,Sporting CP
+Portugal,1939,FC Porto,Sporting CP,SL Benfica
+Portugal,1940,FC Porto,Sporting CP,CF Os Belenenses
+Portugal,1941,Sporting CP,FC Porto,CF Os Belenenses
+Portugal,1942,SL Benfica,Sporting CP,CF Os Belenenses
+Portugal,1943,SL Benfica,Sporting CP,CF Os Belenenses
+Portugal,1944,Sporting CP,SL Benfica,Atlético CP
+Portugal,1945,SL Benfica,Sporting CP,CF Os Belenenses
+Portugal,1946,CF Os Belenenses,SL Benfica,Sporting CP
+Portugal,1947,Sporting CP,SL Benfica,FC Porto
+Portugal,1948,Sporting CP,SL Benfica,CF Os Belenenses
+Argentina,1930,Boca Juniors,Estudiantes de La Plata,River Plate
+Argentina,1931,Boca Juniors,San Lorenzo,Estudiantes de La Plata
+Argentina,1932,River Plate,Independiente,Racing Club
+Argentina,1933,San Lorenzo,Boca Juniors,Racing Club
+Argentina,1934,Boca Juniors,Independiente,San Lorenzo
+Argentina,1935,Boca Juniors,Independiente,San Lorenzo
+Argentina,1936,River Plate,San Lorenzo,Racing Club
+Argentina,1937,River Plate,Independiente,Boca Juniors
+Argentina,1938,Independiente,River Plate,San Lorenzo
+Argentina,1939,Independiente,River Plate,Huracán
+Argentina,1940,Boca Juniors,Independiente,River Plate
+Argentina,1941,River Plate,San Lorenzo,Newell's Old Boys
+Argentina,1942,River Plate,San Lorenzo,Huracán
+Argentina,1943,Boca Juniors,River Plate,San Lorenzo
+Argentina,1944,Boca Juniors,River Plate,Estudiantes de La Plata
+Argentina,1945,River Plate,Boca Juniors,Independiente
+Argentina,1946,San Lorenzo,Boca Juniors,River Plate
+Argentina,1947,River Plate,Boca Juniors,Independiente
+Argentina,1948,Independiente,River Plate,Estudiantes de La Plata
+Argentina,1949,Racing Club,River Plate,Platense
+Brasil,1930,Botafogo,Corinthians,Vasco da Gama
+Brasil,1931,São Paulo FC,America-RJ,Palmeiras
+Brasil,1932,Palmeiras,Botafogo,Fluminense
+Brasil,1933,Palmeiras,São Paulo FC,Bangu
+Brasil,1934,Palmeiras,Vasco da Gama,Botafogo
+Brasil,1935,Botafogo,Santos FC,Flamengo
+Brasil,1936,Fluminense,Palmeiras,Vasco da Gama
+Brasil,1937,Fluminense,Corinthians,Atlético Mineiro
+Brasil,1938,Fluminense,Corinthians,Flamengo
+Brasil,1939,Flamengo,Corinthians,Botafogo
+Brasil,1940,Fluminense,Palmeiras,Flamengo
+Brasil,1941,Fluminense,Corinthians,São Paulo FC
+Brasil,1942,Palmeiras,Flamengo,São Paulo FC
+Brasil,1943,São Paulo FC,Flamengo,Palmeiras
+Brasil,1944,Flamengo,Palmeiras,São Paulo FC
+Brasil,1945,Vasco da Gama,São Paulo FC,Corinthians
+Brasil,1946,Fluminense,São Paulo FC,Botafogo
+Brasil,1947,Vasco da Gama,Palmeiras,Corinthians
+Brasil,1948,Botafogo,São Paulo FC,Vasco da Gama
+Brasil,1949,Vasco da Gama,São Paulo FC,Fluminense
+Alemania,1930,Hertha BSC,Holstein Kiel,1. FC Nürnberg
+Alemania,1931,Hertha BSC,1860 Múnich,Hamburgo SV
+Alemania,1932,Bayern Múnich,Eintracht Frankfurt,Schalke 04
+Alemania,1933,Fortuna Düsseldorf,Schalke 04,Eintracht Frankfurt
+Alemania,1934,Schalke 04,1. FC Nürnberg, Waldhof Mannheim
+Alemania,1935,Schalke 04,VfB Stuttgart,Borussia Dortmund
+Alemania,1936,1. FC Nürnberg,Fortuna Düsseldorf,Schalke 04
+Alemania,1937,Schalke 04,1. FC Nürnberg,VfB Stuttgart
+Alemania,1938,Hannover 96,Schalke 04,Fortuna Düsseldorf
+Alemania,1939,Schalke 04,Admira Viena,Dresdner SC
+Alemania,1940,Schalke 04,Dresdner SC,Rapid Viena
+Alemania,1941,Rapid Viena,Schalke 04,Dresdner SC
+Alemania,1942,Schalke 04,First Vienna,Kickers Offenbach
+Alemania,1943,Dresdner SC,FV Saarbrücken,Holstein Kiel
+Alemania,1944,Dresdner SC,LSV Hamburg,1. FC Nürnberg
+Alemania,1948,1. FC Nürnberg,1. FC Kaiserslautern,St. Pauli
+Alemania,1949,VfR Mannheim,Borussia Dortmund,1. FC Kaiserslautern
+Alemania,1950,VfB Stuttgart,Kickers Offenbach,SpVgg Fürth
+Alemania,1951,1. FC Kaiserslautern,Preußen Münster,Schalke 04
+Alemania,1952,VfB Stuttgart,1. FC Saarbrücken,1. FC Nürnberg
+Alemania,1953,1. FC Kaiserslautern,VfB Stuttgart,Eintracht Frankfurt
