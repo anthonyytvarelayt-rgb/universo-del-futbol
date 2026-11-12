@@ -37,13 +37,13 @@
   // techo = mejor nivel; suelo = [edad, nivel mínimo] (entre edades se interpola); club + fiel = no sale de ese club hasta ese año;
   // retiro = no lo deja antes de esa edad; mundial = definición en los Mundiales; fin = definición mínima; elite = solo ficha por un grande.
   const CONSTANTES = {
-    'Pelé': { techo: 1000, suelo: [[17, 920], [22, 960], [25, 1000], [30, 990], [34, 940], [37, 870]], club: 'Santos', fiel: 1977, retiro: 37, fin: 1.75, mundial: 1.75 },
+    'Pelé': { techo: 1000, suelo: [[17, 920], [22, 960], [25, 1000], [30, 990], [34, 940], [37, 870]], club: 'Santos', fiel: 1977, retiro: 37, fin: 1.95, mundial: 1.75 },
     'Alfredo Di Stéfano': { techo: 960, suelo: [[28, 960], [33, 950], [35, 920], [37, 860], [39, 780]], club: 'Real Madrid', fiel: 1964, retiro: 38 },
     'Ferenc Puskás': { techo: 920, suelo: [[30, 920], [34, 900], [36, 860], [38, 780]], club: 'Real Madrid', fiel: 1966, retiro: 38, fin: 1.3 },
     'Paco Gento': { techo: 880, suelo: [[23, 850], [27, 880], [31, 870], [34, 820], [37, 740]], club: 'Real Madrid', fiel: 1971 },
-    'Lionel Messi': { techo: 1000, suelo: [[18, 850], [20, 920], [22, 970], [24, 1000], [31, 990], [34, 950], [37, 890]], elite: true },
-    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 830], [21, 900], [23, 960], [26, 1000], [33, 990], [36, 940], [39, 870]], elite: true },
-    'Kylian Mbappé': { techo: 970, suelo: [[18, 860], [20, 920], [23, 960], [27, 970], [30, 960]], elite: true, mundial: 1.7 },
+    'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
+    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true },
+    'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
   };
   // Clubes que mandan en una época: si al empezar la temporada no son los más fuertes de su liga (o de Europa hasta
   // el año 'europa'), su plantilla sube lo que falte (como mucho 'paso' por verano).
@@ -79,7 +79,7 @@
       // Primero se tapan los agujeros del once (un portero o un defensa muy por debajo del resto) y luego sube todo lo que falte.
       once.forEach((j) => { if (j.niv < meta - 110) j.niv = Math.min(meta - 110, j.niv + 3 * C.paso); });
       const falta = Math.min(C.paso, (meta - fuerzaOnce(c)) * 11 / Math.max(1, once.length));
-      once.forEach((j) => { if (falta > 0) j.niv = Math.min(1180, j.niv + falta); j.tec = Math.max(j.tec || 0, j.niv); });
+      once.forEach((j) => { if (falta > 0) j.niv = Math.min(1130, j.niv + falta); j.tec = Math.max(j.tec || 0, j.niv); });
     });
   }
   function perfil(j) {
@@ -95,6 +95,15 @@
   const PARTES = { fis: { pico: -3, sube: 0.03, cae: 0.005 }, tec: { pico: -1, sube: 0.025, cae: 0.0025 }, men: { pico: 3, sube: 0.02, cae: 0.0015 } };
   const PESOS = { POR: [0.2, 0.35, 0.45], DEF: [0.4, 0.25, 0.35], MED: [0.3, 0.45, 0.25], EXT: [0.5, 0.35, 0.15], DEL: [0.4, 0.4, 0.2] };
   const curvas = new Map();
+  // Nadie nace hecho: lo que un talento tiene por encima de un buen titular (700 en la escala del motor) lo gana con los años.
+  const JUVENTUD = [[-10, 0.25], [-8, 0.42], [-6, 0.64], [-4, 0.84], [-2, 0.96], [0, 1]];
+  function metaEdad(tec, cv, edad) {
+    const base = tec * cv.F(edad), d = edad - cv.pico;
+    if (base <= 700 || d >= 0) return base;
+    let k = JUVENTUD[0][1];
+    for (let i = 1; i < JUVENTUD.length; i++) if (d <= JUVENTUD[i][0]) { const [a, fa] = JUVENTUD[i - 1], [b, fb] = JUVENTUD[i]; k = d <= a ? fa : fa + (fb - fa) * (d - a) / (b - a); break; }
+    return 700 + (base - 700) * k;
+  }
   function curva(j) {
     const clave = j.n + '|' + j.pos + '|' + (j.rol || '');
     if (curvas.has(clave)) return curvas.get(clave);
@@ -240,7 +249,7 @@
       const grupos = M.anio >= 1999 ? 8 : M.anio >= 1994 ? 4 : M.anio >= 1991 ? 2 : 0;
       // En Europa la diferencia de nivel pesa algo más que en la liga: los grandes se guardan lo mejor para estas noches.
       const escalaLiga = Motor.P.escala;
-      Motor.P.escala = escalaLiga * CONTRASTE_EUROPA;
+      Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
         EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
       } finally { Motor.P.escala = escalaLiga; }
@@ -601,11 +610,18 @@
         const minutos = Math.min(1, (x ? x.pj : 0) / 25);
         if (edad <= pico) {
           // Crece hacia lo que le toca a su edad según su curva; jugar acelera, y un chaval sin minutos pierde algo de techo.
-          const meta = (j.tec || j.niv) * cv.F(edad);
+          const meta = metaEdad(j.tec || j.niv, cv, edad);
           const hueco = meta - j.niv;
+          // Cómo le fue: la nota de la temporada (6,6 normal, 7,8 sobresaliente). Quien juega y rinde crece antes y puede
+          // estirar su techo; quien no juega o rinde poco se queda corto. Su carrera depende de dónde está y de cómo le va.
+          const rinde = x && x.pj >= 10 ? Math.max(0, Math.min(1, (x.notaTemp - 6.6) / 1.2)) : 0;
+          if (!j.relleno && !j.cons && minutos >= 0.6) {
+            const tope = Math.min(1130, (j.tecReal || j.tec || j.niv) * 1.02), suelo = (j.tecReal || j.tec || j.niv) * 0.95;
+            j.tec = Math.max(suelo, Math.min(Math.max(tope, j.tec || 0), (j.tec || j.niv) * (1 + 0.012 * (rinde - 0.45))));
+          }
           // Si ya va por delante de su curva (Pelé a los 17), no se le frena: solo el vaivén normal.
-          j.niv += hueco > 0 ? hueco * (0.35 + 0.4 * minutos) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
-          if (edad <= 22 && minutos < 0.2 && !j.relleno) j.tec = (j.tec || j.niv) - r() * 8;
+          j.niv += hueco > 0 ? hueco * (0.25 + 0.35 * minutos + 0.3 * rinde) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
+          if (edad <= 24 && minutos < 0.3 && !j.relleno && !j.cons) j.tec = (j.tec || j.niv) - r() * 12;
         } else {
           // Cae lo que marca su curva ese año (físico antes, cabeza después), con algo de azar.
           // Si en la realidad siguió a su nivel después de 1959 (techo ≥ nivel de partida), envejece más despacio.
@@ -617,7 +633,9 @@
           if (tarde > 0) j.niv -= (j.tec || j.niv) * 0.012 * tarde * (0.6 + 0.4 * Math.min(1.5, cv.ritmo));
           j.tec = Math.min(j.tec || j.niv, j.niv + 20);
         }
-        j.niv = Math.max(250, Math.min(1180, j.niv));
+        j.niv = Math.max(250, Math.min(1130, j.niv));
+        // Estado de forma de la temporada que viene: hasta el mejor tiene un año flojo y un buen jugador, el año de su vida.
+        j.temp = Math.round(normal(r) * 22);
         // Retiro: casi nunca antes de los 32; los cracks aguantan más y los de nivel bajo lo dejan antes.
         const RETIRO = { 32: 0.03, 33: 0.06, 34: 0.12, 35: 0.22, 36: 0.35, 37: 0.5 };
         let p = edad <= 31 ? 0.005 : RETIRO[edad] || 0.7;
@@ -650,7 +668,9 @@
   // Mercado de verano: vuelta de cedidos, filiales, fichajes por prestigio y necesidad, cesiones y libres.
   const IDEAL = { POR: 2, DEF: 7, MED: 6, DEL: 7 };
   const CUPO_EXTRANJEROS = 3, NIVEL_EXTRANJERO = 720;
-  const CONTRASTE_EUROPA = 0.65;
+  // Hasta 1991 (eliminatorias puras, pocos grandes) pesa algo más el nivel; después no hace falta: los grandes ya juntan a los mejores.
+  const CONTRASTE_EUROPA = 0.75;
+  const CONTRASTE_EUROPA_HOY = 1;
   const IDEAL_ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
   // Portugal, Argentina, Brasil y la Alemania semiamateur casi nada; Inglaterra, cerrada hasta 1978.
@@ -1057,7 +1077,7 @@
   function nivelEdad(j, anio) {
     const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
     if (!nac) return j.max;
-    return Math.max(300, j.max * curva(j).F(anio - nac));
+    return Math.max(300, metaEdad(j.max, curva(j), anio - nac));
   }
   function desdeBase(B, anio) {
     const cfg = new Map(B.paises.map((P) => [P.pais, P]));

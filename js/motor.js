@@ -46,7 +46,7 @@
 
   // Escala acordada con Anthony (1-1000) frente a la escala interna del motor. Arriba crece más deprisa:
   // cuanto más alto el nivel, más pesa cada punto. Misma tabla que motor/escala.py.
-  const TABLA_ESCALA = [[1, 100], [100, 250], [230, 434], [380, 575], [450, 664], [520, 758], [580, 824], [630, 871], [690, 920], [760, 970], [850, 1040], [950, 1130], [1000, 1180]];
+  const TABLA_ESCALA = [[1, 100], [100, 250], [230, 434], [380, 575], [450, 664], [520, 758], [580, 824], [630, 871], [690, 920], [760, 970], [850, 1040], [950, 1100], [1000, 1130]];
   function interpola(x, pares) {
     if (x <= pares[0][0]) return pares[0][1];
     for (let i = 1; i < pares.length; i++) if (x <= pares[i][0]) { const [a, fa] = pares[i - 1], [b, fb] = pares[i]; return fa + (fb - fa) * (x - a) / (b - a); }
@@ -437,7 +437,7 @@
     return y ? anio - y : 26;
   }
   function nivelDia(est) {
-    return (j) => j.niv + (est.forma.get(j) || 0) - (1 - (est.energia.has(j) ? est.energia.get(j) : 1)) * P.pesoFatiga;
+    return (j) => j.niv + (j.temp || 0) + (est.forma.get(j) || 0) - (1 - (est.energia.has(j) ? est.energia.get(j) : 1)) * P.pesoFatiga;
   }
   const fueraDe = (est, equipo) => new Set(equipo.jugadores.filter((j) => est.bajas.has(j)).map((j) => j.n));
 

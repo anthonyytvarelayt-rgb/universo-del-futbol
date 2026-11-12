@@ -315,7 +315,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 15, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 16, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -603,7 +603,8 @@ function premiosMundo(V) {
   const finalEU = R.EU && cerradaV(V) ? R.EU.rondas[R.EU.rondas.length - 1].cruces[0] : null;
   const sel = (n) => sinTildes(n || '').replace('alemania federal', 'alemania').replace('rfa', 'alemania');
   const MU = R.MU && cerradaV(V) ? R.MU : null;
-  const merito = (x) => x.notaTemp
+  // Porteros y defensas casi nunca lo ganan: necesitan un año mucho mejor que el de los atacantes.
+  const merito = (x) => x.notaTemp - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0)
     + (ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) : 0);
@@ -1751,6 +1752,6 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 15) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 16) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();

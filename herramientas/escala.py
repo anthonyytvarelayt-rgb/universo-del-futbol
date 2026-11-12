@@ -2,7 +2,7 @@
 # El motor trabaja por dentro con otra escala (la de la calibración de 1958). Esta tabla traduce,
 # y arriba crece más deprisa: cuanto más alto el nivel, más pesa cada punto.
 TABLA = [(1, 100), (100, 250), (230, 434), (380, 575), (450, 664), (520, 758), (580, 824),
-         (630, 871), (690, 920), (760, 970), (850, 1040), (950, 1130), (1000, 1180)]
+         (630, 871), (690, 920), (760, 970), (850, 1040), (950, 1100), (1000, 1130)]
 
 def _interp(x, pares):
     if x <= pares[0][0]: return pares[0][1]
