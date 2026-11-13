@@ -1061,7 +1061,7 @@
     const x = hashN(c.nombre, 17) % 100;
     return c.prestigio >= 860 ? 'estrellas' : x < 22 ? 'ojeadores' : x < 36 ? 'cantera' : 'normal';
   }
-  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato' };
+  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato', talonario: 'pagaron lo que pedía su club' };
 
   // ---------- Economía: la caja de cada club, en millones de euros de la época ----------
   // Entra dinero por taquilla, televisión y patrocinio (según el nombre del club y lo rica que es su liga), por premios
@@ -1297,6 +1297,20 @@
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
         mover(j, v, c, 'fichaje', lios.has(j) ? 'lio' : quiere === 'titulos' || quiere === 'dinero' || quiere === 'reto' ? quiere : undefined);
       });
+      // El talonario: de vez en cuando (no cada verano) un grande con la caja llena paga lo que le piden por una figura
+      // de un club menor. Como mucho uno en todo el mercado, y solo si el jugador mejora de verdad su once.
+      if (fluidez > 0) {
+        let golpes = 0;
+        elite.filter((c) => cajaDe(c, nuevoAnio) > 0.6 * ingresosDe(c, nuevoAnio) && (llegadas.get(c) || 0) < 1 && !sobrado(c)).sort((a, b) => b.caja / ingresosDe(b, nuevoAnio) - a.caja / ingresosDe(a, nuevoAnio)).forEach((c) => {
+          if (golpes >= 1 || r() > 0.22) return;
+          const titular = (j) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
+          const cand = estrellas.find(({ j, v }) => !fichados.has(j) && v !== c && v.prestigio <= c.prestigio - 60 && !atado(j, v) && j.niv > titular(j) + 15 && Motor.escala.mostrar(j.niv) >= 660 && nuevoAnio - anioNac(j) <= 29
+            && !(CONSTANTES[j.n] && CONSTANTES[j.n].club === v.nombre && nuevoAnio <= CONSTANTES[j.n].fiel) && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j));
+          if (!cand) return;
+          golpes++; llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(cand.j);
+          mover(cand.j, cand.v, c, 'fichaje', 'talonario');
+        });
+      }
     }
     // Antes de 1980 no había mercado internacional, pero dentro de cada país las figuras sí acababan en un grande:
     // Rivera del Alessandria al Milan, Amancio del Deportivo al Madrid. Sin esto se pasaban la carrera en un club menor.
