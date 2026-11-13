@@ -38,6 +38,7 @@
     unoMenos: 75,          // nivel que pierde un equipo por cada jugador de menos
     ruidoDia: 55,          // forma del día del equipo
     pesoMoral: 30,         // rachas: cuánto pesa el ánimo del equipo
+    rotacion: 600,         // cuánto pesa de más el cansancio al elegir el once (no en el campo): da descanso al que va justo
     promesa: 55,           // empujón hacia el once del jugador al que el entrenador prometió minutos (solo al elegir alineación)
     pesoFatiga: 200,       // nivel que se pierde con el depósito vacío
     pesoAtributo: 3,       // puntos de nivel que vale cada punto de atributo de más o de menos en su jugada
@@ -333,6 +334,20 @@
       menos[k] += (minutos - e.salida) / minutos;
     }));
 
+    // Cambios del entrenador: con los que le quedan (según la época) refresca al equipo en la segunda parte.
+    // Salen los más cansados y los que menos pesan en el equipo; la figura casi siempre acaba el partido.
+    if (o.duracion === 1) [xiL, xiV].forEach((xi, k) => {
+      const quedan = Math.min(o.cambios - entran[k].length, o.cambios >= 5 ? 4 : 3); if (quedan <= 0) return;
+      const mediaXi = media(xi.map(nv)), ener = o.energia || (() => 1);
+      const salen = xi.filter((j) => j.pos !== 'POR' && s(j).salida >= minutos && !s(j).roja).map((j) => ({ j, v: ener(j) * 300 + (nv(j) - mediaXi) })).sort((a, b) => a.v - b.v);
+      for (let i = 0, hechos = 0; i < salen.length && hechos < quedan; i++) {
+        if (r() > 0.8) continue;
+        const j = salen[i].j, sup = suplente(k, j); if (!sup || sup.pos === 'POR' || nv(sup) < nv(j) - 140) continue;
+        const e = s(j), min = 55 + Math.floor(r() * 31);
+        e.salida = min; e.sustituido = true; e.sup = sup; entran[k].push(sup); s(sup).entrada = min; hechos++;
+      }
+    });
+
     const fL = fuerzas(xiL, nv, D), fV = fuerzas(xiV, nv, D);
     [fL, fV].forEach((f, k) => {
       const E = ESTILOS[estilos[k]];
@@ -478,11 +493,15 @@
     // Un entrenador que premia el rendimiento sienta a quien no está en forma, aunque sea una figura.
     // Una promesa de minutos que el entrenador piensa cumplir (j.promesaSel = año) empuja al jugador hacia el once.
     const pro = (j) => (j.promesaSel === est.anio ? P.promesa : 0);
-    const sel = (eq) => { const t = est.banquillo.get(eq); return t && t.actual.merito ? (j) => nv(j) + (est.forma.get(j) || 0) * 0.8 + pro(j) : (j) => nv(j) + pro(j); };
+    // Rotaciones: al elegir el once el cansancio pesa más que en el campo, así el entrenador da descanso al que va
+    // justo cuando tiene un suplente parecido. Antes de los cambios (años 60) se rotaba mucho menos.
+    const ener = (j) => (est.energia.has(j) ? est.energia.get(j) : 1), K = est.anio < 1970 ? P.rotacion * 0.4 : est.anio < 1995 ? P.rotacion * 0.75 : P.rotacion;
+    const base = (j) => nv(j) + pro(j) - (1 - ener(j)) * K;
+    const sel = (eq) => { const t = est.banquillo.get(eq); return t && t.actual.merito ? (j) => base(j) + (est.forma.get(j) || 0) * 0.8 : base; };
     // Riesgo de lesión: sube con la edad (desde los 30) y con el cansancio.
     const riesgo = (j) => (1 + Math.max(0, edad(j, est.anio) - 29) * 0.07) * (1 + (1 - (est.energia.has(j) ? est.energia.get(j) : 1)) * 2);
     const m = partido(r, local, visita, Object.assign({
-      fueraL: fueraDe(est, local), fueraV: fueraDe(est, visita), nv, selL: sel(local), selV: sel(visita), anio: est.anio, riesgo,
+      fueraL: fueraDe(est, local), fueraV: fueraDe(est, visita), nv, selL: sel(local), selV: sel(visita), anio: est.anio, riesgo, energia: ener,
       moral: [est.moral.get(local) || 0, est.moral.get(visita) || 0],
       derbi: est.derbis.get(local.nombre + '|' + visita.nombre) || null
     }, o));
