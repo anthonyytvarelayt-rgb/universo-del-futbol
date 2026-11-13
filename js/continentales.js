@@ -9,7 +9,7 @@
     cei: 'comunidad de estados independientes' };
   const clave = (s) => ALIAS[limpio(s)] || limpio(s);
   const anioNac = (j) => parseInt(String(j.nac || '').slice(0, 4), 10) || 0;
-  const sovieticas = new Set(['rusia', 'ucrania', 'bielorrusia', 'georgia', 'armenia', 'azerbaiyan', 'kazajistan', 'uzbekistan', 'moldavia', 'lituania', 'letonia', 'estonia']);
+  const sovieticas = new Set(['rusia', 'ucrania', 'bielorrusia', 'georgia', 'armenia', 'azerbaiyan', 'kazajistan', 'uzbekistan', 'kirguistan', 'tayikistan', 'turkmenistan', 'moldavia', 'lituania', 'letonia', 'estonia']);
   const yugoslavas = new Set(['serbia', 'croacia', 'eslovenia', 'bosnia y herzegovina', 'montenegro', 'macedonia del norte', 'yugoslavia', 'serbia y montenegro']);
 
   function convocar(ed, M, R) {
@@ -30,7 +30,7 @@
       const desaparecida = anterior && ((ed.anio > 1992 && ['union sovietica', 'comunidad de estados independientes', 'checoslovaquia'].includes(anterior)) || (ed.anio > 1991 && anterior === 'yugoslavia'));
       return anterior && !desaparecida ? anterior : ns.find((k) => participantes.has(k)) || ns[0];
     };
-    const estados = [R && R.T].concat(((R && R.otros) || []).flatMap((o) => (o.ligas || []).map((l) => l.T))).map((T) => T && T.estado).filter(Boolean);
+    const estados = [R && R.T].concat(((R && R.seg) || []).map((s) => s.T), ((R && R.otros) || []).flatMap((o) => (o.ligas || []).map((l) => l.T))).map((T) => T && T.estado).filter(Boolean);
     const lesionado = (j) => estados.some((e) => e.bajas && (e.bajas.get(j) || 0) > 4);
     const activos = (M.clubes || []).flatMap((c) => c.jugadores.map((j) => ({ j, club: c.nombre })));
     const retirados = M.retirados || [];

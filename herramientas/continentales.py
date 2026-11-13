@@ -180,6 +180,12 @@ def main():
     por_nombre = defaultdict(list)
     for j in base['jugadores']:
         por_nombre[limpio(j['n'])].append(j)
+    niveles_mundial = defaultdict(list)
+    for e in dato('datos/mundiales.js', 'self.MUNDIALES = '):
+        for E in e['equipos'].values():
+            for j in E['jugadores']:
+                if j.get('nac'):
+                    niveles_mundial[limpio(j['n']), str(j['nac'])[:4]].append((e['anio'], j['niv']))
     # Se utiliza la misma curva de edad pública del juego, sin cambiarla.
     codigo = "const fs=require('fs'), M=require('./js/motor.js'), W=require('./js/mundo.js');const xs=JSON.parse(fs.readFileSync(0,'utf8'));process.stdout.write(JSON.stringify(xs.map(([j,y])=>M.escala.mostrar(W.nivelEdad(j,y)))));"
     coincidencias = []
@@ -191,10 +197,17 @@ def main():
     entrada = [[j, anios[f['edicion']]] for f, j in zip(filas, coincidencias) if j]
     niveles = iter(json.loads(subprocess.check_output(['node', '-e', codigo], input=json.dumps(entrada).encode(), cwd=RAIZ)))
     plantillas = defaultdict(list)
-    cobertura = []
+    cobertura, tipo_nivel = [], []
     for f, j in zip(filas, coincidencias):
+        y = anios[f['edicion']]
+        muestras = sorted((a, n) for a, n in niveles_mundial[limpio(f['nombre']), f['nacimiento']] if abs(a - y) <= 4)
+        # Los perfiles ya valorados para el Mundial sirven también aquí (p. ej., Yashin).
+        # Se interpola entre los dos Mundiales cercanos, sin crear un nuevo máximo.
+        cercanos = sorted(muestras, key=lambda x: abs(x[0] - y))[:2]
+        referencia = sum(n / max(1, abs(a-y)) for a, n in cercanos) / sum(1 / max(1, abs(a-y)) for a, n in cercanos) if cercanos else None
         # Valor conservador para internacionales sin perfil en BASE: es una estimación visible y documentada.
-        niv = next(niveles) if j else 520
+        niv = next(niveles) if j else round(referencia) if referencia is not None else 520
+        tipo_nivel.append('base' if j else 'mundial' if referencia is not None else 'estimado')
         n = int(f['nacimiento']) if f['nacimiento'] else 0
         plantillas[f['edicion'], f['pais']].append({'n': f['nombre'], 'nac': n, 'pos': f['posicion'], 'club': f['club'], 'niv': niv, 'edad': anios[f['edicion']] - n if n else None})
     for ed in ediciones:
@@ -206,17 +219,19 @@ def main():
             js = plantillas[ed['id'], pais]
             assert len(js) >= 11, (ed['id'], pais, len(js))
             assert all(j['pos'] in ('POR', 'DEF', 'MED', 'DEL') for j in js)
+            assert any(j['pos'] == 'POR' for j in js), (ed['id'], pais, 'sin portero')
             assert len({limpio(j['n']) for j in js}) == len(js), (ed['id'], pais, 'duplicados')
             ed['equipos'][pais] = {'nombre': pais, 'jugadores': js}
         ed['reglas'], ed['fases'] = formato(ed)
         fs = [f for f in filas if f['edicion'] == ed['id']]
         cobertura.append([ed['id'], len(paises), len(fs), sum(not f['nacimiento'] for f in fs),
                           sum(f['precision'] != 'convocatoria' for f in fs),
-                          sum(j is None for f, j in zip(filas, coincidencias) if f['edicion'] == ed['id'])])
+                          sum(t == 'mundial' for f, t in zip(filas, tipo_nivel) if f['edicion'] == ed['id']),
+                          sum(t == 'estimado' for f, t in zip(filas, tipo_nivel) if f['edicion'] == ed['id'])])
     (RAIZ / 'datos/continentales.js').write_text('self.CONTINENTALES = ' + json.dumps(ediciones, ensure_ascii=False, separators=(',', ':')) + ';\n')
     with (FUENTE / 'cobertura.csv').open('w') as salida:
-        w = csv.writer(salida)
-        w.writerow(['edicion', 'selecciones', 'jugadores_documentados', 'sin_nacimiento', 'plantilla_historica_parcial', 'nivel_estimado'])
+        w = csv.writer(salida, lineterminator='\n')
+        w.writerow(['edicion', 'selecciones', 'jugadores_documentados', 'sin_nacimiento', 'plantilla_historica_parcial', 'nivel_de_mundial', 'nivel_estimado'])
         w.writerows(cobertura)
     print(f'{len(ediciones)} ediciones, {len(filas)} jugadores documentados; datos/continentales.js y cobertura.csv montados.')
 

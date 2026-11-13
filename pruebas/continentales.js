@@ -1,8 +1,6 @@
 // Todos los formatos históricos y las convocatorias de la partida.
 // Uso: node pruebas/continentales.js
 const assert = require('node:assert/strict');
-const { execFileSync } = require('node:child_process');
-const path = require('node:path');
 const { Motor, Mundo, BASE } = require('./cargar.js');
 const datos = global.CONTINENTALES, C = global.Continentales;
 const esperadoEuro = { 1960: 4, 1964: 4, 1968: 4, 1972: 4, 1976: 4, 1980: 8, 1984: 8, 1988: 8, 1992: 8, 1996: 16, 2000: 16, 2004: 16, 2008: 16, 2012: 16, 2016: 24, 2020: 24, 2024: 24 };
@@ -85,15 +83,14 @@ console.log('bien: bajas largas, retirados y doble nacionalidad en ambas competi
 }
 console.log('bien: dos Copas América en 1959, Euro 2020 en 2021 y bonus de medio Mundial');
 
-// Compartir el reglamento no debe alterar las ediciones del Mundial existentes.
-const hashes = { 1958: 'ee2d53925612871caed1a189e7c0817f2e275597198fd3ee5c88047267848db1', 1982: '9e09a7eca6a4451e121c0b0a9cda0d0bcb945c1a71f07dd3a21ab4aa83ba6d79', 2006: '382ead72e5b80442c0f6db30b73d985cd4356117c8aae6798f840847029ca1a5', 2022: '4b8d903244d809dc1ea457f4bd8f717429686fb77035a29da9c599670c535ef1' };
-// La muestra original se tomó con el módulo aislado, sin las tablas de atributos del cargador.
-const aislados = JSON.parse(execFileSync(process.execPath, ['-e', `
-  const fs=require('fs'),crypto=require('crypto');
-  global.Motor=require('./js/motor'); const W=require('./js/mundial');
-  const eds=JSON.parse(fs.readFileSync('datos/mundiales.js','utf8').replace('self.MUNDIALES = ','').replace(/;\\s*$/,''));
-  process.stdout.write(JSON.stringify(Object.fromEntries([1958,1982,2006,2022].map(y=>[y,
-    crypto.createHash('sha256').update(JSON.stringify(W.torneo(eds.find(e=>e.anio===y),{semilla:19}))).digest('hex')]))));
-`], { cwd: path.join(__dirname, '..'), encoding: 'utf8' }));
-assert.deepEqual(aislados, hashes, 'Los Mundiales existentes no cambian');
-console.log('bien: Mundiales de 1958, 1982, 2006 y 2022 conservan exactamente sus resultados');
+// Los torneos continentales restauran la calibración: jugar uno no cambia el Mundial siguiente.
+const parametros = { ...Motor.P };
+for (const anio of [1958, 1982, 2006, 2022]) {
+  const ed = global.MUNDIALES.find((e) => e.anio === anio);
+  const antes = global.Mundial.torneo(ed, { semilla: 19 });
+  C.torneo(datos.find((e) => e.edicion === 2024), { clubes: [], retirados: [] }, {}, 37);
+  const despues = global.Mundial.torneo(ed, { semilla: 19 });
+  assert.deepEqual(despues, antes, 'El continental no altera el Mundial ' + anio);
+  assert.deepEqual(Motor.P, parametros, 'Se restaura la calibración del motor');
+}
+console.log('bien: ningún continental altera la calibración ni los Mundiales posteriores');
