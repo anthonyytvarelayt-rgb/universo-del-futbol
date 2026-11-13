@@ -1585,10 +1585,11 @@
     'Diego Simeone': 'muro', 'Marcelo Bielsa': 'loco'
   };
   const donDT = (nombre) => CONSTANTES_DT[nombre] || null;
+  const DESTINO_DT = { 'José Mourinho': 'Real Madrid' };
   // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
   function extraDon(c, e) {
     const don = donDT(e.nombre), anios = e.anios || 0;
-    if (don === 'special') return 14;
+    if (don === 'special') return e.nombre === 'José Mourinho' ? 22 : 14;   // Mourinho es una bestia: gana en cualquier parte
     if (don === 'tactico') return 10;
     if (don === 'resucita') return c.prestigio < 700 ? 22 : c.prestigio < 820 ? 16 : 5;
     if (don === 'muro') return c.prestigio < 860 ? 13 : 3;
@@ -1603,7 +1604,7 @@
       if (!n || c.manoAnio === M.anio) return;
       c.manoAnio = M.anio;
       const don = extraDon(c, e);
-      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 4 * n + don; });
+      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 6 * n + don; });
       // Quien revive a un club también le devuelve el nombre.
       if (donDT(e.nombre) === 'resucita' && c.prestigio < 820) c.prestigio = Math.min(820, c.prestigio + 10);
     });
@@ -1655,7 +1656,7 @@
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
       const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
-      if (e.anios >= 3 && c.balance !== 'superado' && r() < (gano ? 0.06 : 0.12 + 0.07 * (e.anios - 3))) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
+      if (e.anios >= 3 && c.balance !== 'superado' && r() < (gano ? 0.06 : 0.12 + 0.07 * (e.anios - 3)) * (DESTINO_DT[e.nombre] === c.nombre ? 0.25 : 1)) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
       if (!p || p.puesto === 0) return;
       // Despido: muy por debajo de lo que se esperaba; a un técnico de época se le aguanta algo más.
       const fallo = p.puesto - p.esperado;
@@ -1682,6 +1683,24 @@
       M.parados = M.parados.filter((x) => x.nombre !== nuevo.nombre);
       c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
       log.push(Object.assign({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' }, nuevo.exJugador ? { leyenda: true, casa: nuevo.casa === c.nombre } : {}));
+    });
+    // El ego de cada uno tira hacia un club: Mourinho quiere el banquillo más grande del mundo, el del Real Madrid.
+    Object.keys(DESTINO_DT).forEach((nombre) => {
+      const c = M.clubes.find((x) => x.nombre === DESTINO_DT[nombre] && x.division === 1); if (!c) return;
+      const actual = c.entrenadores && c.entrenadores[0];
+      if (actual && actual.nombre === nombre) return;
+      const donde = primera.find((x) => x.entrenadores && x.entrenadores[0] && x.entrenadores[0].nombre === nombre), libre = M.parados.find((x) => x.nombre === nombre);
+      if (!donde && !libre) return;
+      // Va si está libre, o si ya lleva dos años donde está; el club lo llama si su entrenador no es una leyenda en racha.
+      if (donde && (donde.entrenadores[0].anios || 0) < 2) return;
+      if (actual && maestro(actual.nombre) >= 3 && c.balance !== 'fracaso' && (actual.anios || 0) < 4) return;
+      if (r() > (c.balance === 'fracaso' ? 0.9 : 0.55)) return;
+      const nuevo = donde ? donde.entrenadores[0] : libre;
+      const sale = actual ? deja(c, 'relevo') : null;
+      if (donde) donde.entrenadores = [];
+      M.parados = M.parados.filter((x) => x.nombre !== nombre);
+      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
+      log.push({ club: c.nombre, sale, entra: nombre, de: donde ? donde.nombre : null, motivo: donde ? 'fichado' : 'llega', ego: true });
     });
     M.banquillosVerano = log;
   }

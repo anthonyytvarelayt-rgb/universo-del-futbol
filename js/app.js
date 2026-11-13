@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 53, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 54, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1091,6 +1091,10 @@ function sorpresasHtml(V) {
   const dinero = (gastador && gastador.compras - gastador.ventas > 0.25 * gastador.ingresos ? art('El talonario', `El ${esc(gastador.club)} tira la casa por la ventana`, `Gasta ${eur(gastador.compras)} en fichajes y solo ingresa ${eur(gastador.ventas)} por ventas. Le quedan ${eur(gastador.caja)} en caja.`) : '')
     + fin.filter((x) => x.rescate).slice(0, 2).map((x) => art('Al borde de la quiebra', `El ${esc(x.club)} tiene que refinanciar su deuda`, 'Años gastando más de lo que ingresa. El club pierde nombre y tendrá que vender.')).join('')
     + (vendedor && vendedor.ventas - vendedor.compras > 0.3 * vendedor.ingresos && vendedor !== gastador ? art('Hacer caja', `El ${esc(vendedor.club)} vende por ${eur(vendedor.ventas)}`, `Y solo gasta ${eur(vendedor.compras)}. Un verano de salidas que le deja ${eur(vendedor.caja)} en caja.`) : '');
+  // Lo que dicen los jugadores.
+  const dichos = declaraciones(V), declara = dichos.length ? `<div class="caja"><span class="rotulo">Declaraciones</span>${dichos.map((d) => `<div class="resultado"><span><span>${nombreJ(d.nombre)} <small>${esc(d.club || '')}</small><small><b>${esc(d.frase)}</b> ${esc(d.txt)}</small></span></span></div>`).join('')}</div>` : '';
+  // El ego: un entrenador que se va al club de sus sueños.
+  const egos = (V.banquillos || []).filter((x) => x.ego).map((x) => art('El banquillo soñado', `${esc(sinApodo(x.entra))} ya es entrenador del ${esc(x.club)}`, `${x.de ? `Deja el ${esc(x.de)} sin mirar atrás. ` : ''}«Solo hay un banquillo a la altura de lo que soy». Llega para ganarlo todo, y para que se hable de él.`)).join('');
   // Las leyendas vuelven al banquillo.
   const vuelven = (V.banquillos || []).filter((x) => x.leyenda && x.entra).slice(0, 2).map((x) => art('Vuelve una leyenda', `${esc(sinApodo(x.entra))}, nuevo entrenador del ${esc(x.club)}`, x.casa ? 'Fue figura de este club como jugador y ahora vuelve para sentarse en su banquillo. La grada lo recibe como a un hijo.' : 'Hace unos años era una figura sobre el césped. Ahora empieza su carrera en los banquillos.')).join('');
   // Triplete, sextete…: el club que lo gana todo.
@@ -1100,7 +1104,7 @@ function sorpresasHtml(V) {
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + plenos + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1202,6 +1206,44 @@ function noticiasDT(V) {
     }));
   } catch (e) { /* sin noticias */ }
   return out.slice(0, 4);
+}
+// Declaraciones de los jugadores: lo que dicen según su carácter, lo que buscan y cómo les fue el año.
+function declaraciones(V) {
+  const out = [];
+  try {
+    if (!cerradaV(V)) return out;
+    const h = (t) => [...(t + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7), elige = (xs, t) => xs[h(t) % xs.length];
+    const pm = premiosMundo(V), G = figurasDe(V), ya = new Set(), objs = V.objetivos || [];
+    const car = (j) => { try { return Mundo.caracterDe(j); } catch (e) { return 'normal'; } }, quiere = (j) => { try { return Mundo.deseo(j); } catch (e) { return ''; } };
+    const dice = (rot, nombre, club, frase, txt) => { if (ya.has(nombre) || out.length >= 5) return; ya.add(nombre); out.push({ rot, nombre, club, frase, txt }); };
+    // El ganador del gran premio.
+    const gan = pm.ganadorMejor, gj = gan && G.find((x) => x.nombre === gan.nombre);
+    if (gan && gj) {
+      const c = car(gj.j);
+      dice('Habla el número uno', gan.nombre, gan.club, c === 'conflictivo' || c === 'fiestero' ? elige(['«Soy el mejor del mundo y el que no lo vea, que mire los números».', '«Me critican porque no pueden pararme».'], gan.nombre) : c === 'lider' || c === 'profesional' ? elige(['«Este premio es de todo el vestuario».', '«Sin mis compañeros no habría ganado nada».'], gan.nombre) : elige(['«Trabajo cada día para esto. Y quiero más».', '«El año que viene quiero repetir».'], gan.nombre), `Tras ganar el ${pm.nombreMejor}.`);
+    }
+    // El segundo del podio no se conforma.
+    const seg = (pm.podio || [])[1];
+    if (seg && gan && seg.nombre !== gan.nombre) dice('El que se quedó a las puertas', seg.nombre, seg.club, elige([`«Respeto el premio, pero mi temporada fue mejor que la de ${corto(gan.nombre)}».`, '«Los premios individuales no me quitan el sueño. Los títulos, sí».', '«El año que viene no habrá discusión».'], seg.nombre), `Segundo en el ${pm.nombreMejor}.`);
+    // La figura de un grande que fracasó y quiere títulos.
+    objs.filter((o) => o.balance === 'fracaso' && o.prestigio >= 780).slice(0, 3).forEach((o) => {
+      const fig = G.filter((x) => x.club === o.club && x.pj >= 15).sort((a, b) => b.notaTemp - a.notaTemp)[0]; if (!fig) return;
+      const q = quiere(fig.j);
+      dice('Aviso a la directiva', fig.nombre, o.club, q === 'titulos' ? elige(['«Yo quiero ganar. Si aquí no se puede, habrá que pensar».', '«No he venido a este club para acabar así».'], fig.nombre) : q === 'casa' ? '«Este es mi club. De aquí no me muevo, pero hay que cambiar cosas».' : elige(['«Así no podemos seguir. Hacen falta fichajes».', '«Hemos fallado a la afición».'], fig.nombre), `El ${o.club} acabó ${o.puesto}.º.`);
+    });
+    // El fichaje más caro del verano se presenta.
+    const caro = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.precio).sort((a, b) => b.precio - a.precio)[0];
+    if (caro) dice('La presentación', caro.jugador, caro.a, elige(['«He venido a hacer historia en este club».', '«El precio no me pesa. Lo voy a devolver en el campo».', `«Desde niño soñaba con jugar en el ${caro.a}».`], caro.jugador), `Fichado por ${precioTxt(caro.precio)}, llega del ${caro.de}.`);
+    // El que acabó mal con su club.
+    const lio = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && /acabó mal/.test(x.motivo || '')).sort((a, b) => b.niv - a.niv)[0];
+    if (lio) dice('Portazo', lio.jugador, lio.a, elige([`«En el ${lio.de} no me valoraron. Aquí voy a demostrar quién soy».`, '«Hay cosas que pasaron en ese vestuario que algún día contaré».'], lio.jugador), `Salió del ${lio.de} de mala manera.`);
+    // El que se retira.
+    const ret = (V.retiros || []).filter((x) => (x.j.carrera || []).some((t) => nivel(t.niv || 0) >= 780)).sort((a, b) => b.edad - a.edad)[0];
+    if (ret) dice('Adiós', ret.j.n, ret.club, elige(['«Me voy vacío: lo he dado todo».', '«El fútbol me lo dio todo. Ahora toca devolverlo».', '«El cuerpo dijo basta, la cabeza habría seguido».'], ret.j.n), `Se retira a los ${ret.edad} años.`);
+    // El goleador del año.
+    if (pm.goleador) dice('El goleador', pm.goleador.nombre, pm.goleador.club, elige([`«${pm.goleador.g} goles no los mete cualquiera».`, '«Los goles son de quien me da los pases».', '«Vivo para marcar. No sé hacer otra cosa».'], pm.goleador.nombre), `Máximo goleador del mundo con ${pm.goleador.g}.`);
+  } catch (e) { /* sin declaraciones */ }
+  return out;
 }
 // Entrenador del año: el que más hizo con lo que tenía. Cuentan los títulos y quedar por encima de lo que tocaba.
 const cacheDT = new WeakMap();
@@ -1327,6 +1369,7 @@ function copiarResumen(btn) {
     });
   }
   intento(() => { const xs = noticiasDT(V); if (xs.length) { sec('🎙️ ENTRENADORES QUE DAN QUE HABLAR'); const sinHtml = (t) => { const d = document.createElement('div'); d.innerHTML = t; return d.textContent; }; xs.forEach((x) => out.push(`• ${x.rot}: ${sinHtml(x.tit)}. ${sinHtml(x.txt)}`)); } });
+  intento(() => { const ds = declaraciones(V); if (ds.length) { sec('💬 DECLARACIONES'); ds.forEach((d) => out.push(`• ${d.nombre}${d.club ? ` (${d.club})` : ''}: ${d.frase} ${d.txt}`)); } });
   // Récords vigentes de la partida.
   intento(() => {
     const caja = document.createElement('div'); caja.innerHTML = recordsPartida(temporadas().filter(cerradaV));
@@ -2323,7 +2366,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 53) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 54) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
