@@ -433,6 +433,14 @@
     const base = { pais: P.pais, reglas: reg, ligas: [], F: null, C: null, campeon: null, subcampeon: null, campeones: [] };
     // Sin liga nacional (Brasil antes de 1959) se juegan igual sus campeonatos estatales.
     if (!reg.hayLiga && !P.estatales) return base;
+    // El nombre de la liga cambia con los años (First Division → Premier League en 1992) y, al empezar tarde, los clubes
+    // llegan con el nombre del grupo de 1958 («Oberliga Nord» para toda la Bundesliga): si hay una sola Primera, lleva el nombre de la época.
+    const conClubes = P.grupos.filter((g) => g.nivel === 1 && M.clubes.some((c) => c.pais === P.pais && c.grupo === g.nombre));
+    if (reg.hayLiga && reg.liga && conClubes.length === 1 && conClubes[0].nombre !== reg.liga && !P.grupos.some((g) => g.nombre === reg.liga)) {
+      const viejo = conClubes[0].nombre;
+      M.clubes.forEach((c) => { if (c.pais === P.pais && c.grupo === viejo) c.grupo = reg.liga; });
+      P.grupos.forEach((g) => { if (g.nombre === viejo) g.nombre = reg.liga; if (g.de === viejo) g.de = reg.liga; });
+    }
     const op = (k) => ({ semilla: semilla + k, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: caracter(P.pais, M.anio) });
     // Un grupo sin clubes ese año (formatos que cambian, como las zonas del Metropolitano argentino) no se juega.
     base.ligas = P.grupos.map((g, i) => ({ g, i, cs: M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre) })).filter((x) => x.cs.length > 1)
@@ -1627,6 +1635,15 @@
   function desdeBase(B, anio) {
     const cfg = new Map(B.paises.map((P) => [P.pais, P]));
     const filas = B.ligas.filter((x) => x[1] === anio && x[6] !== 'campeón real');
+    // Si de un país no hay tabla de esa temporada (la que está en curso, o un año sin liga normal), se juega con los
+    // clubes de la temporada anterior: mejor una liga con los clubes del año pasado que un país entero fuera de la partida.
+    if (anio >= 1964) B.paises.forEach((P) => {
+      if (filas.some((x) => x[0] === P.pais)) return;
+      for (let atras = 1; atras <= 2; atras++) {
+        const antes = B.ligas.filter((x) => x[0] === P.pais && x[1] === anio - atras && x[6] !== 'campeón real');
+        if (antes.length) { antes.forEach((x) => { const y = x.slice(); y[1] = anio; y[5] = null; filas.push(y); }); break; }
+      }
+    });
     // Dónde juega cada uno esa temporada: el último paso que la cubre (sin "hasta", hasta que empieza el siguiente).
     const plantillas = new Map(), llegadas = [];
     B.jugadores.forEach((j) => {
