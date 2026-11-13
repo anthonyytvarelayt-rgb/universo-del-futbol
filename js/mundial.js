@@ -139,19 +139,35 @@
           }
         } else {
           const out = { tipo: 'ko', nombre: F.nombre, cruces: [] };
-          const usados = new Set();
           // Mejores terceros: cuatro en 1986-1994, ocho en 2026.
           const plazasTercero = F.cruces.flatMap((c) => c.lados).filter((l) => l.puesto === 3).length;
+          // Reparto de los mejores terceros en todo el cuadro a la vez, para que ninguno se cruce con uno de su grupo.
+          let reparto = null;
+          const repartir = () => {
+            const ter = posiciones[anteriorGrupos + '|terceros'].slice(0, plazasTercero);
+            const huecos = [];
+            F.cruces.forEach((c) => c.lados.forEach((l, i) => { if (l.puesto === 3) huecos.push({ l, grupoRival: c.lados[1 - i] && c.lados[1 - i].grupo }); }));
+            const sol = new Map(), libres = new Set(ter);
+            const prueba = (i, estricto) => {
+              if (i === huecos.length) return true;
+              for (const t of ter) {
+                if (!libres.has(t) || (estricto && t.grupo === huecos[i].grupoRival)) continue;
+                libres.delete(t); sol.set(huecos[i].l, t.clave);
+                if (prueba(i + 1, estricto)) return true;
+                libres.add(t); sol.delete(huecos[i].l);
+              }
+              return false;
+            };
+            if (!prueba(0, true)) prueba(0, false);
+            return sol;
+          };
           const lado = (l, rival) => {
             if (l.equipo) return l.equipo;
             if (l.gana) return salidas.get(l.gana).gana;
             if (l.pierde) return salidas.get(l.pierde).pierde;
             if (l.puesto === 3) {  // un mejor tercero que no venga del grupo de su rival
-              const ter = posiciones[anteriorGrupos + '|terceros'].slice(0, plazasTercero);
-              const grupoRival = rival && rival.grupo;
-              const x = ter.find((t) => !usados.has(t.clave) && t.grupo !== grupoRival) || ter.find((t) => !usados.has(t.clave));
-              usados.add(x.clave);
-              return x.clave;
+              if (!reparto) reparto = repartir();
+              return reparto.get(l);
             }
             return posiciones[anteriorGrupos + '|' + l.grupo][(l.puesto || 1) - 1];
           };
@@ -175,10 +191,11 @@
       // (la final se repetiría); penaltis (desde 1974): prórroga y tanda.
       function eliminatoria(A, B, fase, ronda, regla, final) {
         let x = jugar(A, B);
-        let ga = x.ga, gb = x.gb, prorroga = false, pen = null, repetido = 0;
+        let ga = x.ga, gb = x.gb, prorroga = false, pen = null, repetido = 0, ultimo = x;
         const evs = [...x.m.eventos.map((e) => Object.assign({}, e, { eq: (e.lado === 0) === (x.local === A) ? 'a' : 'b' }))];
         const tiempoExtra = () => {
-          const y = jugar(A, B, { duracion: 1 / 3 });
+          const y = jugar(A, B, { duracion: 1 / 3, prorroga: true, xiL: x.m.finL, xiV: x.m.finV });
+          ultimo = y;
           ga += y.ga; gb += y.gb; prorroga = true;
           y.m.eventos.forEach((e) => evs.push(Object.assign({}, e, { min: 90 + Math.ceil(e.min), eq: (e.lado === 0) === (y.local === A) ? 'a' : 'b' })));
         };
@@ -187,7 +204,7 @@
         partidos.push(p);
         if (ga !== gb) return ga > gb ? A : B;
         if (regla === 'penaltis') {
-          pen = tanda(A, B);
+          pen = tanda(A, B, ultimo);
           p.penaltis = pen;
           return pen[0] > pen[1] ? A : B;
         }
@@ -196,7 +213,7 @@
             const z = jugar(A, B);
             let za = z.ga, zb = z.gb;
             const q = ficha(fase, ronda + ' (repetición)', A, B, z, { repeticion: true });
-            if (za === zb) { const y = jugar(A, B, { duracion: 1 / 3 }); za += y.ga; zb += y.gb; q.ga = za; q.gb = zb; q.prorroga = true; }
+            if (za === zb) { const y = jugar(A, B, { duracion: 1 / 3, prorroga: true, xiL: z.m.finL, xiV: z.m.finV }); za += y.ga; zb += y.gb; q.ga = za; q.gb = zb; q.prorroga = true; }
             if (za !== zb) return za > zb ? A : B;
           }
         }
@@ -205,8 +222,9 @@
         return gana;
       }
       // Tanda de penaltis: cinco por equipo y luego muerte súbita; tiran los mejores rematadores del once.
-      function tanda(A, B) {
-        const once = (E) => Motor.jugarConEstado ? E.jugadores.filter((j) => !est.bajas.has(j)).sort((a, b) => b.niv - a.niv) : E.jugadores;
+      // Solo tiran los que acabaron el partido en el campo.
+      function tanda(A, B, x) {
+        const once = (E) => [...((x.local === E ? x.m.finL : x.m.finV) || E.jugadores)].sort((a, b) => b.niv - a.niv);
         const tir = [once(A).filter((j) => j.pos !== 'POR'), once(B).filter((j) => j.pos !== 'POR')];
         const por = [once(B).find((j) => j.pos === 'POR'), once(A).find((j) => j.pos === 'POR')];
         const marca = [0, 0], detalle = [];

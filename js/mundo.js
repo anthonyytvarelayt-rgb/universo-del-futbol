@@ -26,10 +26,10 @@
     'George Best': ['precoz', 1.8], 'Lev Yashin': ['tardio', 0.5], 'Johan Cruyff': ['normal', 1], 'Franz Beckenbauer': ['normal', 0.7],
     'Gerd Müller': ['normal', 1.1], 'Diego Maradona': ['precoz', 1.2], 'Marco van Basten': ['precoz', 2.5], 'Roger Milla': ['tardio', 0.35],
     'Paolo Maldini': ['normal', 0.45], 'Ronaldo': ['precoz', 1.5], 'Ronaldo Nazário': ['precoz', 1.5], 'Ronaldinho': ['precoz', 1.6],
-    'Kaká': ['precoz', 1.5], 'Adriano': ['precoz', 2.2], 'Michael Owen': ['precoz', 1.8], 'Gianluigi Buffon': ['normal', 0.4],
+    'Kaká': ['precoz', 1.5], 'Adriano': ['precoz', 2.2], 'Adriano Leite Ribeiro': ['precoz', 2.2], 'Michael Owen': ['precoz', 1.8], 'Gianluigi Buffon': ['normal', 0.4],
     'Ryan Giggs': ['normal', 0.5], 'Zlatan Ibrahimović': ['tardio', 0.45], 'Luka Modrić': ['tardio', 0.45], 'Robert Lewandowski': ['tardio', 0.55],
     'Cristiano Ronaldo': ['tardio', 0.45], 'Lionel Messi': ['precoz', 0.7], 'Didier Drogba': ['tardio', 0.6], 'Jamie Vardy': ['tardio', 0.6],
-    'Andrea Pirlo': ['tardio', 0.6], 'Xavi': ['normal', 0.7], 'Andrés Iniesta': ['normal', 0.8], 'Kylian Mbappé': ['precoz', 1],
+    'Andrea Pirlo': ['tardio', 0.6], 'Xavi': ['normal', 0.7], 'Xavi Hernández': ['normal', 0.7], 'Andrés Iniesta': ['normal', 0.8], 'Kylian Mbappé': ['precoz', 1],
   };
   // ---------- Constantes: lo que este universo no puede cambiar (idea de Anthony) ----------
   // Las carreras las decide el motor, pero algunas cosas pasan siempre: Pelé es un crack desde los 17 y llega a los 1000 goles,
@@ -360,7 +360,9 @@
       return !(enPartida.has(x[1]) || M.anio < a || M.anio > b || clubes.some((c) => c.nombre === x[0]) || (!viejas && porPais.has(x[1])));
     }).map((x) => ({ x, f: fuerzaExtranjero(x, M.anio), orden: fuerzaExtranjero(x, M.anio) + 0.05 * ((hashN(x[0] + M.anio, 5) % 100) / 100) }))
       .sort((a, b) => b.orden - a.orden);
-    if (M.anio < 1997) { const visto = new Set(); fuera = fuera.filter(({ x }) => !visto.has(x[1]) && visto.add(x[1])); } else fuera = fuera.slice(0, 14);
+    // El campeón vigente defiende el título aunque no sea el campeón de su país.
+    const vig = M.historia.length ? M.historia[M.historia.length - 1].europa : null;
+    if (M.anio < 1997) { const visto = new Set(); fuera = fuera.filter(({ x }) => (!visto.has(x[1]) && visto.add(x[1])) || x[0] === vig); } else fuera = fuera.filter(({ x }, i) => i < 14 || x[0] === vig);
     fuera.forEach(({ x, f }) => clubes.push({ nombre: x[0], pais: x[1], prestigio: Math.round(900 * f), generado: f, entrenadores: [], jugadores: [] }));
     const prev = M.historia[M.historia.length - 1];
     let espanoles = null;
@@ -664,7 +666,7 @@
     };
     const top = [...R.G].sort((a, b) => b.g - a.g)[0];
     if (top) bate('temporada', top.g, MARCAS_REALES.temporada, `${top.j.n} marca ${top.g} goles en una temporada`, `Nadie había marcado tanto en un año: ${top.g} goles con el ${top.eq.nombre}.`);
-    const gm = R.MU && R.MU.goleadores && R.MU.goleadores[0];
+    const gm = R.MU && R.MU.premios && R.MU.premios.goleadores && R.MU.premios.goleadores[0];
     if (gm) bate('mundial', gm.g, MARCAS_REALES.mundial, `${gm.n || gm.nombre} marca ${gm.g} goles en un Mundial`, `Récord de goles en una sola Copa del Mundo.`);
     const racha = (id, campeon, real, que) => {
       if (!campeon) return;
@@ -726,7 +728,7 @@
     M.clubes.forEach((c) => {
       c.jugadores = c.jugadores.filter((j) => {
         const x = pj.get(j);
-        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
+        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
         if (j.selT) { j.carrera[j.carrera.length - 1].sel = j.selT; delete j.selT; }
         const edad = M.anio + 1 - anioNac(j);
         const cv = curva(j), pico = cv.pico;
@@ -791,7 +793,9 @@
     M.libres = M.libres.filter((j) => {
       const edad = M.anio + 1 - anioNac(j);
       j.niv -= edad > 28 ? 15 : 0;
-      if (edad > 29 || r() < 0.3) { M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos }); return false; }
+      // Sin edad tope también aquí: un libre que sigue siendo bueno espera equipo; los demás lo van dejando.
+      const p = j.niv >= 850 ? 0.05 : edad > 29 ? 0.6 : 0.3;
+      if (r() < p) { retiros.push({ j, club: 'sin club', edad }); M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos }); return false; }
       return true;
     });
     return retiros;
@@ -1099,7 +1103,7 @@
     }));
     // La bolsa: sin repetidos, sin los que ya entrenan y sin los muy mayores; como mucho 40.
     const vistos = new Set();
-    M.parados = M.parados.filter((e) => { const edad = M.anio + 1 - (parseInt(String(e.nac || '').slice(0, 4), 10) || 1910); if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || edad > 68) return false; vistos.add(e.nombre); return true; }).slice(-40);
+    M.parados = M.parados.filter((e) => { /* sin año de nacimiento conocido no se inventa la edad: deja la bolsa a los veinte años de quedar libre por primera vez */ const nacido = parseInt(String(e.nac || '').slice(0, 4), 10) || null; e.libreDesde = e.libreDesde || M.anio; const viejo = nacido ? M.anio + 1 - nacido > 68 : M.anio - e.libreDesde > 20; if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || viejo) return false; vistos.add(e.nombre); return true; }).slice(-40);
     // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
     M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
       const cand = M.parados.slice().sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
@@ -1114,14 +1118,26 @@
   const sinTildes = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
   const ALIAS_NACION = { rfa: 'alemania', 'alemania federal': 'alemania', 'alemania occidental': 'alemania', urss: 'union sovietica', 'estados unidos de america': 'estados unidos', holanda: 'paises bajos', 'corea del sur': 'corea del sur' };
   const nacionClave = (s) => ALIAS_NACION[sinTildes(s)] || sinTildes(s);
-  function jugarMundial(M, semilla) {
+  function jugarMundial(M, semilla, R) {
     if (typeof Mundial === 'undefined' || typeof MUNDIALES === 'undefined' || !MUNDIALES) return null;
     const anio = M.anio + 1, ed = MUNDIALES.find((e) => e.anio === anio);
     if (!ed) return null;
     const porNacion = new Map(), refs = new Map();
+    // Quien arrastra una lesión de más de un mes al acabar la temporada se pierde el Mundial.
+    const estados = R ? [R.T].concat((R.otros || []).flatMap((o) => (o.ligas || []).map((l) => l.T))).map((T) => T && T.estado).filter(Boolean) : [];
+    const lesionado = (j) => estados.some((e) => (e.bajas.get(j) || 0) > 4);
+    // Doble nacionalidad: juega con la selección con la que ya jugó; si no, con la primera de las suyas que esté en este Mundial.
+    const enMundial = new Set(Object.values(ed.equipos).map((E) => nacionClave(E.nombre)));
+    const seleccionDe = (j) => {
+      if (j.sel && j.sel.pais) return nacionClave(j.sel.pais);
+      const ns = String(j.nacion).split(/\s*\/\s*/).map(nacionClave);
+      return ns.find((k) => enMundial.has(k)) || ns[0];
+    };
+    const limpio = (n) => sinTildes(String(n).replace(/\s*\(.*\)\s*$/, ''));
+    const retirados = new Set(M.retirados.map((x) => limpio(x.n)));
     M.clubes.forEach((c) => c.jugadores.forEach((j) => {
-      if (j.relleno || !j.nacion) return;
-      const k = nacionClave(j.nacion);
+      if (j.relleno || !j.nacion || lesionado(j)) return;
+      const k = seleccionDe(j);
       if (!porNacion.has(k)) porNacion.set(k, []);
       porNacion.get(k).push({ j, club: c.nombre });
     }));
@@ -1135,10 +1151,10 @@
           // Constante de Mundial: hay jugadores que en un Mundial son otra cosa (Pelé, Mbappé).
           fin: Math.max(j.fin || 1, (K && K.mundial) || 0), rol: j.rol, gol: j.gol };
       });
-      const limpio = (n) => sinTildes(String(n).replace(/\s*\(.*\)\s*$/, ''));
       const nombres = new Set(mios.map((x) => limpio(x.n)));
       const mismo = (x) => { const n = limpio(x.n); return nombres.has(n) || mios.some((y) => { const m = limpio(y.n); return Math.abs((y.nac || 0) - (x.nac || 0)) <= 1 && (m.endsWith(' ' + n) || n.endsWith(' ' + m) || m.split(' ').pop() === n.split(' ').pop()); }); };
-      const todos = mios.concat(E.jugadores.filter((x) => !mismo(x)));
+      // De la convocatoria real no vuelve quien ya se retiró en esta partida.
+      const todos = mios.concat(E.jugadores.filter((x) => !mismo(x) && !retirados.has(limpio(x.n))));
       const lista = [];
       ['POR', 'DEF', 'MED', 'DEL'].forEach((pos) => {
         const cupo = Math.max(pos === 'POR' ? 2 : 4, E.jugadores.filter((x) => x.pos === pos).length);
@@ -1153,7 +1169,7 @@
       if (!j) return;
       j.selT = { pj: x.pj, g: x.g, mundial: anio, pais: x.eq };
       j.sel = j.sel || { pj: 0, g: 0, mundiales: 0, titulos: 0 };
-      j.sel.pj += x.pj; j.sel.g += x.g; j.sel.mundiales++;
+      j.sel.pj += x.pj; j.sel.g += x.g; j.sel.mundiales++; j.sel.pais = x.eq;
       if (x.eq === T.campeon) j.sel.titulos++;
     });
     const mia = (x) => !!(x && x.ref);
@@ -1172,7 +1188,7 @@
       campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
       otros: R.otros.map((o) => ({ pais: o.pais, liga: o.reglas.liga, campeon: o.campeon, subcampeon: o.subcampeon, puestos: (() => { const top = o.ligas.filter((l) => l.nivel === 1); return top.length === 1 && top[0].T ? top[0].T.tabla.slice(0, 4).map((t) => t.nombre) : []; })(), campeones: o.campeones, copa: o.C ? o.C.campeon : null, pichichi: o.premios ? o.premios.pichichi : null }))
     };
-    const MU = jugarMundial(M, semilla + 5);
+    const MU = jugarMundial(M, semilla + 5, R);
     if (MU) { R.MU = MU; resumen.mundial = MU.campeon; }
     M.historia.push(resumen);
     return resumen;
@@ -1182,6 +1198,8 @@
   function verano(M, resumen, r) {
     const R = resumen.R;
     records(M, R);
+    // La categoría en la que se jugó esta temporada se apunta antes de los ascensos y descensos.
+    M.clubes.forEach((c) => { c.divJugada = c.division; });
     resumen.movimientos = categorias(M, R);
     prestigio(M, R);
     banquillos(M, R);

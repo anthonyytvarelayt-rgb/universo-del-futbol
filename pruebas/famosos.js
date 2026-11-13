@@ -15,4 +15,4 @@ fs.readFileSync(path.join(__dirname, 'famosos.csv'), 'utf8').trim().split('\n').
   if (e.length) { mal++; console.log('MAL       ', nombre + ': ' + e.join('; ')); }
 });
 console.log(`${n} famosos: ${n - mal - falta} bien, ${mal} mal, ${falta} no están`);
-process.exit(mal ? 1 : 0);
+process.exit(mal || falta ? 1 : 0);

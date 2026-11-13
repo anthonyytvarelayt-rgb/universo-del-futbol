@@ -57,7 +57,7 @@
 
       // Campeón: matemáticamente o en la última jornada.
       const segundo = d.despues[1];
-      if (lider && segundo && (lider.pts - segundo.pts > quedan * 2 || (quedan === 0))) {
+      if (lider && segundo && (lider.pts - segundo.pts > quedan * (d.puntos || 2) || (quedan === 0))) {
         const ya = quedan > 0 ? `a falta de ${quedan === 1 ? 'una jornada' : NUM[quedan] ? NUM[quedan] + ' jornadas' : quedan + ' jornadas'}` : 'en la última jornada';
         add(200, elige([`¡${mayus(el(lider.nombre))}, campeón de Liga!`, `${mayus(apodo(lider.nombre))}, campeones de Liga`]),
           `${mayus(el(lider.nombre))} se proclama campeón ${ya}, con ${lider.pts} puntos, ${lider.g} victorias y ${lider.gf} goles a favor. ${lider.pts === segundo.pts ? `${mayus(el(segundo.nombre))} empata a puntos, pero pierde por la diferencia de goles.` : `${mayus(el(segundo.nombre))} termina a ${lider.pts - segundo.pts} ${lider.pts - segundo.pts === 1 ? 'punto' : 'puntos'}.`}`);

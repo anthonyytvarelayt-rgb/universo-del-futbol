@@ -206,9 +206,12 @@
     const libres = equipo.jugadores.filter((j) => !fuera.has(j.n));
     const orden = (a, b) => nv(b) - nv(a);
     const por = libres.filter((j) => j.pos === 'POR').sort(orden);
-    const resto = libres.filter((j) => j.pos !== 'POR');
+    let resto = libres.filter((j) => j.pos !== 'POR');
+    // Sin porteros disponibles se pone bajo palos un jugador de campo, que ya no puede ocupar otro puesto.
+    const meta = por[0] || [...resto].sort(orden).reverse()[0];
+    resto = resto.filter((j) => j !== meta);
     const toma = (pos, k) => resto.filter((j) => j.pos === pos).sort(orden).slice(0, k);
-    let xi = [por[0] || resto[0]].concat(toma('DEF', 4), toma('MED', 3), toma('DEL', 3));
+    let xi = [meta].concat(toma('DEF', 4), toma('MED', 3), toma('DEL', 3));
     xi = xi.filter(Boolean);
     const usados = new Set(xi.map((j) => j.n));
     const sobrantes = resto.filter((j) => !usados.has(j.n)).sort(orden);
@@ -290,7 +293,16 @@
     const eventos = [];
 
     // Incidencias: lesiones y expulsiones. Sin cambios (hasta mediados de los 60) el equipo se queda con diez.
-    const menos = [0, 0];
+    // Quien empieza con menos de once (expulsados antes de una prórroga) lo nota desde el principio.
+    const menos = [Math.max(0, 11 - xiL.length), Math.max(0, 11 - xiV.length)];
+    // Cambios: por el lesionado entra un suplente de verdad (el mejor del banquillo, de su puesto si lo hay).
+    const entran = [[], []];
+    const suplente = (k, j) => {
+      const eq = k ? visita : local, xi = k ? xiV : xiL, fuera = k ? o.fueraV : o.fueraL;
+      if (entran[k].length >= o.cambios) return null;
+      const cand = (eq.jugadores || []).filter((x) => !fuera.has(x.n) && !xi.includes(x) && !entran[k].includes(x));
+      return cand.sort((a, b) => (b.pos === j.pos) - (a.pos === j.pos) || nv(b) - nv(a))[0] || null;
+    };
     [xiL, xiV].forEach((xi, k) => xi.forEach((j) => {
       const e = s(j);
       const duro = rol(j) === 'DEF' ? 1.6 : rol(j) === 'POR' ? 0.3 : 1;
@@ -303,8 +315,10 @@
       // Lesiones: más con la edad y con el depósito vacío.
       if (r() < pR) { e.roja = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'roja', quien: j.n, lado: k }); }
       else if (r() < P.pLesion * o.duracion * (o.riesgo ? o.riesgo(j) : 1) * Math.exp(-D(j, 'fis') / 50) * (1 - 0.12 * gr(j, 'hierro'))) {
-        e.lesion = 1; e.salida = Math.floor(r() * minutos) + 1; eventos.push({ min: e.salida, tipo: 'lesion', quien: j.n, lado: k });
-        if (o.cambios > 0) { e.sustituido = true; return; }
+        e.lesion = 1; e.salida = Math.floor(r() * minutos) + 1;
+        const ev = { min: e.salida, tipo: 'lesion', quien: j.n, lado: k }; eventos.push(ev);
+        const sup = suplente(k, j);
+        if (sup) { e.sustituido = true; e.sup = sup; entran[k].push(sup); s(sup).entrada = e.salida; ev.entra = sup.n; return; }
       } else return;
       menos[k] += (minutos - e.salida) / minutos;
     }));
@@ -322,10 +336,10 @@
       { xi: xiL, f: fL, rival: xiV, fr: fV, casa: casaL },
       { xi: xiV, f: fV, rival: xiL, fr: fL, casa: 0 }
     ];
-    // En el campo en el minuto t: quien no se fue (o fue sustituido, en ese caso juega otro igual).
+    // En el campo en el minuto t: quien no se fue, y el suplente en el sitio del lesionado.
     // Si nadie de un equipo se fue antes del final, están todos todo el partido.
-    const completo = new Map([xiL, xiV].map((xi) => [xi, xi.every((j) => { const e = st.get(j); return e.sustituido || e.salida >= minutos; })]));
-    const enCampo = (xi, t) => completo.get(xi) ? xi : xi.filter((j) => { const e = st.get(j); return e.sustituido || e.salida > t; });
+    const completo = new Map([xiL, xiV].map((xi) => [xi, xi.every((j) => st.get(j).salida >= minutos)]));
+    const enCampo = (xi, t) => completo.get(xi) ? xi : xi.map((j) => { const e = st.get(j); return e.sustituido && e.salida <= t ? e.sup : j; }).filter((j) => st.get(j).salida > t);
     const portero = (xi, t) => enCampo(xi, t).find((j) => j.pos === 'POR') || enCampo(xi, t).find((j) => rol(j) === 'DEF') || xi[0];
     const gol = (k, t, autor, asist, tipo) => {
       goles[k]++; s(autor).g++;
@@ -411,7 +425,7 @@
     lados.forEach((lado, k) => {
       const gf = goles[k], gc = goles[1 - k];
       const res = gf > gc ? 0.35 : gf < gc ? -0.35 : 0;
-      lado.xi.forEach((j) => {
+      lado.xi.concat(entran[k]).forEach((j) => {
         const e = st.get(j);
         const ro = rol(j);
         let n = 6 + res + (r() - 0.5) * 0.6;
@@ -422,12 +436,14 @@
         if (ro === 'DEF') n += e.cortes * 0.24 + (gc === 0 ? 0.5 : 0) - gc * 0.15;
         if (ro === 'MED') n += e.cortes * 0.12;
         n -= e.penFallado * 0.6 + (e.penCometido ? 0.5 : 0) + e.roja * 2 + e.amarilla * 0.15;
-        if (e.lesion && !e.sustituido) n = 6 + (n - 6) * (e.salida / minutos);
+        if (e.lesion) n = 6 + (n - 6) * (e.salida / minutos);
         notas.set(j, Math.max(2, Math.min(10, n)));
       });
     });
     eventos.sort((a, b) => a.min - b.min);
-    return { goles, st, notas, xiL, xiV, eventos, estilos, derbi: o.derbi };
+    // Quienes acaban el partido en el campo: son los que juegan la prórroga y tiran los penaltis.
+    const acaban = (xi) => xi.map((j) => { const e = st.get(j); return e.sustituido ? e.sup : j; }).filter((j) => { const e = st.get(j); return !e.roja && !e.lesion; });
+    return { goles, st, notas, xiL, xiV, supL: entran[0], supV: entran[1], finL: acaban(xiL), finV: acaban(xiV), eventos, estilos, derbi: o.derbi };
   }
 
   // Estado que dura toda la temporada: forma de cada jugador, cansancio, ánimo de cada equipo, bajas.
@@ -458,7 +474,7 @@
       derbi: est.derbis.get(local.nombre + '|' + visita.nombre) || null
     }, o));
     const [ga, gb] = m.goles;
-    [[local, ga - gb, m.xiL, gb], [visita, gb - ga, m.xiV, ga]].forEach(([eq, d, xi, contra]) => {
+    [[local, ga - gb, m.xiL.concat(m.supL), gb], [visita, gb - ga, m.xiV.concat(m.supV), ga]].forEach(([eq, d, xi, contra]) => {
       // Rachas: el ánimo sube con las victorias y baja con las derrotas, y se va olvidando.
       // Ganar un derbi pesa el doble en el ánimo.
       est.moral.set(eq, Math.max(-1, Math.min(1, 0.7 * (est.moral.get(eq) || 0) + 0.3 * Math.sign(d) * (m.derbi ? 2 : 1))));
@@ -466,9 +482,12 @@
         const e = m.st.get(j), nota = m.notas.get(j);
         if (!registro.has(j)) registro.set(j, { j, eq, pj: 0, g: 0, a: 0, paradas: 0, ceros: 0, regates: 0, cortes: 0, pases: 0, pasesOk: 0, pen: 0, rojas: 0, amarillas: 0, lesiones: 0, enc: 0, sumaNota: 0 });
         const x = registro.get(j);
-        x.pj++; x.g += e.g; x.a += e.a; x.paradas += e.paradas; x.regates += e.regates; x.cortes += e.cortes;
-        x.pases += e.pases; x.pasesOk += e.pasesOk; x.pen += e.pen; x.rojas += e.roja; x.amarillas += e.amarilla; x.lesiones += e.lesion; x.enc += e.enc; x.sumaNota += nota;
-        if ((j.pos === 'POR' || j.pos === 'DEF') && contra === 0) x.ceros++;
+        // La prórroga es el mismo partido: suma lo que pase en ella, pero no cuenta como otro partido jugado.
+        const cuenta = !o.prorroga || x.pj === 0;
+        if (cuenta) { x.pj++; x.sumaNota += nota; }
+        x.g += e.g; x.a += e.a; x.paradas += e.paradas; x.regates += e.regates; x.cortes += e.cortes;
+        x.pases += e.pases; x.pasesOk += e.pasesOk; x.pen += e.pen; x.rojas += e.roja; x.amarillas += e.amarilla; x.lesiones += e.lesion; x.enc += e.enc;
+        if (cuenta && (j.pos === 'POR' || j.pos === 'DEF') && contra === 0) x.ceros++;
         // Forma: un buen partido da confianza; se mezcla con algo de azar y se va olvidando.
         // Se compara con lo que suele rendir él, para que la racha sea suya y no la de su equipo.
         const habitual = est.habitual.has(j) ? est.habitual.get(j) : nota;
@@ -477,7 +496,7 @@
         // Cansancio: jugar gasta, y gasta más a partir de los 30.
         const t = est.banquillo.get(eq);
         const gasto = (0.035 + Math.max(0, edad(j, est.anio) - 30) * 0.006) * (t && t.actual.fisico ? 0.85 : 1);
-        est.energia.set(j, Math.max(0.3, (est.energia.has(j) ? est.energia.get(j) : 1) - gasto * (e.salida / 90)));
+        est.energia.set(j, Math.max(0.3, (est.energia.has(j) ? est.energia.get(j) : 1) - gasto * ((e.salida - (e.entrada || 0)) / 90)));
         if (e.lesion) {
           // La mayoría son de una a tres semanas; alguna larga, y unas pocas graves (rodilla, rotura) de meses, más con la edad.
           const x2 = r(), grave = 0.03 + Math.max(0, edad(j, est.anio) - 30) * 0.008;
@@ -485,9 +504,10 @@
           est.bajas.set(j, semanas);
           const ev = m.eventos.find((v) => v.tipo === 'lesion' && v.quien === j.n); if (ev) ev.semanas = semanas;
         }
-        if (e.roja) est.bajas.set(j, 1 + (r() < 0.3 ? 1 : 0));
+        // Sanciones: se apunta una semana de más porque la de este partido se descuenta al acabar la jornada.
+        if (e.roja) est.bajas.set(j, 2 + (r() < 0.3 ? 1 : 0));
         // Cinco amarillas, un partido de sanción.
-        if (e.amarilla && !e.roja) { const c = (est.amarillas.get(j) || 0) + 1; est.amarillas.set(j, c % 5); if (c % 5 === 0 && !est.bajas.has(j)) est.bajas.set(j, 1); }
+        if (e.amarilla && !e.roja) { const c = (est.amarillas.get(j) || 0) + 1; est.amarillas.set(j, c % 5); if (c % 5 === 0 && !est.bajas.has(j)) est.bajas.set(j, 2); }
       });
     });
     return m;
@@ -529,13 +549,15 @@
 
   // Calendario de liga a doble vuelta (método del círculo).
   function calendario(n) {
-    const ids = [...Array(n).keys()];
+    // Con un número impar de equipos se añade un hueco: quien cae con él descansa esa jornada.
+    const total = n, ids = [...Array(n % 2 ? n + 1 : n).keys()];
+    n = ids.length;
     const rondas = [];
     for (let r = 0; r < n - 1; r++) {
       const ronda = [];
       for (let i = 0; i < n / 2; i++) {
         const a = ids[i], b = ids[n - 1 - i];
-        ronda.push(r % 2 ? [b, a] : [a, b]);
+        if (a < total && b < total) ronda.push(r % 2 ? [b, a] : [a, b]);
       }
       rondas.push(ronda);
       ids.splice(1, 0, ids.pop());
@@ -670,9 +692,9 @@
       if (unica) {
         let m = juega(A, B, { neutral: true }); partidos.push(resumen(m, A, B));
         let ga = m.goles[0], gb = m.goles[1];
-        if (ga === gb) { m = juega(A, B, { neutral: true, duracion: 1 / 3, marcador: [ga, gb] }); partidos.push(Object.assign(resumen(m, A, B), { prorroga: true })); ga += m.goles[0]; gb += m.goles[1]; }
+        if (ga === gb) { m = juega(A, B, { neutral: true, duracion: 1 / 3, marcador: [ga, gb], prorroga: true, xiL: m.finL, xiV: m.finV }); partidos.push(Object.assign(resumen(m, A, B), { prorroga: true })); ga += m.goles[0]; gb += m.goles[1]; }
         if (ga === gb && penaltis) {
-          const [pa, pb] = tanda(r, m.xiL, m.xiV, nivelDia(est));
+          const [pa, pb] = tanda(r, m.finL, m.finV, nivelDia(est));
           return { a: A.nombre, b: B.nombre, partidos, ganador: (pa > pb ? A : B).nombre, eq: pa > pb ? A : B, penaltis: `${pa}-${pb}` };
         }
         let intentos = 0;
@@ -689,12 +711,12 @@
           let extra = null, fA, fB;
           if (gA === gB && golesFuera) { [fA, fB] = fuera(); if (fA !== fB) return { a: A.nombre, b: B.nombre, partidos, ganador: (fA > fB ? A : B).nombre, eq: fA > fB ? A : B, golesFuera: true }; }
           if (gA === gB && penaltis) {
-            extra = juega(B, A, { duracion: 1 / 3, marcador: [gB, gA] });
+            extra = juega(B, A, { duracion: 1 / 3, marcador: [gB, gA], prorroga: true, xiL: vuelta.finL, xiV: vuelta.finV });
             partidos.push(Object.assign(resumen(extra, B, A), { prorroga: true }));
             gA += extra.goles[1]; gB += extra.goles[0];
             if (gA === gB && golesFuera) { [fA, fB] = fuera(); if (fA !== fB) return { a: A.nombre, b: B.nombre, partidos, ganador: (fA > fB ? A : B).nombre, eq: fA > fB ? A : B, golesFuera: true }; }
             if (gA === gB) {
-              const [pb, pa] = tanda(r, extra.xiL, extra.xiV, nivelDia(est));
+              const [pb, pa] = tanda(r, extra.finL, extra.finV, nivelDia(est));
               return { a: A.nombre, b: B.nombre, partidos, ganador: (pa > pb ? A : B).nombre, eq: pa > pb ? A : B, penaltis: `${pa}-${pb}` };
             }
           }
@@ -703,7 +725,7 @@
         while (gA === gB && intentos++ < 3) {
           let m = juega(A, B, { neutral: true }); partidos.push(Object.assign(resumen(m, A, B), { desempate: true }));
           gA = m.goles[0]; gB = m.goles[1];
-          if (gA === gB) { m = juega(A, B, { neutral: true, duracion: 1 / 3 }); partidos.push(Object.assign(resumen(m, A, B), { prorroga: true })); gA += m.goles[0]; gB += m.goles[1]; }
+          if (gA === gB) { m = juega(A, B, { neutral: true, duracion: 1 / 3, prorroga: true, xiL: m.finL, xiV: m.finV }); partidos.push(Object.assign(resumen(m, A, B), { prorroga: true })); gA += m.goles[0]; gB += m.goles[1]; }
         }
         ganador = gA > gB ? A : gA < gB ? B : (r() < 0.5 ? A : B);
       }

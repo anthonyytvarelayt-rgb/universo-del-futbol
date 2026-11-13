@@ -5,7 +5,7 @@
 import csv, html, io, os, re, subprocess, sys, unicodedata
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-BASE = os.environ.get('BASE_DIR') or os.path.join(AQUI, '..', 'datos', 'base')  # BASE_DIR: para probar en una copia
+BASE = os.environ.get('BASE_DIR') or os.path.join(AQUI, '..', 'datos_fuente', 'base')  # BASE_DIR: para probar en una copia
 SUBIDAS = os.path.join(AQUI, '..', 'uploads', 'hearth')
 HECHOS = os.path.join(BASE, 'importados.txt')
 TIPOS = {
@@ -64,6 +64,7 @@ nuevos = {t: [] for t in TIPOS}
 for ruta in archivos:
     try: texto = html.unescape(open(ruta, encoding='utf-8-sig').read())  # &#39; → ' (copiado de algunas IA)
     except UnicodeDecodeError: print('no es texto:', ruta); continue
+    reconocidos = 0
     for b in bloques(texto):
         filas = list(csv.reader(io.StringIO(b.strip())))
         if not filas: continue
@@ -72,7 +73,10 @@ for ruta in archivos:
         cab = [x.strip().lower() for x in filas[0]]
         nuevos[t] += [dict(zip(cab, [v.strip() for v in f])) for f in filas[1:] if any(v.strip() for v in f)]
         print(os.path.basename(ruta), '→', t, len(filas) - 1, 'filas')
-    hechos.add(os.path.basename(ruta))
+        reconocidos += 1
+    # Solo se da por importado lo que se ha reconocido: un archivo con otra cabecera se queda pendiente y se avisa.
+    if reconocidos: hechos.add(os.path.basename(ruta))
+    else: print('SIN RECONOCER (no se importa):', os.path.basename(ruta))
 
 # Clubes nuevos primero, para que las ligas y carreras los reconozcan.
 for f in nuevos['clubes']:
