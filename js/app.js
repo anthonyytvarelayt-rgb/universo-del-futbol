@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 39, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 40, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1005,6 +1005,7 @@ function edicionEspecial(V) {
     const quien = c.campeon ? botonClub(c.campeon) + marcaSi(c.campeon, real) : c.campeones.length ? c.campeones.map((x) => botonClub(x.club)).join(' ') + (real && !c.campeones.some((x) => real.includes(x.club)) ? marcaDif(`De verdad: ${real}`) : '') : 'sin liga';
     return `<div class="resultado"><span><span>${quien}<small>${esc(pais)} · ${esc(nombreLiga(V, pais))}${C ? ` · ${esc(C.nombre)}: ${esc(C.campeon)}` : ''}${pr.pichichi ? ` · goleador: ${esc(pr.pichichi.nombre)} (${pr.pichichi.g})` : ''}</small></span></span></div>`;
   }).join('');
+  const otras = OTRAS_COPAS.filter(([id]) => campeonOtra(V, id)).map(([id]) => { const C = otraCopa(V, id), f = C.rondas[C.rondas.length - 1].cruces[0]; return `<div class="resultado"><span><span>${botonClub(C.campeon)}<small>${esc(C.nombre)}${f && f.b ? ` · final: ${esc(f.a)} – ${esc(f.b)}` : ''}</small></span></span></div>`; }).join('');
   const pm = premiosMundo(V);
   const podio = `<div class="podio"><article><span class="rotulo">España · campeón de Liga</span><h2>${botonClub(V.campeon)}${marcaSi(V.campeon, campeonRealDe('España', V.anio))}</h2><p>${esc(nombreLiga(V, 'España'))} · ${V.temporada}</p></article>${pm.ganadorMejor ? `<article class="podio-oro"><span class="rotulo">${esc(pm.nombreMejor)}</span><h2>${nombreJ(pm.ganadorMejor.nombre)}</h2><p>${esc(pm.ganadorMejor.club)} · la temporada de una leyenda</p></article>` : ''}</div>`;
   const premios = [
@@ -1030,7 +1031,7 @@ function edicionEspecial(V) {
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return cartel + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>`
+  return cartel + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '')
     + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
     + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
@@ -1130,6 +1131,7 @@ function onceIdeal(G, titulo) {
 // Resumen en texto para pegarlo en un chat o una nota.
 function copiarResumen(btn) {
   const V = cerradas[+btn.dataset.copiar] || S, pm = premiosMundo(V), out = [`⚽ Universo del fútbol · temporada ${V.temporada}`];
+  OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id)) out.push(`🏆 ${otraCopa(V, id).nombre}: ${campeonOtra(V, id)}`); });
   if (V.europa) out.push(`🏆 Copa de Europa: ${V.europa}${EUROPA_REAL[V.anio] && EUROPA_REAL[V.anio] !== V.europa ? ` (de verdad: ${EUROPA_REAL[V.anio]})` : ''}`);
   paisesDe(V).forEach((pais) => { const c = campeonDe(V, pais), pr = premiosDe(V, pais); const quien = c.campeon || c.campeones.map((x) => x.club).join(' y '); if (quien) out.push(`• ${pais}: ${quien}${pr.pichichi ? ` · goleador ${pr.pichichi.nombre} (${pr.pichichi.g})` : ''}`); });
   if (pm.ganadorMejor) out.push(`⭐ ${pm.nombreMejor}: ${pm.ganadorMejor.nombre} (${pm.ganadorMejor.club})`);
@@ -1146,10 +1148,10 @@ function pintarComp() {
   if (!paises.includes(compPais)) compPais = 'España';
   const ligas = ligasDe(V, compPais), C = copaDe(V, compPais);
   const internacionales = cerradaV(V) ? torneosSelecciones(V) : [];
-  const opciones = ligas.map((l) => [l.grupo, l.grupo]).concat(C ? [['copa', C.nombre]] : [], V.R.EU ? [['europa', nombreEuropa(V)]] : [], internacionales.map(({ id, T }) => [id, tituloSeleccion(T)]));
+  const opciones = ligas.map((l) => [l.grupo, l.grupo]).concat(C ? [['copa', C.nombre]] : [], V.R.EU ? [['europa', nombreEuropa(V)]] : [], OTRAS_COPAS.filter(([id]) => otraCopa(V, id)).map(([id]) => [id, otraCopa(V, id).nombre]), internacionales.map(({ id, T }) => [id, tituloSeleccion(T)]));
   if (!opciones.some((o) => o[0] === compSel)) compSel = opciones.length ? opciones[0][0] : '';
   const internacional = internacionales.find((t) => t.id === compSel);
-  const esCopa = compSel === 'copa' || compSel === 'europa' || !!internacional;
+  const esCopa = compSel === 'copa' || compSel === 'europa' || !!otraCopa(V, compSel) || !!internacional;
   const vistas = esCopa ? [['tabla', 'Cuadro'], ['gol', 'Goleadores']] : [['tabla', 'Tabla'], ['res', 'Partidos'], ['gol', 'Goles'], ['fig', 'Figuras'], ['datos', 'Datos']];
   if (!vistas.some((v) => v[0] === compVista)) compVista = 'tabla';
   const cab = `<div class="selectores">
@@ -1314,16 +1316,22 @@ function goleadoresLiga(V, L) {
   xs = xs.filter((x) => x.g > 0).sort((a, b) => b.g - a.g || b.a - a.a).slice(0, 20);
   return xs.length ? xs.map((j, i) => goleadorFila(j, i, j.g, `${j.a} asist.`)).join('') : '<div class="vacio">Todavía no hay goles.</div>';
 }
-function copaSel(V) { return compSel === 'europa' ? V.R.EU : copaDe(V, compPais); }
+// Otras copas internacionales de clubes: UEFA / Europa League, Libertadores e Intercontinental.
+const OTRAS_COPAS = [['uefa', 'UEFA'], ['liber', 'LIB'], ['inter', 'INTER']];
+const otraCopa = (V, id) => { const k = (OTRAS_COPAS.find((x) => x[0] === id) || [])[1]; return k && V.R ? V.R[k] || null : null; };
+const campeonOtra = (V, id) => { const C = otraCopa(V, id); return C && cerradaV(V) ? C.campeon : null; };
+function copaSel(V) { return compSel === 'europa' ? V.R.EU : otraCopa(V, compSel) || copaDe(V, compPais); }
 function rondasCopaVistas(V, C) {
   if (cerradaV(V)) return C.rondas.length;
   if (compSel === 'europa') return rondasVistas('europa');
+  if (compSel === 'inter') return 0;
+  if (otraCopa(V, compSel)) return S.R.EU ? Math.round(rondasVistas('europa') * C.rondas.length / S.R.EU.rondas.length) : 0;
   return compPais === 'España' ? rondasVistas('copa') : Math.round(rondasVistas('copa') * C.rondas.length / S.R.C.rondas.length);
 }
 function cuadroCopa(V) {
   const C = copaSel(V); if (!C) return '<div class="vacio">No se juega esta temporada.</div>';
   const n = rondasCopaVistas(V, C);
-  if (!n) return `<div class="vacio">${compSel === 'europa' ? 'Empieza en otoño.' : 'Empieza en primavera, al terminar la liga.'}</div>`;
+  if (!n) return `<div class="vacio">${compSel === 'inter' ? 'Se juega al acabar la temporada, entre el campeón de Europa y el de América.' : compSel === 'europa' || otraCopa(V, compSel) ? 'Empieza en otoño.' : 'Empieza en primavera, al terminar la liga.'}</div>`;
   const real = compSel === 'europa' ? EUROPA_REAL[V.anio] : null;
   const acabada = n === C.rondas.length;
   return (acabada ? `<div class="cartel"><span>Campeón</span><b>${esc(C.campeon)}${marcaSi(C.campeon, real)}</b></div>` : '')
@@ -1466,6 +1474,7 @@ function palmaresDe(club, jugador, crudo) {
     // Si el campeón nacional sale de la copa (Taça Brasil), es un solo trofeo.
     if (C && C.campeon === cl && !(otroEn(V, pais) || {}).campeonPorCopa) out.push([C.nombre, V.temporada]);
     if (V.europa === cl) out.push([nombreEuropa(V), V.temporada]);
+    OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id) === cl) out.push([otraCopa(V, id).nombre, V.temporada]); });
     if (jugador) {
       const pm = premiosMundo(V), pp = premiosDe(V, pais);
       if (pm.oficiales.length) pm.oficiales.forEach((x) => { if (x.j.nombre === jugador) out.push([x.nombre, V.temporada, 1]); });
@@ -1684,6 +1693,7 @@ function mapaCampeones(ts) {
   const movil = ['Europa'].concat(paises).map((p) => `<details><summary>${esc(p)}</summary>${ts.map((V) => { const c = p === 'Europa' ? [V.europa].filter(Boolean) : campeonDe(V, p).campeon ? [campeonDe(V, p).campeon] : campeonDe(V, p).campeones.map((x) => x.club); return `<div><span>${V.temporada}</span><span>${c.length ? c.map(botonClub).join(' ') : '–'}</span></div>`; }).join('')}</details>`).join('');
   return `<div class="caja" style="margin:18px 0"><span class="rotulo">Mapa de campeones</span><div class="mapa-movil">${movil}</div><div class="mapa-escritorio" style="overflow-x:auto"><table class="mapa"><thead><tr><th></th>${ts.map((V) => `<th>${V.temporada.slice(2)}</th>`).join('')}</tr></thead><tbody>
     <tr><th>Europa</th>${ts.map((V) => celda(V.europa)).join('')}</tr>
+    ${[['uefa', 'UEFA'], ['liber', 'Libertadores'], ['inter', 'Intercont.']].filter(([id]) => ts.some((V) => campeonOtra(V, id))).map(([id, t]) => `<tr><th>${t}</th>${ts.map((V) => celda(campeonOtra(V, id))).join('')}</tr>`).join('')}
     ${paises.map((p) => `<tr><th>${esc(p)}</th>${ts.map((V) => { const c = campeonDe(V, p); return celda(c.campeon || (c.campeones[0] || {}).club); }).join('')}</tr>`).join('')}</tbody></table></div><p class="nota-pie">Toca un escudo para ver el club.</p></div>`;
 }
 // Mejor jugador del mundo y máximo goleador de cada temporada.
@@ -1959,7 +1969,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 39) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 40) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
