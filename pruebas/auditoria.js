@@ -71,5 +71,11 @@ try {
 } catch (e) {
   caso('Mundial: la lista histórica respeta las bajas largas', false, e.message);
 }
+try {
+  require('./continentales.js');
+  caso('Eurocopa y Copa América: formatos, campeones y convocatorias', true);
+} catch (e) {
+  caso('Eurocopa y Copa América: formatos, campeones y convocatorias', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);

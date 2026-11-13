@@ -1,0 +1,1741 @@
+[
+  {
+    "id": "america-1959-argentina",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1959,
+    "anio": 1959,
+    "sede": "Argentina",
+    "anfitriones": [
+      "Argentina"
+    ],
+    "formato": "liga",
+    "grupos": [
+      [
+        "Argentina",
+        "Brasil",
+        "Paraguay",
+        "Perú",
+        "Chile",
+        "Uruguay",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Argentina",
+      "subcampeon": "Brasil",
+      "goleadores": [
+        "Pelé"
+      ],
+      "goles": 8
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/59-1safull.html"
+    ],
+    "etiqueta": "Argentina"
+  },
+  {
+    "id": "america-1959-ecuador",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1959,
+    "anio": 1959,
+    "sede": "Ecuador",
+    "anfitriones": [
+      "Ecuador"
+    ],
+    "formato": "liga",
+    "grupos": [
+      [
+        "Uruguay",
+        "Argentina",
+        "Brasil",
+        "Ecuador",
+        "Paraguay"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "José Sanfilippo"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/59-2safull.html"
+    ],
+    "etiqueta": "Ecuador"
+  },
+  {
+    "id": "euro-1960",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1960,
+    "anio": 1960,
+    "sede": "Francia",
+    "anfitriones": [
+      "Francia"
+    ],
+    "formato": "cuatro",
+    "grupos": [
+      [
+        "Checoslovaquia",
+        "Unión Soviética"
+      ],
+      [
+        "Francia",
+        "Yugoslavia"
+      ]
+    ],
+    "real": {
+      "campeon": "Unión Soviética",
+      "subcampeon": "Yugoslavia",
+      "goleadores": [
+        "Valentin Ivanov",
+        "Viktor Ponedelnik",
+        "Dražen Jerković",
+        "François Heutte",
+        "Milan Galić"
+      ],
+      "goles": 2
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/60e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1960/"
+    ]
+  },
+  {
+    "id": "america-1963",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1963,
+    "anio": 1963,
+    "sede": "Bolivia",
+    "anfitriones": [
+      "Bolivia"
+    ],
+    "formato": "liga",
+    "grupos": [
+      [
+        "Bolivia",
+        "Paraguay",
+        "Argentina",
+        "Brasil",
+        "Perú",
+        "Ecuador",
+        "Colombia"
+      ]
+    ],
+    "real": {
+      "campeon": "Bolivia",
+      "subcampeon": "Paraguay",
+      "goleadores": [
+        "Carlos Alberto Raffo"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/63safull.html"
+    ]
+  },
+  {
+    "id": "euro-1964",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1964,
+    "anio": 1964,
+    "sede": "España",
+    "anfitriones": [
+      "España"
+    ],
+    "formato": "cuatro",
+    "grupos": [
+      [
+        "España",
+        "Hungría"
+      ],
+      [
+        "Unión Soviética",
+        "Dinamarca"
+      ]
+    ],
+    "real": {
+      "campeon": "España",
+      "subcampeon": "Unión Soviética",
+      "goleadores": [
+        "Jesús María Pereda",
+        "Ferenc Bene",
+        "Dezső Novák"
+      ],
+      "goles": 2
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/64e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1964/"
+    ]
+  },
+  {
+    "id": "america-1967",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1967,
+    "anio": 1967,
+    "sede": "Uruguay",
+    "anfitriones": [
+      "Uruguay"
+    ],
+    "formato": "liga",
+    "grupos": [
+      [
+        "Uruguay",
+        "Argentina",
+        "Chile",
+        "Paraguay",
+        "Venezuela",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "Luis Artime"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/67safull.html"
+    ]
+  },
+  {
+    "id": "euro-1968",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1968,
+    "anio": 1968,
+    "sede": "Italia",
+    "anfitriones": [
+      "Italia"
+    ],
+    "formato": "cuatro",
+    "grupos": [
+      [
+        "Italia",
+        "Unión Soviética"
+      ],
+      [
+        "Yugoslavia",
+        "Inglaterra"
+      ]
+    ],
+    "real": {
+      "campeon": "Italia",
+      "subcampeon": "Yugoslavia",
+      "goleadores": [
+        "Dragan Džajić"
+      ],
+      "goles": 2
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/68e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1968/"
+    ]
+  },
+  {
+    "id": "euro-1972",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1972,
+    "anio": 1972,
+    "sede": "Bélgica",
+    "anfitriones": [
+      "Bélgica"
+    ],
+    "formato": "cuatro",
+    "grupos": [
+      [
+        "Alemania Federal",
+        "Bélgica"
+      ],
+      [
+        "Unión Soviética",
+        "Hungría"
+      ]
+    ],
+    "real": {
+      "campeon": "Alemania Federal",
+      "subcampeon": "Unión Soviética",
+      "goleadores": [
+        "Gerd Müller"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/72e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1972/"
+    ]
+  },
+  {
+    "id": "america-1975",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1975,
+    "anio": 1975,
+    "sede": "Sin sede única",
+    "anfitriones": [],
+    "formato": "ida-vuelta",
+    "grupos": [
+      [
+        "Brasil",
+        "Argentina",
+        "Venezuela"
+      ],
+      [
+        "Perú",
+        "Chile",
+        "Bolivia"
+      ],
+      [
+        "Colombia",
+        "Paraguay",
+        "Ecuador"
+      ]
+    ],
+    "real": {
+      "campeon": "Perú",
+      "subcampeon": "Colombia",
+      "goleadores": [
+        "Leopoldo Luque",
+        "Ernesto Díaz"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/75safull.html"
+    ],
+    "campeonExento": "Uruguay"
+  },
+  {
+    "id": "euro-1976",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1976,
+    "anio": 1976,
+    "sede": "Yugoslavia",
+    "anfitriones": [
+      "Yugoslavia"
+    ],
+    "formato": "cuatro",
+    "grupos": [
+      [
+        "Checoslovaquia",
+        "Países Bajos"
+      ],
+      [
+        "Alemania Federal",
+        "Yugoslavia"
+      ]
+    ],
+    "real": {
+      "campeon": "Checoslovaquia",
+      "subcampeon": "Alemania Federal",
+      "goleadores": [
+        "Dieter Müller"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/76e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1976/"
+    ]
+  },
+  {
+    "id": "america-1979",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1979,
+    "anio": 1979,
+    "sede": "Sin sede única",
+    "anfitriones": [],
+    "formato": "ida-vuelta",
+    "grupos": [
+      [
+        "Chile",
+        "Colombia",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "Bolivia",
+        "Argentina"
+      ],
+      [
+        "Paraguay",
+        "Uruguay",
+        "Ecuador"
+      ]
+    ],
+    "real": {
+      "campeon": "Paraguay",
+      "subcampeon": "Chile",
+      "goleadores": [
+        "Jorge Peredo",
+        "Eugenio Morel"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/79safull.html"
+    ],
+    "campeonExento": "Perú"
+  },
+  {
+    "id": "euro-1980",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1980,
+    "anio": 1980,
+    "sede": "Italia",
+    "anfitriones": [
+      "Italia"
+    ],
+    "formato": "ocho-final",
+    "grupos": [
+      [
+        "Alemania Federal",
+        "Checoslovaquia",
+        "Países Bajos",
+        "Grecia"
+      ],
+      [
+        "Bélgica",
+        "Italia",
+        "Inglaterra",
+        "España"
+      ]
+    ],
+    "real": {
+      "campeon": "Alemania Federal",
+      "subcampeon": "Bélgica",
+      "goleadores": [
+        "Klaus Allofs"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/80e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1980/"
+    ]
+  },
+  {
+    "id": "america-1983",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1983,
+    "anio": 1983,
+    "sede": "Sin sede única",
+    "anfitriones": [],
+    "formato": "ida-vuelta",
+    "grupos": [
+      [
+        "Uruguay",
+        "Chile",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "Argentina",
+        "Ecuador"
+      ],
+      [
+        "Perú",
+        "Colombia",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Brasil",
+      "goleadores": [
+        "Jorge Burruchaga",
+        "Roberto Dinamite",
+        "Carlos Aguilera"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/83safull.html"
+    ],
+    "campeonExento": "Paraguay"
+  },
+  {
+    "id": "euro-1984",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1984,
+    "anio": 1984,
+    "sede": "Francia",
+    "anfitriones": [
+      "Francia"
+    ],
+    "formato": "ocho",
+    "grupos": [
+      [
+        "Francia",
+        "Dinamarca",
+        "Bélgica",
+        "Yugoslavia"
+      ],
+      [
+        "España",
+        "Portugal",
+        "Alemania Federal",
+        "Rumania"
+      ]
+    ],
+    "real": {
+      "campeon": "Francia",
+      "subcampeon": "España",
+      "goleadores": [
+        "Michel Platini"
+      ],
+      "goles": 9
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/84e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1984/"
+    ]
+  },
+  {
+    "id": "america-1987",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1987,
+    "anio": 1987,
+    "sede": "Argentina",
+    "anfitriones": [
+      "Argentina"
+    ],
+    "formato": "campeon-semifinal",
+    "grupos": [
+      [
+        "Argentina",
+        "Perú",
+        "Ecuador"
+      ],
+      [
+        "Chile",
+        "Brasil",
+        "Venezuela"
+      ],
+      [
+        "Colombia",
+        "Bolivia",
+        "Paraguay"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Chile",
+      "goleadores": [
+        "Arnoldo Iguarán"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/87safull.html"
+    ],
+    "campeonExento": "Uruguay"
+  },
+  {
+    "id": "euro-1988",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1988,
+    "anio": 1988,
+    "sede": "Alemania Federal",
+    "anfitriones": [
+      "Alemania Federal"
+    ],
+    "formato": "ocho",
+    "grupos": [
+      [
+        "Alemania Federal",
+        "Italia",
+        "España",
+        "Dinamarca"
+      ],
+      [
+        "Unión Soviética",
+        "Países Bajos",
+        "Irlanda",
+        "Inglaterra"
+      ]
+    ],
+    "real": {
+      "campeon": "Países Bajos",
+      "subcampeon": "Unión Soviética",
+      "goleadores": [
+        "Marco van Basten"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/88e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1988/"
+    ]
+  },
+  {
+    "id": "america-1989",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1989,
+    "anio": 1989,
+    "sede": "Brasil",
+    "anfitriones": [
+      "Brasil"
+    ],
+    "formato": "liguilla-final",
+    "grupos": [
+      [
+        "Brasil",
+        "Paraguay",
+        "Colombia",
+        "Perú",
+        "Venezuela"
+      ],
+      [
+        "Uruguay",
+        "Argentina",
+        "Chile",
+        "Ecuador",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Uruguay",
+      "goleadores": [
+        "Bebeto"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/89safull.html"
+    ]
+  },
+  {
+    "id": "america-1991",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1991,
+    "anio": 1991,
+    "sede": "Chile",
+    "anfitriones": [
+      "Chile"
+    ],
+    "formato": "liguilla-final",
+    "grupos": [
+      [
+        "Argentina",
+        "Chile",
+        "Paraguay",
+        "Perú",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "Colombia",
+        "Uruguay",
+        "Ecuador",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Argentina",
+      "subcampeon": "Brasil",
+      "goleadores": [
+        "Gabriel Batistuta"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/91safull.html"
+    ]
+  },
+  {
+    "id": "euro-1992",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1992,
+    "anio": 1992,
+    "sede": "Suecia",
+    "anfitriones": [
+      "Suecia"
+    ],
+    "formato": "ocho",
+    "grupos": [
+      [
+        "Suecia",
+        "Dinamarca",
+        "Francia",
+        "Inglaterra"
+      ],
+      [
+        "Países Bajos",
+        "Alemania",
+        "Escocia",
+        "Comunidad de Estados Independientes"
+      ]
+    ],
+    "real": {
+      "campeon": "Dinamarca",
+      "subcampeon": "Alemania",
+      "goleadores": [
+        "Dennis Bergkamp",
+        "Tomas Brolin",
+        "Henrik Larsen",
+        "Karl-Heinz Riedle"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/92e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1992/"
+    ]
+  },
+  {
+    "id": "america-1993",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1993,
+    "anio": 1993,
+    "sede": "Ecuador",
+    "anfitriones": [
+      "Ecuador"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Ecuador",
+        "Uruguay",
+        "Venezuela",
+        "Estados Unidos"
+      ],
+      [
+        "Perú",
+        "Brasil",
+        "Paraguay",
+        "Chile"
+      ],
+      [
+        "Colombia",
+        "Argentina",
+        "México",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Argentina",
+      "subcampeon": "México",
+      "goleadores": [
+        "José Luis Dolgetta"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/93safull.html"
+    ]
+  },
+  {
+    "id": "america-1995",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1995,
+    "anio": 1995,
+    "sede": "Uruguay",
+    "anfitriones": [
+      "Uruguay"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Uruguay",
+        "Paraguay",
+        "México",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "Colombia",
+        "Ecuador",
+        "Perú"
+      ],
+      [
+        "Estados Unidos",
+        "Argentina",
+        "Bolivia",
+        "Chile"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Brasil",
+      "goleadores": [
+        "Gabriel Batistuta",
+        "Luis García"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/95safull.html"
+    ]
+  },
+  {
+    "id": "euro-1996",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 1996,
+    "anio": 1996,
+    "sede": "Inglaterra",
+    "anfitriones": [
+      "Inglaterra"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Inglaterra",
+        "Países Bajos",
+        "Escocia",
+        "Suiza"
+      ],
+      [
+        "Francia",
+        "España",
+        "Bulgaria",
+        "Rumania"
+      ],
+      [
+        "Alemania",
+        "República Checa",
+        "Italia",
+        "Rusia"
+      ],
+      [
+        "Portugal",
+        "Croacia",
+        "Dinamarca",
+        "Turquía"
+      ]
+    ],
+    "real": {
+      "campeon": "Alemania",
+      "subcampeon": "República Checa",
+      "goleadores": [
+        "Alan Shearer"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/96e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/1996/"
+    ]
+  },
+  {
+    "id": "america-1997",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1997,
+    "anio": 1997,
+    "sede": "Bolivia",
+    "anfitriones": [
+      "Bolivia"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Ecuador",
+        "Argentina",
+        "Paraguay",
+        "Chile"
+      ],
+      [
+        "Bolivia",
+        "Perú",
+        "Uruguay",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "México",
+        "Colombia",
+        "Costa Rica"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Bolivia",
+      "goleadores": [
+        "Luis Hernández"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/97safull.html"
+    ]
+  },
+  {
+    "id": "america-1999",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 1999,
+    "anio": 1999,
+    "sede": "Paraguay",
+    "anfitriones": [
+      "Paraguay"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Paraguay",
+        "Perú",
+        "Bolivia",
+        "Japón"
+      ],
+      [
+        "Brasil",
+        "México",
+        "Chile",
+        "Venezuela"
+      ],
+      [
+        "Colombia",
+        "Argentina",
+        "Uruguay",
+        "Ecuador"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Uruguay",
+      "goleadores": [
+        "Rivaldo",
+        "Ronaldo"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/99safull.html"
+    ]
+  },
+  {
+    "id": "euro-2000",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2000,
+    "anio": 2000,
+    "sede": "Bélgica / Países Bajos",
+    "anfitriones": [
+      "Bélgica",
+      "Países Bajos"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Portugal",
+        "Rumania",
+        "Inglaterra",
+        "Alemania"
+      ],
+      [
+        "Italia",
+        "Turquía",
+        "Bélgica",
+        "Suecia"
+      ],
+      [
+        "España",
+        "Yugoslavia",
+        "Noruega",
+        "Eslovenia"
+      ],
+      [
+        "Países Bajos",
+        "Francia",
+        "República Checa",
+        "Dinamarca"
+      ]
+    ],
+    "real": {
+      "campeon": "Francia",
+      "subcampeon": "Italia",
+      "goleadores": [
+        "Patrick Kluivert",
+        "Savo Milošević"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/00e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2000/"
+    ]
+  },
+  {
+    "id": "america-2001",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2001,
+    "anio": 2001,
+    "sede": "Colombia",
+    "anfitriones": [
+      "Colombia"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Colombia",
+        "Chile",
+        "Ecuador",
+        "Venezuela"
+      ],
+      [
+        "Brasil",
+        "México",
+        "Perú",
+        "Paraguay"
+      ],
+      [
+        "Costa Rica",
+        "Honduras",
+        "Uruguay",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Colombia",
+      "subcampeon": "México",
+      "goleadores": [
+        "Víctor Aristizábal"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2001safull.html"
+    ]
+  },
+  {
+    "id": "america-2004",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2004,
+    "anio": 2004,
+    "sede": "Perú",
+    "anfitriones": [
+      "Perú"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Colombia",
+        "Perú",
+        "Bolivia",
+        "Venezuela"
+      ],
+      [
+        "México",
+        "Argentina",
+        "Uruguay",
+        "Ecuador"
+      ],
+      [
+        "Paraguay",
+        "Brasil",
+        "Costa Rica",
+        "Chile"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "Adriano"
+      ],
+      "goles": 7
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2004safull.html"
+    ]
+  },
+  {
+    "id": "euro-2004",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2004,
+    "anio": 2004,
+    "sede": "Portugal",
+    "anfitriones": [
+      "Portugal"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Portugal",
+        "Grecia",
+        "España",
+        "Rusia"
+      ],
+      [
+        "Francia",
+        "Inglaterra",
+        "Croacia",
+        "Suiza"
+      ],
+      [
+        "Suecia",
+        "Dinamarca",
+        "Italia",
+        "Bulgaria"
+      ],
+      [
+        "República Checa",
+        "Países Bajos",
+        "Alemania",
+        "Letonia"
+      ]
+    ],
+    "real": {
+      "campeon": "Grecia",
+      "subcampeon": "Portugal",
+      "goleadores": [
+        "Milan Baroš"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/04e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2004/"
+    ]
+  },
+  {
+    "id": "america-2007",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2007,
+    "anio": 2007,
+    "sede": "Venezuela",
+    "anfitriones": [
+      "Venezuela"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Venezuela",
+        "Perú",
+        "Uruguay",
+        "Bolivia"
+      ],
+      [
+        "México",
+        "Brasil",
+        "Chile",
+        "Ecuador"
+      ],
+      [
+        "Argentina",
+        "Paraguay",
+        "Colombia",
+        "Estados Unidos"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "Robinho"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2007safull.html"
+    ]
+  },
+  {
+    "id": "euro-2008",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2008,
+    "anio": 2008,
+    "sede": "Austria / Suiza",
+    "anfitriones": [
+      "Austria",
+      "Suiza"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Portugal",
+        "Turquía",
+        "República Checa",
+        "Suiza"
+      ],
+      [
+        "Croacia",
+        "Alemania",
+        "Austria",
+        "Polonia"
+      ],
+      [
+        "Países Bajos",
+        "Italia",
+        "Rumania",
+        "Francia"
+      ],
+      [
+        "España",
+        "Rusia",
+        "Suecia",
+        "Grecia"
+      ]
+    ],
+    "real": {
+      "campeon": "España",
+      "subcampeon": "Alemania",
+      "goleadores": [
+        "David Villa"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/08e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2008/"
+    ]
+  },
+  {
+    "id": "america-2011",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2011,
+    "anio": 2011,
+    "sede": "Argentina",
+    "anfitriones": [
+      "Argentina"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Colombia",
+        "Argentina",
+        "Costa Rica",
+        "Bolivia"
+      ],
+      [
+        "Brasil",
+        "Venezuela",
+        "Paraguay",
+        "Ecuador"
+      ],
+      [
+        "Chile",
+        "Uruguay",
+        "Perú",
+        "México"
+      ]
+    ],
+    "real": {
+      "campeon": "Uruguay",
+      "subcampeon": "Paraguay",
+      "goleadores": [
+        "Paolo Guerrero"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2011safull.html"
+    ]
+  },
+  {
+    "id": "euro-2012",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2012,
+    "anio": 2012,
+    "sede": "Polonia / Ucrania",
+    "anfitriones": [
+      "Polonia",
+      "Ucrania"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "República Checa",
+        "Grecia",
+        "Rusia",
+        "Polonia"
+      ],
+      [
+        "Alemania",
+        "Portugal",
+        "Dinamarca",
+        "Países Bajos"
+      ],
+      [
+        "España",
+        "Italia",
+        "Croacia",
+        "Irlanda"
+      ],
+      [
+        "Inglaterra",
+        "Francia",
+        "Ucrania",
+        "Suecia"
+      ]
+    ],
+    "real": {
+      "campeon": "España",
+      "subcampeon": "Italia",
+      "goleadores": [
+        "Fernando Torres",
+        "Mario Gómez",
+        "Alan Dzagoev",
+        "Mario Mandžukić",
+        "Cristiano Ronaldo",
+        "Mario Balotelli"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2012e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2012/"
+    ]
+  },
+  {
+    "id": "america-2015",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2015,
+    "anio": 2015,
+    "sede": "Chile",
+    "anfitriones": [
+      "Chile"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Chile",
+        "Bolivia",
+        "Ecuador",
+        "México"
+      ],
+      [
+        "Argentina",
+        "Paraguay",
+        "Uruguay",
+        "Jamaica"
+      ],
+      [
+        "Brasil",
+        "Perú",
+        "Colombia",
+        "Venezuela"
+      ]
+    ],
+    "real": {
+      "campeon": "Chile",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "Paolo Guerrero",
+        "Eduardo Vargas"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2015safull.html"
+    ]
+  },
+  {
+    "id": "america-2016",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2016,
+    "anio": 2016,
+    "sede": "Estados Unidos",
+    "anfitriones": [
+      "Estados Unidos"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Estados Unidos",
+        "Colombia",
+        "Costa Rica",
+        "Paraguay"
+      ],
+      [
+        "Perú",
+        "Ecuador",
+        "Brasil",
+        "Haití"
+      ],
+      [
+        "México",
+        "Venezuela",
+        "Uruguay",
+        "Jamaica"
+      ],
+      [
+        "Argentina",
+        "Chile",
+        "Panamá",
+        "Bolivia"
+      ]
+    ],
+    "real": {
+      "campeon": "Chile",
+      "subcampeon": "Argentina",
+      "goleadores": [
+        "Eduardo Vargas"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2016safull.html"
+    ]
+  },
+  {
+    "id": "euro-2016",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2016,
+    "anio": 2016,
+    "sede": "Francia",
+    "anfitriones": [
+      "Francia"
+    ],
+    "formato": "veinticuatro",
+    "grupos": [
+      [
+        "Francia",
+        "Suiza",
+        "Albania",
+        "Rumania"
+      ],
+      [
+        "Gales",
+        "Inglaterra",
+        "Eslovaquia",
+        "Rusia"
+      ],
+      [
+        "Alemania",
+        "Polonia",
+        "Irlanda del Norte",
+        "Ucrania"
+      ],
+      [
+        "Croacia",
+        "España",
+        "Turquía",
+        "República Checa"
+      ],
+      [
+        "Italia",
+        "Bélgica",
+        "Irlanda",
+        "Suecia"
+      ],
+      [
+        "Hungría",
+        "Islandia",
+        "Portugal",
+        "Austria"
+      ]
+    ],
+    "real": {
+      "campeon": "Portugal",
+      "subcampeon": "Francia",
+      "goleadores": [
+        "Antoine Griezmann"
+      ],
+      "goles": 6
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2016e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2016/"
+    ]
+  },
+  {
+    "id": "america-2019",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2019,
+    "anio": 2019,
+    "sede": "Brasil",
+    "anfitriones": [
+      "Brasil"
+    ],
+    "formato": "doce",
+    "grupos": [
+      [
+        "Brasil",
+        "Venezuela",
+        "Perú",
+        "Bolivia"
+      ],
+      [
+        "Colombia",
+        "Argentina",
+        "Paraguay",
+        "Qatar"
+      ],
+      [
+        "Uruguay",
+        "Chile",
+        "Japón",
+        "Ecuador"
+      ]
+    ],
+    "real": {
+      "campeon": "Brasil",
+      "subcampeon": "Perú",
+      "goleadores": [
+        "Everton",
+        "Paolo Guerrero"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2019safull.html"
+    ]
+  },
+  {
+    "id": "america-2021",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2021,
+    "anio": 2021,
+    "sede": "Brasil",
+    "anfitriones": [
+      "Brasil"
+    ],
+    "formato": "diez-dos-grupos",
+    "grupos": [
+      [
+        "Argentina",
+        "Uruguay",
+        "Paraguay",
+        "Chile",
+        "Bolivia"
+      ],
+      [
+        "Brasil",
+        "Perú",
+        "Colombia",
+        "Ecuador",
+        "Venezuela"
+      ]
+    ],
+    "real": {
+      "campeon": "Argentina",
+      "subcampeon": "Brasil",
+      "goleadores": [
+        "Lionel Messi",
+        "Luis Díaz"
+      ],
+      "goles": 4
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2021safull.html"
+    ]
+  },
+  {
+    "id": "euro-2020",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2020,
+    "anio": 2021,
+    "sede": "Europa (11 sedes)",
+    "anfitriones": [
+      "Inglaterra",
+      "Escocia",
+      "Alemania",
+      "España",
+      "Italia",
+      "Dinamarca",
+      "Rusia",
+      "Países Bajos",
+      "Hungría",
+      "Rumania",
+      "Azerbaiyán"
+    ],
+    "formato": "veinticuatro",
+    "grupos": [
+      [
+        "Italia",
+        "Gales",
+        "Suiza",
+        "Turquía"
+      ],
+      [
+        "Bélgica",
+        "Dinamarca",
+        "Finlandia",
+        "Rusia"
+      ],
+      [
+        "Países Bajos",
+        "Austria",
+        "Ucrania",
+        "Macedonia del Norte"
+      ],
+      [
+        "Inglaterra",
+        "Croacia",
+        "República Checa",
+        "Escocia"
+      ],
+      [
+        "Suecia",
+        "España",
+        "Eslovaquia",
+        "Polonia"
+      ],
+      [
+        "Francia",
+        "Alemania",
+        "Portugal",
+        "Hungría"
+      ]
+    ],
+    "real": {
+      "campeon": "Italia",
+      "subcampeon": "Inglaterra",
+      "goleadores": [
+        "Cristiano Ronaldo",
+        "Patrik Schick"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2020e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2020/"
+    ]
+  },
+  {
+    "id": "america-2024",
+    "competicion": "AMERICA",
+    "nombre": "Copa América",
+    "edicion": 2024,
+    "anio": 2024,
+    "sede": "Estados Unidos",
+    "anfitriones": [
+      "Estados Unidos"
+    ],
+    "formato": "dieciseis",
+    "grupos": [
+      [
+        "Argentina",
+        "Canadá",
+        "Chile",
+        "Perú"
+      ],
+      [
+        "Venezuela",
+        "Ecuador",
+        "México",
+        "Jamaica"
+      ],
+      [
+        "Uruguay",
+        "Panamá",
+        "Estados Unidos",
+        "Bolivia"
+      ],
+      [
+        "Colombia",
+        "Brasil",
+        "Costa Rica",
+        "Paraguay"
+      ]
+    ],
+    "real": {
+      "campeon": "Argentina",
+      "subcampeon": "Colombia",
+      "goleadores": [
+        "Lautaro Martínez"
+      ],
+      "goles": 5
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2024safull.html"
+    ]
+  },
+  {
+    "id": "euro-2024",
+    "competicion": "EURO",
+    "nombre": "Eurocopa",
+    "edicion": 2024,
+    "anio": 2024,
+    "sede": "Alemania",
+    "anfitriones": [
+      "Alemania"
+    ],
+    "formato": "veinticuatro",
+    "grupos": [
+      [
+        "Alemania",
+        "Suiza",
+        "Hungría",
+        "Escocia"
+      ],
+      [
+        "España",
+        "Italia",
+        "Croacia",
+        "Albania"
+      ],
+      [
+        "Inglaterra",
+        "Dinamarca",
+        "Eslovenia",
+        "Serbia"
+      ],
+      [
+        "Austria",
+        "Francia",
+        "Países Bajos",
+        "Polonia"
+      ],
+      [
+        "Rumania",
+        "Bélgica",
+        "Eslovaquia",
+        "Ucrania"
+      ],
+      [
+        "Portugal",
+        "Turquía",
+        "Georgia",
+        "República Checa"
+      ]
+    ],
+    "real": {
+      "campeon": "España",
+      "subcampeon": "Inglaterra",
+      "goleadores": [
+        "Harry Kane",
+        "Dani Olmo",
+        "Ivan Schranz",
+        "Jamal Musiala",
+        "Cody Gakpo",
+        "Georges Mikautadze"
+      ],
+      "goles": 3
+    },
+    "fuentes": [
+      "https://www.rsssf.org/tables/2024e.html",
+      "https://www.uefa.com/uefaeuro/history/seasons/2024/"
+    ]
+  }
+]

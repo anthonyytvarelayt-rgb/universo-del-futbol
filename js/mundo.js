@@ -1522,6 +1522,7 @@
     };
     const MU = jugarMundial(M, semilla + 5, R);
     if (MU) { R.MU = MU; resumen.mundial = MU.campeon; }
+    if (typeof Continentales !== 'undefined') Continentales.jugar(M, semilla + 11, R);
     M.historia.push(resumen);
     return resumen;
   }

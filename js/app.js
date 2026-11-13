@@ -92,7 +92,7 @@ function crearSimulador() {
   };
   try {
     // En la página de un solo archivo el código va dentro de cada etiqueta; en el sitio por archivos, el trabajador los importa por su dirección.
-    const fuentes = ['src-motor', 'src-atributos', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
+    const fuentes = ['src-motor', 'src-atributos', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-continentales-datos', 'src-continentales', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
     const codigo = `${fuentes}\n;const atender = (${cuerpoSimulador.toString()})(self);\nself.onmessage = (e) => atender(e.data, (x) => self.postMessage(x));`;
     const w = new Worker(URL.createObjectURL(new Blob([codigo], { type: 'text/javascript' })));
     w.onmessage = (e) => recibir(e.data);
@@ -612,6 +612,7 @@ function premiosMundo(V) {
   const finalEU = R.EU && cerradaV(V) ? R.EU.rondas[R.EU.rondas.length - 1].cruces[0] : null;
   const sel = (n) => sinTildes(n || '').replace('alemania federal', 'alemania').replace('rfa', 'alemania');
   const MU = R.MU && cerradaV(V) ? R.MU : null;
+  const continentales = cerradaV(V) ? [R.EURO].concat(R.AMERICA || []).filter(Boolean) : [];
   // Porteros y defensas casi nunca lo ganan: necesitan un año mucho mejor que el de los atacantes.
   // Los títulos premian a quien los ganó de verdad: cuentan enteros para la figura del equipo, algo menos para sus
   // dos escuderos y poco para los demás (antes un suplente del campeón de Europa le quitaba el Balón a Messi).
@@ -627,7 +628,8 @@ function premiosMundo(V) {
   const merito = (x) => x.notaTemp - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x)
     + peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0))
-    + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0);
+    + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0)
+    + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
   const porMerito = (a, b) => merito(b) - merito(a);
   const calc = {
     balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porMerito, 15),
@@ -1028,7 +1030,7 @@ function edicionEspecial(V) {
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return cartel + podio + mundialCaja(V) + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>`
+  return cartel + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>`
     + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
     + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
@@ -1140,9 +1142,11 @@ function pintarComp() {
   const V = VT(), paises = paisesDe(V);
   if (!paises.includes(compPais)) compPais = 'España';
   const ligas = ligasDe(V, compPais), C = copaDe(V, compPais);
-  const opciones = ligas.map((l) => [l.grupo, l.grupo]).concat(C ? [['copa', C.nombre]] : [], V.R.EU ? [['europa', nombreEuropa(V)]] : [], V.R.MU && cerradaV(V) ? [['mundial', 'Mundial ' + V.R.MU.anio]] : []);
+  const internacionales = cerradaV(V) ? torneosSelecciones(V) : [];
+  const opciones = ligas.map((l) => [l.grupo, l.grupo]).concat(C ? [['copa', C.nombre]] : [], V.R.EU ? [['europa', nombreEuropa(V)]] : [], internacionales.map(({ id, T }) => [id, tituloSeleccion(T)]));
   if (!opciones.some((o) => o[0] === compSel)) compSel = opciones.length ? opciones[0][0] : '';
-  const esCopa = compSel === 'copa' || compSel === 'europa' || compSel === 'mundial';
+  const internacional = internacionales.find((t) => t.id === compSel);
+  const esCopa = compSel === 'copa' || compSel === 'europa' || !!internacional;
   const vistas = esCopa ? [['tabla', 'Cuadro'], ['gol', 'Goleadores']] : [['tabla', 'Tabla'], ['res', 'Partidos'], ['gol', 'Goles'], ['fig', 'Figuras'], ['datos', 'Datos']];
   if (!vistas.some((v) => v[0] === compVista)) compVista = 'tabla';
   const cab = `<div class="selectores">
@@ -1152,7 +1156,7 @@ function pintarComp() {
     </div>`;
   let cuerpo;
   if (!opciones.length) cuerpo = `<div class="vacio">Esta temporada no hay liga en ${esc(compPais)}.</div>`;
-  else if (compSel === 'mundial') cuerpo = mundialHtml(V, compVista === 'gol');
+  else if (internacional) cuerpo = mundialHtml(V, compVista === 'gol', internacional.T);
   else if (esCopa) cuerpo = compVista === 'gol' ? goleadoresCopa(V) : cuadroCopa(V);
   else {
     const L = ligas.find((l) => l.grupo === compSel);
@@ -1160,39 +1164,58 @@ function pintarComp() {
   }
   $('s-comp').innerHTML = cab + cuerpo;
 }
+function torneosSelecciones(V) {
+  const R = V.R || {}, r = [];
+  if (R.MU) r.push({ id: 'mundial', T: R.MU });
+  if (R.EURO) r.push({ id: R.EURO.id, T: R.EURO });
+  [].concat(R.AMERICA || []).forEach((T) => r.push({ id: T.id, T }));
+  return r;
+}
+const tituloSeleccion = (T) => `${T.nombre || 'Mundial'} ${T.edicion || T.anio}${T.etiqueta ? ' · ' + T.etiqueta : ''}`;
+function diferenciaSubcampeon(T) {
+  return T.referencia && T.referencia.subcampeon !== T.subcampeon ? marcaDif('De verdad fue subcampeón ' + T.referencia.subcampeon) : '';
+}
+function diferenciaGoleador(T) {
+  const real = T.referencia, p = T.premios.botaOro;
+  if (!real || !real.goleadores || !p) return '';
+  const igual = real.goleadores.some((n) => sinTildes(n) === sinTildes(p.n));
+  return igual && real.goles === p.g ? '' : marcaDif(`De verdad: ${real.goleadores.join(', ')} (${real.goles} goles)`);
+}
+
 // ---------- Mundial ----------
 // El Mundial se juega al acabar la temporada (cada cuatro años) con las selecciones que fueron de verdad,
 // pero con los jugadores de la partida. Los que no juegan en las ligas de la partida salen de su convocatoria real.
 const mundialCampeon = (T) => `${esc(T.campeon)}${T.real && T.anio < 2026 && T.real !== T.campeon ? marcaDif(`De verdad lo ganó ${T.real}`) : ''}`;
-function mundialCaja(V) {
-  const T = V.R && V.R.MU;
+function mundialCaja(V, T = V.R && V.R.MU, id = 'mundial') {
   if (!T) return '';
   const P = T.premios, mios = T.jugadores.filter((x) => x.mio && x.g > 0).sort((a, b) => b.g - a.g).slice(0, 5);
-  return `<div class="caja mundial"><span class="rotulo">Mundial ${T.anio} · ${esc(T.sede)}</span>
-    <div class="crack"><span class="estrella" aria-hidden="true">🏆</span><span><b>${mundialCampeon(T)}</b><small>Campeón del mundo${T.subcampeon ? ` · final ante ${esc(T.subcampeon)}` : ''}</small></span></div>
-    ${P.botaOro ? `<div class="resultado"><span><span>${nombreJ(P.botaOro.n)}<small>Bota de Oro · ${esc(P.botaOro.eq)}</small></span></span><span>${P.botaOro.g} goles</span></div>` : ''}
+  return `<div class="caja mundial"><span class="rotulo">${esc(tituloSeleccion(T))} · ${esc(T.sede)}</span>
+    <div class="crack"><span class="estrella" aria-hidden="true">🏆</span><span><b>${mundialCampeon(T)}</b><small>${T.nombre ? 'Campeón continental' : 'Campeón del mundo'}${T.subcampeon ? ` · subcampeón ${esc(T.subcampeon)}${diferenciaSubcampeon(T)}` : ''}</small></span></div>
+    ${P.botaOro ? `<div class="resultado"><span><span>${nombreJ(P.botaOro.n)}<small>Bota de Oro · ${esc(P.botaOro.eq)}</small></span></span><span>${P.botaOro.g} goles${diferenciaGoleador(T)}</span></div>` : ''}
     ${P.balonOro ? `<div class="resultado"><span><span>${nombreJ(P.balonOro.n)}<small>Mejor jugador · ${esc(P.balonOro.eq)}</small></span></span><span>${String(P.balonOro.nota).replace('.', ',')}</span></div>` : ''}
     ${mios.length ? `<p class="nota-pie">De tus ligas: ${mios.map((x) => `${esc(x.n)} (${x.g})`).join(', ')}.</p>` : ''}
-    <button type="button" class="nombre" data-ir-mundial>Ver el Mundial entero</button></div>`;
+    <button type="button" class="nombre" data-ir-seleccion="${esc(id)}">Ver ${esc(tituloSeleccion(T))}</button></div>`;
 }
-function mundialHtml(V, goles) {
-  const T = V.R.MU;
-  if (goles) return `<div class="caja"><span class="rotulo">Goleadores del Mundial ${T.anio}</span>${T.premios.goleadores.map((x, i) => `<div class="goleador"><span class="n">${i + 1}</span><span class="quien">${nombreJ(x.n)}<small>${esc(x.eq)} · ${x.pj} partidos</small></span><b>${x.g}</b></div>`).join('')}</div>`;
-  const marcador = (p) => `${p.ga}-${p.gb}${p.prorroga ? ' (pró.)' : ''}${p.penaltis ? ` · pen. ${Array.isArray(p.penaltis) ? p.penaltis.slice(0, 2).join('-') : p.penaltis}` : ''}`;
+function mundialHtml(V, goles, T = V.R.MU) {
+  if (goles) return `<div class="caja"><span class="rotulo">Goleadores · ${esc(tituloSeleccion(T))}</span>${T.premios.goleadores.map((x, i) => `<div class="goleador"><span class="n">${i + 1}</span><span class="quien">${nombreJ(x.n)}<small>${esc(x.eq)} · ${x.pj} partidos</small></span><b>${x.g}${i === 0 ? diferenciaGoleador(T) : ''}</b></div>`).join('')}</div>`;
+  const marcador = (p) => `${p.ga}-${p.gb}${p.prorroga ? ' (pró.)' : ''}${p.sorteo ? ' · sorteo' : ''}${p.ronda === 'Ida' || p.ronda === 'Vuelta' || p.ronda === 'Desempate' ? ' · ' + p.ronda : ''}${p.penaltis ? ` · pen. ${Array.isArray(p.penaltis) ? p.penaltis.slice(0, 2).join('-') : p.penaltis}` : ''}`;
   const fases = [...T.fases].reverse().map((F) => {
-    if (F.tipo === 'grupos') return `<div class="ronda"><h3>${esc(F.nombre)}</h3>${F.grupos.map((g) => `<div class="grupo"><h4>${esc(g.nombre)}</h4><table class="tabla mini"><thead><tr><th></th><th>Selección</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead><tbody>${g.tabla.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(t.equipo)}</td><td>${t.pj}</td><td>${t.g}</td><td>${t.e}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gc}</td><td><b>${t.pts}</b></td></tr>`).join('')}</tbody></table></div>`).join('')}</div>`;
+    if (F.tipo === 'grupos') return `<div class="ronda"><h3>${esc(F.nombre)}</h3>${F.grupos.map((g) => `<div class="grupo"><h4>${esc(g.nombre)}</h4><table class="tabla mini"><thead><tr><th></th><th>Selección</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead><tbody>${g.tabla.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(t.equipo)}</td><td>${t.pj}</td><td>${t.g}</td><td>${t.e}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gc}</td><td><b>${t.pts}</b></td></tr>`).join('')}</tbody></table><details class="convocatoria"><summary>Ver partidos</summary>${T.partidos.filter((p) => p.fase === F.nombre && (p.ronda === g.nombre || p.ronda.startsWith(g.nombre + ' ('))).map((p) => `<div class="cruce"><span>${esc(p.a)} – ${esc(p.b)}</span><span>${marcador(p)}</span></div>`).join('')}</details></div>`).join('')}</div>`;
     const ps = T.partidos.filter((p) => p.fase === F.nombre);
     return `<div class="ronda"><h3>${esc(F.nombre)}</h3>${ps.map((p) => { const c = (F.cruces || []).find((x) => (x.a === p.a && x.b === p.b) || (x.a === p.b && x.b === p.a)) || {}; return `<div class="cruce"><span><span class="${c.ganador === p.a ? 'gana' : ''}">${esc(p.a)}</span> – <span class="${c.ganador === p.b ? 'gana' : ''}">${esc(p.b)}</span></span><span>${marcador(p)}</span></div>`; }).join('')}</div>`;
   }).join('');
   const conv = Object.entries(T.convocados || {}).filter(([, v]) => v.some((x) => x[3])).sort((a, b) => b[1].filter((x) => x[3]).length - a[1].filter((x) => x[3]).length).slice(0, 8)
     .map(([pais, v]) => `<details class="convocatoria"><summary>${esc(pais)} <small>${v.filter((x) => x[3]).length} de tus ligas</small></summary><p>${v.map((x) => `${esc(x[0])}${x[3] ? '' : '°'} <small>${POS[x[1]] ? POS[x[1]].slice(0, 3) : x[1]} ${x[2]}</small>`).join(' · ')}</p></details>`).join('');
-  return `<div class="caja mundial"><span class="rotulo">Mundial ${T.anio} · ${esc(T.sede)}</span><div class="crack"><span class="estrella" aria-hidden="true">🏆</span><span><b>${mundialCampeon(T)}</b><small>Campeón del mundo${T.subcampeon ? ` · subcampeón ${esc(T.subcampeon)}` : ''}</small></span></div></div>`
-    + fases + (conv ? `<div class="caja"><span class="rotulo">Convocatorias</span>${conv}<p class="nota-pie">° = jugador de la convocatoria real, porque juega en una liga que no está en la partida.</p></div>` : '');
+  return `<div class="caja mundial"><span class="rotulo">${esc(tituloSeleccion(T))} · ${esc(T.sede)}</span><div class="crack"><span class="estrella" aria-hidden="true">🏆</span><span><b>${mundialCampeon(T)}</b><small>${T.nombre ? 'Campeón continental' : 'Campeón del mundo'}${T.subcampeon ? ` · subcampeón ${esc(T.subcampeon)}${diferenciaSubcampeon(T)}` : ''}</small></span></div></div>`
+    + fases + (conv ? `<div class="caja"><span class="rotulo">Convocatorias</span>${conv}<p class="nota-pie">° = ${T.nombre ? 'jugador real de una liga no simulada' : 'jugador de la convocatoria real, porque juega en una liga que no está en la partida'}.</p></div>` : '');
 }
 function mundialesHistoria() {
-  const ms = temporadas().filter((V) => V.R && V.R.MU && cerradaV(V)).map((V) => V.R.MU);
-  if (!ms.length) return '';
-  return `<div class="caja"><span class="rotulo">Mundiales</span>${ms.reverse().map((T) => `<div class="resultado"><span><span><b>${mundialCampeon(T)}</b><small>${T.anio} · ${esc(T.sede)}${T.subcampeon ? ` · final ante ${esc(T.subcampeon)}` : ''}${T.premios.botaOro ? ` · goleador: ${esc(T.premios.botaOro.n)} (${T.premios.botaOro.g})` : ''}</small></span></span></div>`).join('')}</div>`;
+  const ms = temporadas().filter((V) => cerradaV(V)).flatMap((V) => torneosSelecciones(V).map((t) => Object.assign({ V }, t)));
+  return ['Mundial', 'Eurocopa', 'Copa América'].map((nombre) => {
+    const ts = ms.filter(({ T }) => (T.nombre || 'Mundial') === nombre).reverse();
+    if (!ts.length) return '';
+    return `<div class="caja"><span class="rotulo">${nombre === 'Mundial' ? 'Mundiales' : nombre === 'Eurocopa' ? 'Eurocopas' : 'Copas América'}</span>${ts.map(({ V, T, id }) => `<div class="resultado"><span><span><b>${mundialCampeon(T)}</b><small>${esc(tituloSeleccion(T))} · ${esc(T.sede)}${T.subcampeon ? ' · subcampeón ' + esc(T.subcampeon) + diferenciaSubcampeon(T) : ''}</small>${T.premios.botaOro ? `<small>Goleador: ${nombreJ(T.premios.botaOro.n)} (${T.premios.botaOro.g})${diferenciaGoleador(T)}</small>` : ''}<button type="button" class="nombre" data-ir-seleccion="${esc(id)}" data-temporada-torneo="${temporadas().indexOf(V)}">Ver torneo</button></span></span></div>`).join('')}</div>`;
+  }).join('');
 }
 // Tabla solo con los partidos en casa ('l') o fuera ('v').
 function tablaLado(T, n, pv, lado) {
@@ -1425,6 +1448,12 @@ function entrenadorHoy(c) {
 function palmaresDe(club, jugador, crudo) {
   const out = [];
   temporadas().filter(cerradaV).forEach((V) => {
+    if (jugador) torneosSelecciones(V).forEach(({ T }) => {
+      if (!T.jugadores.some((x) => x.n === jugador && x.mio && x.pj > 0)) return;
+      const j = T.jugadores.find((x) => x.n === jugador && x.mio);
+      if (j.eq === T.campeon) out.push([tituloSeleccion(T), String(T.edicion || T.anio)]);
+      if (T.premios.botaOro && T.premios.botaOro.n === jugador) out.push(['Máximo goleador de ' + tituloSeleccion(T), String(T.edicion || T.anio), 1]);
+    });
     const cl = club || ((buscarJugador(jugador) || {}).j || { carrera: [] }).carrera.filter((t) => t.temporada === V.temporada).map((t) => t.club).pop();
     if (!cl) return;
     const pais = paisClub(cl) || 'España', c = campeonDe(V, pais), C = copaDe(V, pais);
@@ -1515,7 +1544,8 @@ function fichaJugador(n) {
   else { const gx = golesEnMarcha(S).find((y) => y.nombre === n); if (gx) cif = { g: gx.g, a: gx.a, nota: null }; }
   const tot = carrera.reduce((s, t) => ({ pj: s.pj + t.pj + (t.sel ? t.sel.pj : 0), g: s.g + t.g + (t.sel ? t.sel.g : 0) }), { pj: 0, g: 0 });
   const sel = carrera.filter((t) => t.sel).map((t) => t.sel);
-  const selTxt = sel.length ? `<div><span>🌍 ${esc(sel[0].pais)} en ${sel.length === 1 ? 'el Mundial' : 'los Mundiales'} de ${lista(sel.map((x) => x.mundial))}</span><span>${sel.reduce((a, x) => a + x.g, 0)} goles en ${sel.reduce((a, x) => a + x.pj, 0)} partidos</span></div>` : '';
+  const participaciones = sel.flatMap((t) => (t.mundial ? [{ nombre: 'Mundial', edicion: t.mundial }] : []).concat(t.torneos || []));
+  const selTxt = sel.length ? `<div><span>🌍 ${esc(lista([...new Set(sel.map((t) => t.pais))]))} · ${esc(lista(participaciones.map((t) => tituloSeleccion(t))))}</span><span>${sel.reduce((a, x) => a + x.g, 0)} goles en ${sel.reduce((a, x) => a + x.pj, 0)} partidos con la selección</span></div>` : '';
   const ROL = { POR: 'Portero', DEF: 'Defensa', MED: 'Centrocampista', EXT: 'Extremo', DC: 'Delantero centro' };
   const rasgos = [];
   if (j.rol && ROL[j.rol]) rasgos.push(`<span class="fuerte">${ROL[j.rol]}</span>`);
@@ -1845,7 +1875,12 @@ document.addEventListener('click', async (e) => {
   if (c) { abrirFicha({ tipo: 'c', n: c.dataset.c }); return; }
   const en = e.target.closest('[data-e]');
   if (en) { abrirFicha({ tipo: 'e', n: en.dataset.e, club: en.dataset.ec }); return; }
-  if (e.target.closest('[data-ir-mundial]')) { compSel = 'mundial'; compVista = 'tabla'; verJ = null; const b = document.querySelector('#navegar button[data-s="comp"]'); if (b) b.click(); pintarComp(); return; }
+  const seleccion = e.target.closest('[data-ir-seleccion], [data-ir-mundial]');
+  if (seleccion) {
+    if (seleccion.dataset.temporadaTorneo != null) { const i = +seleccion.dataset.temporadaTorneo; verK = temporadas()[i] === S ? null : i; }
+    compSel = seleccion.dataset.irSeleccion || 'mundial'; compVista = 'tabla'; verJ = null;
+    seccion = 'comp'; cerrarFicha(); pintar(); window.scrollTo({ top: 0 }); return;
+  }
   const comp = e.target.closest('[data-comp]');
   if (comp) { compSel = comp.dataset.comp; verJ = null; pintarComp(); return; }
   const vista = e.target.closest('[data-vista]');
