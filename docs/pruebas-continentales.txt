@@ -1,0 +1,96 @@
+Comprobación de Eurocopa y Copa América
+Base: main e45915c (guardado 33); propuesta: guardado 34.
+
+=== auditoria ===
+bien  calendario de 5 equipos
+bien  calendario de 19 equipos
+bien  calendario de 20 equipos
+bien  once sin porteros: once jugadores distintos
+bien  ningún lesionado marca después de irse
+bien  el expulsado se pierde el partido siguiente
+bien  la prórroga no cuenta como otro partido
+bien  en la prórroga solo siguen los que acabaron el partido
+bien  Mundial: ningún tercero se cruza con uno de su grupo
+bien  Mundial: no se convoca a retirados de la partida
+bien: convocatoria con 28 semanas de baja
+bien: convocatoria con 4 semanas de baja
+bien: convocatoria con 28 semanas de baja y doble nacionalidad
+bien  Mundial: la lista histórica respeta las bajas largas
+bien: las 40 ediciones tienen sus selecciones y terminan con campeón (tres semillas)
+bien: bajas largas, retirados y doble nacionalidad en ambas competiciones
+bien: dos Copas América en 1959, Euro 2020 en 2021 y bonus de medio Mundial
+bien: ningún continental altera la calibración ni los Mundiales posteriores
+bien  Eurocopa y Copa América: formatos, campeones y convocatorias
+todo bien
+
+=== famosos ===
+113 famosos: 113 bien, 0 mal, 0 no están
+
+=== partida-1958 ===
+Mundial 1962: Unión Soviética (final ante Brasil), goleador Muhamed Mujić con 6
+Mundial 1966: Inglaterra (final ante Unión Soviética), goleador Bobby Charlton con 7
+Mundial 1970: Brasil (final ante Inglaterra), goleador Bobby Charlton con 8
+Ligas de España: Real Madrid 9, Atlético Madrid 2, Barcelona 1
+Copas de Europa: Real Madrid 4, Tottenham Hotspur 2, Barcelona 1, CDNA Sofía 1, Manchester United 1, Partizán de Belgrado 1, Torino 1, Juventus 1
+
+=== partida-2000 ===
+Mundial 2002: Brasil (final ante España), goleador Ronaldo con 9
+Mundial 2006: Brasil (final ante Países Bajos), goleador Raúl con 7
+Mundial 2010: Alemania (final ante Países Bajos), goleador Lionel Messi con 7
+Mundial 2014: Alemania (final ante Argentina), goleador Lionel Messi con 7
+Mundial 2018: Alemania (final ante Brasil), goleador Kylian Mbappé con 6
+Mundial 2022: Francia (final ante Alemania), goleador Karim Benzema con 6
+Mundial 2026: Argentina (final ante Uruguay), goleador Kylian Mbappé con 12
+Ligas de España: Barcelona 15, Real Madrid 11
+Copas de Europa: Juventus 7, Real Madrid 4, Milan 3, Arsenal 3, Manchester United 2, Inter 2, Barcelona 2, Bayern Múnich 1, Benfica 1, Marsella 1
+
+=== regresion-mundiales ===
+bien: Mundial 1930 igual a main, semillas 7 y 19
+bien: Mundial 1934 igual a main, semillas 7 y 19
+bien: Mundial 1938 igual a main, semillas 7 y 19
+bien: Mundial 1950 igual a main, semillas 7 y 19
+bien: Mundial 1954 igual a main, semillas 7 y 19
+bien: Mundial 1958 igual a main, semillas 7 y 19
+bien: Mundial 1962 igual a main, semillas 7 y 19
+bien: Mundial 1966 igual a main, semillas 7 y 19
+bien: Mundial 1970 igual a main, semillas 7 y 19
+bien: Mundial 1974 igual a main, semillas 7 y 19
+bien: Mundial 1978 igual a main, semillas 7 y 19
+bien: Mundial 1982 igual a main, semillas 7 y 19
+bien: Mundial 1986 igual a main, semillas 7 y 19
+bien: Mundial 1990 igual a main, semillas 7 y 19
+bien: Mundial 1994 igual a main, semillas 7 y 19
+bien: Mundial 1998 igual a main, semillas 7 y 19
+bien: Mundial 2002 igual a main, semillas 7 y 19
+bien: Mundial 2006 igual a main, semillas 7 y 19
+bien: Mundial 2010 igual a main, semillas 7 y 19
+bien: Mundial 2014 igual a main, semillas 7 y 19
+bien: Mundial 2018 igual a main, semillas 7 y 19
+bien: Mundial 2022 igual a main, semillas 7 y 19
+bien: Mundial 2026 igual a main, semillas 7 y 19
+Todos los Mundiales conservan exactamente los resultados de main
+
+=== navegador ===
+{
+  "errores": [],
+  "comprobaciones": [
+    "1958-59 jugada con controles: las dos Copas América de 1959, ocultas antes del cierre",
+    "1959-60 jugada con controles: Eurocopa 1960 y sus cuatro selecciones; ordenador y móvil de 390 px",
+    "Historia enlaza a temporadas anteriores y la partida se recupera al recargar (guardado 34)",
+    "Partida desde 2000 hasta la Eurocopa 2004: cuatro temporadas, cuadro y palmarés de un campeón real de la partida"
+  ],
+  "resultado": "bien"
+}
+
+=== navegador-2024 ===
+{
+  "errores": [],
+  "desbordamientoMovil": false,
+  "comprobaciones": [
+    "Eurocopa 2024: 24 selecciones; Copa América 2024: 16 selecciones",
+    "Palmarés del campeón en ficha de Thibaut Courtois",
+    "Grupos y resultados en móvil de 390 px"
+  ],
+  "resultado": "bien"
+}
+

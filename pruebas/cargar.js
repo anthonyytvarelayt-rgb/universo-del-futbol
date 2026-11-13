@@ -7,4 +7,6 @@ global.Motor = require(path.join(raiz, 'js/motor.js'));
 global.Epoca = require(path.join(raiz, 'js/epoca.js'));
 global.Mundial = require(path.join(raiz, 'js/mundial.js'));
 global.MUNDIALES = dato('mundiales.js', 'self.MUNDIALES = ');
+global.CONTINENTALES = dato('continentales.js', 'self.CONTINENTALES = ');
+global.Continentales = require(path.join(raiz, 'js/continentales.js'));
 module.exports = { Motor: global.Motor, Mundo: require(path.join(raiz, 'js/mundo.js')), BASE: dato('base.js', 'window.BASE_DATOS = ') };

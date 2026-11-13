@@ -76,6 +76,27 @@
         const filas = [...t.values()];
         const crit = reg.desempateGrupo === 'diferencia' ? (x) => [x.pts, x.gf - x.gc, x.gf] : reg.desempateGrupo === 'golaverage' ? (x) => [x.pts, x.gc ? x.gf / x.gc : x.gf * 100] : (x) => [x.pts];
         const sorteo = new Map(filas.map((x) => [x, r()]));
+        if (reg.desempateGrupo === 'directo') {
+          const ordenar = (xs) => {
+            if (xs.length < 2) return xs;
+            const mini = new Map(xs.map((x) => [x.clave, { pts: 0, gf: 0, gc: 0 }]));
+            res.forEach(([a, b, ga, gb]) => {
+              if (!mini.has(a) || !mini.has(b)) return;
+              const A = mini.get(a), B = mini.get(b);
+              A.gf += ga; A.gc += gb; B.gf += gb; B.gc += ga;
+              if (ga === gb) A.pts++, B.pts++;
+              else if (ga > gb) A.pts += reg.puntosVictoria;
+              else B.pts += reg.puntosVictoria;
+            });
+            const valor = (x) => { const t = mini.get(x.clave); return [t.pts, t.gf - t.gc, t.gf]; };
+            const grupos = new Map();
+            xs.forEach((x) => { const k = valor(x).join('|'); if (!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(x); });
+            if (grupos.size === 1) return xs.slice().sort((a, b) => (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf || sorteo.get(b) - sorteo.get(a));
+            return [...grupos.values()].sort((a, b) => { const A = valor(a[0]), B = valor(b[0]); return B[0] - A[0] || B[1] - A[1] || B[2] - A[2]; }).flatMap(ordenar);
+          };
+          const puntos = [...new Set(filas.map((x) => x.pts))].sort((a, b) => b - a);
+          return puntos.flatMap((p) => ordenar(filas.filter((x) => x.pts === p)));
+        }
         filas.sort((x, y) => { const a = crit(x), b = crit(y); for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return b[i] - a[i]; return sorteo.get(y) - sorteo.get(x); });
         return filas;
       };
@@ -102,7 +123,7 @@
             grupos.forEach((G) => {
               const par = G.partidos[k];
               if (!par) return;
-              const x = jugar(eqs[par[0]], eqs[par[1]]);
+              const x = jugar(eqs[par[0]], eqs[par[1]], reg.localGrupos ? { neutral: false } : undefined);
               ficha(F.nombre, G.nombre, eqs[par[0]], eqs[par[1]], x);
               res.get(G.nombre).push([par[0], par[1], x.ga, x.gb]);
             });
@@ -111,6 +132,7 @@
           Motor.pasaSemana(est, todos);
           // Clasificación de cada grupo; con desempate por partido (hasta 1958), los empatados en la línea de corte juegan otro.
           const pasan = cuantosPasan(ed, iF);
+          if (!sig && reg.desempateCampeon) grupos.forEach((G) => (pasan[G.nombre] = 1));
           grupos.forEach((G) => {
             let filas = tablaGrupo(G, res.get(G.nombre));
             if (reg.desempateGrupo === 'partido' && pasan[G.nombre]) {
@@ -146,7 +168,20 @@
           const repartir = () => {
             const ter = posiciones[anteriorGrupos + '|terceros'].slice(0, plazasTercero);
             const huecos = [];
-            F.cruces.forEach((c) => c.lados.forEach((l, i) => { if (l.puesto === 3) huecos.push({ l, grupoRival: c.lados[1 - i] && c.lados[1 - i].grupo }); }));
+            F.cruces.forEach((c) => c.lados.forEach((l, i) => { if (l.puesto === 3) huecos.push({ l, grupoRival: c.lados[1 - i] && c.lados[1 - i].grupo, puestoRival: c.lados[1 - i] && c.lados[1 - i].puesto }); }));
+            // Las Eurocopas y las Copas América tienen tablas de cruces propias, no un nuevo sorteo.
+            if (reg.repartoTerceros) {
+              const letra = (g) => g.replace('Grupo ', '');
+              const combinacion = ter.map((t) => letra(t.grupo)).sort().join('');
+              const asignacion = reg.repartoTerceros[combinacion];
+              if (!asignacion) throw new Error('Falta el cuadro de mejores terceros: ' + combinacion);
+              return new Map(huecos.map((h) => {
+                const grupo = asignacion[letra(h.grupoRival) + h.puestoRival] || asignacion[letra(h.grupoRival)];
+                const t = ter.find((x) => letra(x.grupo) === grupo);
+                if (!t) throw new Error('No encuentro el tercero del grupo ' + grupo);
+                return [h.l, t.clave];
+              }));
+            }
             const sol = new Map(), libres = new Set(ter);
             const prueba = (i, estricto) => {
               if (i === huecos.length) return true;
@@ -165,7 +200,8 @@
             if (l.equipo) return l.equipo;
             if (l.gana) return salidas.get(l.gana).gana;
             if (l.pierde) return salidas.get(l.pierde).pierde;
-            if (l.puesto === 3) {  // un mejor tercero que no venga del grupo de su rival
+            if (l.puesto === 3) {  // Algunas Copas América asignan el primero/segundo de la tabla de terceros.
+              if (l.rangoTercero) return posiciones[anteriorGrupos + '|terceros'][l.rangoTercero - 1].clave;
               if (!reparto) reparto = repartir();
               return reparto.get(l);
             }
@@ -175,7 +211,7 @@
             const [la, lb] = c.lados;
             const a = lado(la, lb), b = lado(lb, la);
             const final = F.nombre === 'Final';
-            const g = eliminatoria(eqs[a], eqs[b], F.nombre, F.nombre, reg.empateKO, final);
+            const g = c.idaVuelta ? serie(eqs[a], eqs[b], F.nombre, c) : eliminatoria(eqs[a], eqs[b], F.nombre, F.nombre, reg.empateKO, final, null, c.prorroga);
             const ganador = g.clave, perdedor = g === eqs[a] ? b : a;
             salidas.set(c.id, { gana: ganador, pierde: perdedor });
             out.cruces.push({ id: c.id, a: eqs[a].nombre, b: eqs[b].nombre, ganador: eqs[ganador].nombre });
@@ -189,7 +225,7 @@
       // ---------- Eliminatoria a partido único ----------
       // repeticion (hasta 1938): prórroga y, si sigue el empate, se repite el partido; sorteo (1954-1970): prórroga y moneda
       // (la final se repetiría); penaltis (desde 1974): prórroga y tanda.
-      function eliminatoria(A, B, fase, ronda, regla, final) {
+      function eliminatoria(A, B, fase, ronda, regla, final, globalPrevio, extra) {
         let x = jugar(A, B);
         let ga = x.ga, gb = x.gb, prorroga = false, pen = null, repetido = 0, ultimo = x;
         const evs = [...x.m.eventos.map((e) => Object.assign({}, e, { eq: (e.lado === 0) === (x.local === A) ? 'a' : 'b' }))];
@@ -199,10 +235,12 @@
           ga += y.ga; gb += y.gb; prorroga = true;
           y.m.eventos.forEach((e) => evs.push(Object.assign({}, e, { min: 90 + Math.ceil(e.min), eq: (e.lado === 0) === (y.local === A) ? 'a' : 'b' })));
         };
-        if (ga === gb) tiempoExtra();
+        if (ga === gb && (extra == null ? (final ? reg.prorrogaFinal !== false : reg.prorroga !== false) : extra)) tiempoExtra();
         const p = { paso: paso++, fase, ronda, a: A.nombre, b: B.nombre, ga, gb, prorroga, eventos: evs, xi: onces(x, A) };
         partidos.push(p);
         if (ga !== gb) return ga > gb ? A : B;
+        // Desempate de la final de 1979: tras el tercer partido empatado cuenta el global de las dos idas.
+        if (globalPrevio && globalPrevio[0] !== globalPrevio[1]) return globalPrevio[0] > globalPrevio[1] ? A : B;
         if (regla === 'penaltis') {
           pen = tanda(A, B, ultimo);
           p.penaltis = pen;
@@ -217,6 +255,28 @@
             if (za !== zb) return za > zb ? A : B;
           }
         }
+        const gana = r() < 0.5 ? A : B;
+        p.sorteo = gana.nombre;
+        return gana;
+      }
+      // Copas América de 1975, 1979 y 1983: series de ida y vuelta y, cuando lo exigía el reglamento, un tercer partido.
+      function serie(A, B, fase, cruce) {
+        const ida = jugar(A, B, { neutral: false });
+        ficha(fase, 'Ida', A, B, ida);
+        Motor.pasaSemana(est, todos);
+        const vuelta = jugar(B, A, { neutral: false });
+        const p = ficha(fase, 'Vuelta', B, A, vuelta);
+        const ga = ida.ga + vuelta.gb, gb = ida.gb + vuelta.ga;
+        if (cruce.porPuntos) {
+          const puntos = (a, b) => a > b ? 2 : a === b ? 1 : 0;
+          const pa = puntos(ida.ga, ida.gb) + puntos(vuelta.gb, vuelta.ga);
+          const pb = puntos(ida.gb, ida.ga) + puntos(vuelta.ga, vuelta.gb);
+          if (pa !== pb) return pa > pb ? A : B;
+          Motor.pasaSemana(est, todos);
+          return eliminatoria(A, B, fase, 'Desempate', 'sorteo', false, cruce.globalTrasDesempate ? [ga, gb] : null, true);
+        }
+        if (ga !== gb) return ga > gb ? A : B;
+        if (cruce.golesFuera && vuelta.gb !== ida.gb) return vuelta.gb > ida.gb ? A : B;
         const gana = r() < 0.5 ? A : B;
         p.sorteo = gana.nombre;
         return gana;
