@@ -225,7 +225,7 @@ async function avanzar(callado) {
     if (!callado) $('fechaTxt').textContent = 'Llega el verano…';
     const d = await obtener('verano', k);
     // El verano trae el mundo de después: edades, retiros, fichajes y ascensos.
-    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, veranoHecho: true });
+    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, veranoHecho: true });
     M = d.M;
   }
   // Al cerrar la temporada, el teletipo da los campeones de todas las ligas.
@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 49, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 50, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1086,6 +1086,11 @@ function sorpresasHtml(V) {
   const rotos = nov.filter((x) => x.tipo === 'vestuario').slice(0, 1).map((x) => art('Vestuario roto', `Mal ambiente en el ${esc(x.club)}`, `${x.nombres.map(esc).join(' y ')} no se soportan y el grupo lo nota. Si nadie pone orden, el equipo rendirá por debajo de lo que vale.`)).join('');
   const bomba = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.niv >= 930 && x.motivo && !/gratis|acabó mal/.test(x.motivo)).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('El fichaje del verano', `${nombreJ(x.jugador)}, del ${esc(x.de)} al ${esc(x.a)}`, `Nivel ${nivel(x.niv)}${x.precio ? ', ' + precioTxt(x.precio) : ''}. El motivo: ${esc(x.motivo)}.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
+  // El dinero: quién ha tirado la casa por la ventana y quién está al borde de la quiebra.
+  const fin = V.finanzas || [], gastador = fin.slice().sort((a, b) => (b.compras - b.ventas) - (a.compras - a.ventas))[0], vendedor = fin.slice().sort((a, b) => (b.ventas - b.compras) - (a.ventas - a.compras))[0];
+  const dinero = (gastador && gastador.compras - gastador.ventas > 0.25 * gastador.ingresos ? art('El talonario', `El ${esc(gastador.club)} tira la casa por la ventana`, `Gasta ${eur(gastador.compras)} en fichajes y solo ingresa ${eur(gastador.ventas)} por ventas. Le quedan ${eur(gastador.caja)} en caja.`) : '')
+    + fin.filter((x) => x.rescate).slice(0, 2).map((x) => art('Al borde de la quiebra', `El ${esc(x.club)} tiene que refinanciar su deuda`, 'Años gastando más de lo que ingresa. El club pierde nombre y tendrá que vender.')).join('')
+    + (vendedor && vendedor.ventas - vendedor.compras > 0.3 * vendedor.ingresos && vendedor !== gastador ? art('Hacer caja', `El ${esc(vendedor.club)} vende por ${eur(vendedor.ventas)}`, `Y solo gasta ${eur(vendedor.compras)}. Un verano de salidas que le deja ${eur(vendedor.caja)} en caja.`) : '');
   // Triplete, sextete…: el club que lo gana todo.
   const plenos = plenosDe(V).slice(0, 2).map((x) => art(`¡${x.nombre[0].toUpperCase() + x.nombre.slice(1)}!`, `El ${esc(x.club)} gana ${x.t.length} títulos en un año`, `${esc(x.t.join(', '))}. ${x.t.length >= 6 ? 'Todo lo que se podía ganar. Un año para la historia del fútbol.' : x.t.length >= 3 && x.t.includes(nombreEuropa(V)) ? 'Liga, copa y Europa en la misma temporada: muy pocos equipos lo han conseguido.' : 'Una temporada redonda.'}`)).join('');
   // Las constantes de los entrenadores dan que hablar cada temporada.
@@ -1093,7 +1098,7 @@ function sorpresasHtml(V) {
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + plenos + robos + dtNoticias + recordT + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1287,6 +1292,16 @@ function copiarResumen(btn) {
       fich.forEach((x) => out.push(`• ${x.jugador} (nivel ${nivel(x.niv)}${x.edad ? `, ${x.edad} años` : ''}): ${x.de} → ${x.a}${x.precio ? ` · ${precioTxt(x.precio)}` : x.precio === 0 ? ' · gratis' : ''}${x.motivo && !/gratis/.test(x.motivo) ? ` · ${x.motivo}` : ''}`));
       const ren = (V.mercado || []).filter((x) => x.tipo === 'renovación').sort((a, b) => b.niv - a.niv).slice(0, 4);
       if (ren.length) out.push(`• Renuevan: ${ren.map((x) => `${x.jugador} (${x.de})`).join(', ')}`);
+    });
+    intento(() => {
+      const fin = V.finanzas || []; if (!fin.length) return;
+      sec('🏦 EL DINERO');
+      const neto = (x) => x.compras - x.ventas;
+      out.push(`• Los que más gastaron: ${fin.slice().sort((a, b) => neto(b) - neto(a)).slice(0, 4).filter((x) => neto(x) > 0).map((x) => `${x.club} (compró ${eur(x.compras)}, vendió ${eur(x.ventas)})`).join(', ')}`);
+      out.push(`• Los que más vendieron: ${fin.slice().sort((a, b) => neto(a) - neto(b)).slice(0, 3).filter((x) => neto(x) < 0).map((x) => `${x.club} (${eur(x.ventas)})`).join(', ')}`);
+      out.push(`• Los más ricos: ${fin.slice().sort((a, b) => b.caja - a.caja).slice(0, 4).map((x) => `${x.club} (${eur(x.caja)} en caja)`).join(', ')}`);
+      const deuda = fin.filter((x) => x.caja < 0).sort((a, b) => a.caja - b.caja).slice(0, 4); if (deuda.length) out.push(`• Con deudas: ${deuda.map((x) => `${x.club} (${eur(x.caja)})`).join(', ')}`);
+      const res = fin.filter((x) => x.rescate); if (res.length) out.push(`• Tuvieron que refinanciar: ${res.map((x) => x.club).join(', ')}`);
     });
     intento(() => {
       const banq = (V.banquillos || []).filter((x) => x.entra || x.sale).slice(0, 10); if (!banq.length) return;
@@ -1827,11 +1842,30 @@ function objetivoClub(c, l) {
     return `<div class="palmares"><span class="rotulo">La directiva</span><div><span>Objetivo de esta temporada</span><span>${esc(Mundo.OBJETIVOS[obj])}</span></div>${c.vestuario && c.vestuario !== 'normal' ? `<div><span>Vestuario</span><span>${c.vestuario === 'unido' ? 'Unido: rinde por encima de lo que vale' : 'Roto: rinde por debajo de lo que vale'}</span></div>` : ''}${antes ? `<div><span>La temporada pasada</span><span>${esc(Mundo.OBJETIVOS[antes.objetivo])}: ${BALANCE_TXT[antes.balance]} (${antes.puesto}.º)</span></div>` : ''}</div>`;
   } catch (e) { return ''; }
 }
+// La caja del club: lo que tiene, lo que ingresó y lo que gastó el último año.
+const eur = (v) => !v ? '0 €' : (v < 0 ? '−' : '') + precioTxt(Math.abs(v) >= 10 ? Math.round(Math.abs(v)) : Math.abs(v) >= 1 ? Math.round(Math.abs(v) * 10) / 10 : Math.round(Math.abs(v) * 100) / 100);
+function cajaClub(c) {
+  try {
+    const f = c.finanzas; if (!f || c.caja == null) return '';
+    const credito = Mundo.creditoDe(c, M.anio), estado = c.caja < -0.35 * f.ingresos ? '<b>endeudado: tiene que vender</b>' : c.caja < 0 ? 'en números rojos' : c.caja > 0.5 * f.ingresos ? 'caja llena' : 'cuentas sanas';
+    const fila = (t, v) => `<div><span>${t}</span><span>${v}</span></div>`;
+    return `<div class="palmares"><span class="rotulo">La caja del club · ${f.anio - 1}-${String(f.anio).slice(2)}</span>`
+      + fila('Dinero en caja', `<b>${eur(c.caja)}</b> · ${estado}`)
+      + fila('Puede gastar en fichajes', eur(Math.max(0, c.caja + credito)))
+      + fila('Ingresos (taquilla, televisión, patrocinio)', eur(f.ingresos))
+      + (f.premios ? fila('Premios por títulos y puestos', eur(f.premios)) : '')
+      + (f.dueno ? fila('Dinero del dueño', eur(f.dueno)) : '')
+      + fila('Sueldos', eur(-f.sueldos)) + fila('Otros gastos', eur(-f.gastos))
+      + (f.obras ? fila('Estadio, cantera y deudas viejas', eur(-f.obras)) : '')
+      + fila('Fichajes del verano', `compró ${eur(f.compras)} · vendió ${eur(f.ventas)}`)
+      + (c.rescate === f.anio ? fila('Aviso', '<b>Tuvo que refinanciar su deuda</b>') : '') + '</div>';
+  } catch (e) { return ''; }
+}
 function dineroClub(c) {
   try {
     const paga = c.jugadores.reduce((t, j) => t + Mundo.sueldo(j), 0), puede = Mundo.presupuesto(c, M.anio);
     const estado = paga > puede * 1.15 ? ' · <b>en apuros: tiene que vender</b>' : paga > puede * 0.95 ? ' · al límite' : ' · con margen para fichar';
-    return `<div class="palmares"><span class="rotulo">Cómo ficha y cuánto puede gastar</span><div><span>Forma de fichar</span><span>${esc(Mundo.POLITICAS[Mundo.politica(c)])}</span></div><div><span>Sueldos que paga</span><span>${dineroTxt(paga)}</span></div><div><span>Lo que puede pagar</span><span>${dineroTxt(puede)}${estado}</span></div></div>`;
+    return `<div class="palmares"><span class="rotulo">Cómo ficha y cuánto puede gastar</span><div><span>Forma de fichar</span><span>${esc(Mundo.POLITICAS[Mundo.politica(c)])}</span></div><div><span>Sueldos que paga</span><span>${dineroTxt(paga)}</span></div><div><span>Lo que puede pagar</span><span>${dineroTxt(puede)}${estado}</span></div></div>` + cajaClub(c);
   } catch (e) { return ''; }
 }
 function fichaClub(n) {
@@ -2268,7 +2302,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 49) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 50) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

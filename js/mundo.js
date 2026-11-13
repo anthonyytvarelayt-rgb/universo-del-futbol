@@ -1063,6 +1063,34 @@
   }
   const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato' };
 
+  // ---------- Economía: la caja de cada club, en millones de euros de la época ----------
+  // Entra dinero por taquilla, televisión y patrocinio (según el nombre del club y lo rica que es su liga), por premios
+  // y por vender jugadores; sale por sueldos, gastos del club y fichajes. Quien no tiene caja ni crédito, no compra.
+  const euros = (unidades, anio) => unidades * recordTraspaso(anio) / 22;
+  const ingresosDe = (c, anio) => 1.5 * euros(presupuesto(c, anio), anio);
+  const cajaDe = (c, anio) => { if (c.caja == null) c.caja = 0.3 * ingresosDe(c, anio); return c.caja; };
+  const creditoDe = (c, anio) => 0.5 * ingresosDe(c, anio);
+  const redondo = (v) => Math.round(v * 100) / 100;
+  function cuentas(M, R) {
+    const anio = M.anio + 1, U = recordTraspaso(anio), premios = new Map(), premio = (c, v) => { if (c) premios.set(c, (premios.get(c) || 0) + v * U); };
+    const club = (n) => n && M.clubes.find((c) => c.nombre === n);
+    [R.T].concat(...R.otros.map((o) => o.ligas.filter((l) => l.nivel === 1).map((l) => l.T))).filter((t) => t && t.tabla).forEach((t) => t.tabla.slice(0, 4).forEach((x, i) => premio(x.equipo, [0.1, 0.05, 0.03, 0.02][i] * (porAnio(DINERO_LIGA[x.equipo.pais], anio) || 0.7))));
+    const grande = M.anio >= 1992 ? 1 : 0.35;   // la Liga de Campeones reparte mucho más que la vieja Copa de Europa
+    if (R.EU) { premio(R.EU.campeonEq, 0.3 * grande); const f = R.EU.rondas[R.EU.rondas.length - 1].cruces[0]; if (f) premio(club(f.a === R.EU.campeon ? f.b : f.a), 0.12 * grande); }
+    [[R.UEFA, 0.08], [R.RECOPA, 0.06], [R.LIB, 0.06], [R.INTER, 0.03], [R.SUPER, 0.02], [R.C, 0.03]].forEach(([C, v]) => { if (C && C.campeonEq) premio(C.campeonEq, v); });
+    R.otros.forEach((o) => { if (o.C && o.C.campeonEq) premio(o.C.campeonEq, 0.03); });
+    M.clubes.forEach((c) => {
+      cajaDe(c, anio);
+      const rico = DUENOS_RICOS[c.nombre], ing = ingresosDe(c, anio), pr = premios.get(c) || 0, dueno = rico && anio >= rico[0] ? 0.12 * U : 0;
+      const sal = euros(c.jugadores.reduce((t, j) => t + sueldo(j), 0), anio), gastos = Math.max(ing - sal - 0.08 * ing, Math.min(0.46 * ing, ing - sal + 0.1 * ing));   // el club gasta lo que ingresa: gana o pierde como mucho una décima parte al año
+      c.caja += ing + pr + dueno - sal - gastos;
+      // El dinero no se guarda para siempre: lo que sobra de un año de ingresos se va en estadio, cantera y deudas viejas.
+      let obras = 0; if (c.caja > 0.8 * ing) { obras = 0.5 * (c.caja - 0.8 * ing); c.caja -= obras; }
+      // La deuda no crece sin fin: pasado cierto punto el club se refinancia (y pierde nombre por ello).
+      const tope = -1.5 * ing; if (c.caja < tope) { c.caja = tope * 0.6; c.prestigio = Math.max(250, c.prestigio - 12); c.rescate = anio; }
+      c.finanzas = { anio, ingresos: redondo(ing), premios: redondo(pr), dueno: redondo(dueno), sueldos: redondo(sal), gastos: redondo(gastos), obras: redondo(obras), compras: 0, ventas: 0 };
+    });
+  }
   function mercado(M, r) {
     const nuevoAnio = M.anio + 1;
     const log = [];
@@ -1072,14 +1100,16 @@
       a.jugadores.push(j);
       masas.delete(de); masas.delete(a);
       j.contrato = nuevoAnio + duracion(j);
-      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, tipo === 'fichaje' ? { precio: precio(j, nuevoAnio, motivo, a), edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
+      const pago = tipo === 'fichaje' ? precio(j, nuevoAnio, motivo, a) : 0;
+      if (pago) { cajaDe(a, nuevoAnio); cajaDe(de, nuevoAnio); a.caja -= pago; de.caja += pago; if (a.finanzas) a.finanzas.compras = redondo(a.finanzas.compras + pago); if (de.finanzas) de.finanzas.ventas = redondo(de.finanzas.ventas + pago); }
+      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, tipo === 'fichaje' ? { precio: pago, edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
     };
     // Contratos: más largos cuanto más joven.
     const duracion = (j) => { const e = nuevoAnio - anioNac(j); return (e <= 23 ? 5 : e <= 28 ? 4 : e <= 31 ? 3 : 2) - (hashN(j.n + nuevoAnio, 31) % 2); };
     // Sueldos: lo que ya paga cada club y lo que puede pagar. Nadie ficha a quien no puede pagar.
     const masas = new Map();
     const masa = (c) => { let v = masas.get(c); if (v === undefined) { v = c.jugadores.reduce((t, x) => t + sueldo(x), 0); masas.set(c, v); } return v; };
-    const puedePagar = (c, j) => masa(c) + sueldo(j) <= presupuesto(c, nuevoAnio) * 1.05;
+    const puedePagar = (c, j, gratis) => masa(c) + sueldo(j) <= presupuesto(c, nuevoAnio) * 1.05 && (gratis || precio(j, nuevoAnio, undefined, c) <= cajaDe(c, nuevoAnio) + creditoDe(c, nuevoAnio));
     const aniosEn = (j, c) => { let n = 0; for (let i = j.carrera.length - 1; i >= 0 && j.carrera[i].club === c.nombre; i--) n++; return n; };
     const jugo = new Map();
     if (M.historia.length) M.historia[M.historia.length - 1].G.forEach((x) => jugo.set(x.j, x.pj));
@@ -1211,7 +1241,7 @@
         if (j.niv >= tercero && !lios.has(j)) p = Math.max(p, 0.985);
         if (totalGratis >= 30 || r() < p) return renueva();
         const mia = fuerzas.get(v) || 0;
-        const destinos = [...fuerzas.keys()].filter((c) => c !== v && !esFilial(c) && (gratis.get(c) || 0) < 1 && j.niv > titularEn(c, j) + 5 && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j)
+        const destinos = [...fuerzas.keys()].filter((c) => c !== v && !esFilial(c) && (gratis.get(c) || 0) < 1 && j.niv > titularEn(c, j) + 5 && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j, true)
           && (!NO_EUROPA.includes(c.pais) || !extranjero(j, c.pais)) && (c.pais === v.pais || j.niv >= NIVEL_EXTRANJERO)
           // Se va gratis a algo mejor, o a algo parecido si lo que quiere es jugar, dinero o cambiar de aires.
           && (fuerzas.get(c) > mia + 5 || ((sinMinutos(j) || quiere !== 'titulos') && fuerzas.get(c) > mia - 40)))
@@ -1293,7 +1323,7 @@
     // Antes de los 80 los traspasos eran pocos: los clubes retenían a sus jugadores y un equipo se hacía en años.
     const calma = 0.4 + 0.6 * Math.min(1, fluidez * 2.5);
     // Un club que paga más de lo que ingresa tiene que vender: sus rivales lo saben y le compran a quien antes no soltaba.
-    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && masa(c) > presupuesto(c, nuevoAnio) * 1.15) : []);
+    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > presupuesto(c, nuevoAnio) * 1.15 || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio))) : []);
     orden.forEach((comprador) => {
       let compras = 0, figuras = 0;
       if (sobrado(comprador)) return;
@@ -1760,7 +1790,9 @@
     resumen.novedades = resumen.retiros.novedades;
     marcas(M, R, resumen.novedades);
     rivalidades(M, R, resumen.novedades);
+    cuentas(M, R);
     resumen.mercado = mercado(M, r);
+    resumen.finanzas = M.clubes.filter((c) => c.division === 1 && c.finanzas).map((c) => Object.assign({ club: c.nombre, pais: c.pais, caja: redondo(c.caja), rescate: c.rescate === M.anio + 1 }, c.finanzas));
     M.fichajes.push(...resumen.mercado);
     // El año del vestuario: cada club tiene temporadas en las que todo sale y otras en las que nada funciona,
     // con la misma plantilla. Sin esto el más fuerte ganaba veinte ligas de veintidós.
@@ -1961,7 +1993,7 @@
     return d;
   }
 
-  const api = { DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
