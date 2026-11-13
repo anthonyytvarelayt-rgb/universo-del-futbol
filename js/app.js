@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 58, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 59, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1361,6 +1361,11 @@ function historiasDe(V) {
     const gana = m.ga > m.gb ? m.local : m.visita, pierde = m.ga > m.gb ? m.visita : m.local;
     pon('El derbi del año', `${m.local} ${m.ga}-${m.gb} ${m.visita}`, `Paliza del ${gana} en el ${m.derbi}${m.ga < m.gb ? ', y en campo contrario' : ''}. En el ${pierde} tardarán en olvidarlo.`);
   });
+  // Dinastías: cuando nace una época y cuando se acaba.
+  intento(() => dinastias(ts).forEach((e) => {
+    if (e.tercero === V.anio) pon('Nace una dinastía', e.nombre, `Con lo ganado este año ya son ${e.ligas ? `${e.ligas} liga${e.ligas > 1 ? 's' : ''}` : ''}${e.ligas && e.europas ? ' y ' : ''}${e.europas ? `${e.europas} ${nombreEuropa(V)}` : ''} desde ${e.desde}. Ese equipo ya tiene nombre propio en la historia${e.figuras.length ? `: ${e.figuras.slice(0, 3).map((f) => f.n).join(', ')}` : ''}.`);
+    else if (e.anioHasta === V.anio - 2 && !e.viva) pon('Se acaba una era', `Adiós a ${e.nombre.replace(/^El /, 'el ').replace(/^La /, 'la ')}`, `Dos años sin ganar la liga ni la ${nombreEuropa(V)} cierran una época que dejó ${e.titulos} grandes títulos entre ${e.desde} y ${e.hasta}.`);
+  }));
   // Parejas y tridentes.
   intento(() => {
     const porClub = new Map(); figurasDe(V).filter((x) => x.g >= 15).forEach((x) => porClub.set(x.club, (porClub.get(x.club) || []).concat(x)));
@@ -1387,6 +1392,63 @@ function rankingSelecciones(V) {
     try { const fin = new Set([X.campeon, X.subcampeon]); (X.partidos || []).filter((m) => /semi/i.test(m.fase || m.ronda || '')).forEach((m) => [m.a || m.local, m.b || m.visita].forEach((e) => { if (e && !fin.has(e)) suma(e, 3 * k); })); } catch (e) { /* sin semifinales legibles */ }
   }));
   return [...pts.entries()].map(([pais, p]) => ({ pais, pts: p })).sort((a, b) => b.pts - a.pts);
+}
+// ---------- Dinastías: las épocas con nombre propio ----------
+// Un club que gana tres ligas o Copas de Europa en pocos años (sin dos temporadas seguidas en blanco) hace época.
+function dinastias(ts) {
+  const cerr = ts.filter(cerradaV).sort((a, b) => a.anio - b.anio), porClub = new Map();
+  cerr.forEach((V) => {
+    const gana = new Map(), suma = (c, t) => { if (c) gana.set(c, (gana.get(c) || []).concat(t)); };
+    paisesDe(V).forEach((p) => suma(campeonDe(V, p).campeon, 'liga'));
+    if (V.europa) suma(V.europa, 'europa');
+    gana.forEach((tit, c) => porClub.set(c, (porClub.get(c) || []).concat({ V, tit })));
+  });
+  const eras = [];
+  porClub.forEach((xs, club) => {
+    let run = [];
+    const cierra = () => {
+      const n = run.reduce((t, x) => t + x.tit.length, 0), eu = run.filter((x) => x.tit.includes('europa')).length;
+      if (run.length && (n >= 3 || eu >= 2)) {
+        const desde = run[0].V, hasta = run[run.length - 1].V, dentro = cerr.filter((V) => V.anio >= desde.anio && V.anio <= hasta.anio);
+        const dts = new Map(); dentro.forEach((V) => { const o = (V.objetivos || []).find((x) => x.club === club); if (o && o.entrenador) dts.set(o.entrenador, (dts.get(o.entrenador) || 0) + 1); });
+        const dt = [...dts.entries()].sort((a, b) => b[1] - a[1])[0];
+        const js = new Map(); dentro.forEach((V) => V.G.filter((g) => g.club === club && g.pj >= 15 && g.j && !g.j.relleno).forEach((g) => { const k = js.get(g.nombre) || { n: g.nombre, t: 0, nota: 0, g: 0 }; k.t++; k.nota += g.notaTemp; k.g += g.g; js.set(g.nombre, k); }));
+        const figuras = [...js.values()].filter((k) => k.t >= Math.max(1, Math.ceil(dentro.length / 2))).sort((a, b) => b.nota / b.t - a.nota / a.t).slice(0, 5);
+        const nombre = dt && dt[1] >= dentro.length / 2 ? `El ${club} de ${sinApodo(dt[0])}` : figuras[0] ? `El ${club} de ${corto(figuras[0].n)}` : `La era del ${club}`;
+        eras.push({ club, nombre, desde: desde.temporada, hasta: hasta.temporada, anioHasta: hasta.anio, anioDesde: desde.anio, ligas: run.filter((x) => x.tit.includes('liga')).length, europas: eu, titulos: n, figuras, viva: hasta.anio >= cerr[cerr.length - 1].anio - 1, tercero: run.length >= 2 ? (() => { let k = 0; for (const x of run) { k += x.tit.length; if (k >= 3) return x.V.anio; } return run[run.length - 1].V.anio; })() : hasta.anio });
+      }
+      run = [];
+    };
+    xs.forEach((x) => { if (run.length && x.V.anio - run[run.length - 1].V.anio > 2) cierra(); run.push(x); });
+    cierra();
+  });
+  return eras.sort((a, b) => b.titulos - a.titulos || a.anioDesde - b.anioDesde);
+}
+function dinastiasHtml(ts) {
+  try {
+    const es = dinastias(ts).slice(0, 8); if (!es.length) return '';
+    return `<div class="caja"><span class="rotulo">Dinastías de la partida</span>${es.map((e) => `<div class="resultado"><span><span><button type="button" class="nombre" data-c="${esc(e.club)}">${esc(e.nombre)}</button><small>${esc(e.desde)} a ${esc(e.hasta)}${e.viva ? ' · sigue viva' : ''}</small><small>${e.figuras.map((f) => esc(corto(f.n))).join(', ')}</small></span></span><span>${e.ligas ? `${e.ligas} liga${e.ligas > 1 ? 's' : ''}` : ''}${e.ligas && e.europas ? ' · ' : ''}${e.europas ? `${e.europas} 🏆` : ''}</span></div>`).join('')}</div>`;
+  } catch (e) { return ''; }
+}
+// ---------- Partidos de leyenda: las finales y noches que se recuerdan ----------
+function partidosLeyenda(ts) {
+  try {
+    const xs = [];
+    ts.filter(cerradaV).forEach((V) => {
+      const copas = [[V.R.EU, nombreEuropa(V), 6]].concat(OTRAS_COPAS.map(([id]) => [otraCopa(V, id), (otraCopa(V, id) || {}).nombre, 3]), paisesDe(V).map((p) => [copaDe(V, p), (copaDe(V, p) || {}).nombre, 1]));
+      copas.forEach(([C, nombre, peso]) => {
+        if (!C || !C.rondas) return;
+        C.rondas.slice(-3).forEach((ro, i, arr) => ro.cruces.forEach((c) => (c.partidos || []).forEach((m, k) => {
+          const final = i === arr.length - 1, goles = m.ga + m.gb, ida = c.partidos[0], difIda = c.ganador && ida ? (ida.local === c.ganador ? ida.ga - ida.gb : ida.gb - ida.ga) : 0;
+          const remonta = k > 0 && difIda <= -2 && k === c.partidos.length - 1;
+          const nota = goles * 1.7 + (Math.abs(m.ga - m.gb) <= 1 ? 2 : 0) + (m.prorroga ? 2 : 0) + (c.penaltis && k === c.partidos.length - 1 ? 3 : 0) + (final ? 2 + peso : peso / 2) + (remonta ? 7 : 0) + (m.derbi ? 2 : 0);
+          xs.push({ m, V, nota, txt: `${nombre} · ${ro.nombre}${remonta ? ' · remontada' : ''}${c.penaltis && k === c.partidos.length - 1 ? ' · penaltis' : m.prorroga ? ' · prórroga' : ''}`, comp: nombre });
+        })));
+      });
+    });
+    const top = xs.sort((a, b) => b.nota - a.nota).slice(0, 10); if (!top.length) return '';
+    return `<div class="caja"><span class="rotulo">Partidos de leyenda</span>${top.map((x) => `<button type="button" class="resultado fila-btn" data-partido="${regP(x.m, x.comp)}"><span><span>${selloDerbi(x.m)}${esc(x.m.local)} <b>${x.m.ga}-${x.m.gb}</b> ${esc(x.m.visita)}<small>${esc(x.V.temporada)} · ${esc(x.txt)}</small></span></span><span>›</span></button>`).join('')}</div>`;
+  } catch (e) { return ''; }
 }
 function copiarResumen(btn) {
   const V = cerradas[+btn.dataset.copiar] || S, pm = premiosMundo(V), out = [`⚽ UNIVERSO DEL FÚTBOL · TEMPORADA ${V.temporada}`];
@@ -1463,6 +1525,7 @@ function copiarResumen(btn) {
     const rachas = [];
     paisesDe(V).forEach((pais) => { const c = campeonDe(V, pais).campeon; if (!c) return; let n = 0; for (let i = ts.length - 1; i >= 0 && campeonDe(ts[i], pais).campeon === c; i--) n++; if (n >= 2) rachas.push(`${c} ${n} ligas seguidas`); const tot = cuenta(ts.map((T) => campeonDe(T, pais).campeon)).slice(0, 3); if (tot.length) lineas.push(`• Ligas de ${pais}: ${tot.map(([k, m]) => `${k} ${m}`).join(', ')}`); });
     if (rachas.length) lineas.unshift(`• Rachas vivas: ${rachas.join(', ')}`);
+    intento(() => { const ds = dinastias(ts).filter((e) => e.viva).slice(0, 4); if (ds.length) lineas.push(`• Dinastías vivas: ${ds.map((e) => `${e.nombre} (${e.desde} a ${e.hasta}: ${e.ligas} ligas, ${e.europas} Copas de Europa)`).join('; ')}`); });
     if (lineas.length) { sec('📜 PALMARÉS DE LA PARTIDA HASTA HOY'); lineas.forEach((l) => out.push(l)); }
   });
   // Directivas: quién cumplió y quién fracasó.
@@ -2415,7 +2478,7 @@ function pintarHistoria() {
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + libroDecadas(ts)
     + mundialesHistoria()
-    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${recordsPartida(ts)}${duelosCracks(ts)}${rankingClubes()}${salonFama(ts)}</div>` : '')
+    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${recordsPartida(ts)}${duelosCracks(ts)}${rankingClubes()}${dinastiasHtml(ts)}${partidosLeyenda(ts)}${salonFama(ts)}</div>` : '')
     + diarioHtml();
 }
 
@@ -2547,7 +2610,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 58) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 59) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

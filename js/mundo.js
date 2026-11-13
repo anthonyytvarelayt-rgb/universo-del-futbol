@@ -504,7 +504,10 @@
   function unificar(M, P) {
     const reg = Epoca.reglas(P.pais, M.anio);
     const top = P.grupos.filter((g) => g.nivel === 1);
-    if (P.estatales || !reg.clubes || !reg.liga || top.length < 2) return;
+    // Brasil: los estatales mandan hasta 1970; en 1971 nace el Campeonato Brasileiro y los mejores de cada estado pasan a jugarlo.
+    const naceBrasileirao = P.estatales && P.pais === 'Brasil' && M.anio >= 1971;
+    if ((P.estatales && !naceBrasileirao) || !reg.clubes || !reg.liga || top.length < 2) return;
+    if (naceBrasileirao) { P.estatales = false; P.copa = null; }
     const clubesDe = (g) => M.clubes.filter((c) => c.pais === P.pais && c.grupo === g.nombre && c.division === 1);
     // Puesto de cada club en la última temporada jugada (si la hay) y fuerza de su once.
     const prev = M.historia[M.historia.length - 1], ant = prev && prev.R && prev.R.otros.find((o) => o.pais === P.pais);
