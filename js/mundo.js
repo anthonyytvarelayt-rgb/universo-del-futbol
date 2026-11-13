@@ -1146,10 +1146,10 @@
   // Estadios reales de cada época. Un estadio nuevo (marcado con 1) da más ingresos durante doce años: más asientos, palcos y tiendas.
   const ESTADIOS = {
     'Real Madrid': [[1947, 'Santiago Bernabéu']], 'Barcelona': [[1922, 'Les Corts'], [1957, 'Camp Nou', 1]], 'Atlético Madrid': [[1923, 'Metropolitano'], [1966, 'Vicente Calderón', 1], [2017, 'Metropolitano', 1]],
-    'Sevilla': [[1958, 'Ramón Sánchez-Pizjuán', 1]], 'Valencia': [[1923, 'Mestalla']], 'Atlético Bilbao': [[1913, 'San Mamés'], [2013, 'Nuevo San Mamés', 1]], 'Español': [[1923, 'Sarrià'], [1997, 'Estadio Olímpico de Montjuïc'], [2009, 'Cornellà-El Prat', 1]],
+    'Sevilla': [[1958, 'Ramón Sánchez-Pizjuán', 1]], 'Valencia': [[1923, 'Mestalla']], 'Atlético Bilbao': [[1913, 'San Mamés'], [2013, 'Nuevo San Mamés', 1]], 'Español': [[1923, 'Sarrià'], [1997, 'Estadio Olímpico de Montjuïc', 2], [2009, 'Cornellà-El Prat', 1]],
     'Real Betis': [[1929, 'Benito Villamarín']], 'Real Sociedad': [[1913, 'Atocha'], [1993, 'Anoeta', 1]], 'Deportivo de La Coruña': [[1944, 'Riazor']],
     'Milan': [[1926, 'San Siro'], [1980, 'Giuseppe Meazza']], 'Inter': [[1947, 'San Siro'], [1980, 'Giuseppe Meazza']], 'Juventus': [[1933, 'Stadio Comunale'], [1990, 'Delle Alpi', 1], [2011, 'Juventus Stadium', 1]],
-    'Torino': [[1958, 'Stadio Comunale'], [1990, 'Delle Alpi'], [2006, 'Olimpico Grande Torino', 1]], 'Roma': [[1953, 'Olímpico de Roma']], 'Lazio': [[1953, 'Olímpico de Roma']], 'Napoli': [[1959, 'San Paolo', 1], [2020, 'Diego Armando Maradona']], 'Fiorentina': [[1931, 'Artemio Franchi']],
+    'Torino': [[1958, 'Stadio Comunale'], [1990, 'Delle Alpi', 2], [2006, 'Olimpico Grande Torino', 1]], 'Roma': [[1953, 'Olímpico de Roma']], 'Lazio': [[1953, 'Olímpico de Roma']], 'Napoli': [[1959, 'San Paolo', 1], [2020, 'Diego Armando Maradona']], 'Fiorentina': [[1931, 'Artemio Franchi']],
     'Manchester United': [[1910, 'Old Trafford']], 'Liverpool': [[1884, 'Anfield']], 'Arsenal': [[1913, 'Highbury'], [2006, 'Emirates Stadium', 1]], 'Chelsea': [[1905, 'Stamford Bridge']], 'Everton': [[1892, 'Goodison Park']], 'Newcastle United': [[1892, "St James' Park"]],
     'Manchester City': [[1923, 'Maine Road'], [2003, 'City of Manchester Stadium', 1], [2011, 'Etihad Stadium']], 'Tottenham Hotspur': [[1899, 'White Hart Lane'], [2019, 'Tottenham Hotspur Stadium', 1]], 'West Ham United': [[1904, 'Upton Park'], [2016, 'London Stadium', 1]],
     'Leicester City': [[1891, 'Filbert Street'], [2002, 'King Power Stadium', 1]], 'Southampton': [[1898, 'The Dell'], [2001, "St Mary's", 1]], 'Sunderland': [[1898, 'Roker Park'], [1997, 'Stadium of Light', 1]], 'Derby County': [[1895, 'Baseball Ground'], [1997, 'Pride Park', 1]], 'Middlesbrough': [[1903, 'Ayresome Park'], [1995, 'Riverside', 1]],
@@ -1162,7 +1162,7 @@
     'Corinthians': [[1940, 'Pacaembu'], [2014, 'Arena Corinthians', 1]], 'Palmeiras': [[1917, 'Palestra Itália'], [2014, 'Allianz Parque', 1]], 'Internacional': [[1969, 'Beira-Rio', 1]], 'Atlético Mineiro': [[1965, 'Mineirão']], 'Cruzeiro': [[1965, 'Mineirão']]
   };
   const estadioDe = (club, anio) => { const xs = ESTADIOS[club]; if (!xs) return null; const x = xs.filter((y) => y[0] <= anio).pop(); return x ? x[1] : null; };
-  const estreno = (club, anio) => { const xs = ESTADIOS[club]; if (!xs) return 1; const x = xs.filter((y) => y[0] <= anio).pop(); return x && x[2] && anio - x[0] < 12 ? 1.1 : 1; };
+  const estreno = (club, anio) => { const xs = ESTADIOS[club]; if (!xs) return 1; const x = xs.filter((y) => y[0] <= anio).pop(); return x && x[2] === 1 && anio - x[0] < 12 ? 1.1 : 1; };
   const ingresosDe = (c, anio) => 1.5 * euros(presupuesto(c, anio), anio) * estreno(c.nombre, anio);
   const cajaDe = (c, anio) => { if (c.caja == null) c.caja = 0.3 * ingresosDe(c, anio); return c.caja; };
   const creditoDe = (c, anio) => ({ derrochador: 1.2, galactico: 0.8, tacano: 0.2 }[estiloPresi(c, anio)] || 0.5) * ingresosDe(c, anio);
@@ -2072,7 +2072,7 @@
     rivalidades(M, R, resumen.novedades);
     cuentas(M, R);
     resumen.escandalos = escandalos(M, R);
-    resumen.estadios = M.clubes.filter((c) => c.division === 1 && ESTADIOS[c.nombre]).map((c) => { const xs = ESTADIOS[c.nombre], i = xs.findIndex((y) => y[0] === M.anio + 1); return i > 0 ? { club: c.nombre, nuevo: xs[i][1], viejo: xs[i - 1][1], anios: M.anio + 1 - xs[i - 1][0], cambio: !xs[i][2] } : null; }).filter(Boolean);
+    resumen.estadios = M.clubes.filter((c) => c.division === 1 && ESTADIOS[c.nombre]).map((c) => { const xs = ESTADIOS[c.nombre], i = xs.findIndex((y) => y[0] === M.anio + 1); return i > 0 ? { club: c.nombre, nuevo: xs[i][1], viejo: xs[i - 1][1], anios: M.anio + 1 - xs[i - 1][0], cambio: !xs[i][2], mudanza: xs[i][2] === 2 } : null; }).filter(Boolean);
     resumen.mercado = mercado(M, r);
     resumen.culebrones = resumen.mercado.culebrones || [];
     resumen.duenos = M.duenosNuevos || [];
