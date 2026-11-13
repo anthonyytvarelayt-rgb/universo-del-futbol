@@ -209,4 +209,3 @@ Cada año identifica la temporada que empieza ese año. El CSV conserva el motiv
 - **Varzim**: 1970, 1976–1980, 1982, 1984.
 - **Vitória de Guimarães**: 1960–1961, 1964, 1971–1974.
 - **Vitória de Setúbal**: 1960–1961, 1963–1976, 1978.
-
