@@ -10,9 +10,11 @@ referencias reales se consultan únicamente mediante ≠.
 `mundo.js` solo incorpora una llamada junto al Mundial. `motor.js` no cambia.
 El módulo del Mundial recibe opciones de reglamento para reutilizar sus
 partidos y penaltis; cuatro muestras de Mundiales conservan exactamente los
-resultados anteriores, comprobados con una huella SHA-256.
+resultados anteriores, comprobados con una huella SHA-256. También se
+compararon todas las ediciones de `datos/mundiales.js` con el módulo de
+`main`, en las semillas 7 y 19: coincidencia completa.
 
-El guardado pasa de 32 en `main` a 33 en sus dos puntos de lectura/escritura.
+El guardado pasa de 33 en `main` a 34 en sus dos puntos de lectura/escritura.
 Esto reinicia los guardados anteriores al incorporar las nuevas estadísticas.
 
 ## Pruebas
@@ -63,4 +65,4 @@ Historia y grupos modernos en móvil:
 
 Títulos y estadísticas de selección en el palmarés de un jugador de la partida:
 
-![Palmarés continental](capturas/continentales/palmares-jugador-escritorio.png)
+![Palmarés continental](capturas/continentales/palmares-jugador-2024-escritorio.png)
