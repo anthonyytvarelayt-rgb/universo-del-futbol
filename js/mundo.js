@@ -42,7 +42,7 @@
     'Ferenc Puskás': { techo: 920, suelo: [[30, 920], [34, 900], [36, 860], [38, 780]], club: 'Real Madrid', fiel: 1966, retiro: 38, fin: 1.3 },
     'Paco Gento': { techo: 880, suelo: [[23, 850], [27, 880], [31, 870], [34, 820], [37, 740]], club: 'Real Madrid', fiel: 1971 },
     'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
-    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 30 },
+    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5 },
     'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
   };
   // Clubes que mandan en una época: si al empezar la temporada no son los más fuertes de su liga (o de Europa hasta
@@ -253,12 +253,21 @@
       // Los Reyes de Europa se crecen en estas noches.
       const reyes = [];
       // Y hay quien nació para esta copa: la constante 'europa' (Cristiano, «Mr. Champions»).
-      eqs.forEach((c) => c.jugadores.forEach((j) => { const K = !j.relleno && CONSTANTES[j.n]; const v = 4 * gradoDe(j, 'europa') + ((K && K.europa) || 0); if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
+      eqs.forEach((c) => c.jugadores.forEach((j) => { const K = !j.relleno && CONSTANTES[j.n]; const v = 4 * gradoDe(j, 'europa') + (K && K.europa ? 30 : 0); if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
+      // Y contagia a los suyos: con él en plenitud (22 a 37 años), todo su equipo sube un punto en Europa.
+      eqs.forEach((c) => { const lider = c.jugadores.find((j) => !j.relleno && CONSTANTES[j.n] && CONSTANTES[j.n].europa && M.anio - anioNac(j) >= 22 && M.anio - anioNac(j) <= 37);
+        if (!lider) return;
+        // Cuantas menos lleva para su edad (el plan son cinco a los 33), más aprieta; con las cinco ganadas, se relaja.
+        const edad = M.anio - anioNac(lider), van = lider.copasEuropa || 0, meta = CONSTANTES[lider.n].europa;
+        const debe = Math.max(0, Math.min(meta, meta * (edad - 20) / 11) - van);
+        const extra = van >= meta ? 8 : Math.min(160, 15 + 45 * debe);
+        c.jugadores.forEach((j) => { reyes.push([j, extra]); j.temp = (j.temp || 0) + extra; }); });
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
         EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
       } finally { Motor.P.escala = escalaLiga; reyes.forEach(([j, v]) => { j.temp -= v; }); }
+      if (EU.campeonEq) EU.campeonEq.jugadores.forEach((j) => { if (!j.relleno && CONSTANTES[j.n] && CONSTANTES[j.n].europa) j.copasEuropa = (j.copasEuropa || 0) + 1; });
       EU.goleadorReal = E.goleadorReal;
     }
     // Copa del Generalísimo: todos los clubes de Primera y Segunda.
