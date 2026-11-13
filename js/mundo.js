@@ -454,6 +454,18 @@
     return base;
   }
 
+  // Un club que sube poco después de empezar la partida trae a sus jugadores reales (el Milan de 1980 estaba en Serie B):
+  // antes llegaba vacío, con suplentes inventados y el prestigio de un recién ascendido.
+  function conPlantilla(M, c, a) {
+    M.vistos = M.vistos || new Set(M.vistosInicio || []);
+    (a.plantilla || []).forEach((x) => {
+      const k = x.n + '|' + x.nac;
+      if (M.vistos.has(k)) return;
+      const j = Object.assign({}, x);
+      j.rol = Motor.rol(j); j.carrera = []; j.inicio = { niv: j.niv, club: c.nombre }; j.tecReal = j.tec || j.niv; j.nacion = j.pais || c.pais;
+      M.vistos.add(k); c.jugadores.push(j);
+    });
+  }
   // Cambia de categoría a los que bajan, suben o pierden la promoción.
   function categorias(M, R) {
     const mov = [];
@@ -474,7 +486,7 @@
       const llegan = [];
       (M.ascensos[anioSig] || []).forEach((a) => {
         let c = M.clubes.find((x) => x.nombre === a.nombre);
-        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); }
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); conPlantilla(M, c, a); }
         if (c.division !== 1 && llegan.length < objetivo - 4) llegan.push(c);
       });
       const cola = [...R.T.tabla].reverse().map((t) => t.equipo);
@@ -506,7 +518,7 @@
       const llegan = [];
       (M.ascensos[nuevoAnio] || []).filter((a) => a.grupo === s.grupo).forEach((a) => {
         let c = M.clubes.find((x) => x.nombre === a.nombre);
-        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); }
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: 'Tercera', pais: 'España', nuevo: true }; M.clubes.push(c); conPlantilla(M, c, a); }
         if (c.division !== 3) return;
         // Un filial no puede jugar en la misma categoría que su primer equipo.
         const mat = MATRIZ[c.nombre] && M.clubes.find((x) => x.nombre === MATRIZ[c.nombre]);
@@ -537,10 +549,11 @@
       const llegan = [];
       (P.ascensos[nuevoAnio] || []).filter((a) => !a.grupo || a.grupo === liga.grupo).forEach((a) => {
         let c = M.clubes.find((x) => x.nombre === a.nombre);
-        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: P.abajo, pais: P.pais, nuevo: true }; M.clubes.push(c); }
+        if (!c) { c = { nombre: a.nombre, prestigio: a.prestigio, jugadores: [], entrenadores: [], division: 3, grupo: P.abajo, pais: P.pais, nuevo: true }; M.clubes.push(c); conPlantilla(M, c, a); }
         if (c.division === 3) llegan.push(c);
       });
-      const cola = [...liga.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === nivel && c.grupo === liga.grupo);
+      // Un histórico no desaparece en la categoría que no se juega (el Milan de 1980 estaba en Serie B): antes cae otro.
+      const cola = [...liga.T.tabla].reverse().map((t) => t.equipo).filter((c) => c.division === nivel && c.grupo === liga.grupo).sort((a, b) => (a.prestigio >= 700) - (b.prestigio >= 700));
       llegan.forEach((c, k) => {
         if (!cola[k]) return;
         cola[k].division = 3; cola[k].grupo = P.abajo;
@@ -824,7 +837,7 @@
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
   // Portugal, Argentina, Brasil y la Alemania semiamateur casi nada; Inglaterra, cerrada hasta 1978.
   const ATRACCION = { Italia: { 1946: 1 }, España: { 1950: 1 }, Francia: { 1950: 0.5 }, Portugal: { 1950: 0.15 }, Argentina: { 1950: 0.15 },
-    Brasil: { 1950: 0.03, 1990: 0.3 }, Alemania: { 1950: 0.05, 1963: 0.15 }, Inglaterra: { 1950: 0.05, 1978: 0.6 } };
+    Brasil: { 1950: 0.03, 1990: 0.3 }, Alemania: { 1950: 0.05, 1963: 0.15, 1990: 0.5, 1996: 0.9 }, Inglaterra: { 1950: 0.05, 1978: 0.2, 1992: 0.7, 1996: 1 } };
   // Quién cuenta como de casa: el propio país y, si los datos lo dicen, otros (en Inglaterra, escoceses, galeses e irlandeses).
   const NACIONALES = {};
   const extranjero = (j, pais) => {
@@ -950,15 +963,23 @@
       M.clubes.forEach((v) => v.jugadores.forEach((j) => { if (!j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
       estrellas.sort((a, b) => b.j.niv - a.j.niv);
       const N = Math.round(40 + 110 * fluidez);
+      // Subir desde un club de élite: a uno claramente más fuerte de su liga, o de una liga menor a un grande de las cuatro grandes.
+      const sube = (c, v) => (LIGAS_GRANDES.includes(c.pais) && !LIGAS_GRANDES.includes(v.pais)) ? c.prestigio >= v.prestigio - 60 && fuerzas.get(c) > (fuerzas.get(v) || 0) - 15 : fuerzas.get(c) > (fuerzas.get(v) || 0) + 20 && c.prestigio >= v.prestigio - 20;
       estrellas.slice(0, N).forEach(({ j, v }, k) => {
-        if (esElite.has(v) || fichados.has(j)) return;
+        if (fichados.has(j)) return;
+        // Dentro de la élite también se sube: del Saint-Étienne a la Juventus, del Gladbach al Bayern. Cuesta más y solo hacia un club claramente mayor.
+        // (Desde 1996 no hace falta: el mercado libre ya mueve a las figuras entre grandes, y sumarlo creaba dinastías de diez Champions.)
+        const yaElite = esElite.has(v);
+        if (yaElite && fluidez === 1) return;
         const K = CONSTANTES[j.n];
         if (K && K.club === v.nombre && nuevoAnio <= K.fiel) return;
         // Cuanto más arriba en la lista, menos tarda en salir: el número 1 se va casi seguro, el 100 una vez de cada cuatro.
-        if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez)) return;
+        if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez) * (yaElite ? 0.7 : 1)) return;
         const titular = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
         const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 2 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c)
-          && fuerzas.get(c) > (fuerzas.get(v) || 0)).map((c) => ({ c, gana: j.niv - titular(c) + 0.3 * (c.prestigio - 700) + 120 * r() })).sort((a, b) => b.gana - a.gana);
+          // Las figuras de fuera van a las ligas que de verdad las traían en cada época (Italia y España; Inglaterra, casi ninguna hasta los 90).
+          && (!extranjero(j, c.pais) || r() < (porAnio(ATRACCION[c.pais], nuevoAnio) || 0.3))
+          && (yaElite ? sube(c, v) : fuerzas.get(c) > (fuerzas.get(v) || 0))).map((c) => ({ c, gana: j.niv - titular(c) + 0.3 * (c.prestigio - 700) + 120 * r() })).sort((a, b) => b.gana - a.gana);
         if (!destinos.length) return;
         const c = destinos[0].c;
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
@@ -1395,6 +1416,12 @@
         const nuevos = b.filter((x) => !antes.has(x[4]));
         if (nuevos.length) r[t] = nuevos.map((x) => Object.assign({ nombre: x[4], prestigio: prestigioSube(x[4], x[1]) }, x[3] ? { grupo: x[3] } : {}));
       }
+      // Los que suben en los primeros años traen su nombre de siempre y, si estaban fuera al empezar, su plantilla real.
+      const enJuego = new Set(filas.map((x) => x[4]));
+      Object.entries(r).forEach(([t, lista]) => lista.forEach((x) => {
+        if (+t <= anio + 6 && historia.has(x.nombre)) x.prestigio = Math.max(x.prestigio, Math.round(0.92 * prestigio(x.nombre, 1)));
+        if (+t <= anio + 3 && !enJuego.has(x.nombre) && porClub.has(x.nombre)) x.plantilla = porClub.get(x.nombre);
+      }));
       return r;
     };
     const campeonesReales = (pais) => {

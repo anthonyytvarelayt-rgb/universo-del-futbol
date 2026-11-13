@@ -57,7 +57,7 @@ const equipo = (nombre, extra) => ({ nombre, jugadores: ['POR', 'POR', 'DEF', 'D
         if (F.tipo === 'grupos') { ultimaGrupos = F; grupoDe.clear(); F.grupos.forEach((G) => G.tabla.forEach((t) => grupoDe.set(t.equipo, G.nombre))); }
         else if (ultimaGrupos) { F.cruces.forEach((c) => { if (grupoDe.get(c.a) && grupoDe.get(c.a) === grupoDe.get(c.b)) mismoGrupo++; }); ultimaGrupos = null; }
       });
-      const fuera = new Set(M.retirados.filter((x) => x.retiro <= M.anio).map((x) => x.n));
+      const fuera = new Set(M.retirados.filter((x) => x.retiro < M.anio).map((x) => x.n));
       Object.values(MU.convocados).forEach((lista) => lista.forEach((x) => { if (!x[3] && fuera.has(x[0])) retirados++; }));
     } });
   });
