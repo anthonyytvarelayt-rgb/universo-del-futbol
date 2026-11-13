@@ -754,7 +754,37 @@
     }
     // Fase de grupos (Liga de Campeones): grupos de 4 a doble vuelta; pasan los dos primeros a las eliminatorias.
     // Si sobran equipos, los más flojos juegan antes una ronda previa.
-    const G = !op.cuadro && op.grupos ? [8, 4, 2].find((g) => g <= op.grupos && 4 * g <= equipos.length) : 0;
+    // Fase de liga (Liga de Campeones desde 2024): 36 equipos en una sola tabla, ocho partidos cada uno contra ocho
+    // rivales distintos. Los ocho primeros van a octavos; del 9.º al 24.º juegan una eliminatoria previa.
+    const L = !op.cuadro && op.liga && equipos.length >= 24 ? Math.min(36, equipos.length - (equipos.length % 2)) : 0;
+    if (L) {
+      const eq = barajar([...equipos].sort((a, b) => fuerzaBruta(b) - fuerzaBruta(a)).slice(0, L));
+      const tabla = eq.map((e) => ({ equipo: e, nombre: e.nombre, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0 }));
+      const crucesL = [];
+      calendario(L).slice(0, 8).forEach((ronda) => {
+        ronda.forEach(([a, b]) => {
+          const m = juega(eq[a], eq[b], {});
+          const [ga, gb] = m.goles, ta = tabla[a], tb = tabla[b];
+          ta.pj++; tb.pj++; ta.gf += ga; ta.gc += gb; tb.gf += gb; tb.gc += ga;
+          if (ga > gb) { ta.g++; tb.p++; ta.pts += 3; } else if (ga < gb) { tb.g++; ta.p++; tb.pts += 3; } else { ta.e++; tb.e++; ta.pts++; tb.pts++; }
+          crucesL.push({ a: eq[a].nombre, b: eq[b].nombre, partidos: [resumen(m, eq[a], eq[b])], ganador: null, grupo: 'Fase de liga' });
+        });
+        pasaSemana(est, eq);
+      });
+      const t = [...tabla].sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);
+      rondas.push({ nombre: 'Fase de liga', liga: true, cruces: crucesL, grupos: [{ nombre: 'Fase de liga', tabla: t.map((x, i) => ({ nombre: x.nombre, pj: x.pj, g: x.g, e: x.e, p: x.p, gf: x.gf, gc: x.gc, pts: x.pts, pasa: i < 8, repesca: i >= 8 && i < 24 })) }] });
+      if (op.alJugar) op.alJugar(rondas.length, rondas[rondas.length - 1]);
+      const cruces = [], pasan = [];
+      for (let i = 0; i < 8; i++) {
+        const x = eliminatoria(t[23 - i].equipo, t[8 + i].equipo, false);
+        cruces.push({ a: x.a, b: x.b, partidos: x.partidos, ganador: x.ganador, penaltis: x.penaltis, golesFuera: x.golesFuera });
+        pasan.push(x.eq);
+      }
+      rondas.push({ nombre: 'Eliminatoria previa', cruces });
+      if (op.alJugar) op.alJugar(rondas.length, rondas[rondas.length - 1]);
+      vivos = t.slice(0, 8).map((x) => x.equipo).concat(pasan); esperan = [];
+    }
+    const G = !L && !op.cuadro && op.grupos ? [8, 4, 2].find((g) => g <= op.grupos && 4 * g <= equipos.length) : 0;
     if (G) {
       let porFuerza = [...equipos].sort((a, b) => fuerzaBruta(b) - fuerzaBruta(a)).slice(0, 8 * G);
       const k = porFuerza.length - 4 * G;

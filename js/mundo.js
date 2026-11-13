@@ -263,10 +263,12 @@
         const debe = Math.max(0, Math.min(meta, meta * (edad - 20) / 11) - van);
         const extra = van >= meta ? 8 : Math.min(160, 15 + 45 * debe);
         c.jugadores.forEach((j) => { reyes.push([j, extra]); j.temp = (j.temp || 0) + extra; }); });
+      // Los entrenadores especialistas en eliminatorias sacan un punto más a los suyos en Europa.
+      eqs.forEach((c) => { if (manoDe(c) === 'ganador') c.jugadores.forEach((j) => { reyes.push([j, 8]); j.temp = (j.temp || 0) + 8; }); });
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
-        EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos });
+        EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos, liga: M.anio >= 2024 });
       } finally { Motor.P.escala = escalaLiga; reyes.forEach(([j, v]) => { j.temp -= v; }); }
       if (EU.campeonEq) EU.campeonEq.jugadores.forEach((j) => { if (!j.relleno && CONSTANTES[j.n] && CONSTANTES[j.n].europa) j.copasEuropa = (j.copasEuropa || 0) + 1; });
       EU.goleadorReal = E.goleadorReal;
@@ -760,6 +762,7 @@
     const retiros = [], novedades = [];
     retiros.novedades = novedades;
     M.clubes.forEach((c) => {
+      const mano = manoDe(c);
       c.jugadores = c.jugadores.filter((j) => {
         const x = pj.get(j);
         j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
@@ -787,6 +790,8 @@
           // Los clubes de cantera sacan más a sus chavales: crecen un poco más deprisa y dan más sorpresas.
           const criado = politica(c) === 'cantera' && j.carrera.every((t) => t.club === c.nombre);
           if (criado && edad <= 23 && hueco > 0) j.niv += hueco * 0.08;
+          // Y hay entrenadores que hacen mejores a los jóvenes (Cruyff, Wenger, Guardiola).
+          if (mano === 'jovenes' && edad <= 23 && hueco > 0 && minutos >= 0.3) j.niv += hueco * 0.1;
           // Y la otra cara: la promesa que se queda en nada. De vez en cuando un chaval que apuntaba alto se estanca.
           if (edad <= 22 && !j.relleno && !j.cons && !j.joya && !j.estancado && (j.tec || 0) >= 860 && (j.tec || 0) - j.niv >= 60 && r() < (minutos < 0.4 ? 0.05 : 0.015)) {
             j.estancado = M.anio + 1;
@@ -1362,6 +1367,12 @@
     'Thomas Tuchel': [1973, 2009, 2, 'equilibrado', 'Alemania'], 'Zinedine Zidane': [1972, 2016, 2, 'equilibrado', 'Francia'], 'Hansi Flick': [1965, 2019, 2, 'ofensivo', 'Alemania'], 'Mikel Arteta': [1982, 2019, 2, 'ofensivo', 'España'],
     'Xabi Alonso': [1981, 2022, 2, 'ofensivo', 'España']
   };
+  // La mano de cada uno: unos hacen crecer a los jóvenes y otros son especialistas en ganar eliminatorias.
+  const MANOS = { jovenes: 'Hace crecer a los jóvenes', ganador: 'Especialista en eliminatorias' };
+  const MANO = {};
+  ['Johan Cruyff', 'Arsène Wenger', 'Matt Busby', 'Pep Guardiola', 'Jürgen Klopp', 'Marcelo Bielsa', 'Rinus Michels', 'Louis van Gaal', 'Alex Ferguson', 'Telê Santana', 'Mikel Arteta', 'Xabi Alonso', 'Bill Shankly', 'Luis Enrique', 'Hennes Weisweiler'].forEach((n) => { MANO[n] = 'jovenes'; });
+  ['José Mourinho', 'Carlo Ancelotti', 'Zinedine Zidane', 'Ernst Happel', 'Bob Paisley', 'Helenio Herrera', 'Fabio Capello', 'Giovanni Trapattoni', 'Marcello Lippi', 'Ottmar Hitzfeld', 'Jupp Heynckes', 'Diego Simeone', 'Brian Clough', 'Vicente del Bosque', 'Béla Guttmann', 'Arrigo Sacchi', 'Rafael Benítez', 'Unai Emery', 'Carlos Bianchi', 'Luiz Felipe Scolari'].forEach((n) => { MANO[n] = 'ganador'; });
+  const manoDe = (c) => { const e = c && c.entrenadores && c.entrenadores[0]; return e ? MANO[e.nombre] || null : null; };
   const MAESTRO_JUGADOR = { 'Luis Enrique': 'Luis Enrique Martínez García' };
   const maestro = (nombre) => (MAESTROS[nombre] ? MAESTROS[nombre][2] : 0);
   // Un gran entrenador hace mejor a su equipo: toda la plantilla rinde un punto más mientras él está.
@@ -1765,7 +1776,7 @@
     return d;
   }
 
-  const api = { OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

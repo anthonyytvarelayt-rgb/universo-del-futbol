@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 36, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 37, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1647,6 +1647,7 @@ function fichaEntrenador(n, club) {
   const rasgos = [];
   if (t && t.estilo) rasgos.push(`<span class="fuerte">${esc(Motor.NOMBRE_ESTILO[t.estilo] || t.estilo)}</span>`);
   try { const ma = Mundo.maestro(n); if (ma) rasgos.push(`<span class="oro">${ma >= 3 ? 'Leyenda de los banquillos' : 'Gran entrenador'}: su equipo rinde más</span>`); } catch (e) { /* sin dato */ }
+  try { const mn = Mundo.MANO[n]; if (mn) rasgos.push(`<span>${esc(Mundo.MANOS[mn])}</span>`); } catch (e) { /* sin dato */ }
   if (t && t.fisico) rasgos.push('<span>Exige mucho físico</span>');
   if (t && t.merito) rasgos.push('<span>Sienta a quien no rinde</span>');
   if (t && t.fijo) rasgos.push('<span>Intocable en el banquillo</span>');
@@ -1957,7 +1958,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 36) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 37) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
