@@ -286,6 +286,7 @@
       .concat(OC.UEFA ? [{ nombre: 'UEFA', jugadores: OC.UEFA.jugadores, campeon: OC.UEFA.campeonEq }] : [])
       .concat(OC.RECOPA ? [{ nombre: 'Recopa', jugadores: OC.RECOPA.jugadores, campeon: OC.RECOPA.campeonEq }] : [])
       .concat(OC.SUPER ? [{ nombre: 'Supercopa de Europa', jugadores: OC.SUPER.jugadores, campeon: OC.SUPER.campeonEq }] : [])
+      .concat((OC.SUPERNAC || []).map((C) => ({ nombre: 'Supercopa', jugadores: C.jugadores, campeon: C.campeonEq })))
       .concat(OC.LIB ? [{ nombre: 'Libertadores', jugadores: OC.LIB.jugadores, campeon: OC.LIB.campeonEq }] : [])
       .concat(OC.INTER ? [{ nombre: 'Intercontinental', jugadores: OC.INTER.jugadores, campeon: OC.INTER.campeonEq }] : [])
       .concat([{ nombre: 'Copa', jugadores: C.jugadores, campeon: C.campeonEq }])
@@ -304,7 +305,7 @@
     });
     // Ganar fuera también da nombre.
     [[OC.UEFA, 10], [OC.RECOPA, 10], [OC.SUPER, 3], [OC.LIB, 14], [OC.INTER, 5]].forEach(([X, v]) => { const c = X && M.clubes.find((y) => y === X.campeonEq); if (c) c.prestigio = Math.min(1000, c.prestigio + v); });
-    return { anio: M.anio, reglas: reg, T, seg, promos, C, EU, UEFA: OC.UEFA || null, RECOPA: OC.RECOPA || null, SUPER: OC.SUPER || null, LIB: OC.LIB || null, INTER: OC.INTER || null, G, premios, bajan, suben, est, otros };
+    return { anio: M.anio, reglas: reg, T, seg, promos, C, EU, UEFA: OC.UEFA || null, RECOPA: OC.RECOPA || null, SUPER: OC.SUPER || null, SUPERNAC: OC.SUPERNAC || [], LIB: OC.LIB || null, INTER: OC.INTER || null, G, premios, bajan, suben, est, otros };
   }
 
   // Carácter de cada liga frente a la media de su época: el catenaccio italiano desde los 60, el fútbol directo inglés y alemán.
@@ -393,6 +394,8 @@
       .map((x) => ({ x, f: fuerzaExtranjero(x, M.anio), orden: fuerzaExtranjero(x, M.anio) + 0.08 * ((hashN(x[0] + M.anio, 9) % 100) / 100) })).sort((a, b) => b.orden - a.orden).slice(0, cuantos)
       .map(({ x, f }) => { const c = { nombre: x[0], pais: x[1], prestigio: Math.round(880 * f * rebaja), generado: f, entrenadores: [], jugadores: [] }; plantillaExtranjera(c, medio * f * rebaja, M.anio, enJuego); return c; });
   };
+  const SUPERCOPA_DESDE = { España: 1982, Italia: 1988, Inglaterra: 1930, Alemania: 1987, Francia: 1955, Portugal: 1979 };
+  const SUPERCOPA_NOMBRE = { España: 'Supercopa de España', Italia: 'Supercoppa Italiana', Inglaterra: 'Charity Shield', Alemania: 'Supercopa de Alemania', Francia: 'Supercopa de Francia', Portugal: 'Supertaça' };
   function otrasCopas(M, semilla, est, R, cambios) {
     const out = {};
     const enEuropa = new Set(R.EU ? R.EU.rondas.flatMap((ro) => ro.cruces.flatMap((c) => [c.a, c.b])).filter(Boolean) : []);
@@ -427,6 +430,17 @@
     if (M.anio >= 1973 && R.EU && R.EU.campeonEq && rival && rival !== R.EU.campeonEq) {
       out.SUPER = Motor.copa([R.EU.campeonEq, rival], { semilla: semilla + 77, anio: M.anio + 1, estado: est, nombre: 'Supercopa de Europa', finalUnica: true, penaltis: true, cambios });
     }
+    // Supercopa de cada país: el campeón de liga contra el de copa del año anterior (si es el mismo, contra el segundo de la liga).
+    out.SUPERNAC = [];
+    if (prev) europeos.forEach((p, k) => {
+      if (M.anio < (SUPERCOPA_DESDE[p] || 9999)) return;
+      const o = p === 'España' ? { campeon: prev.campeon, copa: prev.copa, sub: prev.R && prev.R.T ? prev.R.T.tabla[1].nombre : null } : (() => { const x = prev.otros.find((y) => y.pais === p) || {}; return { campeon: x.campeon, copa: x.copa, sub: x.subcampeon }; })();
+      const club = (n) => n && M.clubes.find((c) => c.nombre === n && c.pais === p);
+      const A = club(o.campeon), B = club(o.copa && o.copa !== o.campeon ? o.copa : o.sub);
+      if (!A || !B || A === B) return;
+      const C = Motor.copa([A, B], { semilla: semilla + 83 + k, anio: M.anio + 1, estado: est, nombre: SUPERCOPA_NOMBRE[p] || 'Supercopa', finalUnica: true, penaltis: true, cambios });
+      C.pais = p; out.SUPERNAC.push(C);
+    });
     // Copa Libertadores (desde 1960): los mejores de Argentina y Brasil contra los grandes del resto de Sudamérica.
     if (M.anio >= 1960 && M.paises.some((P) => NO_EUROPA.includes(P.pais))) {
       const eqs = NO_EUROPA.filter((p) => M.paises.some((P) => P.pais === p)).flatMap((p) => clasificados(M, p, M.anio >= 2000 ? 5 : M.anio >= 1966 ? 3 : 2, []));
@@ -1012,8 +1026,8 @@
   }
   // Sueldo que pide (en unidades: un titular normal de Primera pide 1). Crece muy deprisa por arriba, como en la realidad.
   // Precio de un traspaso, en millones de euros de hoy en día. La vara es el récord mundial de cada época
-  // (Luis Suárez 1961, Cruyff 1973, Maradona 1984, Zidane 2001, Neymar 2017): un jugador de 880 en plenitud vale el récord.
-  const RECORD_TRASPASO = [[1950, 0.08], [1961, 0.2], [1968, 0.6], [1973, 1.2], [1982, 5], [1984, 7.5], [1990, 12], [1992, 16], [1997, 27], [2000, 60], [2001, 77], [2009, 94], [2016, 105], [2017, 222], [2030, 240]];
+  // (Luis Suárez 1961, Cruyff 1973, Maradona 1984, Zidane 2001, Neymar 2017): un fichaje normal de figura (nivel 700-760) cuesta entre la cuarta parte y la mitad del récord de su año, y solo una leyenda en plenitud lo iguala o lo bate por poco.
+  const RECORD_TRASPASO = [[1950, 0.05], [1957, 0.09], [1961, 0.2], [1968, 0.6], [1973, 1.2], [1975, 1.9], [1982, 5], [1984, 7.5], [1987, 8], [1990, 12], [1992, 16], [1996, 21], [1997, 27], [1998, 31], [1999, 49], [2000, 60], [2001, 77], [2009, 94], [2013, 100], [2016, 105], [2017, 222], [2030, 222]];
   const recordTraspaso = (anio) => {
     const i = Math.max(1, RECORD_TRASPASO.findIndex((x) => x[0] >= anio)), a = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i - 1], b = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i];
     if (a === b || anio <= a[0]) return a[1];
@@ -1022,7 +1036,7 @@
   const precio = (j, anio, motivo, comprador) => {
     if (motivo === 'gratis') return 0;
     const e = anio - anioNac(j), edad = e <= 23 ? 1.15 : e <= 27 ? 1 : e >= 34 ? 0.08 : [0.85, 0.7, 0.55, 0.42, 0.3, 0.18][e - 28];
-    const v = recordTraspaso(anio) * Math.exp((Motor.escala.mostrar(j.niv) - 880) / 100) * edad * (motivo === 'lio' ? 0.7 : 1) * (j.relleno ? 0.5 : 1)
+    const v = recordTraspaso(anio) * Math.min(1.15, Math.exp((Motor.escala.mostrar(j.niv) - 850) / 110)) * edad * (motivo === 'lio' ? 0.7 : 1) * (j.relleno ? 0.5 : 1)
       * (comprador ? Math.max(0.05, Math.min(1, (comprador.prestigio - 400) / 350)) : 1); // un club modesto no paga lo que un grande
     return v >= 10 ? Math.round(v) : v >= 1 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100;
   };
@@ -1719,7 +1733,7 @@
     const R = jugarTemporada(M, semilla);
     const resumen = {
       temporada: temporadaTxt(M.anio), anio: M.anio, R, G: R.G,
-      campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, uefa: R.UEFA ? R.UEFA.campeon : null, recopa: R.RECOPA ? R.RECOPA.campeon : null, supercopa: R.SUPER ? R.SUPER.campeon : null, libertadores: R.LIB ? R.LIB.campeon : null, intercontinental: R.INTER ? R.INTER.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
+      campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, uefa: R.UEFA ? R.UEFA.campeon : null, recopa: R.RECOPA ? R.RECOPA.campeon : null, supercopa: R.SUPER ? R.SUPER.campeon : null, supercopas: (R.SUPERNAC || []).map((C) => ({ pais: C.pais, nombre: C.nombre, campeon: C.campeon })), libertadores: R.LIB ? R.LIB.campeon : null, intercontinental: R.INTER ? R.INTER.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
       otros: R.otros.map((o) => ({ pais: o.pais, liga: o.reglas.liga, campeon: o.campeon, subcampeon: o.subcampeon, puestos: (() => { const top = o.ligas.filter((l) => l.nivel === 1); return top.length === 1 && top[0].T ? top[0].T.tabla.slice(0, 8).map((t) => t.nombre) : []; })(), campeones: o.campeones, copa: o.C ? o.C.campeon : null, pichichi: o.premios ? o.premios.pichichi : null }))
     };
     const MU = jugarMundial(M, semilla + 5, R);

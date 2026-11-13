@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 46, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 48, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -629,11 +629,23 @@ function premiosMundo(V) {
   // cuentan menos para un jugador corriente del equipo campeón (antes lo ganaba un medio de 680 con seis goles).
   const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
   const clase = (x) => Math.max(-0.6, Math.min(0.6, (nivelEn(x) - 800) / 300)), talla = (x) => Math.max(0.3, Math.min(1, (nivelEn(x) - 620) / 230));
-  const merito = (x) => x.notaTemp + clase(x) + Math.min(0.3, (x.g || 0) / 200) - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x)
-    + talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
-    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0))
+  // El Balón de Oro mira lo mismo que el de verdad, en su orden:
+  // 1) el rendimiento individual y lo decisivo que fue (nota, goles, asistencias y goles en la Copa de Europa);
+  // 2) lo que ganó su equipo (Copa de Europa, liga, Mundial, Eurocopa o Copa América, otras copas);
+  // 3) la clase del jugador y el juego limpio (las expulsiones ya bajan la nota; casi no pesa).
+  const otrosTitulos = new Map(), sumaT = (club, v) => { if (club) otrosTitulos.set(club, (otrosTitulos.get(club) || 0) + v); };
+  if (cerradaV(V)) {
+    paisesDe(V).forEach((p) => { const C = copaDe(V, p); if (C) sumaT(C.campeon, 0.08); });
+    [['UEFA', 0.14], ['RECOPA', 0.12], ['LIB', 0.18], ['INTER', 0.06], ['SUPER', 0.03]].forEach(([k, v]) => { if (R[k]) sumaT(R[k].campeon, v); });
+  }
+  const golesEU = (x) => (x.por && x.por.Europa ? x.por.Europa.g || 0 : 0);
+  const individual = (x) => x.notaTemp + Math.min(0.3, (x.g || 0) / 200) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.25, golesEU(x) / 40) - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x);
+  const colectivo = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
+    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
+    + (otrosTitulos.get(x.eq.nombre) || 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
+  const merito = (x) => individual(x) + colectivo(x) + clase(x);
   const porMerito = (a, b) => merito(b) - merito(a);
   const calc = {
     balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porMerito, 15),
@@ -643,6 +655,12 @@ function premiosMundo(V) {
   };
   const linea = { bota: (j) => `${j.g} goles${V.anio >= 1996 ? ` · ${goles(j)} puntos` : ''}`, yashin: (j) => `${j.enc} goles en ${j.pj} partidos` };
   r.oficiales = Epoca.premios(V.anio).filter((p) => calc[p.id]).map((p) => ({ nombre: p.nombre, nota: p.nota, j: calc[p.id](p.quien), linea: linea[p.id] || ((j) => `nota ${j.notaTemp.toFixed(2)}`) })).filter((x) => x.j);
+  // El podio del gran premio del año y por qué ganó.
+  try {
+    const gran = Epoca.premios(V.anio).find((p) => p.id === 'balon' || p.id === 'fifa');
+    const cand = G.filter((x) => x.pj >= 15 && (!gran || gran.id !== 'balon' ? true : gran.quien === 'europeos' ? europeo(x) && enEuropa(x) : gran.quien === 'club europeo' ? enEuropa(x) : true)).sort(porMerito).slice(0, 3);
+    r.podio = cand.map((x) => ({ nombre: x.nombre, club: x.club, g: x.g, a: x.a, nota: x.notaTemp, individual: individual(x), colectivo: colectivo(x), clase: clase(x) }));
+  } catch (e) { r.podio = []; }
   r.nombreMejor = (Epoca.premios(V.anio).find((p) => p.id === 'balon' || p.id === 'fifa') || {}).nombre || 'Mejor jugador del mundo';
   r.ganadorMejor = (r.oficiales.find((x) => x.nombre === r.nombreMejor) || {}).j || r.mejor;
   cachePremios.set(V, r);
@@ -1009,6 +1027,7 @@ function edicionEspecial(V) {
     const quien = c.campeon ? botonClub(c.campeon) + marcaSi(c.campeon, real) : c.campeones.length ? c.campeones.map((x) => botonClub(x.club)).join(' ') + (real && !c.campeones.some((x) => real.includes(x.club)) ? marcaDif(`De verdad: ${real}`) : '') : 'sin liga';
     return `<div class="resultado"><span><span>${quien}<small>${esc(pais)} · ${esc(nombreLiga(V, pais))}${C ? ` · ${esc(C.nombre)}: ${esc(C.campeon)}` : ''}${pr.pichichi ? ` · goleador: ${esc(pr.pichichi.nombre)} (${pr.pichichi.g})` : ''}</small></span></span></div>`;
   }).join('');
+  const supersNac = supercopasDe(V).map((C) => { const f = C.rondas[C.rondas.length - 1].cruces[0]; return `<div class="resultado"><span><span>${botonClub(C.campeon)}<small>${esc(C.nombre)}${f && f.b ? ` · ${esc(f.a)} – ${esc(f.b)}` : ''}</small></span></span></div>`; }).join('');
   const otras = OTRAS_COPAS.filter(([id]) => campeonOtra(V, id)).map(([id]) => { const C = otraCopa(V, id), f = C.rondas[C.rondas.length - 1].cruces[0]; return `<div class="resultado"><span><span>${botonClub(C.campeon)}<small>${esc(C.nombre)}${f && f.b ? ` · final: ${esc(f.a)} – ${esc(f.b)}` : ''}</small></span></span></div>`; }).join('');
   const pm = premiosMundo(V);
   const podio = `<div class="podio"><article><span class="rotulo">España · campeón de Liga</span><h2>${botonClub(V.campeon)}${marcaSi(V.campeon, campeonRealDe('España', V.anio))}</h2><p>${esc(nombreLiga(V, 'España'))} · ${V.temporada}</p></article>${pm.ganadorMejor ? `<article class="podio-oro"><span class="rotulo">${esc(pm.nombreMejor)}</span><h2>${nombreJ(pm.ganadorMejor.nombre)}</h2><p>${esc(pm.ganadorMejor.club)} · la temporada de una leyenda</p></article>` : ''}</div>`;
@@ -1035,7 +1054,7 @@ function edicionEspecial(V) {
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return cartel + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '')
+  return cartel + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '') + (supersNac ? `<div class="caja"><span class="rotulo">Supercopas</span>${supersNac}</div>` : '')
     + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
     + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
@@ -1067,12 +1086,14 @@ function sorpresasHtml(V) {
   const rotos = nov.filter((x) => x.tipo === 'vestuario').slice(0, 1).map((x) => art('Vestuario roto', `Mal ambiente en el ${esc(x.club)}`, `${x.nombres.map(esc).join(' y ')} no se soportan y el grupo lo nota. Si nadie pone orden, el equipo rendirá por debajo de lo que vale.`)).join('');
   const bomba = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.niv >= 930 && x.motivo && !/gratis|acabó mal/.test(x.motivo)).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('El fichaje del verano', `${nombreJ(x.jugador)}, del ${esc(x.de)} al ${esc(x.a)}`, `Nivel ${nivel(x.niv)}${x.precio ? ', ' + precioTxt(x.precio) : ''}. El motivo: ${esc(x.motivo)}.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
+  // Triplete, sextete…: el club que lo gana todo.
+  const plenos = plenosDe(V).slice(0, 2).map((x) => art(`¡${x.nombre[0].toUpperCase() + x.nombre.slice(1)}!`, `El ${esc(x.club)} gana ${x.t.length} títulos en un año`, `${esc(x.t.join(', '))}. ${x.t.length >= 6 ? 'Todo lo que se podía ganar. Un año para la historia del fútbol.' : x.t.length >= 3 && x.t.includes(nombreEuropa(V)) ? 'Liga, copa y Europa en la misma temporada: muy pocos equipos lo han conseguido.' : 'Una temporada redonda.'}`)).join('');
   // Las constantes de los entrenadores dan que hablar cada temporada.
   const dtNoticias = noticiasDT(V).map((x) => art(x.rot, x.tit, x.txt)).join('');
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + robos + dtNoticias + recordT + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + robos + dtNoticias + recordT + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1116,6 +1137,7 @@ function figurasHtml(V, pais) {
     const pm = premiosMundo(V);
     premios = [
       ...pm.oficiales.map((x) => premio(x.nombre, x.j, x.linea)),
+      (pm.podio || []).length > 1 ? `<div class="premio"><span>Podio del ${esc(pm.nombreMejor)}</span>${pm.podio.map((x, i) => `<small>${i + 1}.º ${nombreJ(x.nombre)} · ${esc(x.club)} · ${x.g} goles, ${x.a} asist., nota ${x.nota.toFixed(2)}</small>`).join('')}<small>Cuenta: rendimiento y goles decisivos, títulos del equipo y la clase del jugador.</small></div>` : '',
       pm.oficiales.length ? '' : premio('Mejor jugador del mundo', pm.mejor, (j) => `nota ${j.notaTemp.toFixed(2)}`),
       premio('Máximo goleador', pm.goleador, (j) => `${j.g} goles`),
       premio('Más asistencias', pm.asistente, (j) => `${j.a} asistencias`),
@@ -1208,6 +1230,7 @@ function copiarResumen(btn) {
     if (V.europa) out.push(`• ${nombreEuropa(V)}: ${V.europa}${final(V.R.EU)}${EUROPA_REAL[V.anio] && EUROPA_REAL[V.anio] !== V.europa ? ` · de verdad la ganó ${EUROPA_REAL[V.anio]}` : ''}`);
     OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id)) out.push(`• ${otraCopa(V, id).nombre}: ${campeonOtra(V, id)}${final(otraCopa(V, id))}`); });
   });
+  intento(() => { const ps = plenosDe(V); if (ps.length) { sec('👑 LO GANARON TODO'); ps.forEach((x) => out.push(`• ${x.nombre.toUpperCase()} del ${x.club}: ${x.t.join(', ')}`)); } });
   // Selecciones: Mundial, Eurocopa, Copa América.
   intento(() => {
     const ts = torneosSelecciones(V); if (!ts.length) return;
@@ -1222,6 +1245,7 @@ function copiarResumen(btn) {
       out.push(`• ${pais.toUpperCase()}: campeón ${quien}${c.sub ? `, segundo ${c.sub}` : ''}`);
       intento(() => { const top = ligasDe(V, pais).filter((l) => l.nivel === 1); if (top.length === 1 && top[0].T) out.push(`   Tabla: ${top[0].T.tabla.slice(0, 6).map((t, i) => `${i + 1}. ${t.nombre} (${t.pts})`).join(', ')}`); });
       intento(() => { const C = copaDe(V, pais); if (C && C.campeon) out.push(`   ${C.nombre}: ${C.campeon}${final(C)}`); });
+      intento(() => { const SC = supercopasDe(V).find((x) => x.pais === pais); if (SC) out.push(`   ${SC.nombre}: ${SC.campeon}${final(SC)}`); });
       if (pr.pichichi) out.push(`   Goleador: ${pr.pichichi.nombre} (${pr.pichichi.club}), ${pr.pichichi.g} goles`);
       if (pr.zamora && pr.zamora.nombre) out.push(`   Mejor portero: ${pr.zamora.nombre} (${pr.zamora.club})`);
       intento(() => { const a = ascensosDe(V, pais); if (a.suben.length) out.push(`   Suben: ${a.suben.join(', ')}`); if (a.bajan.length) out.push(`   Bajan: ${a.bajan.join(', ')}`); });
@@ -1231,6 +1255,7 @@ function copiarResumen(btn) {
   intento(() => {
     sec('⭐ PREMIOS');
     if (pm.ganadorMejor) out.push(`• ${pm.nombreMejor}: ${pm.ganadorMejor.nombre} (${pm.ganadorMejor.club})`);
+    if ((pm.podio || []).length > 1) out.push(`   Podio: ${pm.podio.map((x, i) => `${i + 1}.º ${x.nombre} (${x.club}, ${x.g} goles, ${x.a} asistencias, nota ${x.nota.toFixed(2)})`).join(' · ')}`);
     if (pm.goleador) out.push(`• Máximo goleador del mundo: ${pm.goleador.nombre} (${pm.goleador.club}), ${pm.goleador.g} goles`);
     if (pm.asistente) out.push(`• Más asistencias: ${pm.asistente.nombre} (${pm.asistente.club}), ${pm.asistente.a}`);
     if (pm.portero) out.push(`• Mejor portero: ${pm.portero.nombre} (${pm.portero.club})`);
@@ -1471,6 +1496,27 @@ function goleadoresLiga(V, L) {
   xs = xs.filter((x) => x.g > 0).sort((a, b) => b.g - a.g || b.a - a.a).slice(0, 20);
   return xs.length ? xs.map((j, i) => goleadorFila(j, i, j.g, `${j.a} asist.`)).join('') : '<div class="vacio">Todavía no hay goles.</div>';
 }
+// Supercopas de cada país y la cuenta de títulos de un club en una temporada (doblete, triplete… sextete).
+const supercopasDe = (V) => (cerradaV(V) && V.R && V.R.SUPERNAC ? V.R.SUPERNAC : []);
+function titulosTemporada(V, club) {
+  const t = [];
+  if (!cerradaV(V)) return t;
+  paisesDe(V).forEach((p) => { const c = campeonDe(V, p); if (c.campeon === club) t.push('Liga'); const C = copaDe(V, p); if (C && C.campeon === club) t.push(C.nombre); });
+  if (V.europa === club) t.push(nombreEuropa(V));
+  OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id) === club) t.push(otraCopa(V, id).nombre); });
+  supercopasDe(V).forEach((C) => { if (C.campeon === club) t.push(C.nombre); });
+  return t;
+}
+const NOMBRE_PLENO = { 2: 'doblete', 3: 'triplete', 4: 'póquer', 5: 'quintuplete', 6: 'sextete', 7: 'septete' };
+// Los plenos de la temporada: clubes con liga + copa + Copa de Europa (triplete) o más títulos.
+function plenosDe(V) {
+  if (!cerradaV(V)) return [];
+  const clubes = new Set(paisesDe(V).map((p) => campeonDe(V, p).campeon).filter(Boolean)); if (V.europa) clubes.add(V.europa);
+  const copas = new Set(paisesDe(V).map((p) => { const C = copaDe(V, p); return C && C.nombre; }).filter(Boolean));
+  return [...clubes].map((c) => { const t = titulosTemporada(V, c), clasico = t.includes('Liga') && t.includes(nombreEuropa(V)) && t.some((x) => copas.has(x));
+    return { club: c, t, nombre: t.length >= 6 ? 'sextete' : clasico ? NOMBRE_PLENO[t.length] || 'pleno' : `${t.length} títulos` }; })
+    .filter((x) => x.t.length >= 3 && x.t.includes('Liga')).sort((a, b) => b.t.length - a.t.length);
+}
 // Otras copas internacionales de clubes: UEFA / Europa League, Libertadores e Intercontinental.
 const OTRAS_COPAS = [['recopa', 'RECOPA'], ['uefa', 'UEFA'], ['super', 'SUPER'], ['liber', 'LIB'], ['inter', 'INTER']];
 const otraCopa = (V, id) => { const k = (OTRAS_COPAS.find((x) => x[0] === id) || [])[1]; return k && V.R ? V.R[k] || null : null; };
@@ -1630,6 +1676,7 @@ function palmaresDe(club, jugador, crudo) {
     if (C && C.campeon === cl && !(otroEn(V, pais) || {}).campeonPorCopa) out.push([C.nombre, V.temporada]);
     if (V.europa === cl) out.push([nombreEuropa(V), V.temporada]);
     OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id) === cl) out.push([otraCopa(V, id).nombre, V.temporada]); });
+    supercopasDe(V).forEach((C) => { if (C.campeon === cl) out.push([C.nombre, V.temporada]); });
     if (jugador) {
       const pm = premiosMundo(V), pp = premiosDe(V, pais);
       if (pm.oficiales.length) pm.oficiales.forEach((x) => { if (x.j.nombre === jugador) out.push([x.nombre, V.temporada, 1]); });
@@ -1768,7 +1815,8 @@ function goleadoresClub(n) {
   return xs.length ? `<div class="palmares"><span class="rotulo">Sus máximos goleadores en la partida</span>${xs.map(([q, g]) => `<div><span>${nombreJ(q)}</span><span>${g} goles</span></div>`).join('')}</div>` : '';
 }
 // Los sueldos se cuentan en «sueldos de un titular normal de Primera»; desde 1995 se enseñan en millones al año.
-function dineroTxt(v) { return M.anio >= 1995 ? `${(v * 1.5).toFixed(v * 1.5 >= 10 ? 0 : 1).replace('.', ',')} M€ al año` : `${v.toFixed(1).replace('.', ',')} sueldos de titular`; }
+// El dinero va en euros de cada época: se mide contra el récord de traspaso de ese año.
+function dineroTxt(v) { const m = v * Mundo.recordTraspaso(M.anio) / 22; return `${precioTxt(m >= 10 ? Math.round(m) : m >= 1 ? Math.round(m * 10) / 10 : Math.round(m * 100) / 100)} al año`; }
 const BALANCE_TXT = { superado: 'superado', cumplido: 'cumplido', cerca: 'se quedó cerca', fracaso: 'no cumplido' };
 function objetivoClub(c, l) {
   try {
@@ -1957,6 +2005,8 @@ function recordsPartida(ts) {
   if (mp && mp.v) fila('Más partidos jugados', nombreJ(mp.j.n), `${mp.v} partidos`);
   if (mf && mf.v > 4) fila(`Más temporadas en un club · ${mf.club}`, nombreJ(mf.j.n), `${mf.v} temporadas`);
   if (mc && mc.v > 2) fila('Más clubes en su carrera', nombreJ(mc.j.n), `${mc.v} clubes`);
+  let pleno = null; cerr.forEach((V) => plenosDe(V).forEach((x) => { if (!pleno || x.t.length > pleno.t.length) pleno = Object.assign({ temporada: V.temporada }, x); }));
+  if (pleno) fila(`Más títulos en una temporada · ${pleno.temporada} (${pleno.nombre})`, botonClub(pleno.club), `${pleno.t.length} títulos`);
   const caro = recordFichaje(ts);
   if (caro) fila(`Fichaje más caro · ${caro.de} → ${caro.a}, ${caro.temporada}`, nombreJ(caro.jugador), precioTxt(caro.precio));
   // Premios: quién ha sido más veces el mejor del mundo y el máximo goleador.
@@ -2218,7 +2268,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 46) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 48) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
