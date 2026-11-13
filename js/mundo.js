@@ -1011,6 +1011,21 @@
     return x < 30 ? 'titulos' : x < 50 ? 'dinero' : x < 64 ? 'casa' : x < 82 ? 'minutos' : 'reto';
   }
   // Sueldo que pide (en unidades: un titular normal de Primera pide 1). Crece muy deprisa por arriba, como en la realidad.
+  // Precio de un traspaso, en millones de euros de hoy en día. La vara es el récord mundial de cada época
+  // (Luis Suárez 1961, Cruyff 1973, Maradona 1984, Zidane 2001, Neymar 2017): un jugador de 880 en plenitud vale el récord.
+  const RECORD_TRASPASO = [[1950, 0.08], [1961, 0.2], [1968, 0.6], [1973, 1.2], [1982, 5], [1984, 7.5], [1990, 12], [1992, 16], [1997, 27], [2000, 60], [2001, 77], [2009, 94], [2016, 105], [2017, 222], [2030, 240]];
+  const recordTraspaso = (anio) => {
+    const i = Math.max(1, RECORD_TRASPASO.findIndex((x) => x[0] >= anio)), a = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i - 1], b = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i];
+    if (a === b || anio <= a[0]) return a[1];
+    return a[1] * Math.pow(b[1] / a[1], Math.min(1, (anio - a[0]) / (b[0] - a[0])));
+  };
+  const precio = (j, anio, motivo, comprador) => {
+    if (motivo === 'gratis') return 0;
+    const e = anio - anioNac(j), edad = e <= 23 ? 1.15 : e <= 27 ? 1 : e >= 34 ? 0.08 : [0.85, 0.7, 0.55, 0.42, 0.3, 0.18][e - 28];
+    const v = recordTraspaso(anio) * Math.exp((Motor.escala.mostrar(j.niv) - 880) / 100) * edad * (motivo === 'lio' ? 0.7 : 1) * (j.relleno ? 0.5 : 1)
+      * (comprador ? Math.max(0.05, Math.min(1, (comprador.prestigio - 400) / 350)) : 1); // un club modesto no paga lo que un grande
+    return v >= 10 ? Math.round(v) : v >= 1 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100;
+  };
   const sueldo = (j) => Math.exp((Motor.escala.mostrar(j.niv) - 620) / 130) * (j.relleno ? 0.5 : 1) * (deseo(j) === 'dinero' ? 1.2 : 1);
   // Dinero de cada liga en cada época y clubes con dueño rico: de ahí sale lo que cada club puede pagar.
   const DINERO_LIGA = { España: { 1950: 1 }, Italia: { 1950: 1, 2010: 0.9 }, Inglaterra: { 1950: 0.95, 1995: 1, 2008: 1.1 }, Alemania: { 1950: 0.9, 2000: 0.95 }, Francia: { 1950: 0.8 }, Portugal: { 1950: 0.7 }, Argentina: { 1950: 0.75, 1985: 0.55 }, Brasil: { 1950: 0.75, 1985: 0.6 } };
@@ -1043,7 +1058,7 @@
       a.jugadores.push(j);
       masas.delete(de); masas.delete(a);
       j.contrato = nuevoAnio + duracion(j);
-      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
+      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, tipo === 'fichaje' ? { precio: precio(j, nuevoAnio, motivo, a), edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
     };
     // Contratos: más largos cuanto más joven.
     const duracion = (j) => { const e = nuevoAnio - anioNac(j); return (e <= 23 ? 5 : e <= 28 ? 4 : e <= 31 ? 3 : 2) - (hashN(j.n + nuevoAnio, 31) % 2); };
@@ -1895,7 +1910,7 @@
     return d;
   }
 
-  const api = { MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
