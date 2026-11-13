@@ -1178,13 +1178,24 @@ function sorpresasHtml(V) {
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
   return records + duelos + fracasos + hazanas + despidos + plenos + vest + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
+// Datos reales de formación y de maestros (datos/canteras.js). Solo se enseñan.
+const canteraReal = (n) => (typeof CANTERAS_REALES !== 'undefined' && CANTERAS_REALES[n]) || null;
+const canteraDe = (j) => j.cantera || (canteraReal(j.n) || [])[0] || '';
+const maestrosDe = (n) => (typeof MAESTROS_REALES !== 'undefined' && MAESTROS_REALES[n]) || [];
+// La relación entre dos entrenadores, en cualquiera de los dos sentidos: { alumno, maestro, r: [maestro, relación, club, desde, hasta] }.
+function lazoDT(a, b) {
+  const x = maestrosDe(a).find((r) => r[0] === b); if (x) return { alumno: a, maestro: b, r: x };
+  const y = maestrosDe(b).find((r) => r[0] === a); return y ? { alumno: b, maestro: a, r: y } : null;
+}
+const lazoTxt = (r) => (r[1] === 'a' ? 'fue su ayudante' : r[1] === 'd' && !r[2] ? 'se declara su discípulo' : 'fue su jugador') + (r[2] ? ` en ${/^Selección/.test(r[2]) ? 'la ' + r[2] : artClubes('el ' + r[2])}` : '') + (r[3] ? ` (${r[3]}${r[4] && r[4] !== r[3] ? '-' + r[4] : ''})` : '') + (r[1] === 'd' && r[2] ? ' y se declara su discípulo' : '');
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
-  if (!ids.length && !j.joya && !j.grave && !j.rival && !j.cantera) return '';
+  const cr = canteraReal(j.n), cant = canteraDe(j);
+  if (!ids.length && !j.joya && !j.grave && !j.rival && !cant) return '';
   const chips = ids.sort((a, b) => j.ins[b] - j.ins[a]).map((id) => { const I = Mundo.INSIGNIAS[id]; return `<span class="insignia g${j.ins[id]}" title="${esc(I.efecto)}. ${j.cnt && j.cnt[id] != null ? j.cnt[id] + ' ' + esc(I.cuenta) : ''}"><b>${esc(I.nombre)}</b> ${I.temporal ? '' : GRADO_TXT[j.ins[id]]}<small>${esc(I.efecto)}</small></span>`; }).join('');
   const joya = j.joya ? `<span class="insignia g2"><b>Joya inesperada</b> ${j.joya}<small>Explotó en ${j.joya}: en la vida real no llegó tan alto</small></span>` : '';
   const grave = (j.lesiones || []).length ? j.lesiones.map((l, i) => `<span class="insignia"><b>${i ? 'Recaída' : 'Lesión grave'}</b> ${esc(l.temporada)}<small>${esc(l.parte)} · ${l.meses} meses fuera, a los ${l.edad} años${i === j.lesiones.length - 1 && j.grave ? (j.grave.vuelve ? ' · volvió a su nivel' : '') : ''}</small></span>`).join('') : j.grave ? `<span class="insignia"><b>Lesión grave</b> ${j.grave.anio}<small>${j.grave.vuelve ? 'Volvió a su nivel un año después' : 'Se rompió a los ' + j.grave.edad + ' años'}</small></span>` : '';
-  return `<div><span class="rotulo">Marcado por esta partida</span><div class="insignias">${j.cantera ? `<span class="insignia g1"><b>Canterano</b> ${esc(j.cantera)}<small>Se formó y debutó allí${Mundo.CANTERAS[j.cantera] ? ' · una de las grandes escuelas' : ''}</small></span>` : ''}${joya}${j.rival ? `<span class="insignia g2"><b>Rival: ${esc(j.rival)}</b><small>Se crece cuando se enfrentan</small></span>` : ''}${chips}${grave}</div></div>`;
+  return `<div><span class="rotulo">Marcado por esta partida</span><div class="insignias">${cant ? `<span class="insignia g1"><b>Canterano</b> ${esc(cant)}<small>${cr && cr[0] === cant ? `Llegó a su cantera en ${cr[1]} y debutó con el primer equipo en ${cr[2]}` : 'Se formó y debutó allí'}${Mundo.CANTERAS[cant] ? ' · una de las grandes escuelas' : ''}</small></span>` : ''}${joya}${j.rival ? `<span class="insignia g2"><b>Rival: ${esc(j.rival)}</b><small>Se crece cuando se enfrentan</small></span>` : ''}${chips}${grave}</div></div>`;
 }
 
 // ---------- Figuras: goles, asistencias, regates, pases y nota (de un país o del mundo) ----------
@@ -1437,6 +1448,22 @@ function historiasDe(V) {
     const m = ms.sort((a, b) => peso(b) - peso(a))[0]; if (!m) return;
     const gana = m.ga > m.gb ? m.local : m.visita, pierde = m.ga > m.gb ? m.visita : m.local;
     pon('El derbi del año', `${m.local} ${m.ga}-${m.gb} ${m.visita}`, `Paliza del ${gana} en el ${m.derbi}${m.ga < m.gb ? ', y en campo contrario' : ''}. En el ${pierde} tardarán en olvidarlo.`);
+  });
+  // El alumno y el maestro (relaciones reales entre entrenadores): se juegan una liga o una final de Europa.
+  intento(() => {
+    const dt = (club) => ((V.objetivos || []).find((o) => o.club === club) || {}).entrenador;
+    let dichas = 0;
+    const cuenta = (ganador, perdedor, donde) => {
+      const a = dt(ganador), b = dt(perdedor), l = a && b && a !== b && lazoDT(a, b); if (!l || dichas >= 2) return; dichas++;
+      const al = sinApodo(l.alumno), ma = sinApodo(l.maestro), ganaAlumno = l.alumno === a;
+      pon(ganaAlumno ? 'El alumno supera al maestro' : 'El maestro sigue mandando', ganaAlumno ? `${al} le gana ${donde} a ${ma}` : `${ma} le gana ${donde} a ${al}`,
+        `${al} ${lazoTxt(l.r)}. Hoy se sientan en banquillos rivales: ${ganaAlumno ? al : ma} con el ${ganador} y ${ganaAlumno ? ma : al} con el ${perdedor}. ${ganaAlumno ? 'Esta vez la lección la dio el que antes escuchaba.' : 'El viejo profesor todavía tiene algo que enseñar.'}`);
+    };
+    const C = V.R.EU, f = C && C.rondas && C.rondas[C.rondas.length - 1].cruces[0], mf = f && f.partidos && f.partidos[f.partidos.length - 1];
+    if (mf && f.ganador) cuenta(f.ganador, mf.local === f.ganador ? mf.visita : mf.local, `la final de la ${nombreEuropa(V)}`);
+    const prev = antes[antes.length - 1], dtP = (club) => (((prev && prev.objetivos) || []).find((o) => o.club === club) || {}).entrenador;
+    paisesDe(V).forEach((p) => { const c = campeonDe(V, p); if (!c.campeon || !c.sub) return; const a = prev && paisesDe(prev).includes(p) ? campeonDe(prev, p) : null;
+      if (a && a.campeon === c.campeon && a.sub === c.sub && dtP(c.campeon) === dt(c.campeon) && dtP(c.sub) === dt(c.sub)) return; cuenta(c.campeon, c.sub, `la liga de ${p}`); });
   });
   // Árbitros: el penalti o la roja que deciden una final, y la liga que se va por un punto y un penalti.
   intento(() => {
@@ -2622,7 +2649,7 @@ function simbolosClub(n, c) {
     const idolos = todos.map((j) => { const ts = (j.carrera || []).filter((t) => t.club === n && !t.cedido); return { j, n: ts.length, g: ts.reduce((t, x) => t + (x.g || 0), 0), pj: ts.reduce((t, x) => t + (x.pj || 0), 0), niv: Math.max(0, ...ts.map((x) => x.niv || 0)) }; })
       .filter((x) => x.n >= 5 && nivel(x.niv) >= 650 && !x.j.relleno).sort((a, b) => (b.n * 12 + b.niv / 4 + b.g / 3) - (a.n * 12 + a.niv / 4 + a.g / 3)).slice(0, 5);
     const villanos = temporadas().flatMap((T) => (T.mercado || []).filter((x) => x.traicion === n && nivel(x.niv) >= 550).map((x) => ({ x, T }))).slice(-4);
-    const cant = todos.filter((j) => j.cantera === n && !(M.retirados || []).includes(j) && nivel(j.niv || 0) >= 600).sort((a, b) => b.niv - a.niv).slice(0, 6);
+    const cant = todos.filter((j) => canteraDe(j) === n && !(M.retirados || []).includes(j) && nivel(j.niv || 0) >= 600).sort((a, b) => b.niv - a.niv).slice(0, 6);
     if (!cap && !idolos.length && !villanos.length && !cant.length && !Mundo.CANTERAS[n]) return '';
     return `<div class="palmares"><span class="rotulo">Símbolos del club</span>`
       + (cap ? `<div><span>Capitán: ${nombreJ(cap.n)}</span><span>${seguidas(cap)} años</span></div>` : '')
@@ -2670,6 +2697,9 @@ function fichaEntrenador(n, club) {
   try { const don = Mundo.donDT(n); if (don) rasgos.push(`<span class="oro">★ Constante: ${esc(Mundo.DONES_DT[don])}</span>`); } catch (e) { /* sin dato */ }
   try { const mt = Mundo.mentorDe(n, M); if (mt) rasgos.push(`<span>Discípulo de ${esc(sinApodo(mt))}</span>`);
     const dis = Object.keys(Mundo.MENTORES).filter((k) => Mundo.MENTORES[k] === n).concat(Object.keys((M && M.mentores) || {}).filter((k) => M.mentores[k] === n)); if (dis.length) rasgos.push(`<span>Sus discípulos: ${dis.slice(0, 6).map((x) => esc(sinApodo(x))).join(', ')}</span>`); } catch (e) { /* sin dato */ }
+  const mios = maestrosDe(n).slice(0, 4), alumnos = typeof MAESTROS_REALES !== 'undefined' ? Object.keys(MAESTROS_REALES).filter((k) => MAESTROS_REALES[k].some((r) => r[0] === n)) : [];
+  const escuela = (mios.length ? `<div class="palmares"><span class="rotulo">De quién aprendió</span>${mios.map((r) => `<div><span>${esc(sinApodo(r[0]))}</span><span><small>${esc(lazoTxt(r))}</small></span></div>`).join('')}</div>` : '')
+    + (alumnos.length ? `<div><span class="rotulo">Entrenadores que aprendieron de él</span><div class="rasgos" style="margin-top:6px">${alumnos.slice(0, 12).map((x) => `<span>${esc(sinApodo(x))}</span>`).join('')}</div></div>` : '');
   if (t && t.fisico) rasgos.push('<span>Exige mucho físico</span>');
   if (t && t.merito) rasgos.push('<span>Sienta a quien no rinde</span>');
   if (t && t.fijo) rasgos.push('<span>Intocable en el banquillo</span>');
@@ -2677,6 +2707,7 @@ function fichaEntrenador(n, club) {
   const palm = palmaresDe(club, null);
   return `<div class="arriba"><div><div class="sub">Entrenador · ${esc(club)}${nac ? ` · ${S.anio + 1 - nac} años` : ''}</div><h1>${esc(sinApodo(n))}</h1></div><div class="botones-hoja"><button type="button" class="redondo" data-cerrar aria-label="Cerrar">✕</button></div></div>`
     + `<div><span class="rotulo">Estilo</span><div class="rasgos" style="margin-top:6px">${rasgos.join('') || '<span>Sin rasgos documentados</span>'}</div></div>`
+    + escuela
     + `<div class="palmares"><span class="rotulo">Títulos de su club en la partida</span>${palm || '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>'}</div>`
     + `<div><button type="button" class="ficha-btn" data-c="${esc(club)}"><span>Ver el ${esc(club)}</span><span>→</span></button></div>`;
 }
