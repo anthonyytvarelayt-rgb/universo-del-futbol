@@ -874,9 +874,8 @@ function pintarHoy() {
   const pds = grandes[0];
   const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span>${esc(pds.m.local)}</span><b>${pds.m.ga}-${pds.m.gb}</b><span>${esc(pds.m.visita)}</span></span><small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
   $('s-hoy').innerHTML = cab(p.tipo === 'jornada' ? `Jornada ${p.j}` : fechaCorta(p))
-    + `<article class="noticia"><span class="rotulo rojo">${esc(lead.seccion)}</span><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p></article>`
-    + destacado
-    + `<div class="breves">${breves}</div>`
+    + `<article class="noticia noticia-principal"><span class="rotulo rojo">${esc(lead.seccion)}</span><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p></article>`
+    + `<div class="actualidad">${destacado}<div class="breves">${breves}</div></div>`
     + `<div class="columnas">${crackSemana(grandes)}${carteleraHtml(V)}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
         <div class="caja"><span class="rotulo">Resultados grandes</span>${res}</div>
         <div class="caja lideres"><span class="rotulo">Líderes</span>${lideres || '<div class="vacio">Las ligas aún no han empezado.</div>'}</div>
@@ -987,13 +986,14 @@ function seguidosHtml() {
 function edicionEspecial(V) {
   const EU = V.R.EU, fEU = EU && EU.rondas[EU.rondas.length - 1].cruces[0];
   const difs = divergencias(V), grandes = difs.filter((d) => d.grande);
-  const cartel = `<div class="cartel"><span>${esc(nombreEuropa(V))} ${V.temporada}</span><b>${EU ? esc(EU.campeon) + marcaSi(EU.campeon, EUROPA_REAL[V.anio]) : 'No se jugó'}</b>${fEU && fEU.b ? `<small>Final: ${esc(fEU.a)} – ${esc(fEU.b)}, ${marcadorCruce(fEU)}</small>` : ''}</div>`;
+  const cartel = `<div class="cartel"><span class="trofeo-edicion" aria-hidden="true">🏆</span><span class="rotulo">Temporada ${V.temporada} · el salón de la gloria</span><span>${esc(nombreEuropa(V))} ${V.temporada}</span><b>${EU ? esc(EU.campeon) + marcaSi(EU.campeon, EUROPA_REAL[V.anio]) : 'No se jugó'}</b>${fEU && fEU.b ? `<small>Final: ${esc(fEU.a)} – ${esc(fEU.b)}, ${marcadorCruce(fEU)}</small>` : ''}</div>`;
   const campeones = paisesDe(V).map((pais) => {
     const c = campeonDe(V, pais), C = copaDe(V, pais), pr = premiosDe(V, pais), real = campeonRealDe(pais, V.anio);
     const quien = c.campeon ? botonClub(c.campeon) + marcaSi(c.campeon, real) : c.campeones.length ? c.campeones.map((x) => botonClub(x.club)).join(' ') + (real && !c.campeones.some((x) => real.includes(x.club)) ? marcaDif(`De verdad: ${real}`) : '') : 'sin liga';
     return `<div class="resultado"><span><span>${quien}<small>${esc(pais)} · ${esc(nombreLiga(V, pais))}${C ? ` · ${esc(C.nombre)}: ${esc(C.campeon)}` : ''}${pr.pichichi ? ` · goleador: ${esc(pr.pichichi.nombre)} (${pr.pichichi.g})` : ''}</small></span></span></div>`;
   }).join('');
   const pm = premiosMundo(V);
+  const podio = `<div class="podio"><article><span class="rotulo">España · campeón de Liga</span><h2>${botonClub(V.campeon)}${marcaSi(V.campeon, campeonRealDe('España', V.anio))}</h2><p>${esc(nombreLiga(V, 'España'))} · ${V.temporada}</p></article>${pm.ganadorMejor ? `<article class="podio-oro"><span class="rotulo">${esc(pm.nombreMejor)}</span><h2>${nombreJ(pm.ganadorMejor.nombre)}</h2><p>${esc(pm.ganadorMejor.club)} · la temporada de una leyenda</p></article>` : ''}</div>`;
   const premios = [
     ...pm.oficiales.map((x) => premio(x.nombre, x.j, x.linea)),
     pm.oficiales.length ? '' : premio('Mejor jugador del mundo', pm.mejor, (j) => `nota ${j.notaTemp.toFixed(2)}`),
@@ -1010,11 +1010,11 @@ function edicionEspecial(V) {
     const deb = mer.filter((x) => x.tipo === 'debut').sort((a, b) => b.tec - a.tec).slice(0, 5);
     const difJ = (x) => { const d = difs.find((y) => y.jugador === x.jugador); return d ? marcaDif(d.real) : ''; };
     verano = `<div class="caja"><span class="rotulo">Fichajes del verano</span>${fich.length ? fich.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}${difJ(x)}<small>${esc(x.de)} → ${esc(x.a)}</small></span></span><b>${nivel(x.niv)}</b></div>`).join('') : '<div class="vacio">Ninguno.</div>'}</div>
-      <div class="caja"><span class="rotulo">Se retiran</span>${ret.length ? ret.map((x) => `<div class="resultado"><span><span>${nombreJ(x.j.n)}<small>${x.edad} años · ${esc(x.club)}</small></span></span></div>`).join('') : '<div class="vacio">Ninguna figura.</div>'}
+      <div class="caja homenajes"><span class="rotulo">El último aplauso · se retiran</span>${ret.length ? ret.map((x) => `<div class="resultado"><span><span>${nombreJ(x.j.n)}<small>${x.edad} años · ${esc(x.club)}</small></span></span></div>`).join('') : '<div class="vacio">Ninguna figura.</div>'}
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return cartel + mundialCaja(V) + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>`
+  return cartel + podio + mundialCaja(V) + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>`
     + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
     + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
@@ -1026,7 +1026,7 @@ function sorpresasHtml(V) {
   const joyas = nov.filter((x) => x.tipo === 'joya').sort((a, b) => b.tec - a.tec).slice(0, 3).map((x) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La joya inesperada</span>${marcaDif(`De verdad su mejor nivel fue ${nivel(x.real)}`)}</div><h2 class="titulo medio">${nombreJ(x.jugador)} explota en el ${esc(x.club)}</h2><p>Tiene ${x.edad} años y nivel ${nivel(x.niv)}, pero esta temporada ha dado un salto que nadie vio venir. Los ojeadores ya hablan de un techo de ${nivel(x.tec)}. En este universo su carrera puede ser otra.</p></article>`).join('');
   const graves = nov.filter((x) => x.tipo === 'lesion' && x.niv >= 870).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => `<article class="noticia"><span class="rotulo rojo">Lesión grave</span><h2 class="titulo medio">${nombreJ(x.jugador)} se rompe</h2><p>El jugador del ${esc(x.club)}, de ${x.edad} años, estará meses parado. Tenía nivel ${nivel(x.niv)} y vuelve con ${nivel(x.queda)}. Dentro de un año se sabrá si recupera lo que era.</p></article>`).join('');
   const vueltas = nov.filter((x) => x.tipo === 'regreso' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => `<article class="noticia"><span class="rotulo rojo">El regreso</span><h2 class="titulo medio">${nombreJ(x.jugador)} vuelve a ser el que era</h2><p>Un año después de su lesión grave, el jugador del ${esc(x.club)} ha recuperado su nivel: ${nivel(x.niv)}.</p></article>`).join('');
-  const records = nov.filter((x) => x.tipo === 'record').map((x) => `<article class="noticia"><span class="rotulo rojo">Récord histórico</span><h2 class="titulo medio">${esc(x.titulo)}</h2><p>${esc(x.texto)}</p></article>`).join('');
+  const records = nov.filter((x) => x.tipo === 'record').map((x) => `<article class="noticia hito-record"><span class="rotulo rojo">Récord histórico</span><h2 class="titulo medio">${esc(x.titulo)}</h2><p>${esc(x.texto)}</p></article>`).join('');
   const duelos = nov.filter((x) => x.tipo === 'rivalidad').map((x) => `<article class="noticia"><span class="rotulo rojo">Nace una rivalidad</span><h2 class="titulo medio">${nombreJ(x.a)} contra ${nombreJ(x.b)}</h2><p>Llevan tres temporadas entre los tres mejores del mundo, uno en el ${esc(x.clubA)} y otro en el ${esc(x.clubB)}. Desde hoy, cuando se enfrenten, los dos jugarán por encima de su nivel.</p></article>`).join('');
   const peso = (x) => x.grado * 1000 + (x.id === 'bandera' || x.id === 'hierro' ? -400 : 0) + x.niv;
   const ins = nov.filter((x) => x.tipo === 'insignia' && (x.grado >= 1 || x.niv >= 870)).sort((a, b) => peso(b) - peso(a)).slice(0, 10);
@@ -1498,15 +1498,14 @@ function fichaJugador(n) {
   if (techo && nv && techo - nv >= 80) rasgos.push('<span class="oro">Promesa: le queda mucho por crecer</span>');
   if (j.relleno || esFicticio(n)) rasgos.push('<span>Jugador inventado (sin datos de su plantilla)</span>');
   const palm = palmaresDe(null, n);
-  return `<div class="arriba"><div><div class="sub">${sub}${difClub}</div><h1>${esc(n)}</h1>${j.completo ? `<div class="sub">${esc(j.completo)}</div>` : ''}</div>${botonesHoja('j', n)}</div>`
+  return `<div class="carta-identidad"><div class="carta-emblema" aria-hidden="true"><span>${x.activo ? nv : '★'}</span><small>${esc(POS[j.pos] || j.pos || 'Leyenda')}</small><b>${esc(n.split(' ').filter(Boolean).map((p) => p[0]).slice(0, 2).join(''))}</b></div><div class="arriba"><div><span class="rotulo">${x.activo ? 'Carta de jugador' : 'El legado'}</span><h1>${esc(n)}</h1><div class="sub">${sub}${difClub}</div>${j.completo ? `<div class="sub">${esc(j.completo)}</div>` : ''}</div>${botonesHoja('j', n)}</div></div>`
     + (x.activo ? rankingDe(j, x.pais) : '')
     + (x.activo ? `<div class="niveles"><div class="nivel-hoy"><span>NIVEL HOY</span><b>${nv}</b><small>${techo ? `techo ${techo}` : ''}</small></div><div class="categoria"><span>CATEGORÍA</span><b>${esc(Motor.escala.categoria(nv))}</b><small>escala 1-1000</small></div></div>` : '')
-    + grafico
+    + (x.activo ? atributosHtml(j) + insigniasHtml(j) : '')
     + `<div class="cifras"><div><small>Goles ${S.temporada}</small><b>${cif.g}</b></div><div><small>Asist.</small><b>${cif.a}</b></div><div><small>${cif.nota != null ? 'Nota' : 'En la partida'}</small><b>${cif.nota != null ? cif.nota.toFixed(1).replace('.', ',') : `${tot.g} g / ${tot.pj} pj`}</b></div></div>`
     + (comparaCon && comparaCon !== n ? comparar(comparaCon, n) : '')
     + `<div class="acciones-ficha"><button type="button" class="copiar" data-comparar="${esc(n)}">⚖ Comparar</button><button type="button" class="copiar" data-compartir="${esc(n)}">📋 Copiar ficha</button></div>`
-    + (x.activo ? atributosHtml(j) : '')
-    + (x.activo ? insigniasHtml(j) : '')
+    + grafico
     + memorables(n, carrera)
     + (rasgos.length ? `<div><span class="rotulo">Estilo y rasgos</span><div class="rasgos" style="margin-top:6px">${rasgos.join('')}</div></div>` : '')
     + `<div class="palmares"><span class="rotulo">Palmarés en esta partida</span>${selTxt}${palm || (selTxt ? '' : '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>')}</div>`
@@ -1517,7 +1516,7 @@ function atributosHtml(j) {
   const at = Motor.atributos(j, S.anio + 1), por = j.pos === 'POR';
   const cuales = por ? ['por', 'aer', 'fis', 'vel', 'pas', 'vis'] : Motor.ATRIBUTOS.filter((x) => x !== 'por');
   const mano = typeof ATRIBUTOS_A_MANO !== 'undefined' && ATRIBUTOS_A_MANO[j.n];
-  return `<div><span class="rotulo">Atributos${mano ? '' : ' (calculados con su puesto y sus goles reales)'}</span><div class="atributos">${cuales.map((x) => `<div><span>${Motor.NOMBRE_ATRIBUTO[x]}</span><i><b style="width:${at[x]}%" class="${at[x] >= 85 ? 'alto' : at[x] < 50 ? 'bajo' : ''}"></b></i><em>${at[x]}</em></div>`).join('')}</div></div>`;
+  return `<div class="panel-atributos"><span class="rotulo">Atributos${mano ? '' : ' (calculados con su puesto y sus goles reales)'}</span><div class="atributos">${cuales.map((x) => `<div><span>${Motor.NOMBRE_ATRIBUTO[x]}</span><i><b style="width:${at[x]}%" class="${at[x] >= 85 ? 'alto' : at[x] < 50 ? 'bajo' : ''}"></b></i><em>${at[x]}</em></div>`).join('')}</div></div>`;
 }
 function formaClub(l, n, pais) {
   const nV = vistasDe(l.T, S), t = tablaHasta(l.T, nV, reglasDe(S, pais).puntosVictoria).find((x) => x.nombre === n);
@@ -1553,7 +1552,7 @@ function fichaClub(n) {
   const t = entrenadorHoy(c);
   const plantilla = c.jugadores.slice().sort((a, b) => b.niv - a.niv);
   const palm = palmaresDe(n, null);
-  return `<div class="arriba"><div><div class="sub">${esc(c.pais)} · ${esc(c.grupo || '')}${info.estadio ? ' · ' + esc(info.estadio) : ''}</div><h1>${info.c1 ? `<span class="escudo" aria-hidden="true" style="background:linear-gradient(90deg, ${info.c1} 50%, ${info.c2} 50%)"></span>` : ''}${esc(n)}</h1></div>${botonesHoja('c', n)}</div>`
+  return `<div class="carta-identidad carta-club"><div class="carta-emblema emblema-club" aria-hidden="true">${escudo(n)}<small>CLUB</small></div><div class="arriba"><div><div class="sub">${esc(c.pais)} · ${esc(c.grupo || '')}${info.estadio ? ' · ' + esc(info.estadio) : ''}</div><h1>${info.c1 ? `<span class="escudo" aria-hidden="true" style="background:linear-gradient(90deg, ${info.c1} 50%, ${info.c2} 50%)"></span>` : ''}${esc(n)}</h1></div>${botonesHoja('c', n)}</div></div>`
     + `<div class="cifras"><div><small>Puesto</small><b>${puesto ? puesto.split(' ')[0] : '–'}</b></div><div><small>Prestigio</small><b>${c.prestigio}</b></div><div><small>Entrenador</small><b style="font-size:14px">${t ? (`<button type="button" class="nombre" data-e="${esc(t.nombre)}" data-ec="${esc(n)}">${esc(sinApodo(t.nombre))}</button>`) : '–'}</b></div></div>`
     + (puesto ? `<div class="sub">${esc(puesto)}${real && real !== +puesto.split('.')[0] ? marcaDif(`Puesto real al final: ${real}.º`) : ''}</div>` : '')
     + (l ? formaClub(l, n, c.pais) : '')
@@ -1598,7 +1597,8 @@ function ponerEra(anio) {
 function mapaCampeones(ts) {
   const paises = paisesDe(ts[ts.length - 1]);
   const celda = (club) => { if (!club) return '<td class="vacia">–</td>'; const c = INFO.clubes[club] || {}; return `<td><button type="button" class="chip-club" data-c="${esc(club)}" title="${esc(club)}" style="background:${c.c1 || '#888'};color:${c.c2 || '#fff'};border-color:${c.c2 || '#fff'}">${esc(club.replace(/^(Real|Club|FC|AC|SC|CF|Sporting de|Atlético|Stade de|Racing de) /, '').slice(0, 3).toUpperCase())}</button></td>`; };
-  return `<div class="caja" style="margin:18px 0"><span class="rotulo">Mapa de campeones</span><div style="overflow-x:auto"><table class="mapa"><thead><tr><th></th>${ts.map((V) => `<th>${V.temporada.slice(2)}</th>`).join('')}</tr></thead><tbody>
+  const movil = ['Europa'].concat(paises).map((p) => `<details><summary>${esc(p)}</summary>${ts.map((V) => { const c = p === 'Europa' ? [V.europa].filter(Boolean) : campeonDe(V, p).campeon ? [campeonDe(V, p).campeon] : campeonDe(V, p).campeones.map((x) => x.club); return `<div><span>${V.temporada}</span><span>${c.length ? c.map(botonClub).join(' ') : '–'}</span></div>`; }).join('')}</details>`).join('');
+  return `<div class="caja" style="margin:18px 0"><span class="rotulo">Mapa de campeones</span><div class="mapa-movil">${movil}</div><div class="mapa-escritorio" style="overflow-x:auto"><table class="mapa"><thead><tr><th></th>${ts.map((V) => `<th>${V.temporada.slice(2)}</th>`).join('')}</tr></thead><tbody>
     <tr><th>Europa</th>${ts.map((V) => celda(V.europa)).join('')}</tr>
     ${paises.map((p) => `<tr><th>${esc(p)}</th>${ts.map((V) => { const c = campeonDe(V, p); return celda(c.campeon || (c.campeones[0] || {}).club); }).join('')}</tr>`).join('')}</tbody></table></div><p class="nota-pie">Toca un escudo para ver el club.</p></div>`;
 }
@@ -1728,7 +1728,7 @@ function pintarHistoria() {
     return `<tr><td><button type="button" class="nombre" data-ver="${temporadas().indexOf(V)}">${V.temporada}</button></td><td>${liga}</td><td>${V.europa ? esc(V.europa) + marcaSi(V.europa, EUROPA_REAL[V.anio]) : '–'}</td></tr>`;
   }).join('');
   const R = M.records, recs = [];
-  if (R.liga) recs.push(`<div class="record"><span>RÉCORD DE GOLES EN UNA LIGA</span><b>${esc(R.liga.quien)}, ${R.liga.g} goles (${esc(R.liga.temporada)})</b><small>Récord real de la época: ${esc(Mundo.RECORD_REAL_LIGA.quien)}, ${Mundo.RECORD_REAL_LIGA.goles} en ${esc(Mundo.RECORD_REAL_LIGA.temporada)}</small></div>`);
+  if (R.liga) recs.push(`<div class="record"><span>RÉCORD DE GOLES EN UNA LIGA</span><b>${esc(R.liga.quien)}, ${R.liga.g} goles (${esc(R.liga.temporada)})</b>${marcaDif(`Récord real de la época: ${Mundo.RECORD_REAL_LIGA.quien}, ${Mundo.RECORD_REAL_LIGA.goles} en ${Mundo.RECORD_REAL_LIGA.temporada}`)}</div>`);
   if (R.equipoPts) recs.push(`<div class="record"><span>MÁS PUNTOS EN UNA LIGA ESPAÑOLA</span><b>${esc(R.equipoPts.club)}, ${R.equipoPts.pts} puntos</b><small>${esc(R.equipoPts.temporada)}</small></div>`);
   if (R.equipoGoles) recs.push(`<div class="record"><span>MÁS GOLES DE UN EQUIPO EN UNA LIGA ESPAÑOLA</span><b>${esc(R.equipoGoles.club)}, ${R.equipoGoles.gf} goles</b><small>${esc(R.equipoGoles.temporada)}</small></div>`);
   if (R.partido) recs.push(`<div class="record"><span>GOLES EN UN PARTIDO</span><b>${esc(R.partido.quien)}, ${R.partido.g} goles</b><small>${esc(R.partido.partido)}, ${esc(R.partido.temporada)}</small></div>`);
@@ -1738,7 +1738,7 @@ function pintarHistoria() {
         ${ts.length ? `<table class="campeones"><thead><tr><th>Año</th><th>${esc(histPais)}</th><th>Europa</th></tr></thead><tbody>${filas}</tbody></table><p class="nota-pie">Toca un año para ver ese año en Competiciones.</p>` : '<div class="vacio">La primera temporada todavía se está jugando.</div>'}</div>
       <div class="caja">${recs.join('') || '<div class="vacio">Los récords se apuntan al terminar cada temporada.</div>'}
         <span class="rotulo" style="margin-top:8px">Momentos que cambiaron la historia</span>
-        ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b><small>${esc(m.real)}</small></div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
+        ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + libroDecadas(ts)
     + mundialesHistoria()
     + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}</div>` : '')

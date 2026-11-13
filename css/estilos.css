@@ -416,3 +416,192 @@ button.partido:hover b, .fila-btn:hover { opacity: .85; }
 .decada-sucesos { border-top: 1px solid var(--gris); padding: 12px 0; }
 .decada-sucesos summary { cursor: pointer; font-weight: bold; }
 @media (max-width: 600px) { .decada-pagina { padding: 0 14px 18px; } }
+
+/* Archivo de leyendas: un sistema visual para entrar, jugar y recordar. */
+:root {
+  --papel:#F1EEE6; --hoja:#FAF8F1; --tarjeta:#FAF8F1; --hundido:#E8E4D9;
+  --tinta:#202A29; --tinta2:#394440; --gris:#606B63; --linea:#C6C9BD; --linea2:#D8DBCF;
+  --oro:#E1B66E; --oro-txt:#281D0E; --rojo-txt:color-mix(in srgb,var(--rojo) 60%,#172A22);
+  --barra:#172522; --barra2:#23352F; --barra-txt:#F4F1E6; --barra-gris:#B7C3B5; --barra-linea:#3B4C42;
+  --sombra:0 12px 36px #18251D08; --display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --texto:Barlow,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --radio:5px; --espacio:24px;
+}
+:root[data-theme="dark"] {
+  --papel:#101B19; --hoja:#192622; --tarjeta:#192622; --hundido:#13201C;
+  --tinta:#F2F0E5; --tinta2:#CDD5C8; --gris:#AAB9AB; --linea:#47574A; --linea2:#304238;
+  --barra:#0B1512; --barra2:#1C2B24; --barra-txt:#F2F0E5; --barra-gris:#B8C4B6; --barra-linea:#3B4D3E;
+  --rojo-txt:color-mix(in srgb,var(--rojo) 58%,#FFFFFF); --sombra:0 12px 36px #00000018;
+  --campeon-bg:#3C3523; --baja-bg:#3D2724;
+}
+body { font-size:16px; line-height:1.5; background-image:radial-gradient(ellipse at 80% 0%,var(--velo),transparent 55%); background-attachment:fixed; }
+button,input,select { -webkit-tap-highlight-color:transparent; }
+button { transition:background-color .18s,color .18s,border-color .18s,box-shadow .18s; }
+button:focus-visible,summary:focus-visible,a:focus-visible { outline:3px solid var(--rojo-txt); outline-offset:4px; }
+button:disabled { cursor:default; }
+.rotulo { font-size:12px; letter-spacing:1.3px; line-height:1.5; }
+.nota-pie,.vacio { font-size:14px; line-height:1.55; }
+.cab { background:var(--papel); border-bottom:1px solid var(--linea); backdrop-filter:none; }
+.cab .dentro { padding:14px 28px; gap:16px; }
+.cab b { border-radius:2px; background:var(--tinta); color:var(--papel); padding:9px 12px; font-size:22px; }
+.cab .fecha span { font-size:15px; }.cab .fecha em { font-size:12px; }
+.cab .menu { min-height:42px; border-radius:var(--radio); font-size:13px; }
+.progreso { height:2px; }.progreso i { background:var(--rojo-txt); }
+.cuerpo { padding-block:28px 160px; }
+.cuerpo > .seccion { max-width:1200px; padding-inline:28px; min-width:0; }
+.seccion { gap:24px; animation:entra-seccion .24s ease-out; }
+@keyframes entra-seccion { from { opacity:.4;transform:translateY(8px); } to { opacity:1;transform:none; } }
+.columnas { display:grid; columns:unset; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:24px; }
+.columnas > * { margin-bottom:0; }
+.caja { gap:12px; }.columnas > .caja,.caja.tarjeta { border-radius:var(--radio); padding:20px; box-shadow:none; }
+.columnas > .caja > .rotulo:first-child,.columnas > .caja > .fila-sel:first-child { margin:0 0 2px; padding:0 0 14px; background:none; border-radius:0; color:var(--gris); }
+.ver-todo { font-size:14px; min-height:44px; }
+.abajo { background:var(--barra); }.abajo .dentro { gap:4px; }
+.marca-sello { font:900 38px/1 var(--display)!important; color:var(--oro)!important; letter-spacing:-2px!important; }
+.marca b { font-size:24px; letter-spacing:-.6px; }.marca span { font-size:11px; }
+.navegar button { min-height:50px; font-size:14px; border-radius:4px; }
+.navegar button[aria-current="page"] { background:var(--barra2); box-shadow:inset 3px 0 var(--oro); }
+.tiempo button { border-radius:4px; min-height:44px; }.tiempo .grande { background:var(--oro); color:var(--oro-txt); }
+@media(min-width:900px) {
+  :root { --lado:210px; }
+  .abajo .dentro { padding:28px 16px 24px; gap:24px; }
+  .marca { gap:10px; padding-bottom:24px; }.navegar { counter-reset:sector; gap:8px; }
+  .navegar button::before { counter-increment:sector; content:'0' counter(sector); font-size:11px; color:var(--barra-gris); }
+  .navegar button { gap:10px; font-size:15px; }.navegar svg { width:20px; }
+  .cuerpo { padding-bottom:48px; }
+}
+/* El vestíbulo: póster de estadio y selección de época. */
+.inicio { background:var(--papel); background-image:radial-gradient(ellipse at 0 30%,var(--velo),transparent 60%); }
+.inicio .dentro { max-width:1320px; display:grid; grid-template-columns:1fr 1.2fr; gap:64px; align-items:center; padding:40px 48px; }
+.inicio-presentacion { align-self:stretch; display:flex; flex-direction:column; justify-content:center; min-width:0; }
+.inicio header .rotulo { color:var(--rojo-txt); font-size:12px; }
+.inicio h1 { font-size:clamp(48px,5.4vw,80px); font-weight:900; letter-spacing:-4px; line-height:.93; margin:24px 0; }
+.inicio h1 > span { display:block; }.punto-titulo { color:var(--rojo-txt); }
+.inicio header p { font-size:21px; line-height:1.5; margin:0; }
+.estadio-inicio { position:relative; height:300px; margin:40px 0 24px; overflow:hidden; border:1px solid var(--linea); background:repeating-linear-gradient(90deg,transparent 0 48px,var(--velo) 48px 96px); }
+.estadio-inicio::before { content:''; position:absolute; inset:24px; border:1px solid var(--linea); }
+.estadio-inicio::after { content:''; position:absolute; top:24px; bottom:24px; left:50%; border-left:1px solid var(--linea); }
+.estadio-circulo { position:absolute; height:120px; width:120px; border:1px solid var(--linea); border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+.estadio-arco { position:absolute; top:85px; left:24px; width:65px; height:130px; border:1px solid var(--linea); }
+.estadio-inicio b { position:absolute; inset:0; display:grid; place-items:center; font:900 150px/1 var(--display); letter-spacing:-10px; color:var(--rojo-txt); z-index:1; }
+.estadio-inicio small { position:absolute; bottom:33px; left:36px; font-size:10px; letter-spacing:2px; z-index:1; }
+.sello-inicio { display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--linea); padding-top:16px; color:var(--gris); font-size:10px; letter-spacing:1.8px; }
+.inicio-eleccion { display:flex; flex-direction:column; gap:20px; min-width:0; }
+.paso-inicio > span { font-size:11px; letter-spacing:1.6px; color:var(--rojo-txt); font-weight:700; }
+.paso-inicio h2 { margin-top:8px; font:800 34px/1.1 var(--display); letter-spacing:-1px; }
+.paso-inicio p { font-size:15px; margin:8px 0 0; color:var(--gris); }
+.eras { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.era { min-height:145px; border-radius:var(--radio); background:var(--tarjeta); box-shadow:none; padding:16px 18px; gap:6px; }
+.era::before { width:3px; }.era .anios-era { font-size:32px; color:var(--tinta); letter-spacing:-1.5px; }
+.era b { font-size:20px; text-transform:none; line-height:1.2; }.era small { font-size:13px; line-height:1.4; }
+.era .estado { font-size:10px; letter-spacing:.9px; padding-top:4px; }
+.era[aria-pressed="true"] { box-shadow:inset 0 0 0 1px var(--e); background:color-mix(in srgb,var(--e) 12%,var(--tarjeta)); }
+.era[aria-pressed="true"]::after { content:'✓'; position:absolute; right:14px; top:14px; color:var(--rojo-txt); font-size:22px; }
+.era:disabled { order:2; min-height:70px; padding-block:10px; border-style:solid; }
+.era:disabled .anios-era { font-size:18px; }.era:disabled b { font-size:14px; }.era:disabled small { display:none; }.era:disabled .estado { font-size:9px; }
+.ajustes { margin:0; border-radius:var(--radio); background:none; padding:0 16px; }
+.ajustes summary { padding:13px 0; cursor:pointer; font-weight:600; font-size:14px; }
+.ajustes .fila { font-size:14px; }.ajustes .fila small { font-size:13px; }
+.empezar { border-radius:var(--radio); min-height:58px; font-size:20px; letter-spacing:.2px; background:var(--tinta); color:var(--papel); box-shadow:none; }
+.empezar:hover { background:var(--rojo-txt); color:var(--papel); }.seguir { min-height:50px; border-radius:var(--radio); font-size:15px; }
+.inicio-ayuda { margin:-8px 0 0; font-size:12px; text-align:center; color:var(--gris); }
+/* La actualidad: un gran titular, un marcador y un boletín compacto. */
+.cabecera-diario { padding-bottom:14px; border-bottom:1px solid var(--linea); }
+.cabecera-diario .nombre { font-size:12px; }.cabecera-diario .bajo { font-size:11px; }
+.noticia { border-radius:var(--radio); box-shadow:none; padding:24px; border-color:var(--linea2); }
+.noticia-principal { position:relative; padding:36px 40px; overflow:hidden; min-height:260px; justify-content:center; background:linear-gradient(110deg,var(--tarjeta) 45%,var(--velo)); border-left:4px solid var(--rojo-txt); }
+.noticia-principal::after { content:'UF'; position:absolute; right:14px; bottom:-32px; font:900 190px/1 var(--display); letter-spacing:-16px; color:var(--tinta); opacity:.035; pointer-events:none; }
+.noticia .titulo { font-size:clamp(36px,4.1vw,60px); letter-spacing:-1.5px; line-height:1.02; max-width:24ch; }
+.noticia .titulo.medio { font-size:27px; }.noticia p { font-size:16px; line-height:1.6; max-width:65ch; }
+.actualidad { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr); gap:28px; align-items:start; }
+.destacado { border-radius:var(--radio); min-height:220px; justify-content:center; padding:28px; gap:18px; background:repeating-linear-gradient(90deg,#173F30 0 56px,#1C4938 56px 112px); border:1px solid #4E6A57; box-shadow:none; }
+.destacado .rotulo { color:#D9E7C9; }.destacado small { font-size:13px; color:#D9E7C9; }
+.marcador-mini { gap:8px; font-size:20px; letter-spacing:-.4px; }.marcador-mini > span { min-width:0; overflow-wrap:anywhere; }.marcador-mini b { padding:10px 12px; font-size:32px; background:#F1EAD7; color:#183B2B; border-radius:3px; }
+.breves { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 24px; }
+.breve { border:0; border-top:1px solid var(--linea); border-radius:0; background:none; padding:14px 0; gap:5px; box-shadow:none; }
+.breve b { font-size:17px; line-height:1.3; }.breve > span:last-child { font-size:14px; color:var(--gris); }
+/* Tablas, marcadores y filtros: siempre al alcance, también en pantallas estrechas. */
+.selectores { padding-bottom:20px; border-bottom:1px solid var(--linea); gap:16px; }
+.fila-sel h1,.era-cab h1 { font-size:40px; letter-spacing:-1.5px; }
+.pildoras { flex-wrap:wrap; overflow:visible; gap:6px; }.pildoras button { border-radius:3px; min-height:42px; padding-inline:13px; font-size:14px; }
+.pildoras button[aria-pressed="true"] { background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
+.desplegable { min-height:42px; border-radius:4px; font-size:14px; }.segmento { border-radius:5px; max-width:100%; }.segmento button { min-height:42px; font-size:14px; }
+.tabla { border-collapse:separate; border-spacing:0; table-layout:fixed; }
+.tabla th { padding:14px 8px; font-size:11px; }.tabla td { min-width:0; height:52px; font-size:15px; padding:6px 8px; }
+.tabla th:first-child,.tabla td:first-child { width:38px; }.tabla th:nth-child(2) { width:32%; }
+.tabla .club { max-width:100%; white-space:normal; overflow-wrap:anywhere; }.tabla .club span:last-child { min-width:0; }
+.tabla tbody tr:nth-child(even):not(.camp):not(.baja) { background:var(--velo); }.tabla td.pts { font-size:18px; }
+.partido { min-height:64px; padding:14px 12px; font-size:15px; border-radius:3px; }.partido b { font-size:24px; background:var(--hundido); padding:4px 10px; border-radius:3px; }
+.goles-partido { font-size:13px; line-height:1.6; padding-bottom:12px; }.resultado { padding-block:12px; font-size:15px; }
+.resultado small,.goleador .quien small { font-size:13px; }.goleador { padding-block:12px; }.goleador .cifra { font-size:30px; }
+.nombre { min-height:32px; }.copiar { min-height:44px; font-size:14px; border-radius:4px; }
+/* Cartas de jugador y de club. */
+.hoja-fondo { background:#07110CD9; backdrop-filter:blur(5px); }.hoja { max-width:860px; padding:28px; gap:20px; border:1px solid var(--linea); border-radius:8px; background:var(--hoja); }
+.tira { margin:-28px -28px 0; flex-basis:6px; height:6px; border-radius:8px 8px 0 0; }
+.carta-identidad { display:flex; gap:24px; align-items:center; padding:8px 0 20px; border-bottom:1px solid var(--linea); }
+.carta-identidad .arriba { flex:1; min-width:0; }.hoja h1 { font-size:44px; line-height:1; letter-spacing:-1.5px; margin:8px 0 12px; overflow-wrap:anywhere; }
+.hoja .sub { font-size:14px; line-height:1.6; }.carta-emblema { width:138px; min-height:176px; flex:0 0 138px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#F9EBCB; background:repeating-linear-gradient(120deg,#2C4034 0 24px,#253A2F 24px 48px); border:2px solid var(--oro); clip-path:polygon(0 0,100% 0,100% 88%,50% 100%,0 88%); }
+.carta-emblema > span { font:800 52px/1 var(--display); }.carta-emblema small { font-size:11px; text-transform:uppercase; letter-spacing:1px; }.carta-emblema b { font:900 30px/1 var(--display); border-top:1px solid #D3C39866; padding:10px 16px 20px; }
+.emblema-club .escudo { width:70px; height:85px; border-radius:0; }.carta-club .arriba h1 > .escudo { display:none; }
+.niveles { gap:16px; }.nivel-hoy { flex:1; padding:14px 18px; border-radius:4px; }.nivel-hoy b { font-size:38px; }.nivel-hoy small { font-size:13px; }
+.categoria { flex:2; padding:14px 18px; border-radius:4px; }.categoria b { font-size:25px; }.categoria small { font-size:13px; }
+.ranking { gap:8px; flex-wrap:wrap; }.ranking span { font-size:13px; border-radius:3px; padding:5px 8px; }
+.panel-atributos { background:var(--hundido); padding:20px; border:1px solid var(--linea2); border-radius:4px; }
+.atributos { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 22px; margin-top:14px; }.atributos > div { grid-template-columns:1fr 28px; gap:6px; font-size:14px; }.atributos span { color:var(--tinta2); }.atributos em { grid-row:1; grid-column:2; }.atributos i { grid-column:1/-1; height:5px; }.atributos i b { background:var(--rojo-txt); }
+.cifras div { padding:14px 16px; border-radius:4px; background:var(--hundido); }.cifras small { font-size:12px; }.cifras b { font-size:30px; }
+.insignia { border-radius:3px; padding:10px 14px; font-size:14px; }.insignia small { font-size:12px; }
+.palmares div { font-size:15px; padding:12px 0; flex-wrap:wrap; }.palmares div span { overflow-wrap:anywhere; }.palmares div span:last-child { font-size:14px; }
+.grafico { height:85px; }.grafico div span,.ejes span { font-size:12px; }.grafico div { max-width:none; }.ejes span { max-width:none; }
+.rasgos span { font-size:14px; }.en-campo small { font-size:11px; }.botones-hoja { flex-shrink:0; }
+/* Las vitrinas: los hitos tienen una composición propia. */
+.cartel { position:relative; padding:36px 36px 36px 132px; min-height:220px; justify-content:center; gap:12px; border-radius:var(--radio); background:linear-gradient(110deg,#213B2B,#16271F); border:1px solid #8C794B; box-shadow:none; }
+.cartel .trofeo-edicion { position:absolute; left:32px; top:50%; transform:translateY(-50%); font-size:60px; }.cartel > span:not(.trofeo-edicion) { font-size:12px; color:#E9CF92; }
+.cartel b { font-size:clamp(36px,4.5vw,58px); letter-spacing:-1.5px; }.cartel small { color:#CFD9C7; font-size:14px; }
+.podio { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }.podio article { padding:24px; border:1px solid var(--linea); border-radius:var(--radio); background:var(--tarjeta); }.podio h2 { margin:12px 0 8px; font:800 32px/1.1 var(--display); letter-spacing:-.8px; }.podio h2 .club { font:inherit; white-space:normal; }.podio p { margin:0; font-size:14px; color:var(--gris); }.podio .podio-oro { background:linear-gradient(120deg,#E9D6A6,#C3A873); border-color:#B59A60; color:#29271D; }.podio-oro .rotulo,.podio-oro p { color:#46402E; }.podio-oro .nombre { color:inherit; }
+.premios { gap:16px; }.premio { padding:20px; background:var(--tarjeta); border:1px solid var(--linea); border-top:3px solid var(--oro); border-radius:4px; }.premio span { font-size:12px; }.premio b { font-size:24px; }.premio small { font-size:14px; }
+.homenajes { border-top:3px solid var(--oro)!important; }.hito-record { border-left:4px solid var(--oro); }
+.caja.mundial { border:1px solid var(--oro); padding:24px; background:var(--velo); }.crack { gap:14px; }.crack b { font-size:22px; }
+.era-cab { padding:30px; border-radius:var(--radio); border-bottom-width:3px; }.era-cab h1 { margin-top:8px; }.era-cab p { font-size:16px; }
+.record { padding:20px; border-radius:4px; }.record b { font-size:25px; }.record small { font-size:14px; }
+.momento { display:flex; justify-content:space-between; align-items:start; gap:12px; padding-block:14px; }.momento b { font-size:15px; }
+.decada { border-radius:4px; background:var(--tarjeta); }.decada > summary strong { font-family:var(--display); font-size:28px; }.decada-pagina { font-size:16px; }
+.mapa-movil { display:none; }.comparador { overflow-wrap:anywhere; }.comparador table { table-layout:fixed; width:100%; }
+@media(max-width:899px) {
+  .inicio .dentro { display:flex; padding:28px 24px; gap:32px; }.inicio h1 { font-size:64px; letter-spacing:-3px; }
+  .inicio-presentacion { display:block; }.inicio header p { font-size:18px; }.estadio-inicio { height:120px; margin:24px 0 16px; }
+  .estadio-inicio b { font-size:90px; }.estadio-inicio small { right:28px; left:auto; bottom:24px; font-size:8px; }.estadio-circulo { width:80px;height:80px; }.estadio-arco { top:34px;height:50px;width:35px; }
+  .sello-inicio { font-size:9px; }.inicio-eleccion { width:100%; }.paso-inicio h2 { font-size:30px; }
+  .actualidad { grid-template-columns:1fr; gap:20px; }.destacado { min-height:170px; }
+  .hoja { border-radius:12px 12px 0 0; max-height:94dvh; }.carta-identidad { gap:16px; }
+}
+@media(min-width:900px) and (max-width:1200px) { .actualidad { grid-template-columns:1fr; } }
+@media(max-width:600px) {
+  body { font-size:15px; }.cuerpo { padding-top:20px; padding-bottom:170px; }.cuerpo > .seccion { padding-inline:16px; }.seccion { gap:20px; }
+  .navegar button { font-size:12px; padding-inline:2px; }
+  .cab .dentro { padding:10px 12px; gap:8px; }.cab b { font-size:18px; padding:9px; }.cab .menu { min-height:42px; padding-inline:10px; }.cab .fecha span { font-size:12px; }.cab .fecha em { font-size:11px; }
+  .cabecera-diario { gap:4px; }.cabecera-diario .nombre { font-size:11px; }.cabecera-diario .bajo { font-size:10px; }
+  .noticia-principal { min-height:0; padding:24px; }.noticia .titulo { font-size:36px; letter-spacing:-1px; line-height:1.06; }.noticia p { font-size:15px; }.noticia .titulo.medio { font-size:25px; }
+  .breves { grid-template-columns:1fr; }.breve { padding:16px 0; }.breve b { font-size:18px; }.breve > span:last-child { font-size:14px; }
+  .columnas { gap:20px; }.columnas > .caja { padding:18px; }.destacado { padding:22px; }.marcador-mini { font-size:17px; }.marcador-mini b { font-size:30px; }
+  .fila-sel h1 { font-size:32px; }.pildoras button { min-height:42px; font-size:13px; padding-inline:12px; }.desplegable { font-size:13px; }.segmento button { font-size:13px; }
+  .tabla th { padding:10px 4px; font-size:10px; white-space:normal; }.tabla td { padding:8px 4px; height:54px; font-size:13px; white-space:normal; overflow-wrap:anywhere; }
+  .tabla th:first-child,.tabla td:first-child { width:26px; padding-left:4px; }.tabla th:nth-child(2) { width:46%; }.tabla td.pts { font-size:17px; }.tabla .club { font-size:13px; gap:5px; }.tabla .color { flex-shrink:0; }
+  .tabla.mini th:nth-child(2) { width:30%; }.tabla.mini td { font-size:12px; }.tabla.mini th,.tabla.mini td { padding-inline:2px; }
+  .partido { gap:8px; font-size:14px; padding-inline:8px; }.partido b { font-size:22px; padding:4px 6px; }.cruce { font-size:14px; }.cruce > span:last-child { font-size:12px; }
+  .hoja { padding:20px 16px; gap:18px; }.tira { margin:-20px -16px 0; }.hoja h1 { font-size:30px; margin:6px 0; letter-spacing:-.8px; }.hoja .sub { font-size:13px; }.hoja .rotulo { font-size:11px; }
+  .carta-identidad { gap:12px; align-items:start; }.carta-identidad .arriba { display:block; }.carta-identidad .botones-hoja { margin-top:12px; }.carta-emblema { width:90px; flex-basis:90px; min-height:144px; }.carta-emblema > span { font-size:38px; }.carta-emblema small { font-size:9px; }.carta-emblema b { font-size:23px; padding-bottom:14px; }.emblema-club .escudo { width:48px;height:58px; }
+  .niveles { gap:8px; }.nivel-hoy,.categoria { padding:12px; }.categoria b { font-size:21px; }.categoria small { font-size:12px; }.nivel-hoy b { font-size:32px; }
+  .panel-atributos { padding:16px; }.atributos { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 16px; }.atributos > div { font-size:13px; }.cifras { gap:6px; }.cifras div { padding:12px 8px; }.cifras b { font-size:24px; }.cifras small { font-size:11px; }
+  .palmares div { font-size:14px; }.palmares div span:last-child { font-size:13px; }.comparador table th,.comparador table td { font-size:12px; padding:8px 3px; }
+  .cartel { padding:28px 22px; min-height:0; }.cartel .trofeo-edicion { position:static; transform:none; font-size:36px; }.cartel b { font-size:36px; }.cartel small { font-size:13px; }.premios { grid-template-columns:1fr; }.premio { padding:18px; }
+  .podio { grid-template-columns:1fr; gap:16px; }.podio article { padding:22px; }.podio h2 { font-size:30px; }
+  .era-cab { padding:24px; }.era-cab h1 { font-size:34px; }.era-cab p { font-size:15px; }.campeones { table-layout:fixed; }.campeones td,.campeones th { overflow-wrap:anywhere; font-size:12px; }.campeones th:first-child { width:25%; }
+  .mapa-escritorio { display:none; }.mapa-movil { display:block; }.mapa-movil details { border-bottom:1px solid var(--linea); }.mapa-movil summary { cursor:pointer; padding:14px 0; font-weight:700; }.mapa-movil details > div { display:flex; justify-content:space-between; align-items:start; gap:12px; padding:10px 0; font-size:13px; }.mapa-movil details > div > span:first-child { white-space:nowrap; color:var(--gris); }.mapa-movil .club { font-size:13px; }
+  .inicio .dentro { padding:24px 20px; gap:28px; }.inicio h1 { font-size:52px; margin:18px 0; }.inicio header p { font-size:17px; }.estadio-inicio { height:88px; margin:20px 0 14px; }.estadio-inicio b { font-size:68px; letter-spacing:-4px; }.estadio-inicio small { display:none; }.estadio-arco { top:26px;height:36px; }.estadio-circulo { height:56px;width:56px; }
+  .eras { gap:10px; }.era { min-height:152px; padding:14px 12px; }.era .anios-era { font-size:28px; }.era b { font-size:19px; }.era small { font-size:12px; }.era .estado { font-size:9px; }.era[aria-pressed="true"]::after { top:10px;right:8px;font-size:17px; }.era:disabled { min-height:72px; }.era:disabled .anios-era { font-size:17px; }
+  .inicio-eleccion { gap:16px; }.paso-inicio h2 { font-size:28px; }.paso-inicio p { font-size:14px; }.inicio-ayuda { font-size:11px; }.empezar { font-size:19px; min-height:56px; box-shadow:0 0 0 8px var(--papel); }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+}
+@media(min-width:900px) { .navegar button { gap:8px; padding-inline:8px; font-size:14px; }.navegar button.nuevo::after { top:10px;right:8px;margin:0; } }
