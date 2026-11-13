@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 55, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 56, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1103,8 +1103,12 @@ function sorpresasHtml(V) {
   const dtNoticias = noticiasDT(V).map((x) => art(x.rot, x.tit, x.txt)).join('');
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
+  // Traiciones: quien se pone la camiseta del eterno rival. Pasa muy poco, y cuando pasa es portada.
+  const traiciones = traicionesDe(V).slice(0, 3).map((x) => art('Traición', `${nombreJ(x.jugador)} ficha por el ${esc(x.a)}`, x.directa
+    ? `Del ${esc(x.de)} al eterno rival, sin escalas${x.precio ? ` y por ${precioTxt(x.precio)}` : ''}. La afición que lo aplaudía ya quema su camiseta, y la vuelta al que fue su estadio promete ser un infierno.`
+    : `Fue jugador del ${esc(x.traicion)} y ahora llega desde el ${esc(x.de)} para defender al enemigo. En su antigua casa no se lo van a perdonar.`)).join('');
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + plenos + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + traiciones + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1280,6 +1284,7 @@ function entrenadorDelAnio(V) {
 const premioDT = (V) => { const t = entrenadorDelAnio(V); return t ? `<div class="premio"><span>Entrenador del año</span><b><button type="button" class="nombre" data-e="${esc(t.nombre)}" data-ec="${esc(t.club)}">${esc(sinApodo(t.nombre))}</button></b><small>${esc(t.club)} · ${esc(t.meritos.slice(0, 2).join(' y '))}</small></div>` : ''; };
 
 // Resumen en texto para pegarlo en un chat o una nota.
+const traicionesDe = (V) => (V.mercado || []).filter((x) => x.traicion && nivel(x.niv) >= 600).sort((a, b) => b.niv - a.niv);
 function copiarResumen(btn) {
   const V = cerradas[+btn.dataset.copiar] || S, pm = premiosMundo(V), out = [`⚽ UNIVERSO DEL FÚTBOL · TEMPORADA ${V.temporada}`];
   const sec = (t) => out.push('', t), intento = (f) => { try { f(); } catch (e) { /* una parte que falle no rompe el resumen */ } };
@@ -1373,6 +1378,7 @@ function copiarResumen(btn) {
       const caroAntes = recordFichaje(temporadas(), V), caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0];
       if (caroHoy && caroAntes && caroHoy.precio > caroAntes.precio) out.push(`• ¡RÉCORD MUNDIAL! ${caroHoy.jugador}, ${precioTxt(caroHoy.precio)} (antes: ${caroAntes.jugador}, ${precioTxt(caroAntes.precio)})`);
       fich.forEach((x) => out.push(`• ${x.jugador} (nivel ${nivel(x.niv)}${x.edad ? `, ${x.edad} años` : ''}): ${x.de} → ${x.a}${x.precio ? ` · ${precioTxt(x.precio)}` : x.precio === 0 ? ' · gratis' : ''}${x.motivo && !/gratis/.test(x.motivo) ? ` · ${x.motivo}` : ''}`));
+      traicionesDe(V).slice(0, 4).forEach((x) => out.push(`• ¡TRAICIÓN! ${x.jugador} (nivel ${nivel(x.niv)}) ficha por el ${x.a}${x.directa ? `, directo desde el eterno rival (${x.de})` : `, y fue jugador del ${x.traicion}`}`));
       const ren = (V.mercado || []).filter((x) => x.tipo === 'renovación').sort((a, b) => b.niv - a.niv).slice(0, 4);
       if (ren.length) out.push(`• Renuevan: ${ren.map((x) => `${x.jugador} (${x.de})`).join(', ')}`);
     });
@@ -2405,7 +2411,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 55) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 56) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

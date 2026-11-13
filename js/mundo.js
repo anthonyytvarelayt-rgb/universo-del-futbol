@@ -265,6 +265,9 @@
         const debe = Math.max(0, Math.min(meta, meta * (edad - 20) / 11) - van);
         const extra = van >= meta ? 8 : Math.min(160, 15 + 45 * debe);
         c.jugadores.forEach((j) => { reyes.push([j, extra]); j.temp = (j.temp || 0) + extra; }); });
+      // La mística: hay camisetas que en esta copa pesan más (el Madrid sobre todo), y jugadores a los que se les da o se les resiste.
+      eqs.forEach((c) => { const v = MISTICA_EUROPA[c.nombre]; if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
+      eqs.forEach((c) => c.jugadores.forEach((j) => { const v = !j.relleno && NOCHES_EUROPA[j.n]; if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
       // Los entrenadores especialistas en eliminatorias sacan un punto más a los suyos en Europa.
       eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       const escalaLiga = Motor.P.escala;
@@ -992,6 +995,31 @@
   // ---------- Lo que busca cada jugador y cómo ficha cada club ----------
   // Cada jugador quiere algo de su carrera y eso decide adónde va: no todos sueñan con lo mismo.
   const DESEOS = { titulos: 'Ganar títulos', dinero: 'El mejor contrato', casa: 'Su club de siempre', minutos: 'Jugar siempre', reto: 'Retos nuevos' };
+  // Símbolos de un club: no cambian de camiseta en sus mejores años y jamás fichan por el rival.
+  const EMBLEMAS = {
+    'Raúl': 'Real Madrid', 'Iker Casillas': 'Real Madrid', 'Guti': 'Real Madrid', 'Emilio Butragueño': 'Real Madrid', 'Míchel': 'Real Madrid', 'Manuel Sanchís': 'Real Madrid', 'Francisco Gento': 'Real Madrid', 'Santillana': 'Real Madrid', 'Fernando Hierro': 'Real Madrid',
+    'Carles Puyol': 'Barcelona', 'Xavi Hernández': 'Barcelona', 'Andrés Iniesta': 'Barcelona', 'Sergio Busquets': 'Barcelona', 'Lionel Messi': 'Barcelona', 'Pep Guardiola': 'Barcelona', 'Víctor Valdés': 'Barcelona', 'Gerard Piqué': 'Barcelona',
+    'Fernando Torres': 'Atlético Madrid', 'Koke': 'Atlético Madrid', 'Adelardo': 'Atlético Madrid', 'Julen Guerrero': 'Atlético Bilbao', 'José Ángel Iribar': 'Atlético Bilbao',
+    'Paolo Maldini': 'Milan', 'Franco Baresi': 'Milan', 'Gianni Rivera': 'Milan', 'Alessandro Costacurta': 'Milan', 'Javier Zanetti': 'Inter', 'Giuseppe Bergomi': 'Inter', 'Sandro Mazzola': 'Inter', 'Giacinto Facchetti': 'Inter',
+    'Alessandro Del Piero': 'Juventus', 'Gaetano Scirea': 'Juventus', 'Giampiero Boniperti': 'Juventus', 'Claudio Marchisio': 'Juventus', 'Giorgio Chiellini': 'Juventus',
+    'Francesco Totti': 'Roma', 'Daniele De Rossi': 'Roma', 'Giuseppe Giannini': 'Roma', 'Luigi Riva': 'Cagliari', 'Giancarlo Antognoni': 'Fiorentina', 'Marek Hamšík': 'Napoli',
+    'Steven Gerrard': 'Liverpool', 'Jamie Carragher': 'Liverpool', 'Ryan Giggs': 'Manchester United', 'Paul Scholes': 'Manchester United', 'Gary Neville': 'Manchester United', 'Bobby Charlton': 'Manchester United',
+    'Tony Adams': 'Arsenal', 'John Terry': 'Chelsea', 'Matthew Le Tissier': 'Southampton', 'Alan Shearer': 'Newcastle United', 'Billy Bremner': 'Leeds United', 'Bobby Moore': 'West Ham United', 'Ledley King': 'Tottenham Hotspur',
+    'Thomas Müller': 'Bayern Múnich', 'Philipp Lahm': 'Bayern Múnich', 'Bastian Schweinsteiger': 'Bayern Múnich', 'Sepp Maier': 'Bayern Múnich', 'Gerd Müller': 'Bayern Múnich', 'Uwe Seeler': 'Hamburgo', 'Marco Reus': 'Borussia Dortmund', 'Michael Zorc': 'Borussia Dortmund', 'Wolfgang Overath': 'Colonia',
+    'Eusébio': 'Benfica', 'Mário Coluna': 'Benfica', 'Rui Costa': 'Benfica', 'Vítor Baía': 'Oporto', 'João Pinto': 'Oporto',
+    'Juan Román Riquelme': 'Boca Juniors', 'Martín Palermo': 'Boca Juniors', 'Ariel Ortega': 'River Plate', 'Enzo Francescoli': 'River Plate', 'Norberto Alonso': 'River Plate', 'Ricardo Bochini': 'Independiente', 'Diego Milito': 'Racing Club',
+    'Zico': 'Flamengo', 'Rogério Ceni': 'São Paulo', 'Marcos': 'Palmeiras', 'Ademir da Guia': 'Palmeiras', 'Roberto Dinamite': 'Vasco da Gama', 'Rivellino': 'Corinthians', 'Garrincha': 'Botafogo', 'Nílton Santos': 'Botafogo'
+  };
+  function enemigosDe(M) {
+    const enemigos = new Map();
+    (M.derbis || []).forEach((d) => { if (DERBI_BLANDO.test(d.nombre)) return; [[d.a, d.b], [d.b, d.a]].forEach(([x, y]) => { if (!enemigos.has(x)) enemigos.set(x, new Set()); enemigos.get(x).add(y); }); });
+    return enemigos;
+  }
+  // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
+  const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
+  const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 22, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
+    'Zlatan Ibrahimović': -30, 'Gianluigi Buffon': -15, 'Ronaldo': -12, 'Gabriel Batistuta': -10, 'Harry Kane': -12 };
+  const DERBI_BLANDO = /^duelo|clásico argentino|clásico de Italia|Choc des|^derbi de Londres$|Der Klassiker|derbi del Sole|clásico de la Saudade|San-São|clásico alvinegro/;
   const DESEO_REAL = {
     'Cristiano Ronaldo': 'titulos', 'Zinedine Zidane': 'titulos', 'Kylian Mbappé': 'titulos', 'Luís Figo': 'dinero', 'Neymar': 'dinero', "Samuel Eto'o": 'dinero', 'David Beckham': 'reto',
     'Zlatan Ibrahimović': 'reto', 'Ronaldo': 'reto', 'Lionel Messi': 'casa', 'Luigi Riva': 'casa', 'Francesco Totti': 'casa', 'Paolo Maldini': 'casa', 'Carles Puyol': 'casa', 'Steven Gerrard': 'casa', 'Ryan Giggs': 'casa',
@@ -1102,7 +1130,8 @@
       j.contrato = nuevoAnio + duracion(j);
       const pago = tipo === 'fichaje' ? precio(j, nuevoAnio, motivo, a) : 0;
       if (pago) { cajaDe(a, nuevoAnio); cajaDe(de, nuevoAnio); a.caja -= pago; de.caja += pago; if (a.finanzas) a.finanzas.compras = redondo(a.finanzas.compras + pago); if (de.finanzas) de.finanzas.ventas = redondo(de.finanzas.ventas + pago); }
-      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, tipo === 'fichaje' ? { precio: pago, edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
+      const ex = tipo === 'fichaje' && !j.relleno && enemigos.has(a.nombre) ? (enemigos.get(a.nombre).has(de.nombre) ? de.nombre : Object.keys(pasado(j, a)).sort((x, y) => pasado(j, a)[y] - pasado(j, a)[x])[0]) : null;
+      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, ex ? { traicion: ex, directa: ex === de.nombre } : {}, tipo === 'fichaje' ? { precio: pago, edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
     };
     // Contratos: más largos cuanto más joven.
     const duracion = (j) => { const e = nuevoAnio - anioNac(j); return (e <= 23 ? 5 : e <= 28 ? 4 : e <= 31 ? 3 : 2) - (hashN(j.n + nuevoAnio, 31) % 2); };
@@ -1116,7 +1145,25 @@
     // El de «su club de siempre» no se mueve en cuanto lleva tres años; el que quiere jugar se va si no juega.
     // El que acaba de llegar no se vuelve a ir al verano siguiente (Thuram y Vieri un año en el Bayern), salvo que no juegue o haya lío.
     const recienLlegado = (j, v) => v.division === 1 && aniosEn(j, v) === 1 && j.carrera.length > 1 && !sinMinutos(j) && !lios.has(j);
-    const atado = (j, v) => (deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
+    // Rivalidades: nadie pasa porque sí al enemigo. Un símbolo de la casa (canterano con tres años, o seis temporadas en el club)
+    // no lo hace nunca; el resto solo de tarde en tarde y con motivo (peleado, sin jugar, recién llegado, o pasando antes por otro club).
+    const enemigos = enemigosDe(M);
+    const pasado = (j, c) => { const riv = enemigos.get(c.nombre), n = {}; if (!riv) return n; j.carrera.forEach((t) => { if (riv.has(t.club) && !t.cedido) n[t.club] = (n[t.club] || 0) + 1; }); if (EMBLEMAS[j.n] && riv.has(EMBLEMAS[j.n])) n[EMBLEMAS[j.n]] = 9; return n; };
+    const traicion = (j, v, c) => {
+      if (j.relleno || !enemigos.has(c.nombre)) return false;
+      const n = pasado(j, c); if (v && enemigos.get(c.nombre).has(v.nombre)) n[v.nombre] = Math.max(n[v.nombre] || 0, 1);
+      const casa = (j.inicio && j.inicio.club) || (j.carrera[0] || {}).club;
+      return Object.keys(n).some((x) => {
+        const a = n[x];
+        if ((x === casa && a >= 3) || a >= 6) return true;
+        if (v && v.nombre === x) return !((lios.has(j) || sinMinutos(j) || a <= 1) && hashN(j.n + nuevoAnio, 53) % 5 === 0);
+        let fuera = 0; for (let i = j.carrera.length - 1; i >= 0 && j.carrera[i].club !== x; i--) fuera++;
+        return !(a <= 3 && fuera >= 2 && hashN(j.n + c.nombre, 59) % 3 === 0);
+      });
+    };
+    // Los emblemas de un club no se van mientras están en edad de jugar arriba (luego, si acaso, a despedirse lejos; nunca al rival).
+    const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
+    const atado = (j, v) => emblema(j, v) || (deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
     M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15) lios.add(j); }); });
@@ -1211,7 +1258,8 @@
       return true;
     };
     // Constantes: una leyenda no sale de su club mientras dura su época, y las de 'elite' solo fichan por un grande.
-    const seVende = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
+    const seVende = (j, v, comprador) => !traicion(j, v, comprador) && seVende0(j, v, comprador);
+    const seVende0 = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
     // Las leyendas 'elite' (Cristiano, Mbappé) no se quedan en una liga menor: en cuanto son figuras mundiales
     // (nivel 900) se las lleva uno de los clubes más fuertes de las grandes ligas. En cuál acaban lo decide la partida.
     const LIGAS_GRANDES = ['España', 'Inglaterra', 'Italia', 'Alemania'];
@@ -1221,7 +1269,8 @@
       if (!K || !K.elite || j.relleno || j.niv < Motor.escala.interno(900) || (LIGAS_GRANDES.includes(v.pais) && v.prestigio >= 750)) return;
       // Mejor a un grande que no tenga ya a otra leyenda: Mbappé no se junta con Messi.
       const sinLeyenda = grandes.filter((g) => !g.jugadores.some((x) => x.cons));
-      const destinos = sinLeyenda.length ? sinLeyenda : grandes;
+      const destinos = (sinLeyenda.length ? sinLeyenda : grandes).filter((g) => !traicion(j, v, g));
+      if (!destinos.length) return;
       const a = destinos[Math.floor(r() * Math.min(4, destinos.length))];
       j.cedido = null; fichados.add(j); mover(j, v, a, 'fichaje');
     }));
@@ -1402,7 +1451,7 @@
     M.clubes.filter((c) => c.prestigio >= 700).forEach((c) => {
       const corte = c.jugadores.map((j) => j.niv).sort((a, b) => b - a)[13] || 0;
       c.jugadores.filter((j) => j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 21 && j.niv < corte && (minutos.get(j) || 0) < 8 && j.tec > j.niv + 40).forEach((j) => {
-        const destino = M.clubes.filter((d) => d !== c && d.pais === c.pais && !esFilial(d) && d.division <= 2 && d.prestigio < c.prestigio - 150 && d.jugadores.filter((x) => x.pos === j.pos).length < IDEAL[j.pos] + 1)
+        const destino = M.clubes.filter((d) => d !== c && d.pais === c.pais && !esFilial(d) && d.division <= 2 && d.prestigio < c.prestigio - 150 && !(enemigos.get(c.nombre) || new Set()).has(d.nombre) && d.jugadores.filter((x) => x.pos === j.pos).length < IDEAL[j.pos] + 1)
           .sort(() => r() - 0.5)[0];
         if (!destino) return;
         mover(j, c, destino, 'cesión');
@@ -1425,7 +1474,7 @@
       Object.entries(IDEAL).forEach(([pos, k]) => {
         while (c.jugadores.filter((j) => j.pos === pos).length < k - 1) {
           // Los libres se quedan en su país: nadie cruza la frontera para ser suplente.
-          const libre = M.libres.filter((j) => j.pos === pos && !extranjero(j, c.pais)).sort((a, b) => b.niv - a.niv)[0];
+          const libre = M.libres.filter((j) => j.pos === pos && !extranjero(j, c.pais) && !traicion(j, null, c)).sort((a, b) => b.niv - a.niv)[0];
           if (libre) {
             M.libres = M.libres.filter((j) => j !== libre);
             c.jugadores.push(libre);
@@ -1619,6 +1668,13 @@
     const activos = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => activos.add(j.n))); M.libres.forEach((j) => activos.add(j.n));
     M.maestrosVistos = M.maestrosVistos || [];
     const enClub = new Set(); M.clubes.forEach((c) => { if (c.entrenadores && c.entrenadores[0]) enClub.add(c.entrenadores[0].nombre); });
+    // Banquillos y rivalidades: quien hizo carrera en un club (dos años o más), fue su símbolo como jugador o sueña con él no entrena al enemigo.
+    const enemigos = enemigosDe(M);
+    M.dtPasado = M.dtPasado || {};
+    const pasoPor = (e, c) => { if (!e) return; const h = M.dtPasado[e.nombre] = M.dtPasado[e.nombre] || {}; h[c.nombre] = Math.max(h[c.nombre] || 0, (e.anios || 0) + 1); };
+    const vetoDT = (x, c) => { const riv = enemigos.get(c.nombre); if (!riv || !x || !x.nombre) return false;
+      const h = M.dtPasado[x.nombre] || {};
+      return riv.has(DESTINO_DT[x.nombre]) || riv.has(x.casa) || riv.has(EMBLEMAS[MAESTRO_JUGADOR[x.nombre] || x.nombre]) || riv.has(x.vieneDe) || [...riv].some((k) => (h[k] || 0) >= 2); };
     const ficha = (nombre) => { const m = MAESTROS[nombre]; return { nombre, nac: `${m[0]}-01-01`, nacion: m[4], pais: m[4], estilo: m[3], desde: 1, hasta: 30, fijo: false, nota: null }; };
     Object.keys(MAESTROS).forEach((nombre) => {
       const m = MAESTROS[nombre];
@@ -1645,7 +1701,7 @@
     // Los grandes eligen antes, pero no siempre el más grande: si no, el mejor club se quedaba siempre con el mejor técnico.
     const turno = new Map(M.clubes.map((c) => [c, c.prestigio + 220 * r()]));
     const primera = M.clubes.filter((c) => c.division === 1 && !c.generado).sort((a, b) => turno.get(b) - turno.get(a));
-    const deja = (c, motivo) => { const e = c.entrenadores[0]; c.entrenadores = []; const ed = edadDe(e); if (motivo !== 'se jubila' && !(ed && ed > 68) && (ed || anio - (e.desdeAnio || anio) < 18)) M.parados.push(Object.assign({}, e, { fijo: false, nota: null, vieneDe: c.nombre })); return e.nombre; };
+    const deja = (c, motivo) => { const e = c.entrenadores[0]; c.entrenadores = []; pasoPor(e, c); const ed = edadDe(e); if (motivo !== 'se jubila' && !(ed && ed > 68) && (ed || anio - (e.desdeAnio || anio) < 18)) M.parados.push(Object.assign({}, e, { fijo: false, nota: null, vieneDe: c.nombre })); return e.nombre; };
     primera.forEach((c) => {
       const e = c.entrenadores && c.entrenadores[0];
       if (!e) return;
@@ -1673,12 +1729,12 @@
       const casa = (p) => (p === 'Escocia' || p === 'Gales' || p === 'Irlanda del Norte' ? 'Inglaterra' : p);
       const puedeIr = (x) => { const p = casa(x.nacion || x.pais); if (p === c.pais) return true; if (sudaca(p) !== sudaca(c.pais)) return ['Argentina'].includes(p) && !sudaca(c.pais) && c.pais !== 'Inglaterra' && maestro(x.nombre) > 0 && anio < 1996 ? true : false;
         if (c.pais === 'Inglaterra') return anio >= 1996; return anio >= 1990 || ['Hungría', 'Austria', 'Países Bajos', 'Yugoslavia'].includes(p); };
-      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
+      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && !vetoDT(x, c) && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
       let nuevo = libres[0], de = null;
       if (!nuevo && c.prestigio >= 820 && r() < 0.35) {
-        const v = primera.filter((x) => x !== c && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2)
+        const v = primera.filter((x) => x !== c && !(enemigos.get(c.nombre) || new Set()).has(x.nombre) && !vetoDT(x.entrenadores && x.entrenadores[0], c) && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2)
           .sort((a, b) => maestro(b.entrenadores[0].nombre) - maestro(a.entrenadores[0].nombre) || b.prestigio - a.prestigio)[0];
-        if (v) { nuevo = v.entrenadores[0]; de = v; v.entrenadores = []; }
+        if (v) { nuevo = v.entrenadores[0]; de = v; pasoPor(nuevo, v); v.entrenadores = []; }
       }
       if (!nuevo) return;
       const sale = e ? deja(c, 'relevo') : null;
@@ -1695,6 +1751,8 @@
       if (!donde && !libre) return;
       // Va si está libre, o si ya lleva dos años donde está; el club lo llama si su entrenador no es una leyenda en racha.
       if (donde && (donde.entrenadores[0].anios || 0) < 2) return;
+      if (vetoDT(donde ? donde.entrenadores[0] : libre, c) || (donde && (enemigos.get(c.nombre) || new Set()).has(donde.nombre))) return;
+      if (donde) pasoPor(donde.entrenadores[0], donde);
       if (actual && maestro(actual.nombre) >= 3 && c.balance !== 'fracaso' && (actual.anios || 0) < 4) return;
       if (r() > (c.balance === 'fracaso' ? 0.9 : 0.55)) return;
       const nuevo = donde ? donde.entrenadores[0] : libre;

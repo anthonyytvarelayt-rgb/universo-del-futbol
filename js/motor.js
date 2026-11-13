@@ -267,6 +267,10 @@
 
   // Un partido. Opciones: fuera (jugadores no disponibles por lado), nv (nivel efectivo del día),
   // moral por lado, neutral, duracion (1 = 90 minutos; 1/3 = prórroga), cambios permitidos.
+  // Campos que pesan más que otros: jugar allí cuesta un poco más que en cualquier otro sitio.
+  const FORTINES = { 'Boca Juniors': 1.35, 'Liverpool': 1.25, 'Real Madrid': 1.15, 'Barcelona': 1.15, 'Borussia Dortmund': 1.25, 'Napoli': 1.25, 'Atlético Bilbao': 1.25, 'Marsella': 1.2, 'Saint-Étienne': 1.2, 'River Plate': 1.2,
+    'Rosario Central': 1.25, "Newell's Old Boys": 1.2, 'Flamengo': 1.2, 'Corinthians': 1.25, 'Grêmio': 1.2, 'Oporto': 1.2, 'Benfica': 1.15, 'Sevilla': 1.2, 'Real Betis': 1.15, 'Atlético Madrid': 1.2, 'Roma': 1.15, 'Lazio': 1.1,
+    'Newcastle United': 1.2, 'Leeds United': 1.2, 'Manchester United': 1.15, 'Bayern Múnich': 1.1, 'Schalke 04': 1.2, 'Colonia': 1.15, 'Lens': 1.2, 'Racing Club': 1.2, 'Independiente': 1.15, 'Vasco da Gama': 1.15, 'Osasuna': 1.25, 'Stoke City': 1.25 };
   function partido(r, local, visita, opciones) {
     const o = Object.assign({ fueraL: new Set(), fueraV: new Set(), nv: (j) => j.niv, moral: [0, 0], neutral: false, duracion: 1, cambios: 0, xiL: null, xiV: null, anio: 1958, derbi: null, factorGoles: 1, riesgo: null, marcador: null }, opciones);
     // En campo neutral (finales, Mundial) el jugador frío rinde más: no le pesa el partido grande.
@@ -336,7 +340,7 @@
       f.E = E;
     });
     const goles = [0, 0];
-    const casaL = o.neutral ? 0 : 1;
+    const casaL = o.neutral ? 0 : (FORTINES[local.nombre] || 1);
     const lados = [
       { xi: xiL, f: fL, rival: xiV, fr: fV, casa: casaL },
       { xi: xiV, f: fV, rival: xiL, fr: fL, casa: 0 }
@@ -356,7 +360,7 @@
     // Quien gana de tres se relaja y quien pierde aprieta (menos goleadas absurdas, alguna remontada más).
     const plan = [];
     lados.forEach((lado, k) => {
-      const dif = (lado.f.creacion - lado.fr.defensa) / P.escala + (lado.casa ? vCasa * tension.casa : -vCasa * tension.casa / 2);
+      const dif = (lado.f.creacion - lado.fr.defensa) / P.escala + (lado.casa ? vCasa * tension.casa * lado.casa : -vCasa * tension.casa / 2);
       lado.dif = dif;
       const n = Math.max(1, Math.round((P.ocasiones * fGoles * Math.exp(0.35 * dif) * lado.f.E.ocas + (r() - 0.5) * 4) * o.duracion));
       for (let i = 0; i < n; i++) plan.push({ k, t: (i + r()) / n * minutos, tipo: 'abierta' });
@@ -376,7 +380,7 @@
         // aquí pesa a medias para no contarlo dos veces (el motor ya pone el equipo y los rivales).
         const tirador = elige(r, mios, (j) => TIRO(j) * Math.sqrt(FIN(j)) * Math.exp(D(j, 'des') / 40), nv);
         let creador = elige(r, mios, (j) => PESO_PASE(j) * Math.exp(D(j, 'vis') / 40), nv, tirador);
-        let pTiro = P.pTiroBase * 2 * lado.f.E.tiro * sig((lado.f.ataque - lado.fr.defensa) / P.escala + (lado.casa ? vCasa : 0)) * animo(k);
+        let pTiro = P.pTiroBase * 2 * lado.f.E.tiro * sig((lado.f.ataque - lado.fr.defensa) / P.escala + (lado.casa ? vCasa * lado.casa : 0)) * animo(k);
         // Regate: alguien encara a un defensor. Si sale bien, la jugada mejora; si no, se pierde.
         if (r() < P.pIntentoRegate) {
           const reg = elige(r, mios, (j) => PESO_REGATE(j) * Math.exp(D(j, 'reg') / 40), nv), marca = elige(r, suyos, corta, nv);
