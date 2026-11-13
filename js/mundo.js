@@ -715,7 +715,7 @@
       const grande = ['España', 'Inglaterra', 'Italia', 'Alemania'].includes(o.pais);
       Object.entries(cuenta).forEach(([club, w]) => {
         const seguida = x && x.club === club && x.n >= 4 ? Math.min(24, 6 * (x.n - 3)) : 0;
-        const baja = Math.max(seguida, grande ? Math.min(36, 9 * (w - 2)) : 0);
+        const baja = Math.max(seguida, grande ? Math.min(60, 12 * (w - 2)) : 0);
         const c = baja > 0 && M.clubes.find((y) => y.nombre === club);
         if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
       });
@@ -1305,6 +1305,14 @@
     if (!libro.equipoGoles || gol.gf > libro.equipoGoles.gf) libro.equipoGoles = { gf: gol.gf, club: gol.nombre, temporada: temp };
   }
 
+  // Suelo de prestigio de los clubes grandes de siempre, por época (solo al empezar la partida).
+  const GIGANTES = {
+    'Real Madrid': 820, 'Barcelona': 800, 'Atlético Madrid': 720, 'Atlético Bilbao': { 1930: 700, 1990: 640 }, 'Valencia': 660,
+    'Juventus': 820, 'Milan': 800, 'Inter': 800, 'Roma': 680, 'Napoli': 660, 'Bayern Múnich': { 1968: 760, 1975: 820 }, 'Borussia Dortmund': { 1990: 700 },
+    'Manchester United': 800, 'Liverpool': { 1964: 760, 1975: 800 }, 'Arsenal': 740, 'Tottenham Hotspur': 680, 'Everton': { 1930: 680, 1995: 600 }, 'Chelsea': { 1955: 640, 2003: 780 }, 'Manchester City': { 2008: 780 },
+    'Benfica': 740, 'Oporto': { 1980: 720 }, 'Sporting de Portugal': 680, 'Paris Saint-Germain': { 1990: 680, 2011: 800 }, 'Marsella': { 1970: 680 },
+    'Boca Juniors': 720, 'River Plate': 720, 'Flamengo': 680, 'Santos': { 1958: 720, 1975: 640 }, 'São Paulo': 660, 'Corinthians': 660, 'Palmeiras': 660
+  };
   // ---------- Directivas: cada club se marca un objetivo según su nombre dentro de su liga ----------
   const OBJETIVOS = { titulo: 'Ganar la liga', europa: 'Acabar entre los primeros', media: 'Temporada tranquila', salvarse: 'Salvarse' };
   // puestoNombre: su puesto en la liga si se ordenara por prestigio (0 el de más nombre); n: clubes de la liga.
@@ -1385,7 +1393,9 @@
     const edadDe = (e) => { const n = parseInt(String(e.nac || (MAESTROS[e.nombre] ? MAESTROS[e.nombre][0] : '')).slice(0, 4), 10); return n ? anio - n : null; };
     const puestos = new Map();
     T.forEach((t) => { if (!t || !t.tabla) return; const esp = [...t.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio); t.tabla.forEach((x, i) => puestos.set(x.equipo, { puesto: i, esperado: esp.indexOf(x), n: t.tabla.length })); });
-    const primera = M.clubes.filter((c) => c.division === 1 && !c.generado).sort((a, b) => b.prestigio - a.prestigio);
+    // Los grandes eligen antes, pero no siempre el más grande: si no, el mejor club se quedaba siempre con el mejor técnico.
+    const turno = new Map(M.clubes.map((c) => [c, c.prestigio + 220 * r()]));
+    const primera = M.clubes.filter((c) => c.division === 1 && !c.generado).sort((a, b) => turno.get(b) - turno.get(a));
     const deja = (c, motivo) => { const e = c.entrenadores[0]; c.entrenadores = []; const ed = edadDe(e); if (motivo !== 'se jubila' && !(ed && ed > 68) && (ed || anio - (e.desdeAnio || anio) < 18)) M.parados.push(Object.assign({}, e, { fijo: false, nota: null, vieneDe: c.nombre })); return e.nombre; };
     primera.forEach((c) => {
       const e = c.entrenadores && c.entrenadores[0];
@@ -1660,12 +1670,14 @@
     Object.keys(top4).forEach((p) => (top4[p] = media(top4[p].sort((a, b) => b - a).slice(0, 4))));
     const mejorLiga = Math.max(...Object.values(top4), 601);
     const pesoLiga = (p) => (top4[p] ? Math.max(0.55, Math.min(1, Math.sqrt(Math.max(0, top4[p] - 600) / (mejorLiga - 600)))) : 0.7);
-    const prestigio = (nombre, nivel) => {
+    const prestigioMedido = (nombre, nivel) => {
       const c = B.clubes[nombre] || {};
       if (c.prestigio != null && Math.abs((c.prestigioAnio || anio) - anio) <= 3) return c.prestigio;
       if (historia.has(nombre)) return Math.round(450 + 450 * pesoLiga(c.pais) * historia.get(nombre) / mejorPais[c.pais]);
       return nivel === 1 ? 560 : 450;  // sin historia reciente en Primera: un recién llegado, no un club medio
     };
+    // Un gigante lo es aunque lleve años sin ganar: su afición, su estadio y su dinero le dan un suelo (el Barça de 1980).
+    const prestigio = (nombre, nivel) => Math.max(prestigioMedido(nombre, nivel), nivel === 1 ? porAnio(GIGANTES[nombre], anio) || 0 : 0);
     // Un club que sube más adelante llega como recién ascendido: su prestigio medido solo vale si es de esos años
     // (antes entraba con el de 1958 y el Wolverhampton o el Núremberg fichaban en 2005 como campeones de Europa).
     const prestigioSube = (nombre, t) => { const c = B.clubes[nombre] || {}; return c.prestigio != null && Math.abs((c.prestigioAnio || 1958) - t) <= 3 ? c.prestigio : 480; };
