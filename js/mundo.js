@@ -812,7 +812,7 @@
       if (!campeon) return;
       const x = m.racha[id];
       m.racha[id] = x && x.club === campeon ? { club: campeon, n: x.n + 1 } : { club: campeon, n: 1 };
-      bate(id, m.racha[id].n, real, `${campeon} gana su ${m.racha[id].n}.ª ${que} seguida`, `Una racha que no se había visto nunca.`);
+      bate(id, m.racha[id].n, real, `El ${campeon} gana su ${m.racha[id].n}.ª ${que || 'liga'} seguida`, `Una racha que no se había visto nunca.`);
     };
     if (R.EU) racha('europa', R.EU.campeon, MARCAS_REALES.europa, 'Copa de Europa');
     [{ pais: 'España', campeon: R.T && R.T.tabla[0] && R.T.tabla[0].nombre }].concat(R.otros || []).forEach((o) => {
@@ -1957,7 +1957,7 @@
     Object.keys(T.convocados).forEach((eq) => {
       const k = nacionClave(eq);
       const t = tecnicos.filter((x) => clave(x.e) === k).sort((a, b) => (b.libre - a.libre) * 1.5 + maestro(b.e.nombre) - maestro(a.e.nombre) || hashN(a.e.nombre + T.anio, 3) - hashN(b.e.nombre + T.anio, 3))[0];
-      if (t) T.seleccionadores[eq] = t.e.nombre;
+      if (t) { T.seleccionadores[eq] = t.e.nombre; if (t.club) (T.seleccionadorClub = T.seleccionadorClub || {})[eq] = t.club; }
       const van = new Set(T.convocados[eq].map((x) => x[0]));
       M.clubes.forEach((c) => c.jugadores.forEach((j) => { if (j.relleno || van.has(j.n) || Motor.escala.mostrar(j.niv) < 680) return; const ns = String(j.nacion || '').split(/\s*\/\s*/).map(nacionClave); if ((j.sel && j.sel.pais ? nacionClave(j.sel.pais) : ns[0]) === k) fuera.push([j.n, eq, Math.round(Motor.escala.mostrar(j.niv)), c.nombre]); }));
     });
@@ -2215,7 +2215,10 @@
     const rellenar = (c, suelo) => {
       if (c.jugadores.length >= 14 && c.jugadores.some((j) => j.pos === 'POR')) return;
       const reales = c.jugadores.map((j) => j.niv);
-      const base = Math.max(suelo || 0, reales.length ? Math.min(...reales) - 20 : 280 + 0.4 * c.prestigio);
+      // Con muy pocos reales (un club pequeño del que solo conocemos a su figura), el relleno no se mide por esa figura:
+      // salía un equipo entero casi a su nivel y el Unión de Luque ganaba cuatro ligas argentinas.
+      const porClub = 280 + 0.4 * c.prestigio;
+      const base = Math.max(suelo || 0, reales.length >= 6 ? Math.min(...reales) - 20 : reales.length ? Math.min(Math.min(...reales) - 20, porClub) : porClub);
       let k = 0;
       Object.entries(MINIMO_RELLENO).forEach(([pos, n]) => {
         while (c.jugadores.filter((j) => j.pos === pos).length < n || (pos === 'DEL' && c.jugadores.length < 16)) {
