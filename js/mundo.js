@@ -1067,7 +1067,7 @@
   // (Luis Suárez 1961, Cruyff 1973, Maradona 1984, Zidane 2001, Neymar 2017): un fichaje normal de figura (nivel 700-760) cuesta entre la cuarta parte y la mitad del récord de su año, y solo una leyenda en plenitud lo iguala o lo bate por poco.
   const RECORD_TRASPASO = [[1950, 0.05], [1957, 0.09], [1961, 0.2], [1968, 0.6], [1973, 1.2], [1975, 1.9], [1982, 5], [1984, 7.5], [1987, 8], [1990, 12], [1992, 16], [1996, 21], [1997, 27], [1998, 31], [1999, 49], [2000, 60], [2001, 77], [2009, 94], [2013, 100], [2016, 105], [2017, 222], [2030, 222]];
   const recordTraspaso = (anio) => {
-    const i = Math.max(1, RECORD_TRASPASO.findIndex((x) => x[0] >= anio)), a = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i - 1], b = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i];
+    const k = RECORD_TRASPASO.findIndex((x) => x[0] >= anio), i = k < 0 ? -1 : Math.max(1, k), a = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i - 1], b = RECORD_TRASPASO[i < 0 ? RECORD_TRASPASO.length - 1 : i];
     if (a === b || anio <= a[0]) return a[1];
     return a[1] * Math.pow(b[1] / a[1], Math.min(1, (anio - a[0]) / (b[0] - a[0])));
   };
