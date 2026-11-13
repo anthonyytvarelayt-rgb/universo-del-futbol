@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 44, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 45, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1161,6 +1161,12 @@ function noticiasDT(V) {
       else if (don === 'loco' && o.aniosDT === 0 && o.balance === 'superado') out.push({ rot: 'Locura', tit: `El ${esc(c)} de ${esc(n)} enamora`, txt: 'Presión a todo el campo y ataque sin freno en su primer año. La duda de siempre: cuánto aguantarán las piernas.' });
       else if (don === 'eterno' && o.aniosDT >= 9 && o.aniosDT % 5 === 4) out.push({ rot: 'Dinastía', tit: `${esc(n)} cumple ${o.aniosDT + 1} años en el ${esc(c)}`, txt: 'Han pasado plantillas enteras y él sigue en el mismo banquillo, rehaciendo el equipo una vez más.' });
     });
+    // El pique: un polemista y un táctico en la misma liga no pueden convivir en paz.
+    const con = (don) => (V.objetivos || []).filter((o) => o.entrenador && Mundo.donDT(o.entrenador) === don);
+    con('special').forEach((a) => con('tactico').filter((b) => b.pais === a.pais).slice(0, 1).forEach((b) => {
+      const gana = a.puesto < b.puesto ? a : b, pierde = gana === a ? b : a;
+      out.unshift({ rot: 'El pique del año', tit: `${esc(sinApodo(a.entrenador))} contra ${esc(sinApodo(b.entrenador))}: la liga se queda pequeña`, txt: `${esc(a.club)} y ${esc(b.club)} se han pasado el año mirándose de reojo: ruedas de prensa cruzadas, pizarras contra provocaciones. Esta vez gana ${esc(sinApodo(gana.entrenador))}, ${gana.puesto}.º con el ${esc(gana.club)}; ${esc(sinApodo(pierde.entrenador))} acaba ${pierde.puesto}.º y promete revancha.` });
+    }));
   } catch (e) { /* sin noticias */ }
   return out.slice(0, 4);
 }
@@ -1794,8 +1800,37 @@ function fichaClub(n) {
     + objetivoClub(c, l)
     + dineroClub(c)
     + historialClub(n, c.pais)
+    + caraACara(n, c.pais)
     + goleadoresClub(n)
     + `<div class="palmares"><span class="rotulo">Plantilla</span>${plantilla.map((j) => `<div><span>${nombreJ(j.n)} <small>${esc(POS[j.pos] || j.pos)}</small></span><span>${nivel(j.niv)}</span></div>`).join('')}</div>`;
+}
+// Cara a cara: el balance de liga de un club contra sus grandes rivales del país, en toda la partida.
+function caraACara(n, pais) {
+  try {
+    const rivales = M.clubes.filter((x) => x.pais === pais && x.nombre !== n).sort((a, b) => b.prestigio - a.prestigio).slice(0, 12).map((x) => x.nombre);
+    const cuenta = new Map();
+    temporadas().forEach((V) => ligasDe(V, pais).forEach((l) => {
+      if (!l.T || !l.T.resultados || !l.T.tabla.some((t) => t.nombre === n)) return;
+      l.T.resultados.slice(0, V === S ? vistasDe(l.T, S) : l.T.resultados.length).flat().forEach((m) => {
+        if (m.local !== n && m.visita !== n) return;
+        const r = m.local === n ? m.visita : m.local, gf = m.local === n ? m.ga : m.gb, gc = m.local === n ? m.gb : m.ga;
+        const x = cuenta.get(r) || { r, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, paliza: null };
+        x.pj++; x.gf += gf; x.gc += gc; if (gf > gc) x.g++; else if (gf < gc) x.p++; else x.e++;
+        if (gf > gc && (!x.paliza || gf - gc > x.paliza.d)) x.paliza = { d: gf - gc, txt: `${gf}-${gc} (${V.temporada})` };
+        cuenta.set(r, x);
+      });
+    }));
+    const xs = rivales.map((r) => cuenta.get(r)).filter((x) => x && x.pj >= 2).slice(0, 4);
+    if (!xs.length) return '';
+    return `<div class="palmares"><span class="rotulo">Cara a cara en liga · sus grandes rivales</span>${xs.map((x) => `<div><span>${botonClub(x.r)} <small>${x.pj} partidos · goles ${x.gf}-${x.gc}${x.paliza ? ` · mayor victoria ${esc(x.paliza.txt)}` : ''}</small></span><span><b>${x.g}</b> G · ${x.e} E · ${x.p} P</span></div>`).join('')}</div>`;
+  } catch (e) { return ''; }
+}
+// Ranking mundial de clubes: por prestigio de hoy.
+function rankingClubes() {
+  try {
+    const xs = M.clubes.filter((c) => c.division === 1).sort((a, b) => b.prestigio - a.prestigio).slice(0, 20);
+    return `<div class="caja"><span class="rotulo">Ranking mundial de clubes · hoy</span>${xs.map((c, i) => `<div class="resultado"><span><span>${i + 1}. ${botonClub(c.nombre)}<small>${esc(c.pais)}${c.entrenadores && c.entrenadores[0] ? ' · ' + esc(sinApodo(c.entrenadores[0].nombre)) : ''}</small></span></span><b>${c.prestigio}</b></div>`).join('')}</div>`;
+  } catch (e) { return ''; }
 }
 function fichaEntrenador(n, club) {
   const c = clubDe(club), t = c && (c.entrenadores || []).find((x) => x.nombre === n);
@@ -2047,7 +2082,7 @@ function pintarHistoria() {
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + libroDecadas(ts)
     + mundialesHistoria()
-    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${recordsPartida(ts)}${salonFama(ts)}</div>` : '')
+    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${recordsPartida(ts)}${rankingClubes()}${salonFama(ts)}</div>` : '')
     + diarioHtml();
 }
 
@@ -2179,7 +2214,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 44) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 45) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

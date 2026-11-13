@@ -10,9 +10,17 @@ BASE = os.path.join(AQUI, '..', 'datos_fuente', 'base')
 POSICIONES = {'POR', 'DEF', 'MED', 'DEL'}
 avisos = []
 
+# Dos clubes distintos no pueden llamarse igual: el juego busca a los clubes por su nombre.
+MISMO_NOMBRE = {('Argentina', 'Arsenal'): 'Arsenal de Sarandí'}
+def sin_repetir(filas):
+    for f in filas:
+        nuevo = MISMO_NOMBRE.get(((f.get('pais') or '').strip(), (f.get('club') or '').strip()))
+        if nuevo: f['club'] = nuevo
+        yield f
+
 def leer(nombre):
     ruta = os.path.join(BASE, nombre)
-    return list(csv.DictReader(open(ruta, encoding='utf-8-sig'))) if os.path.exists(ruta) else []
+    return list(sin_repetir(csv.DictReader(open(ruta, encoding='utf-8-sig')))) if os.path.exists(ruta) else []
 
 def entero(s, defecto=None):
     m = re.match(r'\s*(-?\d+)', str(s or ''))
@@ -92,7 +100,7 @@ def toks(x): return set(re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD',
 n_wd = {'nuevos': 0, 'unidos': 0, 'mujeres': 0, 'sin_sitio': 0}
 if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
     mujeres = set(open(os.path.join(WD, 'mujeres.txt')).read().split()) if os.path.exists(os.path.join(WD, 'mujeres.txt')) else set()
-    lee = lambda n: csv.DictReader(open(os.path.join(WD, n), encoding='utf-8-sig'))
+    lee = lambda n: sin_repetir(csv.DictReader(open(os.path.join(WD, n), encoding='utf-8-sig')))
     en_liga = defaultdict(set)
     for x in ligas: en_liga[x[4]].add(x[1])
     pasos_wd = defaultdict(list)
