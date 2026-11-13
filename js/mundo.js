@@ -253,7 +253,7 @@
       // Los Reyes de Europa se crecen en estas noches.
       const reyes = [];
       // Y hay quien nació para esta copa: la constante 'europa' (Cristiano, «Mr. Champions»).
-      eqs.forEach((c) => c.jugadores.forEach((j) => { const K = !j.relleno && CONSTANTES[j.n]; const v = 4 * gradoDe(j, 'europa') + (K && K.europa ? 30 : 0); if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
+      eqs.forEach((c) => c.jugadores.forEach((j) => { const K = !j.relleno && CONSTANTES[j.n]; const v = 4 * gradoDe(j, 'europa') + (K && K.europa ? 30 : 0) + (caracterDe(j) === 'frio' ? 10 : 0); if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
       // Y contagia a los suyos: con él en plenitud (22 a 37 años), todo su equipo sube un punto en Europa.
       eqs.forEach((c) => { const lider = c.jugadores.find((j) => !j.relleno && CONSTANTES[j.n] && CONSTANTES[j.n].europa && M.anio - anioNac(j) >= 22 && M.anio - anioNac(j) <= 37);
         if (!lider) return;
@@ -764,7 +764,7 @@
         j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
         if (j.selT) { j.carrera[j.carrera.length - 1].sel = j.selT; delete j.selT; }
         const edad = M.anio + 1 - anioNac(j);
-        const cv = curva(j), pico = cv.pico;
+        const cv = curva(j), pico = cv.pico, car = caracterDe(j);
         const minutos = Math.min(1, (x ? x.pj : 0) / 25);
         insignias(M, R, c, j, x, edad, novedades);
         if (edad <= pico) {
@@ -793,7 +793,9 @@
           // Si en la realidad siguió a su nivel después de 1959 (techo ≥ nivel de partida), envejece más despacio.
           const longevo = (j.tecReal || 0) >= (j.inicio ? j.inicio.niv : j.niv) ? 0.75 : 1;
           const caida = (j.tec || j.niv) * (cv.F(edad - 1) - cv.F(edad));
-          j.niv -= Math.max(0, caida) * longevo * (0.7 + 0.6 * r()) * (1 - 0.1 * gradoDe(j, 'eterno'));
+          // Quien se cuida dura más y quien vive de noche se apaga antes (salvo las carreras reales conocidas, que ya lo llevan dentro).
+          const vida = CARRERAS[j.n] ? 1 : car === 'profesional' ? 0.8 : car === 'fiestero' ? 1.3 : 1;
+          j.niv -= Math.max(0, caida) * longevo * vida * (0.7 + 0.6 * r()) * (1 - 0.1 * gradoDe(j, 'eterno'));
           // El cuerpo manda: desde los 37 (38 los porteros) cada año pesa más que el anterior, también a los longevos.
           const tarde = edad - (j.pos === 'POR' ? 37 : 36);
           if (tarde > 0) j.niv -= (j.tec || j.niv) * 0.012 * tarde * (0.6 + 0.4 * Math.min(1.5, cv.ritmo));
@@ -802,7 +804,9 @@
         lesionGrave(M, c, j, x, edad, r, novedades);
         j.niv = Math.max(250, Math.min(1130, j.niv));
         // Estado de forma de la temporada que viene: hasta el mejor tiene un año flojo y un buen jugador, el año de su vida.
-        j.temp = Math.round(normal(r) * 22) + 5 * gradoDe(j, 'bandera') + 15 * gradoDe(j, 'gracia');
+        j.temp = Math.round(normal(r) * (car === 'profesional' ? 14 : car === 'fiestero' ? 30 : 22)) + 5 * gradoDe(j, 'bandera') + 15 * gradoDe(j, 'gracia');
+        // El que vive de noche tiene, de vez en cuando, un año perdido: llega fuera de forma y se nota toda la temporada.
+        if (car === 'fiestero' && edad >= 24 && r() < 0.12) { j.temp -= 35; if (j.niv >= 800) novedades.push({ tipo: 'fiesta', jugador: j.n, club: c.nombre, niv: Math.round(j.niv), edad }); }
         // Retiro: casi nunca antes de los 32; los cracks aguantan más y los de nivel bajo lo dejan antes.
         const RETIRO = { 32: 0.03, 33: 0.06, 34: 0.12, 35: 0.22, 36: 0.35, 37: 0.5 };
         let p = edad <= 31 ? 0.005 : RETIRO[edad] || 0.7;
@@ -822,6 +826,9 @@
         if (r() < p) { retiros.push({ j, club: c.nombre, edad }); M.retirados.push(Object.assign({ retiro: M.anio + 1, edad }, { n: j.n, carrera: j.carrera, pos: j.pos })); return false; }
         return true;
       });
+      // Un líder veterano entre los titulares tira del vestuario: sus compañeros empiezan el año un punto mejor.
+      const once = c.jugadores.slice().sort((a, b) => b.niv - a.niv).slice(0, 12);
+      if (once.some((j) => caracterDe(j) === 'lider' && M.anio + 1 - anioNac(j) >= 26)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 5; });
     });
     M.libres = M.libres.filter((j) => {
       const edad = M.anio + 1 - anioNac(j);
@@ -864,6 +871,26 @@
     'Javier Zanetti': 'casa', 'Sergio Busquets': 'casa', 'Marco Reus': 'casa', 'Harry Kane': 'titulos', 'Erling Haaland': 'titulos', 'Thierry Henry': 'titulos', 'Kaká': 'titulos', 'Ronaldinho': 'reto',
     'Carlos Tevez': 'reto', 'Robert Lewandowski': 'titulos', 'Luis Suárez': 'titulos', 'Karim Benzema': 'titulos', 'Luka Modrić': 'titulos', 'Eden Hazard': 'reto', 'Paul Pogba': 'dinero', 'Gareth Bale': 'dinero'
   };
+  // Carácter: cómo vive y cómo es en el vestuario. Cambia cuánto dura arriba, sus altibajos, las noches grandes y los líos con el club.
+  const CARACTERES = { profesional: 'Profesional: se cuida y dura', fiestero: 'Vive de noche', lider: 'Líder del vestuario', conflictivo: 'Carácter difícil', frio: 'Se crece en las noches grandes', normal: '' };
+  const CARACTER_REAL = {
+    'Cristiano Ronaldo': 'profesional', 'Paolo Maldini': 'profesional', 'Javier Zanetti': 'profesional', 'Ryan Giggs': 'profesional', 'Luka Modrić': 'profesional', 'Robert Lewandowski': 'profesional', 'Raúl': 'profesional',
+    'Gianluigi Buffon': 'profesional', 'Philipp Lahm': 'profesional', 'Dino Zoff': 'profesional', 'Stanley Matthews': 'profesional', 'Erling Haaland': 'profesional', 'Harry Kane': 'profesional', 'Karim Benzema': 'profesional',
+    'Ronaldinho': 'fiestero', 'Adriano': 'fiestero', 'Adriano Leite Ribeiro': 'fiestero', 'George Best': 'fiestero', 'Garrincha': 'fiestero', 'Paul Gascoigne': 'fiestero', 'Romário': 'fiestero', 'Diego Maradona': 'fiestero',
+    'Edmundo': 'fiestero', 'Antonio Cassano': 'fiestero', 'Ronaldo': 'fiestero', 'Neymar': 'fiestero', 'Wayne Rooney': 'fiestero', 'Sócrates': 'fiestero',
+    'Franz Beckenbauer': 'lider', 'Carles Puyol': 'lider', 'Franco Baresi': 'lider', 'Roy Keane': 'lider', 'Steven Gerrard': 'lider', 'Sergio Ramos': 'lider', 'Bobby Moore': 'lider', 'Daniel Passarella': 'lider',
+    'Lothar Matthäus': 'lider', 'Didier Deschamps': 'lider', 'Fernando Hierro': 'lider', 'Francesco Totti': 'lider', 'Iker Casillas': 'lider', 'Alfredo Di Stéfano': 'lider', 'Johan Cruyff': 'lider', 'Dunga': 'lider', 'Virgil van Dijk': 'lider',
+    'Éric Cantona': 'conflictivo', 'Zlatan Ibrahimović': 'conflictivo', 'Mario Balotelli': 'conflictivo', 'Carlos Tevez': 'conflictivo', 'Nicolas Anelka': 'conflictivo', 'Hristo Stoichkov': 'conflictivo', 'Bernd Schuster': 'conflictivo',
+    'Paolo Di Canio': 'conflictivo', 'Joey Barton': 'conflictivo', "Samuel Eto'o": 'conflictivo', 'Luis Suárez': 'conflictivo', 'Diego Costa': 'conflictivo', 'Omar Sívori': 'conflictivo',
+    'Zinedine Zidane': 'frio', 'Pelé': 'frio', 'Lionel Messi': 'frio', 'Andrés Iniesta': 'frio', 'Gerd Müller': 'frio', 'Paolo Rossi': 'frio', 'Mario Kempes': 'frio', 'Filippo Inzaghi': 'frio', 'Kylian Mbappé': 'frio', 'Ferenc Puskás': 'frio',
+    'Didier Drogba': 'frio', 'Gareth Bale': 'frio', 'Ángel Di María': 'frio', 'Xavi Hernández': 'frio', 'Kaká': 'profesional', 'Thierry Henry': 'profesional', 'David Beckham': 'profesional'
+  };
+  function caracterDe(j) {
+    if (j.relleno) return 'normal';
+    if (CARACTER_REAL[j.n]) return CARACTER_REAL[j.n];
+    const x = hashN(j.n, 23) % 100;
+    return x < 18 ? 'profesional' : x < 27 ? 'fiestero' : x < 37 ? 'lider' : x < 45 ? 'conflictivo' : x < 55 ? 'frio' : 'normal';
+  }
   function deseo(j) {
     if (DESEO_REAL[j.n] && !j.relleno) return DESEO_REAL[j.n];
     const x = hashN(j.n, 13) % 100;
@@ -891,7 +918,7 @@
     const x = hashN(c.nombre, 17) % 100;
     return c.prestigio >= 860 ? 'estrellas' : x < 22 ? 'ojeadores' : x < 36 ? 'cantera' : 'normal';
   }
-  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores' };
+  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club' };
 
   function mercado(M, r) {
     const nuevoAnio = M.anio + 1;
@@ -912,6 +939,9 @@
     if (M.historia.length) M.historia[M.historia.length - 1].G.forEach((x) => jugo.set(x.j, x.pj));
     // El de «su club de siempre» no se mueve en cuanto lleva tres años; el que quiere jugar se va si no juega.
     const atado = (j, v) => deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3;
+    // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
+    const lios = new Set();
+    M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15) lios.add(j); }); });
     const sinMinutos = (j) => deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14;
     // 1. Vuelven los cedidos.
     M.clubes.forEach((c) => c.jugadores.filter((j) => j.cedido).forEach((j) => {
@@ -1035,23 +1065,23 @@
         if (atado(j, v)) return;
         // Hoy, entre clubes de élite solo se mueve quien tiene un motivo: ganar más títulos, cambiar de aires o que no juega.
         const inquieto = yaElite && fluidez === 1 && nuevoAnio - anioNac(j) >= 23 && ((quiere === 'titulos' && aniosEn(j, v) >= 2 && !campeones.has(v.nombre)) || (quiere === 'reto' && aniosEn(j, v) >= 4) || (quiere === 'dinero' && aniosEn(j, v) >= 3));
-        if (yaElite && fluidez === 1 && !(inquieto && r() < (K0 && K0.elite ? 0.6 : 0.3))) return;
+        if (yaElite && fluidez === 1 && !lios.has(j) && !(inquieto && r() < (K0 && K0.elite ? 0.6 : 0.3))) return;
         const K = CONSTANTES[j.n];
         if (K && K.club === v.nombre && nuevoAnio <= K.fiel) return;
         // Cuanto más arriba en la lista, menos tarda en salir: el número 1 se va casi seguro, el 100 una vez de cada cuatro.
         if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez) * (yaElite ? 0.7 : 1)) return;
         const titular = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
         const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 2 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j)
-          && (!inquieto || (quiere === 'titulos' ? fuerzas.get(c) > (fuerzas.get(v) || 0) + 15 : quiere === 'reto' ? c.pais !== v.pais && c.prestigio >= v.prestigio - 80 : presupuesto(c, nuevoAnio) > presupuesto(v, nuevoAnio) * 1.1))
+          && (!inquieto || lios.has(j) || (quiere === 'titulos' ? fuerzas.get(c) > (fuerzas.get(v) || 0) + 15 : quiere === 'reto' ? c.pais !== v.pais && c.prestigio >= v.prestigio - 80 : presupuesto(c, nuevoAnio) > presupuesto(v, nuevoAnio) * 1.1))
           // Las figuras de fuera van a las ligas que de verdad las traían en cada época (Italia y España; Inglaterra, casi ninguna hasta los 90).
           && (!extranjero(j, c.pais) || r() < (porAnio(ATRACCION[c.pais], nuevoAnio) || 0.3))
-          && (inquieto || (yaElite ? sube(c, v) : fuerzas.get(c) > (fuerzas.get(v) || 0)))).map((c) => ({ c, gana: j.niv - titular(c) + 0.3 * (c.prestigio - 700) + 120 * r()
+          && (inquieto || lios.has(j) || (yaElite ? sube(c, v) : fuerzas.get(c) > (fuerzas.get(v) || 0)))).map((c) => ({ c, gana: j.niv - titular(c) + 0.3 * (c.prestigio - 700) + 120 * r()
             // Cada uno elige según lo que busca: el que quiere títulos mira al más fuerte, el del contrato al que más paga, el de los retos a otro país.
             + (quiere === 'titulos' ? 1.5 * (fuerzas.get(c) - (fuerzas.get(v) || 0)) : quiere === 'dinero' ? 25 * Math.log(presupuesto(c, nuevoAnio) / Math.max(1, masa(c))) + 0.2 * (c.prestigio - 700) : quiere === 'reto' && c.pais !== v.pais ? 60 : 0) })).sort((a, b) => b.gana - a.gana);
         if (!destinos.length) return;
         const c = destinos[0].c;
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
-        mover(j, v, c, 'fichaje', quiere === 'titulos' || quiere === 'dinero' || quiere === 'reto' ? quiere : undefined);
+        mover(j, v, c, 'fichaje', lios.has(j) ? 'lio' : quiere === 'titulos' || quiere === 'dinero' || quiere === 'reto' ? quiere : undefined);
       });
     }
     // Un club con proyecto no se desarma: los que acabaron arriba el año pasado retienen mejor a sus figuras,
@@ -1100,14 +1130,14 @@
           if (v.division === 1 && fuerzas.has(v) && fuerzas.has(comprador) && fuerzas.get(comprador) < fuerzas.get(v) - 10 && j.niv >= (titular.get(v) || (titular.set(v, v.jugadores.map((x) => x.niv).sort((a, b) => b - a)[10] || 0), titular.get(v)))) return false;
           // Una figura por verano y club, como mucho: nadie se lleva a medio campeonato de golpe.
           if (figura && figuras >= 1) return false;
-          const apego = (figura ? (arriba.has(v.nombre) ? 0.4 : 1) * (deCasa(j, v) ? 0.5 : 1) : 1) * (apuros.has(v) && sueldo(j) >= 2 ? 2 : 1) * (deseo(j) === 'casa' ? 0.4 : 1);
+          const apego = (figura ? (arriba.has(v.nombre) ? 0.4 : 1) * (deCasa(j, v) ? 0.5 : 1) : 1) * (apuros.has(v) && sueldo(j) >= 2 ? 2 : 1) * (deseo(j) === 'casa' ? 0.4 : 1) * (lios.has(j) ? 3 : 1);
           return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.3 + 0.4 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * apego * calma * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
         });
         if (!elegido) continue;
         if (elegido.j.niv >= tercera.get(elegido.v)) figuras++;
         fichados.add(elegido.j);
         ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
-        mover(elegido.j, elegido.v, comprador, 'fichaje', sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && sueldo(elegido.j) >= 2 ? 'apuro' : undefined);
+        mover(elegido.j, elegido.v, comprador, 'fichaje', lios.has(elegido.j) ? 'lio' : sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && sueldo(elegido.j) >= 2 ? 'apuro' : undefined);
         compras++;
       }
     });
@@ -1534,7 +1564,7 @@
     return d;
   }
 
-  const api = { deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

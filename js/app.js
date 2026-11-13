@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 29, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 30, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1506,6 +1506,7 @@ function fichaJugador(n) {
   if (j.rol && ROL[j.rol]) rasgos.push(`<span class="fuerte">${ROL[j.rol]}</span>`);
   if (j.fin >= 1.15) rasgos.push('<span>Gran definidor</span>'); else if (j.fin && j.fin <= 0.85) rasgos.push('<span>Poco gol para su puesto</span>');
   try { const pf = Mundo.perfil(j); if (pf === 'precoz') rasgos.push('<span>Precoz</span>'); else if (pf === 'tardio' || pf === 'tardío') rasgos.push('<span>Madura tarde</span>'); } catch (e) { /* sin perfil */ }
+  if (!j.relleno) { try { const ca = Mundo.CARACTERES[Mundo.caracterDe(j)]; if (ca) rasgos.push(`<span>${esc(ca)}</span>`); } catch (e) { /* sin datos */ } }
   if (x.activo && !j.relleno) { try { rasgos.push(`<span>Busca: ${esc(Mundo.DESEOS[Mundo.deseo(j)].toLowerCase())}</span>`); rasgos.push(`<span>Pide ${dineroTxt(Mundo.sueldo(j))}</span>`); } catch (e) { /* sin datos */ } }
   if (techo && nv && techo - nv >= 80) rasgos.push('<span class="oro">Promesa: le queda mucho por crecer</span>');
   if (j.relleno || esFicticio(n)) rasgos.push('<span>Jugador inventado (sin datos de su plantilla)</span>');
@@ -1701,7 +1702,8 @@ function libroDecadas(ts) {
       ['joya', 'Las joyas', (x) => `${x.jugador} despegó en el ${x.club} a los ${x.edad} años`],
       ['lesion', 'Las lesiones graves', (x) => `${x.jugador}, del ${x.club}, cayó de nivel ${nivel(x.niv)} a ${nivel(x.queda)}`],
       ['rivalidad', 'Las rivalidades', (x) => `${x.a} (${x.clubA}) y ${x.b} (${x.clubB}) iniciaron su duelo`],
-      ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`]
+      ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`],
+      ['fiesta', 'Los que llegaron fuera de forma', (x) => `${x.jugador} (${x.club}) volvió del verano fuera de forma`]
     ].map(([tipo, titulo, relatar]) => {
       // De las insignias solo las grandes (oro y excepcional): las demás son cientos por década.
       const xs = novedades.filter((x) => x.tipo === tipo && (tipo !== 'insignia' || x.grado >= 2) && (tipo !== 'lesion' || x.niv >= 870));
@@ -1890,7 +1892,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 29) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 30) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
