@@ -140,7 +140,9 @@
       return { pais: P.pais, grupos: P.divisiones.map((dv) => ({ nombre: dv.nombre, nivel: dv.nivel, de: dv.de || null })), sube: P.sube || 2, final: P.final || null, copa: P.copa || null,
         ascensos: P.ascensos || {}, cupo: P.cupo || null, abajo: P.abajo || 'Tercera', estatales: !!P.estatales, rellenar: !!P.rellenar };
     });
+    const vistosInicio = [];
     clubes.forEach((c) => c.jugadores.forEach((j) => {
+      vistosInicio.push(j.n + '|' + j.nac);
       j.rol = Motor.rol(j);            // el rol se fija al empezar y ya no depende de sus goles
       j.carrera = [];
       j.inicio = { niv: j.niv, club: c.nombre };
@@ -154,7 +156,7 @@
       // Jugadores reales que entran después de 1958-59 y clubes que subieron de verdad desde Tercera.
       // Copa de Europa con datos reales (solo 1958-59 por ahora): clubes extranjeros y cuadro del sorteo real.
       europa: d.europa ? [].concat(d.europa) : [],
-      debutantes, ascensos: (d.debutantes && d.debutantes.ascensos) || {},
+      debutantes, vistosInicio, ascensos: (d.debutantes && d.debutantes.ascensos) || {},
       records: { libro: [], liga: null, partido: null, equipoPts: null, equipoGoles: null }
     };
     constantes(M);
@@ -250,7 +252,7 @@
       // En Europa la diferencia de nivel pesa algo más que en la liga: los grandes se guardan lo mejor para estas noches.
       // Los Reyes de Europa se crecen en estas noches.
       const reyes = [];
-      eqs.forEach((c) => c.jugadores.forEach((j) => { const g = gradoDe(j, 'europa'); if (g) { reyes.push([j, 7 * g]); j.temp = (j.temp || 0) + 7 * g; } }));
+      eqs.forEach((c) => c.jugadores.forEach((j) => { const g = gradoDe(j, 'europa'); if (g) { reyes.push([j, 4 * g]); j.temp = (j.temp || 0) + 4 * g; } }));
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
@@ -680,11 +682,19 @@
       racha('liga ' + o.pais, o.campeon, real || [99, '']);
       // Todo imperio cae: a partir de la cuarta liga seguida el campeón se acomoda un poco más cada año
       // (salvo los clubes que mandan por decreto en su época, como el Madrid de las cinco Copas).
-      const x = m.racha['liga ' + o.pais], c = x && x.n >= 4 && M.clubes.find((y) => y.nombre === x.club);
-      if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) {
-        const baja = Math.min(24, 6 * (x.n - 3));
-        c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
-      }
+      // En las cuatro grandes ligas cuenta además lo ganado en los últimos seis años, aunque no sea seguido:
+      // quien lleva tres de seis empieza a relajarse y sus rivales a tenerle ganas.
+      m.ultimas = m.ultimas || {};
+      const u = (m.ultimas[o.pais] = (m.ultimas[o.pais] || []).concat(o.campeon || '').slice(-6));
+      const x = m.racha['liga ' + o.pais];
+      const cuenta = {}; u.forEach((n) => { if (n) cuenta[n] = (cuenta[n] || 0) + 1; });
+      const grande = ['España', 'Inglaterra', 'Italia', 'Alemania'].includes(o.pais);
+      Object.entries(cuenta).forEach(([club, w]) => {
+        const seguida = x && x.club === club && x.n >= 4 ? Math.min(24, 6 * (x.n - 3)) : 0;
+        const baja = Math.max(seguida, grande ? Math.min(36, 9 * (w - 2)) : 0);
+        const c = baja > 0 && M.clubes.find((y) => y.nombre === club);
+        if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
+      });
     });
   }
   // Rivalidades: dos jugadores que pasan tres temporadas entre los tres mejores del mundo se vuelven rivales.
@@ -838,13 +848,17 @@
     }));
     // 2. Debutantes reales de este año, en su club de verdad (estén en la categoría que estén en la partida).
     const deNuevo = M.debutantes.filter((d) => d.debut === nuevoAnio);
+    if (!M.vistos) { M.vistos = new Set(M.vistosInicio || []); }
     const clave = (n, nac) => n + '|' + nac, buscados = new Set(deNuevo.map((d) => clave(d.nombre, d.nac)));
     const dondeEsta = new Map();
     M.clubes.forEach((x) => x.jugadores.forEach((j) => { const k = clave(j.n, j.nac); if (buscados.has(k) && !dondeEsta.has(k)) dondeEsta.set(k, x); }));
     deNuevo.forEach((d) => {
       const c = porNombre.get(d.club) || M.clubes.find((x) => x.nombre === d.club);
       if (!c) return;
-      if (d.tipo === 'extranjero' && !Epoca.reglas(c.pais, nuevoAnio).extranjerosNuevos) return;
+      // Un escocés o un galés en Inglaterra no es extranjero, aunque los datos lo marquen así.
+      if (d.tipo === 'extranjero' && extranjero({ nacion: d.pais || c.pais }, c.pais) && !Epoca.reglas(c.pais, nuevoAnio).extranjerosNuevos) return;
+      // Paso de respaldo: solo vale si el jugador aún no ha entrado en la partida (su primer club real no se juega).
+      if (d.respaldo && M.vistos.has(clave(d.nombre, d.nac))) return;
       // Si ya está en la partida (en otro país), es un traspaso real: se mueve, no se crea otro igual.
       const ya = dondeEsta.get(clave(d.nombre, d.nac));
       if (ya) { if (ya !== c) { const j = ya.jugadores.find((x) => x.n === d.nombre && x.nac === d.nac); j.cedido = null; mover(j, ya, c, 'fichaje'); dondeEsta.set(clave(d.nombre, d.nac), c); } return; }
@@ -852,6 +866,7 @@
       if (libreYa) { M.libres = M.libres.filter((j) => j !== libreYa); c.jugadores.push(libreYa); dondeEsta.set(clave(libreYa.n, libreYa.nac), c); log.push({ temporada: temporadaTxt(nuevoAnio), jugador: libreYa.n, pos: libreYa.pos, niv: Math.round(libreYa.niv), de: 'sin club', a: c.nombre, tipo: 'libre' }); return; }
       const j = { n: d.nombre, completo: d.completo, pos: d.pos, nac: d.nac, pais: d.pais, nacion: d.pais || c.pais, niv: d.niv, tec: d.tec, tecReal: d.tec, pj: 0, g: 0, carrera: [], inicio: { niv: d.niv, club: c.nombre }, debut: nuevoAnio };
       // Los que llegan durante la partida traen también su definición (antes se perdía y Messi remataba como un medio cualquiera).
+      M.vistos.add(clave(d.nombre, d.nac));
       if (d.fin) j.fin = d.fin;
       if (d.gol) j.gol = d.gol;
       j.rol = d.rol || Motor.rol(j);
@@ -880,6 +895,7 @@
     const abierto = {};
     const puedeEntrar = (j, comprador) => {
       if (!extranjero(j, comprador.pais)) return true;
+      if (comprador.nombre === 'Atlético Bilbao') return false;  // solo jugadores de casa
       if (!(comprador.pais in abierto)) abierto[comprador.pais] = Epoca.reglas(comprador.pais, nuevoAnio).extranjerosNuevos;
       const P = M.paises.find((x) => x.pais === comprador.pais);
       // Desde 1996 (Bosman) el cupo de extranjeros ya no frena a nadie: los grandes tienen quince o veinte.
@@ -949,10 +965,18 @@
         mover(j, v, c, 'fichaje');
       });
     }
+    // Un club con proyecto no se desarma: los que acabaron arriba el año pasado retienen mejor a sus figuras,
+    // y más a los que se hicieron en casa. Sin esto el Liverpool de Shankly o el Leeds de Revie se quedaban sin equipo
+    // antes de llegar a serlo, y un solo grande (el United) se llevaba a todos.
+    const arriba = new Set();
+    if (prevH && prevH.R) [prevH.R.T].concat((prevH.R.otros || []).flatMap((o) => (o.ligas || []).filter((l) => l.nivel === 1).map((l) => l.T))).filter(Boolean).forEach((T) => T.tabla.slice(0, 5).forEach((t) => arriba.add(t.nombre)));
+    const deCasa = (j, v) => j.carrera.length > 0 && j.carrera.every((t) => t.club === v.nombre) && nuevoAnio - anioNac(j) <= 28;
+    // Antes de los 80 los traspasos eran pocos: los clubes retenían a sus jugadores y un equipo se hacía en años.
+    const calma = 0.4 + 0.6 * Math.min(1, fluidez * 2.5);
     orden.forEach((comprador) => {
-      let compras = 0;
+      let compras = 0, figuras = 0;
       if (sobrado(comprador)) return;
-      const tope = 2 + (fluidez === 1 ? 1 : 0) + (campeones.has(comprador.nombre) ? -1 : comprador.prestigio >= 800 ? 1 : 0);
+      const tope = (fluidez > 0 ? 2 : 1) + (fluidez === 1 ? 1 : 0) + (campeones.has(comprador.nombre) ? -1 : comprador.prestigio >= 800 ? 1 : 0);
       for (let vuelta = 0; vuelta < 3 + fluidez + 1 && compras < tope; vuelta++) {
         // El puesto más flojo del once respecto a la media del club.
         const xi = (pos, k) => comprador.jugadores.filter((j) => j.pos === pos && !j.cedido).map((j) => j.niv).sort((a, b) => b - a).slice(0, k);
@@ -976,9 +1000,13 @@
           const figura = j.niv >= tercera.get(v);
           // Un titular no se va a un equipo claramente peor que el suyo (Ronaldo no deja el Inter por un club de media tabla).
           if (v.division === 1 && fuerzas.has(v) && fuerzas.has(comprador) && fuerzas.get(comprador) < fuerzas.get(v) - 10 && j.niv >= (titular.get(v) || (titular.set(v, v.jugadores.map((x) => x.niv).sort((a, b) => b - a)[10] || 0), titular.get(v)))) return false;
-          return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.5 + 0.2 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
+          // Una figura por verano y club, como mucho: nadie se lleva a medio campeonato de golpe.
+          if (figura && figuras >= 1) return false;
+          const apego = figura ? (arriba.has(v.nombre) ? 0.4 : 1) * (deCasa(j, v) ? 0.5 : 1) : 1;
+          return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.3 + 0.4 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * apego * calma * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
         });
         if (!elegido) continue;
+        if (elegido.j.niv >= tercera.get(elegido.v)) figuras++;
         fichados.add(elegido.j);
         ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
         mover(elegido.j, elegido.v, comprador, 'fichaje');
@@ -1055,7 +1083,8 @@
     const campeonEuropa = R.EU && M.clubes.find((c) => c.nombre === R.EU.campeon);
     if (campeonEuropa) ajusta(campeonEuropa, 25);
     // Con los años el prestigio se acerca un poco a su valor de siempre.
-    M.clubes.forEach((c) => { c.prestigioBase = c.prestigioBase || c.prestigio; ajusta(c, (c.prestigioBase - c.prestigio) * 0.1); });
+    // Pero ese valor de siempre también se mueve, despacio: diez años buenos hacen grande a un club y diez malos lo encogen.
+    M.clubes.forEach((c) => { c.prestigioBase = c.prestigioBase || c.prestigio; c.prestigioBase += (c.prestigio - c.prestigioBase) * 0.12; ajusta(c, (c.prestigioBase - c.prestigio) * 0.1); });
   }
 
   // Libro de récords de la partida, con el contexto del récord real.
@@ -1271,6 +1300,8 @@
         if (p[2] <= anio && anio <= hasta && (!plantillas.has(j) || plantillas.get(j)[2] < p[2])) plantillas.set(j, p);  // dos clubes el mismo año: el primero de los datos
         // Llegan más tarde: su primer club, o un paso que los datos marcan como llegada real.
         if (p[2] > anio && (i === 0 || TIPOS_LLEGADA.includes(p[7]))) llegadas.push({ j, p });
+        // Los demás pasos quedan de respaldo: si su primer club no se juega (Jennings empezó en el Watford de Cuarta), entra en el siguiente.
+        else if (p[2] > anio && B.clubes[p[0]]) llegadas.push({ j, p, respaldo: true });
       });
     });
     const ficha = (j, p, niv) => {
@@ -1351,7 +1382,7 @@
         }
       });
     };
-    const debutante = ({ j, p }) => Object.assign(ficha(j, p, p[6] != null ? p[6] : nivelEdad(j, p[2])), { nombre: j.n, club: p[0], debut: p[2], tipo: TIPOS_LLEGADA.includes(p[7]) ? p[7] : 'debuta' });
+    const debutante = ({ j, p, respaldo }) => Object.assign(ficha(j, p, p[6] != null ? p[6] : nivelEdad(j, p[2])), { nombre: j.n, club: p[0], debut: p[2], tipo: TIPOS_LLEGADA.includes(p[7]) ? p[7] : 'debuta' }, respaldo ? { respaldo: true } : {});
     // Clubes que entran desde abajo (lo que no se juega): filas marcadas, o la diferencia entre dos temporadas completas.
     const completas = (pais, t) => B.ligas.filter((x) => x[0] === pais && x[1] === t && !x[6]);
     const ascensos = (pais) => {
