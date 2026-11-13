@@ -784,7 +784,17 @@
           if (edad <= 24 && minutos < 0.3 && !j.relleno && !j.cons) j.tec = (j.tec || j.niv) - r() * 12;
           // La joya inesperada: muy de vez en cuando un chaval que juega y rinde da un salto que nadie esperaba
           // y su techo se dispara. En la vida real fue uno más; en este universo puede acabar entre los mejores.
-          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < 0.015) {
+          // Los clubes de cantera sacan más a sus chavales: crecen un poco más deprisa y dan más sorpresas.
+          const criado = politica(c) === 'cantera' && j.carrera.every((t) => t.club === c.nombre);
+          if (criado && edad <= 23 && hueco > 0) j.niv += hueco * 0.08;
+          // Y la otra cara: la promesa que se queda en nada. De vez en cuando un chaval que apuntaba alto se estanca.
+          if (edad <= 22 && !j.relleno && !j.cons && !j.joya && !j.estancado && (j.tec || 0) >= 860 && (j.tec || 0) - j.niv >= 60 && r() < (minutos < 0.4 ? 0.05 : 0.015)) {
+            j.estancado = M.anio + 1;
+            const antes = j.tec;
+            j.tec = Math.max(j.niv + 10, j.tec * (0.88 + 0.06 * r()));
+            novedades.push({ tipo: 'estancado', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), antes: Math.round(antes) });
+          }
+          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && !j.estancado && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < (criado ? 0.03 : 0.015)) {
             j.joya = M.anio + 1;
             j.tec = Math.min(1090, (j.tec || j.niv) * (1.08 + 0.08 * r()));
             novedades.push({ tipo: 'joya', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), real: Math.round(j.tecReal || 0) });
@@ -827,9 +837,16 @@
         if (r() < p) { retiros.push({ j, club: c.nombre, edad }); M.retirados.push(Object.assign({ retiro: M.anio + 1, edad }, { n: j.n, carrera: j.carrera, pos: j.pos })); return false; }
         return true;
       });
-      // Un líder veterano entre los titulares tira del vestuario: sus compañeros empiezan el año un punto mejor.
-      const once = c.jugadores.slice().sort((a, b) => b.niv - a.niv).slice(0, 12);
-      if (once.some((j) => caracterDe(j) === 'lider' && M.anio + 1 - anioNac(j) >= 26)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 5; });
+      // El vestuario: un líder veterano tira de todos, un equipo que lleva años junto se entiende de memoria,
+      // y dos caracteres difíciles entre los titulares lo rompen.
+      const once = c.jugadores.slice().sort((a, b) => b.niv - a.niv).slice(0, 13);
+      const lideres = once.filter((j) => caracterDe(j) === 'lider' && M.anio + 1 - anioNac(j) >= 26).length;
+      const dificiles = once.filter((j) => caracterDe(j) === 'conflictivo').length;
+      const juntos = once.filter((j) => { let n = 0; for (let i = j.carrera.length - 1; i >= 0 && j.carrera[i].club === c.nombre; i--) n++; return n >= 3; }).length;
+      const quim = (lideres ? 5 : 0) + (juntos >= 8 ? 4 : 0) - (dificiles >= 2 ? 9 : dificiles === 1 && !lideres ? 3 : 0);
+      c.vestuario = quim >= 8 ? 'unido' : quim <= -6 ? 'roto' : 'normal';
+      if (quim) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + quim; });
+      if (c.vestuario === 'roto' && c.division === 1 && c.prestigio >= 760) novedades.push({ tipo: 'vestuario', club: c.nombre, nombres: once.filter((j) => caracterDe(j) === 'conflictivo').slice(0, 2).map((j) => j.n) });
     });
     M.libres = M.libres.filter((j) => {
       const edad = M.anio + 1 - anioNac(j);
@@ -1179,6 +1196,8 @@
         if (elegido.j.niv >= tercera.get(elegido.v)) figuras++;
         fichados.add(elegido.j);
         ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
+        // Los ojeadores a veces aciertan de pleno y a veces se equivocan: el chaval resulta mejor o peor de lo que parecía.
+        if (ojea && !elegido.j.cons && !elegido.j.relleno) { const u = r(); if (u < 0.2) elegido.j.tec = Math.max(elegido.j.niv + 5, elegido.j.tec * 0.94); else if (u > 0.85) elegido.j.tec = Math.min(1090, elegido.j.tec * 1.05); }
         mover(elegido.j, elegido.v, comprador, 'fichaje', lios.has(elegido.j) ? 'lio' : sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && sueldo(elegido.j) >= 2 ? 'apuro' : undefined);
         compras++;
       }

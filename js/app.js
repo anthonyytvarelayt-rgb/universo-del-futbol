@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 33, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 34, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1056,8 +1056,10 @@ function sorpresasHtml(V) {
   const lios = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.motivo === 'acabó mal con su club' && x.niv >= 800).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => art('Portazo', `${nombreJ(x.jugador)} acaba mal con el ${esc(x.de)}`, `Después de meses de tensión con el club, se marcha al ${esc(x.a)}.`)).join('');
   const renov = (V.mercado || []).filter((x) => x.tipo === 'renovación' && x.niv >= 900).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Renovación', `${nombreJ(x.jugador)} renueva con el ${esc(x.de)}`, `Se le acababa el contrato y podía irse gratis, pero ha firmado hasta ${x.hasta}.`)).join('');
   const gratis = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && /gratis/.test(x.motivo || '') && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Se va gratis', `${nombreJ(x.jugador)} deja el ${esc(x.de)} sin dejar un euro`, `No quiso renovar y, con el contrato acabado, ficha por el ${esc(x.a)}.`)).join('');
+  const estancados = nov.filter((x) => x.tipo === 'estancado' && x.antes >= 900).sort((a, b) => b.antes - a.antes).slice(0, 1).map((x) => art('La promesa que se apaga', `${nombreJ(x.jugador)} no termina de llegar`, `A sus ${x.edad} años en el ${esc(x.club)} apuntaba a nivel ${nivel(x.antes)}. Los que le siguen ya no lo ven tan claro: su techo baja a ${nivel(x.tec)}.`)).join('');
+  const rotos = nov.filter((x) => x.tipo === 'vestuario').slice(0, 1).map((x) => art('Vestuario roto', `Mal ambiente en el ${esc(x.club)}`, `${x.nombres.map(esc).join(' y ')} no se soportan y el grupo lo nota. Si nadie pone orden, el equipo rendirá por debajo de lo que vale.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
-  return records + duelos + fracasos + hazanas + despidos + robos + lios + gratis + renov + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + robos + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1579,7 +1581,7 @@ function objetivoClub(c, l) {
     const n = l.T.tabla.length, porNombre = l.T.tabla.map((t) => clubDe(t.nombre)).filter(Boolean).sort((a, b) => b.prestigio - a.prestigio);
     const obj = Mundo.objetivoDe(porNombre.indexOf(c), n, c.prestigio);
     const antes = cerradas.length ? ((cerradas[cerradas.length - 1].objetivos || []).find((o) => o.club === c.nombre)) : null;
-    return `<div class="palmares"><span class="rotulo">La directiva</span><div><span>Objetivo de esta temporada</span><span>${esc(Mundo.OBJETIVOS[obj])}</span></div>${antes ? `<div><span>La temporada pasada</span><span>${esc(Mundo.OBJETIVOS[antes.objetivo])}: ${BALANCE_TXT[antes.balance]} (${antes.puesto}.º)</span></div>` : ''}</div>`;
+    return `<div class="palmares"><span class="rotulo">La directiva</span><div><span>Objetivo de esta temporada</span><span>${esc(Mundo.OBJETIVOS[obj])}</span></div>${c.vestuario && c.vestuario !== 'normal' ? `<div><span>Vestuario</span><span>${c.vestuario === 'unido' ? 'Unido: rinde por encima de lo que vale' : 'Roto: rinde por debajo de lo que vale'}</span></div>` : ''}${antes ? `<div><span>La temporada pasada</span><span>${esc(Mundo.OBJETIVOS[antes.objetivo])}: ${BALANCE_TXT[antes.balance]} (${antes.puesto}.º)</span></div>` : ''}</div>`;
   } catch (e) { return ''; }
 }
 function dineroClub(c) {
@@ -1730,6 +1732,7 @@ function libroDecadas(ts) {
       ['lesion', 'Las lesiones graves', (x) => `${x.jugador}, del ${x.club}, cayó de nivel ${nivel(x.niv)} a ${nivel(x.queda)}`],
       ['rivalidad', 'Las rivalidades', (x) => `${x.a} (${x.clubA}) y ${x.b} (${x.clubB}) iniciaron su duelo`],
       ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`],
+      ['estancado', 'Las promesas que se apagaron', (x) => `${x.jugador} (${x.club}) se estancó a los ${x.edad} años`],
       ['fiesta', 'Los que llegaron fuera de forma', (x) => `${x.jugador} (${x.club}) volvió del verano fuera de forma`]
     ].map(([tipo, titulo, relatar]) => {
       // De las insignias solo las grandes (oro y excepcional): las demás son cientos por década.
@@ -1919,7 +1922,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 33) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 34) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
