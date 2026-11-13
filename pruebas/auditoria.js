@@ -64,5 +64,12 @@ const equipo = (nombre, extra) => ({ nombre, jugadores: ['POR', 'POR', 'DEF', 'D
   caso('Mundial: ningún tercero se cruza con uno de su grupo', torneos > 0 && mismoGrupo === 0, `${mismoGrupo} cruces en ${torneos} torneos`);
   caso('Mundial: no se convoca a retirados de la partida', retirados === 0, `${retirados}`);
 }
+// También se comprueba el relleno desde las convocatorias históricas, no solo los jugadores propios.
+try {
+  require('./lesionados-mundial.js');
+  caso('Mundial: la lista histórica respeta las bajas largas', true);
+} catch (e) {
+  caso('Mundial: la lista histórica respeta las bajas largas', false, e.message);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
