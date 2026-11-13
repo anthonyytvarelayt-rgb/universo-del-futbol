@@ -284,6 +284,8 @@
       .concat(promos.map((p) => ({ nombre: 'Promoción', jugadores: p.C.jugadores })))
       .concat(EU ? [{ nombre: 'Europa', jugadores: EU.jugadores, campeon: EU.campeonEq }] : [])
       .concat(OC.UEFA ? [{ nombre: 'UEFA', jugadores: OC.UEFA.jugadores, campeon: OC.UEFA.campeonEq }] : [])
+      .concat(OC.RECOPA ? [{ nombre: 'Recopa', jugadores: OC.RECOPA.jugadores, campeon: OC.RECOPA.campeonEq }] : [])
+      .concat(OC.SUPER ? [{ nombre: 'Supercopa de Europa', jugadores: OC.SUPER.jugadores, campeon: OC.SUPER.campeonEq }] : [])
       .concat(OC.LIB ? [{ nombre: 'Libertadores', jugadores: OC.LIB.jugadores, campeon: OC.LIB.campeonEq }] : [])
       .concat(OC.INTER ? [{ nombre: 'Intercontinental', jugadores: OC.INTER.jugadores, campeon: OC.INTER.campeonEq }] : [])
       .concat([{ nombre: 'Copa', jugadores: C.jugadores, campeon: C.campeonEq }])
@@ -301,8 +303,8 @@
       if (top.length) o.premios = Motor.premios(liga, dePais(o.pais), M.anio + 1);
     });
     // Ganar fuera también da nombre.
-    [[OC.UEFA, 10], [OC.LIB, 14], [OC.INTER, 5]].forEach(([X, v]) => { const c = X && M.clubes.find((y) => y === X.campeonEq); if (c) c.prestigio = Math.min(1000, c.prestigio + v); });
-    return { anio: M.anio, reglas: reg, T, seg, promos, C, EU, UEFA: OC.UEFA || null, LIB: OC.LIB || null, INTER: OC.INTER || null, G, premios, bajan, suben, est, otros };
+    [[OC.UEFA, 10], [OC.RECOPA, 10], [OC.SUPER, 3], [OC.LIB, 14], [OC.INTER, 5]].forEach(([X, v]) => { const c = X && M.clubes.find((y) => y === X.campeonEq); if (c) c.prestigio = Math.min(1000, c.prestigio + v); });
+    return { anio: M.anio, reglas: reg, T, seg, promos, C, EU, UEFA: OC.UEFA || null, RECOPA: OC.RECOPA || null, SUPER: OC.SUPER || null, LIB: OC.LIB || null, INTER: OC.INTER || null, G, premios, bajan, suben, est, otros };
   }
 
   // Carácter de cada liga frente a la media de su época: el catenaccio italiano desde los 60, el fútbol directo inglés y alemán.
@@ -394,13 +396,36 @@
   function otrasCopas(M, semilla, est, R, cambios) {
     const out = {};
     const enEuropa = new Set(R.EU ? R.EU.rondas.flatMap((ro) => ro.cruces.flatMap((c) => [c.a, c.b])).filter(Boolean) : []);
+    // Recopa de Europa (1960-1999): los campeones de copa de la temporada anterior. Si el campeón ya juega la Copa de Europa, va el mejor de la liga que quede libre.
+    const europeos = ['España'].concat(M.paises.map((P) => P.pais)).filter((p) => !NO_EUROPA.includes(p));
+    const prev = M.historia[M.historia.length - 1];
+    let deRecopa = [];
+    if (M.anio >= 1960 && M.anio <= 1998) {
+      deRecopa = europeos.map((p) => {
+        const nombre = !prev ? null : p === 'España' ? prev.copa : (prev.otros.find((x) => x.pais === p) || {}).copa;
+        const c = nombre && !enEuropa.has(nombre) ? M.clubes.find((x) => x.nombre === nombre && x.division === 1) : null;
+        return c || clasificados(M, p, 1, enEuropa)[0];
+      }).filter(Boolean);
+      // Del resto de Europa, un tercio de los clubes (distinto cada año) llega como campeón de copa; los demás quedan para la UEFA.
+      const total = deRecopa.length > 8 ? 32 : 16, turno = EXTRANJEROS.filter((x) => hashN(x[0] + M.anio, 5) % 3 === 0);
+      if (deRecopa.length >= 2) deRecopa = deRecopa.concat(rellenoDeFuera(M, turno, enEuropa, total - deRecopa.length, deRecopa, 0.9));
+      deRecopa.forEach((c) => enEuropa.add(c.nombre));
+    }
     // Copa de la UEFA (desde 1971; Europa League desde 2009): los mejores de cada liga que no juegan la Copa de Europa.
     if (M.anio >= 1971) {
-      const eqs = ['España'].concat(M.paises.map((P) => P.pais)).filter((p) => !NO_EUROPA.includes(p)).flatMap((p) => clasificados(M, p, ['España', 'Italia', 'Inglaterra', 'Alemania'].includes(p) ? 4 : 3, enEuropa));
+      const eqs = europeos.flatMap((p) => clasificados(M, p, ['España', 'Italia', 'Inglaterra', 'Alemania'].includes(p) ? 4 : 3, enEuropa));
       if (eqs.length >= 4) {
         const todos = eqs.concat(rellenoDeFuera(M, EXTRANJEROS, enEuropa, 32 - eqs.length, eqs, 0.95));
         out.UEFA = Motor.copa(todos, { semilla: semilla + 71, anio: M.anio + 1, estado: est, nombre: M.anio >= 2009 ? 'Europa League' : 'Copa de la UEFA', finalUnica: M.anio >= 1997, cambios });
       }
+    }
+    if (deRecopa.length >= 2) {
+      out.RECOPA = Motor.copa(deRecopa, { semilla: semilla + 75, anio: M.anio + 1, estado: est, nombre: 'Recopa de Europa', finalUnica: true, cambios });
+    }
+    // Supercopa de Europa (desde 1973): el campeón de Europa contra el de la Recopa; desde 2000, contra el de la UEFA.
+    const rival = out.RECOPA ? out.RECOPA.campeonEq : out.UEFA ? out.UEFA.campeonEq : null;
+    if (M.anio >= 1973 && R.EU && R.EU.campeonEq && rival && rival !== R.EU.campeonEq) {
+      out.SUPER = Motor.copa([R.EU.campeonEq, rival], { semilla: semilla + 77, anio: M.anio + 1, estado: est, nombre: 'Supercopa de Europa', finalUnica: true, penaltis: true, cambios });
     }
     // Copa Libertadores (desde 1960): los mejores de Argentina y Brasil contra los grandes del resto de Sudamérica.
     if (M.anio >= 1960 && M.paises.some((P) => NO_EUROPA.includes(P.pais))) {
@@ -1642,7 +1667,7 @@
     const R = jugarTemporada(M, semilla);
     const resumen = {
       temporada: temporadaTxt(M.anio), anio: M.anio, R, G: R.G,
-      campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, uefa: R.UEFA ? R.UEFA.campeon : null, libertadores: R.LIB ? R.LIB.campeon : null, intercontinental: R.INTER ? R.INTER.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
+      campeon: R.T.tabla[0].nombre, copa: R.C.campeon, europa: R.EU ? R.EU.campeon : null, uefa: R.UEFA ? R.UEFA.campeon : null, recopa: R.RECOPA ? R.RECOPA.campeon : null, supercopa: R.SUPER ? R.SUPER.campeon : null, libertadores: R.LIB ? R.LIB.campeon : null, intercontinental: R.INTER ? R.INTER.campeon : null, pichichi: R.premios.pichichi, zamora: R.premios.zamora, mejor: R.premios.mejor,
       otros: R.otros.map((o) => ({ pais: o.pais, liga: o.reglas.liga, campeon: o.campeon, subcampeon: o.subcampeon, puestos: (() => { const top = o.ligas.filter((l) => l.nivel === 1); return top.length === 1 && top[0].T ? top[0].T.tabla.slice(0, 8).map((t) => t.nombre) : []; })(), campeones: o.campeones, copa: o.C ? o.C.campeon : null, pichichi: o.premios ? o.premios.pichichi : null }))
     };
     const MU = jugarMundial(M, semilla + 5, R);

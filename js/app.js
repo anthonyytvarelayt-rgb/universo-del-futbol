@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 41, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 42, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1317,7 +1317,7 @@ function goleadoresLiga(V, L) {
   return xs.length ? xs.map((j, i) => goleadorFila(j, i, j.g, `${j.a} asist.`)).join('') : '<div class="vacio">Todavía no hay goles.</div>';
 }
 // Otras copas internacionales de clubes: UEFA / Europa League, Libertadores e Intercontinental.
-const OTRAS_COPAS = [['uefa', 'UEFA'], ['liber', 'LIB'], ['inter', 'INTER']];
+const OTRAS_COPAS = [['recopa', 'RECOPA'], ['uefa', 'UEFA'], ['super', 'SUPER'], ['liber', 'LIB'], ['inter', 'INTER']];
 const otraCopa = (V, id) => { const k = (OTRAS_COPAS.find((x) => x[0] === id) || [])[1]; return k && V.R ? V.R[k] || null : null; };
 const campeonOtra = (V, id) => { const C = otraCopa(V, id); return C && cerradaV(V) ? C.campeon : null; };
 function copaSel(V) { return compSel === 'europa' ? V.R.EU : otraCopa(V, compSel) || copaDe(V, compPais); }
@@ -1709,7 +1709,7 @@ function mapaCampeones(ts) {
   const movil = ['Europa'].concat(paises).map((p) => `<details><summary>${esc(p)}</summary>${ts.map((V) => { const c = p === 'Europa' ? [V.europa].filter(Boolean) : campeonDe(V, p).campeon ? [campeonDe(V, p).campeon] : campeonDe(V, p).campeones.map((x) => x.club); return `<div><span>${V.temporada}</span><span>${c.length ? c.map(botonClub).join(' ') : '–'}</span></div>`; }).join('')}</details>`).join('');
   return `<div class="caja" style="margin:18px 0"><span class="rotulo">Mapa de campeones</span><div class="mapa-movil">${movil}</div><div class="mapa-escritorio" style="overflow-x:auto"><table class="mapa"><thead><tr><th></th>${ts.map((V) => `<th>${V.temporada.slice(2)}</th>`).join('')}</tr></thead><tbody>
     <tr><th>Europa</th>${ts.map((V) => celda(V.europa)).join('')}</tr>
-    ${[['uefa', 'UEFA'], ['liber', 'Libertadores'], ['inter', 'Intercont.']].filter(([id]) => ts.some((V) => campeonOtra(V, id))).map(([id, t]) => `<tr><th>${t}</th>${ts.map((V) => celda(campeonOtra(V, id))).join('')}</tr>`).join('')}
+    ${[['recopa', 'Recopa'], ['uefa', 'UEFA'], ['super', 'Supercopa'], ['liber', 'Libertadores'], ['inter', 'Intercont.']].filter(([id]) => ts.some((V) => campeonOtra(V, id))).map(([id, t]) => `<tr><th>${t}</th>${ts.map((V) => celda(campeonOtra(V, id))).join('')}</tr>`).join('')}
     ${paises.map((p) => `<tr><th>${esc(p)}</th>${ts.map((V) => { const c = campeonDe(V, p); return celda(c.campeon || (c.campeones[0] || {}).club); }).join('')}</tr>`).join('')}</tbody></table></div><p class="nota-pie">Toca un escudo para ver el club.</p></div>`;
 }
 // Mejor jugador del mundo y máximo goleador de cada temporada.
@@ -1740,6 +1740,41 @@ function palmaresClubes(ts) {
   ts.forEach((V) => { suma(V.europa, 'eu'); paisesDe(V).forEach((p) => { suma(campeonDe(V, p).campeon, 'liga'); const C = copaDe(V, p); if (C) suma(C.campeon, 'copa'); }); });
   const xs = [...t.values()].sort((a, b) => (b.eu * 3 + b.liga * 2 + b.copa) - (a.eu * 3 + a.liga * 2 + a.copa)).slice(0, 12);
   return `<div class="caja"><span class="rotulo">Palmarés mundial de clubes</span><table class="tabla"><thead><tr><th style="text-align:left">#</th><th>Club</th><th>Europa</th><th>Ligas</th><th>Copas</th></tr></thead><tbody>${xs.map((x, i) => `<tr><td>${i + 1}</td><td>${botonClub(x.club)}</td><td>${x.eu || ''}</td><td>${x.liga || ''}</td><td>${x.copa || ''}</td></tr>`).join('')}</tbody></table></div>`;
+}
+// Récords de la partida: las marcas que hay que batir. Se calculan del archivo, no cambian nada.
+function recordsPartida(ts) {
+  const cerr = ts.filter((V) => cerradaV(V));
+  if (!cerr.length) return '';
+  const todos = M.clubes.flatMap((c) => c.jugadores).concat(M.libres, M.retirados).filter((j) => (j.carrera || []).length);
+  const filas = [], fila = (titulo, quien, dato) => filas.push(`<div class="resultado"><span><span>${quien}<small>${esc(titulo)}</small></span></span><b>${esc(dato)}</b></div>`);
+  let mg = null, mp = null, mf = null, mn = null, mc = null;
+  todos.forEach((j) => {
+    let pj = 0; const porClub = new Map();
+    j.carrera.forEach((t) => {
+      pj += t.pj; porClub.set(t.club, (porClub.get(t.club) || 0) + 1);
+      if (t.g && (!mg || t.g > mg.v)) mg = { j, v: t.g, t };
+      if (t.niv && (!mn || t.niv > mn.v)) mn = { j, v: t.niv, t };
+    });
+    if (!mp || pj > mp.v) mp = { j, v: pj };
+    porClub.forEach((v, club) => { if (!mf || v > mf.v) mf = { j, v, club }; });
+    const clubes = porClub.size; if (!mc || clubes > mc.v) mc = { j, v: clubes };
+  });
+  if (mg) fila(`Más goles en una temporada · ${mg.t.club}, ${mg.t.temporada}`, nombreJ(mg.j.n), `${mg.v} goles`);
+  if (mn) fila(`Mejor nivel alcanzado · ${mn.t.club}, ${mn.t.temporada}`, nombreJ(mn.j.n), `${nivel(mn.v)}`);
+  if (mp && mp.v) fila('Más partidos jugados', nombreJ(mp.j.n), `${mp.v} partidos`);
+  if (mf && mf.v > 4) fila(`Más temporadas en un club · ${mf.club}`, nombreJ(mf.j.n), `${mf.v} temporadas`);
+  if (mc && mc.v > 2) fila('Más clubes en su carrera', nombreJ(mc.j.n), `${mc.v} clubes`);
+  // Premios: quién ha sido más veces el mejor del mundo y el máximo goleador.
+  const veces = (f) => { const m = new Map(); cerr.forEach((V) => { const n = f(premiosMundo(V)); if (n) m.set(n, (m.get(n) || 0) + 1); }); return [...m.entries()].sort((a, b) => b[1] - a[1])[0]; };
+  const bo = veces((pm) => pm.ganadorMejor && pm.ganadorMejor.nombre), go = veces((pm) => pm.goleador && pm.goleador.nombre);
+  if (bo && bo[1] > 1) fila('Más veces mejor jugador del mundo', nombreJ(bo[0]), `${bo[1]} veces`);
+  if (go && go[1] > 1) fila('Más veces máximo goleador del mundo', nombreJ(go[0]), `${go[1]} veces`);
+  // Rachas de clubes: ligas seguidas y Copas de Europa seguidas.
+  const racha = (f) => { let mejor = null; const act = new Map(); cerr.forEach((V) => { const ganan = new Set(f(V).filter(Boolean)); [...act.keys()].forEach((k) => { if (!ganan.has(k)) act.delete(k); }); ganan.forEach((c) => { const v = (act.get(c) || 0) + 1; act.set(c, v); if (!mejor || v > mejor.v) mejor = { c, v, hasta: V.temporada }; }); }); return mejor; };
+  const rl = racha((V) => paisesDe(V).map((p) => campeonDe(V, p).campeon)), re = racha((V) => [V.europa]);
+  if (rl && rl.v > 1) fila(`Más ligas seguidas · hasta ${rl.hasta}`, botonClub(rl.c), `${rl.v} seguidas`);
+  if (re && re.v > 1) fila(`Más Copas de Europa seguidas · hasta ${re.hasta}`, botonClub(re.c), `${re.v} seguidas`);
+  return filas.length ? `<div class="caja"><span class="rotulo">Récords de la partida</span>${filas.join('')}</div>` : '';
 }
 // Goles de toda la partida, en todos los clubes, de activos y retirados.
 function goleadoresHistoricos() {
@@ -1853,7 +1888,7 @@ function pintarHistoria() {
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + libroDecadas(ts)
     + mundialesHistoria()
-    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${salonFama(ts)}</div>` : '')
+    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${recordsPartida(ts)}${salonFama(ts)}</div>` : '')
     + diarioHtml();
 }
 
@@ -1985,7 +2020,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 41) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 42) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
