@@ -38,6 +38,7 @@
     unoMenos: 75,          // nivel que pierde un equipo por cada jugador de menos
     ruidoDia: 55,          // forma del día del equipo
     pesoMoral: 30,         // rachas: cuánto pesa el ánimo del equipo
+    promesa: 55,           // empujón hacia el once del jugador al que el entrenador prometió minutos (solo al elegir alineación)
     pesoFatiga: 200,       // nivel que se pierde con el depósito vacío
     pesoAtributo: 3,       // puntos de nivel que vale cada punto de atributo de más o de menos en su jugada
     expNivel: 2.0          // cuánto acaparan las jugadas los mejores del equipo
@@ -475,7 +476,9 @@
   function jugarConEstado(r, est, local, visita, o, registro) {
     const nv = nivelDia(est);
     // Un entrenador que premia el rendimiento sienta a quien no está en forma, aunque sea una figura.
-    const sel = (eq) => { const t = est.banquillo.get(eq); return t && t.actual.merito ? (j) => nv(j) + (est.forma.get(j) || 0) * 0.8 : nv; };
+    // Una promesa de minutos que el entrenador piensa cumplir (j.promesaSel = año) empuja al jugador hacia el once.
+    const pro = (j) => (j.promesaSel === est.anio ? P.promesa : 0);
+    const sel = (eq) => { const t = est.banquillo.get(eq); return t && t.actual.merito ? (j) => nv(j) + (est.forma.get(j) || 0) * 0.8 + pro(j) : (j) => nv(j) + pro(j); };
     // Riesgo de lesión: sube con la edad (desde los 30) y con el cansancio.
     const riesgo = (j) => (1 + Math.max(0, edad(j, est.anio) - 29) * 0.07) * (1 + (1 - (est.energia.has(j) ? est.energia.get(j) : 1)) * 2);
     const m = partido(r, local, visita, Object.assign({
@@ -490,11 +493,13 @@
       est.moral.set(eq, Math.max(-1, Math.min(1, 0.7 * (est.moral.get(eq) || 0) + 0.3 * Math.sign(d) * (m.derbi ? 2 : 1))));
       xi.forEach((j) => {
         const e = m.st.get(j), nota = m.notas.get(j);
-        if (!registro.has(j)) registro.set(j, { j, eq, pj: 0, g: 0, a: 0, paradas: 0, ceros: 0, regates: 0, cortes: 0, pases: 0, pasesOk: 0, pen: 0, rojas: 0, amarillas: 0, lesiones: 0, enc: 0, sumaNota: 0 });
+        if (!registro.has(j)) registro.set(j, { j, eq, pj: 0, min: 0, tit: 0, baja: 0, g: 0, a: 0, paradas: 0, ceros: 0, regates: 0, cortes: 0, pases: 0, pasesOk: 0, pen: 0, rojas: 0, amarillas: 0, lesiones: 0, enc: 0, sumaNota: 0 });
         const x = registro.get(j);
         // La prórroga es el mismo partido: suma lo que pase en ella, pero no cuenta como otro partido jugado.
         const cuenta = !o.prorroga || x.pj === 0;
-        if (cuenta) { x.pj++; x.sumaNota += nota; }
+        if (cuenta) { x.pj++; x.sumaNota += nota; if (!e.entrada) x.tit++; }
+        // Minutos: desde que entra hasta que sale (lesión, roja o final); la prórroga suma los suyos.
+        x.min += Math.max(0, Math.round(e.salida - (e.entrada || 0)));
         x.g += e.g; x.a += e.a; x.paradas += e.paradas; x.regates += e.regates; x.cortes += e.cortes;
         x.pases += e.pases; x.pasesOk += e.pasesOk; x.pen += e.pen; x.rojas += e.roja; x.amarillas += e.amarilla; x.lesiones += e.lesion; x.enc += e.enc;
         if (cuenta && (j.pos === 'POR' || j.pos === 'DEF') && contra === 0) x.ceros++;
@@ -511,7 +516,7 @@
           // La mayoría son de una a tres semanas; alguna larga, y unas pocas graves (rodilla, rotura) de meses, más con la edad.
           const x2 = r(), grave = 0.03 + Math.max(0, edad(j, est.anio) - 30) * 0.008;
           const semanas = x2 < grave ? 15 + Math.floor(r() * 20) : x2 < 0.17 ? 4 + Math.floor(r() * 10) : 1 + Math.floor(r() * 3);
-          est.bajas.set(j, semanas);
+          est.bajas.set(j, semanas); x.baja += semanas;
           const ev = m.eventos.find((v) => v.tipo === 'lesion' && v.quien === j.n); if (ev) ev.semanas = semanas;
         }
         // Sanciones: se apunta una semana de más porque la de este partido se descuenta al acabar la jornada.
@@ -530,14 +535,14 @@
   const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, derbi: m.derbi });
 
   // Suma las estadísticas de varias competiciones y guarda el desglose de cada una (dónde marcó, dónde asistió…).
-  const CAMPOS = ['pj', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
+  const CAMPOS = ['pj', 'min', 'tit', 'baja', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
   function global(competiciones) {
     const tot = new Map();
     competiciones.forEach((c) => c.jugadores.forEach((x) => {
       if (!tot.has(x.j)) tot.set(x.j, Object.assign({ j: x.j, eq: x.eq, por: {} }, Object.fromEntries(CAMPOS.map((k) => [k, 0]))));
       const t = tot.get(x.j);
       CAMPOS.forEach((k) => (t[k] += x[k] || 0));
-      t.por[c.nombre] = { pj: x.pj, g: x.g, a: x.a, regates: x.regates, pasesOk: x.pasesOk, ceros: x.ceros, enc: x.enc };
+      t.por[c.nombre] = { pj: x.pj, min: x.min || 0, g: x.g, a: x.a, regates: x.regates, pasesOk: x.pasesOk, ceros: x.ceros, enc: x.enc };
     }));
     const titulos = competiciones.map((c) => c.campeon).filter(Boolean);
     return notasTemporada(tot, titulos);

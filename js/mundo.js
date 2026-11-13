@@ -883,7 +883,7 @@
       const mano = manoDe(c);
       c.jugadores = c.jugadores.filter((j) => {
         const x = pj.get(j);
-        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
+        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, min: x ? x.min || 0 : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
         if (j.selT) { j.carrera[j.carrera.length - 1].sel = j.selT; delete j.selT; }
         const edad = M.anio + 1 - anioNac(j);
         const cv = curva(j), pico = cv.pico, car = caracterDe(j);
@@ -1265,7 +1265,7 @@
     const clubDe = new Map(); M.clubes.forEach((c) => c.jugadores.forEach((j) => clubDe.set(j, c)));
     const sobra = (j) => { const c = clubDe.get(j); if (!c || j.relleno || Motor.escala.mostrar(j.niv) < 650 || nuevoAnio - anioNac(j) < 23) return false;
       return c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv > j.niv).length >= IDEAL_ONCE[j.pos] + (j.pos === 'POR' ? 0 : 0); };
-    const sinMinutos = (j) => (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
+    const sinMinutos = (j) => j.promesaRota === M.anio || (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
     // Y un club no amontona figuras del mismo puesto: con el once y un recambio de nivel parecido, no entra otro más.
     const tapon = (j, c) => c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv >= j.niv - 45).length >= IDEAL_ONCE[j.pos] + 1;
     // 1. Vuelven los cedidos.
@@ -2051,6 +2051,59 @@
     return resumen;
   }
 
+  // ---------- La promesa de minutos ----------
+  // Un entrenador promete en verano que un jugador va a contar. Queda apuntado en la partida (M.promesas) y un año después
+  // se mira qué pasó de verdad: cuántos minutos jugó de los que pudo jugar. Cumplirla da confianza; romperla hace que
+  // el jugador quiera irse. Las lesiones largas no cuentan como promesa rota, y si el entrenador ya no está, nadie la debe.
+  const minutosDe = (R) => {
+    const de = new Map(), club = new Map();
+    R.G.forEach((x) => { de.set(x.j, x); const n = x.eq && x.eq.nombre; if (n) club.set(n, Math.max(club.get(n) || 0, x.pj)); });
+    return { de, club };
+  };
+  function resolverPromesas(M, R) {
+    const { de, club } = minutosDe(R), sal = [];
+    (M.promesas || []).forEach((p) => {
+      const c = M.clubes.find((x) => x.nombre === p.club), j = c && c.jugadores.find((y) => y === p.j || y.n === p.j.n);
+      if (!j) return;
+      const x = de.get(j) || { min: 0, pj: 0, baja: 0, g: 0 }, partidos = club.get(c.nombre) || 0; if (!partidos) return;
+      // Lo que pudo jugar: los partidos de su club menos las semanas que estuvo lesionado.
+      const pudo = Math.max(1, partidos - Math.min(partidos - 1, Math.round((x.baja || 0) * partidos / 40))), pct = Math.min(1, (x.min || 0) / (90 * pudo));
+      const dt = c.entrenadores && c.entrenadores[0] ? c.entrenadores[0].nombre : null, mismo = dt === p.dt;
+      const estado = (x.baja || 0) >= 16 && pct < 0.55 ? 'lesion' : pct >= 0.55 ? 'cumplida' : !mismo ? 'huerfana' : pct < 0.35 ? 'rota' : 'a medias';
+      if (estado === 'rota') j.promesaRota = M.anio;
+      if (estado === 'cumplida' && mismo) j.confia = { dt: p.dt, anio: M.anio };
+      const h = (j.promesas || []).find((y) => y.anio === p.anio && y.club === p.club); if (h) Object.assign(h, { estado, min: x.min || 0, pct: Math.round(pct * 100) });
+      sal.push({ jugador: j.n, club: p.club, dt: p.dt, dtHoy: dt, motivo: p.motivo, estado, min: x.min || 0, pj: x.pj || 0, g: x.g || 0, partidos, pct: Math.round(pct * 100), niv: Math.round(j.niv), edad: M.anio - anioNac(j), anio: p.anio });
+    });
+    M.promesas = [];
+    return sal;
+  }
+  function nuevasPromesas(M, R, mercado) {
+    const { de, club } = minutosDe(R), nuevoAnio = M.anio + 1, sal = [];
+    const fichados = new Map((mercado || []).filter((m) => m.tipo === 'fichaje').map((m) => [m.jugador, m]));
+    M.clubes.forEach((c) => {
+      if (c.division !== 1 || !c.entrenadores || !c.entrenadores[0]) return;
+      const dt = c.entrenadores[0].nombre;
+      const cands = c.jugadores.filter((j) => !j.relleno && !j.cedido && j.pos !== 'POR' && !(j.promesaRota === M.anio && !fichados.has(j.n))).map((j) => {
+        const x = de.get(j), ant = x && x.eq ? club.get(x.eq.nombre) || 0 : 0, pct = x && ant ? (x.min || 0) / (90 * ant) : 0, edad = nuevoAnio - anioNac(j), vis = Motor.escala.mostrar(j.niv), f = fichados.get(j.n);
+        const motivo = f && f.motivo === MOTIVOS.minutos && vis >= 520 ? 'fichaje' : edad >= 17 && edad <= 21 && Motor.escala.mostrar(j.tec || j.niv) >= 640 && vis >= 430 && pct < 0.4 && !f ? 'joven' : !f && deseo(j) === 'minutos' && edad >= 22 && edad <= 31 && vis >= 520 && pct < 0.4 && x && (x.baja || 0) < 10 ? 'recuperar' : null;
+        return motivo ? { j, motivo, vis, peso: vis + (motivo === 'joven' ? Motor.escala.mostrar(j.tec || j.niv) - vis : 0) } : null;
+      }).filter(Boolean).sort((a, b) => b.peso - a.peso);
+      const e = cands[0]; if (!e) return;
+      // No todos los clubes hacen una promesa cada verano, y no todos los entrenadores piensan cumplirla.
+      if (hashN(c.nombre + e.j.n + nuevoAnio, 61) % 100 >= (e.motivo === 'fichaje' ? 55 : 50)) return;
+      const cumple = hashN(dt + e.j.n + nuevoAnio, 67) % 100 < (c.entrenadores[0].merito ? 55 : 72);
+      sal.push({ e, c, dt, cumple });
+    });
+    // Solo las diez que más importan: una promesa a un suplente cualquiera no es noticia.
+    return sal.sort((a, b) => b.e.peso - a.e.peso).slice(0, 10).map(({ e, c, dt, cumple }) => {
+      if (cumple) e.j.promesaSel = nuevoAnio;
+      (M.promesas = M.promesas || []).push({ j: e.j, club: c.nombre, dt, motivo: e.motivo, anio: nuevoAnio });
+      (e.j.promesas = e.j.promesas || []).push({ anio: nuevoAnio, club: c.nombre, dt, motivo: e.motivo, estado: 'abierta' });
+      return { jugador: e.j.n, club: c.nombre, dt, motivo: e.motivo, niv: Math.round(e.j.niv), edad: nuevoAnio - anioNac(e.j), de: (fichados.get(e.j.n) || {}).de || null, anio: nuevoAnio };
+    });
+  }
+
   // Verano: récords, ascensos y descensos, prestigio, banquillos, edad, retiros y mercado; después empieza el año siguiente.
   function verano(M, resumen, r) {
     const R = resumen.R;
@@ -2062,6 +2115,7 @@
     prestigio(M, R);
     // La directiva lo nota: superar el objetivo da nombre al club y fracasar se lo quita.
     M.clubes.forEach((c) => { if (c.balance === 'superado') c.prestigio = Math.min(1000, c.prestigio + 6); else if (c.balance === 'fracaso') c.prestigio = Math.max(250, c.prestigio - 6); });
+    resumen.promesas = { resueltas: resolverPromesas(M, R), nuevas: [] };
     M.vestuario = [];
     banquillos(M, R);
     resumen.banquillos = M.banquillosVerano || [];
@@ -2075,6 +2129,7 @@
     resumen.estadios = M.clubes.filter((c) => c.division === 1 && ESTADIOS[c.nombre]).map((c) => { const xs = ESTADIOS[c.nombre], i = xs.findIndex((y) => y[0] === M.anio + 1); return i > 0 ? { club: c.nombre, nuevo: xs[i][1], viejo: xs[i - 1][1], anios: M.anio + 1 - xs[i - 1][0], cambio: !xs[i][2], mudanza: xs[i][2] === 2 } : null; }).filter(Boolean);
     resumen.mercado = mercado(M, r);
     resumen.culebrones = resumen.mercado.culebrones || [];
+    resumen.promesas.nuevas = nuevasPromesas(M, R, resumen.mercado);
     resumen.duenos = M.duenosNuevos || [];
     resumen.presidentes = M.presidentesNuevos || [];
     resumen.finanzas = M.clubes.filter((c) => c.division === 1 && c.finanzas).map((c) => Object.assign({ club: c.nombre, pais: c.pais, caja: redondo(c.caja), rescate: c.rescate === M.anio + 1 }, c.finanzas));
