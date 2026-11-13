@@ -171,6 +171,8 @@
     M.clubes.filter((c) => c.division === 2 && c.pais === 'España').forEach((c) => (grupos[c.grupo] = grupos[c.grupo] || []).push(c));
     M.clubes.forEach((c) => (c.estiloCalc = null));
     manoDelEntrenador(M);
+    // El carácter se nota en el campo (tarjetas, partidos grandes): el motor lo lee de aquí.
+    M.clubes.forEach((c) => c.jugadores.forEach((j) => { if (j.car === undefined) j.car = caracterDe(j); }));
     // Reglas de la época: puntos por victoria y cambios permitidos.
     const reg = Epoca.reglas('España', M.anio), fg = caracter('España', M.anio);
     const T = Motor.temporada(primera, { semilla, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: fg });

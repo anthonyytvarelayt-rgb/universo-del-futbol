@@ -269,6 +269,8 @@
   // moral por lado, neutral, duracion (1 = 90 minutos; 1/3 = prórroga), cambios permitidos.
   function partido(r, local, visita, opciones) {
     const o = Object.assign({ fueraL: new Set(), fueraV: new Set(), nv: (j) => j.niv, moral: [0, 0], neutral: false, duracion: 1, cambios: 0, xiL: null, xiV: null, anio: 1958, derbi: null, factorGoles: 1, riesgo: null, marcador: null }, opciones);
+    // En campo neutral (finales, Mundial) el jugador frío rinde más: no le pesa el partido grande.
+    if (o.neutral) { const base = o.nv; o.nv = (j) => base(j) + (j.car === 'frio' ? 12 : 0); }
     // Goles de la época y del carácter de la liga (catenaccio, fútbol inglés…), y ventaja de campo de la época.
     const fGoles = golesEpoca(o.anio) * (o.factorGoles || 1), vCasa = P.ventajaLocal * casaEpoca(o.anio);
     // Amarillas desde el Mundial de 1970.
@@ -307,7 +309,8 @@
     };
     [xiL, xiV].forEach((xi, k) => xi.forEach((j) => {
       const e = s(j);
-      const duro = rol(j) === 'DEF' ? 1.6 : rol(j) === 'POR' ? 0.3 : 1;
+      // El jugador conflictivo ve más tarjetas.
+      const duro = (rol(j) === 'DEF' ? 1.6 : rol(j) === 'POR' ? 0.3 : 1) * (j.car === 'conflictivo' ? 1.7 : 1);
       // Amarilla (desde 1970): unas tres por partido; la segunda amarilla es roja.
       if (hayAmarillas && r() < 0.13 * tension.roja * o.duracion * duro) {
         e.amarilla = 1; const min = Math.floor(r() * minutos) + 1; eventos.push({ min, tipo: 'amarilla', quien: j.n, lado: k });

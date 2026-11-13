@@ -135,7 +135,7 @@ async function nuevaPartida(guardada) {
   listos.clear(); esperas.clear();
   numPartida = guardada ? guardada.numPartida || 1 : numPartida + 1;
   semilla = guardada ? guardada.semilla : numPartida === 1 ? 7 : (Date.now() % 1e6);
-  k = 0; teletipo = []; cerradas = []; fin = false; S = null; M = null; verJ = null;
+  k = 0; teletipo = []; cerradas = []; fin = false; S = null; M = null; verJ = null; salonCache = { clave: '', html: '' };
   ocupado = true; pintarMandos();
   $('fechaTxt').textContent = guardada ? 'Recuperando tu partida…' : 'Preparando la partida…';
   sim = crearSimulador();
@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 40, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 41, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1687,6 +1687,22 @@ function ponerEra(anio) {
   $('eraTxt').textContent = e.nombre;
 }
 // Cuadrícula de campeones: una fila por país, una columna por temporada, con los colores del club.
+// Salón de la fama: los grandes que ya se retiraron en esta partida, con sus números y sus títulos.
+let salonCache = { clave: '', html: '' };
+function salonFama(ts) {
+  const clave = `${M.retirados.length}|${ts.length}`;
+  if (salonCache.clave === clave) return salonCache.html;
+  const cand = M.retirados.map((j) => ({ j, pico: Math.max(0, ...j.carrera.map((t) => nivel(t.niv || 0))) })).filter((x) => x.pico >= 650 && x.j.carrera.length >= 3).sort((a, b) => b.pico - a.pico).slice(0, 30);
+  const filas = cand.map(({ j, pico }) => {
+    const pal = palmaresDe(null, j.n, true), tit = pal.filter((x) => !x[2]).length, prem = pal.filter((x) => x[2] && /Balón|Mejor jugador|FIFA/.test(x[0])).length;
+    const pj = j.carrera.reduce((a, t) => a + t.pj + (t.sel ? t.sel.pj : 0), 0), g = j.carrera.reduce((a, t) => a + t.g + (t.sel ? t.sel.g : 0), 0);
+    const clubes = [...new Set(j.carrera.map((t) => t.club))];
+    return { j, pico, tit, prem, pj, g, clubes, puntos: pico + 12 * tit + 45 * prem + g / 12 };
+  }).sort((a, b) => b.puntos - a.puntos).slice(0, 15);
+  const html = filas.length ? `<div class="caja"><span class="rotulo">Salón de la fama · los que ya se retiraron</span>${filas.map((x, i) => `<div class="resultado"><span><span>${i + 1}. ${nombreJ(x.j.n)}<small>${esc(x.clubes.slice(0, 3).join(', '))}${x.clubes.length > 3 ? '…' : ''} · se retiró en ${x.j.retiro} con ${x.j.edad} años · ${x.pj} partidos, ${x.g} goles · ${x.tit} ${x.tit === 1 ? 'título' : 'títulos'}${x.prem ? ` · ${x.prem} ${x.prem === 1 ? 'vez' : 'veces'} mejor del mundo` : ''}</small></span></span><b>${x.pico}</b></div>`).join('')}<p class="nota-pie">El número es su mejor nivel en la partida. Entran los que llegaron a 650 o más.</p></div>` : '';
+  salonCache = { clave, html };
+  return html;
+}
 function mapaCampeones(ts) {
   const paises = paisesDe(ts[ts.length - 1]);
   const celda = (club) => { if (!club) return '<td class="vacia">–</td>'; const c = INFO.clubes[club] || {}; return `<td><button type="button" class="chip-club" data-c="${esc(club)}" title="${esc(club)}" style="background:${c.c1 || '#888'};color:${c.c2 || '#fff'};border-color:${c.c2 || '#fff'}">${esc(club.replace(/^(Real|Club|FC|AC|SC|CF|Sporting de|Atlético|Stade de|Racing de) /, '').slice(0, 3).toUpperCase())}</button></td>`; };
@@ -1837,7 +1853,7 @@ function pintarHistoria() {
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + libroDecadas(ts)
     + mundialesHistoria()
-    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}</div>` : '')
+    + (ts.length ? mapaCampeones(ts) + `<div class="columnas">${clasificacionHistorica(ts)}${palmaresClubes(ts)}${goleadoresHistoricos()}${premiosPorAnio(ts)}${salonFama(ts)}</div>` : '')
     + diarioHtml();
 }
 
@@ -1969,7 +1985,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 40) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 41) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
