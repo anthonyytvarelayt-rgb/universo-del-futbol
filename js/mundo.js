@@ -170,6 +170,7 @@
     const grupos = {};
     M.clubes.filter((c) => c.division === 2 && c.pais === 'España').forEach((c) => (grupos[c.grupo] = grupos[c.grupo] || []).push(c));
     M.clubes.forEach((c) => (c.estiloCalc = null));
+    manoDelEntrenador(M);
     // Reglas de la época: puntos por victoria y cambios permitidos.
     const reg = Epoca.reglas('España', M.anio), fg = caracter('España', M.anio);
     const T = Motor.temporada(primera, { semilla, anio: M.anio, estado: est, derbis: M.derbis, puntosVictoria: reg.puntosVictoria, cambios: reg.cambios, factorGoles: fg });
@@ -1244,6 +1245,96 @@
     if (!libro.equipoGoles || gol.gf > libro.equipoGoles.gf) libro.equipoGoles = { gf: gol.gf, club: gol.nombre, temporada: temp };
   }
 
+  // Entrenadores de época: los grandes técnicos de la historia. Entran en la partida el año en que empezaron a entrenar
+  // (si ya colgaron las botas) y es la partida la que decide dónde: los clubes grandes eligen primero.
+  // [nacimiento, año en que empezó, categoría (3 leyenda, 2 grande), estilo, país]
+  const MAESTROS = {
+    'Helenio Herrera': [1910, 1948, 3, 'defensivo', 'Argentina'], 'Béla Guttmann': [1899, 1945, 2, 'ofensivo', 'Hungría'], 'Matt Busby': [1909, 1945, 3, 'ofensivo', 'Escocia'], 'Bill Shankly': [1913, 1949, 3, 'ofensivo', 'Escocia'],
+    'Nereo Rocco': [1912, 1947, 2, 'defensivo', 'Italia'], 'Miguel Muñoz': [1922, 1959, 2, 'equilibrado', 'España'], 'Hennes Weisweiler': [1919, 1958, 2, 'ofensivo', 'Alemania'], 'Don Revie': [1927, 1961, 2, 'equilibrado', 'Inglaterra'],
+    'Ernst Happel': [1925, 1962, 3, 'ofensivo', 'Austria'], 'Rinus Michels': [1928, 1965, 3, 'ofensivo', 'Países Bajos'], 'Brian Clough': [1935, 1965, 3, 'contragolpe', 'Inglaterra'], 'Telê Santana': [1931, 1969, 2, 'ofensivo', 'Brasil'],
+    'Udo Lattek': [1935, 1970, 2, 'equilibrado', 'Alemania'], 'Bob Paisley': [1919, 1974, 3, 'equilibrado', 'Inglaterra'], 'Giovanni Trapattoni': [1939, 1974, 3, 'defensivo', 'Italia'], 'Alex Ferguson': [1941, 1974, 3, 'ofensivo', 'Escocia'],
+    'Luis Aragonés': [1938, 1974, 2, 'contragolpe', 'España'], 'Jupp Heynckes': [1945, 1979, 2, 'equilibrado', 'Alemania'], 'Luiz Felipe Scolari': [1948, 1982, 2, 'defensivo', 'Brasil'], 'Ottmar Hitzfeld': [1949, 1983, 3, 'equilibrado', 'Alemania'],
+    'Arsène Wenger': [1949, 1984, 2, 'ofensivo', 'Francia'], 'Johan Cruyff': [1947, 1985, 3, 'ofensivo', 'Países Bajos'], 'Arrigo Sacchi': [1946, 1985, 3, 'ofensivo', 'Italia'], 'Marcello Lippi': [1948, 1985, 3, 'equilibrado', 'Italia'],
+    'Carlos Bianchi': [1949, 1985, 2, 'equilibrado', 'Argentina'], 'Marcelo Bielsa': [1955, 1990, 2, 'ofensivo', 'Argentina'], 'Fabio Capello': [1946, 1991, 3, 'defensivo', 'Italia'], 'Louis van Gaal': [1951, 1991, 2, 'ofensivo', 'Países Bajos'],
+    'Vicente del Bosque': [1950, 1994, 2, 'equilibrado', 'España'], 'Carlo Ancelotti': [1959, 1995, 3, 'equilibrado', 'Italia'], 'Rafael Benítez': [1960, 1995, 2, 'defensivo', 'España'], 'José Mourinho': [1963, 2000, 3, 'contragolpe', 'Portugal'],
+    'Roberto Mancini': [1964, 2001, 2, 'equilibrado', 'Italia'], 'Jürgen Klopp': [1967, 2001, 3, 'ofensivo', 'Alemania'], 'Massimiliano Allegri': [1967, 2004, 2, 'defensivo', 'Italia'], 'Unai Emery': [1971, 2004, 2, 'equilibrado', 'España'],
+    'Diego Simeone': [1970, 2006, 2, 'defensivo', 'Argentina'], 'Antonio Conte': [1969, 2006, 2, 'defensivo', 'Italia'], 'Pep Guardiola': [1971, 2008, 3, 'ofensivo', 'España'], 'Luis Enrique': [1970, 2008, 2, 'ofensivo', 'España'],
+    'Thomas Tuchel': [1973, 2009, 2, 'equilibrado', 'Alemania'], 'Zinedine Zidane': [1972, 2016, 2, 'equilibrado', 'Francia'], 'Hansi Flick': [1965, 2019, 2, 'ofensivo', 'Alemania'], 'Mikel Arteta': [1982, 2019, 2, 'ofensivo', 'España'],
+    'Xabi Alonso': [1981, 2022, 2, 'ofensivo', 'España']
+  };
+  const MAESTRO_JUGADOR = { 'Luis Enrique': 'Luis Enrique Martínez García' };
+  const maestro = (nombre) => (MAESTROS[nombre] ? MAESTROS[nombre][2] : 0);
+  // Un gran entrenador hace mejor a su equipo: toda la plantilla rinde un punto más mientras él está.
+  function manoDelEntrenador(M) {
+    M.clubes.forEach((c) => {
+      const e = c.entrenadores && c.entrenadores[0], n = e ? maestro(e.nombre) : 0;
+      if (!n || c.manoAnio === M.anio) return;
+      c.manoAnio = M.anio;
+      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 4 * n; });
+    });
+  }
+  // En verano: se jubilan los mayores, llegan los nuevos técnicos de época, se despide a quien falló y los clubes sin
+  // banquillo (o con ganas de algo mejor) eligen, primero los de más nombre.
+  function resumenBanquillos(M, T, conBanquillo, campeonEU) {
+    const anio = M.anio + 1, log = [];
+    const r = Motor.rng(anio * 131 + 7);
+    const activos = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => activos.add(j.n))); M.libres.forEach((j) => activos.add(j.n));
+    M.maestrosVistos = M.maestrosVistos || [];
+    const enClub = new Set(); M.clubes.forEach((c) => { if (c.entrenadores && c.entrenadores[0]) enClub.add(c.entrenadores[0].nombre); });
+    const ficha = (nombre) => { const m = MAESTROS[nombre]; return { nombre, nac: `${m[0]}-01-01`, nacion: m[4], pais: m[4], estilo: m[3], desde: 1, hasta: 30, fijo: false, nota: null }; };
+    Object.keys(MAESTROS).forEach((nombre) => {
+      const m = MAESTROS[nombre];
+      if (M.maestrosVistos.includes(nombre) || m[1] > anio || anio - m[0] > 64) return;
+      if (enClub.has(nombre)) { M.maestrosVistos.push(nombre); return; }
+      if (activos.has(nombre) || activos.has(MAESTRO_JUGADOR[nombre])) return;   // sigue jugando: ya entrenará
+      M.maestrosVistos.push(nombre);
+      if (!M.parados.some((e) => e.nombre === nombre)) M.parados.push(ficha(nombre));
+    });
+    const edadDe = (e) => { const n = parseInt(String(e.nac || (MAESTROS[e.nombre] ? MAESTROS[e.nombre][0] : '')).slice(0, 4), 10); return n ? anio - n : null; };
+    const puestos = new Map();
+    T.forEach((t) => { if (!t || !t.tabla) return; const esp = [...t.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio); t.tabla.forEach((x, i) => puestos.set(x.equipo, { puesto: i, esperado: esp.indexOf(x), n: t.tabla.length })); });
+    const primera = M.clubes.filter((c) => c.division === 1 && !c.generado).sort((a, b) => b.prestigio - a.prestigio);
+    const deja = (c, motivo) => { const e = c.entrenadores[0]; c.entrenadores = []; const ed = edadDe(e); if (motivo !== 'se jubila' && !(ed && ed > 68) && (ed || anio - (e.desdeAnio || anio) < 18)) M.parados.push(Object.assign({}, e, { fijo: false, nota: null, vieneDe: c.nombre })); return e.nombre; };
+    primera.forEach((c) => {
+      const e = c.entrenadores && c.entrenadores[0];
+      if (!e) return;
+      e.anios = (e.anios || 0) + 1;
+      e.desdeAnio = e.desdeAnio || anio;
+      const ed = edadDe(e), p = puestos.get(c);
+      if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
+      // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
+      const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
+      if (e.anios >= 3 && r() < (gano ? 0.06 : 0.12 + 0.07 * (e.anios - 3))) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
+      if (!p || p.puesto === 0) return;
+      // Despido: muy por debajo de lo que se esperaba; a un técnico de época se le aguanta algo más.
+      const fallo = p.puesto - p.esperado;
+      if (fallo >= 5 + maestro(e.nombre) && r() < 0.7) log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'despedido' });
+    });
+    // Fichar: cada club sin banquillo elige al mejor que haya libre; un grande puede quitarle su técnico a uno menor.
+    primera.forEach((c) => {
+      const e = c.entrenadores && c.entrenadores[0], tengo = e ? maestro(e.nombre) : 0;
+      if (e && (tengo >= 2 || c.prestigio < 800)) return;
+      const sudaca = (pais) => NO_EUROPA.includes(pais);
+      // Hasta los 90 casi nadie entrenaba fuera de su país, salvo los trotamundos de siempre; Inglaterra, solo británicos hasta 1996.
+      const casa = (p) => (p === 'Escocia' || p === 'Gales' || p === 'Irlanda del Norte' ? 'Inglaterra' : p);
+      const puedeIr = (x) => { const p = casa(x.nacion || x.pais); if (p === c.pais) return true; if (sudaca(p) !== sudaca(c.pais)) return ['Argentina'].includes(p) && !sudaca(c.pais) && c.pais !== 'Inglaterra' && maestro(x.nombre) > 0 && anio < 1996 ? true : false;
+        if (c.pais === 'Inglaterra') return anio >= 1996; return anio >= 1990 || ['Hungría', 'Austria', 'Países Bajos', 'Yugoslavia'].includes(p); };
+      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => maestro(b.nombre) - maestro(a.nombre) || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
+      let nuevo = libres[0], de = null;
+      if (!nuevo && c.prestigio >= 820 && r() < 0.35) {
+        const v = primera.filter((x) => x !== c && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2)
+          .sort((a, b) => maestro(b.entrenadores[0].nombre) - maestro(a.entrenadores[0].nombre) || b.prestigio - a.prestigio)[0];
+        if (v) { nuevo = v.entrenadores[0]; de = v; v.entrenadores = []; }
+      }
+      if (!nuevo) return;
+      const sale = e ? deja(c, 'relevo') : null;
+      M.parados = M.parados.filter((x) => x.nombre !== nuevo.nombre);
+      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
+      log.push({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' });
+    });
+    M.banquillosVerano = log;
+  }
+
   // Después de 1958-59 no hay datos de entrenadores: cada club mantiene al último, y los que se quedan sin banquillo
   // van a una bolsa de parados. Un club que cesa a su entrenador ficha a uno de esa bolsa (antes, del mismo país).
   function banquillos(M, R) {
@@ -1255,12 +1346,13 @@
     T.forEach((t) => Object.entries(t.tramos || {}).forEach(([club, tr]) => {
       const c = M.clubes.find((x) => x.nombre === club);
       const ultimo = c && c.entrenadores && c.entrenadores.find((e) => e.nombre === tr[tr.length - 1].nombre);
-      tr.slice(0, -1).forEach((x) => { if (todos.has(x.nombre) && x.nombre !== tr[tr.length - 1].nombre) M.parados.push(Object.assign({}, todos.get(x.nombre), { fijo: false, nota: null })); });
+      tr.slice(0, -1).forEach((x) => { if (todos.has(x.nombre) && x.nombre !== tr[tr.length - 1].nombre) M.parados.push(Object.assign({}, todos.get(x.nombre), { fijo: false, nota: null, vieneDe: club })); });
       if (ultimo) { c.entrenadores = [Object.assign({}, ultimo, { desde: 1, hasta: 30, fijo: false, nota: null })]; conBanquillo.add(ultimo.nombre); }
     }));
     // La bolsa: sin repetidos, sin los que ya entrenan y sin los muy mayores; como mucho 40.
     const vistos = new Set();
-    M.parados = M.parados.filter((e) => { /* sin año de nacimiento conocido no se inventa la edad: deja la bolsa a los veinte años de quedar libre por primera vez */ const nacido = parseInt(String(e.nac || '').slice(0, 4), 10) || null; e.libreDesde = e.libreDesde || M.anio; const viejo = nacido ? M.anio + 1 - nacido > 68 : M.anio - e.libreDesde > 20; if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || viejo) return false; vistos.add(e.nombre); return true; }).slice(-40);
+    M.parados = M.parados.filter((e) => { /* sin año de nacimiento conocido no se inventa la edad: deja la bolsa a los veinte años de quedar libre por primera vez */ const nacido = parseInt(String(e.nac || '').slice(0, 4), 10) || null; e.libreDesde = e.libreDesde || M.anio; const viejo = nacido ? M.anio + 1 - nacido > 68 : M.anio - e.libreDesde > 20; if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || viejo) return false; vistos.add(e.nombre); return true; }).sort((a, b) => (maestro(a.nombre) ? 1 : 0) - (maestro(b.nombre) ? 1 : 0)).slice(-40);
+    resumenBanquillos(M, T, conBanquillo, R.EU && R.EU.campeon);
     // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
     M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
       const cand = M.parados.slice().sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
@@ -1370,6 +1462,7 @@
     resumen.movimientos = categorias(M, R);
     prestigio(M, R);
     banquillos(M, R);
+    resumen.banquillos = M.banquillosVerano || [];
     resumen.retiros = envejecer(M, R, r);
     resumen.novedades = resumen.retiros.novedades;
     marcas(M, R, resumen.novedades);
@@ -1564,7 +1657,7 @@
     return d;
   }
 
-  const api = { caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { maestro, caracterDe, CARACTERES, deseo, sueldo, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

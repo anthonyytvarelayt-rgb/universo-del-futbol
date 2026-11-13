@@ -225,7 +225,7 @@ async function avanzar(callado) {
     if (!callado) $('fechaTxt').textContent = 'Llega el verano…';
     const d = await obtener('verano', k);
     // El verano trae el mundo de después: edades, retiros, fichajes y ascensos.
-    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, veranoHecho: true });
+    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, veranoHecho: true });
     M = d.M;
   }
   // Al cerrar la temporada, el teletipo da los campeones de todas las ligas.
@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 30, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 31, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1020,7 +1020,10 @@ function edicionEspecial(V) {
     const ret = (V.retiros || []).filter((x) => ini(x.j) >= 780).sort((a, b) => ini(b.j) - ini(a.j)).slice(0, 5);
     const deb = mer.filter((x) => x.tipo === 'debut').sort((a, b) => b.tec - a.tec).slice(0, 5);
     const difJ = (x) => { const d = difs.find((y) => y.jugador === x.jugador); return d ? marcaDif(d.real) : ''; };
-    verano = `<div class="caja"><span class="rotulo">Fichajes del verano</span>${fich.length ? fich.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}${difJ(x)}<small>${esc(x.de)} → ${esc(x.a)}${x.motivo ? ' · ' + esc(x.motivo) : ''}</small></span></span><b>${nivel(x.niv)}</b></div>`).join('') : '<div class="vacio">Ninguno.</div>'}</div>
+    const MOT_B = { llega: 'nuevo entrenador', fichado: 'se lo quita a otro club', 'fin de ciclo': 'fin de ciclo', despedido: 'despedido', 'se jubila': 'se jubila', relevo: 'relevo' };
+    const banq = (V.banquillos || []).filter((x) => { try { return Mundo.maestro(x.entra || '') || Mundo.maestro(x.sale || ''); } catch (e) { return false; } }).slice(0, 8);
+    const banqHtml = banq.length ? `<div class="caja"><span class="rotulo">Banquillos del verano</span>${banq.map((x) => `<div class="resultado"><span><span><b>${esc(x.club)}</b><small>${x.entra ? 'Llega ' + esc(x.entra) + (x.de ? ', del ' + esc(x.de) : '') : ''}${x.entra && x.sale ? ' · ' : ''}${x.sale ? 'Se va ' + esc(x.sale) + (x.entra ? '' : ' (' + (MOT_B[x.motivo] || x.motivo) + ')') : ''}</small></span></span></div>`).join('')}</div>` : '';
+    verano = banqHtml + `<div class="caja"><span class="rotulo">Fichajes del verano</span>${fich.length ? fich.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}${difJ(x)}<small>${esc(x.de)} → ${esc(x.a)}${x.motivo ? ' · ' + esc(x.motivo) : ''}</small></span></span><b>${nivel(x.niv)}</b></div>`).join('') : '<div class="vacio">Ninguno.</div>'}</div>
       <div class="caja homenajes"><span class="rotulo">El último aplauso · se retiran</span>${ret.length ? ret.map((x) => `<div class="resultado"><span><span>${nombreJ(x.j.n)}<small>${x.edad} años · ${esc(x.club)}</small></span></span></div>`).join('') : '<div class="vacio">Ninguna figura.</div>'}
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
@@ -1588,6 +1591,7 @@ function fichaEntrenador(n, club) {
   const c = clubDe(club), t = c && (c.entrenadores || []).find((x) => x.nombre === n);
   const rasgos = [];
   if (t && t.estilo) rasgos.push(`<span class="fuerte">${esc(Motor.NOMBRE_ESTILO[t.estilo] || t.estilo)}</span>`);
+  try { const ma = Mundo.maestro(n); if (ma) rasgos.push(`<span class="oro">${ma >= 3 ? 'Leyenda de los banquillos' : 'Gran entrenador'}: su equipo rinde más</span>`); } catch (e) { /* sin dato */ }
   if (t && t.fisico) rasgos.push('<span>Exige mucho físico</span>');
   if (t && t.merito) rasgos.push('<span>Sienta a quien no rinde</span>');
   if (t && t.fijo) rasgos.push('<span>Intocable en el banquillo</span>');
@@ -1892,7 +1896,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 30) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 31) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
