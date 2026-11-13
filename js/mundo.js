@@ -1469,7 +1469,8 @@
       t.tabla.forEach((x, i) => {
         const obj = objetivoDe(nombre.indexOf(x), n, x.equipo.prestigio), bal = balanceDe(obj, i, n);
         x.equipo.balance = bal;
-        lista.push({ club: x.equipo.nombre, pais: x.equipo.pais, objetivo: obj, puesto: i + 1, balance: bal, prestigio: x.equipo.prestigio });
+        const dt = x.equipo.entrenadores && x.equipo.entrenadores[0];
+        lista.push({ club: x.equipo.nombre, pais: x.equipo.pais, objetivo: obj, puesto: i + 1, balance: bal, prestigio: x.equipo.prestigio, esperado: nombre.indexOf(x) + 1, entrenador: dt ? dt.nombre : null });
       });
     });
     return lista;

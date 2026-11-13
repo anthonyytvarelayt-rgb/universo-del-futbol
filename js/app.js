@@ -1114,6 +1114,7 @@ function figurasHtml(V, pais) {
       premio('Máximo goleador', pm.goleador, (j) => `${j.g} goles`),
       premio('Más asistencias', pm.asistente, (j) => `${j.a} asistencias`),
       premio('Mejor portero', pm.portero, (j) => `${j.enc} goles en ${j.pj} partidos`),
+      premioDT(V),
       premio('Revelación (21 o menos)', pm.revelacion, (j) => `nota ${j.notaTemp.toFixed(2)}`)
     ].join('');
   }
@@ -1130,6 +1131,29 @@ function onceIdeal(G, titulo) {
   const chip = (x) => `<button type="button" class="en-campo" data-j="${esc(x.nombre)}"><b>${esc(corto(x.nombre))}</b><small>${esc(x.club)} · ${x.notaTemp.toFixed(1).replace('.', ',')}</small></button>`;
   return `<span class="rotulo">${esc(titulo)}</span><div class="campo">${lineas.map((l) => `<div class="linea">${l.map(chip).join('')}</div>`).join('')}</div>`;
 }
+
+// Entrenador del año: el que más hizo con lo que tenía. Cuentan los títulos y quedar por encima de lo que tocaba.
+const cacheDT = new WeakMap();
+function entrenadorDelAnio(V) {
+  if (!cerradaV(V) || !(V.objetivos || []).length) return null;
+  if (cacheDT.has(V)) return cacheDT.get(V);
+  const copas = new Set(paisesDe(V).map((p) => { const C = copaDe(V, p); return C && C.campeon; }).filter(Boolean));
+  const otras = new Set(OTRAS_COPAS.filter(([id]) => id !== 'super' && id !== 'inter').map(([id]) => campeonOtra(V, id)).filter(Boolean));
+  const xs = V.objetivos.filter((o) => o.entrenador).map((o) => {
+    const liga = o.puesto === 1, eu = V.europa === o.club, meritos = [];
+    if (eu) meritos.push(`campeón de la ${nombreEuropa(V)}`);
+    if (liga) meritos.push('campeón de liga');
+    if (copas.has(o.club)) meritos.push('campeón de copa');
+    if (otras.has(o.club)) meritos.push('título europeo o continental');
+    if (o.esperado - o.puesto >= 3) meritos.push(`${o.puesto}.º cuando se le esperaba ${o.esperado}.º`);
+    const puntos = (eu ? 9 : 0) + (liga ? 5 + Math.max(0, (o.prestigio - 700) / 100) : 0) + (copas.has(o.club) ? 2 : 0) + (otras.has(o.club) ? 4 : 0) + Math.max(-3, Math.min(8, (o.esperado - o.puesto) * 0.9));
+    return { nombre: o.entrenador, club: o.club, puntos, meritos };
+  }).sort((a, b) => b.puntos - a.puntos);
+  const r = xs[0] && xs[0].meritos.length ? xs[0] : null;
+  cacheDT.set(V, r);
+  return r;
+}
+const premioDT = (V) => { const t = entrenadorDelAnio(V); return t ? `<div class="premio"><span>Entrenador del año</span><b><button type="button" class="nombre" data-e="${esc(t.nombre)}" data-ec="${esc(t.club)}">${esc(sinApodo(t.nombre))}</button></b><small>${esc(t.club)} · ${esc(t.meritos.slice(0, 2).join(' y '))}</small></div>` : ''; };
 
 // Resumen en texto para pegarlo en un chat o una nota.
 function copiarResumen(btn) {
@@ -1169,6 +1193,7 @@ function copiarResumen(btn) {
     if (pm.asistente) out.push(`• Más asistencias: ${pm.asistente.nombre} (${pm.asistente.club}), ${pm.asistente.a}`);
     if (pm.portero) out.push(`• Mejor portero: ${pm.portero.nombre} (${pm.portero.club})`);
     if (pm.revelacion) out.push(`• Revelación (21 años o menos): ${pm.revelacion.nombre} (${pm.revelacion.club})`);
+    intento(() => { const t = entrenadorDelAnio(V); if (t) out.push(`• Entrenador del año: ${sinApodo(t.nombre)} (${t.club}): ${t.meritos.join(', ')}`); });
     const G = figurasDe(V), usados = new Set(), coge = (pos, n) => G.filter((x) => x.pos === pos && x.pj >= 15 && !usados.has(x)).sort((a, b) => b.notaTemp - a.notaTemp).slice(0, n).map((x) => (usados.add(x), `${x.nombre} (${x.club})`));
     const once = [coge('POR', 1), coge('DEF', 4), coge('MED', 3), coge('DEL', 3)];
     if (once[0].length) out.push(`• Once ideal: ${once.map((l) => l.join(', ')).join(' / ')}`);
@@ -1866,6 +1891,9 @@ function recordsPartida(ts) {
   const bo = veces((pm) => pm.ganadorMejor && pm.ganadorMejor.nombre), go = veces((pm) => pm.goleador && pm.goleador.nombre);
   if (bo && bo[1] > 1) fila('Más veces mejor jugador del mundo', nombreJ(bo[0]), `${bo[1]} veces`);
   if (go && go[1] > 1) fila('Más veces máximo goleador del mundo', nombreJ(go[0]), `${go[1]} veces`);
+  const dts = new Map(); cerr.forEach((V) => { const t = entrenadorDelAnio(V); if (t) dts.set(t.nombre, (dts.get(t.nombre) || 0) + 1); });
+  const dt = [...dts.entries()].sort((x, y) => y[1] - x[1])[0];
+  if (dt && dt[1] > 1) fila('Más veces entrenador del año', esc(sinApodo(dt[0])), `${dt[1]} veces`);
   // Rachas de clubes: ligas seguidas y Copas de Europa seguidas.
   const racha = (f) => { let mejor = null; const act = new Map(); cerr.forEach((V) => { const ganan = new Set(f(V).filter(Boolean)); [...act.keys()].forEach((k) => { if (!ganan.has(k)) act.delete(k); }); ganan.forEach((c) => { const v = (act.get(c) || 0) + 1; act.set(c, v); if (!mejor || v > mejor.v) mejor = { c, v, hasta: V.temporada }; }); }); return mejor; };
   const rl = racha((V) => paisesDe(V).map((p) => campeonDe(V, p).campeon)), re = racha((V) => [V.europa]);
