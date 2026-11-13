@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Simulador de la historia del fútbol: elige una época y mira otra historia.">
 <title>Universo del Fútbol beta</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23172522'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='30' fill='%23E1B66E'%3EUF%3C/text%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +19,27 @@
 <!-- Inicio: elige la época -->
 <div class="inicio" id="inicio" hidden>
   <div class="dentro">
-    <header>
-      <div class="rotulo">Simulador de la historia · 1930 — 2026</div>
-      <h1>Universo del fútbol</h1>
-      <p>Elige la época en la que empieza tu historia. La partida arranca en su primera temporada y sigue hasta donde quieras.</p>
+    <header class="inicio-presentacion">
+      <div class="rotulo">El fútbol vuelve a empezar</div>
+      <h1>Universo <span>del fútbol<span class="punto-titulo">.</span></span></h1>
+      <p>Las leyendas son reales.<br>La historia la escribe tu partida.</p>
+      <div class="estadio-inicio" aria-hidden="true"><span class="estadio-arco"></span><span class="estadio-circulo"></span><b>90′</b><small>UN JUEGO. INFINITAS HISTORIAS.</small></div>
+      <div class="sello-inicio"><span>DESDE 1958</span><span>ARCHIVO DE LEYENDAS</span></div>
     </header>
+    <div class="inicio-eleccion">
+    <div class="paso-inicio"><span>01 / EL PUNTO DE PARTIDA</span><h2>Elige tu época</h2><p>Empieza una historia que solo puede pasar aquí.</p></div>
     <button type="button" class="seguir" id="seguirPartida" hidden>Seguir mi partida</button>
     <div class="eras" id="eras"></div>
-    <div class="ajustes">
+    <details class="ajustes"><summary>Opciones de la partida</summary>
       <div class="fila"><b>Ligas<small>España, Italia, Inglaterra, Alemania, Francia, Portugal, Argentina y Brasil</small></b><span>8 de 8</span></div>
       <label class="fila" for="constantes"><b>Constantes de la historia<small>Encendido: lo que pasó de verdad tira de la partida. Apagado: universo libre. (Todavía no cambia nada en el motor.)</small></b>
         <input type="checkbox" class="interruptor" id="constantes" checked></label>
       <label class="fila" for="pronosticos"><b>Pronósticos<small>Apuesta por el campeón de cada liga hasta la jornada 10 y mira cuántos aciertas. Se puede quitar cuando quieras.</small></b>
         <input type="checkbox" class="interruptor" id="pronosticos"></label>
-    </div>
+    </details>
     <button type="button" class="empezar" id="empezar">Empezar</button>
+    <p class="inicio-ayuda">Avanza a tu ritmo. Tu partida se guarda automáticamente.</p>
+    </div>
   </div>
 </div>
 
@@ -55,7 +62,7 @@
 
 <nav class="abajo" aria-label="Partida y secciones">
   <div class="dentro">
-    <div class="marca"><b>Universo <i>del</i> fútbol</b><span id="eraTxt">1930 — 2026</span></div>
+    <div class="marca"><span class="marca-sello" aria-hidden="true">UF /</span><b>Universo <i>del</i> fútbol</b><span id="eraTxt">1930 — 2026</span></div>
     <div class="tiempo" id="tiempo"></div>
     <div class="navegar" id="navegar">
       <button type="button" data-s="hoy" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2h-1 M7 9h7 M7 12.5h7 M7 16h4"/></svg><span>Hoy</span></button>
