@@ -1143,7 +1143,27 @@
   // Entra dinero por taquilla, televisión y patrocinio (según el nombre del club y lo rica que es su liga), por premios
   // y por vender jugadores; sale por sueldos, gastos del club y fichajes. Quien no tiene caja ni crédito, no compra.
   const euros = (unidades, anio) => unidades * recordTraspaso(anio) / 22;
-  const ingresosDe = (c, anio) => 1.5 * euros(presupuesto(c, anio), anio);
+  // Estadios reales de cada época. Un estadio nuevo (marcado con 1) da más ingresos durante doce años: más asientos, palcos y tiendas.
+  const ESTADIOS = {
+    'Real Madrid': [[1947, 'Santiago Bernabéu']], 'Barcelona': [[1922, 'Les Corts'], [1957, 'Camp Nou', 1]], 'Atlético Madrid': [[1923, 'Metropolitano'], [1966, 'Vicente Calderón', 1], [2017, 'Metropolitano', 1]],
+    'Sevilla': [[1958, 'Ramón Sánchez-Pizjuán', 1]], 'Valencia': [[1923, 'Mestalla']], 'Atlético Bilbao': [[1913, 'San Mamés'], [2013, 'Nuevo San Mamés', 1]], 'Español': [[1923, 'Sarrià'], [1997, 'Estadio Olímpico de Montjuïc'], [2009, 'Cornellà-El Prat', 1]],
+    'Real Betis': [[1929, 'Benito Villamarín']], 'Real Sociedad': [[1913, 'Atocha'], [1993, 'Anoeta', 1]], 'Deportivo de La Coruña': [[1944, 'Riazor']],
+    'Milan': [[1926, 'San Siro'], [1980, 'Giuseppe Meazza']], 'Inter': [[1947, 'San Siro'], [1980, 'Giuseppe Meazza']], 'Juventus': [[1933, 'Stadio Comunale'], [1990, 'Delle Alpi', 1], [2011, 'Juventus Stadium', 1]],
+    'Torino': [[1958, 'Stadio Comunale'], [1990, 'Delle Alpi'], [2006, 'Olimpico Grande Torino', 1]], 'Roma': [[1953, 'Olímpico de Roma']], 'Lazio': [[1953, 'Olímpico de Roma']], 'Napoli': [[1959, 'San Paolo', 1], [2020, 'Diego Armando Maradona']], 'Fiorentina': [[1931, 'Artemio Franchi']],
+    'Manchester United': [[1910, 'Old Trafford']], 'Liverpool': [[1884, 'Anfield']], 'Arsenal': [[1913, 'Highbury'], [2006, 'Emirates Stadium', 1]], 'Chelsea': [[1905, 'Stamford Bridge']], 'Everton': [[1892, 'Goodison Park']], 'Newcastle United': [[1892, "St James' Park"]],
+    'Manchester City': [[1923, 'Maine Road'], [2003, 'City of Manchester Stadium', 1], [2011, 'Etihad Stadium']], 'Tottenham Hotspur': [[1899, 'White Hart Lane'], [2019, 'Tottenham Hotspur Stadium', 1]], 'West Ham United': [[1904, 'Upton Park'], [2016, 'London Stadium', 1]],
+    'Leicester City': [[1891, 'Filbert Street'], [2002, 'King Power Stadium', 1]], 'Southampton': [[1898, 'The Dell'], [2001, "St Mary's", 1]], 'Sunderland': [[1898, 'Roker Park'], [1997, 'Stadium of Light', 1]], 'Derby County': [[1895, 'Baseball Ground'], [1997, 'Pride Park', 1]], 'Middlesbrough': [[1903, 'Ayresome Park'], [1995, 'Riverside', 1]],
+    'Bayern Múnich': [[1926, 'Grünwalder Stadion'], [1972, 'Olympiastadion', 1], [2005, 'Allianz Arena', 1]], 'Borussia Dortmund': [[1937, 'Rote Erde'], [1974, 'Westfalenstadion', 1]], 'Schalke 04': [[1928, 'Glückauf-Kampfbahn'], [1973, 'Parkstadion', 1], [2001, 'Arena AufSchalke', 1]],
+    'Borussia Mönchengladbach': [[1919, 'Bökelberg'], [2004, 'Borussia-Park', 1]], 'Hamburgo': [[1953, 'Volksparkstadion']], 'Stuttgart': [[1933, 'Neckarstadion']], 'Werder Bremen': [[1930, 'Weserstadion']], 'Bayer Leverkusen': [[1958, 'Ulrich-Haberland-Stadion'], [1998, 'BayArena', 1]], 'Colonia': [[1923, 'Müngersdorfer Stadion']],
+    'Paris Saint-Germain': [[1974, 'Parc des Princes']], 'Marsella': [[1937, 'Vélodrome']], 'Lyon': [[1926, 'Gerland'], [2016, 'Parc Olympique Lyonnais', 1]], 'Saint-Étienne': [[1931, 'Geoffroy-Guichard']], 'Burdeos': [[1938, 'Parc Lescure'], [2015, 'Matmut Atlantique', 1]],
+    'Lille': [[1975, 'Grimonprez-Jooris'], [2012, 'Pierre-Mauroy', 1]], 'Nantes': [[1937, 'Marcel-Saupin'], [1984, 'La Beaujoire', 1]], 'Mónaco': [[1939, 'Louis II'], [1985, 'Nuevo Louis II', 1]],
+    'Benfica': [[1954, 'Estádio da Luz'], [2003, 'Nuevo Estádio da Luz', 1]], 'Oporto': [[1952, 'Estádio das Antas'], [2003, 'Estádio do Dragão', 1]], 'Sporting de Portugal': [[1956, 'José Alvalade'], [2003, 'Nuevo José Alvalade', 1]],
+    'Boca Juniors': [[1940, 'La Bombonera']], 'River Plate': [[1938, 'El Monumental']], 'Flamengo': [[1950, 'Maracaná']], 'Fluminense': [[1950, 'Maracaná']], 'Santos': [[1916, 'Vila Belmiro']], 'São Paulo': [[1944, 'Pacaembu'], [1960, 'Morumbi', 1]],
+    'Corinthians': [[1940, 'Pacaembu'], [2014, 'Arena Corinthians', 1]], 'Palmeiras': [[1917, 'Palestra Itália'], [2014, 'Allianz Parque', 1]], 'Internacional': [[1969, 'Beira-Rio', 1]], 'Atlético Mineiro': [[1965, 'Mineirão']], 'Cruzeiro': [[1965, 'Mineirão']]
+  };
+  const estadioDe = (club, anio) => { const xs = ESTADIOS[club]; if (!xs) return null; const x = xs.filter((y) => y[0] <= anio).pop(); return x ? x[1] : null; };
+  const estreno = (club, anio) => { const xs = ESTADIOS[club]; if (!xs) return 1; const x = xs.filter((y) => y[0] <= anio).pop(); return x && x[2] && anio - x[0] < 12 ? 1.1 : 1; };
+  const ingresosDe = (c, anio) => 1.5 * euros(presupuesto(c, anio), anio) * estreno(c.nombre, anio);
   const cajaDe = (c, anio) => { if (c.caja == null) c.caja = 0.3 * ingresosDe(c, anio); return c.caja; };
   const creditoDe = (c, anio) => ({ derrochador: 1.2, galactico: 0.8, tacano: 0.2 }[estiloPresi(c, anio)] || 0.5) * ingresosDe(c, anio);
   const redondo = (v) => Math.round(v * 100) / 100;
@@ -2052,6 +2072,7 @@
     rivalidades(M, R, resumen.novedades);
     cuentas(M, R);
     resumen.escandalos = escandalos(M, R);
+    resumen.estadios = M.clubes.filter((c) => c.division === 1 && ESTADIOS[c.nombre]).map((c) => { const xs = ESTADIOS[c.nombre], i = xs.findIndex((y) => y[0] === M.anio + 1); return i > 0 ? { club: c.nombre, nuevo: xs[i][1], viejo: xs[i - 1][1], anios: M.anio + 1 - xs[i - 1][0], cambio: !xs[i][2] } : null; }).filter(Boolean);
     resumen.mercado = mercado(M, r);
     resumen.culebrones = resumen.mercado.culebrones || [];
     resumen.duenos = M.duenosNuevos || [];
@@ -2257,7 +2278,7 @@
     return d;
   }
 
-  const api = { EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
