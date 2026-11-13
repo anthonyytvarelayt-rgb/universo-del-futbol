@@ -783,9 +783,9 @@
           if (edad <= 24 && minutos < 0.3 && !j.relleno && !j.cons) j.tec = (j.tec || j.niv) - r() * 12;
           // La joya inesperada: muy de vez en cuando un chaval que juega y rinde da un salto que nadie esperaba
           // y su techo se dispara. En la vida real fue uno más; en este universo puede acabar entre los mejores.
-          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < 0.04) {
+          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < 0.015) {
             j.joya = M.anio + 1;
-            j.tec = Math.min(1090, (j.tec || j.niv) * (1.12 + 0.1 * r()));
+            j.tec = Math.min(1090, (j.tec || j.niv) * (1.08 + 0.08 * r()));
             novedades.push({ tipo: 'joya', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), real: Math.round(j.tecReal || 0) });
           }
         } else {
