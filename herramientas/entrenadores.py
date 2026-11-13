@@ -6,6 +6,7 @@ Después de --montar: python3 herramientas/base.py
 La procedencia y la precisión de cada temporada están en inicios.csv.
 """
 import argparse
+import ast
 import collections
 import csv
 import itertools
@@ -95,13 +96,19 @@ def comprobar(inicios, huecos, todos):
     assert cubiertos | faltan == todos, 'La cobertura no coincide con ligas.csv'
     s = (RAIZ / 'datos/base.js').read_text(encoding='utf-8')
     base = json.loads(s[s.index('{'):].rstrip().removesuffix(';'))
+    arbol = ast.parse((RAIZ / 'herramientas/base.py').read_text(encoding='utf-8'))
+    identidades = next((ast.literal_eval(n.value) for n in arbol.body
+                        if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name)
+                        and t.id == 'MISMO_NOMBRE' for t in n.targets)), {})
+    def club_compilado(f):
+        return identidades.get((f['pais'], f['club']), f['club'])
     # base.py también crea clubes a partir de las ligas históricas.
-    clubes = set(base['clubes'])
+    clubes = {(r['pais'], n) for n, r in base['clubes'].items()}
     texto = (RAIZ / 'js/mundo.js').read_text(encoding='utf-8')
     bloque = re.search(r'const MAESTROS = \{(.*?)\n  \};', texto, re.S).group(1)
     maestros = {normalizar(n): (n, a) for n, a in re.findall(r"'([^']+)': \[(\d{4})", bloque)}
     for f in inicios:
-        assert f['club'] in clubes, f'Club desconocido: {clave(f)}'
+        assert (f['pais'], club_compilado(f)) in clubes, f'Club desconocido: {clave(f)}'
         assert f['fuente'].startswith('https://'), f'Sin fuente: {clave(f)}'
         assert f['nombre'].strip() == f['nombre'] and not re.search(r'\d| / | - ', f['nombre']), f
         if f['nacimiento']:
@@ -132,6 +139,8 @@ def comprobar(inicios, huecos, todos):
              ('España', 'Málaga', 1962): 'Sabino Barinaga Alberdi',
              ('Italia', 'Roma', 1992): 'Vujadin Boškov',
              ('Italia', 'Cesena', 1977): 'Giuseppe Marchioro',
+             ('Argentina', 'Arsenal', 2015): 'Martín Palermo',
+             ('Inglaterra', 'Arsenal', 2015): 'Arsène Wenger',
              ('Brasil', 'Flamengo', 2020): 'Jorge Jesus',
              ('Portugal', 'Belenenses', 2018): 'Silas'}
     for k, nombre in casos.items():
@@ -139,7 +148,7 @@ def comprobar(inicios, huecos, todos):
     # Comprueba también que base.py trasladó los nombres, fechas y rasgos.
     compilados = {(r['pais'], r['club'], r['desde'], r['hasta'], r['nombre']): r for r in base['entrenadores']}
     for f in leer(BASE / 'entrenadores.csv'):
-        t = compilados[f['pais'], f['club'], int(f['desde']), int(f['hasta']), f['nombre']]
+        t = compilados[f['pais'], club_compilado(f), int(f['desde']), int(f['hasta']), f['nombre']]
         assert t['nacion'] == f['nacionalidad']
         assert t.get('nac', '') == f.get('nacimiento', '')
         if f['estilo']:
@@ -154,20 +163,17 @@ def comprobar(inicios, huecos, todos):
     escribir(DATOS / 'cobertura.csv', cobertura, list(cobertura[0]))
     sin_meta = [f for f in inicios if not f['nacimiento'] or not f['nacionalidad']]
     escribir(DATOS / 'metadatos_pendientes.csv', sin_meta, list(inicios[0]))
-    # El CSV conserva el país. El consumidor actual de mundo.js todavía filtra
-    # solo por club; expone, sin ocultarla, la colisión de los dos Arsenal.
+    # Verifica las equivalencias que separan clubes homónimos por país.
     por_nombre = collections.defaultdict(set)
     for p, c, _ in todos:
         por_nombre[c].add(p)
-    bloqueados = [dict(f, bloqueo='mundo.js filtra técnicos por nombre de club, sin país')
-                  for f in inicios if len(por_nombre[f['club']]) > 1]
-    escribir(DATOS / 'bloqueos_integracion.csv', bloqueados, list(inicios[0]) + ['bloqueo'])
+    equivalencias = [dict(f, club_compilado=club_compilado(f))
+                    for f in inicios if len(por_nombre[f['club']]) > 1]
+    escribir(DATOS / 'identidades_verificadas.csv', equivalencias, list(inicios[0]) + ['club_compilado'])
     print(f'{len(cubiertos)}/{len(todos)} clubes-temporada ({100*len(cubiertos)/len(todos):.2f} %); '
           f'{len(faltan)} huecos; {len(sin_meta)} con datos personales incompletos.')
     print('Sin duplicados iniciales; nombres de MAESTROS, fuentes y compilación comprobados.')
-    if bloqueados:
-        print(f'INTEGRACIÓN PENDIENTE: {len(bloqueados)} inicios de los dos Arsenal. '
-              'El cargador debe usar el país del club además del nombre; ver bloqueos_integracion.csv.')
+    print(f'{len(equivalencias)} inicios de clubes homónimos verificados con su identidad compilada.')
 
 
 if __name__ == '__main__':

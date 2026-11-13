@@ -1,6 +1,6 @@
 # Entrenadores de inicio, 1960–2025
 
-Entrega parcial de datos. Fecha de consulta: 13 de noviembre de 2026. **8.942 de 10.320 clubes-temporada documentados (86,65 %)**. Quedan **1.378 huecos** y **95 entradas con nacionalidad o nacimiento incompletos**. No es una base histórica completa ni una entrega lista para publicar: hay bloqueos del cargador que requieren la intervención de Claude.
+Entrega parcial de datos. Fecha de consulta: 13 de noviembre de 2026. **8.942 de 10.320 clubes-temporada documentados (86,65 %)**. Quedan **1.378 huecos** y **95 entradas con nacionalidad o nacimiento incompletos**. No es una base histórica completa. El PR sigue en borrador por los huecos históricos y las ligas pendientes de incorporar. Se ha actualizado sobre `main` 1c999ae, que ya separa los dos Arsenal.
 
 ## Cobertura por país y década
 
@@ -30,7 +30,7 @@ Argentina no tiene filas de Primera de inicio 2020 en `ligas.csv`. Esa ausencia 
 - [clubes_fuente.csv](clubes_fuente.csv): equivalencias e identificadores del proveedor, incluidas las variantes históricas de clubes homónimos. Un identificador no asegura cobertura de todos sus años; cada asignación efectiva está en `inicios.csv`.
 - [rasgos.csv](rasgos.csv): estilos y exigencia física documentados, con su justificación. Solo se aplican a los clubes y períodos indicados. No se extrapola el estilo de 1958 a toda una carrera. El criterio de sentar a quien no rinde queda vacío en los datos nuevos cuando no hay evidencia.
 - [cobertura.csv](cobertura.csv): la tabla anterior en formato reutilizable.
-- [bloqueos_integracion.csv](bloqueos_integracion.csv): los datos de los dos Arsenal que el cargador todavía confunde.
+- [identidades_verificadas.csv](identidades_verificadas.csv): los 86 inicios de los dos Arsenal y sus nombres compilados distintos, comprobados contra el arreglo de `main`.
 
 Desde la raíz del repositorio:
 
@@ -80,14 +80,14 @@ Otros contrastes: [BDFutbol](https://www.bdfutbol.com/) para el entrenador con j
 
 Se distingue FC Nancy de AS Nancy, Toulouse histórico del actual, Troyes AF del actual, Freiburger FC de SC Freiburg, Caxias RS de Caxias SC y Belenenses de B-SAD desde 2018. El nacimiento de Béla Guttmann se contrasta como **1899** con [Connecting Portuguese History](https://connectingportuguesehistory.org/items/show/39), corrigiendo el 1900 del proveedor y coincidiendo con `MAESTROS`.
 
-## Bloqueos que debe resolver Claude
+## Integración con main y pendientes
 
-1. **Arsenal de Inglaterra y Arsenal de Argentina.** `mundo.js`, en `desdeBase`, selecciona técnicos solo con `t.club === nombre`, sin país. `base.py` conserva ahora `pais` además de la nacionalidad del entrenador, pero el consumidor todavía no lo usa. En 2015, `Mundo.desdeBase(BASE, 2015)` entrega **«Martín Palermo / Arsène Wenger» a ambos Arsenal**. Son dos asignaciones de datos correctas, pero una integración incorrecta: no se debe publicar este PR sin que el cargador reciba y compare el país de la liga al construir cada club. `BASE.clubes['Arsenal'].pais` tampoco sirve para resolverlo, porque ese diccionario ya tiene una única entrada para ambos clubes. Las 86 entradas de los dos Arsenal están separadas en el archivo de bloqueos.
+1. **Arsenal: separación resuelta por Claude en `main` 1c999ae.** El compilador convierte el Arsenal argentino en «Arsenal de Sarandí» usando el país del CSV, de modo que no se mezcla con el club inglés. Esta entrega conserva ese arreglo y también el campo `pais` de cada entrenador. La comprobación de 2015 entrega **Arsène Wenger al Arsenal inglés y Martín Palermo al Arsenal de Sarandí**. Las 86 asignaciones se documentan en `identidades_verificadas.csv`; ya no se presentan como un bloqueo pendiente.
 2. **Tres ligas de 2025–26 ausentes.** Se entregan sus 54 entrenadores y participantes reales en el CSV adicional; la pantalla no podrá usarlos hasta que se incorporen las ligas de Alemania, Francia y Portugal a los datos de competiciones. No se tocan esos archivos en esta entrega.
 3. **Paris FC en 1966.** El club fue fundado en 1969. La fila de la liga del juego requiere revisar su identidad. Se deja sin entrenador en vez de sustituirlo silenciosamente por Racing de París.
 4. **Datos históricos pendientes.** Los 1.378 huecos están listados por club y año; no se rellenan copiando al último entrenador conocido. En Argentina también queda sin identificación unívoca «San Luis». Algunas filas antiguas de Italia representan clubes que en el año de inicio indicado estaban en Serie B: se conserva el año del juego y se documenta el entrenador de ese club en ese año, sin corregir las ligas fuera de este encargo.
 
-La ampliación de entrenadores puede cambiar resultados al rehacer una partida con la misma semilla. No se modifica ningún archivo `js/` ni la versión de guardado. La coordinación de esa versión antes de publicar corresponde a Claude, junto con la corrección de Arsenal.
+La ampliación de entrenadores puede cambiar resultados al rehacer una partida con la misma semilla. No se modifica ningún archivo `js/` ni la versión de guardado. La coordinación de esa versión antes de publicar corresponde a Claude.
 
 ## Validación
 

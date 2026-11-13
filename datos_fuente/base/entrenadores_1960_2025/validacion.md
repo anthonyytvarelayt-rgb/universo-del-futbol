@@ -1,6 +1,6 @@
 # Validación de la entrega
 
-Base de revisión: `441402b` de `main`. Comprobaciones ejecutadas el 13 de noviembre de 2026, después del último montaje de los datos.
+Base de revisión: `1c999ae` de `main`. Comprobaciones ejecutadas el 13 de noviembre de 2026, después del último montaje de los datos.
 
 | Comprobación | Resultado |
 |---|---|
@@ -18,16 +18,16 @@ Base de revisión: `441402b` de `main`. Comprobaciones ejecutadas el 13 de novie
 ## Salida de la partida pedida
 
 ```text
-Mundial 2002: Inglaterra (final ante Portugal), goleador Francesco Totti con 6
-Mundial 2006: Francia (final ante Inglaterra), goleador Raúl con 10
-Mundial 2010: Portugal (final ante España), goleador Cristiano Ronaldo con 10
-Ligas de España: Real Madrid 7, Barcelona 5
-Copas de Europa: Juventus 3, Manchester United 3, Barcelona 3, Real Madrid 2, Bayern Múnich 1
+Mundial 2002: Francia (final ante España), goleador Ronaldo con 7
+Mundial 2006: Francia (final ante Brasil), goleador Cristiano Ronaldo con 7
+Mundial 2010: Argentina (final ante Brasil), goleador Alberto Gilardino con 8
+Ligas de España: Real Madrid 8, Barcelona 4
+Copas de Europa: Real Madrid 5, Mónaco 2, Roma 1, Bayern Múnich 1, Inter 1, Lyon 1, Sporting de Portugal 1
 ```
 
-## Límite de las pruebas: Arsenal
+## Arsenal: integración comprobada con main
 
-Las pruebas existentes pasan, pero no verifican que el cargador distinga los dos Arsenal. La prueba de integración manual **reproduce un fallo**, que no se declara resuelto:
+Claude separó las identidades en `main` 1c999ae durante la preparación de la entrega. Se actualizó la rama y se regeneró la base para conservar ese cambio. Los nombres de entrada de los CSV se normalizan por país; no se modifica `js/`.
 
 ```sh
 node - <<'JS'
@@ -36,16 +36,18 @@ const d = Mundo.desdeBase(BASE, 2015);
 for (const p of d.paises)
   for (const div of p.divisiones)
     for (const c of div.clubes)
-      if (c.nombre === 'Arsenal')
-        console.log(p.pais, c.entrenadores.map(t => t.nombre).join(' / '));
+      if (c.nombre === 'Arsenal' || c.nombre === 'Arsenal de Sarandí')
+        console.log(p.pais, c.nombre, c.entrenadores.map(t => t.nombre).join(' / '));
 JS
 ```
 
-Salida actual:
+Salida comprobada:
 
 ```text
-Inglaterra Martín Palermo / Arsène Wenger
-Argentina Martín Palermo / Arsène Wenger
+Inglaterra Arsenal Arsène Wenger
+Argentina Arsenal de Sarandí Martín Palermo
 ```
 
-El CSV y la base compilada conservan el país para poder resolverlo; el filtro de `mundo.js` todavía no lo usa. El PR queda en borrador y **no debe publicarse** antes de corregir ese consumidor. Tampoco se declaran jugables las tres ligas de 2025–26 que faltan en los datos de competiciones, aunque sus 54 técnicos ya se entregan.
+El comprobador verifica también que cada fila de entrenadores se monta bajo el nombre y país correctos. Las 86 asignaciones de ambos clubes quedan en `identidades_verificadas.csv`.
+
+El PR sigue en borrador por su cobertura histórica parcial. Tampoco se declaran jugables las tres ligas de 2025–26 que faltan en los datos de competiciones, aunque sus 54 técnicos ya se entregan.
