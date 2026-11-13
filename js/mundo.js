@@ -944,7 +944,7 @@
         if (edad >= 38 && !sigueArriba) p = Math.max(p, Math.min(0.9, 0.3 + 0.15 * (edad - 38)));
         const K = CONSTANTES[j.n];
         if (K && !j.relleno && K.retiro && edad < K.retiro) p = 0;
-        if (r() < p) { retiros.push({ j, club: c.nombre, edad }); M.retirados.push(Object.assign({ retiro: M.anio + 1, edad }, { n: j.n, carrera: j.carrera, pos: j.pos })); return false; }
+        if (r() < p) { retiros.push({ j, club: c.nombre, edad }); M.retirados.push(Object.assign({ retiro: M.anio + 1, edad }, { n: j.n, carrera: j.carrera, pos: j.pos, nac: j.nac, nacion: j.nacion, ultimo: c.nombre })); return false; }
         return true;
       });
       // El vestuario: un líder veterano tira de todos, un equipo que lleva años junto se entiende de memoria,
@@ -963,7 +963,7 @@
       j.niv -= edad > 28 ? 15 : 0;
       // Sin edad tope también aquí: un libre que sigue siendo bueno espera equipo; los demás lo van dejando.
       const p = j.niv >= 850 ? 0.05 : edad > 29 ? 0.6 : 0.3;
-      if (r() < p) { retiros.push({ j, club: 'sin club', edad }); M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos }); return false; }
+      if (r() < p) { retiros.push({ j, club: 'sin club', edad }); M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos, nac: j.nac, nacion: j.nacion }); return false; }
       return true;
     });
     return retiros;
@@ -1625,6 +1625,17 @@
       M.maestrosVistos.push(nombre);
       if (!M.parados.some((e) => e.nombre === nombre)) M.parados.push(ficha(nombre));
     });
+    // Las leyendas vuelven: una figura retirada en la partida aparece años después como entrenador (como mucho una nueva por verano).
+    M.exJugadoresDT = M.exJugadoresDT || [];
+    const leyenda = (M.retirados || []).filter((x) => !x.relleno && x.nac && anio - x.retiro >= 2 && anio - x.retiro <= 9 && !MAESTROS[x.n] && !Object.values(MAESTRO_JUGADOR).includes(x.n) && !M.exJugadoresDT.includes(x.n)
+      && Math.max(0, ...(x.carrera || []).map((t) => Motor.escala.mostrar(t.niv || 0))) >= 780 && (x.carrera || []).length >= 4)
+      .sort((a, b) => hashN(a.n + anio, 13) - hashN(b.n + anio, 13))[0];
+    if (leyenda && r() < 0.3) {
+      M.exJugadoresDT.push(leyenda.n);
+      const clubes = {}; leyenda.carrera.forEach((t) => { clubes[t.club] = (clubes[t.club] || 0) + 1; });
+      const casa = Object.keys(clubes).sort((a, b) => clubes[b] - clubes[a])[0];
+      M.parados.push({ nombre: leyenda.n, nac: leyenda.nac, nacion: leyenda.nacion, pais: leyenda.nacion, estilo: leyenda.pos === 'DEF' || leyenda.pos === 'POR' ? 'defensivo' : leyenda.pos === 'DEL' ? 'ofensivo' : 'equilibrado', desde: 1, hasta: 30, fijo: false, nota: null, exJugador: true, casa });
+    }
     const edadDe = (e) => { const n = parseInt(String(e.nac || (MAESTROS[e.nombre] ? MAESTROS[e.nombre][0] : '')).slice(0, 4), 10); return n ? anio - n : null; };
     const puestos = new Map();
     T.forEach((t) => { if (!t || !t.tabla) return; const esp = [...t.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio); t.tabla.forEach((x, i) => puestos.set(x.equipo, { puesto: i, esperado: esp.indexOf(x), n: t.tabla.length })); });
@@ -1659,7 +1670,7 @@
       const casa = (p) => (p === 'Escocia' || p === 'Gales' || p === 'Irlanda del Norte' ? 'Inglaterra' : p);
       const puedeIr = (x) => { const p = casa(x.nacion || x.pais); if (p === c.pais) return true; if (sudaca(p) !== sudaca(c.pais)) return ['Argentina'].includes(p) && !sudaca(c.pais) && c.pais !== 'Inglaterra' && maestro(x.nombre) > 0 && anio < 1996 ? true : false;
         if (c.pais === 'Inglaterra') return anio >= 1996; return anio >= 1990 || ['Hungría', 'Austria', 'Países Bajos', 'Yugoslavia'].includes(p); };
-      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => maestro(b.nombre) - maestro(a.nombre) || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
+      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
       let nuevo = libres[0], de = null;
       if (!nuevo && c.prestigio >= 820 && r() < 0.35) {
         const v = primera.filter((x) => x !== c && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2)
@@ -1670,7 +1681,7 @@
       const sale = e ? deja(c, 'relevo') : null;
       M.parados = M.parados.filter((x) => x.nombre !== nuevo.nombre);
       c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
-      log.push({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' });
+      log.push(Object.assign({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' }, nuevo.exJugador ? { leyenda: true, casa: nuevo.casa === c.nombre } : {}));
     });
     M.banquillosVerano = log;
   }
