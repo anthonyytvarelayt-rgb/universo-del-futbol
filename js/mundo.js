@@ -1114,7 +1114,9 @@
     const jugo = new Map();
     if (M.historia.length) M.historia[M.historia.length - 1].G.forEach((x) => jugo.set(x.j, x.pj));
     // El de «su club de siempre» no se mueve en cuanto lleva tres años; el que quiere jugar se va si no juega.
-    const atado = (j, v) => deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3;
+    // El que acaba de llegar no se vuelve a ir al verano siguiente (Thuram y Vieri un año en el Bayern), salvo que no juegue o haya lío.
+    const recienLlegado = (j, v) => v.division === 1 && aniosEn(j, v) === 1 && j.carrera.length > 1 && !sinMinutos(j) && !lios.has(j);
+    const atado = (j, v) => (deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
     M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15) lios.add(j); }); });

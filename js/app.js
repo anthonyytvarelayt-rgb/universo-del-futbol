@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 54, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 55, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1163,9 +1163,17 @@ function figurasHtml(V, pais) {
 }
 
 // El once de la temporada: 1-4-3-3 por nota, mínimo 15 partidos.
+// El once ideal: los de mejor nota en cada puesto, con cuatro de un mismo club como mucho (si no, el campeón lo copaba entero).
+function onceDe(G) {
+  const cupo = { POR: 1, DEF: 4, MED: 3, DEL: 3 }, O = { POR: [], DEF: [], MED: [], DEL: [] }, porClub = {};
+  G.filter((x) => x.pj >= 15 && cupo[x.pos]).sort((a, b) => b.notaTemp - a.notaTemp).forEach((x) => {
+    if (O[x.pos].length >= cupo[x.pos] || (porClub[x.club] || 0) >= 4) return;
+    O[x.pos].push(x); porClub[x.club] = (porClub[x.club] || 0) + 1;
+  });
+  return O;
+}
 function onceIdeal(G, titulo) {
-  const usados = new Set(), coge = (pos, n) => G.filter((x) => x.pos === pos && x.pj >= 15 && !usados.has(x)).sort((a, b) => b.notaTemp - a.notaTemp).slice(0, n).map((x) => (usados.add(x), x));
-  const lineas = [coge('DEL', 3), coge('MED', 3), coge('DEF', 4), coge('POR', 1)];
+  const O = onceDe(G), lineas = [O.DEL, O.MED, O.DEF, O.POR];
   if (!lineas[3].length) return '';
   const chip = (x) => `<button type="button" class="en-campo" data-j="${esc(x.nombre)}"><b>${esc(corto(x.nombre))}</b><small>${esc(x.club)} · ${x.notaTemp.toFixed(1).replace('.', ',')}</small></button>`;
   return `<span class="rotulo">${esc(titulo)}</span><div class="campo">${lineas.map((l) => `<div class="linea">${l.map(chip).join('')}</div>`).join('')}</div>`;
@@ -1189,10 +1197,13 @@ function noticiasDT(V) {
       const n = sinApodo(o.entrenador), c = o.club, tit = titulos(c), liga = o.puesto === 1, h = [...(n + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7);
       const rival = (V.objetivos.filter((x) => x.pais === o.pais && x.club !== c).sort((a, b) => b.prestigio - a.prestigio)[0] || {}).club;
       if (don === 'special') {
-        const [t, x] = POLEMICAS[h % POLEMICAS.length](n, c, rival);
+        // Sin títulos todavía, la frase de «soy especial» no toca: primero gana, luego presume.
+        const gano = liga || tit.length || temporadas().some((T) => T !== V && cerradaV(T) && T.anio < V.anio && (T.objetivos || []).some((p) => p.entrenador === o.entrenador && (p.puesto === 1 || T.europa === p.club)));
+        const lista = gano ? POLEMICAS : POLEMICAS.filter((_, i) => i !== 1);
+        const [t, x] = lista[h % lista.length](n, c, rival);
         out.push({ rot: 'Polémica', tit: esc(t), txt: esc(x) + (liga || tit.length ? ` Y encima gana: ${esc([liga ? 'la liga' : ''].concat(tit).filter(Boolean).join(', '))}.` : '') });
       } else if (don === 'tactico' && liga) out.push({ rot: 'La pizarra', tit: `${esc(n)} da otra lección táctica`, txt: `El ${esc(c)} gana la liga jugando a lo que quiere su entrenador${tit.length ? `, y suma ${esc(tit.join(', '))}` : ''}. Media Europa copia ya sus dibujos.` });
-      else if (don === 'resucita' && (o.balance === 'superado' || liga || tit.length) && o.esperado >= 2) out.push({ rot: 'Resurrección', tit: `${esc(n)} ha revivido al ${esc(c)}`, txt: `Se le esperaba ${o.esperado}.º y acaba ${o.puesto}.º${tit.length ? `, con ${esc(tit.join(', '))} en la vitrina` : ''}. Donde llega, el equipo vuelve a creer.` });
+      else if (don === 'resucita' && (o.puesto < o.esperado || (tit.length && o.puesto <= o.esperado)) && o.esperado >= 2) out.push({ rot: 'Resurrección', tit: `${esc(n)} ha revivido al ${esc(c)}`, txt: `${o.puesto < o.esperado ? `Se le esperaba ${o.esperado}.º y acaba ${o.puesto}.º${tit.length ? `, con ${esc(tit.join(', '))} en la vitrina` : ''}` : `Acaba ${o.puesto}.º y mete ${esc(tit.join(', '))} en la vitrina`}. Donde llega, el equipo vuelve a creer.` });
       else if (don === 'orejona' && V.europa === c) out.push({ rot: 'Rey de Europa', tit: `${esc(n)} y la Copa de Europa: otra vez`, txt: `El ${esc(c)} es campeón de Europa. Con él en el banquillo, estas noches siempre caen del mismo lado.` });
       else if (don === 'muro' && (o.balance === 'superado' || liga) && o.esperado >= 3) out.push({ rot: 'Partido a partido', tit: `El ${esc(c)} de ${esc(n)} tumba a los gigantes`, txt: `Con menos nombre que sus rivales acaba ${o.puesto}.º. Nadie quiere jugar contra ellos.` });
       else if (don === 'loco' && o.aniosDT === 0 && o.balance === 'superado') out.push({ rot: 'Locura', tit: `El ${esc(c)} de ${esc(n)} enamora`, txt: 'Presión a todo el campo y ataque sin freno en su primer año. La duda de siempre: cuánto aguantarán las piernas.' });
@@ -1277,6 +1288,14 @@ function copiarResumen(btn) {
   intento(() => {
     sec('🏆 COPAS INTERNACIONALES');
     if (V.europa) out.push(`• ${nombreEuropa(V)}: ${V.europa}${final(V.R.EU)}${EUROPA_REAL[V.anio] && EUROPA_REAL[V.anio] !== V.europa ? ` · de verdad la ganó ${EUROPA_REAL[V.anio]}` : ''}`);
+    intento(() => { const ro = V.R.EU.rondas, fin = ro[ro.length - 1].cruces[0], sf = ro[ro.length - 2].cruces.flatMap((x) => [x.a, x.b]).filter((x) => x && x !== fin.a && x !== fin.b); if (sf.length) out.push(`   Cayeron en semifinales: ${sf.join(' y ')}`); });
+    intento(() => { const ro = V.R.EU.rondas; if (ro.length < 3) return; const sm = new Set(ro[ro.length - 2].cruces.flatMap((x) => [x.a, x.b])), cu = ro[ro.length - 3].cruces.flatMap((x) => [x.a, x.b]).filter((x) => x && !sm.has(x)); if (cu.length && cu.length <= 4) out.push(`   Cayeron en cuartos: ${cu.join(', ')}`); });
+    intento(() => {
+      const g = new Map();
+      V.R.EU.rondas.forEach((ro) => ro.cruces.forEach((c) => (c.partidos || []).forEach((m) => (m.eventos || []).forEach((e) => { if (e.tipo !== 'gol' && e.tipo !== 'pen') return; const club = e.lado === 0 ? m.local : m.visita, kk = e.quien + '|' + club; g.set(kk, { n: e.quien, club, g: (g.get(kk) || { g: 0 }).g + 1 }); }))));
+      const xs = [...g.values()].sort((x, y) => y.g - x.g).slice(0, 3); if (xs.length) out.push(`   Goleadores: ${xs.map((x) => `${x.n} (${x.club}), ${x.g}`).join(' · ')}`);
+    });
+    intento(() => { const ant = temporadas().filter((T) => cerradaV(T) && T.anio === V.anio - 1)[0]; if (!ant || !ant.europa || ant.europa === V.europa) return; const ro = V.R.EU.rondas, k = ro.map((x) => x.cruces.some((c) => c.a === ant.europa || c.b === ant.europa)).lastIndexOf(true); out.push(`   El campeón del año pasado (${ant.europa}): ${k < 0 ? 'no la jugó' : k === ro.length - 1 ? 'perdió la final' : k === ro.length - 2 ? 'cayó en semifinales' : k === ro.length - 3 ? 'cayó en cuartos' : 'cayó pronto'}`); });
     OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id)) out.push(`• ${otraCopa(V, id).nombre}: ${campeonOtra(V, id)}${final(otraCopa(V, id))}`); });
   });
   intento(() => { const ps = plenosDe(V); if (ps.length) { sec('👑 LO GANARON TODO'); ps.forEach((x) => out.push(`• ${x.nombre.toUpperCase()} del ${x.club}: ${x.t.join(', ')}`)); } });
@@ -1291,11 +1310,13 @@ function copiarResumen(btn) {
     sec('🏟️ LIGAS');
     paisesDe(V).forEach((pais) => {
       const c = campeonDe(V, pais), pr = premiosDe(V, pais), quien = c.campeon || c.campeones.map((x) => x.club).join(' y '); if (!quien) return;
-      out.push(`• ${pais.toUpperCase()}: campeón ${quien}${c.sub ? `, segundo ${c.sub}` : ''}`);
+      const dt = c.campeon && ((V.objetivos || []).find((o) => o.club === c.campeon && o.pais === pais) || {}).entrenador;
+      out.push(`• ${pais.toUpperCase()}: campeón ${quien}${dt ? ` (entrenador: ${sinApodo(dt)})` : ''}${c.sub ? `, segundo ${c.sub}` : ''}`);
       intento(() => { const top = ligasDe(V, pais).filter((l) => l.nivel === 1); if (top.length === 1 && top[0].T) out.push(`   Tabla: ${top[0].T.tabla.slice(0, 6).map((t, i) => `${i + 1}. ${t.nombre} (${t.pts})`).join(', ')}`); });
       intento(() => { const C = copaDe(V, pais); if (C && C.campeon) out.push(`   ${C.nombre}: ${C.campeon}${final(C)}`); });
       intento(() => { const SC = supercopasDe(V).find((x) => x.pais === pais); if (SC) out.push(`   ${SC.nombre}: ${SC.campeon}${final(SC)}`); });
       if (pr.pichichi) out.push(`   Goleador: ${pr.pichichi.nombre} (${pr.pichichi.club}), ${pr.pichichi.g} goles`);
+      intento(() => { const mj = figurasDe(V, pais).filter((x) => x.pj >= 15).sort((x, y) => y.notaTemp - x.notaTemp)[0]; if (mj) out.push(`   Mejor jugador de la liga: ${mj.nombre} (${mj.club}), nota ${mj.notaTemp.toFixed(2)}`); });
       if (pr.zamora && pr.zamora.nombre) out.push(`   Mejor portero: ${pr.zamora.nombre} (${pr.zamora.club})`);
       intento(() => { const a = ascensosDe(V, pais); if (a.suben.length) out.push(`   Suben: ${a.suben.join(', ')}`); if (a.bajan.length) out.push(`   Bajan: ${a.bajan.join(', ')}`); });
     });
@@ -1310,11 +1331,29 @@ function copiarResumen(btn) {
     if (pm.portero) out.push(`• Mejor portero: ${pm.portero.nombre} (${pm.portero.club})`);
     if (pm.revelacion) out.push(`• Revelación (21 años o menos): ${pm.revelacion.nombre} (${pm.revelacion.club})`);
     intento(() => { const t = entrenadorDelAnio(V); if (t) out.push(`• Entrenador del año: ${sinApodo(t.nombre)} (${t.club}): ${t.meritos.join(', ')}`); });
-    const G = figurasDe(V), usados = new Set(), coge = (pos, n) => G.filter((x) => x.pos === pos && x.pj >= 15 && !usados.has(x)).sort((a, b) => b.notaTemp - a.notaTemp).slice(0, n).map((x) => (usados.add(x), `${x.nombre} (${x.club})`));
-    const once = [coge('POR', 1), coge('DEF', 4), coge('MED', 3), coge('DEL', 3)];
+    const G = figurasDe(V), O = onceDe(G), once = ['POR', 'DEF', 'MED', 'DEL'].map((p) => O[p].map((x) => `${x.nombre} (${x.club})`));
     if (once[0].length) out.push(`• Once ideal: ${once.map((l) => l.join(', ')).join(' / ')}`);
     const top = G.filter((x) => x.pj >= 15).sort((a, b) => b.notaTemp - a.notaTemp).slice(0, 5);
     if (top.length) out.push(`• Los 5 mejores del año: ${top.map((x) => `${x.nombre} ${x.notaTemp.toFixed(2).replace('.', ',')}`).join(', ')}`);
+  });
+  // Los mejores del mundo por nivel (no por la nota del año): para saber dónde anda cada crack.
+  intento(() => {
+    const xs = figurasDe(V).map((x) => { const t = ((x.j && x.j.carrera) || []).find((c) => c.temporada === V.temporada), niv = (t && t.niv) || (x.j && x.j.niv); return niv && !x.j.relleno ? { x, niv, t: { pj: x.pj, g: x.g, a: x.a, nota: x.notaTemp } } : null; }).filter(Boolean).sort((a, b) => b.niv - a.niv).slice(0, 15);
+    if (!xs.length) return;
+    sec('🌟 LOS 15 MEJORES DEL MUNDO (POR NIVEL)');
+    xs.forEach(({ x, niv, t }, i) => out.push(`${i + 1}. ${x.nombre} (${x.club}${x.j.nac ? `, ${V.anio + 1 - +String(x.j.nac).slice(0, 4)} años` : ''}): nivel ${nivel(niv)} · ${t.pj} partidos, ${t.g} goles${t.a ? `, ${t.a} asistencias` : ''}${t.nota ? `, nota ${Number(t.nota).toFixed(2)}` : ''}`));
+  });
+  // Lo acumulado en la partida: quién lleva más Copas de Europa y Balones de Oro, y las rachas de liga vivas.
+  intento(() => {
+    const ts = temporadas().filter((T) => cerradaV(T) && T.anio <= V.anio).sort((a, b) => a.anio - b.anio); if (ts.length < 2) return;
+    const cuenta = (xs) => { const m = new Map(); xs.filter(Boolean).forEach((x) => m.set(x, (m.get(x) || 0) + 1)); return [...m.entries()].sort((a, b) => b[1] - a[1]); };
+    const lineas = [];
+    const eu = cuenta(ts.map((T) => T.europa)).slice(0, 6); if (eu.length) lineas.push(`• ${nombreEuropa(V)} (desde ${ts[0].temporada}): ${eu.map(([c, n]) => `${c} ${n}`).join(', ')}`);
+    const bo = cuenta(ts.map((T) => { const g = premiosMundo(T).ganadorMejor; return g && g.nombre; })).slice(0, 6); if (bo.length) lineas.push(`• ${pm.nombreMejor || 'Mejor jugador'}: ${bo.map(([c, n]) => `${c} ${n}`).join(', ')}`);
+    const rachas = [];
+    paisesDe(V).forEach((pais) => { const c = campeonDe(V, pais).campeon; if (!c) return; let n = 0; for (let i = ts.length - 1; i >= 0 && campeonDe(ts[i], pais).campeon === c; i--) n++; if (n >= 2) rachas.push(`${c} ${n} ligas seguidas`); const tot = cuenta(ts.map((T) => campeonDe(T, pais).campeon)).slice(0, 3); if (tot.length) lineas.push(`• Ligas de ${pais}: ${tot.map(([k, m]) => `${k} ${m}`).join(', ')}`); });
+    if (rachas.length) lineas.unshift(`• Rachas vivas: ${rachas.join(', ')}`);
+    if (lineas.length) { sec('📜 PALMARÉS DE LA PARTIDA HASTA HOY'); lineas.forEach((l) => out.push(l)); }
   });
   // Directivas: quién cumplió y quién fracasó.
   intento(() => {
@@ -2366,7 +2405,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 54) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 55) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
