@@ -1,0 +1,6 @@
+bien: 254 identidades exactas; 270 filas anteriores intactas
+bien: 234 máximos suben y 20 se mantienen; ninguna bajada
+bien: 26 ausentes y 13 omitidos aparte; ningún aviso de nivel sin jugador
+bien: los 40390 jugadores conservan sus demás datos; clubes, ligas y js/ intactos
+bien: atributos del top 60 completos; 22 perfiles conservados y 38 nuevos, todos con jugador
+bien: se mantienen los 2 avisos de atributos anteriores; ninguno nuevo

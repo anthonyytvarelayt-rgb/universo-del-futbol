@@ -1,0 +1,14 @@
+pais,nombre,anio,nivel_actual,nivel_valorado,motivo
+Brasil,Zico,1953,810,800,Se conserva el nivel superior existente; no se añade
+Brasil,Romário,1966,810,800,Se conserva el nivel superior existente; no se añade
+Brasil,Ronaldo,1976,900,850,Se conserva el nivel superior existente; no se añade
+Brasil,Cafú,1970,770,740,Se conserva el nivel superior existente; no se añade
+Brasil,Roberto Carlos,1973,770,740,Se conserva el nivel superior existente; no se añade
+Argentina,Diego Maradona,1960,950,920,Se conserva el nivel superior existente; no se añade
+Argentina,Osvaldo Ardiles,1952,725,710,Ya está en niveles_figuras.csv
+Francia,Zinedine Zidane,1972,880,800,Se conserva el nivel superior existente; no se añade
+Países Bajos,Marco van Basten,1964,840,800,Se conserva el nivel superior existente; no se añade
+Portugal,Luis Figo,1972,781,780,Se conserva el nivel superior existente; no se añade
+Bulgaria,Hristo Stoichkov,1966,781,780,Se conserva el nivel superior existente; no se añade
+Liberia,George Weah,1966,781,780,Se conserva el nivel superior existente; no se añade
+Uruguay,Rubén Sosa (1966),1966,544,700,Presente con sufijo; el generador aplica niveles antes de desambiguar nombres. Se deja aparte para no confundirlo con Rubén Sosa (1940)
