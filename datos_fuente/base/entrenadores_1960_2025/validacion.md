@@ -1,53 +1,61 @@
-# Validación de la entrega
+# Validación de la ampliación
 
-Base de revisión: `1c999ae` de `main`. Comprobaciones ejecutadas el 13 de noviembre de 2026, después del último montaje de los datos.
+Base de revisión: **ae33cb6** de `main`, que ya incluye la primera entrega. Comprobaciones ejecutadas el 13 de noviembre de 2026, tras montar los datos de esta ampliación.
 
 | Comprobación | Resultado |
 |---|---|
-| `python3 herramientas/base.py` | Código 0; 5.704 intervalos de entrenadores compilados |
-| `python3 herramientas/entrenadores.py` | Código 0; 8.942/10.320 documentados, 1.378 huecos y 95 entradas con metadatos incompletos |
+| `python3 herramientas/base.py` | Código 0; 5917 intervalos de entrenadores compilados |
+| `python3 herramientas/entrenadores.py` | Código 0; 9.138/10.320 documentados, 1.182 huecos y 142 entradas con metadatos incompletos |
 | `node pruebas/auditoria.js` | Código 0; «todo bien», incluidas Eurocopa y Copa América |
 | `node pruebas/famosos.js` | Código 0; 113 bien, 0 mal, 0 no están |
 | `node pruebas/partida.js 2000 12 7` | Código 0; doce temporadas completadas |
+| Inicios reales con `Mundo.desdeBase` | Trece comprobaciones de nombre y nacimiento, desde 1961 hasta 2025; todas pasan |
 | Repetir `--montar` | Mismo SHA-256 de `entrenadores.csv` antes y después |
-| Comparar el JSON anterior con el nuevo | Solo cambia la clave `entrenadores` |
-| Expandir los intervalos de origen por año y comparar fuera del encargo | Mismos registros y campos originales, incluidos 1958–59 |
+| Comparar el JSON con ae33cb6 | Solo cambia la clave `entrenadores`; ligas, clubes, jugadores y años idénticos |
+| Expandir los intervalos de origen y comparar fuera del encargo | Mismos registros y campos originales; conservados 293 intervalos exteriores, incluidos relevos de 1958–59 |
 | `git diff --check` | Sin errores |
-| Diferencias en `js/` | Ninguna; versión de guardado intacta |
+| Diferencias en `js/` frente a ae33cb6 | Ninguna; versión de guardado intacta |
 
 ## Salida de la partida pedida
 
 ```text
-Mundial 2002: Francia (final ante España), goleador Ronaldo con 7
-Mundial 2006: Francia (final ante Brasil), goleador Cristiano Ronaldo con 7
-Mundial 2010: Argentina (final ante Brasil), goleador Alberto Gilardino con 8
-Ligas de España: Real Madrid 8, Barcelona 4
-Copas de Europa: Real Madrid 5, Mónaco 2, Roma 1, Bayern Múnich 1, Inter 1, Lyon 1, Sporting de Portugal 1
+Mundial 2002: Brasil (final ante Italia), goleador Raúl con 7
+Mundial 2006: Italia (final ante España), goleador Michael Owen con 7
+Mundial 2010: Argentina (final ante Uruguay), goleador Cristiano Ronaldo con 7
+Ligas de España: Barcelona 7, Real Madrid 5
+Copas de Europa: Juventus 4, Real Madrid 4, Bayern Múnich 1, Liverpool 1, Barcelona 1, Manchester United 1
 ```
 
-## Arsenal: integración comprobada con main
+Estos son resultados observados de la semilla solicitada; no se fuerza ningún campeón mediante los CSV de entrenadores. Al cambiar los datos puede cambiar el resultado de una partida reconstruida. La versión de guardado debe coordinarla Claude antes de publicar.
 
-Claude separó las identidades en `main` 1c999ae durante la preparación de la entrega. Se actualizó la rama y se regeneró la base para conservar ese cambio. Los nombres de entrada de los CSV se normalizan por país; no se modifica `js/`.
+## Integración de nombres y nacimientos
 
-```sh
-node - <<'JS'
-const { Mundo, BASE } = require('./pruebas/cargar.js');
-const d = Mundo.desdeBase(BASE, 2015);
-for (const p of d.paises)
-  for (const div of p.divisiones)
-    for (const c of div.clubes)
-      if (c.nombre === 'Arsenal' || c.nombre === 'Arsenal de Sarandí')
-        console.log(p.pais, c.nombre, c.entrenadores.map(t => t.nombre).join(' / '));
-JS
-```
-
-Salida comprobada:
+Se cargó la base mediante el mismo cargador de las pruebas (`pruebas/cargar.js`), se creó cada inicio con `Mundo.desdeBase(BASE, año)` y se comprobó con `assert.equal` el nombre y el nacimiento del primer entrenador de los trece clubes siguientes:
 
 ```text
-Inglaterra Arsenal Arsène Wenger
-Argentina Arsenal de Sarandí Martín Palermo
+1961 Portugal: Académica → Alberto Gomes (1915)
+1969 Inglaterra: Manchester United → Wilf McGuinness (1937)
+1982 Portugal: Sporting de Portugal → António Oliveira (1952)
+1988 Italia: Sampdoria → Vujadin Boškov (1931)
+1998 Italia: Fiorentina → Giovanni Trapattoni (1939)
+2011 España: Atlético Madrid → Gregorio Manzano (1956)
+2011 Italia: Inter → Gian Piero Gasperini (1958)
+2015 Inglaterra: Arsenal → Arsène Wenger (1949)
+2015 Argentina: Arsenal de Sarandí → Martín Palermo (1973)
+2021 Brasil: Santos → Marcelo Fernandes (1971)
+2022 Brasil: Cuiabá → Luiz Fernando Iubel (1989)
+2024 Brasil: Cuiabá → António Oliveira (1982)
+2025 Brasil: Sport → Pepa (1980)
 ```
 
-El comprobador verifica también que cada fila de entrenadores se monta bajo el nombre y país correctos. Las 86 asignaciones de ambos clubes quedan en `identidades_verificadas.csv`.
+La prueba distingue la primera jornada cronológica de la numerada como 1 en los cursos con huelga, y no traslada el nacimiento de António Oliveira de 1952 al de 1982. También conserva la separación de los dos Arsenal publicada en `main`.
 
-El PR sigue en borrador por su cobertura histórica parcial. Tampoco se declaran jugables las tres ligas de 2025–26 que faltan en los datos de competiciones, aunque sus 54 técnicos ya se entregan.
+`herramientas/entrenadores.py` valida además los homónimos de Riopele 1977, Nacional 1989 y Feirense 1977, cuyos nacimientos se dejan vacíos; la identidad de Alberto Gomes de Académica 1961; las direcciones compartidas sin nombres compuestos ficticios; y las correspondencias entre fuente, CSV montado y archivo compilado. El control de edad aparta fichas menores de 22 años hasta corroborar una eventual excepción; cinco asignaciones argentinas se retiraron por identidad o rol sin confirmar. La nacionalidad de João Pedro Sousa se comprueba como portuguesa, sin deducirla de su nacimiento en Luanda. No consulta la red.
+
+## Alcance
+
+Las pruebas comprueban la integridad de la compilación y que el juego sigue ejecutándose. **No certifican la exactitud histórica de cada fuente**. Los 1.182 huecos, 142 filas personales incompletas y 269 diferencias del contraste BDFutbol se conservan explícitos. De esas diferencias, muchas son nominales, de licencia, de fecha o de dirección compartida; no se presentan como errores confirmados.
+
+Portugal está documentado desde 1970 y Brasil desde 2020 dentro del universo del archivo. No se declaran jugables las tres ligas de 2025–26 que faltan en `ligas.csv`, aunque se entregan sus 54 entrenadores. Las 31 discrepancias de participantes portugueses de los años sesenta se documentan sin modificar competiciones.
+
+La ampliación se entrega en borrador y no se presenta como cobertura histórica completa.

@@ -110,10 +110,12 @@ def comprobar(inicios, huecos, todos):
     for f in inicios:
         assert (f['pais'], club_compilado(f)) in clubes, f'Club desconocido: {clave(f)}'
         assert f['fuente'].startswith('https://'), f'Sin fuente: {clave(f)}'
-        assert f['nombre'].strip() == f['nombre'] and not re.search(r'\d| / | - ', f['nombre']), f
+        assert f['nombre'].strip() == f['nombre'] and not re.search(r'\d| / | - | & |[()“”"]', f['nombre']), f
         if f['nacimiento']:
             assert re.fullmatch(r'\d{4}', f['nacimiento']), f
-            assert 15 <= int(f['temporada']) - int(f['nacimiento']) <= 100, f
+            # Detecta fichas de jugadores/auxiliares enlazadas a históricos de Primera.
+            # Un caso excepcional más joven necesita comprobarse antes de montarlo.
+            assert 22 <= int(f['temporada']) - int(f['nacimiento']) <= 100, f
         m = maestros.get(normalizar(f['nombre']))
         if m:
             assert f['nombre'] == m[0], f'Nombre distinto de MAESTROS: {f["nombre"]}'
@@ -142,9 +144,35 @@ def comprobar(inicios, huecos, todos):
              ('Argentina', 'Arsenal', 2015): 'Martín Palermo',
              ('Inglaterra', 'Arsenal', 2015): 'Arsène Wenger',
              ('Brasil', 'Flamengo', 2020): 'Jorge Jesus',
-             ('Portugal', 'Belenenses', 2018): 'Silas'}
+             ('Portugal', 'Belenenses', 2018): 'Silas',
+             ('Inglaterra', 'Manchester United', 1969): 'Wilf McGuinness',
+             ('España', 'Atlético Madrid', 2011): 'Gregorio Manzano',
+             ('Italia', 'Inter', 2011): 'Gian Piero Gasperini',
+             ('Italia', 'Sampdoria', 1988): 'Vujadin Boškov',
+             ('Italia', 'Fiorentina', 1998): 'Giovanni Trapattoni',
+             ('España', 'Real Betis', 2017): 'Quique Setién',
+             ('Portugal', 'Sporting de Portugal', 1982): 'António Oliveira',
+             ('Portugal', 'Famalicão', 2019): 'João Pedro Sousa',
+             ('Brasil', 'Corinthians', 2023): 'Fernando Lázaro',
+             ('Brasil', 'Cuiabá', 2022): 'Luiz Fernando Iubel',
+             ('Brasil', 'Santos', 2021): 'Marcelo Fernandes',
+             ('Brasil', 'Sport', 2025): 'Pepa',
+             ('Argentina', 'Gimnasia y Esgrima La Plata', 2021): 'Leandro Martini'}
     for k, nombre in casos.items():
         assert [r['nombre'] for r in indice[k]] == [nombre], (k, nombre)
+    # Homónimos: un nombre corto no basta para trasladar datos personales.
+    for k, nacimiento in {('Portugal', 'Académica', 1961): '1915',
+                          ('Portugal', 'Belenenses', 1981): '1946',
+                          ('Portugal', 'Sporting de Portugal', 1982): '1952',
+                          ('Brasil', 'Cuiabá', 2024): '1982',
+                          ('Portugal', 'Riopele', 1977): '',
+                          ('Portugal', 'Nacional', 1989): '',
+                          ('Portugal', 'Feirense', 1977): ''}.items():
+        assert [r['nacimiento'] for r in indice[k]] == [nacimiento], (k, nacimiento)
+    # Nacer en otro país no implica tener esa nacionalidad.
+    for k in [('Portugal', 'Famalicão', 2019), ('Portugal', 'Boavista', 1989),
+              ('Portugal', 'Espinho', 1988)]:
+        assert [r['nacionalidad'] for r in indice[k]] == ['Portugal'], k
     # Comprueba también que base.py trasladó los nombres, fechas y rasgos.
     compilados = {(r['pais'], r['club'], r['desde'], r['hasta'], r['nombre']): r for r in base['entrenadores']}
     for f in leer(BASE / 'entrenadores.csv'):
