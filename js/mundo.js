@@ -1194,7 +1194,8 @@
   }
   function mercado(M, r) {
     const nuevoAnio = M.anio + 1;
-    const log = [];
+    const log = [], culebrones = [];
+    log.culebrones = culebrones;
     const porNombre = new Map(M.clubes.map((c) => [c.nombre, c]));
     const mover = (j, de, a, tipo, motivo) => {
       de.jugadores = de.jugadores.filter((x) => x !== j);
@@ -1239,7 +1240,7 @@
     const atado = (j, v) => emblema(j, v) || (deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
-    M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15) lios.add(j); }); });
+    M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (j.choque === M.anio || (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15)) lios.add(j); }); });
     // Una figura que sobra en su puesto (el cuarto delantero de nivel, el segundo portero de nivel) también quiere irse a jugar.
     const clubDe = new Map(); M.clubes.forEach((c) => c.jugadores.forEach((j) => clubDe.set(j, c)));
     const sobra = (j) => { const c = clubDe.get(j); if (!c || j.relleno || Motor.escala.mostrar(j.niv) < 650 || nuevoAnio - anioNac(j) < 23) return false;
@@ -1427,6 +1428,9 @@
             + (quiere === 'titulos' ? 1.5 * (fuerzas.get(c) - (fuerzas.get(v) || 0)) : quiere === 'dinero' ? 25 * Math.log(presupuesto(c, nuevoAnio) / Math.max(1, masa(c))) + 0.2 * (c.prestigio - 700) : quiere === 'reto' && c.pais !== v.pais ? 60 : 0) })).sort((a, b) => b.gana - a.gana);
         if (!destinos.length) return;
         const c = destinos[0].c;
+        // Culebrones: el fichaje que se cae a última hora y la puja entre dos grandes.
+        if (c.prestigio >= 760 && Motor.escala.mostrar(j.niv) >= 740 && r() < 0.1) { culebrones.push({ tipo: 'caido', jugador: j.n, de: v.nombre, a: c.nombre, niv: Math.round(j.niv) }); return; }
+        if (destinos[1] && destinos[1].c.prestigio >= 760 && destinos[0].gana - destinos[1].gana < 70 && Motor.escala.mostrar(j.niv) >= 770) culebrones.push({ tipo: 'puja', jugador: j.n, de: v.nombre, a: c.nombre, pierde: destinos[1].c.nombre, niv: Math.round(j.niv) });
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
         mover(j, v, c, 'fichaje', lios.has(j) ? 'lio' : quiere === 'titulos' || quiere === 'dinero' || quiere === 'reto' ? quiere : undefined);
       });
@@ -1512,6 +1516,13 @@
           return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.3 + 0.4 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * apego * calma * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
         });
         if (!elegido) continue;
+        // Culebrones: el fichaje de una figura que se cae a última hora, o la puja de otro grande que se queda con las ganas.
+        const sonado = !elegido.j.relleno && comprador.prestigio >= 720 && Motor.escala.mostrar(elegido.j.niv) >= 660;
+        if (sonado && r() < 0.07) { fichados.add(elegido.j); culebrones.push({ tipo: 'caido', jugador: elegido.j.n, de: elegido.v.nombre, a: comprador.nombre, niv: Math.round(elegido.j.niv) }); continue; }
+        if (sonado && Motor.escala.mostrar(elegido.j.niv) >= 700) {
+          const otro = [...fuerzas.keys()].filter((c) => c !== comprador && c !== elegido.v && c.prestigio >= 760 && puedePagar(c, elegido.j)).sort((x, y) => y.prestigio - x.prestigio)[0];
+          if (otro && r() < 0.35) culebrones.push({ tipo: 'puja', jugador: elegido.j.n, de: elegido.v.nombre, a: comprador.nombre, pierde: otro.nombre, niv: Math.round(elegido.j.niv) });
+        }
         if (elegido.j.niv >= tercera.get(elegido.v)) figuras++;
         fichados.add(elegido.j);
         ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
@@ -1813,6 +1824,18 @@
       // Nadie es eterno salvo los de la dinastía: pasados siete años, el propio técnico decide un día cerrar su etapa (aunque le vaya bien).
       if (e.anios >= 7 && ganado < 5 && r() < 0.1 + 0.03 * (e.anios - 7)) { log.push({ club: c.nombre, sale: deja(c, 'cierra su etapa'), motivo: `cierra su etapa tras ${e.anios} años`, anios: e.anios, adios: true }); return; }
       if (ganado) return;
+      // Vestuario: en un mal año, la estrella con carácter choca con el técnico. Si la estrella pesa mucho más, cae el técnico;
+      // si no, la estrella acaba saliendo en verano. Un líder en la plantilla lo calma casi siempre.
+      if (c.balance === 'fracaso' && e.anios >= 1) {
+        const top = c.jugadores.filter((x) => !x.cedido && !x.relleno).sort((a, b) => b.niv - a.niv).slice(0, 4);
+        const est = top.find((x) => (caracterDe(x) === 'conflictivo' || caracterDe(x) === 'fiestero') && anio - anioNac(x) >= 22);
+        if (est && r() < (top.some((x) => caracterDe(x) === 'lider') ? 0.12 : 0.35)) {
+          const pesa = Motor.escala.mostrar(est.niv) >= 820 && maestro(e.nombre) < 3;
+          (M.vestuario = M.vestuario || []).push({ club: c.nombre, jugador: est.n, entrenador: e.nombre, gana: pesa ? 'jugador' : 'entrenador', niv: Math.round(est.niv), fiestero: caracterDe(est) === 'fiestero' });
+          if (pesa) { log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'perdió el vestuario', puesto: p ? p.puesto + 1 : null }); return; }
+          est.choque = M.anio;
+        }
+      }
       const aguante = Math.max(0.1, 1 - e.credito / 4) * ({ impaciente: 1.6, paciente: 0.55 }[estiloPresi(c, anio)] || 1);   // con un triplete reciente (crédito ~5) casi no hay despido posible
       if (e.anios >= 3 && c.balance !== 'superado' && r() < (0.12 + 0.07 * (e.anios - 3)) * aguante * (DESTINO_DT[e.nombre] === c.nombre ? 0.25 : 1)) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
       if (!p || p.puesto === 0) return;
@@ -2019,8 +2042,10 @@
     prestigio(M, R);
     // La directiva lo nota: superar el objetivo da nombre al club y fracasar se lo quita.
     M.clubes.forEach((c) => { if (c.balance === 'superado') c.prestigio = Math.min(1000, c.prestigio + 6); else if (c.balance === 'fracaso') c.prestigio = Math.max(250, c.prestigio - 6); });
+    M.vestuario = [];
     banquillos(M, R);
     resumen.banquillos = M.banquillosVerano || [];
+    resumen.vestuario = M.vestuario;
     resumen.retiros = envejecer(M, R, r);
     resumen.novedades = resumen.retiros.novedades;
     marcas(M, R, resumen.novedades);
@@ -2028,6 +2053,7 @@
     cuentas(M, R);
     resumen.escandalos = escandalos(M, R);
     resumen.mercado = mercado(M, r);
+    resumen.culebrones = resumen.mercado.culebrones || [];
     resumen.duenos = M.duenosNuevos || [];
     resumen.presidentes = M.presidentesNuevos || [];
     resumen.finanzas = M.clubes.filter((c) => c.division === 1 && c.finanzas).map((c) => Object.assign({ club: c.nombre, pais: c.pais, caja: redondo(c.caja), rescate: c.rescate === M.anio + 1 }, c.finanzas));

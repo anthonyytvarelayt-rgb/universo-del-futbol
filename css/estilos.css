@@ -632,3 +632,7 @@ button:disabled { cursor:default; }
 .linea-tiempo li > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
 .linea-tiempo li small { color: var(--gris); font-size: 12px; }
 .lt-anio { font-weight: 700; font-size: 13px; }
+/* Finales contadas */
+.relato ol { margin: 8px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.relato li { font-size: 14px; line-height: 1.35; }
+.relato li:last-child { font-weight: 700; list-style: none; margin-left: -18px; margin-top: 4px; }
