@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 45, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 46, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -625,8 +625,12 @@ function premiosMundo(V) {
   if (V.fuerza) paisesDe(V).forEach((p) => { const fs = ligasDe(V, p).filter((l) => l.nivel === 1).flatMap((l) => l.T.tabla.map((t) => V.fuerza[t.nombre] || 0)).sort((a, b) => b - a).slice(0, 4); if (fs.length) fuerzaLiga[p] = fs.reduce((a, b) => a + b, 0) / fs.length; });
   const mejorLiga = Math.max(0, ...Object.values(fuerzaLiga));
   const descuento = (x) => (fuerzaLiga[x.eq.pais] ? Math.min(0.6, Math.max(0, (mejorLiga - fuerzaLiga[x.eq.pais]) / 150)) : 0);
-  const merito = (x) => x.notaTemp - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x)
-    + peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
+  // Y la clase: el Balón de Oro va a un jugador grande de verdad. A igual temporada pesa quién es mejor, y los títulos
+  // cuentan menos para un jugador corriente del equipo campeón (antes lo ganaba un medio de 680 con seis goles).
+  const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
+  const clase = (x) => Math.max(-0.6, Math.min(0.6, (nivelEn(x) - 800) / 300)), talla = (x) => Math.max(0.3, Math.min(1, (nivelEn(x) - 620) / 230));
+  const merito = (x) => x.notaTemp + clase(x) + Math.min(0.3, (x.g || 0) / 200) - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x)
+    + talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
@@ -1153,7 +1157,7 @@ function noticiasDT(V) {
       const rival = (V.objetivos.filter((x) => x.pais === o.pais && x.club !== c).sort((a, b) => b.prestigio - a.prestigio)[0] || {}).club;
       if (don === 'special') {
         const [t, x] = POLEMICAS[h % POLEMICAS.length](n, c, rival);
-        out.push({ rot: 'Polémica', tit: esc(t), txt: esc(x) + (liga || tit.length ? ` Y encima gana: ${esc([liga ? 'la liga' : ''].concat(tit).filter(Boolean).join(', '))}.` : o.aniosDT >= 2 ? ' Es su tercer año en el club y el ambiente ya no se aguanta.' : '') });
+        out.push({ rot: 'Polémica', tit: esc(t), txt: esc(x) + (liga || tit.length ? ` Y encima gana: ${esc([liga ? 'la liga' : ''].concat(tit).filter(Boolean).join(', '))}.` : '') });
       } else if (don === 'tactico' && liga) out.push({ rot: 'La pizarra', tit: `${esc(n)} da otra lección táctica`, txt: `El ${esc(c)} gana la liga jugando a lo que quiere su entrenador${tit.length ? `, y suma ${esc(tit.join(', '))}` : ''}. Media Europa copia ya sus dibujos.` });
       else if (don === 'resucita' && (o.balance === 'superado' || liga || tit.length) && o.esperado >= 2) out.push({ rot: 'Resurrección', tit: `${esc(n)} ha revivido al ${esc(c)}`, txt: `Se le esperaba ${o.esperado}.º y acaba ${o.puesto}.º${tit.length ? `, con ${esc(tit.join(', '))} en la vitrina` : ''}. Donde llega, el equipo vuelve a creer.` });
       else if (don === 'orejona' && V.europa === c) out.push({ rot: 'Rey de Europa', tit: `${esc(n)} y la Copa de Europa: otra vez`, txt: `El ${esc(c)} es campeón de Europa. Con él en el banquillo, estas noches siempre caen del mismo lado.` });
@@ -2214,7 +2218,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 45) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 46) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

@@ -1503,7 +1503,7 @@
   const maestro = (nombre) => (MAESTROS[nombre] ? MAESTROS[nombre][2] : 0);
   // Constantes de entrenadores: lo que hace único a cada uno, pase lo que pase en la partida.
   const DONES_DT = {
-    special: 'Gana nada más llegar y arma polémica en cada competición; al tercer año todo estalla',
+    special: 'Gana allá donde va y arma polémica en cada competición',
     tactico: 'Monstruo táctico: su equipo domina la liga',
     resucita: 'Revive a cualquier equipo: cuanto más hundido está el club, más lo levanta',
     eterno: 'Dinastía: nadie lo echa y rehace el equipo una y otra vez',
@@ -1523,7 +1523,7 @@
   // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
   function extraDon(c, e) {
     const don = donDT(e.nombre), anios = e.anios || 0;
-    if (don === 'special') return anios <= 1 ? 14 : -8;
+    if (don === 'special') return 14;
     if (don === 'tactico') return 10;
     if (don === 'resucita') return c.prestigio < 700 ? 22 : c.prestigio < 820 ? 16 : 5;
     if (don === 'muro') return c.prestigio < 860 ? 13 : 3;
@@ -1576,8 +1576,6 @@
       const don = donDT(e.nombre);
       // El de la dinastía se queda hasta que él quiera (se jubila pasados los 70).
       if (don === 'eterno') { if (ed && ed >= 71 && r() < 0.5) log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
-      // The Special One: al tercer año, portazo casi seguro.
-      if (don === 'special' && e.anios >= 3 && r() < 0.75) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'sale entre polémicas' }); return; }
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
       const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
