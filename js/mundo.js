@@ -1134,7 +1134,15 @@
       return ns.find((k) => enMundial.has(k)) || ns[0];
     };
     const limpio = (n) => sinTildes(String(n).replace(/\s*\(.*\)\s*$/, ''));
+    const mismaPersona = (x, y) => {
+      const n = limpio(x.n), m = limpio(y.n);
+      return n === m || (Math.abs((y.nac || 0) - (x.nac || 0)) <= 1
+        && (m.endsWith(' ' + n) || n.endsWith(' ' + m) || m.split(' ').pop() === n.split(' ').pop()));
+    };
     const retirados = new Set(M.retirados.map((x) => limpio(x.n)));
+    const bajas = M.clubes.flatMap((c) => c.jugadores).filter(lesionado)
+      .map((j) => ({ n: j.n, nac: anioNac(j), seleccion: seleccionDe(j) }));
+    const nombresBajas = new Set(bajas.map((j) => limpio(j.n)));
     M.clubes.forEach((c) => c.jugadores.forEach((j) => {
       if (j.relleno || !j.nacion || lesionado(j)) return;
       const k = seleccionDe(j);
@@ -1143,6 +1151,7 @@
     }));
     const equipos = {};
     Object.entries(ed.equipos).forEach(([clave, E]) => {
+      const bajasSeleccion = bajas.filter((j) => j.seleccion === nacionClave(E.nombre));
       const mios = (porNacion.get(nacionClave(E.nombre)) || []).map(({ j, club }) => {
         const K = CONSTANTES[j.n];
         const ref = E.nombre + '|' + j.n;
@@ -1152,9 +1161,10 @@
           fin: Math.max(j.fin || 1, (K && K.mundial) || 0), rol: j.rol, gol: j.gol };
       });
       const nombres = new Set(mios.map((x) => limpio(x.n)));
-      const mismo = (x) => { const n = limpio(x.n); return nombres.has(n) || mios.some((y) => { const m = limpio(y.n); return Math.abs((y.nac || 0) - (x.nac || 0)) <= 1 && (m.endsWith(' ' + n) || n.endsWith(' ' + m) || m.split(' ').pop() === n.split(' ').pop()); }); };
-      // De la convocatoria real no vuelve quien ya se retiró en esta partida.
-      const todos = mios.concat(E.jugadores.filter((x) => !mismo(x) && !retirados.has(limpio(x.n))));
+      const mismo = (x) => nombres.has(limpio(x.n)) || mios.some((y) => mismaPersona(x, y));
+      // La lista histórica tampoco puede recuperar a un retirado o lesionado de la partida.
+      const todos = mios.concat(E.jugadores.filter((x) => !mismo(x) && !retirados.has(limpio(x.n))
+        && !nombresBajas.has(limpio(x.n)) && !bajasSeleccion.some((j) => mismaPersona(x, j))));
       const lista = [];
       ['POR', 'DEF', 'MED', 'DEL'].forEach((pos) => {
         const cupo = Math.max(pos === 'POR' ? 2 : 4, E.jugadores.filter((x) => x.pos === pos).length);
