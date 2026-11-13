@@ -605,3 +605,21 @@ button:disabled { cursor:default; }
   *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
 }
 @media(min-width:900px) { .navegar button { gap:8px; padding-inline:8px; font-size:14px; }.navegar button.nuevo::after { top:10px;right:8px;margin:0; } }
+/* Portada de la temporada */
+.portada { background: var(--p1); color: #fff; border-radius: 14px; padding: 18px 18px 16px; margin-bottom: 16px; box-shadow: inset 0 6px 0 var(--p2), 0 6px 18px rgba(0,0,0,.18); position: relative; overflow: hidden; }
+.portada::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(0,0,0,.05), rgba(0,0,0,.45)); pointer-events: none; }
+.portada > * { position: relative; z-index: 1; }
+.portada-cab { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; opacity: .85; }
+.portada h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(30px, 7vw, 56px); line-height: .98; margin: 10px 0 14px; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.portada-rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.portada-caja { background: rgba(0,0,0,.32); border-left: 4px solid var(--p2); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.portada-caja span { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+.portada-caja b { font-size: 15px; line-height: 1.2; overflow-wrap: anywhere; }
+.portada-caja b button, .portada-caja b .nombre { color: #fff; }
+.portada-caja small { font-size: 12px; opacity: .85; }
+.portada-guardar { margin-top: 12px; background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.35); }
+.portadas { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
+.portada-mini { background: var(--p1); color: #fff; border: 0; border-top: 4px solid var(--p2); border-radius: 8px; padding: 8px 10px; text-align: left; display: flex; flex-direction: column; gap: 3px; cursor: pointer; font: inherit; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.portada-mini span { font-size: 11px; font-weight: 700; opacity: .85; }
+.portada-mini b { font-family: var(--display); text-transform: uppercase; font-size: 15px; line-height: 1.05; }
+.portada-mini small { font-size: 11px; opacity: .85; }
