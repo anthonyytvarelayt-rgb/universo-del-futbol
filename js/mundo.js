@@ -1091,7 +1091,42 @@
     'Borussia Dortmund': 'ojeadores', 'Mónaco': 'ojeadores', 'Udinese': 'ojeadores', 'Sevilla': 'ojeadores', 'Lille': 'ojeadores', 'Olympique de Lyon': 'ojeadores', 'Lyon': 'ojeadores', 'Southampton': 'ojeadores',
     'Villarreal': 'ojeadores', 'Atalanta': 'ojeadores', 'Real Sociedad': 'cantera', 'Bayern Múnich': 'estrellas', 'Chelsea': 'estrellas', 'Paris Saint-Germain': 'estrellas', 'Manchester City': 'estrellas',
     'Juventus': 'estrellas', 'Milan': 'estrellas', 'Inter': 'estrellas', 'Manchester United': 'estrellas', 'River Plate': 'ojeadores', 'Boca Juniors': 'ojeadores', 'Santos': 'cantera', 'São Paulo': 'ojeadores' };
+  // Presidentes y dueños reales, con su manera de llevar el club: [desde, hasta, nombre, estilo].
+  const ESTILOS_PRESIDENTE = { galactico: 'Galáctico: quiere a las estrellas y las paga', impaciente: 'Impaciente: despide entrenadores con facilidad', paciente: 'Paciente: respalda a su entrenador', tacano: 'Vendedor: hace caja con sus figuras',
+    derrochador: 'Derrochador: gasta lo que no tiene', ojeador: 'Ojeador: compra joven y vende caro', cantera: 'Apuesta por la cantera', normal: '' };
+  const PRESIDENTES = {
+    'Real Madrid': [[1943, 1978, 'Santiago Bernabéu', 'galactico'], [1978, 1985, 'Luis de Carlos', 'paciente'], [1985, 1995, 'Ramón Mendoza', 'normal'], [1995, 2000, 'Lorenzo Sanz', 'impaciente'], [2000, 2006, 'Florentino Pérez', 'galactico'], [2006, 2009, 'Ramón Calderón', 'impaciente'], [2009, 2040, 'Florentino Pérez', 'galactico']],
+    'Barcelona': [[1953, 1961, 'Francesc Miró-Sans', 'derrochador'], [1961, 1968, 'Enric Llaudet', 'tacano'], [1969, 1977, 'Agustí Montal', 'galactico'], [1978, 2000, 'Josep Lluís Núñez', 'tacano'], [2000, 2003, 'Joan Gaspart', 'derrochador'], [2003, 2010, 'Joan Laporta', 'cantera'], [2010, 2014, 'Sandro Rosell', 'normal'], [2014, 2020, 'Josep Maria Bartomeu', 'derrochador'], [2021, 2040, 'Joan Laporta', 'derrochador']],
+    'Atlético Madrid': [[1964, 1980, 'Vicente Calderón', 'paciente'], [1987, 2003, 'Jesús Gil', 'impaciente'], [2003, 2040, 'Enrique Cerezo', 'paciente']],
+    'Valencia': [[1994, 1997, 'Paco Roig', 'derrochador'], [2004, 2008, 'Juan Soler', 'derrochador'], [2014, 2040, 'Peter Lim', 'tacano']],
+    'Sevilla': [[2002, 2013, 'José María del Nido', 'ojeador'], [2013, 2023, 'José Castro', 'ojeador']],
+    'Real Betis': [[1992, 2010, 'Manuel Ruiz de Lopera', 'impaciente']],
+    'Deportivo de La Coruña': [[1988, 2014, 'Augusto César Lendoiro', 'derrochador']],
+    'Villarreal': [[1997, 2040, 'Fernando Roig', 'paciente']],
+    'Milan': [[1954, 1963, 'Andrea Rizzoli', 'galactico'], [1986, 2017, 'Silvio Berlusconi', 'galactico'], [2018, 2022, 'Paolo Scaroni', 'ojeador']],
+    'Inter': [[1955, 1968, 'Angelo Moratti', 'galactico'], [1968, 1984, 'Ivanoe Fraizzoli', 'paciente'], [1984, 1995, 'Ernesto Pellegrini', 'normal'], [1995, 2013, 'Massimo Moratti', 'galactico'], [2016, 2024, 'Steven Zhang', 'tacano']],
+    'Juventus': [[1955, 1962, 'Umberto Agnelli', 'galactico'], [1971, 1990, 'Giampiero Boniperti', 'paciente'], [1994, 2006, 'Antonio Giraudo y Luciano Moggi', 'ojeador'], [2010, 2022, 'Andrea Agnelli', 'galactico']],
+    'Napoli': [[1969, 1993, 'Corrado Ferlaino', 'galactico'], [2004, 2040, 'Aurelio De Laurentiis', 'tacano']],
+    'Roma': [[1979, 1991, 'Dino Viola', 'paciente'], [1993, 2008, 'Franco Sensi', 'galactico'], [2012, 2020, 'James Pallotta', 'tacano']],
+    'Lazio': [[1992, 2003, 'Sergio Cragnotti', 'derrochador'], [2004, 2040, 'Claudio Lotito', 'tacano']],
+    'Fiorentina': [[1990, 2002, 'Vittorio Cecchi Gori', 'derrochador']], 'Parma': [[1990, 2004, 'Calisto Tanzi', 'derrochador']], 'Palermo': [[2002, 2018, 'Maurizio Zamparini', 'impaciente']], 'Sampdoria': [[1979, 1993, 'Paolo Mantovani', 'paciente']],
+    'Manchester United': [[1965, 1980, 'Louis Edwards', 'paciente'], [1980, 2002, 'Martin Edwards', 'paciente'], [2005, 2040, 'la familia Glazer', 'tacano']],
+    'Chelsea': [[1982, 2003, 'Ken Bates', 'normal'], [2003, 2022, 'Roman Abramóvich', 'impaciente'], [2022, 2040, 'Todd Boehly', 'derrochador']],
+    'Manchester City': [[2008, 2040, 'el jeque Mansour', 'galactico']], 'Tottenham Hotspur': [[2001, 2040, 'Daniel Levy', 'tacano']], 'Arsenal': [[1983, 2013, 'Peter Hill-Wood', 'paciente'], [2018, 2040, 'Stan Kroenke', 'paciente']],
+    'Liverpool': [[1973, 1990, 'John Smith', 'paciente'], [1991, 2007, 'David Moores', 'paciente'], [2010, 2040, 'John W. Henry', 'ojeador']], 'Leeds United': [[1997, 2003, 'Peter Ridsdale', 'derrochador']], 'Newcastle United': [[1992, 2007, 'John Hall', 'galactico'], [2007, 2021, 'Mike Ashley', 'tacano']],
+    'Blackburn Rovers': [[1991, 2000, 'Jack Walker', 'galactico']], 'Watford': [[2012, 2040, 'la familia Pozzo', 'impaciente']],
+    'Bayern Múnich': [[1962, 1979, 'Wilhelm Neudecker', 'paciente'], [1979, 2009, 'Uli Hoeneß', 'paciente'], [2009, 2021, 'Karl-Heinz Rummenigge', 'paciente']], 'Borussia Dortmund': [[1986, 2004, 'Gerd Niebaum', 'derrochador'], [2005, 2040, 'Hans-Joachim Watzke', 'ojeador']], 'Hamburgo': [[2003, 2011, 'Bernd Hoffmann', 'impaciente']],
+    'Marsella': [[1986, 1994, 'Bernard Tapie', 'galactico'], [1997, 2009, 'Robert Louis-Dreyfus', 'normal']], 'Lyon': [[1987, 2023, 'Jean-Michel Aulas', 'ojeador']], 'Paris Saint-Germain': [[1978, 1991, 'Francis Borelli', 'normal'], [1991, 1998, 'Michel Denisot', 'normal'], [2011, 2040, 'Nasser Al-Khelaïfi', 'galactico']], 'Mónaco': [[1975, 2003, 'Jean-Louis Campora', 'ojeador'], [2011, 2040, 'Dmitri Rybolóvlev', 'ojeador']], 'Saint-Étienne': [[1961, 1982, 'Roger Rocher', 'paciente']],
+    'Oporto': [[1982, 2024, 'Jorge Nuno Pinto da Costa', 'ojeador']], 'Benfica': [[1994, 1997, 'Manuel Damásio', 'derrochador'], [1997, 2000, 'João Vale e Azevedo', 'derrochador'], [2003, 2021, 'Luís Filipe Vieira', 'ojeador']], 'Sporting de Portugal': [[2013, 2018, 'Bruno de Carvalho', 'impaciente']],
+    'Boca Juniors': [[1960, 1980, 'Alberto J. Armando', 'galactico'], [1995, 2007, 'Mauricio Macri', 'paciente']], 'River Plate': [[1936, 1968, 'Antonio Vespucio Liberti', 'galactico'], [2001, 2009, 'José María Aguilar', 'derrochador'], [2013, 2021, "Rodolfo D'Onofrio", 'paciente']], 'Independiente': [[2014, 2022, 'Hugo Moyano', 'normal']],
+    'Santos': [[1955, 1971, 'Athiê Jorge Coury', 'paciente']], 'Corinthians': [[1961, 1971, 'Wadih Helu', 'impaciente'], [1972, 1981, 'Vicente Matheus', 'impaciente'], [1993, 2007, 'Alberto Dualib', 'derrochador']], 'Flamengo': [[2013, 2018, 'Eduardo Bandeira de Mello', 'paciente'], [2019, 2040, 'Rodolfo Landim', 'galactico']], 'Palmeiras': [[2017, 2021, 'Maurício Galiotte', 'paciente'], [2022, 2040, 'Leila Pereira', 'paciente']], 'Vasco da Gama': [[2001, 2008, 'Eurico Miranda', 'impaciente']]
+  };
+  const presidenteDe = (c, anio) => { const t = (PRESIDENTES[c.nombre] || []).filter((x) => x[0] <= anio && anio <= x[1]).pop(); return t ? { nombre: t[2], estilo: t[3], desde: t[0] } : null; };
+  const estiloPresi = (c, anio) => { const p = presidenteDe(c, anio); return p ? p.estilo : 'normal'; };
   function politica(c) {
+    if (c.presidente && c.presidente.estilo === 'ojeador') return 'ojeadores';
+    if (c.presidente && c.presidente.estilo === 'cantera') return 'cantera';
+    if (c.presidente && c.presidente.estilo === 'galactico' && c.prestigio >= 780) return 'estrellas';
     if (POLITICA_REAL[c.nombre]) return POLITICA_REAL[c.nombre];
     const x = hashN(c.nombre, 17) % 100;
     return c.prestigio >= 860 ? 'estrellas' : x < 22 ? 'ojeadores' : x < 36 ? 'cantera' : 'normal';
@@ -1104,7 +1139,7 @@
   const euros = (unidades, anio) => unidades * recordTraspaso(anio) / 22;
   const ingresosDe = (c, anio) => 1.5 * euros(presupuesto(c, anio), anio);
   const cajaDe = (c, anio) => { if (c.caja == null) c.caja = 0.3 * ingresosDe(c, anio); return c.caja; };
-  const creditoDe = (c, anio) => 0.5 * ingresosDe(c, anio);
+  const creditoDe = (c, anio) => ({ derrochador: 1.2, galactico: 0.8, tacano: 0.2 }[estiloPresi(c, anio)] || 0.5) * ingresosDe(c, anio);
   const redondo = (v) => Math.round(v * 100) / 100;
   function cuentas(M, R) {
     const anio = M.anio + 1, U = recordTraspaso(anio), premios = new Map(), premio = (c, v) => { if (c) premios.set(c, (premios.get(c) || 0) + v * U); };
@@ -1115,6 +1150,8 @@
     [[R.UEFA, 0.08], [R.RECOPA, 0.06], [R.LIB, 0.06], [R.INTER, 0.03], [R.SUPER, 0.02], [R.C, 0.03]].forEach(([C, v]) => { if (C && C.campeonEq) premio(C.campeonEq, v); });
     R.otros.forEach((o) => { if (o.C && o.C.campeonEq) premio(o.C.campeonEq, 0.03); });
     // Dueños: el día que llega el dinero es noticia, y de vez en cuando un millonario compra un club mediano y lo cambia todo.
+    M.presidentesNuevos = [];
+    M.clubes.forEach((c) => { const antes = c.presidente && c.presidente.nombre; c.presidente = presidenteDe(c, anio); if (c.presidente && c.presidente.nombre !== antes && c.presidente.desde === anio && c.division === 1) M.presidentesNuevos.push({ club: c.nombre, nombre: c.presidente.nombre, estilo: c.presidente.estilo, sale: antes || null }); });
     M.duenosNuevos = [];
     const rd = Motor.rng(anio * 977 + 3);
     if (anio >= 1998 && rd() < 0.07) {
@@ -1124,7 +1161,7 @@
     M.clubes.forEach((c) => {
       cajaDe(c, anio);
       const rico = DUENOS_RICOS[c.nombre] || c.duenoRico;
-      if (rico && rico[0] === anio && c.division <= 2) { c.caja += 1.2 * ingresosDe(c, anio); c.prestigio = Math.min(1000, c.prestigio + 15); M.duenosNuevos.push({ club: c.nombre, pais: c.pais, inventado: !DUENOS_RICOS[c.nombre] }); }
+      if (rico && rico[0] === anio && c.division <= 2) { c.caja += 1.2 * ingresosDe(c, anio); c.prestigio = Math.min(1000, c.prestigio + 15); if (!(c.presidente && c.presidente.desde === anio)) M.duenosNuevos.push({ club: c.nombre, pais: c.pais, inventado: !DUENOS_RICOS[c.nombre] }); }
       const ing = ingresosDe(c, anio), pr = premios.get(c) || 0, dueno = rico && anio >= rico[0] ? 0.12 * U : 0;
       const sal = euros(c.jugadores.reduce((t, j) => t + sueldo(j), 0), anio), gastos = Math.max(ing - sal - 0.08 * ing, Math.min(0.46 * ing, ing - sal + 0.1 * ing));   // el club gasta lo que ingresa: gana o pierde como mucho una décima parte al año
       c.caja += ing + pr + dueno - sal - gastos;
@@ -1375,10 +1412,11 @@
       // de un club menor. Como mucho uno en todo el mercado, y solo si el jugador mejora de verdad su once.
       if (fluidez > 0) {
         let golpes = 0;
-        elite.filter((c) => cajaDe(c, nuevoAnio) > 0.6 * ingresosDe(c, nuevoAnio) && (llegadas.get(c) || 0) < 1 && !sobrado(c)).sort((a, b) => b.caja / ingresosDe(b, nuevoAnio) - a.caja / ingresosDe(a, nuevoAnio)).forEach((c) => {
-          if (golpes >= 1 || r() > 0.22) return;
+        const gal = (c) => estiloPresi(c, nuevoAnio) === 'galactico';
+        elite.filter((c) => cajaDe(c, nuevoAnio) > (gal(c) ? 0.15 : 0.6) * ingresosDe(c, nuevoAnio) && (llegadas.get(c) || 0) < (gal(c) ? 2 : 1) && !sobrado(c)).sort((a, b) => gal(b) - gal(a) || b.caja / ingresosDe(b, nuevoAnio) - a.caja / ingresosDe(a, nuevoAnio)).forEach((c) => {
+          if (golpes >= 1 || r() > (gal(c) ? 0.5 : 0.22)) return;
           const titular = (j) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
-          const cand = estrellas.find(({ j, v }) => !fichados.has(j) && v !== c && v.prestigio <= c.prestigio - 60 && !atado(j, v) && j.niv > titular(j) + 15 && Motor.escala.mostrar(j.niv) >= 660 && nuevoAnio - anioNac(j) <= 29
+          const cand = estrellas.find(({ j, v }) => !fichados.has(j) && v !== c && v.prestigio <= c.prestigio - (gal(c) ? 0 : 60) && !atado(j, v) && j.niv > titular(j) + 15 && Motor.escala.mostrar(j.niv) >= 660 && nuevoAnio - anioNac(j) <= 29
             && !(CONSTANTES[j.n] && CONSTANTES[j.n].club === v.nombre && nuevoAnio <= CONSTANTES[j.n].fiel) && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j));
           if (!cand) return;
           golpes++; llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(cand.j);
@@ -1411,7 +1449,7 @@
     // Antes de los 80 los traspasos eran pocos: los clubes retenían a sus jugadores y un equipo se hacía en años.
     const calma = 0.4 + 0.6 * Math.min(1, fluidez * 2.5);
     // Un club que paga más de lo que ingresa tiene que vender: sus rivales lo saben y le compran a quien antes no soltaba.
-    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > presupuesto(c, nuevoAnio) * 1.15 || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio))) : []);
+    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > presupuesto(c, nuevoAnio) * 1.15 || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio) || (estiloPresi(c, nuevoAnio) === 'tacano' && hashN(c.nombre + nuevoAnio, 9) % 2 === 0))) : []);
     orden.forEach((comprador) => {
       let compras = 0, figuras = 0;
       if (sobrado(comprador)) return;
@@ -1680,7 +1718,7 @@
   }
   // En verano: se jubilan los mayores, llegan los nuevos técnicos de época, se despide a quien falló y los clubes sin
   // banquillo (o con ganas de algo mejor) eligen, primero los de más nombre.
-  function resumenBanquillos(M, T, conBanquillo, campeonEU) {
+  function resumenBanquillos(M, T, conBanquillo, campeonEU, titulos) {
     const anio = M.anio + 1, log = [];
     const r = Motor.rng(anio * 131 + 7);
     const activos = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => activos.add(j.n))); M.libres.forEach((j) => activos.add(j.n));
@@ -1732,16 +1770,25 @@
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
       const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
-      if (e.anios >= 3 && c.balance !== 'superado' && r() < (gano ? 0.06 : 0.12 + 0.07 * (e.anios - 3)) * (DESTINO_DT[e.nombre] === c.nombre ? 0.25 : 1)) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
+      // Crédito: lo que gana un entrenador le compra tiempo. Los títulos del año suman y lo de años atrás pesa cada vez menos.
+      // Quien acaba de ganar no se va ni lo echan; con crédito alto se le perdona un mal año (o dos).
+      const ganado = ((titulos && titulos.get(c.nombre)) || 0) + (p && p.puesto === 0 ? 3 : 0);
+      e.credito = 0.6 * (e.credito || 0) + ganado;
+      e.titulos = (e.titulos || 0) + (ganado ? 1 : 0);
+      // Nadie es eterno salvo los de la dinastía: pasados siete años, el propio técnico decide un día cerrar su etapa (aunque le vaya bien).
+      if (e.anios >= 7 && ganado < 5 && r() < 0.1 + 0.03 * (e.anios - 7)) { log.push({ club: c.nombre, sale: deja(c, 'cierra su etapa'), motivo: `cierra su etapa tras ${e.anios} años`, anios: e.anios, adios: true }); return; }
+      if (ganado) return;
+      const aguante = Math.max(0.1, 1 - e.credito / 4) * ({ impaciente: 1.6, paciente: 0.55 }[estiloPresi(c, anio)] || 1);   // con un triplete reciente (crédito ~5) casi no hay despido posible
+      if (e.anios >= 3 && c.balance !== 'superado' && r() < (0.12 + 0.07 * (e.anios - 3)) * aguante * (DESTINO_DT[e.nombre] === c.nombre ? 0.25 : 1)) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
       if (!p || p.puesto === 0) return;
       // Despido: muy por debajo de lo que se esperaba; a un técnico de época se le aguanta algo más.
       const fallo = p.puesto - p.esperado;
-      if ((c.balance === 'fracaso' && r() < (maestro(e.nombre) ? 0.5 : 0.75)) || (fallo >= 5 + maestro(e.nombre) && r() < 0.5)) log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'despedido', puesto: p.puesto + 1 });
+      if ((c.balance === 'fracaso' && r() < (maestro(e.nombre) ? 0.5 : 0.75) * aguante) || (fallo >= 5 + maestro(e.nombre) && r() < 0.5 * aguante)) log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'despedido', puesto: p.puesto + 1 });
     });
     // Fichar: cada club sin banquillo elige al mejor que haya libre; un grande puede quitarle su técnico a uno menor.
     primera.forEach((c) => {
       const e = c.entrenadores && c.entrenadores[0], tengo = e ? maestro(e.nombre) : 0;
-      if (e && (tengo >= 2 || c.prestigio < 800)) return;
+      if (e && (tengo >= 2 || c.prestigio < 800 || (e.credito || 0) >= 1 || (e.anios || 0) < 2)) return;
       const sudaca = (pais) => NO_EUROPA.includes(pais);
       // Hasta los 90 casi nadie entrenaba fuera de su país, salvo los trotamundos de siempre; Inglaterra, solo británicos hasta 1996.
       const casa = (p) => (p === 'Escocia' || p === 'Gales' || p === 'Irlanda del Norte' ? 'Inglaterra' : p);
@@ -1750,14 +1797,14 @@
       const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && !vetoDT(x, c) && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
       let nuevo = libres[0], de = null;
       if (!nuevo && c.prestigio >= 820 && r() < 0.35) {
-        const v = primera.filter((x) => x !== c && !(enemigos.get(c.nombre) || new Set()).has(x.nombre) && !vetoDT(x.entrenadores && x.entrenadores[0], c) && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2)
+        const v = primera.filter((x) => x !== c && !(enemigos.get(c.nombre) || new Set()).has(x.nombre) && !vetoDT(x.entrenadores && x.entrenadores[0], c) && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2 && (x.entrenadores[0].credito || 0) < 3)
           .sort((a, b) => maestro(b.entrenadores[0].nombre) - maestro(a.entrenadores[0].nombre) || b.prestigio - a.prestigio)[0];
         if (v) { nuevo = v.entrenadores[0]; de = v; pasoPor(nuevo, v); v.entrenadores = []; }
       }
       if (!nuevo) return;
       const sale = e ? deja(c, 'relevo') : null;
       M.parados = M.parados.filter((x) => x.nombre !== nuevo.nombre);
-      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
+      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0, credito: 0 })];
       log.push(Object.assign({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' }, nuevo.exJugador ? { leyenda: true, casa: nuevo.casa === c.nombre } : {}));
     });
     // El ego de cada uno tira hacia un club: Mourinho quiere el banquillo más grande del mundo, el del Real Madrid.
@@ -1768,16 +1815,17 @@
       const donde = primera.find((x) => x.entrenadores && x.entrenadores[0] && x.entrenadores[0].nombre === nombre), libre = M.parados.find((x) => x.nombre === nombre);
       if (!donde && !libre) return;
       // Va si está libre, o si ya lleva dos años donde está; el club lo llama si su entrenador no es una leyenda en racha.
-      if (donde && (donde.entrenadores[0].anios || 0) < 2) return;
+      if (donde && ((donde.entrenadores[0].anios || 0) < 2 || (donde.entrenadores[0].credito || 0) >= 3)) return;
       if (vetoDT(donde ? donde.entrenadores[0] : libre, c) || (donde && (enemigos.get(c.nombre) || new Set()).has(donde.nombre))) return;
       if (donde) pasoPor(donde.entrenadores[0], donde);
       if (actual && maestro(actual.nombre) >= 3 && c.balance !== 'fracaso' && (actual.anios || 0) < 4) return;
+      if (actual && (actual.credito || 0) >= 3) return;
       if (r() > (c.balance === 'fracaso' ? 0.9 : 0.55)) return;
       const nuevo = donde ? donde.entrenadores[0] : libre;
       const sale = actual ? deja(c, 'relevo') : null;
       if (donde) donde.entrenadores = [];
       M.parados = M.parados.filter((x) => x.nombre !== nombre);
-      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0 })];
+      c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0, credito: 0 })];
       log.push({ club: c.nombre, sale, entra: nombre, de: donde ? donde.nombre : null, motivo: donde ? 'fichado' : 'llega', ego: true });
     });
     M.banquillosVerano = log;
@@ -1800,7 +1848,13 @@
     // La bolsa: sin repetidos, sin los que ya entrenan y sin los muy mayores; como mucho 40.
     const vistos = new Set();
     M.parados = M.parados.filter((e) => { /* sin año de nacimiento conocido no se inventa la edad: deja la bolsa a los veinte años de quedar libre por primera vez */ const nacido = parseInt(String(e.nac || '').slice(0, 4), 10) || null; e.libreDesde = e.libreDesde || M.anio; const viejo = nacido ? M.anio + 1 - nacido > 68 : M.anio - e.libreDesde > 20; if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || viejo) return false; vistos.add(e.nombre); return true; }).sort((a, b) => (maestro(a.nombre) ? 1 : 0) - (maestro(b.nombre) ? 1 : 0)).slice(-40);
-    resumenBanquillos(M, T, conBanquillo, R.EU && R.EU.campeon);
+    // Títulos del año por club, para el crédito de cada entrenador: Copa de Europa 4, liga 3, otras copas internacionales 2, copa nacional 1.
+    const titulos = new Map(), suma = (n, v) => { if (n) titulos.set(n, (titulos.get(n) || 0) + v); };
+    suma(R.EU && R.EU.campeon, 4);
+    [R.UEFA, R.RECOPA, R.LIB, R.INTER].forEach((C) => suma(C && C.campeon, 2));
+    suma(R.SUPER && R.SUPER.campeon, 1);
+    suma(R.C && R.C.campeon, 1); R.otros.forEach((o) => suma(o.C && o.C.campeon, 1));
+    resumenBanquillos(M, T, conBanquillo, R.EU && R.EU.campeon, titulos);
     // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
     M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
       const cand = M.parados.slice().sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
@@ -1939,6 +1993,7 @@
     cuentas(M, R);
     resumen.mercado = mercado(M, r);
     resumen.duenos = M.duenosNuevos || [];
+    resumen.presidentes = M.presidentesNuevos || [];
     resumen.finanzas = M.clubes.filter((c) => c.division === 1 && c.finanzas).map((c) => Object.assign({ club: c.nombre, pais: c.pais, caja: redondo(c.caja), rescate: c.rescate === M.anio + 1 }, c.finanzas));
     M.fichajes.push(...resumen.mercado);
     // El año del vestuario: cada club tiene temporadas en las que todo sale y otras en las que nada funciona,
@@ -2140,7 +2195,7 @@
     return d;
   }
 
-  const api = { DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

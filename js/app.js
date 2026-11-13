@@ -225,7 +225,7 @@ async function avanzar(callado) {
     if (!callado) $('fechaTxt').textContent = 'Llega el verano…';
     const d = await obtener('verano', k);
     // El verano trae el mundo de después: edades, retiros, fichajes y ascensos.
-    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, veranoHecho: true });
+    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, presidentes: d.S.presidentes, veranoHecho: true });
     M = d.M;
   }
   // Al cerrar la temporada, el teletipo da los campeones de todas las ligas.
@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 57, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 58, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1079,6 +1079,8 @@ function sorpresasHtml(V) {
   const fracasos = objs.filter((o) => o.balance === 'fracaso' && o.prestigio >= 780).sort((a, b) => b.prestigio - a.prestigio).slice(0, 2).map((o) => art('Fracaso', `El ${esc(o.club)} acaba ${o.puesto}.º`, `Su objetivo era ${esc(Mundo.OBJETIVOS[o.objetivo].toLowerCase())}. La directiva ya ha avisado: habrá cambios este verano.`)).join('');
   const hazanas = objs.filter((o) => o.balance === 'superado' && (o.objetivo === 'salvarse' || o.objetivo === 'media') && o.puesto <= 3).sort((a, b) => a.puesto - b.puesto || a.prestigio - b.prestigio).slice(0, 2).map((o) => art('La sorpresa del año', `El ${esc(o.club)}, ${o.puesto}.º en ${esc(o.pais)}`, `Empezó la temporada con un objetivo modesto (${esc(Mundo.OBJETIVOS[o.objetivo].toLowerCase())}) y ha acabado entre los tres primeros.`)).join('');
   const banq = (V.banquillos || []);
+  const presis = (V.presidentes || []).filter((x) => grande(x.club) >= 700).slice(0, 2).map((x) => art('Nuevo presidente', `${esc(x.nombre)} toma el mando del ${esc(x.club)}`, `${x.sale ? `Releva a ${esc(x.sale)}. ` : ''}${esc((Mundo.ESTILOS_PRESIDENTE[x.estilo] || 'Llega con ideas propias').split(':').pop().trim().replace(/^./, (ch) => ch.toUpperCase()))}. El club cambia de manos y de manera de hacer las cosas.`)).join('');
+  const adioses = banq.filter((x) => x.adios && grande(x.club) >= 700).slice(0, 2).map((x) => art('Fin de una era', `${esc(sinApodo(x.sale))} deja el ${esc(x.club)} después de ${x.anios} años`, 'No lo echa nadie: es él quien decide que el ciclo está cumplido. Se va con el respeto de la grada y el banquillo queda muy grande para el que venga.')).join('');
   const despidos = banq.filter((x) => x.motivo === 'despedido' && grande(x.club) >= 720).sort((a, b) => grande(b.club) - grande(a.club)).slice(0, 2).map((x) => art('Despido', `El ${esc(x.club)} echa a ${esc(x.sale)}`, `El equipo acabó ${x.puesto ? x.puesto + '.º' : 'lejos de lo esperado'} y la directiva no ha esperado más.`)).join('');
   const robos = banq.filter((x) => x.motivo === 'fichado').slice(0, 1).map((x) => art('Golpe en los banquillos', `${esc(x.entra)} deja el ${esc(x.de)} por el ${esc(x.club)}`, 'Un grande ha ido a buscar a su entrenador a otro club, y se lo ha llevado.')).join('');
   const lios = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.motivo === 'acabó mal con su club' && x.niv >= 800).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => art('Portazo', `${nombreJ(x.jugador)} acaba mal con el ${esc(x.de)}`, `Después de meses de tensión con el club, se marcha al ${esc(x.a)}.`)).join('');
@@ -1111,7 +1113,7 @@ function sorpresasHtml(V) {
     ? `Del ${esc(x.de)} al eterno rival, sin escalas${x.precio ? ` y por ${precioTxt(x.precio)}` : ''}. La afición que lo aplaudía ya quema su camiseta, y la vuelta al que fue su estadio promete ser un infierno.`
     : `Fue jugador del ${esc(x.traicion)} y ahora llega desde el ${esc(x.de)} para defender al enemigo. En su antigua casa no se lo van a perdonar.`)).join('');
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + plenos + traiciones + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1513,6 +1515,7 @@ function copiarResumen(btn) {
       const vue = de('regreso').filter((x) => nivel(x.niv) >= 650).slice(0, 3); if (vue.length) lineas.push(`• Vuelven de su lesión como eran: ${vue.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const sec = de('secuela').filter((x) => nivel(x.antes) >= 650).slice(0, 3); if (sec.length) lineas.push(`• No se recuperan de su lesión: ${sec.map((x) => `${x.jugador} (${x.club}), de ${nivel(x.antes)} a ${nivel(x.niv)}`).join(', ')}`);
       (V.duenos || []).forEach((x) => lineas.push(`• Nuevo dueño millonario en el ${x.club}`));
+      (V.presidentes || []).forEach((x) => lineas.push(`• Nuevo presidente en el ${x.club}: ${x.nombre}${Mundo.ESTILOS_PRESIDENTE[x.estilo] ? ` (${Mundo.ESTILOS_PRESIDENTE[x.estilo].split(':')[0].toLowerCase()})` : ''}`));
       const est = de('estancado').slice(0, 3); if (est.length) lineas.push(`• Promesas que se apagan: ${est.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const fie = de('fiesta').slice(0, 3); if (fie.length) lineas.push(`• Año perdido por la mala vida: ${fie.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const ves = de('vestuario').slice(0, 4); if (ves.length) lineas.push(`• Vestuarios rotos: ${ves.map((x) => x.club).join(', ')}`);
@@ -2082,6 +2085,7 @@ function fichaClub(n) {
     + (puesto ? `<div class="sub">${esc(puesto)}${real && real !== +puesto.split('.')[0] ? marcaDif(`Puesto real al final: ${real}.º`) : ''}</div>` : '')
     + (l ? formaClub(l, n, c.pais) : '')
     + `<div class="palmares"><span class="rotulo">Palmarés en esta partida</span>${palm || '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>'}</div>`
+    + presidenteClub(c)
     + objetivoClub(c, l)
     + dineroClub(c)
     + historialClub(n, c.pais)
@@ -2091,6 +2095,10 @@ function fichaClub(n) {
     + `<div class="palmares"><span class="rotulo">Plantilla</span>${plantilla.map((j) => `<div><span>${nombreJ(j.n)} <small>${esc(POS[j.pos] || j.pos)}</small></span><span>${nivel(j.niv)}</span></div>`).join('')}</div>`;
 }
 // Capitán, ídolos y villanos: quién lleva el brazalete, a quién adora la grada y a quién no perdona.
+function presidenteClub(c) {
+  try { const p = Mundo.presidenteDe(c, S.anio + (S.veranoHecho ? 1 : 0)) || c.presidente; if (!p) return ''; const e = Mundo.ESTILOS_PRESIDENTE[p.estilo];
+    return `<div class="palmares"><span class="rotulo">Presidente</span><div><span>${esc(p.nombre)}${e ? ` <small>${esc(e)}</small>` : ''}</span><span>desde ${p.desde}</span></div></div>`; } catch (e) { return ''; }
+}
 const anioNacTxt = (j) => +String(j.nac || '9999').slice(0, 4);
 function simbolosClub(n, c) {
   try {
@@ -2539,7 +2547,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 57) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 58) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
