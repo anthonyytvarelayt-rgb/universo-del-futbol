@@ -1118,7 +1118,13 @@
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
     M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15) lios.add(j); }); });
-    const sinMinutos = (j) => deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14;
+    // Una figura que sobra en su puesto (el cuarto delantero de nivel, el segundo portero de nivel) también quiere irse a jugar.
+    const clubDe = new Map(); M.clubes.forEach((c) => c.jugadores.forEach((j) => clubDe.set(j, c)));
+    const sobra = (j) => { const c = clubDe.get(j); if (!c || j.relleno || Motor.escala.mostrar(j.niv) < 650 || nuevoAnio - anioNac(j) < 23) return false;
+      return c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv > j.niv).length >= IDEAL_ONCE[j.pos] + (j.pos === 'POR' ? 0 : 0); };
+    const sinMinutos = (j) => (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
+    // Y un club no amontona figuras del mismo puesto: con el once y un recambio de nivel parecido, no entra otro más.
+    const tapon = (j, c) => c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv >= j.niv - 45).length >= IDEAL_ONCE[j.pos] + 1;
     // 1. Vuelven los cedidos.
     M.clubes.forEach((c) => c.jugadores.filter((j) => j.cedido).forEach((j) => {
       const dueno = porNombre.get(j.cedido);
@@ -1173,6 +1179,7 @@
     // Fichar en otro país: solo jugadores de nivel, si las reglas de la época dejan entrar extranjeros y queda cupo.
     const abierto = {};
     const puedeEntrar = (j, comprador) => {
+      if (tapon(j, comprador)) return false;
       if (!extranjero(j, comprador.pais)) return true;
       if (comprador.nombre === 'Atlético Bilbao') return false;  // solo jugadores de casa
       if (!(comprador.pais in abierto)) abierto[comprador.pais] = Epoca.reglas(comprador.pais, nuevoAnio).extranjerosNuevos;
