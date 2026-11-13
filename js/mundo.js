@@ -1094,6 +1094,9 @@
     'Borussia Dortmund': 'ojeadores', 'Mónaco': 'ojeadores', 'Udinese': 'ojeadores', 'Sevilla': 'ojeadores', 'Lille': 'ojeadores', 'Olympique de Lyon': 'ojeadores', 'Lyon': 'ojeadores', 'Southampton': 'ojeadores',
     'Villarreal': 'ojeadores', 'Atalanta': 'ojeadores', 'Real Sociedad': 'cantera', 'Bayern Múnich': 'estrellas', 'Chelsea': 'estrellas', 'Paris Saint-Germain': 'estrellas', 'Manchester City': 'estrellas',
     'Juventus': 'estrellas', 'Milan': 'estrellas', 'Inter': 'estrellas', 'Manchester United': 'estrellas', 'River Plate': 'ojeadores', 'Boca Juniors': 'ojeadores', 'Santos': 'cantera', 'São Paulo': 'ojeadores' };
+  // Las grandes escuelas: lo que suma su cantera al techo de un chaval formado allí.
+  const CANTERAS = { 'Barcelona': 14, 'Sporting de Portugal': 14, 'Santos': 14, 'Atlético Bilbao': 12, 'River Plate': 12, 'Argentinos Juniors': 14, 'Auxerre': 12, 'Nantes': 12, 'Real Madrid': 8, 'Manchester United': 10, 'Benfica': 10, 'Lyon': 10, 'São Paulo': 10,
+    'Boca Juniors': 10, "Newell's Old Boys": 10, 'Real Sociedad': 10, 'Atalanta': 10, 'Stuttgart': 8, 'Bayern Múnich': 8, 'Southampton': 8, 'West Ham United': 8, 'Rennes': 8, 'Sochaux': 8, 'Flamengo': 8, 'Milan': 6, 'Roma': 6, 'Valencia': 6, 'Villarreal': 6, 'Borussia Dortmund': 6, 'Vasco da Gama': 6, 'Internacional': 6, 'Grêmio': 6 };
   // Presidentes y dueños reales, con su manera de llevar el club: [desde, hasta, nombre, estilo].
   const ESTILOS_PRESIDENTE = { galactico: 'Galáctico: quiere a las estrellas y las paga', impaciente: 'Impaciente: despide entrenadores con facilidad', paciente: 'Paciente: respalda a su entrenador', tacano: 'Vendedor: hace caja con sus figuras',
     derrochador: 'Derrochador: gasta lo que no tiene', ojeador: 'Ojeador: compra joven y vende caro', cantera: 'Apuesta por la cantera', normal: '' };
@@ -1174,6 +1177,20 @@
       const tope = -1.5 * ing; if (c.caja < tope) { c.caja = tope * 0.6; c.prestigio = Math.max(250, c.prestigio - 12); c.rescate = anio; }
       c.finanzas = { anio, ingresos: redondo(ing), premios: redondo(pr), dueno: redondo(dueno), sueldos: redondo(sal), gastos: redondo(gastos), obras: redondo(obras), compras: 0, ventas: 0 };
     });
+  }
+  // Escándalos: muy de vez en cuando estalla uno en un club importante (arbitrajes, cuentas, apuestas). Pierde nombre y dinero,
+  // y ese verano tiene que vender.
+  const TIPOS_ESCANDALO = [['arbitrajes', 'presiones a los árbitros para elegir quién pita sus partidos'], ['cuentas', 'contabilidad falsa para esconder pérdidas'], ['apuestas', 'partidos amañados por una red de apuestas'], ['fichajes', 'pagos ocultos en fichajes y comisiones']];
+  function escandalos(M, R) {
+    const anio = M.anio + 1, r = Motor.rng(anio * 613 + 29), out = [];
+    if (anio < 1962 || r() > 0.045) return out;
+    const tablas = [R.T].concat(...R.otros.map((o) => o.ligas.filter((l) => l.nivel === 1).map((l) => l.T))).filter((t) => t && t.tabla);
+    const cand = tablas.flatMap((t) => t.tabla.slice(0, 6).map((x) => x.equipo)).filter((c) => c && c.prestigio >= 640 && !(c.escandalo && anio - c.escandalo < 15));
+    if (!cand.length) return out;
+    const c = cand[Math.floor(r() * cand.length)], t = TIPOS_ESCANDALO[Math.floor(r() * TIPOS_ESCANDALO.length)], multa = redondo(0.35 * ingresosDe(c, anio));
+    c.escandalo = anio; c.prestigio = Math.max(250, c.prestigio - 35); cajaDe(c, anio); c.caja -= multa;
+    out.push({ club: c.nombre, pais: c.pais, tipo: t[0], texto: t[1], multa });
+    return out;
   }
   function mercado(M, r) {
     const nuevoAnio = M.anio + 1;
@@ -1260,6 +1277,8 @@
       if (d.fin) j.fin = d.fin;
       if (d.gol) j.gol = d.gol;
       j.rol = d.rol || Motor.rol(j);
+      // Cantera: el chaval que debuta en el club que lo formó lleva su sello, y las grandes escuelas sacan algo más de cada uno.
+      if (d.tipo !== 'extranjero' && d.tipo !== 'regresa' && nuevoAnio - anioNac(j) <= 22) { j.cantera = c.nombre; const sello = CANTERAS[c.nombre]; if (sello && !CONSTANTES[j.n]) j.tec = Math.min(1130, (j.tec || j.niv) + sello); }
       c.jugadores.push(j);
       dondeEsta.set(clave(j.n, j.nac), c);
       log.push({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: j.niv, tec: j.tec, extranjero: d.tipo === 'extranjero', de: d.tipo === 'extranjero' ? (d.pais || 'extranjero') : d.tipo === 'regresa' ? 'vuelve' : 'cantera', a: c.nombre, tipo: 'debut' });
@@ -1452,7 +1471,7 @@
     // Antes de los 80 los traspasos eran pocos: los clubes retenían a sus jugadores y un equipo se hacía en años.
     const calma = 0.4 + 0.6 * Math.min(1, fluidez * 2.5);
     // Un club que paga más de lo que ingresa tiene que vender: sus rivales lo saben y le compran a quien antes no soltaba.
-    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > presupuesto(c, nuevoAnio) * 1.15 || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio) || (estiloPresi(c, nuevoAnio) === 'tacano' && hashN(c.nombre + nuevoAnio, 9) % 2 === 0))) : []);
+    const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > presupuesto(c, nuevoAnio) * 1.15 || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio) || c.escandalo === nuevoAnio || (estiloPresi(c, nuevoAnio) === 'tacano' && hashN(c.nombre + nuevoAnio, 9) % 2 === 0))) : []);
     orden.forEach((comprador) => {
       let compras = 0, figuras = 0;
       if (sobrado(comprador)) return;
@@ -1693,6 +1712,14 @@
     'Diego Simeone': 'muro', 'Marcelo Bielsa': 'loco'
   };
   const donDT = (nombre) => CONSTANTES_DT[nombre] || null;
+  // El árbol de los banquillos: de quién aprendió cada uno (fue su jugador, su ayudante o lo reconoce como maestro).
+  const MENTORES = { 'Pep Guardiola': 'Johan Cruyff', 'Johan Cruyff': 'Rinus Michels', 'Louis van Gaal': 'Rinus Michels', 'Frank Rijkaard': 'Johan Cruyff', 'Ronald Koeman': 'Johan Cruyff', 'Luis Enrique': 'Pep Guardiola', 'Xavi Hernández': 'Pep Guardiola', 'Mikel Arteta': 'Pep Guardiola', 'Vincent Kompany': 'Pep Guardiola', 'Erik ten Hag': 'Pep Guardiola',
+    'José Mourinho': 'Bobby Robson', 'André Villas-Boas': 'José Mourinho', 'Carlo Ancelotti': 'Arrigo Sacchi', 'Zinedine Zidane': 'Carlo Ancelotti', 'Fabio Capello': 'Nils Liedholm', 'Antonio Conte': 'Marcello Lippi', 'Massimiliano Allegri': 'Giovanni Galeone', 'Roberto Mancini': 'Sven-Göran Eriksson', 'Diego Simeone': 'Marcelo Bielsa', 'Mauricio Pochettino': 'Marcelo Bielsa', 'Marcelo Gallardo': 'Marcelo Bielsa',
+    'Jorge Valdano': 'César Luis Menotti', 'Vicente del Bosque': 'Luis Molowny', 'Rafael Benítez': 'Arrigo Sacchi', 'Unai Emery': 'Rafael Benítez', 'Xabi Alonso': 'Carlo Ancelotti', 'Bob Paisley': 'Bill Shankly', 'Joe Fagan': 'Bob Paisley', 'Kenny Dalglish': 'Bob Paisley', 'Alex Ferguson': 'Jock Stein', 'Brian Clough': 'Alan Brown', 'Thomas Tuchel': 'Ralf Rangnick', 'Julian Nagelsmann': 'Thomas Tuchel',
+    'Jürgen Klopp': 'Wolfgang Frank', 'Hansi Flick': 'Joachim Löw', 'Joachim Löw': 'Jürgen Klinsmann', 'Ottmar Hitzfeld': 'Hennes Weisweiler', 'Jupp Heynckes': 'Hennes Weisweiler', 'Udo Lattek': 'Dettmar Cramer', 'Franz Beckenbauer': 'Dettmar Cramer', 'Giovanni Trapattoni': 'Nereo Rocco', 'Enzo Bearzot': 'Nereo Rocco', 'Helenio Herrera': 'Helenio Herrera', 'Arsène Wenger': 'Max Hild',
+    'Didier Deschamps': 'Marcello Lippi', 'Laurent Blanc': 'Alex Ferguson', 'Carlos Bianchi': 'Osvaldo Zubeldía', 'Carlos Bilardo': 'Osvaldo Zubeldía', 'Telê Santana': 'Zezé Moreira', 'Luiz Felipe Scolari': 'Carlos Froner', 'Luis Aragonés': 'Ferdinand Daučík', 'Javier Clemente': 'Ronnie Allen', 'John Toshack': 'Bill Shankly', 'Terry Venables': 'Dave Sexton' };
+  delete MENTORES['Helenio Herrera'];
+  const mentorDe = (nombre, M) => (M && M.mentores && M.mentores[nombre]) || MENTORES[nombre] || null;
   const DESTINO_DT = { 'José Mourinho': 'Real Madrid' };
   // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
   function extraDon(c, e) {
@@ -1752,7 +1779,11 @@
       M.exJugadoresDT.push(leyenda.n);
       const clubes = {}; leyenda.carrera.forEach((t) => { clubes[t.club] = (clubes[t.club] || 0) + 1; });
       const casa = Object.keys(clubes).sort((a, b) => clubes[b] - clubes[a])[0];
-      M.parados.push({ nombre: leyenda.n, nac: leyenda.nac, nacion: leyenda.nacion, pais: leyenda.nacion, estilo: leyenda.pos === 'DEF' || leyenda.pos === 'POR' ? 'defensivo' : leyenda.pos === 'DEL' ? 'ofensivo' : 'equilibrado', desde: 1, hasta: 30, fijo: false, nota: null, exJugador: true, casa });
+      // Su maestro: el entrenador con el que más temporadas jugó en la partida. Hereda su manera de jugar.
+      const con = {}; leyenda.carrera.forEach((t) => { const dt = (M.dtTemporada || {})[t.club + '|' + t.temporada]; if (dt) con[dt] = (con[dt] || 0) + 1; });
+      const mentor = Object.keys(con).filter((k) => con[k] >= 2 && k !== leyenda.n).sort((x, y) => con[y] - con[x] || maestro(y) - maestro(x))[0];
+      if (mentor) (M.mentores = M.mentores || {})[leyenda.n] = mentor;
+      M.parados.push({ nombre: leyenda.n, nac: leyenda.nac, nacion: leyenda.nacion, pais: leyenda.nacion, mentor: mentor || null, estilo: (mentor && (M.dtEstilo || {})[mentor]) || (leyenda.pos === 'DEF' || leyenda.pos === 'POR' ? 'defensivo' : leyenda.pos === 'DEL' ? 'ofensivo' : 'equilibrado'), desde: 1, hasta: 30, fijo: false, nota: null, exJugador: true, casa });
     }
     const edadDe = (e) => { const n = parseInt(String(e.nac || (MAESTROS[e.nombre] ? MAESTROS[e.nombre][0] : '')).slice(0, 4), 10); return n ? anio - n : null; };
     const puestos = new Map();
@@ -1766,6 +1797,7 @@
       if (!e) return;
       e.anios = (e.anios || 0) + 1;
       e.desdeAnio = e.desdeAnio || anio;
+      (M.dtTemporada = M.dtTemporada || {})[c.nombre + '|' + temporadaTxt(M.anio)] = e.nombre; if (e.estilo) (M.dtEstilo = M.dtEstilo || {})[e.nombre] = e.estilo;
       const ed = edadDe(e), p = puestos.get(c);
       const don = donDT(e.nombre);
       // El de la dinastía se queda hasta que él quiera (se jubila pasados los 70).
@@ -1808,7 +1840,7 @@
       const sale = e ? deja(c, 'relevo') : null;
       M.parados = M.parados.filter((x) => x.nombre !== nuevo.nombre);
       c.entrenadores = [Object.assign({}, nuevo, { desde: 1, hasta: 30, fijo: false, nota: null, anios: 0, credito: 0 })];
-      log.push(Object.assign({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' }, nuevo.exJugador ? { leyenda: true, casa: nuevo.casa === c.nombre } : {}));
+      log.push(Object.assign({ club: c.nombre, sale, entra: nuevo.nombre, de: de ? de.nombre : null, motivo: de ? 'fichado' : 'llega' }, nuevo.exJugador ? { leyenda: true, casa: nuevo.casa === c.nombre, mentor: nuevo.mentor || null } : {}));
     });
     // El ego de cada uno tira hacia un club: Mourinho quiere el banquillo más grande del mundo, el del Real Madrid.
     Object.keys(DESTINO_DT).forEach((nombre) => {
@@ -1994,6 +2026,7 @@
     marcas(M, R, resumen.novedades);
     rivalidades(M, R, resumen.novedades);
     cuentas(M, R);
+    resumen.escandalos = escandalos(M, R);
     resumen.mercado = mercado(M, r);
     resumen.duenos = M.duenosNuevos || [];
     resumen.presidentes = M.presidentesNuevos || [];
@@ -2198,7 +2231,7 @@
     return d;
   }
 
-  const api = { PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
