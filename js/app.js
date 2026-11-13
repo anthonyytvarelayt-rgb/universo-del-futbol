@@ -1103,12 +1103,13 @@ function sorpresasHtml(V) {
   const dtNoticias = noticiasDT(V).map((x) => art(x.rot, x.tit, x.txt)).join('');
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
+  const historias = historiasDe(V).map((h) => art(esc(h.rot), esc(h.tit), esc(h.txt))).join('');
   // Traiciones: quien se pone la camiseta del eterno rival. Pasa muy poco, y cuando pasa es portada.
   const traiciones = traicionesDe(V).slice(0, 3).map((x) => art('Traición', `${nombreJ(x.jugador)} ficha por el ${esc(x.a)}`, x.directa
     ? `Del ${esc(x.de)} al eterno rival, sin escalas${x.precio ? ` y por ${precioTxt(x.precio)}` : ''}. La afición que lo aplaudía ya quema su camiseta, y la vuelta al que fue su estadio promete ser un infierno.`
     : `Fue jugador del ${esc(x.traicion)} y ahora llega desde el ${esc(x.de)} para defender al enemigo. En su antigua casa no se lo van a perdonar.`)).join('');
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + plenos + traiciones + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + plenos + traiciones + historias + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1285,6 +1286,95 @@ const premioDT = (V) => { const t = entrenadorDelAnio(V); return t ? `<div class
 
 // Resumen en texto para pegarlo en un chat o una nota.
 const traicionesDe = (V) => (V.mercado || []).filter((x) => x.traicion && nivel(x.niv) >= 600).sort((a, b) => b.niv - a.niv);
+// ---------- Historias del año: lo que un aficionado contaría (maldiciones, robos, fiascos, remontadas, despedidas) ----------
+const cacheHistorias = new WeakMap();
+function historiasDe(V) {
+  if (V !== S && cacheHistorias.has(V)) return cacheHistorias.get(V);
+  const out = [], intento = (f) => { try { f(); } catch (e) { /* una historia que falle no rompe las demás */ } };
+  if (!cerradaV(V)) return out;
+  const ts = temporadas().filter((T) => cerradaV(T) && T.anio <= V.anio).sort((a, b) => a.anio - b.anio), antes = ts.filter((T) => T !== V);
+  const finalista = (T) => { const ro = T.R && T.R.EU && T.R.EU.rondas, f = ro && ro[ro.length - 1].cruces[0]; return f && f.b ? (f.a === T.europa ? f.b : f.a) : null; };
+  const fem = (t) => t.replace(/\b([Ee])l (Juventus|Roma|Lazio|Fiorentina|Sampdoria|Real Sociedad)\b/g, (m, e, c) => (e === 'E' ? 'La ' : 'la ') + c).replace(/\b([Dd])el (Juventus|Roma|Lazio|Fiorentina|Sampdoria|Real Sociedad)\b/g, '$1e la $2').replace(/\bal (Juventus|Roma|Lazio|Fiorentina|Sampdoria|Real Sociedad)\b/g, 'a la $1');
+  const pon = (rot, tit, txt) => out.push({ rot, tit: fem(tit), txt: fem(txt) });
+  // Maldiciones de la Copa de Europa.
+  intento(() => {
+    const sub = finalista(V); if (!V.europa) return;
+    const perdidas = (c, Ts) => Ts.filter((T) => finalista(T) === c).length, ganadas = (c, Ts) => Ts.filter((T) => T.europa === c).length;
+    if (!ganadas(V.europa, antes) && perdidas(V.europa, antes) >= 2) pon('Se acabó la maldición', `El ${V.europa} gana por fin la ${nombreEuropa(V)}`, `Había perdido ${perdidas(V.europa, antes)} finales en esta partida. Esta vez la copa se queda en casa.`);
+    if (sub && !ganadas(sub, ts) && perdidas(sub, ts) >= 2) pon('Maldición', `El ${sub} vuelve a perder la final`, `Ya son ${perdidas(sub, ts)} finales de la ${nombreEuropa(V)} perdidas y ninguna ganada. En el club empiezan a creer que es cosa de brujas.`);
+  });
+  // Dueños de su liga que no pueden con Europa.
+  intento(() => paisesDe(V).filter((p) => !NO_EUROPA_LIGA.includes(p)).forEach((pais) => {
+    const c = campeonDe(V, pais).campeon; if (!c) return; let n = 0; for (let i = ts.length - 1; i >= 0 && campeonDe(ts[i], pais).campeon === c; i--) n++;
+    if (n >= 4 && n % 2 === 0 && !ts.slice(-n).some((T) => T.europa === c)) pon('La espina', `${n} ligas seguidas del ${c}, y Europa se le resiste`, `Manda en ${pais} sin rival, pero en todo ese tiempo no ha levantado la ${nombreEuropa(V)}. Cada año que pasa pesa más.`);
+  }));
+  // Grandes que llevan años sin ganar su liga.
+  intento(() => (V.objetivos || []).filter((o) => o.prestigio >= 820 && !NO_EUROPA_LIGA.includes(o.pais)).forEach((o) => {
+    let n = 0; for (let i = ts.length - 1; i >= 0 && campeonDe(ts[i], o.pais).campeon !== o.club; i--) n++;
+    if (n === ts.length && n < 6) return;
+    if (n === 5 || n === 8 || n === 12 || n === 20) pon('Sequía', `El ${o.club} cumple ${n} años sin ganar la liga`, 'Demasiado tiempo para un club de su tamaño. La grada ya no pide paciencia: pide títulos.');
+    if (n === 0 && ts.length >= 6) { let m = 0; for (let i = ts.length - 2; i >= 0 && campeonDe(ts[i], o.pais).campeon !== o.club; i--) m++; if (m >= 5 && m < ts.length - 1) pon('Fin de la sequía', `El ${o.club} vuelve a ganar la liga ${m} años después`, 'Una generación entera de aficionados no lo había visto campeón.'); }
+  }));
+  // Balón de Oro: el robo, el eterno segundo y el que por fin lo gana.
+  intento(() => {
+    const pm = premiosMundo(V), pod = pm.podio || []; if (pod.length < 2) return;
+    const g = pod[0], s = pod[1], nom = pm.nombreMejor || 'premio al mejor del mundo';
+    const podios = (n, pos) => antes.filter((T) => { const p = premiosMundo(T).podio || []; return pos == null ? p.slice(1).some((x) => x.nombre === n) : p[pos] && p[pos].nombre === n; }).length;
+    const ganados = (n) => antes.filter((T) => { const w = premiosMundo(T).ganadorMejor; return w && w.nombre === n; }).length;
+    if (s.nota - g.nota >= 0.2 && s.g >= g.g) pon('Polémica', `¿Le han robado el ${nom} a ${s.nombre}?`, `Lo gana ${g.nombre} (${g.g} goles, nota ${g.nota.toFixed(2)}), pero ${s.nombre} tuvo mejores números: ${s.g} goles y nota ${s.nota.toFixed(2)}. Pesaron más los títulos del ganador. Media prensa habla de atraco.`);
+    if (!ganados(g.nombre) && podios(g.nombre) >= 2) pon('Por fin', `${g.nombre} gana el ${nom} que se le escapaba`, `Había subido ${podios(g.nombre)} veces al podio sin ganarlo. A la tercera, o a la que haga falta, fue la vencida.`);
+    if (!ganados(s.nombre) && podios(s.nombre, 1) >= 1) pon('El eterno segundo', `${s.nombre}, otra vez a un paso`, `Segundo en el ${nom} por ${podios(s.nombre, 1) + 1}.ª vez sin haberlo ganado nunca. Siempre hay alguien que le quita la foto.`);
+    const top = figurasDe(V).filter((x) => x.pj >= 20).sort((a, b) => b.notaTemp - a.notaTemp)[0];
+    if (top && !pod.some((x) => x.nombre === top.nombre) && top.notaTemp - g.nota >= 0.3) pon('Fuera del podio', `${top.nombre}, el mejor según las notas, se queda sin premio`, `Nota ${top.notaTemp.toFixed(2)} con el ${top.club}, la más alta del mundo, y ni siquiera entra entre los tres primeros. Jugar lejos de los grandes títulos se paga.`);
+  });
+  // Selecciones: finales perdidas.
+  intento(() => torneosSelecciones(V).forEach(({ id, T }) => {
+    const tipo = String(id).split('-')[0], todas = ts.flatMap((X) => torneosSelecciones(X).filter((x) => String(x.id).split('-')[0] === tipo).map((x) => x.T));
+    const perd = todas.filter((X) => X.subcampeon === T.subcampeon).length, gan = todas.filter((X) => X.campeon === T.subcampeon).length;
+    if (T.subcampeon && perd >= 2 && !gan) pon('Maldición', `${T.subcampeon} pierde otra final`, `Son ya ${perd} finales perdidas de ${T.nombre || 'Mundial'} en esta partida, y ninguna ganada. Un país entero vuelve a quedarse a un partido.`);
+  }));
+  // Fichajes del verano pasado: el fiasco y el chollo.
+  intento(() => {
+    const prev = antes.find((T) => T.anio === V.anio - 1); if (!prev) return;
+    const fs = (prev.mercado || []).filter((x) => x.tipo === 'fichaje' && x.precio != null && nivel(x.niv) >= 600); if (!fs.length) return;
+    const caro = Math.max(...fs.map((x) => x.precio)), st = (x) => V.G.find((g) => g.nombre === x.jugador && g.club === x.a);
+    const fiasco = fs.filter((x) => x.precio >= 0.45 * caro).map((x) => ({ x, g: st(x) })).filter(({ g }) => g && ((g.pj >= 15 && g.notaTemp < 6.95) || (g.pj < 12 && !g.lesiones))).sort((a, b) => b.x.precio - a.x.precio)[0];
+    if (fiasco) pon('Fiasco', `${fiasco.x.jugador} no vale lo que costó`, `El ${fiasco.x.a} pagó ${precioTxt(fiasco.x.precio)} y se ha encontrado con ${fiasco.g.pj} partidos${fiasco.g.pj >= 15 ? ` y una nota de ${fiasco.g.notaTemp.toFixed(2)}` : ''}. En la grada ya preguntan quién firmó aquello.`);
+    const chollo = fs.filter((x) => x.precio <= 0.12 * caro).map((x) => ({ x, g: st(x) })).filter(({ g }) => g && g.pj >= 20 && g.notaTemp >= 8.2).sort((a, b) => b.g.notaTemp - a.g.notaTemp)[0];
+    if (chollo) pon('Chollo', `${chollo.x.jugador}, el mejor negocio del año`, `Llegó al ${chollo.x.a} ${chollo.x.precio ? `por ${precioTxt(chollo.x.precio)}` : 'gratis'} y responde con ${chollo.g.pos === 'POR' ? `${chollo.g.pj} partidos` : `${chollo.g.g} goles, ${chollo.g.a} asistencias`} y nota ${chollo.g.notaTemp.toFixed(2)}.`);
+  });
+  // Remontadas en Europa.
+  intento(() => V.R.EU.rondas.slice(-4).forEach((ro) => ro.cruces.forEach((c) => {
+    if (!c.partidos || c.partidos.length < 2 || !c.ganador) return;
+    const m = c.partidos[0], dif = m.local === c.ganador ? m.ga - m.gb : m.gb - m.ga, pierde = c.a === c.ganador ? c.b : c.a, v = c.partidos[1];
+    if (dif <= -2) pon('Noche histórica', `Remontada del ${c.ganador} ante el ${pierde}`, `Perdió la ida ${m.ga}-${m.gb} en ${ro.nombre.toLowerCase()} de la ${nombreEuropa(V)} y le dio la vuelta en la vuelta (${v.local} ${v.ga}-${v.gb} ${v.visita})${c.penaltis ? ', con penaltis incluidos' : ''}. De las que se cuentan durante años.`);
+  })));
+  // El derbi del año: la paliza más grande entre rivales.
+  intento(() => {
+    const ms = paisesDe(V).flatMap((p) => ligasDe(V, p).filter((l) => l.nivel === 1 && l.T && l.T.resultados).flatMap((l) => l.T.resultados.flat())).filter((m) => m && m.derbi && Math.abs(m.ga - m.gb) >= 3);
+    const peso = (m) => ((V.objetivos || []).find((o) => o.club === m.local) || { prestigio: 500 }).prestigio + ((V.objetivos || []).find((o) => o.club === m.visita) || { prestigio: 500 }).prestigio + 60 * Math.abs(m.ga - m.gb);
+    const m = ms.sort((a, b) => peso(b) - peso(a))[0]; if (!m) return;
+    const gana = m.ga > m.gb ? m.local : m.visita, pierde = m.ga > m.gb ? m.visita : m.local;
+    pon('El derbi del año', `${m.local} ${m.ga}-${m.gb} ${m.visita}`, `Paliza del ${gana} en el ${m.derbi}${m.ga < m.gb ? ', y en campo contrario' : ''}. En el ${pierde} tardarán en olvidarlo.`);
+  });
+  // Parejas y tridentes.
+  intento(() => {
+    const porClub = new Map(); figurasDe(V).filter((x) => x.g >= 15).forEach((x) => porClub.set(x.club, (porClub.get(x.club) || []).concat(x)));
+    const xs = [...porClub.entries()].map(([club, js]) => { js.sort((a, b) => b.g - a.g); const tres = js.slice(0, 3), t3 = tres.reduce((t, x) => t + x.g, 0), t2 = js.slice(0, 2).reduce((t, x) => t + x.g, 0); return tres.length === 3 && t3 >= 75 ? { club, js: tres, tot: t3 } : js.length >= 2 && t2 >= 65 ? { club, js: js.slice(0, 2), tot: t2 } : null; }).filter(Boolean).sort((a, b) => b.tot - a.tot)[0];
+    if (!xs) return;
+    const sigla = xs.js.map((x) => sinTildes(corto(x.nombre)).replace(/[^a-z]/gi, '').charAt(0).toUpperCase()).join('');
+    pon(xs.js.length === 3 ? 'El tridente' : 'La pareja', `La ${sigla} del ${xs.club}: ${xs.tot} goles`, `${xs.js.map((x) => `${x.nombre} (${x.g})`).join(', ')}. No hay defensa que aguante eso cada tres días.`);
+  });
+  // Despedidas: la carrera de la leyenda que se va.
+  intento(() => (V.retiros || []).map((x) => ({ x, pico: Math.max(0, ...(x.j.carrera || []).map((t) => t.niv || 0), x.j.inicio ? x.j.inicio.niv : 0) })).filter((y) => nivel(y.pico) >= 780).sort((a, b) => b.pico - a.pico).slice(0, 3).forEach(({ x, pico }) => {
+    const car = x.j.carrera || [], clubes = []; car.forEach((t) => { if (clubes[clubes.length - 1] !== t.club) clubes.push(t.club); });
+    const pj = car.reduce((t, c) => t + (c.pj || 0), 0), g = car.reduce((t, c) => t + (c.g || 0), 0);
+    let tit = 0, bo = 0; intento(() => { const pl = palmaresDe(null, x.j.n, true); tit = pl.filter((t) => !t[2]).length; bo = pl.filter((t) => t[2] && /Bal[oó]n de Oro|Mejor jugador del mundo|FIFA/.test(t[0])).length; });
+    pon('Adiós a una leyenda', `Se retira ${x.j.n}`, `Cuelga las botas a los ${x.edad} años en el ${x.club}. En esta partida: ${pj} partidos y ${g} goles${clubes.length ? ` con ${clubes.join(', ')}` : ''}${tit ? `; ${tit} título${tit > 1 ? 's' : ''}` : ''}${bo ? ` y ${bo} ${bo > 1 ? 'veces' : 'vez'} mejor jugador del mundo` : ''}. Llegó a nivel ${nivel(pico)}. El fútbol le debe un homenaje.`);
+  }));
+  if (V !== S) cacheHistorias.set(V, out);
+  return out;
+}
 function copiarResumen(btn) {
   const V = cerradas[+btn.dataset.copiar] || S, pm = premiosMundo(V), out = [`⚽ UNIVERSO DEL FÚTBOL · TEMPORADA ${V.temporada}`];
   const sec = (t) => out.push('', t), intento = (f) => { try { f(); } catch (e) { /* una parte que falle no rompe el resumen */ } };
@@ -1413,6 +1503,7 @@ function copiarResumen(btn) {
       if (lineas.length) { sec('📰 OTRAS NOTICIAS'); lineas.forEach((l) => out.push(l)); }
     });
   }
+  intento(() => { const hs = historiasDe(V); if (hs.length) { sec('📖 HISTORIAS DEL AÑO'); hs.forEach((h) => out.push(`• ${h.rot.toUpperCase()}: ${h.tit}. ${h.txt}`)); } });
   intento(() => { const xs = noticiasDT(V); if (xs.length) { sec('🎙️ ENTRENADORES QUE DAN QUE HABLAR'); const sinHtml = (t) => { const d = document.createElement('div'); d.innerHTML = t; return d.textContent; }; xs.forEach((x) => out.push(`• ${x.rot}: ${sinHtml(x.tit)}. ${sinHtml(x.txt)}`)); } });
   intento(() => { const ds = declaraciones(V); if (ds.length) { sec('💬 DECLARACIONES'); ds.forEach((d) => out.push(`• ${d.nombre}${d.club ? ` (${d.club})` : ''}: ${d.frase} ${d.txt}`)); } });
   // Récords vigentes de la partida.
@@ -1976,9 +2067,28 @@ function fichaClub(n) {
     + objetivoClub(c, l)
     + dineroClub(c)
     + historialClub(n, c.pais)
+    + simbolosClub(n, c)
     + caraACara(n, c.pais)
     + goleadoresClub(n)
     + `<div class="palmares"><span class="rotulo">Plantilla</span>${plantilla.map((j) => `<div><span>${nombreJ(j.n)} <small>${esc(POS[j.pos] || j.pos)}</small></span><span>${nivel(j.niv)}</span></div>`).join('')}</div>`;
+}
+// Capitán, ídolos y villanos: quién lleva el brazalete, a quién adora la grada y a quién no perdona.
+const anioNacTxt = (j) => +String(j.nac || '9999').slice(0, 4);
+function simbolosClub(n, c) {
+  try {
+    const seguidas = (j) => { let k = 0; for (let i = (j.carrera || []).length - 1; i >= 0 && j.carrera[i].club === n; i--) k++; return k; };
+    const cap = c.jugadores.filter((j) => !j.relleno && seguidas(j) >= 3).sort((a, b) => seguidas(b) - seguidas(a) || ((b.inicio || {}).club === n && (b.carrera[0] || {}).club === n) - ((a.inicio || {}).club === n && (a.carrera[0] || {}).club === n) || anioNacTxt(a) - anioNacTxt(b))[0];
+    const todos = [].concat(...M.clubes.map((x) => x.jugadores), M.libres || [], M.retirados || []);
+    const idolos = todos.map((j) => { const ts = (j.carrera || []).filter((t) => t.club === n && !t.cedido); return { j, n: ts.length, g: ts.reduce((t, x) => t + (x.g || 0), 0), pj: ts.reduce((t, x) => t + (x.pj || 0), 0), niv: Math.max(0, ...ts.map((x) => x.niv || 0)) }; })
+      .filter((x) => x.n >= 5 && nivel(x.niv) >= 650 && !x.j.relleno).sort((a, b) => (b.n * 12 + b.niv / 4 + b.g / 3) - (a.n * 12 + a.niv / 4 + a.g / 3)).slice(0, 5);
+    const villanos = temporadas().flatMap((T) => (T.mercado || []).filter((x) => x.traicion === n && nivel(x.niv) >= 550).map((x) => ({ x, T }))).slice(-4);
+    if (!cap && !idolos.length && !villanos.length) return '';
+    return `<div class="palmares"><span class="rotulo">Símbolos del club</span>`
+      + (cap ? `<div><span>Capitán: ${nombreJ(cap.n)}</span><span>${seguidas(cap)} años</span></div>` : '')
+      + idolos.map((x) => `<div><span>Ídolo: ${nombreJ(x.j.n)}</span><span>${x.n} temp. · ${x.g} goles</span></div>`).join('')
+      + villanos.map(({ x, T }) => `<div><span>Villano: ${nombreJ(x.jugador)} <small>se fue al ${esc(x.a)}</small></span><span>${esc(x.temporada || T.temporada)}</span></div>`).join('')
+      + '</div>';
+  } catch (e) { return ''; }
 }
 // Cara a cara: el balance de liga de un club contra sus grandes rivales del país, en toda la partida.
 function caraACara(n, pais) {
