@@ -919,7 +919,7 @@
     const x = hashN(c.nombre, 17) % 100;
     return c.prestigio >= 860 ? 'estrellas' : x < 22 ? 'ojeadores' : x < 36 ? 'cantera' : 'normal';
   }
-  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club' };
+  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato' };
 
   function mercado(M, r) {
     const nuevoAnio = M.anio + 1;
@@ -929,8 +929,11 @@
       de.jugadores = de.jugadores.filter((x) => x !== j);
       a.jugadores.push(j);
       masas.delete(de); masas.delete(a);
+      j.contrato = nuevoAnio + duracion(j);
       log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
     };
+    // Contratos: más largos cuanto más joven.
+    const duracion = (j) => { const e = nuevoAnio - anioNac(j); return (e <= 23 ? 5 : e <= 28 ? 4 : e <= 31 ? 3 : 2) - (hashN(j.n + nuevoAnio, 31) % 2); };
     // Sueldos: lo que ya paga cada club y lo que puede pagar. Nadie ficha a quien no puede pagar.
     const masas = new Map();
     const masa = (c) => { let v = masas.get(c); if (v === undefined) { v = c.jugadores.reduce((t, x) => t + sueldo(x), 0); masas.set(c, v); } return v; };
@@ -1041,6 +1044,44 @@
       const a = destinos[Math.floor(r() * Math.min(4, destinos.length))];
       j.cedido = null; fichados.add(j); mover(j, v, a, 'fichaje');
     }));
+    // Contratos (desde 1996, con la ley Bosman): cuando se acaba, el jugador decide. Casi todos renuevan; el que no,
+    // se va gratis a un club donde sea titular. Antes de 1996 el club retenía al jugador y esto no existía.
+    if (fluidez === 1) {
+      const gratis = new Map();
+      let totalGratis = 0;
+      const titularEn = (c, j) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
+      M.clubes.filter((v) => v.division <= 2).forEach((v) => v.jugadores.slice().forEach((j) => {
+        if (j.contrato == null) j.contrato = nuevoAnio + 1 + (hashN(j.n, 31) % 4);
+        if (j.contrato > nuevoAnio || j.cedido || j.debut === nuevoAnio) return;
+        const K = CONSTANTES[j.n], edad = nuevoAnio - anioNac(j), quiere = deseo(j);
+        const renueva = () => { j.contrato = nuevoAnio + duracion(j); if (!j.relleno && j.niv >= 820) log.push({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: v.nombre, a: v.nombre, tipo: 'renovación', hasta: j.contrato }); };
+        if (j.relleno || (K && (K.club === v.nombre && nuevoAnio <= K.fiel)) || j.cons || v.division !== 1 || edad < 21) return renueva();
+        // Renovar: depende de lo que busca, de si juega y de cómo le fue al club.
+        let p = quiere === 'casa' ? 0.99 : 0.95;
+        if (sinMinutos(j) || (jugo.get(j) || 0) < 10) p -= 0.3;
+        if (quiere === 'titulos' && !campeones.has(v.nombre) && v.balance !== 'superado') p -= 0.04;
+        if (quiere === 'dinero' && masa(v) > presupuesto(v, nuevoAnio)) p -= 0.12;
+        if (quiere === 'reto' && aniosEn(j, v) >= 4) p -= 0.08;
+        if (lios.has(j)) p -= 0.4;
+        if (v.balance === 'superado') p += 0.03;
+        // A sus figuras el club las renueva antes de que llegue el día: solo se escapan gratis muy de vez en cuando.
+        const tercero = v.jugadores.map((x) => x.niv).sort((a, b) => b - a)[2] || 0;
+        if (j.niv >= tercero && !lios.has(j)) p = Math.max(p, 0.985);
+        if (totalGratis >= 30 || r() < p) return renueva();
+        const mia = fuerzas.get(v) || 0;
+        const destinos = [...fuerzas.keys()].filter((c) => c !== v && !esFilial(c) && (gratis.get(c) || 0) < 1 && j.niv > titularEn(c, j) + 5 && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j)
+          && (!NO_EUROPA.includes(c.pais) || !extranjero(j, c.pais)) && (c.pais === v.pais || j.niv >= NIVEL_EXTRANJERO)
+          // Se va gratis a algo mejor, o a algo parecido si lo que quiere es jugar, dinero o cambiar de aires.
+          && (fuerzas.get(c) > mia + 5 || ((sinMinutos(j) || quiere !== 'titulos') && fuerzas.get(c) > mia - 40)))
+          .map((c) => ({ c, gana: fuerzas.get(c) + 0.2 * c.prestigio + 80 * r() + (quiere === 'dinero' ? 30 * Math.log(presupuesto(c, nuevoAnio) / Math.max(1, masa(c))) : 0) + (quiere === 'reto' && c.pais !== v.pais ? 40 : 0) }))
+          .sort((a, b) => b.gana - a.gana);
+        if (!destinos.length) return renueva();
+        const c = destinos[0].c;
+        totalGratis++;
+        gratis.set(c, (gratis.get(c) || 0) + 1); fichados.add(j);
+        mover(j, v, c, 'fichaje', 'gratis');
+      }));
+    }
     // Las figuras se juntan en los grandes (desde 1980, y del todo desde 1996). Sin esto, con los años los mejores del
     // mundo quedaban repartidos por cincuenta clubes (De Bruyne en el Auxerre, Neymar toda su carrera en el Santos), los
     // grandes se desinflaban y cualquiera ganaba la Champions. Cada verano, los mejores jugadores del mundo que no están

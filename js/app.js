@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 32, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 33, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1054,8 +1054,10 @@ function sorpresasHtml(V) {
   const despidos = banq.filter((x) => x.motivo === 'despedido' && grande(x.club) >= 720).sort((a, b) => grande(b.club) - grande(a.club)).slice(0, 2).map((x) => art('Despido', `El ${esc(x.club)} echa a ${esc(x.sale)}`, `El equipo acabó ${x.puesto ? x.puesto + '.º' : 'lejos de lo esperado'} y la directiva no ha esperado más.`)).join('');
   const robos = banq.filter((x) => x.motivo === 'fichado').slice(0, 1).map((x) => art('Golpe en los banquillos', `${esc(x.entra)} deja el ${esc(x.de)} por el ${esc(x.club)}`, 'Un grande ha ido a buscar a su entrenador a otro club, y se lo ha llevado.')).join('');
   const lios = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.motivo === 'acabó mal con su club' && x.niv >= 800).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => art('Portazo', `${nombreJ(x.jugador)} acaba mal con el ${esc(x.de)}`, `Después de meses de tensión con el club, se marcha al ${esc(x.a)}.`)).join('');
+  const renov = (V.mercado || []).filter((x) => x.tipo === 'renovación' && x.niv >= 900).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Renovación', `${nombreJ(x.jugador)} renueva con el ${esc(x.de)}`, `Se le acababa el contrato y podía irse gratis, pero ha firmado hasta ${x.hasta}.`)).join('');
+  const gratis = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && /gratis/.test(x.motivo || '') && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Se va gratis', `${nombreJ(x.jugador)} deja el ${esc(x.de)} sin dejar un euro`, `No quiso renovar y, con el contrato acabado, ficha por el ${esc(x.a)}.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
-  return records + duelos + fracasos + hazanas + despidos + robos + lios + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + robos + lios + gratis + renov + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1520,7 +1522,7 @@ function fichaJugador(n) {
   if (j.fin >= 1.15) rasgos.push('<span>Gran definidor</span>'); else if (j.fin && j.fin <= 0.85) rasgos.push('<span>Poco gol para su puesto</span>');
   try { const pf = Mundo.perfil(j); if (pf === 'precoz') rasgos.push('<span>Precoz</span>'); else if (pf === 'tardio' || pf === 'tardío') rasgos.push('<span>Madura tarde</span>'); } catch (e) { /* sin perfil */ }
   if (!j.relleno) { try { const ca = Mundo.CARACTERES[Mundo.caracterDe(j)]; if (ca) rasgos.push(`<span>${esc(ca)}</span>`); } catch (e) { /* sin datos */ } }
-  if (x.activo && !j.relleno) { try { rasgos.push(`<span>Busca: ${esc(Mundo.DESEOS[Mundo.deseo(j)].toLowerCase())}</span>`); rasgos.push(`<span>Pide ${dineroTxt(Mundo.sueldo(j))}</span>`); } catch (e) { /* sin datos */ } }
+  if (x.activo && !j.relleno) { try { rasgos.push(`<span>Busca: ${esc(Mundo.DESEOS[Mundo.deseo(j)].toLowerCase())}</span>`); rasgos.push(`<span>Pide ${dineroTxt(Mundo.sueldo(j))}</span>`); if (j.contrato && M.anio >= 1996) rasgos.push(`<span>Contrato hasta ${Math.max(j.contrato, M.anio + 1)}</span>`); } catch (e) { /* sin datos */ } }
   if (techo && nv && techo - nv >= 80) rasgos.push('<span class="oro">Promesa: le queda mucho por crecer</span>');
   if (j.relleno || esFicticio(n)) rasgos.push('<span>Jugador inventado (sin datos de su plantilla)</span>');
   const palm = palmaresDe(null, n);
@@ -1917,7 +1919,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 32) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 33) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
