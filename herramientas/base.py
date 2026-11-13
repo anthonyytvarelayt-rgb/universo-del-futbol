@@ -169,7 +169,7 @@ if sin_carrera: avisos.append(f"jugadores sin carrera (no entran): {len(sin_carr
 
 entrenadores = []
 for f in leer('entrenadores.csv'):
-    t = {'nombre': f['nombre'], 'nacion': f.get('nacionalidad', ''), 'club': f['club'], 'desde': entero(f.get('desde')), 'hasta': entero(f.get('hasta'))}
+    t = {'nombre': f['nombre'], 'nacion': f.get('nacionalidad', ''), 'pais': f.get('pais', ''), 'club': f['club'], 'desde': entero(f.get('desde')), 'hasta': entero(f.get('hasta'))}
     if entero(f.get('nacimiento')) is not None: t['nac'] = str(entero(f['nacimiento']))  # sin dato no se inventa
     if entero(f.get('jornada_desde')) is not None: t['jDesde'], t['jHasta'] = entero(f['jornada_desde']), entero(f.get('jornada_hasta'))
     for k in ('estilo', 'nota'):
