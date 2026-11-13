@@ -275,7 +275,8 @@
     }
     // Copa del Generalísimo: todos los clubes de Primera y Segunda.
     const C = Motor.copa(M.clubes.filter((c) => c.division <= 2 && c.pais === 'España'), { semilla: semilla + 41, anio: M.anio + 1, estado: est, nombre: Epoca.nombre('copa', 'España', M.anio) || 'Copa', derbis: M.derbis, cambios: reg.cambios, factorGoles: fg });
-    const OC = otrasCopas(M, semilla, est, { EU }, reg.cambios);
+    // Con su propio estado de temporada: sus semanas no curan lesiones ni cansan de cara a la liga o al Mundial.
+    const OC = otrasCopas(M, semilla, Motor.nuevoEstado(M.anio, M.derbis), { EU }, reg.cambios);
     const comps = [{ nombre: 'Liga', jugadores: T.jugadores, campeon: T.tabla[0].equipo }]
       .concat(seg.map((s) => ({ nombre: 'Segunda', jugadores: s.T.jugadores, campeon: s.T.tabla[0].equipo })))
       .concat(promos.map((p) => ({ nombre: 'Promoción', jugadores: p.C.jugadores })))
