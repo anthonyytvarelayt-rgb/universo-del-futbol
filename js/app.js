@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 43, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 44, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -1063,10 +1063,12 @@ function sorpresasHtml(V) {
   const rotos = nov.filter((x) => x.tipo === 'vestuario').slice(0, 1).map((x) => art('Vestuario roto', `Mal ambiente en el ${esc(x.club)}`, `${x.nombres.map(esc).join(' y ')} no se soportan y el grupo lo nota. Si nadie pone orden, el equipo rendirá por debajo de lo que vale.`)).join('');
   const bomba = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.niv >= 930 && x.motivo && !/gratis|acabó mal/.test(x.motivo)).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('El fichaje del verano', `${nombreJ(x.jugador)}, del ${esc(x.de)} al ${esc(x.a)}`, `Nivel ${nivel(x.niv)}${x.precio ? ', ' + precioTxt(x.precio) : ''}. El motivo: ${esc(x.motivo)}.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
+  // Las constantes de los entrenadores dan que hablar cada temporada.
+  const dtNoticias = noticiasDT(V).map((x) => art(x.rot, x.tit, x.txt)).join('');
   // Récord mundial de traspaso: el fichaje más caro del verano supera a todos los anteriores de la partida.
   const caroHoy = (V.mercado || []).filter((x) => x.precio).sort((a, b) => b.precio - a.precio)[0], caroAntes = recordFichaje(temporadas(), V);
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
-  return records + duelos + fracasos + hazanas + despidos + robos + recordT + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return records + duelos + fracasos + hazanas + despidos + robos + dtNoticias + recordT + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1132,6 +1134,36 @@ function onceIdeal(G, titulo) {
   return `<span class="rotulo">${esc(titulo)}</span><div class="campo">${lineas.map((l) => `<div class="linea">${l.map(chip).join('')}</div>`).join('')}</div>`;
 }
 
+// Noticias de los entrenadores con constante: polémicas de The Special One, pizarra de Guardiola, milagros de Klopp…
+const POLEMICAS = [
+  (n, c, r) => [`${n} carga contra los árbitros`, `«Si digo lo que pienso, me sancionan». El técnico del ${c} vuelve a incendiar la sala de prensa${r ? ` tras cruzarse con el ${r}` : ''}.`],
+  (n, c, r) => [`${n}: «Yo no soy uno más, soy especial»`, `El entrenador del ${c} acapara las portadas y deja a sus rivales contestando a sus declaraciones en vez de preparar los partidos.`],
+  (n, c, r) => [`${n} aparca el autobús y se ríe de las críticas`, `«El fútbol bonito es ganar». El ${c} desespera a media competición con su planteamiento${r ? `, y el ${r} ya ha protestado` : ''}.`],
+  (n, c, r) => [`Guerra abierta entre ${n} y el banquillo rival`, `Dedos en el ojo, reproches y ruedas de prensa envenenadas: cada partido grande del ${c} empieza una semana antes.`],
+  (n, c, r) => [`${n} señala a su propio vestuario`, `«Hay jugadores que no quieren ganar tanto como yo». En el ${c} ya hay quien no le dirige la palabra.`]
+];
+function noticiasDT(V) {
+  const out = [];
+  try {
+    if (!cerradaV(V)) return out;
+    const titulos = (club) => { const t = []; if (V.europa === club) t.push(nombreEuropa(V)); OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id) === club) t.push(otraCopa(V, id).nombre); }); paisesDe(V).forEach((p) => { const C = copaDe(V, p); if (C && C.campeon === club) t.push(C.nombre); }); return t; };
+    (V.objetivos || []).forEach((o) => {
+      const don = o.entrenador && Mundo.donDT(o.entrenador); if (!don) return;
+      const n = sinApodo(o.entrenador), c = o.club, tit = titulos(c), liga = o.puesto === 1, h = [...(n + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7);
+      const rival = (V.objetivos.filter((x) => x.pais === o.pais && x.club !== c).sort((a, b) => b.prestigio - a.prestigio)[0] || {}).club;
+      if (don === 'special') {
+        const [t, x] = POLEMICAS[h % POLEMICAS.length](n, c, rival);
+        out.push({ rot: 'Polémica', tit: esc(t), txt: esc(x) + (liga || tit.length ? ` Y encima gana: ${esc([liga ? 'la liga' : ''].concat(tit).filter(Boolean).join(', '))}.` : o.aniosDT >= 2 ? ' Es su tercer año en el club y el ambiente ya no se aguanta.' : '') });
+      } else if (don === 'tactico' && liga) out.push({ rot: 'La pizarra', tit: `${esc(n)} da otra lección táctica`, txt: `El ${esc(c)} gana la liga jugando a lo que quiere su entrenador${tit.length ? `, y suma ${esc(tit.join(', '))}` : ''}. Media Europa copia ya sus dibujos.` });
+      else if (don === 'resucita' && (o.balance === 'superado' || liga || tit.length) && o.esperado >= 2) out.push({ rot: 'Resurrección', tit: `${esc(n)} ha revivido al ${esc(c)}`, txt: `Se le esperaba ${o.esperado}.º y acaba ${o.puesto}.º${tit.length ? `, con ${esc(tit.join(', '))} en la vitrina` : ''}. Donde llega, el equipo vuelve a creer.` });
+      else if (don === 'orejona' && V.europa === c) out.push({ rot: 'Rey de Europa', tit: `${esc(n)} y la Copa de Europa: otra vez`, txt: `El ${esc(c)} es campeón de Europa. Con él en el banquillo, estas noches siempre caen del mismo lado.` });
+      else if (don === 'muro' && (o.balance === 'superado' || liga) && o.esperado >= 3) out.push({ rot: 'Partido a partido', tit: `El ${esc(c)} de ${esc(n)} tumba a los gigantes`, txt: `Con menos nombre que sus rivales acaba ${o.puesto}.º. Nadie quiere jugar contra ellos.` });
+      else if (don === 'loco' && o.aniosDT === 0 && o.balance === 'superado') out.push({ rot: 'Locura', tit: `El ${esc(c)} de ${esc(n)} enamora`, txt: 'Presión a todo el campo y ataque sin freno en su primer año. La duda de siempre: cuánto aguantarán las piernas.' });
+      else if (don === 'eterno' && o.aniosDT >= 9 && o.aniosDT % 5 === 4) out.push({ rot: 'Dinastía', tit: `${esc(n)} cumple ${o.aniosDT + 1} años en el ${esc(c)}`, txt: 'Han pasado plantillas enteras y él sigue en el mismo banquillo, rehaciendo el equipo una vez más.' });
+    });
+  } catch (e) { /* sin noticias */ }
+  return out.slice(0, 4);
+}
 // Entrenador del año: el que más hizo con lo que tenía. Cuentan los títulos y quedar por encima de lo que tocaba.
 const cacheDT = new WeakMap();
 function entrenadorDelAnio(V) {
@@ -1242,6 +1274,7 @@ function copiarResumen(btn) {
       if (lineas.length) { sec('📰 OTRAS NOTICIAS'); lineas.forEach((l) => out.push(l)); }
     });
   }
+  intento(() => { const xs = noticiasDT(V); if (xs.length) { sec('🎙️ ENTRENADORES QUE DAN QUE HABLAR'); const sinHtml = (t) => { const d = document.createElement('div'); d.innerHTML = t; return d.textContent; }; xs.forEach((x) => out.push(`• ${x.rot}: ${sinHtml(x.tit)}. ${sinHtml(x.txt)}`)); } });
   // Récords vigentes de la partida.
   intento(() => {
     const caja = document.createElement('div'); caja.innerHTML = recordsPartida(temporadas().filter(cerradaV));
@@ -1770,6 +1803,7 @@ function fichaEntrenador(n, club) {
   if (t && t.estilo) rasgos.push(`<span class="fuerte">${esc(Motor.NOMBRE_ESTILO[t.estilo] || t.estilo)}</span>`);
   try { const ma = Mundo.maestro(n); if (ma) rasgos.push(`<span class="oro">${ma >= 3 ? 'Leyenda de los banquillos' : 'Gran entrenador'}: su equipo rinde más</span>`); } catch (e) { /* sin dato */ }
   try { const mn = Mundo.MANO[n]; if (mn) rasgos.push(`<span>${esc(Mundo.MANOS[mn])}</span>`); } catch (e) { /* sin dato */ }
+  try { const don = Mundo.donDT(n); if (don) rasgos.push(`<span class="oro">★ Constante: ${esc(Mundo.DONES_DT[don])}</span>`); } catch (e) { /* sin dato */ }
   if (t && t.fisico) rasgos.push('<span>Exige mucho físico</span>');
   if (t && t.merito) rasgos.push('<span>Sienta a quien no rinde</span>');
   if (t && t.fijo) rasgos.push('<span>Intocable en el banquillo</span>');
@@ -2145,7 +2179,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 43) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 44) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

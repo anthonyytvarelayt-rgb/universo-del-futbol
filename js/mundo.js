@@ -266,7 +266,7 @@
         const extra = van >= meta ? 8 : Math.min(160, 15 + 45 * debe);
         c.jugadores.forEach((j) => { reyes.push([j, extra]); j.temp = (j.temp || 0) + extra; }); });
       // Los entrenadores especialistas en eliminatorias sacan un punto más a los suyos en Europa.
-      eqs.forEach((c) => { if (manoDe(c) === 'ganador') c.jugadores.forEach((j) => { reyes.push([j, 8]); j.temp = (j.temp || 0) + 8; }); });
+      eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
@@ -1470,7 +1470,7 @@
         const obj = objetivoDe(nombre.indexOf(x), n, x.equipo.prestigio), bal = balanceDe(obj, i, n);
         x.equipo.balance = bal;
         const dt = x.equipo.entrenadores && x.equipo.entrenadores[0];
-        lista.push({ club: x.equipo.nombre, pais: x.equipo.pais, objetivo: obj, puesto: i + 1, balance: bal, prestigio: x.equipo.prestigio, esperado: nombre.indexOf(x) + 1, entrenador: dt ? dt.nombre : null });
+        lista.push({ club: x.equipo.nombre, pais: x.equipo.pais, objetivo: obj, puesto: i + 1, balance: bal, prestigio: x.equipo.prestigio, esperado: nombre.indexOf(x) + 1, entrenador: dt ? dt.nombre : null, aniosDT: dt ? dt.anios || 0 : 0 });
       });
     });
     return lista;
@@ -1501,13 +1501,46 @@
   const manoDe = (c) => { const e = c && c.entrenadores && c.entrenadores[0]; return e ? MANO[e.nombre] || null : null; };
   const MAESTRO_JUGADOR = { 'Luis Enrique': 'Luis Enrique Martínez García' };
   const maestro = (nombre) => (MAESTROS[nombre] ? MAESTROS[nombre][2] : 0);
+  // Constantes de entrenadores: lo que hace único a cada uno, pase lo que pase en la partida.
+  const DONES_DT = {
+    special: 'Gana nada más llegar y arma polémica en cada competición; al tercer año todo estalla',
+    tactico: 'Monstruo táctico: su equipo domina la liga',
+    resucita: 'Revive a cualquier equipo: cuanto más hundido está el club, más lo levanta',
+    eterno: 'Dinastía: nadie lo echa y rehace el equipo una y otra vez',
+    orejona: 'Rey de la Copa de Europa: en esas noches su equipo es otro',
+    muro: 'Hace competir a un equipo modesto contra los gigantes',
+    loco: 'Primer año deslumbrante; después el equipo se le agota'
+  };
+  const CONSTANTES_DT = {
+    'José Mourinho': 'special', 'Helenio Herrera': 'special',
+    'Pep Guardiola': 'tactico', 'Johan Cruyff': 'tactico', 'Arrigo Sacchi': 'tactico', 'Rinus Michels': 'tactico',
+    'Jürgen Klopp': 'resucita', 'Brian Clough': 'resucita', 'Bill Shankly': 'resucita',
+    'Alex Ferguson': 'eterno', 'Matt Busby': 'eterno',
+    'Carlo Ancelotti': 'orejona', 'Zinedine Zidane': 'orejona', 'Bob Paisley': 'orejona',
+    'Diego Simeone': 'muro', 'Marcelo Bielsa': 'loco'
+  };
+  const donDT = (nombre) => CONSTANTES_DT[nombre] || null;
+  // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
+  function extraDon(c, e) {
+    const don = donDT(e.nombre), anios = e.anios || 0;
+    if (don === 'special') return anios <= 1 ? 14 : -8;
+    if (don === 'tactico') return 10;
+    if (don === 'resucita') return c.prestigio < 700 ? 22 : c.prestigio < 820 ? 16 : 5;
+    if (don === 'muro') return c.prestigio < 860 ? 13 : 3;
+    if (don === 'loco') return anios === 0 ? 14 : anios >= 2 ? -6 : 0;
+    if (don === 'eterno') return 4;
+    return 0;
+  }
   // Un gran entrenador hace mejor a su equipo: toda la plantilla rinde un punto más mientras él está.
   function manoDelEntrenador(M) {
     M.clubes.forEach((c) => {
       const e = c.entrenadores && c.entrenadores[0], n = e ? maestro(e.nombre) : 0;
       if (!n || c.manoAnio === M.anio) return;
       c.manoAnio = M.anio;
-      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 4 * n; });
+      const don = extraDon(c, e);
+      c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + 4 * n + don; });
+      // Quien revive a un club también le devuelve el nombre.
+      if (donDT(e.nombre) === 'resucita' && c.prestigio < 820) c.prestigio = Math.min(820, c.prestigio + 10);
     });
   }
   // En verano: se jubilan los mayores, llegan los nuevos técnicos de época, se despide a quien falló y los clubes sin
@@ -1540,6 +1573,11 @@
       e.anios = (e.anios || 0) + 1;
       e.desdeAnio = e.desdeAnio || anio;
       const ed = edadDe(e), p = puestos.get(c);
+      const don = donDT(e.nombre);
+      // El de la dinastía se queda hasta que él quiera (se jubila pasados los 70).
+      if (don === 'eterno') { if (ed && ed >= 71 && r() < 0.5) log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
+      // The Special One: al tercer año, portazo casi seguro.
+      if (don === 'special' && e.anios >= 3 && r() < 0.75) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'sale entre polémicas' }); return; }
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
       const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
@@ -1911,7 +1949,7 @@
     return d;
   }
 
-  const api = { MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
