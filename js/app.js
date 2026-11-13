@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 26, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 27, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -613,10 +613,21 @@ function premiosMundo(V) {
   const sel = (n) => sinTildes(n || '').replace('alemania federal', 'alemania').replace('rfa', 'alemania');
   const MU = R.MU && cerradaV(V) ? R.MU : null;
   // Porteros y defensas casi nunca lo ganan: necesitan un año mucho mejor que el de los atacantes.
-  const merito = (x) => x.notaTemp - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0)
-    + (ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
-    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
-    + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) : 0);
+  // Los títulos premian a quien los ganó de verdad: cuentan enteros para la figura del equipo, algo menos para sus
+  // dos escuderos y poco para los demás (antes un suplente del campeón de Europa le quitaba el Balón a Messi).
+  const puestoEn = new Map(), porEquipo = new Map();
+  G.filter((x) => x.pj >= 15).forEach((x) => { if (!porEquipo.has(x.eq.nombre)) porEquipo.set(x.eq.nombre, []); porEquipo.get(x.eq.nombre).push(x); });
+  porEquipo.forEach((xs) => xs.sort(porNota).forEach((x, i) => puestoEn.set(x, i)));
+  const peso = (x) => { const i = puestoEn.has(x) ? puestoEn.get(x) : 9; return i === 0 ? 1 : i <= 2 ? 0.6 : 0.2; };
+  // Y la liga donde se juega: brillar en una liga floja vale menos que hacerlo contra los mejores.
+  const fuerzaLiga = {};
+  if (V.fuerza) paisesDe(V).forEach((p) => { const fs = ligasDe(V, p).filter((l) => l.nivel === 1).flatMap((l) => l.T.tabla.map((t) => V.fuerza[t.nombre] || 0)).sort((a, b) => b - a).slice(0, 4); if (fs.length) fuerzaLiga[p] = fs.reduce((a, b) => a + b, 0) / fs.length; });
+  const mejorLiga = Math.max(0, ...Object.values(fuerzaLiga));
+  const descuento = (x) => (fuerzaLiga[x.eq.pais] ? Math.min(0.6, Math.max(0, (mejorLiga - fuerzaLiga[x.eq.pais]) / 150)) : 0);
+  const merito = (x) => x.notaTemp - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x)
+    + peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
+    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0))
+    + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0);
   const porMerito = (a, b) => merito(b) - merito(a);
   const calc = {
     balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porMerito, 15),
@@ -1009,7 +1020,7 @@ function edicionEspecial(V) {
     const ret = (V.retiros || []).filter((x) => ini(x.j) >= 780).sort((a, b) => ini(b.j) - ini(a.j)).slice(0, 5);
     const deb = mer.filter((x) => x.tipo === 'debut').sort((a, b) => b.tec - a.tec).slice(0, 5);
     const difJ = (x) => { const d = difs.find((y) => y.jugador === x.jugador); return d ? marcaDif(d.real) : ''; };
-    verano = `<div class="caja"><span class="rotulo">Fichajes del verano</span>${fich.length ? fich.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}${difJ(x)}<small>${esc(x.de)} → ${esc(x.a)}</small></span></span><b>${nivel(x.niv)}</b></div>`).join('') : '<div class="vacio">Ninguno.</div>'}</div>
+    verano = `<div class="caja"><span class="rotulo">Fichajes del verano</span>${fich.length ? fich.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}${difJ(x)}<small>${esc(x.de)} → ${esc(x.a)}${x.motivo ? ' · ' + esc(x.motivo) : ''}</small></span></span><b>${nivel(x.niv)}</b></div>`).join('') : '<div class="vacio">Ninguno.</div>'}</div>
       <div class="caja homenajes"><span class="rotulo">El último aplauso · se retiran</span>${ret.length ? ret.map((x) => `<div class="resultado"><span><span>${nombreJ(x.j.n)}<small>${x.edad} años · ${esc(x.club)}</small></span></span></div>`).join('') : '<div class="vacio">Ninguna figura.</div>'}
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
@@ -1495,6 +1506,7 @@ function fichaJugador(n) {
   if (j.rol && ROL[j.rol]) rasgos.push(`<span class="fuerte">${ROL[j.rol]}</span>`);
   if (j.fin >= 1.15) rasgos.push('<span>Gran definidor</span>'); else if (j.fin && j.fin <= 0.85) rasgos.push('<span>Poco gol para su puesto</span>');
   try { const pf = Mundo.perfil(j); if (pf === 'precoz') rasgos.push('<span>Precoz</span>'); else if (pf === 'tardio' || pf === 'tardío') rasgos.push('<span>Madura tarde</span>'); } catch (e) { /* sin perfil */ }
+  if (x.activo && !j.relleno) { try { rasgos.push(`<span>Busca: ${esc(Mundo.DESEOS[Mundo.deseo(j)].toLowerCase())}</span>`); rasgos.push(`<span>Pide ${dineroTxt(Mundo.sueldo(j))}</span>`); } catch (e) { /* sin datos */ } }
   if (techo && nv && techo - nv >= 80) rasgos.push('<span class="oro">Promesa: le queda mucho por crecer</span>');
   if (j.relleno || esFicticio(n)) rasgos.push('<span>Jugador inventado (sin datos de su plantilla)</span>');
   const palm = palmaresDe(null, n);
@@ -1542,6 +1554,15 @@ function goleadoresClub(n) {
   const xs = [...suma].sort((a, b) => b[1] - a[1]).slice(0, 5);
   return xs.length ? `<div class="palmares"><span class="rotulo">Sus máximos goleadores en la partida</span>${xs.map(([q, g]) => `<div><span>${nombreJ(q)}</span><span>${g} goles</span></div>`).join('')}</div>` : '';
 }
+// Los sueldos se cuentan en «sueldos de un titular normal de Primera»; desde 1995 se enseñan en millones al año.
+function dineroTxt(v) { return M.anio >= 1995 ? `${(v * 1.5).toFixed(v * 1.5 >= 10 ? 0 : 1).replace('.', ',')} M€ al año` : `${v.toFixed(1).replace('.', ',')} sueldos de titular`; }
+function dineroClub(c) {
+  try {
+    const paga = c.jugadores.reduce((t, j) => t + Mundo.sueldo(j), 0), puede = Mundo.presupuesto(c, M.anio);
+    const estado = paga > puede * 1.15 ? ' · <b>en apuros: tiene que vender</b>' : paga > puede * 0.95 ? ' · al límite' : ' · con margen para fichar';
+    return `<div class="palmares"><span class="rotulo">Cómo ficha y cuánto puede gastar</span><div><span>Forma de fichar</span><span>${esc(Mundo.POLITICAS[Mundo.politica(c)])}</span></div><div><span>Sueldos que paga</span><span>${dineroTxt(paga)}</span></div><div><span>Lo que puede pagar</span><span>${dineroTxt(puede)}${estado}</span></div></div>`;
+  } catch (e) { return ''; }
+}
 function fichaClub(n) {
   const c = clubDe(n), info = INFO.clubes[n] || {};
   if (!c) return `<div class="arriba"><h1>${esc(n)}</h1>${botonesHoja('c', n)}</div><div class="vacio">Este club no juega en la partida.</div>`;
@@ -1557,6 +1578,7 @@ function fichaClub(n) {
     + (puesto ? `<div class="sub">${esc(puesto)}${real && real !== +puesto.split('.')[0] ? marcaDif(`Puesto real al final: ${real}.º`) : ''}</div>` : '')
     + (l ? formaClub(l, n, c.pais) : '')
     + `<div class="palmares"><span class="rotulo">Palmarés en esta partida</span>${palm || '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>'}</div>`
+    + dineroClub(c)
     + historialClub(n, c.pais)
     + goleadoresClub(n)
     + `<div class="palmares"><span class="rotulo">Plantilla</span>${plantilla.map((j) => `<div><span>${nombreJ(j.n)} <small>${esc(POS[j.pos] || j.pos)}</small></span><span>${nivel(j.niv)}</span></div>`).join('')}</div>`;
@@ -1868,7 +1890,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 26) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 27) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
