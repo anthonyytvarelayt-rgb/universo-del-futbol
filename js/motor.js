@@ -216,6 +216,8 @@
     const usados = new Set(xi.map((j) => j.n));
     const sobrantes = resto.filter((j) => !usados.has(j.n)).sort(orden);
     while (xi.length < 11 && sobrantes.length) xi.push(sobrantes.shift());
+    // Si con las bajas no salen ni siete, se tira de los tocados antes que no presentarse.
+    if (xi.length < 7) equipo.jugadores.filter((j) => !xi.includes(j)).sort(orden).slice(0, 7 - xi.length).forEach((j) => xi.push(j));
     return xi;
   }
 
@@ -365,6 +367,7 @@
     plan.forEach(({ k, t, tipo }) => {
       const lado = lados[k];
       const mios = enCampo(lado.xi, t), suyos = enCampo(lado.rival, t), porRival = portero(lado.rival, t);
+      if (!mios.length || !suyos.length) return;
       if (tipo === 'abierta') {
         // La definición sale de sus goles reales, que ya llevan dentro lo bueno que era su equipo y lo floja que era su liga;
         // aquí pesa a medias para no contarlo dos veces (el motor ya pone el equipo y los rivales).
