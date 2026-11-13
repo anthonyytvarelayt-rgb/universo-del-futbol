@@ -15552,4 +15552,3 @@ carreras: Daniele Moretti en dos clubes a la vez (Siena hasta 1998, Piacenza des
 carreras: Angelo Pierleoni en dos clubes a la vez (Brescia hasta 1989, Cesena desde 1989)
 jugadores sin carrera (no entran): 24, por ejemplo ['Giuseppe Bosco', 'Mohamed Maouche', 'Mario Ditro', 'Omar Coria', 'Gerardo Ayuso']
 correcciones: no encuentro a Ladislao Kubala (1927)
-niveles_figuras: no encuentro a Daniel Bertoni un crack (1955)
