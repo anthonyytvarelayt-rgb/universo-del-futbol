@@ -1,0 +1,29 @@
+Guion de diagnóstico ejecutado desde la raíz del repositorio con Node.
+Usar «antes» o «despues» como argumento; cada medición corre en un proceso nuevo.
+Se incluye como registro reproducible; no forma parte del juego.
+
+node - antes <<'JS'
+const fs = require('fs'), cp = require('child_process');
+const {Motor, Mundo, BASE} = require('./pruebas/cargar.js');
+const referencia = '2b2eaf2865523fc93820077b94d4832c18ca76aa';
+const anterior = archivo => {
+  const texto = cp.execFileSync('git', ['show', referencia + ':' + archivo],
+    {encoding: 'utf8', maxBuffer: 20000000});
+  return JSON.parse(texto.slice(texto.indexOf('{')).replace(/;\s*$/, ''));
+};
+const antes = process.argv[2] === 'antes';
+const base = antes ? anterior('datos/base.js') : BASE;
+if (antes) global.ATRIBUTOS_A_MANO = anterior('datos/atributos.js');
+const islas = new Set(['Inglaterra', 'Escocia', 'Gales', 'Irlanda', 'Irlanda del Norte']);
+const registros = [];
+function medir(M, temporada) {
+  const top = M.clubes.flatMap(c => c.jugadores.map(j => ({
+    nombre: j.n, pais: j.nacion || '', club: c.nombre, nivel: Motor.escala.mostrar(j.niv)
+  }))).sort((a, b) => b.nivel - a.nivel || a.nombre.localeCompare(b.nombre)).slice(0, 20);
+  registros.push({temporada, britanicos: top.filter(j => islas.has(j.pais)).length, top});
+}
+const datos = Mundo.desdeBase(base, 1980);
+medir(Mundo.nuevoMundo(datos), 'Inicio de 1980-81');
+Mundo.partida(Mundo.desdeBase(base, 1980), {semilla: 9, temporadas: 12, alAvanzar: (r, M) => medir(M, r.temporada)});
+console.log(JSON.stringify(registros, null, 2));
+JS

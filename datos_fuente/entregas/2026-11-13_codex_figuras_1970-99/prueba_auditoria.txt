@@ -1,0 +1,15 @@
+bien  calendario de 5 equipos
+bien  calendario de 19 equipos
+bien  calendario de 20 equipos
+bien  once sin porteros: once jugadores distintos
+bien  ningún lesionado marca después de irse
+bien  el expulsado se pierde el partido siguiente
+bien  la prórroga no cuenta como otro partido
+bien  en la prórroga solo siguen los que acabaron el partido
+bien  Mundial: ningún tercero se cruza con uno de su grupo
+bien  Mundial: no se convoca a retirados de la partida
+bien: convocatoria con 28 semanas de baja
+bien: convocatoria con 4 semanas de baja
+bien: convocatoria con 28 semanas de baja y doble nacionalidad
+bien  Mundial: la lista histórica respeta las bajas largas
+todo bien
