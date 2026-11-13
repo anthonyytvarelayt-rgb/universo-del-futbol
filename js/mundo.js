@@ -897,7 +897,7 @@
   const DESEOS = { titulos: 'Ganar títulos', dinero: 'El mejor contrato', casa: 'Su club de siempre', minutos: 'Jugar siempre', reto: 'Retos nuevos' };
   const DESEO_REAL = {
     'Cristiano Ronaldo': 'titulos', 'Zinedine Zidane': 'titulos', 'Kylian Mbappé': 'titulos', 'Luís Figo': 'dinero', 'Neymar': 'dinero', "Samuel Eto'o": 'dinero', 'David Beckham': 'reto',
-    'Zlatan Ibrahimović': 'reto', 'Ronaldo': 'reto', 'Lionel Messi': 'casa', 'Francesco Totti': 'casa', 'Paolo Maldini': 'casa', 'Carles Puyol': 'casa', 'Steven Gerrard': 'casa', 'Ryan Giggs': 'casa',
+    'Zlatan Ibrahimović': 'reto', 'Ronaldo': 'reto', 'Lionel Messi': 'casa', 'Luigi Riva': 'casa', 'Francesco Totti': 'casa', 'Paolo Maldini': 'casa', 'Carles Puyol': 'casa', 'Steven Gerrard': 'casa', 'Ryan Giggs': 'casa',
     'Paul Scholes': 'casa', 'Xavi Hernández': 'casa', 'Andrés Iniesta': 'casa', 'Raúl': 'casa', 'Iker Casillas': 'casa', 'Gianluigi Buffon': 'casa', 'Thomas Müller': 'casa', 'Alessandro Del Piero': 'casa',
     'Javier Zanetti': 'casa', 'Sergio Busquets': 'casa', 'Marco Reus': 'casa', 'Harry Kane': 'titulos', 'Erling Haaland': 'titulos', 'Thierry Henry': 'titulos', 'Kaká': 'titulos', 'Ronaldinho': 'reto',
     'Carlos Tevez': 'reto', 'Robert Lewandowski': 'titulos', 'Luis Suárez': 'titulos', 'Karim Benzema': 'titulos', 'Luka Modrić': 'titulos', 'Eden Hazard': 'reto', 'Paul Pogba': 'dinero', 'Gareth Bale': 'dinero'
@@ -1154,6 +1154,22 @@
         const c = destinos[0].c;
         llegadas.set(c, (llegadas.get(c) || 0) + 1); fichados.add(j);
         mover(j, v, c, 'fichaje', lios.has(j) ? 'lio' : quiere === 'titulos' || quiere === 'dinero' || quiere === 'reto' ? quiere : undefined);
+      });
+    }
+    // Antes de 1980 no había mercado internacional, pero dentro de cada país las figuras sí acababan en un grande:
+    // Rivera del Alessandria al Milan, Amancio del Deportivo al Madrid. Sin esto se pasaban la carrera en un club menor.
+    if (fluidez === 0) {
+      const cand = [], llegan = new Map();
+      M.clubes.forEach((v) => { if (v.division === 1 && v.prestigio >= 650) return; v.jugadores.forEach((j) => { const e = nuevoAnio - anioNac(j); if (!j.relleno && !j.cedido && !j.cons && j.debut !== nuevoAnio && e >= 19 && e <= 29 && Motor.escala.mostrar(j.niv) >= 700) cand.push({ j, v }); }); });
+      cand.sort((a, b) => b.j.niv - a.j.niv).slice(0, 15).forEach(({ j, v }) => {
+        if (fichados.has(j) || (deseo(j) === 'casa' && v.division === 1) || r() > 0.5) return;
+        const titularEn = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
+        const destinos = M.clubes.filter((c) => c !== v && c.pais === v.pais && c.division === 1 && c.prestigio >= Math.max(700, v.prestigio + 80) && !esFilial(c) && !sobrado(c) && !(llegan.get(c) > 0) && j.niv > titularEn(c) + 5 && seVende(j, v, c))
+          .sort((a, b) => b.prestigio - a.prestigio).slice(0, 5);
+        if (!destinos.length) return;
+        const c = destinos[Math.floor(r() * destinos.length)];
+        llegan.set(c, 1); fichados.add(j);
+        mover(j, v, c, 'fichaje');
       });
     }
     // Un club con proyecto no se desarma: los que acabaron arriba el año pasado retienen mejor a sus figuras,
