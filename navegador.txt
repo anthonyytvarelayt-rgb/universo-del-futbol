@@ -1,0 +1,36 @@
+SEGUNDA ordenador 1959-60
+VISTAS ordenador 125
+COLORES ordenador light [
+  [ '--papel', '#F1EEE6' ],
+  [ '--tinta', '#202A29' ],
+  [ '--gris', '#606B63' ],
+  [ '--rojo-txt', 'color-mix(in srgb,#1F9D55 60%,#172A22)' ],
+  [ '--tarjeta', '#FAF8F1' ]
+]
+COLORES ordenador dark [
+  [ '--papel', '#101B19' ],
+  [ '--tinta', '#F2F0E5' ],
+  [ '--gris', '#AAB9AB' ],
+  [ '--rojo-txt', 'color-mix(in srgb,#1F9D55 58%,#FFFFFF)' ],
+  [ '--tarjeta', '#192622' ]
+]
+MOVIMIENTO ordenador { animacion: '0s' }
+{"dispositivo":"ordenador","anio":1958,"cierre":{"anio":1958,"k":0,"iPaso":44,"campeon":"Real Madrid","europa":"Real Madrid","semilla":7,"pausa":true,"otra":true},"errores":[],"desbordes":[]}
+SEGUNDA movil 2001-02
+VISTAS movil 84
+COLORES movil light [
+  [ '--papel', '#F1EEE6' ],
+  [ '--tinta', '#202A29' ],
+  [ '--gris', '#606B63' ],
+  [ '--rojo-txt', 'color-mix(in srgb,#C2255C 60%,#172A22)' ],
+  [ '--tarjeta', '#FAF8F1' ]
+]
+COLORES movil dark [
+  [ '--papel', '#101B19' ],
+  [ '--tinta', '#F2F0E5' ],
+  [ '--gris', '#AAB9AB' ],
+  [ '--rojo-txt', 'color-mix(in srgb,#C2255C 58%,#FFFFFF)' ],
+  [ '--tarjeta', '#192622' ]
+]
+MOVIMIENTO movil { animacion: '0s' }
+{"dispositivo":"movil","anio":2000,"cierre":{"anio":2000,"k":0,"iPaso":43,"campeon":"Barcelona","europa":"Liverpool","semilla":7,"pausa":true,"otra":true},"errores":[],"desbordes":[]}

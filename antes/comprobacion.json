@@ -1,0 +1,34 @@
+[
+  {
+    "dispositivo": "ordenador",
+    "anio": 1958,
+    "cierre": {
+      "anio": 1958,
+      "k": 0,
+      "iPaso": 44,
+      "campeon": "Real Madrid",
+      "europa": "Real Madrid",
+      "semilla": 7,
+      "pausa": true,
+      "otra": true
+    },
+    "errores": [],
+    "desbordes": []
+  },
+  {
+    "dispositivo": "movil",
+    "anio": 2000,
+    "cierre": {
+      "anio": 2000,
+      "k": 0,
+      "iPaso": 43,
+      "campeon": "Barcelona",
+      "europa": "Liverpool",
+      "semilla": 7,
+      "pausa": true,
+      "otra": true
+    },
+    "errores": [],
+    "desbordes": []
+  }
+]
