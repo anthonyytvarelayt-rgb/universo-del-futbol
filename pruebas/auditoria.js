@@ -83,5 +83,11 @@ try {
 } catch (e) {
   caso('Sueldos pactados: contratos y consecuencias económicas', false, e.stack);
 }
+try {
+  require('./penaltis-turnos.js');
+  caso('Penaltis: todos los participantes tiran antes de repetir', true);
+} catch (e) {
+  caso('Penaltis: todos los participantes tiran antes de repetir', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
