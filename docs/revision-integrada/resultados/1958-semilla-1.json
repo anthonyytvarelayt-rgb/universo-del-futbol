@@ -1,0 +1,71 @@
+{
+  "inicio": 1958,
+  "temporadas": 12,
+  "semilla": 1,
+  "comprobaciones": 358095,
+  "temporadasCompletadas": 12,
+  "fallos": [
+    "retirado que reaparece"
+  ],
+  "muestras": [
+    {
+      "temporada": 1963,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1964,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1965,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1966,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1967,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1968,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1969,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    },
+    {
+      "temporada": 1970,
+      "tipo": "retirado que reaparece",
+      "jugador": "Rafael Santos|1942-06-17"
+    }
+  ],
+  "liga": {
+    "Real Madrid": 6,
+    "Barcelona": 4,
+    "Atlético Bilbao": 1,
+    "Valencia": 1
+  },
+  "europa": {
+    "Real Madrid": 5,
+    "Újpest Dózsa": 1,
+    "Benfica": 2,
+    "Manchester United": 2,
+    "Kaiserslautern": 1,
+    "Juventus": 1
+  },
+  "refinanciaciones": [],
+  "contratos": 87242,
+  "cesiones": 627,
+  "regresos": 555,
+  "nominas": 4583
+}

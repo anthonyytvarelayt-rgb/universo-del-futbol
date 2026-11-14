@@ -1,0 +1,76 @@
+{
+  "elecciones": 1100,
+  "fallos": 42,
+  "ejemplos": [
+    {
+      "anio": 1962,
+      "club": "Club 3",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 19",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 41",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 49",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 63",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 67",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 70",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 74",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 86",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    },
+    {
+      "anio": 1962,
+      "club": "Club 91",
+      "dibujo": "4-4-2",
+      "desde": 1964,
+      "hasta": 9999
+    }
+  ]
+}

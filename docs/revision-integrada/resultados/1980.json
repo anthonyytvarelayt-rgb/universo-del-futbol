@@ -1,0 +1,25 @@
+{
+  "inicio": 1980,
+  "temporadas": 12,
+  "semilla": 9,
+  "comprobaciones": 206214,
+  "temporadasCompletadas": 12,
+  "fallos": [],
+  "muestras": [],
+  "liga": {
+    "Barcelona": 2,
+    "Real Madrid": 10
+  },
+  "europa": {
+    "Liverpool": 5,
+    "Milan": 3,
+    "Steaua Bucarest": 1,
+    "Real Madrid": 2,
+    "Barcelona": 1
+  },
+  "refinanciaciones": [],
+  "contratos": 48832,
+  "cesiones": 376,
+  "regresos": 341,
+  "nominas": 2830
+}

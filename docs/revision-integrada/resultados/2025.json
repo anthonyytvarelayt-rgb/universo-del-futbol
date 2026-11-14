@@ -1,0 +1,30 @@
+{
+  "inicio": 2025,
+  "temporadas": 20,
+  "semilla": 11,
+  "comprobaciones": 226573,
+  "temporadasCompletadas": 20,
+  "fallos": [],
+  "muestras": [],
+  "liga": {
+    "Real Madrid": 8,
+    "Barcelona": 8,
+    "Atlético Madrid": 4
+  },
+  "europa": {
+    "Barcelona": 4,
+    "Real Madrid": 6,
+    "Bayern Múnich": 2,
+    "Atlético Madrid": 2,
+    "Liverpool": 2,
+    "Tottenham Hotspur": 1,
+    "Napoli": 1,
+    "Paris Saint-Germain": 1,
+    "Arsenal": 1
+  },
+  "refinanciaciones": [],
+  "contratos": 54343,
+  "cesiones": 19,
+  "regresos": 18,
+  "nominas": 3280
+}

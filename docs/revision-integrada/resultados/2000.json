@@ -1,0 +1,28 @@
+{
+  "inicio": 2000,
+  "temporadas": 12,
+  "semilla": 7,
+  "comprobaciones": 265369,
+  "temporadasCompletadas": 12,
+  "fallos": [],
+  "muestras": [],
+  "liga": {
+    "Real Madrid": 5,
+    "Barcelona": 7
+  },
+  "europa": {
+    "Juventus": 2,
+    "Oporto": 1,
+    "Manchester United": 1,
+    "Milan": 2,
+    "Barcelona": 2,
+    "Chelsea": 1,
+    "Inter": 2,
+    "Bayern Múnich": 1
+  },
+  "refinanciaciones": [],
+  "contratos": 62602,
+  "cesiones": 490,
+  "regresos": 437,
+  "nominas": 2775
+}
