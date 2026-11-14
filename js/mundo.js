@@ -44,6 +44,8 @@
     'Paco Gento': { techo: 880, suelo: [[23, 850], [27, 880], [31, 870], [34, 820], [37, 740]], club: 'Real Madrid', fiel: 1971 },
     // Cruyff empezó en el Ajax, que no se juega: aquí aparece a los 17 en el Barcelona (decisión de Anthony) y de ahí decide el motor.
     'Johan Cruyff': { techo: 950, suelo: [[18, 700], [20, 820], [22, 900], [24, 940], [26, 950], [30, 930], [33, 870], [36, 780]] },
+    // Raúl: Mr. Champions antes que Cristiano (deseo de Anthony). Más gol, fiel al Madrid y con hambre de Copas de Europa.
+    'Raúl': { techo: 870, suelo: [[18, 720], [20, 800], [22, 840], [24, 865], [27, 870], [30, 850], [32, 810], [34, 760]], club: 'Real Madrid', fiel: 2010 },
     'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
     'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5 },
     'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
@@ -1043,7 +1045,7 @@
   }
   // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
   const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
-  const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 22, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
+  const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 35, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
     'Zlatan Ibrahimović': -30, 'Gianluigi Buffon': -15, 'Ronaldo': -12, 'Gabriel Batistuta': -10, 'Harry Kane': -12 };
   const DERBI_BLANDO = /^duelo|clásico argentino|clásico de Italia|Choc des|^derbi de Londres$|Der Klassiker|derbi del Sole|clásico de la Saudade|San-São|clásico alvinegro/;
   const DESEO_REAL = {
@@ -2448,14 +2450,16 @@
       }
     });
     // Dónde juega cada uno esa temporada: el último paso que la cubre (sin "hasta", hasta que empieza el siguiente).
-    const plantillas = new Map(), llegadas = [];
+    const plantillas = new Map(), llegadas = [], juegaAnio = new Set(filas.map((x) => x[4]));
     B.jugadores.forEach((j) => {
       const c = j.carrera;
       c.forEach((p, i) => {
         // Último paso sin "hasta": se da por retirado a los 36 (los datos no siempre dicen cuándo lo dejó).
         const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
         const hasta = p[3] != null ? p[3] : i + 1 < c.length ? Math.max(p[2], c[i + 1][2] - 1) : nac ? Math.max(p[2], nac + 36) : Infinity;
-        if (p[2] <= anio && anio <= hasta && (!plantillas.has(j) || plantillas.get(j)[2] < p[2])) plantillas.set(j, p);  // dos clubes el mismo año: el primero de los datos
+        // Dos clubes el mismo año: el primero de los datos, salvo que ese no se juegue y el otro sí (Raúl en 1994: Plus Ultra y Real Madrid).
+        const previo = plantillas.get(j);
+        if (p[2] <= anio && anio <= hasta && (!previo || previo[2] < p[2] || (previo[2] === p[2] && !juegaAnio.has(previo[0]) && juegaAnio.has(p[0])))) plantillas.set(j, p);
         // Llegan más tarde: su primer club, o un paso que los datos marcan como llegada real.
         if (p[2] > anio && (i === 0 || TIPOS_LLEGADA.includes(p[7]))) llegadas.push({ j, p });
         // Los demás pasos quedan de respaldo: si su primer club no se juega (Jennings empezó en el Watford de Cuarta), entra en el siguiente.
