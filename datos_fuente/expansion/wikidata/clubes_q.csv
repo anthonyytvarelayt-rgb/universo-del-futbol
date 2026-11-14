@@ -64,7 +64,7 @@ Alemania,Kickers Offenbach,Q159936,exacto
 Alemania,Mainz 05,Q105254,exacto
 Alemania,Meidericher SV,Q154293,exacto
 Alemania,Minerva 93 Berlín,Q322837,exacto
-Alemania,Múnich 1860,Q15789,exacto
+Alemania,Múnich 1860,Q131603,a mano
 Alemania,Núremberg,Q15786,exacto
 Alemania,Phönix Ludwigshafen,Q2447317,exacto
 Alemania,Phönix Lübeck,Q162366,exacto
@@ -102,7 +102,7 @@ Alemania,Tasmania Berlín,Q819332,exacto
 Alemania,Tennis Borussia,Q639560,exacto
 Alemania,TuS Neuendorf,Q155452,exacto
 Alemania,Uerdingen,Q157464,parecido
-Alemania,Ulm 1846,Q2385222,contiene
+Alemania,Ulm 1846,Q701290,a mano
 Alemania,Union 06 Berlín,Q552949,exacto
 Alemania,VfB Leipzig,Q327846,exacto
 Alemania,VfB Lübeck,Q665920,exacto
@@ -124,14 +124,14 @@ Alemania,Wolfsburgo,Q101859,exacto
 Alemania,Wormatia Worms,Q819419,exacto
 Alemania,Wuppertaler SV,Q170157,exacto
 Argentina,Aldosivi,Q971490,exacto
-Argentina,All Boys,Q5772997,contiene
+Argentina,All Boys,Q646088,a mano
 Argentina,Almagro,Q1102935,exacto
 Argentina,Argentinos Juniors,Q220621,exacto
 Argentina,Armenio,Q965275,contiene
 Argentina,Arsenal,Q476836,manual
 Argentina,Atlanta,Q1022904,exacto
 Argentina,Atlético Tucumán,Q757470,exacto
-Argentina,Atlético de Rafaela,Q2979812,contiene
+Argentina,Atlético de Rafaela,Q59839,a mano
 Argentina,Banfield,Q692646,exacto
 Argentina,Barracas Central,Q2469894,exacto
 Argentina,Belgrano,Q59962,manual
@@ -150,7 +150,7 @@ Argentina,Estudiantes de La Plata,Q214940,exacto
 Argentina,Ferro Carril Oeste,Q910444,exacto
 Argentina,Gimnasia y Esgrima La Plata,Q18640,exacto
 Argentina,Gimnasia y Esgrima de Jujuy,Q1022923,exacto
-Argentina,Gimnasia y Tiro,Q97006654,contiene
+Argentina,Gimnasia y Tiro,Q2759870,a mano
 Argentina,Godoy Cruz,Q80882,exacto
 Argentina,Huracán,Q327172,exacto
 Argentina,Huracán de Corrientes,Q5946339,exacto
@@ -169,7 +169,7 @@ Argentina,Rosario Central,Q318307,exacto
 Argentina,San Lorenzo,Q218282,manual
 Argentina,San Luis,Q2979819,contiene
 Argentina,San Martín de San Juan,Q80921,exacto
-Argentina,Sarmiento,Q1074980,exacto
+Argentina,Sarmiento,Q519966,a mano
 Argentina,Talleres,Q1022939,exacto
 Argentina,Tigre,Q80886,exacto
 Argentina,Tiro Federal,Q162923,exacto
@@ -201,7 +201,7 @@ Brasil,Canto do Rio,Q375341,exacto
 Brasil,Caxias,Q1703589,exacto
 Brasil,Ceará,Q1052219,exacto
 Brasil,Chapecoense,Q2536715,exacto
-Brasil,Colorado,Q80845,exacto
+Brasil,Colorado,Q5148806,a mano
 Brasil,Comercial de São Paulo,Q9826646,exacto
 Brasil,Comercial-SP,Q3058503,parecido
 Brasil,Corinthians,Q35933,exacto
@@ -363,11 +363,11 @@ Francia,Avignon,Q790969,exacto
 Francia,Bastia,Q208399,exacto
 Francia,Besançon,Q1515369,exacto
 Francia,Boulogne,Q309400,exacto
-Francia,Brest,Q2868076,exacto
+Francia,Brest,Q218372,a mano
 Francia,Burdeos,Q172476,contiene
 Francia,Béziers,Q2619514,exacto
 Francia,CA Paris,Q483020,exacto
-Francia,Caen,Q2980263,exacto
+Francia,Caen,Q193377,a mano
 Francia,Cannes,Q298267,exacto
 Francia,Châteauroux,Q845067,exacto
 Francia,Clermont,Q870182,exacto
@@ -378,7 +378,7 @@ Francia,Grenoble,Q209509,exacto
 Francia,Gueugnon,Q508322,exacto
 Francia,Guingamp,Q459148,exacto
 Francia,Istres,Q797530,exacto
-Francia,Laval,Q3550576,exacto
+Francia,Laval,Q760736,a mano
 Francia,Le Havre,Q328658,exacto
 Francia,Le Mans,Q210864,exacto
 Francia,Lens,Q191843,exacto
@@ -397,7 +397,7 @@ Francia,Nantes,Q192071,exacto
 Francia,Niort,Q626917,exacto
 Francia,Niza,Q185163,exacto
 Francia,Nîmes,Q730809,exacto
-Francia,Paris FC,Q483020,exacto
+Francia,Paris FC,Q1051013,a mano
 Francia,Paris Saint-Germain,Q483020,exacto
 Francia,Perpignan,Q674263,exacto
 Francia,Racing de París,Q982889,exacto
@@ -482,7 +482,7 @@ Inglaterra,Watford,Q2714,exacto
 Inglaterra,West Bromwich Albion,Q18744,exacto
 Inglaterra,West Ham United,Q18747,exacto
 Inglaterra,Wigan Athletic,Q18750,exacto
-Inglaterra,Wimbledon,Q48851,exacto
+Inglaterra,Wimbledon,Q19482,a mano
 Inglaterra,Wolverhampton Wanderers,Q19500,exacto
 Italia,Alessandria,Q16348,exacto
 Italia,Ancona,Q289029,exacto
@@ -540,7 +540,7 @@ Italia,Roma,Q2739,exacto
 Italia,SPAL,Q13385,exacto
 Italia,Salernitana,Q847587,exacto
 Italia,Sambenedettese,Q1785447,exacto
-Italia,Sampdoria,Q2311455,exacto
+Italia,Sampdoria,Q1457,a mano
 Italia,Sassuolo,Q8603,exacto
 Italia,Siena,Q2756,exacto
 Italia,Spezia,Q8615,exacto
@@ -624,3 +624,11 @@ Portugal,Vitória de Guimarães,Q223450,exacto
 Portugal,Vitória de Setúbal,Q208585,exacto
 Portugal,Vizela,Q1387855,exacto
 Portugal,Águeda,Q3422531,contiene
+España,Gerona,Q11945,a mano
+Argentina,Platense,Q151907,a mano
+Argentina,Chacarita Juniors,Q853053,a mano
+Argentina,Temperley,Q2778591,a mano
+Argentina,Central Córdoba de Santiago,Q5060684,a mano
+Argentina,San Martín de Tucumán,Q1022938,a mano
+Argentina,Patronato,Q1773830,a mano
+Argentina,Estudiantes de Buenos Aires,Q2333719,a mano

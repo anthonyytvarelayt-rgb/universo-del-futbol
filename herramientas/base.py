@@ -198,10 +198,32 @@ for claves in _fecha.values():
             if any(pb[6] is not None for pb in B['carrera']) and all(pa[6] is None for pa in A['carrera'] if pa not in B['carrera']): A['pos'] = B['pos']
             if not A.get('nacion'): A['nacion'] = B.get('nacion', '')
             del jugadores[corto]; n_dobles += 1
+# Y el mismo nombre, el mismo año y un club en común, con la fecha bailada en una sola cifra (Joe Baker nacido el
+# 17 de junio en un sitio y el 17 de julio en otro) o con solo el año en uno de los dos: también son el mismo.
+_mismo = defaultdict(list)
+for clave in jugadores:
+    if not clave[0].startswith('Relleno') and clave[1][:4].isdigit(): _mismo[(frozenset(_nom(clave[0])), clave[1][:4])].append(clave)
+for claves in _mismo.values():
+    for i, ca in enumerate(claves):
+        for cb in claves[i + 1:]:
+            if ca not in jugadores or cb not in jugadores: continue
+            da, db = ca[1], cb[1]
+            if len(da) == 10 and len(db) == 10 and not (da != db and (da[5:7] == db[5:7] or da[8:] == db[8:])): continue
+            A, B = jugadores[ca], jugadores[cb]
+            if not {p[0] for p in A['carrera']} & {p[0] for p in B['carrera']}: continue
+            if len(B['carrera']) > len(A['carrera']): A, B, ca, cb = B, A, cb, ca
+            for pb in B['carrera']:
+                if not any(pa[2] == pb[2] or (pa[0] == pb[0] and abs(pa[2] - pb[2]) <= 1) for pa in A['carrera']): A['carrera'].append(pb)
+            A['max'] = max(A['max'], B['max'])
+            del jugadores[cb]; n_dobles += 1
 print('dobles unidos', n_dobles)
 
 for j in jugadores.values():
     j['carrera'].sort(key=lambda p: p[2])
+    # Wikidata guarda la salida un año antes (temporada europea). En ligas de año natural (Brasil, Argentina) o si el
+    # jugador se fue en invierno, eso deja un año en blanco entre dos clubes: ese año sigue en el club que dejaba.
+    for a, b in zip(j['carrera'], j['carrera'][1:]):
+        if a[3] is not None and a[6] is None and b[2] - a[3] == 2: a[3] += 1
     for a, b in zip(j['carrera'], j['carrera'][1:]):
         if a[3] is not None and a[3] >= b[2] and 'cesión' not in (b[7] + a[7]):
             avisos.append(f"carreras: {j['n']} en dos clubes a la vez ({a[0]} hasta {a[3]}, {b[0]} desde {b[2]})")
