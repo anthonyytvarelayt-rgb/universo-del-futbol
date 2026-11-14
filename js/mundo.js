@@ -282,7 +282,7 @@
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
-        EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos, liga: M.anio >= 2024 });
+        EU = Motor.copa(eqs, { semilla: semilla + 61, anio: M.anio + 1, estado: est, nombre: E.nombre, cuadro: E.cuadro, cambios: reg.cambios, grupos, liga: M.anio >= 2024, reyFinal: 'Real Madrid' });
       } finally { Motor.P.escala = escalaLiga; reyes.forEach(([j, v]) => { j.temp -= v; }); }
       if (EU.campeonEq) EU.campeonEq.jugadores.forEach((j) => { if (!j.relleno && CONSTANTES[j.n] && CONSTANTES[j.n].europa) j.copasEuropa = (j.copasEuropa || 0) + 1; });
       EU.goleadorReal = E.goleadorReal;

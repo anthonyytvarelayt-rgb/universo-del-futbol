@@ -794,6 +794,7 @@
 
   // Copa por eliminatorias a ida y vuelta, final a partido único en campo neutral.
   // Era de 1959: sin goles fuera de casa ni penaltis; el empate se resuelve con partido de desempate.
+  const REY_FINAL = 400;
   function copa(equipos, opciones) {
     const op = Object.assign({ semilla: Date.now() % 1e9, anio: 1959, cambios: 0, estado: null, alJugar: null, nombre: 'Copa', derbis: [], finalUnica: true, factorGoles: 1 }, opciones);
     // Reglas de desempate de la época: valor doble de los goles fuera desde 1966; prórroga y penaltis desde 1970.
@@ -961,7 +962,13 @@
       const cruces = [];
       const pasan = [];
       for (let i = 0; i + 1 < sorteo.length; i += 2) {
-        const x = eliminatoria(sorteo[i], sorteo[i + 1], nombreRonda === 'Final' && op.finalUnica);
+        // El rey de la final (el Real Madrid en la Copa de Europa, por deseo de Anthony): si llega a la final, la gana.
+        // Se juega igual, pero con un empujón enorme ese día, para que el partido salga normal y lo gane él.
+        const rey = nombreRonda === 'Final' && op.reyFinal ? [sorteo[i], sorteo[i + 1]].find((e) => e.nombre === op.reyFinal) : null;
+        if (rey) rey.jugadores.forEach((j) => { j.temp = (j.temp || 0) + REY_FINAL; });
+        let x;
+        try { x = eliminatoria(sorteo[i], sorteo[i + 1], nombreRonda === 'Final' && op.finalUnica); }
+        finally { if (rey) rey.jugadores.forEach((j) => { j.temp -= REY_FINAL; }); }
         cruces.push({ a: x.a, b: x.b, partidos: x.partidos, ganador: x.ganador, penaltis: x.penaltis, golesFuera: x.golesFuera });
         pasan.push(x.eq);
       }
