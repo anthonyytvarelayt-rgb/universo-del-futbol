@@ -241,10 +241,15 @@ for j in jugadores.values():
 _por = defaultdict(list)
 for j in jugadores.values(): _por[j['n']].append(j)
 for f in leer('correcciones.csv'):
-    js = [j for j in _por.get(f['nombre'], []) if j['nac'][:4] == f['anio']]
+    # El año puede ser la fecha entera (1986-07-29) para separar a dos tocayos del mismo año.
+    js = [j for j in _por.get(f['nombre'], []) if j['nac'][:len(f['anio'])] == f['anio']]
     if not js: avisos.append(f"correcciones: no encuentro a {f['nombre']} ({f['anio']})"); continue
     for j in js:
-        j[{'nombre': 'n'}.get(f['campo'], f['campo'])] = f['valor']; n_limpia['a mano'] += 1
+        if f['campo'] == 'nivel': j['max'] = interno(entero(f['valor']))
+        else: j[{'nombre': 'n'}.get(f['campo'], f['campo'])] = f['valor']
+        # Tras un cambio de nombre, las correcciones siguientes lo encuentran por el nombre nuevo.
+        if f['campo'] == 'nombre': _por[f['valor']].append(j)
+        n_limpia['a mano'] += 1
 # 5) niveles_figuras.csv: nivel máximo (escala 1-1000) de las figuras valoradas a mano, por lotes de otras IA ya revisados.
 _por = defaultdict(list)
 for j in jugadores.values(): _por[j['n']].append(j)

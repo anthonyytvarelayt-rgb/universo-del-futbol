@@ -925,7 +925,9 @@
           }
           if (edad <= 21 && !j.relleno && !j.cons && !j.joya && !j.estancado && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < (criado ? 0.03 : 0.015)) {
             j.joya = M.anio + 1;
-            j.tec = Math.min(1090, (j.tec || j.niv) * (1.08 + 0.08 * r()));
+            // El salto se mide en la escala que se ve (de 50 a 110 puntos): arriba cada punto interno pesa mucho más, y con un
+            // tanto por ciento un buen centrocampista (650) amanecía a la altura de Platini (840) y copaba los mejores del mundo.
+            j.tec = Math.min(1090, Motor.escala.interno(Motor.escala.mostrar(j.tec || j.niv) + 50 + 60 * r()));
             novedades.push({ tipo: 'joya', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), real: Math.round(j.tecReal || 0) });
           }
         } else {
@@ -981,7 +983,9 @@
       const edad = M.anio + 1 - anioNac(j);
       j.niv -= edad > 28 ? 15 : 0;
       // Sin edad tope también aquí: un libre que sigue siendo bueno espera equipo; los demás lo van dejando.
-      const p = j.niv >= 850 ? 0.05 : edad > 29 ? 0.6 : 0.3;
+      // Los jóvenes sin equipo esperan: antes un chaval de 20 años libre lo dejaba con la misma facilidad que uno de 29, y en
+      // partidas largas el mundo se quedaba sin jugadores reales (los clubes acababan en dieciocho con suplentes inventados).
+      const p = j.niv >= 850 ? 0.05 : edad > 29 ? 0.6 : edad >= 27 ? 0.3 : 0.06;
       if (r() < p) { retiros.push({ j, club: 'sin club', edad }); M.retirados.push({ retiro: M.anio + 1, edad, n: j.n, carrera: j.carrera, pos: j.pos, nac: j.nac, nacion: j.nacion }); return false; }
       return true;
     });
@@ -1004,6 +1008,10 @@
     Brasil: { 1950: 0.03, 1990: 0.3 }, Alemania: { 1950: 0.05, 1963: 0.15, 1990: 0.5, 1996: 0.9 }, Inglaterra: { 1950: 0.05, 1978: 0.2, 1992: 0.7, 1996: 1 } };
   // Quién cuenta como de casa: el propio país y, si los datos lo dicen, otros (en Inglaterra, escoceses, galeses e irlandeses).
   const NACIONALES = {};
+  // El Athletic solo ficha jugadores hechos en clubes vascos o navarros (antes bastaba con ser español y, dentro de
+  // España, le llegaba hasta Rijkaard desde otro club de la Liga).
+  const CLUBES_VASCOS = new Set(['Atlético Bilbao', 'Basconia (filial del Bilbao)', 'Real Sociedad', 'Osasuna', 'Alavés', 'Eibar', 'Indauchu', 'Sestao', 'Real Unión', 'Baracaldo', 'Arenas de Getxo']);
+  const soloDeCasa = (j, comprador) => comprador.nombre === 'Atlético Bilbao' && !CLUBES_VASCOS.has((j.inicio || {}).club);
   const extranjero = (j, pais) => {
     const casa = NACIONALES[pais] || [pais];
     return !String(j.nacion || pais).split('/').map((x) => x.trim()).some((x) => casa.includes(x));
@@ -1063,6 +1071,10 @@
     const x = hashN(j.n, 23) % 100;
     return x < 18 ? 'profesional' : x < 27 ? 'fiestero' : x < 37 ? 'lider' : x < 45 ? 'conflictivo' : x < 55 ? 'frio' : 'normal';
   }
+  // "Su club de siempre" vale mientras el club esté a su altura: una figura mundial no se queda quince años en un club
+  // modesto por cariño (Maradona no salía de Argentinos Juniors ni Papin del Valenciennes). Los casos reales (Riva en el
+  // Cagliari) sí aguantan.
+  const quiereCasa = (j, v) => deseo(j) === 'casa' && (!!DESEO_REAL[j.n] || !v || v.prestigio >= 700 || Motor.escala.mostrar(j.niv) < 660);
   function deseo(j) {
     if (DESEO_REAL[j.n] && !j.relleno) return DESEO_REAL[j.n];
     const x = hashN(j.n, 13) % 100;
@@ -1234,7 +1246,7 @@
     const x = hashN(c.nombre, 17) % 100;
     return c.prestigio >= 860 ? 'estrellas' : x < 22 ? 'ojeadores' : x < 36 ? 'cantera' : 'normal';
   }
-  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato', talonario: 'pagaron lo que pedía su club' };
+  const MOTIVOS = { titulos: 'quiere ganar títulos', dinero: 'le ofrecen el mejor contrato', reto: 'busca un reto nuevo', minutos: 'quería jugar más', apuro: 'su club necesitaba vender', ojeadores: 'lo descubrieron sus ojeadores', lio: 'acabó mal con su club', gratis: 'llega gratis: se le acababa el contrato', talonario: 'pagaron lo que pedía su club', fondo: 'llega para completar la plantilla' };
 
   // ---------- Economía: la caja de cada club, en millones de euros de la época ----------
   // Entra dinero por taquilla, televisión y patrocinio (según el nombre del club y lo rica que es su liga), por premios
@@ -1356,7 +1368,7 @@
     };
     // Los emblemas de un club no se van mientras están en edad de jugar arriba (luego, si acaso, a despedirse lejos; nunca al rival).
     const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
-    const atado = (j, v) => emblema(j, v) || (deseo(j) === 'casa' && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
+    const atado = (j, v) => emblema(j, v) || (quiereCasa(j, v) && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
     M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (j.choque === M.anio || (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15)) lios.add(j); }); });
@@ -1389,6 +1401,8 @@
       // Si ya está en la partida (en otro país), es un traspaso real: se mueve, no se crea otro igual.
       const ya = dondeEsta.get(clave(d.nombre, d.nac));
       if (ya) { if (ya !== c) { const j = ya.jugadores.find((x) => x.n === d.nombre && x.nac === d.nac); j.cedido = null; mover(j, ya, c, 'fichaje'); dondeEsta.set(clave(d.nombre, d.nac), c); } return; }
+      // Quien ya se retiró en esta partida no vuelve a nacer con su siguiente club real (hallazgo de Codex, aviso n.º 12).
+      if (M.retirados.some((x) => x.n === d.nombre && x.nac === d.nac)) { M.vistos.add(clave(d.nombre, d.nac)); return; }
       const libreYa = M.libres.find((j) => j.n === d.nombre && j.nac === d.nac);
       if (libreYa) { M.libres = M.libres.filter((j) => j !== libreYa); c.jugadores.push(libreYa); firmarSueldo(libreYa, nuevoAnio); masas.delete(c); dondeEsta.set(clave(libreYa.n, libreYa.nac), c); log.push({ temporada: temporadaTxt(nuevoAnio), jugador: libreYa.n, pos: libreYa.pos, niv: Math.round(libreYa.niv), de: 'sin club', a: c.nombre, tipo: 'libre' }); return; }
       const j = { n: d.nombre, completo: d.completo, pos: d.pos, nac: d.nac, pais: d.pais, nacion: d.pais || c.pais, niv: d.niv, tec: d.tec, tecReal: d.tec, pj: 0, g: 0, carrera: [], inicio: { niv: d.niv, club: c.nombre }, debut: nuevoAnio };
@@ -1455,7 +1469,7 @@
       return true;
     };
     // Constantes: una leyenda no sale de su club mientras dura su época, y las de 'elite' solo fichan por un grande.
-    const seVende = (j, v, comprador) => !traicion(j, v, comprador) && seVende0(j, v, comprador);
+    const seVende = (j, v, comprador) => !traicion(j, v, comprador) && !soloDeCasa(j, comprador) && seVende0(j, v, comprador);
     const seVende0 = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
     // Las leyendas 'elite' (Cristiano, Mbappé) no se quedan en una liga menor: en cuanto son figuras mundiales
     // (nivel 900) se las lleva uno de los clubes más fuertes de las grandes ligas. En cuál acaban lo decide la partida.
@@ -1493,7 +1507,7 @@
         const renueva = () => renovar(j, v);
         if (j.relleno || (K && (K.club === v.nombre && nuevoAnio <= K.fiel)) || j.cons || v.division !== 1 || edad < 21) return renueva();
         // Renovar: depende de lo que busca, de si juega y de cómo le fue al club.
-        let p = quiere === 'casa' ? 0.99 : 0.95;
+        let p = quiere === 'casa' && quiereCasa(j, v) ? 0.99 : 0.95;
         if (sinMinutos(j) || (jugo.get(j) || 0) < 10) p -= 0.3;
         if (quiere === 'titulos' && !campeones.has(v.nombre) && v.balance !== 'superado') p -= 0.04;
         if (quiere === 'dinero' && masa(v) > presupuesto(v, nuevoAnio)) p -= 0.12;
@@ -1587,7 +1601,7 @@
       const cand = [], llegan = new Map();
       M.clubes.forEach((v) => { if (v.division === 1 && v.prestigio >= 650) return; v.jugadores.forEach((j) => { const e = nuevoAnio - anioNac(j); if (!j.relleno && !j.cedido && !j.cons && j.debut !== nuevoAnio && e >= 19 && e <= 29 && Motor.escala.mostrar(j.niv) >= 700) cand.push({ j, v }); }); });
       cand.sort((a, b) => b.j.niv - a.j.niv).slice(0, 15).forEach(({ j, v }) => {
-        if (fichados.has(j) || (deseo(j) === 'casa' && v.division === 1) || r() > 0.5) return;
+        if (fichados.has(j) || (quiereCasa(j, v) && v.division === 1) || r() > 0.5) return;
         const titularEn = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
         const destinos = M.clubes.filter((c) => c !== v && c.pais === v.pais && c.division === 1 && c.prestigio >= Math.max(700, v.prestigio + 80) && !esFilial(c) && !sobrado(c) && !(llegan.get(c) > 0) && j.niv > titularEn(c) + 5 && seVende(j, v, c))
           .sort((a, b) => b.prestigio - a.prestigio).slice(0, 5);
@@ -1643,7 +1657,7 @@
           if (v.division === 1 && fuerzas.has(v) && fuerzas.has(comprador) && fuerzas.get(comprador) < fuerzas.get(v) - 10 && j.niv >= (titular.get(v) || (titular.set(v, v.jugadores.map((x) => x.niv).sort((a, b) => b - a)[10] || 0), titular.get(v)))) return false;
           // Una figura por verano y club, como mucho: nadie se lleva a medio campeonato de golpe.
           if (figura && figuras >= 1) return false;
-          const apego = (figura ? (arriba.has(v.nombre) ? 0.4 : 1) * (deCasa(j, v) ? 0.5 : 1) : 1) * (apuros.has(v) && cargaSalarial(j, nuevoAnio) >= 2 ? 2 : 1) * (deseo(j) === 'casa' ? 0.4 : 1) * (lios.has(j) ? 3 : 1) * (v.balance === 'superado' ? 0.6 : 1);
+          const apego = (figura ? (arriba.has(v.nombre) ? 0.4 : 1) * (deCasa(j, v) ? 0.5 : 1) : 1) * (apuros.has(v) && cargaSalarial(j, nuevoAnio) >= 2 ? 2 : 1) * (quiereCasa(j, v) ? 0.4 : 1) * (lios.has(j) ? 3 : 1) * (v.balance === 'superado' ? 0.6 : 1);
           return r() < (figura ? (comprador.prestigio - v.prestigio > 150 ? 0.3 + 0.4 * fluidez : 0.15 + 0.3 * fluidez) : 0.6) * apego * calma * (v.pais === comprador.pais ? 1 : 0.35 + 0.45 * fluidez);
         });
         if (!elegido) continue;
@@ -1702,6 +1716,32 @@
         log.push({ temporada: temporadaTxt(nuevoAnio), jugador: peor.n, pos: peor.pos, niv: Math.round(peor.niv), de: c.nombre, a: 'sin club', tipo: 'baja' });
       }
     });
+    // Fondo de armario de los grandes. Con el mercado cerrado de antes de 1980 un grande fichaba uno o dos por verano,
+    // perdía otros tantos por edad y en quince años se quedaba en dieciocho, con suplentes inventados (el Madrid de 1974).
+    // Ahora, si baja de 22, completa el banquillo con buenos jugadores de clubes menores de su país: nunca la figura del
+    // otro, y como mucho tres por verano y uno por club vendedor.
+    M.clubes.filter((c) => c.division === 1 && c.prestigio >= 680 && !esFilial(c)).sort((a, b) => b.prestigio - a.prestigio).forEach((c) => {
+      const deQuien = new Set();
+      for (let n = 0; n < 3 && c.jugadores.length < 22; n++) {
+        const faltan = Object.keys(IDEAL).filter((p) => c.jugadores.filter((x) => x.pos === p).length < IDEAL[p])
+          .sort((a, b) => (c.jugadores.filter((x) => x.pos === a).length - IDEAL[a]) - (c.jugadores.filter((x) => x.pos === b).length - IDEAL[b]));
+        let cand = null;
+        for (const pos of faltan) {
+          const mios = c.jugadores.filter((x) => x.pos === pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a);
+          const techo = mios.length >= IDEAL_ONCE[pos] ? mios[IDEAL_ONCE[pos] - 1] + 10 : Infinity;
+          const quedan = pos === 'POR' ? 2 : IDEAL_ONCE[pos] + 2;
+          cand = M.clubes.filter((v) => v !== c && v.pais === c.pais && v.division <= 2 && v.prestigio < c.prestigio - 60 && !deQuien.has(v) && !esFilial(v) && MATRIZ[v.nombre] !== c.nombre
+              && (ventas.get(v) || 0) < 4 && v.jugadores.filter((x) => x.pos === pos && !x.cedido && !x.relleno).length >= quedan)
+            .flatMap((v) => { const orden = v.jugadores.map((x) => x.niv).sort((a, b) => b - a); return v.jugadores.filter((x) => x.pos === pos && !x.relleno && !x.cedido && !x.cons && x.debut !== nuevoAnio && !fichados.has(x)
+              && x.niv < techo && x.niv < (orden[2] || 0) && nuevoAnio - anioNac(x) <= 29 && seVende(x, v, c) && !atado(x, v) && puedePagar(c, x)).map((x) => ({ j: x, v })); })
+            .sort((a, b) => b.j.niv - a.j.niv)[0];
+          if (cand) break;
+        }
+        if (!cand) break;
+        deQuien.add(cand.v); ventas.set(cand.v, (ventas.get(cand.v) || 0) + 1); fichados.add(cand.j);
+        mover(cand.j, cand.v, c, 'fichaje', 'fondo');
+      }
+    });
     // A los cortos se les completa con libres y, si no hay, con jugadores de los clubes de Tercera.
     const terceras = M.clubes.filter((c) => c.division === 3 && c.pais === 'España');
     const rellenaPais = new Set(M.paises.filter((P) => P.rellenar).map((P) => P.pais));
@@ -1723,7 +1763,7 @@
           const sobra = M.clubes.filter((v) => v !== c && v.pais === c.pais && v.division <= 2 && v.jugadores.filter((x) => x.pos === pos).length >= k);
           // De abajo, el mejor; de los que tienen de sobra, su suplente más flojo (nadie regala a una figura).
           const de = (vs, peor) => vs.flatMap((v) => v.jugadores.filter((j) => j.pos === pos && !j.cedido).map((j) => ({ j, v }))).sort((a, b) => (peor ? a.j.niv - b.j.niv : b.j.niv - a.j.niv))[0];
-          const t = c.pais === 'España' ? de(terceras) : de(abajo) || de(sobra, true);
+          const t = c.pais === 'España' ? de(terceras) || de(sobra, true) : de(abajo) || de(sobra, true);
           if (t) { mover(t.j, t.v, c, 'fichaje'); continue; }
           // Último recurso, solo si la partida o el país lo permiten: un suplente anónimo de nivel bajo (clubes sin plantilla real completa).
           // (Antes solo se hacía en países con relleno; con plantillas de Wikidata un club recién ascendido puede llegar vacío a cualquier liga.)
@@ -1855,7 +1895,7 @@
   ['Johan Cruyff', 'Arsène Wenger', 'Matt Busby', 'Pep Guardiola', 'Jürgen Klopp', 'Marcelo Bielsa', 'Rinus Michels', 'Louis van Gaal', 'Alex Ferguson', 'Telê Santana', 'Mikel Arteta', 'Xabi Alonso', 'Bill Shankly', 'Luis Enrique', 'Hennes Weisweiler'].forEach((n) => { MANO[n] = 'jovenes'; });
   ['José Mourinho', 'Carlo Ancelotti', 'Zinedine Zidane', 'Ernst Happel', 'Bob Paisley', 'Helenio Herrera', 'Fabio Capello', 'Giovanni Trapattoni', 'Marcello Lippi', 'Ottmar Hitzfeld', 'Jupp Heynckes', 'Diego Simeone', 'Brian Clough', 'Vicente del Bosque', 'Béla Guttmann', 'Arrigo Sacchi', 'Rafael Benítez', 'Unai Emery', 'Carlos Bianchi', 'Luiz Felipe Scolari'].forEach((n) => { MANO[n] = 'ganador'; });
   const manoDe = (c) => { const e = c && c.entrenadores && c.entrenadores[0]; return e ? MANO[e.nombre] || null : null; };
-  const MAESTRO_JUGADOR = { 'Luis Enrique': 'Luis Enrique Martínez García' };
+  const MAESTRO_JUGADOR = { 'Luis Enrique': 'Luis Enrique' };
   const maestro = (nombre) => (MAESTROS[nombre] ? MAESTROS[nombre][2] : 0);
   // Constantes de entrenadores: lo que hace único a cada uno, pase lo que pase en la partida.
   const DONES_DT = {

@@ -240,6 +240,8 @@
   };
   function pesosDibujo(anio, pais) {
     const w = Object.assign({}, EPOCAS_DIBUJO.find((x) => anio <= x[0])[1]);
+    // Solo los dibujos que ya existían (y aún se usaban) ese año: nada de 4-4-2 en 1962 ni de 4-2-4 en 1980 (hallazgo de Codex).
+    Object.keys(w).forEach((d) => { if (DIBUJOS[d].desde > anio || DIBUJOS[d].hasta < anio) delete w[d]; });
     GUSTO_PAIS.forEach(([p, d, a, b, k]) => { if (p === pais && anio >= a && anio <= b && DIBUJOS[d].desde <= anio) w[d] = (w[d] || 1) * k; });
     return w;
   }

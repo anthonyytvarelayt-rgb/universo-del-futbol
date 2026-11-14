@@ -15551,4 +15551,3 @@ carreras: José Luis Figares González en dos clubes a la vez (Avilés hasta 197
 carreras: Daniele Moretti en dos clubes a la vez (Siena hasta 1998, Piacenza desde 1998)
 carreras: Angelo Pierleoni en dos clubes a la vez (Brescia hasta 1989, Cesena desde 1989)
 jugadores sin carrera (no entran): 24, por ejemplo ['Giuseppe Bosco', 'Mohamed Maouche', 'Mario Ditro', 'Omar Coria', 'Gerardo Ayuso']
-correcciones: no encuentro a Ladislao Kubala (1927)
