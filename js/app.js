@@ -641,13 +641,22 @@ function premiosMundo(V) {
     [['UEFA', 0.14], ['RECOPA', 0.12], ['LIB', 0.18], ['INTER', 0.06], ['SUPER', 0.03]].forEach(([k, v]) => { if (R[k]) sumaT(R[k].campeon, v); });
   }
   const golesEU = (x) => (x.por && x.por.Europa ? x.por.Europa.g || 0 : 0);
-  const individual = (x) => x.notaTemp + Math.min(0.3, (x.g || 0) / 200) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.25, golesEU(x) / 40) - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x);
-  const colectivo = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
+  // Defensas y porteros: lo normal es que lo ganen medios y delanteros, así que parten con desventaja. Pero un monstruo
+  // de su puesto (Beckenbauer, Baresi, Yashin) que además lo gana todo pierde ese lastre y recibe un extra por títulos,
+  // que es su manera de ser decisivo (no puede sumar por goles). Pedido por Anthony.
+  const atras = (x) => x.pos === 'POR' || x.pos === 'DEF';
+  const monstruo = (x) => atras(x) ? Math.max(0, Math.min(1, (nivelEn(x) - 740) / 140)) : 0;
+  const ganado = (x) => Math.min(1, colectivoBase(x) / 0.6);
+  const lastre = (x) => (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) * (1 - monstruo(x) * ganado(x));
+  const individual = (x) => x.notaTemp + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.5 * monstruo(x) * ganado(x) - descuento(x);
+  const colectivoBase = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (otrosTitulos.get(x.eq.nombre) || 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
+  const colectivo = (x) => colectivoBase(x) * (1 + 0.5 * monstruo(x));
   const merito = (x) => individual(x) + colectivo(x) + clase(x);
+  r.meritoDe = (nombre) => { const o = G.filter((x) => x.pj >= 15).sort(porMerito), i = o.findIndex((x) => x.nombre === nombre), x = o[i]; return x ? { puesto: i + 1, nota: x.notaTemp, nivel: nivelEn(x), individual: individual(x), colectivo: colectivo(x), clase: clase(x) } : null; };
   const porMerito = (a, b) => merito(b) - merito(a);
   const calc = {
     balon: (q) => mejorDe(G.filter((x) => q === 'europeos' ? europeo(x) && enEuropa(x) : q === 'club europeo' ? enEuropa(x) : true), porMerito, 15),
