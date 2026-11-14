@@ -32,6 +32,6 @@ No hubo cajas no finitas ni otros gastos negativos. Son dos muestras concretas: 
 - `node pruebas/sueldos.js`, incorporada a la auditoría: persistencia nominal, inicio de contratos, renovación, peticiones con y sin minutos, falta de caja, nóminas, retiros y clasificación europea.
 - `node pruebas/auditoria.js`, `node pruebas/famosos.js`.
 - `node pruebas/partida.js 1958 12 5` y `node pruebas/partida.js 2000 12 7`.
-- Navegador: dos temporadas desde 1958 verificadas, con ficha, controles manuales y contrato idéntico tras recargar. La prueba desde 2000 y sus capturas están pendientes al abrir el borrador del PR.
+- Navegador: dos temporadas desde 1958 y dos desde 2000. Fichas, controles manuales, contrato idéntico tras recargar y móvil de 390 px sin desbordamiento. Sin excepciones JavaScript. El comprobador termina con aviso porque registró cuatro errores de certificado al cargar recursos externos; la página usa Google Fonts. No se han ocultado esos errores. Capturas en `docs/capturas/sueldos/`.
 
 No se modifican `js/motor.js`, datos ni reglas de `CLAUDE.md`. Los dibujos tácticos quedan para otro PR.
