@@ -23,4 +23,5 @@ Plan de etapas y reparto con otras IA: ver `PLAN.md`.
 - Promesa de minutos: `nuevasPromesas` y `resolverPromesas` en `js/mundo.js` (estado en `M.promesas` y `j.promesas`); los textos salen de `promesasDe` en `js/app.js`. Los minutos se cuentan en `jugarConEstado` de `js/motor.js` (`min`, `tit`, `baja`).
 - Confianza: `confianza` y `reencuentros` en `js/mundo.js` (`j.conf`, `j.confMem`, `EGOS`, `c.vendida`); el pulso de vestuario y la dimisión están en `resumenBanquillos`. Textos en `confianzaDe` y `promesasEnero` de `js/app.js`.
 - La partida guardada es semilla + posición y se rehace al abrir. Si un cambio altera los resultados del motor, sube `version` en `guardar` y en la lectura de `js/app.js`.
+- Igualdad por época: `PARIDAD` en `js/motor.js` ensancha la escala en las ligas (no en copas ni Europa). Se mide con `node pruebas/igualdad.js <año> <temporadas> <semilla>`.
 - Antes de subir un cambio del motor: `node pruebas/partida.js <año> <temporadas> <semilla>` desde al menos dos épocas, y abrir la página en un navegador.
