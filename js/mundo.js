@@ -29,6 +29,7 @@
     'Kaká': ['precoz', 1.5], 'Adriano': ['precoz', 2.2], 'Adriano Leite Ribeiro': ['precoz', 2.2], 'Michael Owen': ['precoz', 1.8], 'Gianluigi Buffon': ['normal', 0.4],
     'Ryan Giggs': ['normal', 0.5], 'Zlatan Ibrahimović': ['tardio', 0.45], 'Luka Modrić': ['tardio', 0.45], 'Robert Lewandowski': ['tardio', 0.55],
     'Cristiano Ronaldo': ['tardio', 0.45], 'Lionel Messi': ['precoz', 0.7], 'Didier Drogba': ['tardio', 0.6], 'Jamie Vardy': ['tardio', 0.6],
+    'Gerard Piqué': ['precoz', 0.8], 'Sergio Busquets': ['precoz', 0.7],
     'Andrea Pirlo': ['tardio', 0.6], 'Xavi': ['normal', 0.7], 'Xavi Hernández': ['normal', 0.7], 'Andrés Iniesta': ['normal', 0.8], 'Kylian Mbappé': ['precoz', 1],
   };
   // ---------- Constantes: lo que este universo no puede cambiar (idea de Anthony) ----------
