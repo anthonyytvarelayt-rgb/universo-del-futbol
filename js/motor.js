@@ -309,8 +309,9 @@
     };
   }
 
-  // Lanzadores de penaltis, del mejor al peor: nivel, puesto y definición.
-  const lanzadores = (xi, nv) => xi.filter((j) => j.pos !== 'POR').sort((a, b) => nv(b) * (TIRO(b) + 0.3) * Math.sqrt(FIN(b)) - nv(a) * (TIRO(a) + 0.3) * Math.sqrt(FIN(a)));
+  // Lanzadores de penaltis, incluido el portero: todos los presentes tiran antes de repetir.
+  // Copiar conserva el orden del once; se ordenan por nivel, puesto y definición.
+  const lanzadores = (xi, nv) => xi.slice().sort((a, b) => nv(b) * (TIRO(b) + 0.3) * Math.sqrt(FIN(b)) - nv(a) * (TIRO(a) + 0.3) * Math.sqrt(FIN(a)));
   // Tanda de penaltis (desde 1970): cinco cada uno y después muerte súbita.
   function tanda(r, xiA, xiB, nv) {
     const tA = lanzadores(xiA, nv), tB = lanzadores(xiB, nv);
