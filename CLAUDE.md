@@ -6,7 +6,7 @@ Anthony es el dueño. Habla español y no programa: explícale todo en español,
 
 - Jugadores reales siempre. El relleno solo donde no hay datos, marcado con asterisco, y nunca en un club grande.
 - Pelé, Messi y Cristiano son el nivel 1000 (escala visible 1-1000; el motor usa una escala interna hasta 1180, ver `Motor.escala`).
-- Las carreras las decide el motor, salvo las `CONSTANTES` de `js/mundo.js`.
+- Las carreras las decide el motor, salvo las `CONSTANTES` de `js/mundo.js`. Cruyff aparece a los 17 en el Barcelona (1964) porque el Ajax no se juega; su fila está cambiada a mano en `carreras_wikidata.csv`.
 - La temporada nunca pasa sola a la siguiente: hace falta que el jugador pulse el botón.
 - Lo real no se pone al lado del resultado: una marca ≠ pequeña que al tocarla dice qué pasó de verdad.
 - No hay edad tope de retiro.

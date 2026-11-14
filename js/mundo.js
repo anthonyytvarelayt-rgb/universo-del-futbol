@@ -42,6 +42,8 @@
     'Alfredo Di Stéfano': { techo: 960, suelo: [[28, 960], [33, 950], [35, 920], [37, 860], [39, 780]], club: 'Real Madrid', fiel: 1964, retiro: 38 },
     'Ferenc Puskás': { techo: 920, suelo: [[30, 920], [34, 900], [36, 860], [38, 780]], club: 'Real Madrid', fiel: 1966, retiro: 38, fin: 1.3 },
     'Paco Gento': { techo: 880, suelo: [[23, 850], [27, 880], [31, 870], [34, 820], [37, 740]], club: 'Real Madrid', fiel: 1971 },
+    // Cruyff empezó en el Ajax, que no se juega: aquí aparece a los 17 en el Barcelona (decisión de Anthony) y de ahí decide el motor.
+    'Johan Cruyff': { techo: 950, suelo: [[18, 700], [20, 820], [22, 900], [24, 940], [26, 950], [30, 930], [33, 870], [36, 780]] },
     'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
     'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5 },
     'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
