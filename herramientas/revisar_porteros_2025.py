@@ -1,6 +1,7 @@
 """Valida las propuestas y mide su efecto en una copia en memoria de la base; no escribe datos/base.js."""
 import csv
 import json
+import hashlib
 import pathlib
 import subprocess
 
@@ -40,7 +41,10 @@ for (const r of entrada.faltantes) {
 }
 const despues = medir(B);
 for (const r of entrada.carreras) assert.ok(despues.find(c=>c.club===r.club).porterosReales.includes(r.nombre), 'No aparece donde se esperaba: ' + r.nombre);
-console.log(JSON.stringify({base:'bf22a8f',filasValidadas:entrada.carreras.length,ausenciasComprobadas:entrada.faltantes.length,integracion:'solo en memoria',antes,despues},null,2));
+console.log(JSON.stringify({filasValidadas:entrada.carreras.length,ausenciasComprobadas:entrada.faltantes.length,integracion:'solo en memoria',antes,despues},null,2));
 '''
 resultado = subprocess.run(['node', '-e', programa], cwd=raiz, input=json.dumps({'carreras': leer('carreras_confirmadas.csv'), 'faltantes': leer('faltan_en_la_base.csv')}), text=True, capture_output=True, check=True)
-print(resultado.stdout, end='')
+informe = json.loads(resultado.stdout)
+informe['revision'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=raiz, text=True).strip()
+informe['baseSha256'] = hashlib.sha256((raiz / 'datos/base.js').read_bytes()).hexdigest()
+print(json.dumps(informe, ensure_ascii=False, indent=2))

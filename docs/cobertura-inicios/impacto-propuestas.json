@@ -1,5 +1,4 @@
 {
-  "base": "bf22a8f",
   "filasValidadas": 6,
   "ausenciasComprobadas": 7,
   "integracion": "solo en memoria",
@@ -67,5 +66,7 @@
       ],
       "porterosDeRelleno": 1
     }
-  ]
+  ],
+  "revision": "0e654f834e17a9ea64eea25e0bb50c7e9daa2462",
+  "baseSha256": "5c56fc939b054365da0f1e2b5e4dbd01244587ac5a86c20d5512269bc1157247"
 }
