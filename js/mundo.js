@@ -281,7 +281,11 @@
       eqs.forEach((c) => { const v = misticaEn(c.nombre, M.anio + 1); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       eqs.forEach((c) => c.jugadores.forEach((j) => { const v = !j.relleno && NOCHES_EUROPA[j.n]; if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
       // Los entrenadores especialistas en eliminatorias sacan un punto más a los suyos en Europa.
-      eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
+      // Anthony: la Champions la gana el mejor; la sorpresa solo con un entrenador duro o un crack de los que conocemos.
+      // El nivel pesa más (CONTRASTE) y estos dos son lo que puede dar la vuelta a una eliminatoria.
+      const crackDe = (c) => c.jugadores.some((j) => !j.relleno && Motor.escala.mostrar(j.niv) >= 860);
+      eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, gran = dt && ((MAESTROS[dt.nombre] || [])[2] === 3 || don);
+        const v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0) + (gran ? 10 : 0) + (crackDe(c) ? 10 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       const escalaLiga = Motor.P.escala;
       Motor.P.escala = escalaLiga * (M.anio >= 1992 ? CONTRASTE_EUROPA_HOY : CONTRASTE_EUROPA);
       try {
@@ -1001,11 +1005,11 @@
   const IDEAL = { POR: 2, DEF: 7, MED: 6, DEL: 7 };
   const CUPO_EXTRANJEROS = 3, NIVEL_EXTRANJERO = 720;
   // Hasta 1991 (eliminatorias puras, pocos grandes) pesa algo más el nivel; después no hace falta: los grandes ya juntan a los mejores.
-  const CONTRASTE_EUROPA = 0.75;
+  const CONTRASTE_EUROPA = 0.55;
   // Los clubes de países que no se juegan, frente al campeón mediano de la partida.
   const FUERA_RELATIVO = 0.92;
   const QUIMICA = 28;
-  const CONTRASTE_EUROPA_HOY = 1;
+  const CONTRASTE_EUROPA_HOY = 0.72;
   const IDEAL_ONCE = { POR: 1, DEF: 4, MED: 3, DEL: 3 };
   // Cuánto fichaban fuera los clubes de cada país (aprox.): Italia y España atraían a las figuras; Francia algo;
   // Portugal, Argentina, Brasil y la Alemania semiamateur casi nada; Inglaterra, cerrada hasta 1978.
