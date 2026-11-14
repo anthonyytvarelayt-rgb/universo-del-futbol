@@ -1,0 +1,36 @@
+{
+  "errores": [],
+  "comprobaciones": {
+    "incompatible": true,
+    "incompatible-estado": true,
+    "sin-version": true,
+    "sin-version-estado": true,
+    "compatible": true,
+    "compatible-estado": true,
+    "identidad": true
+  },
+  "incompatible": {
+    "marcaRecuperada": null,
+    "anio": 2001
+  },
+  "sin-version": {
+    "marcaRecuperada": null,
+    "anio": 2001
+  },
+  "compatible": {
+    "marcaRecuperada": "compatible",
+    "anio": 2001
+  },
+  "identidad": {
+    "esperada": {
+      "semilla": 7,
+      "numPartida": 1,
+      "anioInicio": 2000
+    },
+    "guardada": {
+      "semilla": 7,
+      "numPartida": 1,
+      "anioInicio": 2000
+    }
+  }
+}

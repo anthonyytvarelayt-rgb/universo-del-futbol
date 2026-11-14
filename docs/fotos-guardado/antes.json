@@ -1,0 +1,34 @@
+{
+  "errores": [],
+  "comprobaciones": {
+    "incompatible": false,
+    "sin-version": false,
+    "compatible": true,
+    "identidad": false
+  },
+  "incompatible": {
+    "marcaRecuperada": "incompatible",
+    "anio": 2001
+  },
+  "sin-version": {
+    "marcaRecuperada": "sin-version",
+    "anio": 2001
+  },
+  "compatible": {
+    "marcaRecuperada": "compatible",
+    "anio": 2001
+  },
+  "identidad": {
+    "esperada": {
+      "semilla": 7,
+      "numPartida": 1,
+      "anioInicio": 2000
+    },
+    "guardada": {
+      "semilla": 130,
+      "numPartida": 2,
+      "anioInicio": 2001
+    }
+  },
+  "fallo": "AssertionError [ERR_ASSERTION]: Las fotos deben respetar versión e identidad al pedir el guardado\n    at /workspace/work/fotos-guardado/pruebas/fotos-guardado.cjs:63:12"
+}
