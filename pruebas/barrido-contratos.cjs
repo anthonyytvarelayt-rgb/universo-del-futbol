@@ -2,20 +2,28 @@
 // Uso: node pruebas/barrido-contratos.cjs <directorio> [fecha-límite ISO] [issue GitHub]
 // Sin fecha ejecuta una pasada de ocho épocas. Con fecha empieza nuevas partidas hasta ese límite.
 const fs = require('node:fs'), path = require('node:path'), { spawnSync, execFileSync } = require('node:child_process');
-const salida = path.resolve(process.argv[2] || '/tmp/barrido-contratos');
-const hasta = process.argv[3] ? Date.parse(process.argv[3]) : null;
+const args = process.argv.slice(2).filter((x) => !x.startsWith('--casos='));
+const repetir = process.argv.slice(2).find((x) => x.startsWith('--casos='));
+const informePrevio = repetir ? JSON.parse(fs.readFileSync(repetir.slice(8), 'utf8')) : null;
+if (repetir && !Array.isArray(informePrevio?.partidas)) throw Error('El informe debe contener una lista de partidas');
+const casos = repetir ? informePrevio.partidas.filter((x) => x.salida !== 0).map((x) => ({ inicio: x.inicio, semilla: x.semilla })) : null;
+if (casos?.some((x) => !Number.isInteger(x.inicio) || !Number.isInteger(x.semilla))) throw Error('Los casos deben tener año y semilla enteros');
+const salida = path.resolve(args[0] || '/tmp/barrido-contratos');
+const hasta = args[1] ? Date.parse(args[1]) : null;
 if (hasta !== null && (!Number.isFinite(hasta) || hasta <= Date.now())) throw Error('La fecha límite debe estar en el futuro');
-const issue = process.argv[4] ? Number(process.argv[4]) : null;
+const issue = args[2] ? Number(args[2]) : null;
 if (issue !== null && (!Number.isInteger(issue) || issue < 1)) throw Error('Issue inválida');
 fs.mkdirSync(salida, { recursive: true });
 const estado = { revision: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: path.join(__dirname, '..'), encoding: 'utf8' }).trim(), inicio: new Date().toISOString(), limite: hasta && new Date(hasta).toISOString(), finalizado: false, partidas: [], erroresPublicacion: [] };
 const anos = [1958, 1962, 1970, 1980, 1992, 2000, 2015, 2025], avisados = new Set();
+const completa = (x) => Number.isInteger(x.temporadas) && x.temporadas > 0 && x.temporadasCompletadas === x.temporadas;
+const motivos = (x) => x.fallos?.length ? x.fallos : [x.error || 'Ejecución interrumpida'];
 const resumen = () => {
   const filas = estado.partidas;
   return `Codex · barrido automático de contratos sobre ${estado.revision.slice(0, 7)}\n\n` +
-    `Estado: ${estado.finalizado ? 'terminado' : 'en curso'}. Partidas terminadas: ${filas.length}. Temporadas: ${filas.reduce((s, x) => s + (x.temporadasCompletadas || 0), 0)}. Comprobaciones: ${filas.reduce((s, x) => s + (x.comprobaciones || 0), 0)}.\n\n` +
+    `Estado: ${estado.finalizado ? 'terminado' : 'en curso'}. Intentos: ${filas.length}. Partidas completas: ${filas.filter(completa).length}. Partidas interrumpidas: ${filas.filter((x) => !completa(x)).length}. Temporadas: ${filas.reduce((s, x) => s + (x.temporadasCompletadas || 0), 0)}. Comprobaciones: ${filas.reduce((s, x) => s + (x.comprobaciones || 0), 0)}.\n\n` +
     `Partidas con fallos: ${filas.filter((x) => x.salida !== 0).length}. Refinanciaciones registradas (todos los clubes): ${filas.reduce((s, x) => s + (x.refinanciaciones?.length || 0), 0)}.\n\n` +
-    (filas.filter((x) => x.salida !== 0).map((x) => `- Inicio ${x.inicio}, semilla ${x.semilla}: ${(x.fallos || [x.error]).join('; ')}`).slice(0, 30).join('\n') || 'No se han detectado incumplimientos de las invariantes comprobadas.') +
+    (filas.filter((x) => x.salida !== 0).map((x) => `- Inicio ${x.inicio}, semilla ${x.semilla}: ${motivos(x).join('; ')}`).slice(0, 30).join('\n') || 'No se han detectado incumplimientos de las invariantes comprobadas.') +
     '\n\nNo se han modificado archivos del juego, fusionado ramas ni desplegado nada. Esto es una muestra de semillas, no una garantía general. Los detalles completos quedan en el directorio de resultados de la ejecución.';
 };
 const guardar = () => {
@@ -32,20 +40,22 @@ const publicar = (body) => {
 };
 guardar();
 let paso = 0;
-while (hasta === null ? paso < anos.length : Date.now() < hasta) {
-  const inicio = anos[paso % anos.length], semilla = Math.floor(paso / anos.length) + 1;
+while ((casos ? paso < casos.length : hasta !== null || paso < anos.length) && (hasta === null || Date.now() < hasta)) {
+  const inicio = casos ? casos[paso].inicio : anos[paso % anos.length], semilla = casos ? casos[paso].semilla : Math.floor(paso / anos.length) + 1;
   const nombre = `${inicio}-${semilla}`, informe = path.join(salida, nombre + '.json');
+  if (fs.existsSync(informe)) fs.unlinkSync(informe);
   const fd = fs.openSync(path.join(salida, nombre + '.log'), 'w');
   const r = spawnSync(process.execPath, [path.join(__dirname, 'contratos-partida.js'), String(inicio), '12', String(semilla), informe], { stdio: ['ignore', fd, fd], timeout: 30 * 60 * 1000 });
   fs.closeSync(fd);
   let resultado;
-  try { resultado = JSON.parse(fs.readFileSync(informe, 'utf8')); } catch { resultado = { inicio, semilla, error: r.error?.message || 'No se generó un informe completo' }; }
+  try { resultado = JSON.parse(fs.readFileSync(informe, 'utf8')); } catch { resultado = { inicio, semilla, error: r.error?.message || `No se generó un informe completo; código ${r.status}, señal ${r.signal || 'ninguna'}. ${fs.readFileSync(path.join(salida, nombre + '.log'), 'utf8').slice(-6000)}` }; }
   resultado.salida = r.status ?? -1;
+  resultado.senal = r.signal || null;
   estado.partidas.push(resultado);
   guardar();
-  console.log(nombre, resultado.salida, resultado.fallos || resultado.error || 'bien');
+  console.log(nombre, resultado.salida, resultado.salida === 0 ? 'bien' : motivos(resultado));
   if (resultado.salida !== 0) {
-    const firma = JSON.stringify(resultado.fallos || resultado.error);
+    const firma = JSON.stringify(motivos(resultado).slice().sort());
     if (!avisados.has(firma) && avisados.size < 5) { avisados.add(firma); publicar(`Codex: fallo durante el barrido automático. Inicio ${inicio}, semilla ${semilla}.\n\n${firma}\n\n${JSON.stringify(resultado.muestras || [], null, 2).slice(0, 5000)}`); }
   }
   paso++;

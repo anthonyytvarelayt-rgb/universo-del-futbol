@@ -12,7 +12,9 @@ const comprobar = (ok, tipo, dato) => {
   if (!ok) { if (!informe.fallos.includes(tipo)) informe.fallos.push(tipo); if (informe.muestras.length < 25) informe.muestras.push({ temporada: M.anio, tipo, ...dato }); }
 };
 const europeos = (R) => new Set([R.EU, R.UEFA, R.RECOPA].filter(Boolean).flatMap((C) => (C.rondas || []).flatMap((ro) => ro.cruces.flatMap((x) => [x.a, x.b]))));
+const guardarInforme = () => { if (process.argv[5]) fs.writeFileSync(process.argv[5], JSON.stringify(informe, null, 2) + '\n'); };
 let ajusteAnterior = [];
+try {
 for (let k = 0; k < temporadas; k++) {
   const antes = new Map(), nominas = new Map(), retirados = new Set(M.retirados.map(clave));
   M.clubes.forEach((c) => {
@@ -56,8 +58,13 @@ for (let k = 0; k < temporadas; k++) {
   informe.liga[S.campeon] = (informe.liga[S.campeon] || 0) + 1;
   if (S.europa) informe.europa[S.europa] = (informe.europa[S.europa] || 0) + 1;
   informe.temporadasCompletadas++;
+  guardarInforme();
   console.log(`${S.temporada}: ${S.campeon} / ${S.europa}; fallos: ${informe.fallos.join(', ') || 'ninguno'}`);
 }
-if (process.argv[5]) fs.writeFileSync(process.argv[5], JSON.stringify(informe, null, 2) + '\n');
+} catch (error) {
+  informe.error = error.stack || String(error);
+  console.error(informe.error);
+}
+guardarInforme();
 console.log(JSON.stringify(informe));
-process.exitCode = informe.fallos.length ? 1 : 0;
+process.exitCode = informe.error || informe.fallos.length ? 1 : 0;

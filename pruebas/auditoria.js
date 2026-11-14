@@ -83,5 +83,11 @@ try {
 } catch (e) {
   caso('Sueldos pactados: contratos y consecuencias económicas', false, e.stack);
 }
+try {
+  require('./barrido-resistencia.js');
+  caso('Barrido: conserva progreso y distingue interrupciones', true);
+} catch (e) {
+  caso('Barrido: conserva progreso y distingue interrupciones', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
