@@ -1,0 +1,294 @@
+{
+  "erroresJS": [],
+  "erroresRed": [],
+  "epocas": [
+    {
+      "anio": 1958,
+      "declaraciones": [
+        {
+          "rot": "El banquillo campeón",
+          "nombre": "Luis Carniglia",
+          "club": "Real Madrid",
+          "frase": "«Esta Copa de Europa lleva el trabajo de todo el vestuario. Ninguno la gana solo».",
+          "txt": "Tras conquistar la Copa de Europa. Balance de la temporada en el Real Madrid: 3.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Otto Glória",
+          "club": "Benfica",
+          "frase": "«El título es del Benfica. Este equipo se ha ganado ese premio».",
+          "txt": "Campeón de Primeira Divisão en Portugal. Balance de la temporada en el Benfica: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Ljubiša Broćić",
+          "club": "Juventus",
+          "frase": "«Ser campeones exige sostener el trabajo. El grupo lo ha hecho».",
+          "txt": "Campeón de Serie A en Italia. Balance de la temporada en la Juventus: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El vestuario",
+          "nombre": "Danny Blanchflower",
+          "club": "Tottenham Hotspur",
+          "frase": "«Mi relación con Bill Nicholson se ha deteriorado. No voy a negarlo».",
+          "txt": "Tras el conflicto con Bill Nicholson en el Tottenham Hotspur.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "El vestuario",
+          "nombre": "Julinho Botelho",
+          "club": "Palmeiras",
+          "frase": "«Tenemos diferencias. Fingir que no pasa nada no ayuda».",
+          "txt": "Tras el conflicto con Oswaldo Brandão en el Palmeiras.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Habla el ganador",
+          "nombre": "Ferenc Puskás",
+          "club": "Real Madrid",
+          "frase": "«Ganar el Balón de Oro es un orgullo. También se lo debo a mis compañeros».",
+          "txt": "Tras recibir el Balón de Oro por la temporada 1958-59.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "El goleador",
+          "nombre": "Pelé",
+          "club": "Santos",
+          "frase": "«Acabar con 48 goles me da confianza. Ahora toca seguir trabajando».",
+          "txt": "Máximo goleador del mundo en la partida: 48 goles.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La renovación",
+          "nombre": "Omar Sívori",
+          "club": "Juventus",
+          "frase": "«El club ha reconocido mi trabajo. Ahora me toca responder en el campo».",
+          "txt": "Tras acordar la mejora de sueldo.",
+          "rol": "jugador"
+        }
+      ],
+      "entrenadores": 3,
+      "ancho": 1440,
+      "viewport": 1440
+    },
+    {
+      "anio": 1959,
+      "declaraciones": [
+        {
+          "rot": "El banquillo campeón",
+          "nombre": "Helenio Herrera",
+          "club": "Barcelona",
+          "frase": "«Ganar la Copa de Europa con el Barcelona es algo que este grupo ya se ha ganado para siempre».",
+          "txt": "Tras conquistar la Copa de Europa. Balance de la temporada en el Barcelona: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Otto Bumbel",
+          "club": "Oporto",
+          "frase": "«El título es del Oporto. Este equipo se ha ganado ese premio».",
+          "txt": "Campeón de Primeira Divisão en Portugal. Balance de la temporada en el Oporto: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Richard Schneider",
+          "club": "Kaiserslautern",
+          "frase": "«Ser campeones exige sostener el trabajo. El grupo lo ha hecho».",
+          "txt": "Campeón de Campeonato alemán en Alemania. Balance de la temporada en el Kaiserslautern: 1.º en su grupo.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "Habla el ganador",
+          "nombre": "Luis Suárez Miramontes",
+          "club": "Barcelona",
+          "frase": "«Ganar el Balón de Oro es un orgullo. También se lo debo a mis compañeros».",
+          "txt": "Tras recibir el Balón de Oro por la temporada 1959-60.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La oportunidad llegó",
+          "nombre": "Geoff Hurst",
+          "club": "West Ham United",
+          "frase": "«Con 3960 minutos ya he podido demostrar lo que puedo aportar».",
+          "txt": "Jugó el 100 % de los minutos disponibles.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La oportunidad llegó",
+          "nombre": "Héctor Rial",
+          "club": "Real Madrid",
+          "frase": "«En el Real Madrid he tenido los minutos que necesitaba. Ahora me toca aprovecharlos».",
+          "txt": "Jugó el 98 % de los minutos disponibles.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "El goleador",
+          "nombre": "Pelé",
+          "club": "Santos",
+          "frase": "«Me alegra acabar como goleador. El equipo me ha puesto en situación de marcar».",
+          "txt": "Máximo goleador del mundo en la partida: 44 goles.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La renovación",
+          "nombre": "Coluna",
+          "club": "Benfica",
+          "frase": "«El club ha reconocido mi trabajo. Ahora me toca responder en el campo».",
+          "txt": "Tras acordar la mejora de sueldo.",
+          "rol": "jugador"
+        }
+      ],
+      "entrenadores": 3,
+      "ancho": 1440,
+      "viewport": 1440
+    },
+    {
+      "anio": 2000,
+      "declaraciones": [
+        {
+          "rot": "El banquillo campeón",
+          "nombre": "Carlo Ancelotti",
+          "club": "Juventus",
+          "frase": "«Ganar la Liga de Campeones con el Juventus es algo que este grupo ya se ha ganado para siempre».",
+          "txt": "Tras conquistar la Liga de Campeones. Balance de la temporada en la Juventus: 5.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Vicente del Bosque",
+          "club": "Real Madrid",
+          "frase": "«Ahora podemos decirlo: el Real Madrid es campeón. Antes había que demostrarlo».",
+          "txt": "Campeón de liga en España. Balance de la temporada en el Real Madrid: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Elie Baup",
+          "club": "Burdeos",
+          "frase": "«Ser campeones exige sostener el trabajo. El grupo lo ha hecho».",
+          "txt": "Campeón de Division 1 en Francia. Balance de la temporada en el Burdeos: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "Habla el ganador",
+          "nombre": "Raúl",
+          "club": "Real Madrid",
+          "frase": "«Hay mucho trabajo detrás de este premio. Hoy me acuerdo de quienes me han ayudado».",
+          "txt": "Tras recibir el Balón de Oro por la temporada 2000-01.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La renovación",
+          "nombre": "Carles Puyol",
+          "club": "Barcelona",
+          "frase": "«El club ha reconocido mi trabajo. Ahora me toca responder en el campo».",
+          "txt": "Tras acordar la mejora de sueldo.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "La renovación",
+          "nombre": "Adriano",
+          "club": "Flamengo",
+          "frase": "«Mi contrato en el Flamengo también importa, pero mi trabajo sigue estando en el campo».",
+          "txt": "Tras acordar la mejora de sueldo.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Autocrítica en el vestuario",
+          "nombre": "Marcelinho Carioca",
+          "club": "Corinthians",
+          "frase": "«El Corinthians ha acabado 8.º. Entiendo que la afición esperara más».",
+          "txt": "Balance de liga: 8.º en Brasil.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Autocrítica en el vestuario",
+          "nombre": "Zinedine Zidane",
+          "club": "Juventus",
+          "frase": "«No hemos dado lo que se esperaba de nosotros. También me incluyo».",
+          "txt": "Balance de liga: 5.º en Italia.",
+          "rol": "jugador"
+        }
+      ],
+      "entrenadores": 3,
+      "ancho": 390,
+      "viewport": 390
+    },
+    {
+      "anio": 2001,
+      "declaraciones": [
+        {
+          "rot": "El técnico dimite",
+          "nombre": "John Gregory",
+          "club": "Tottenham Hotspur",
+          "frase": "«Sin Sol Campbell, el equipo cambió y los resultados no acompañaron. Mi etapa termina aquí».",
+          "txt": "Al dimitir del Tottenham Hotspur tras acabar 12.º.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El banquillo campeón",
+          "nombre": "Alex Ferguson",
+          "club": "Manchester United",
+          "frase": "«Hoy toca disfrutar del título. Hemos llegado hasta el final y lo hemos ganado».",
+          "txt": "Tras conquistar la Liga de Campeones. Balance de la temporada en el Manchester United: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El título desde el banquillo",
+          "nombre": "Ottmar Hitzfeld",
+          "club": "Bayern Múnich",
+          "frase": "«Ahora podemos decirlo: el Bayern Múnich es campeón. Antes había que demostrarlo».",
+          "txt": "Campeón de Bundesliga en Alemania. Balance de la temporada en el Bayern Múnich: 1.º en liga.",
+          "rol": "entrenador"
+        },
+        {
+          "rot": "El vestuario",
+          "nombre": "Piotr Świerczewski",
+          "club": "Bastia",
+          "frase": "«Tenemos diferencias. Fingir que no pasa nada no ayuda».",
+          "txt": "Tras el conflicto con Frédéric Antonetti en el Bastia.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Promesa incumplida",
+          "nombre": "Thiago Motta",
+          "club": "Barcelona",
+          "frase": "«He jugado el 4 %. Esperaba tener más sitio en el Barcelona».",
+          "txt": "174 minutos tras la promesa de Serra Ferrer.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Promesa incumplida",
+          "nombre": "Carlos Tévez",
+          "club": "Boca Juniors",
+          "frase": "«Necesito saber qué papel voy a tener antes de decidir mi futuro».",
+          "txt": "0 minutos tras la promesa de Carlos Bianchi. Después ficha por el Benfica.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Confianza rota",
+          "nombre": "Alfonso Pérez",
+          "club": "Barcelona",
+          "frase": "«He jugado el 0 % de los minutos. Así cuesta encontrar continuidad».",
+          "txt": "La relación con Serra Ferrer se deterioró en el Barcelona.",
+          "rol": "jugador"
+        },
+        {
+          "rot": "Confianza rota",
+          "nombre": "Patrick Kluivert",
+          "club": "Barcelona",
+          "frase": "«Con Serra Ferrer he tenido poco sitio. Tenemos que hablarlo».",
+          "txt": "La relación con Serra Ferrer se deterioró en el Barcelona.",
+          "rol": "jugador"
+        }
+      ],
+      "entrenadores": 3,
+      "ancho": 390,
+      "viewport": 390
+    }
+  ]
+}

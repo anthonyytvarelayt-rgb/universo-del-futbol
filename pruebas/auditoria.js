@@ -95,5 +95,11 @@ try {
 } catch (e) {
   caso('Barrido: conserva progreso y distingue interrupciones', false, e.stack);
 }
+try {
+  require('./declaraciones.js');
+  caso('Declaraciones: contexto y espacio para entrenadores', true);
+} catch (e) {
+  caso('Declaraciones: contexto y espacio para entrenadores', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
