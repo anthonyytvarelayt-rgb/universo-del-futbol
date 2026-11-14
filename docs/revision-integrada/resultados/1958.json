@@ -1,0 +1,27 @@
+{
+  "inicio": 1958,
+  "temporadas": 12,
+  "semilla": 5,
+  "comprobaciones": 357899,
+  "temporadasCompletadas": 12,
+  "fallos": [],
+  "muestras": [],
+  "liga": {
+    "Barcelona": 5,
+    "Real Madrid": 6,
+    "Atlético Bilbao": 1
+  },
+  "europa": {
+    "Real Madrid": 3,
+    "Barcelona": 2,
+    "Inter": 2,
+    "Benfica": 1,
+    "Bologna": 2,
+    "Manchester United": 2
+  },
+  "refinanciaciones": [],
+  "contratos": 87174,
+  "cesiones": 586,
+  "regresos": 511,
+  "nominas": 4583
+}

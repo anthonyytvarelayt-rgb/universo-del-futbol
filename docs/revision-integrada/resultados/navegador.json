@@ -1,0 +1,20 @@
+{
+  "erroresJS": [],
+  "erroresRed": [],
+  "epocas": [
+    {
+      "inicio": 1958,
+      "temporadas": 2,
+      "contratosYResultadosIdenticos": true,
+      "lecturaSinEfectos": true,
+      "movil390": true
+    },
+    {
+      "inicio": 2000,
+      "temporadas": 2,
+      "contratosYResultadosIdenticos": true,
+      "lecturaSinEfectos": true,
+      "movil390": true
+    }
+  ]
+}

@@ -1768,7 +1768,12 @@
           // Último recurso, solo si la partida o el país lo permiten: un suplente anónimo de nivel bajo (clubes sin plantilla real completa).
           // (Antes solo se hacía en países con relleno; con plantillas de Wikidata un club recién ascendido puede llegar vacío a cualquier liga.)
           const base = Math.min(...c.jugadores.map((j) => j.niv), 300 + 0.4 * c.prestigio) - 20;
-          const n = c.jugadores.filter((j) => j.relleno).length + 1;
+          // El nombre no puede repetirse: un suplente anónimo que se fue a otro club sigue llevando el nombre del primero
+          // y el siguiente salía con el mismo (hallazgo de Codex: "Suplente 5 (Vitória)" en dos plantillas).
+          if (!M.nombresRelleno) { M.nombresRelleno = new Set(); M.clubes.forEach((x) => x.jugadores.forEach((j) => { if (j.relleno) M.nombresRelleno.add(j.n); })); M.libres.forEach((j) => { if (j.relleno) M.nombresRelleno.add(j.n); }); M.retirados.forEach((j) => M.nombresRelleno.add(j.n)); }
+          let n = c.jugadores.filter((j) => j.relleno).length + 1;
+          while (M.nombresRelleno.has(`Suplente ${n} (${c.nombre})`)) n++;
+          M.nombresRelleno.add(`Suplente ${n} (${c.nombre})`);
           c.jugadores.push({ n: `Suplente ${n} (${c.nombre})`, pos, nac: `${nuevoAnio - 24}-01-01`, nacion: c.pais, niv: base, tec: base, tecReal: base, pj: 0, g: 0, carrera: [], inicio: { niv: base, club: c.nombre }, rol: pos === 'DEL' ? 'DC' : pos, relleno: true });
         }
       });
