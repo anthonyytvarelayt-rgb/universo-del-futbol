@@ -225,7 +225,7 @@ async function avanzar(callado) {
     if (!callado) $('fechaTxt').textContent = 'Llega el verano…';
     const d = await obtener('verano', k);
     // El verano trae el mundo de después: edades, retiros, fichajes y ascensos.
-    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, presidentes: d.S.presidentes, escandalos: d.S.escandalos, culebrones: d.S.culebrones, vestuario: d.S.vestuario, estadios: d.S.estadios, promesas: d.S.promesas, veranoHecho: true });
+    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, presidentes: d.S.presidentes, escandalos: d.S.escandalos, culebrones: d.S.culebrones, vestuario: d.S.vestuario, estadios: d.S.estadios, promesas: d.S.promesas, confianza: d.S.confianza, veranoHecho: true });
     M = d.M;
   }
   // Al cerrar la temporada, el teletipo da los campeones de todas las ligas.
@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 67, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 68, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -874,6 +874,7 @@ function historiasSemana() {
       }
     });
   });
+  if (n30 === 16 && paso().tipo === 'jornada') { try { out.push(...promesasEnero().sort((a, b) => b.peso - a.peso).slice(0, 3)); } catch (e) { /* sin promesas */ } }
   return out.sort((a, b) => b.peso - a.peso);
 }
 function pintarHoy() {
@@ -1130,8 +1131,8 @@ function sorpresasHtml(V) {
     ? art('Culebrón', `Se cae el fichaje de ${esc(x.jugador)} por el ${esc(x.a)}`, `Estaba todo hecho para dejar el ${esc(x.de)}: reconocimiento médico, camiseta preparada y foto en el estadio. A última hora todo salta por los aires y se queda donde estaba.`)
     : art('Culebrón', `${esc(x.jugador)} elige al ${esc(x.a)}`, `El ${esc(x.pierde)} pujó hasta el último día. Durante semanas no se habló de otra cosa; al final, el ${esc(x.a)} se lo lleva del ${esc(x.de)}.`));
   const vest = (V.vestuario || []).filter((x) => x.gana === 'jugador' || nivel(x.niv || 0) >= 680).slice(0, 2).map((x) => x.gana === 'jugador'
-    ? art('Vestuario roto', `${esc(x.jugador)} gana el pulso a ${esc(sinApodo(x.entrenador))}`, `Mal año en el ${esc(x.club)} y guerra abierta en el vestuario. La directiva elige a su estrella: el entrenador, a la calle.`)
-    : art('Vestuario roto', `${esc(x.jugador)} choca con ${esc(sinApodo(x.entrenador))}`, `${x.fiestero ? 'Las noches de fiesta y un mal año acabaron con la paciencia del técnico.' : 'Reproches en público, un entrenamiento a gritos y un mal año.'} El ${esc(x.club)} se pone del lado del entrenador${(V.mercado || []).some((y) => y.tipo === 'fichaje' && y.jugador === x.jugador) ? ' y lo vende este mismo verano' : ' y le busca salida'}.`));
+    ? art('Vestuario roto', `${esc(x.jugador)} gana el pulso a ${esc(sinApodo(x.entrenador))}`, `${x.confianza ? `La figura del ${esc(x.club)} dejó de creer en su técnico` : `Mal año en el ${esc(x.club)}`} y guerra abierta en el vestuario. La directiva elige a su estrella: el entrenador, a la calle.`)
+    : art('Vestuario roto', `${esc(x.jugador)} choca con ${esc(sinApodo(x.entrenador))}`, `${x.confianza ? 'Hacía meses que no se hablaban: el jugador había perdido la confianza en su técnico.' : x.fiestero ? 'Las noches de fiesta y un mal año acabaron con la paciencia del técnico.' : 'Reproches en público, un entrenamiento a gritos y un mal año.'} El ${esc(x.club)} se pone del lado del entrenador${(V.mercado || []).some((y) => y.tipo === 'fichaje' && y.jugador === x.jugador) ? ' y lo vende este mismo verano' : ' y le busca salida'}.`));
   const estadios = (V.estadios || []).slice(0, 3).map((x) => x.cambio
     ? art('Estadio', `El ${esc(x.viejo)} pasa a llamarse ${esc(x.nuevo)}`, `Mismo campo, nombre nuevo: desde esta temporada el ${esc(x.club)} juega en el ${esc(x.nuevo)}.`)
     : x.mudanza ? art('Estadio', `El ${esc(x.club)} se muda al ${esc(x.nuevo)}`, `Deja el ${esc(x.viejo)} después de ${x.anios} años y desde esta temporada juega en el ${esc(x.nuevo)}.`)
@@ -1177,7 +1178,8 @@ function sorpresasHtml(V) {
     : `Fue jugador del ${esc(x.traicion)} y ahora llega desde el ${esc(x.de)} para defender al enemigo. En su antigua casa no se lo van a perdonar.`)).join('');
   const recordT = caroHoy && caroAntes && caroHoy.precio > caroAntes.precio ? art('Récord mundial', `${nombreJ(caroHoy.jugador)}, el fichaje más caro de la historia`, `El ${esc(caroHoy.a)} paga ${precioTxt(caroHoy.precio)} al ${esc(caroHoy.de)}. El récord anterior era de ${esc(caroAntes.jugador)}: ${precioTxt(caroAntes.precio)} en ${esc(caroAntes.temporada)}.`) : '';
   const promes = (() => { try { const ps = promesasDe(V), pick = (t, n) => ps.filter((x) => x.tipo === t).slice(0, n); return pick('rota', 2).concat(pick('cumplida', 1), pick('huerfana', 1), pick('lesion', 1), pick('nueva', 2)).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join(''); } catch (e) { return ''; } })();
-  return records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  const confi = (() => { try { const cs = confianzaDe(V), pick = (t, n) => cs.filter((x) => x.tipo === t).slice(0, n); return pick('dimite', 1).concat(pick('rota', 2), pick('reencuentro', 1), pick('alta', 1)).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join(''); } catch (e) { return ''; } })();
+  return records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + confi + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 // Datos reales de formación y de maestros (datos/canteras.js). Solo se enseñan.
 const canteraReal = (n) => (typeof CANTERAS_REALES !== 'undefined' && CANTERAS_REALES[n]) || null;
@@ -1220,6 +1222,39 @@ function promesasDe(V) {
       quien: x.dt, club: x.club, frase, pie: `Sobre ${x.jugador}, este verano.` });
   });
   return out;
+}
+// La confianza entre jugadores y entrenadores: las que se rompen, los hombres de confianza, los reencuentros
+// y el técnico que dimite porque le vendieron a su figura. Mismas piezas que promesasDe.
+function confianzaDe(V) {
+  const C = V.confianza || {}, out = [], dt = (n) => sinApodo(n || 'el entrenador');
+  const h = (t) => [...(t + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7), elige = (xs, t) => xs[h(t) % xs.length];
+  (V.banquillos || []).filter((x) => x.dimite).forEach((x) => out.push({ tipo: 'dimite', niv: 9999, rot: 'Dimisión', tit: `${dt(x.sale)} deja el ${x.club}: «Me vendieron a ${x.vendido}»`,
+    txt: `La directiva traspasó a su figura el verano pasado y el equipo lo pagó${x.puesto ? `: acabó ${x.puesto}.º` : ''}. El técnico no espera a que lo echen.`,
+    quien: x.sale, club: x.club, frase: elige(['«Me pidieron resultados y me quitaron al mejor. Así no se puede trabajar».', '«Yo construí el equipo alrededor de él. Lo vendieron sin preguntarme».'], x.sale), pie: `Al dimitir. El club había vendido a ${x.vendido}.` }));
+  (C.rotas || []).filter((x) => nivel(x.niv) >= 560).sort((a, b) => b.niv - a.niv).forEach((x) => {
+    const sale = (V.mercado || []).find((m) => m.tipo === 'fichaje' && m.jugador === x.jugador);
+    out.push({ tipo: 'rota', niv: x.niv, rot: 'Confianza rota', tit: `${x.jugador} ya no cree en ${dt(x.dt)}`,
+      txt: `Ha jugado el ${x.pct} % de lo que pudo en el ${x.club}${x.promesa === 'rota' ? ', después de que le prometieran minutos' : ''}. ${x.estrella ? 'Es una de las figuras del equipo, y la' : 'La'} relación está rota: ${sale ? `se marcha al ${sale.a}` : 'quiere salir'}.`,
+      quien: x.jugador, club: x.club, frase: elige(['«Con este entrenador no cuento. Está claro».', '«Yo he hecho mi parte. Él sabrá por qué no juego».', '«No tengo nada que hablar con el míster».'], x.jugador), pie: `Sobre ${dt(x.dt)}. Jugó el ${x.pct} %.` });
+  });
+  (C.altas || []).filter((x) => nivel(x.niv) >= 600).sort((a, b) => b.niv - a.niv).forEach((x) => out.push({ tipo: 'alta', niv: x.niv, rot: 'Hombre de confianza', tit: `${x.jugador}, el hombre de ${dt(x.dt)}`,
+    txt: `Lo juega casi todo en el ${x.club} (el ${x.pct} %)${x.promesa === 'cumplida' ? ' y el técnico le cumplió lo que le prometió' : ''}. Un jugador que se siente así rinde más.`,
+    quien: x.dt, club: x.club, frase: elige([`«Mientras yo esté aquí, ${corto(x.jugador)} juega».`, `«${corto(x.jugador)} es mi entrenador dentro del campo».`, `«Con jugadores como ${corto(x.jugador)} mi trabajo es fácil».`], x.jugador), pie: `Sobre ${x.jugador}.` }));
+  (C.reencuentros || []).filter((x) => nivel(x.niv) >= 560).sort((a, b) => b.niv - a.niv).forEach((x) => out.push(x.v > 0
+    ? { tipo: 'reencuentro', niv: x.niv, rot: 'Reencuentro', tit: `${x.jugador} vuelve a las órdenes de ${dt(x.dt)}`, txt: `Coincidieron en el ${x.donde || 'pasado'} y el técnico le dio galones. Ahora se juntan en el ${x.club}.`, quien: x.jugador, club: x.club, frase: '«Con él siempre he jugado mi mejor fútbol».', pie: `Sobre ${dt(x.dt)}, con quien ya coincidió${x.donde ? ` en el ${x.donde}` : ''}.` }
+    : { tipo: 'reencuentro', niv: x.niv, rot: 'Reencuentro incómodo', tit: `${x.jugador} se cruza otra vez con ${dt(x.dt)}`, txt: `En el ${x.donde || 'pasado'} acabaron mal: el técnico lo apartó. Ahora coinciden en el ${x.club}. Los dos dicen que es agua pasada; en el vestuario no lo tienen tan claro.`, quien: x.jugador, club: x.club, frase: '«Lo pasado, pasado está. Pero no se me ha olvidado».', pie: `Sobre ${dt(x.dt)}, que lo apartó${x.donde ? ` en el ${x.donde}` : ''}.` }));
+  return out;
+}
+// Enero: la prensa revisa las promesas de minutos del verano con lo jugado en la primera vuelta.
+function promesasEnero() {
+  const prev = cerradas[cerradas.length - 1], ps = prev && prev.promesas && prev.promesas.nuevas; if (!ps || !ps.length || !S || !S.G) return [];
+  return ps.filter((p) => p.anio === S.anio).map((p) => {
+    const x = S.G.find((y) => y.nombre === p.jugador && y.club === p.club), jor = Math.max(0, ...S.G.filter((y) => y.club === p.club).map((y) => y.jorMitad || 0)); if (!jor) return null;
+    const min = (x && x.minMitad) || 0, pct = Math.round(100 * min / (90 * jor)), dt = sinApodo(p.dt);
+    return { peso: 5 + nivel(p.niv) / 100 + (pct < 35 ? 3 : 0), seccion: 'La promesa, a examen', jugador: p.jugador,
+      titular: pct >= 55 ? `${dt} está cumpliendo con ${p.jugador}` : pct < 35 ? `${p.jugador} sigue esperando los minutos que le prometieron` : `${p.jugador} juega, pero menos de lo prometido`,
+      texto: `En verano ${dt} dijo que iba a contar en el ${p.club}. A mitad de liga lleva ${min} minutos en ${jor} jornadas (el ${pct} %).${pct < 35 ? ' Queda media temporada para arreglarlo.' : ''}` };
+  }).filter(Boolean);
 }
 function insigniasHtml(j) {
   const ids = Object.keys(j.ins || {});
@@ -1342,7 +1377,7 @@ function declaraciones(V) {
     const h = (t) => [...(t + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7), elige = (xs, t) => xs[h(t) % xs.length];
     const pm = premiosMundo(V), G = figurasDe(V), ya = new Set(), objs = V.objetivos || [];
     const car = (j) => { try { return Mundo.caracterDe(j); } catch (e) { return 'normal'; } }, quiere = (j) => { try { return Mundo.deseo(j); } catch (e) { return ''; } };
-    const dice = (rot, nombre, club, frase, txt) => { if (ya.has(nombre) || out.length >= 6) return; ya.add(nombre); out.push({ rot, nombre, club, frase, txt: artClubes(txt) }); };
+    const dice = (rot, nombre, club, frase, txt) => { if (ya.has(nombre) || out.length >= 7) return; ya.add(nombre); out.push({ rot, nombre, club, frase, txt: artClubes(txt) }); };
     // El ganador del gran premio.
     const gan = pm.ganadorMejor, gj = gan && G.find((x) => x.nombre === gan.nombre);
     if (gan && gj) {
@@ -1356,6 +1391,7 @@ function declaraciones(V) {
     (V.vestuario || []).filter((x) => x.gana === 'jugador' || nivel(x.niv || 0) >= 680).slice(0, 2).forEach((x) => dice('Vestuario roto', x.jugador, x.club, x.gana === 'jugador' ? '«Yo solo quería lo mejor para el equipo. Las decisiones las toma el club».' : elige(['«Con este entrenador no vuelvo a jugar».', '«Aquí alguien sobra, y la directiva ya ha elegido».'], x.jugador), `Tras su choque con ${sinApodo(x.entrenador)}.`));
     // La promesa de minutos: el que se queja de que no se cumplió, el que la agradece y el entrenador que hace una nueva.
     try { const ps = promesasDe(V).filter((x) => x.frase); ['rota', 'cumplida', 'nueva'].forEach((t) => { const x = ps.find((y) => y.tipo === t); if (x) dice(x.rot, x.quien, x.club, x.frase, x.pie); }); } catch (e) { /* sin promesas */ }
+    try { const cs = confianzaDe(V).filter((x) => x.frase); ['dimite', 'rota', 'reencuentro'].forEach((t) => { const x = cs.find((y) => y.tipo === t); if (x) dice(x.rot, x.quien, x.club, x.frase, x.pie); }); } catch (e) { /* sin datos */ }
     // La figura de un grande que fracasó y quiere títulos.
     // Las quejas van rotando para que dos figuras no digan lo mismo el mismo año.
     const QUEJAS = ['«Así no podemos seguir. Hacen falta fichajes».', '«Hemos fallado a la afición».', '«No hay excusas. Este escudo merece mucho más».', '«Cada uno tiene que mirarse al espejo, yo el primero».', '«Un año para olvidar. Toca callar y trabajar».', '«La gente tiene razón en estar enfadada».']; let queja = 0;
@@ -2082,6 +2118,7 @@ function copiarResumen(btn) {
       (V.estadios || []).forEach((x) => lineas.push(x.cambio ? `• ESTADIO: el ${x.viejo} del ${x.club} pasa a llamarse ${x.nuevo}` : x.mudanza ? `• ESTADIO: el ${x.club} deja el ${x.viejo} y se muda al ${x.nuevo}` : `• ESTADIO NUEVO: el ${x.club} deja el ${x.viejo} y estrena el ${x.nuevo}`));
       (V.vestuario || []).filter((x) => x.gana === 'jugador' || nivel(x.niv || 0) >= 600).slice(0, 3).forEach((x) => lineas.push(`• VESTUARIO ROTO en el ${x.club}: ${x.jugador} contra ${sinApodo(x.entrenador)}; ${x.gana === 'jugador' ? 'despiden al entrenador' : (() => { const m = (V.mercado || []).find((y) => y.tipo === 'fichaje' && y.jugador === x.jugador); return m ? `el jugador se va al ${m.a}` : 'el club le busca salida, pero nadie paga lo que pide y sigue'; })()}`));
       try { (() => { const ps = promesasDe(V), pick = (t, n) => ps.filter((x) => x.tipo === t).slice(0, n); return pick('rota', 3).concat(pick('cumplida', 3), pick('huerfana', 1), pick('lesion', 1), pick('nueva', 4)); })().forEach((x) => lineas.push(`• ${x.rot.toUpperCase()}: ${artClubes(x.tit)}. ${artClubes(x.txt)}`)); } catch (e) { /* sin promesas */ }
+      try { (() => { const cs = confianzaDe(V), pick = (t, n) => cs.filter((x) => x.tipo === t).slice(0, n); return pick('dimite', 2).concat(pick('rota', 3), pick('reencuentro', 2), pick('alta', 2)); })().forEach((x) => lineas.push(`• ${x.rot.toUpperCase()}: ${artClubes(x.tit)}. ${artClubes(x.txt)}`)); } catch (e) { /* sin datos */ }
       (V.culebrones || []).forEach((x) => lineas.push(x.tipo === 'caido' ? `• CULEBRÓN: se cae a última hora el fichaje de ${x.jugador} (${x.de}) por el ${x.a}` : `• CULEBRÓN: ${x.jugador} elige al ${x.a}; el ${x.pierde} pujó hasta el final`));
       (V.escandalos || []).forEach((x) => lineas.push(`• ESCÁNDALO: el ${x.club}, investigado por ${x.texto}; multa de ${eur(x.multa)} y pérdida de prestigio`));
       (V.duenos || []).forEach((x) => lineas.push(`• Nuevo dueño millonario en el ${x.club}`));
@@ -2560,7 +2597,9 @@ function fichaJugador(n) {
   try { const d = duelosDe(temporadas()).find((y) => (y.a === n || y.b === n) && y.pa && y.pb); if (d) { const yo = d.a === n, otro = yo ? d.b : d.a; if (j.rival !== otro) rasgos.push(`<span class="oro">Su gran rival: ${esc(otro)} (${yo ? d.pa : d.pb}-${yo ? d.pb : d.pa} en grandes premios)</span>`); } } catch (e) { /* sin duelo */ }
   const ESTADO_P = { abierta: 'pendiente: se verá al acabar la temporada', cumplida: 'cumplida', rota: 'rota', 'a medias': 'a medias', lesion: 'la frenó una lesión', huerfana: 'el técnico se fue antes' };
   (j.promesas || []).slice(-2).forEach((p) => rasgos.push(`<span${p.estado === 'abierta' ? ' class="oro"' : ''}>Promesa de minutos de ${esc(sinApodo(p.dt))} (${p.anio}, ${esc(p.club)}): ${ESTADO_P[p.estado] || p.estado}${p.pct != null ? `, jugó el ${p.pct} %` : ''}</span>`));
-  if (x.activo && j.confia) { const cl = clubDe(x.club), e0 = cl && cl.entrenadores && cl.entrenadores[0]; if (e0 && e0.nombre === j.confia.dt) rasgos.push(`<span>Confía en ${esc(sinApodo(j.confia.dt))}: le cumplió su palabra</span>`); }
+  if (x.activo && j.conf) { const cl = clubDe(x.club), e0 = cl && cl.entrenadores && cl.entrenadores[0], v = j.conf.v;
+    if (e0 && e0.nombre === j.conf.dt && Math.abs(v) >= 20) rasgos.push(`<span${v >= 60 || v <= -45 ? ' class="oro"' : ''}>${v >= 60 ? 'Hombre de confianza de' : v >= 20 ? 'Confía en' : v <= -45 ? 'Relación rota con' : 'Distanciado de'} ${esc(sinApodo(j.conf.dt))}${v > 0 ? ': rinde más con él' : ': rinde menos con él'}</span>`); }
+  Object.entries(j.confMem || {}).slice(-2).forEach(([d, m]) => rasgos.push(`<span>Con ${esc(sinApodo(d))}${m.club ? ` en el ${esc(m.club)}` : ''}: ${m.v > 0 ? 'fue su hombre de confianza' : 'acabó mal'}</span>`));
   familiaDe(n).forEach((f) => rasgos.push(`<span>${f.txt} ${esc(f.otro)}</span>`));
   if (!x.activo) { try { const ps = puestoSalon(n); if (ps) rasgos.push(`<span class="oro">Salón de la fama: n.º ${ps}</span>`); } catch (e) { /* sin salón */ } }
   const palm = palmaresDe(null, n);
@@ -2739,6 +2778,17 @@ function fichaEntrenador(n, club) {
   const mios = maestrosDe(n).slice(0, 4), alumnos = typeof MAESTROS_REALES !== 'undefined' ? Object.keys(MAESTROS_REALES).filter((k) => MAESTROS_REALES[k].some((r) => r[0] === n)) : [];
   const escuela = (mios.length ? `<div class="palmares"><span class="rotulo">De quién aprendió</span>${mios.map((r) => `<div><span>${esc(sinApodo(r[0]))}</span><span><small>${esc(lazoTxt(r))}</small></span></div>`).join('')}</div>` : '')
     + (alumnos.length ? `<div><span class="rotulo">Entrenadores que aprendieron de él</span><div class="rasgos" style="margin-top:6px">${alumnos.slice(0, 12).map((x) => `<span>${esc(sinApodo(x))}</span>`).join('')}</div></div>` : '');
+  try { if (Mundo.EGOS.has(n)) rasgos.push('<span class="oro">Maneja los grandes egos: sus estrellas no le montan pulsos</span>'); } catch (e) { /* sin dato */ }
+  const titular = c && c.entrenadores && c.entrenadores[0] && c.entrenadores[0].nombre === n ? c.entrenadores[0] : null;
+  let vestu = '';
+  if (titular) {
+    const cr = titular.credito || 0, anios = titular.anios || 0;
+    rasgos.push(`<span>Crédito con la directiva: ${cr >= 3 ? 'muy alto, le perdonarían un mal año' : cr >= 1.5 ? 'alto' : cr >= 0.5 ? 'justo' : anios >= 2 ? 'en la cuerda floja' : 'recién llegado, por ganarse'}</span>`);
+    if (c.vendida && c.vendida.dt === n && c.vendida.anio === M.anio) rasgos.push(`<span>La directiva le vendió a ${esc(c.vendida.jugador)} este verano</span>`);
+    const con = c.jugadores.filter((j) => j.conf && j.conf.dt === n), fieles = con.filter((j) => j.conf.v >= 50).sort((a, b) => b.conf.v - a.conf.v).slice(0, 5), rotos = con.filter((j) => j.conf.v <= -40).sort((a, b) => a.conf.v - b.conf.v).slice(0, 4);
+    vestu = (fieles.length ? `<div><span class="rotulo">Sus hombres de confianza</span><div class="rasgos" style="margin-top:6px">${fieles.map((j) => `<span>${esc(j.n)}</span>`).join('')}</div></div>` : '')
+      + (rotos.length ? `<div><span class="rotulo">No se entiende con</span><div class="rasgos" style="margin-top:6px">${rotos.map((j) => `<span>${esc(j.n)}</span>`).join('')}</div></div>` : '');
+  }
   if (t && t.fisico) rasgos.push('<span>Exige mucho físico</span>');
   if (t && t.merito) rasgos.push('<span>Sienta a quien no rinde</span>');
   if (t && t.fijo) rasgos.push('<span>Intocable en el banquillo</span>');
@@ -2746,6 +2796,7 @@ function fichaEntrenador(n, club) {
   const palm = palmaresDe(club, null);
   return `<div class="arriba"><div><div class="sub">Entrenador · ${esc(club)}${nac ? ` · ${S.anio + 1 - nac} años` : ''}</div><h1>${esc(sinApodo(n))}</h1></div><div class="botones-hoja"><button type="button" class="redondo" data-cerrar aria-label="Cerrar">✕</button></div></div>`
     + `<div><span class="rotulo">Estilo</span><div class="rasgos" style="margin-top:6px">${rasgos.join('') || '<span>Sin rasgos documentados</span>'}</div></div>`
+    + vestu
     + escuela
     + `<div class="palmares"><span class="rotulo">Títulos de su club en la partida</span>${palm || '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>'}</div>`
     + `<div><button type="button" class="ficha-btn" data-c="${esc(club)}"><span>Ver el ${esc(club)}</span><span>→</span></button></div>`;
@@ -3149,7 +3200,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 67) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 68) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 

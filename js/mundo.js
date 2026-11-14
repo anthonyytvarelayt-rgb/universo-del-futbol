@@ -1219,6 +1219,8 @@
     log.culebrones = culebrones;
     const porNombre = new Map(M.clubes.map((c) => [c.nombre, c]));
     const mover = (j, de, a, tipo, motivo) => {
+      // Si venden a una de las dos figuras del equipo, el entrenador lo recuerda (ver banquillos).
+      if (tipo === 'fichaje' && de.division === 1 && de.entrenadores && de.entrenadores[0] && !j.relleno && de.jugadores.filter((x) => x.niv > j.niv).length < 2) de.vendida = { jugador: j.n, a: a.nombre, anio: nuevoAnio, dt: de.entrenadores[0].nombre };
       de.jugadores = de.jugadores.filter((x) => x !== j);
       a.jugadores.push(j);
       masas.delete(de); masas.delete(a);
@@ -1266,7 +1268,7 @@
     const clubDe = new Map(); M.clubes.forEach((c) => c.jugadores.forEach((j) => clubDe.set(j, c)));
     const sobra = (j) => { const c = clubDe.get(j); if (!c || j.relleno || Motor.escala.mostrar(j.niv) < 650 || nuevoAnio - anioNac(j) < 23) return false;
       return c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv > j.niv).length >= IDEAL_ONCE[j.pos] + (j.pos === 'POR' ? 0 : 0); };
-    const sinMinutos = (j) => j.promesaRota === M.anio || (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
+    const sinMinutos = (j) => j.promesaRota === M.anio || j.sinConf === M.anio || (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
     // Y un club no amontona figuras del mismo puesto: con el once y un recambio de nivel parecido, no entra otro más.
     const tapon = (j, c) => c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv >= j.niv - 45).length >= IDEAL_ONCE[j.pos] + 1;
     // 1. Vuelven los cedidos.
@@ -1719,6 +1721,9 @@
   };
   // La mano de cada uno: unos hacen crecer a los jóvenes y otros son especialistas en ganar eliminatorias.
   const MANOS = { jovenes: 'Hace crecer a los jóvenes', ganador: 'Especialista en eliminatorias' };
+  // Los que saben llevar un vestuario lleno de estrellas (idea de Anthony): con ellos las figuras no pierden la confianza
+  // por sentarse un día ni montan pulsos.
+  const EGOS = new Set(['José Mourinho', 'Zinedine Zidane', 'Carlo Ancelotti', 'Vicente del Bosque', 'Alex Ferguson', 'Marcello Lippi', 'Jupp Heynckes', 'Miguel Muñoz', 'Bob Paisley', 'Ottmar Hitzfeld']);
   const MANO = {};
   ['Johan Cruyff', 'Arsène Wenger', 'Matt Busby', 'Pep Guardiola', 'Jürgen Klopp', 'Marcelo Bielsa', 'Rinus Michels', 'Louis van Gaal', 'Alex Ferguson', 'Telê Santana', 'Mikel Arteta', 'Xabi Alonso', 'Bill Shankly', 'Luis Enrique', 'Hennes Weisweiler'].forEach((n) => { MANO[n] = 'jovenes'; });
   ['José Mourinho', 'Carlo Ancelotti', 'Zinedine Zidane', 'Ernst Happel', 'Bob Paisley', 'Helenio Herrera', 'Fabio Capello', 'Giovanni Trapattoni', 'Marcello Lippi', 'Ottmar Hitzfeld', 'Jupp Heynckes', 'Diego Simeone', 'Brian Clough', 'Vicente del Bosque', 'Béla Guttmann', 'Arrigo Sacchi', 'Rafael Benítez', 'Unai Emery', 'Carlos Bianchi', 'Luiz Felipe Scolari'].forEach((n) => { MANO[n] = 'ganador'; });
@@ -1847,17 +1852,24 @@
       if (ganado) return;
       // Vestuario: en un mal año, la estrella con carácter choca con el técnico. Si la estrella pesa mucho más, cae el técnico;
       // si no, la estrella acaba saliendo en verano. Un líder en la plantilla lo calma casi siempre.
-      if (c.balance === 'fracaso' && e.anios >= 1) {
+      // También choca la figura que ha perdido la confianza en su técnico, aunque el año no haya sido malo.
+      // Con un entrenador que sabe llevar egos casi nunca pasa, y nunca le cuesta el puesto.
+      const egos = EGOS.has(e.nombre);
+      // La directiva le vendió a una de sus figuras el verano pasado: si el año sale mal puede dimitir, y si no, tiene excusa.
+      const vend = c.vendida && c.vendida.anio === M.anio && c.vendida.dt === e.nombre ? c.vendida : null;
+      if (vend && c.balance === 'fracaso' && r() < 0.3) { log.push({ club: c.nombre, sale: deja(c, 'dimite'), motivo: `dimite: la directiva le vendió a ${vend.jugador}`, dimite: true, vendido: vend.jugador, puesto: p ? p.puesto + 1 : null }); return; }
+      if (e.anios >= 1) {
         const top = c.jugadores.filter((x) => !x.cedido && !x.relleno).sort((a, b) => b.niv - a.niv).slice(0, 4);
-        const est = top.find((x) => (caracterDe(x) === 'conflictivo' || caracterDe(x) === 'fiestero') && anio - anioNac(x) >= 22);
-        if (est && r() < (top.some((x) => caracterDe(x) === 'lider') ? 0.12 : 0.35)) {
-          const pesa = Motor.escala.mostrar(est.niv) >= 820 && maestro(e.nombre) < 3;
-          (M.vestuario = M.vestuario || []).push({ club: c.nombre, jugador: est.n, entrenador: e.nombre, gana: pesa ? 'jugador' : 'entrenador', niv: Math.round(est.niv), fiestero: caracterDe(est) === 'fiestero' });
+        const roto = top.find((x) => x.conf && x.conf.dt === e.nombre && x.conf.v <= -50 && Motor.escala.mostrar(x.niv) >= 700 && anio - anioNac(x) >= 22);
+        const est = roto || (c.balance === 'fracaso' ? top.find((x) => (caracterDe(x) === 'conflictivo' || caracterDe(x) === 'fiestero') && anio - anioNac(x) >= 22) : null);
+        if (est && r() < (roto ? 0.5 : top.some((x) => caracterDe(x) === 'lider') ? 0.12 : 0.35) * (egos ? 0.25 : 1)) {
+          const pesa = Motor.escala.mostrar(est.niv) >= 820 && maestro(e.nombre) < 3 && !egos;
+          (M.vestuario = M.vestuario || []).push({ club: c.nombre, jugador: est.n, entrenador: e.nombre, gana: pesa ? 'jugador' : 'entrenador', niv: Math.round(est.niv), fiestero: !roto && caracterDe(est) === 'fiestero', confianza: !!roto });
           if (pesa) { log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'perdió el vestuario', puesto: p ? p.puesto + 1 : null }); return; }
           est.choque = M.anio;
         }
       }
-      const aguante = Math.max(0.1, 1 - e.credito / 4) * ({ impaciente: 1.6, paciente: 0.55 }[estiloPresi(c, anio)] || 1);   // con un triplete reciente (crédito ~5) casi no hay despido posible
+      const aguante = Math.max(0.1, 1 - e.credito / 4) * ({ impaciente: 1.6, paciente: 0.55 }[estiloPresi(c, anio)] || 1) * (vend ? 0.6 : 1);   // con un triplete reciente (crédito ~5) casi no hay despido posible
       if (e.anios >= 3 && c.balance !== 'superado' && r() < (0.12 + 0.07 * (e.anios - 3)) * aguante * (DESTINO_DT[e.nombre] === c.nombre ? 0.25 : 1)) { log.push({ club: c.nombre, sale: deja(c, 'fin de ciclo'), motivo: 'fin de ciclo' }); return; }
       if (!p || p.puesto === 0) return;
       // Despido: muy por debajo de lo que se esperaba; a un técnico de época se le aguanta algo más.
@@ -2105,6 +2117,60 @@
     });
   }
 
+  // ---------- Confianza entre el jugador y su entrenador ----------
+  // Cada jugador importante guarda cuánto confía en su técnico (j.conf = { dt, club, v de -100 a 100 }). Sube si juega,
+  // si le cumplen una promesa y si ganan juntos; baja si lo sientan o le rompen una promesa. Con confianza rinde un poco
+  // mejor; sin ella rinde peor, quiere irse y, si es una figura, puede montar un pulso. Lo que pasó con un técnico se
+  // recuerda (j.confMem) y vuelve si se reencuentran en otro club.
+  function confianza(M, R, promesas) {
+    const { de, club } = minutosDe(R), sal = { rotas: [], altas: [] };
+    const estado = new Map((promesas || []).map((p) => [p.jugador, p.estado]));
+    const campeones = new Set([R.T.tabla[0].nombre, R.EU && R.EU.campeon].concat(R.otros.map((o) => o.campeon)).filter(Boolean));
+    M.clubes.forEach((c) => {
+      if (c.division !== 1 || !c.entrenadores || !c.entrenadores[0]) return;
+      const e = c.entrenadores[0], egos = EGOS.has(e.nombre), partidos = club.get(c.nombre) || 0; if (!partidos) return;
+      const top = c.jugadores.filter((j) => !j.relleno).sort((a, b) => b.niv - a.niv).slice(0, 5);
+      c.jugadores.forEach((j) => {
+        if (j.relleno || j.cedido) return;
+        const vis = Motor.escala.mostrar(j.niv); if (vis < 540 && !estado.has(j.n) && !j.conf) return;
+        if (!j.conf || j.conf.dt !== e.nombre) j.conf = { dt: e.nombre, v: 0 };
+        j.conf.club = c.nombre;
+        const x = de.get(j) || { min: 0, baja: 0 };
+        const pudo = Math.max(1, partidos - Math.min(partidos - 1, Math.round((x.baja || 0) * partidos / 40))), pct = Math.min(1, (x.min || 0) / (90 * pudo));
+        const edad = M.anio - anioNac(j), estrella = top.includes(j), car = caracterDe(j);
+        let d = (x.baja || 0) >= 16 && pct < 0.45 ? 0 : pct >= 0.7 ? 12 : pct >= 0.45 ? 3 : pct >= 0.25 ? -10 : -20;
+        if (d < 0) d *= (estrella ? 2 : 1) * (edad <= 21 ? 0.5 : 1) * (j.pos === 'POR' && !estrella ? 0.5 : 1);
+        d += campeones.has(c.nombre) ? 10 : c.balance === 'fracaso' ? -6 : c.balance === 'superado' ? 5 : 0;
+        const ep = estado.get(j.n); d += ep === 'cumplida' ? 25 : ep === 'rota' ? -40 : 0;
+        if (d < 0) d *= car === 'conflictivo' || car === 'fiestero' ? 1.4 : car === 'lider' || car === 'profesional' ? 0.7 : 1;
+        if (egos && vis >= 700) d = d < 0 ? d * 0.4 : d + 5;
+        const antes = j.conf.v;
+        j.conf.v = Math.round(Math.max(-100, Math.min(100, 0.75 * antes + d)));
+        const dato = { jugador: j.n, club: c.nombre, dt: e.nombre, v: j.conf.v, niv: Math.round(j.niv), pct: Math.round(pct * 100), estrella, promesa: ep || null };
+        if (j.conf.v <= -45) { j.sinConf = M.anio; if (antes > -45) sal.rotas.push(dato); } else if (j.conf.v >= 60 && antes < 60) sal.altas.push(dato);
+      });
+    });
+    return sal;
+  }
+  // Después del mercado y de los cambios de banquillo: cada jugador pasa a medir su confianza con el técnico que tiene
+  // ahora. Lo vivido con el anterior se guarda si fue fuerte, y si vuelve a cruzarse con un viejo conocido, cuenta.
+  function reencuentros(M) {
+    const sal = [];
+    M.clubes.forEach((c) => {
+      if (c.division !== 1) return;
+      const e = c.entrenadores && c.entrenadores[0];
+      c.jugadores.forEach((j) => {
+        if (!j.conf || (e && j.conf.dt === e.nombre)) return;
+        if (Math.abs(j.conf.v) >= 30) (j.confMem = j.confMem || {})[j.conf.dt] = { v: j.conf.v, club: j.conf.club || null, anio: M.anio };
+        if (!e) { delete j.conf; return; }
+        const m = j.confMem && j.confMem[e.nombre];
+        j.conf = { dt: e.nombre, club: c.nombre, v: m ? Math.round(m.v * 0.6) : 0 };
+        if (m) sal.push({ jugador: j.n, club: c.nombre, dt: e.nombre, v: m.v, donde: m.club, anio: m.anio, niv: Math.round(j.niv) });
+      });
+    });
+    return sal;
+  }
+
   // Verano: récords, ascensos y descensos, prestigio, banquillos, edad, retiros y mercado; después empieza el año siguiente.
   function verano(M, resumen, r) {
     const R = resumen.R;
@@ -2117,6 +2183,7 @@
     // La directiva lo nota: superar el objetivo da nombre al club y fracasar se lo quita.
     M.clubes.forEach((c) => { if (c.balance === 'superado') c.prestigio = Math.min(1000, c.prestigio + 6); else if (c.balance === 'fracaso') c.prestigio = Math.max(250, c.prestigio - 6); });
     resumen.promesas = { resueltas: resolverPromesas(M, R), nuevas: [] };
+    resumen.confianza = confianza(M, R, resumen.promesas.resueltas);
     M.vestuario = [];
     banquillos(M, R);
     resumen.banquillos = M.banquillosVerano || [];
@@ -2131,6 +2198,7 @@
     resumen.mercado = mercado(M, r);
     resumen.culebrones = resumen.mercado.culebrones || [];
     resumen.promesas.nuevas = nuevasPromesas(M, R, resumen.mercado);
+    resumen.confianza.reencuentros = reencuentros(M);
     resumen.duenos = M.duenosNuevos || [];
     resumen.presidentes = M.presidentesNuevos || [];
     resumen.finanzas = M.clubes.filter((c) => c.division === 1 && c.finanzas).map((c) => Object.assign({ club: c.nombre, pais: c.pais, caja: redondo(c.caja), rescate: c.rescate === M.anio + 1 }, c.finanzas));
@@ -2141,6 +2209,9 @@
       const fijo = CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta);
       c.quimica = fijo ? 0 : Math.round(normal(r) * QUIMICA);
       c.jugadores.forEach((j) => { j.temp = (j.temp || 0) + c.quimica; });
+      // La confianza en el entrenador se nota en el campo: hasta 14 puntos arriba o abajo.
+      const e = c.entrenadores && c.entrenadores[0];
+      if (e) c.jugadores.forEach((j) => { if (j.conf && j.conf.dt === e.nombre && j.conf.v) j.temp = (j.temp || 0) + Math.round(j.conf.v * 0.14); });
     });
     M.anio++;
     constantes(M);
@@ -2337,7 +2408,7 @@
     return d;
   }
 
-  const api = { ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { EGOS, ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

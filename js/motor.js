@@ -554,7 +554,7 @@
   const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, derbi: m.derbi });
 
   // Suma las estadísticas de varias competiciones y guarda el desglose de cada una (dónde marcó, dónde asistió…).
-  const CAMPOS = ['pj', 'min', 'tit', 'baja', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
+  const CAMPOS = ['pj', 'min', 'minMitad', 'jorMitad', 'tit', 'baja', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
   function global(competiciones) {
     const tot = new Map();
     competiciones.forEach((c) => c.jugadores.forEach((x) => {
@@ -665,6 +665,7 @@
     const registro = new Map();
     const resultados = [];
     const cal = calendario(equipos.length);
+    const mitadLiga = Math.floor(cal.length / 2);
     cal.forEach((ronda, jn) => {
       const resJornada = [];
       revisarBanquillos(r, est, equipos, tabla, jn + 1, cambios);
@@ -689,6 +690,8 @@
       });
       pasaSemana(est, equipos);
       resultados.push(resJornada);
+      // A mitad de liga se apunta lo que lleva jugado cada uno (para revisar en enero las promesas de minutos).
+      if (jn + 1 === mitadLiga) registro.forEach((x) => { x.minMitad = x.min; x.jorMitad = mitadLiga; });
       if (op.alJugar) op.alJugar(jn + 1, resJornada);
     });
     tabla.sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);
