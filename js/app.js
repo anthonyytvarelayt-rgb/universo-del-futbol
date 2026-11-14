@@ -1205,8 +1205,8 @@ function sorpresasHtml(V) {
   const dinero = (gastador && gastador.compras - gastador.ventas > 0.25 * gastador.ingresos ? art('El talonario', `El ${esc(gastador.club)} tira la casa por la ventana`, `Gasta ${eur(gastador.compras)} en fichajes y solo ingresa ${eur(gastador.ventas)} por ventas. Le quedan ${eur(gastador.caja)} en caja.`) : '')
     + fin.filter((x) => x.rescate).slice(0, 2).map((x) => art('Al borde de la quiebra', `El ${esc(x.club)} tiene que refinanciar su deuda`, 'Años gastando más de lo que ingresa. El club pierde nombre y tendrá que vender.')).join('')
     + (vendedor && vendedor.ventas - vendedor.compras > 0.3 * vendedor.ingresos && vendedor !== gastador ? art('Hacer caja', `El ${esc(vendedor.club)} vende por ${eur(vendedor.ventas)}`, `Y solo gasta ${eur(vendedor.compras)}. Un verano de salidas que le deja ${eur(vendedor.caja)} en caja.`) : '');
-  // Lo que dicen los jugadores.
-  const dichos = declaraciones(V), declara = dichos.length ? `<div class="caja"><span class="rotulo">Declaraciones</span>${dichos.map((d) => `<div class="resultado"><span><span>${nombreJ(d.nombre)} <small>${esc(d.club || '')}</small><small><b>${esc(d.frase)}</b> ${esc(d.txt)}</small></span></span></div>`).join('')}</div>` : '';
+  // Lo que dicen jugadores y entrenadores.
+  const dichos = declaraciones(V), declara = dichos.length ? `<div class="caja"><span class="rotulo">Declaraciones</span>${dichos.map((d) => `<div class="resultado"><span><span>${d.rol === 'entrenador' ? `<button type="button" class="nombre" data-e="${esc(d.nombre)}" data-ec="${esc(d.club)}">${esc(sinApodo(d.nombre))}</button>` : nombreJ(d.nombre)} <small>${d.rol === 'entrenador' ? 'Entrenador · ' : ''}${esc(d.club || '')}</small><small><b>${esc(d.frase)}</b> ${esc(d.txt)}</small></span></span></div>`).join('')}</div>` : '';
   // El ego: un entrenador que se va al club de sus sueños.
   const egos = (V.banquillos || []).filter((x) => x.ego).map((x) => art('El banquillo soñado', `${esc(sinApodo(x.entra))} ya es entrenador del ${esc(x.club)}`, `${x.de ? `Deja el ${esc(x.de)} sin mirar atrás. ` : ''}«Solo hay un banquillo a la altura de lo que soy». Llega para ganarlo todo, y para que se hable de él.`)).join('');
   // Las leyendas vuelven al banquillo.
@@ -1249,7 +1249,7 @@ function promesasDe(V) {
     const sale = (V.mercado || []).find((m) => m.tipo === 'fichaje' && m.jugador === x.jugador);
     if (x.estado === 'cumplida') out.push({ tipo: 'cumplida', niv: x.niv, rot: 'Promesa cumplida', tit: `${dt(x.dtHoy)} cumplió con ${x.jugador}`,
       txt: `El verano pasado ${x.dt === x.dtHoy ? 'le prometió' : `${dt(x.dt)} le prometió`} que iba a contar en el ${x.club}, y contó: ${cifra}${x.g >= 5 ? `, con ${x.g} goles` : ''}.`,
-      quien: x.jugador, club: x.club, frase: elige(['«El míster me dio su palabra y la mantuvo. Eso no se olvida».', '«Me dijeron que iba a jugar y he jugado. Ahora me toca a mí devolverlo».', '«Solo pedía una oportunidad de verdad. Me la dieron».'], x.jugador), pie: `${dt(x.dt)} le prometió minutos hace un año.` });
+      quien: x.jugador, club: x.club, frase: elige([x.dtHoy && x.dtHoy !== x.dt ? `«${dt(x.dtHoy)} ha contado conmigo. Eso me ha dado confianza».` : '«El míster me dio su palabra y la mantuvo. Eso no se olvida».', '«Me dijeron que iba a jugar y he jugado. Ahora me toca a mí devolverlo».', '«Solo pedía una oportunidad de verdad. Me la dieron».'], x.jugador), pie: `${dt(x.dt)} le prometió minutos hace un año.` });
     else if (x.estado === 'rota') out.push({ tipo: 'rota', niv: x.niv, rot: 'Promesa rota', tit: `${x.jugador}: «Me prometieron minutos»`,
       txt: `${dt(x.dt)} aseguró el verano pasado que ${x.jugador} iba a contar en el ${x.club}. Ha jugado ${cifra}. ${sale ? `Se marcha al ${sale.a}.` : 'Sigue en el club, pero no lo olvida.'}`,
       quien: x.jugador, club: x.club, frase: elige(['«Me prometieron minutos y me he pasado el año en el banquillo».', '«Las palabras se las lleva el viento. Yo quiero jugar».', '«No pido regalos. Pido lo que me dijeron en verano».'], x.jugador), pie: `Jugó el ${x.pct} % tras la promesa de ${dt(x.dt)}.` });
@@ -1399,24 +1399,25 @@ function onceIdeal(G, titulo) {
 
 // Noticias de los entrenadores con constante: polémicas de The Special One, pizarra de Guardiola, milagros de Klopp…
 const POLEMICAS = [
-  (n, c, r) => [`${n} carga contra los árbitros`, `«Si digo lo que pienso, me sancionan». El técnico del ${c} vuelve a incendiar la sala de prensa${r ? ` tras cruzarse con el ${r}` : ''}.`],
-  (n, c, r) => [`${n}: «Yo no soy uno más, soy especial»`, `El entrenador del ${c} acapara las portadas y deja a sus rivales contestando a sus declaraciones en vez de preparar los partidos.`],
-  (n, c, r) => [`${n} aparca el autobús y se ríe de las críticas`, `«El fútbol bonito es ganar». El ${c} desespera a media competición con su planteamiento${r ? `, y el ${r} ya ha protestado` : ''}.`],
-  (n, c, r) => [`Guerra abierta entre ${n} y el banquillo rival`, `Dedos en el ojo, reproches y ruedas de prensa envenenadas: cada partido grande del ${c} empieza una semana antes.`],
-  (n, c, r) => [`${n} señala a su propio vestuario`, `«Hay jugadores que no quieren ganar tanto como yo». En el ${c} ya hay quien no le dirige la palabra.`]
+  (n, c) => [`${n}: «El balance se hace con resultados»`, `El técnico del ${c} hace su balance: «Las explicaciones cuentan, pero los resultados también. Me aplico la misma exigencia que al equipo».`],
+  (n, c) => [`${n} reivindica su trabajo`, `«También hay que reconocer lo que hemos ganado». El técnico del ${c} recuerda los títulos de su trayectoria en la partida.`],
+  (n, c) => [`${n}: «No elijo el equipo para gustar a todos»`, `«Tengo que decidir lo que creo mejor para el ${c}. Después me toca responder por esas decisiones».`],
+  (n, c, r) => [`${n} habla de la competencia`, `${r ? `Sobre el ${r}: ` : ''}«Respeto a los rivales, pero mi trabajo es mejorar al ${c}. Compararnos no sustituye a entrenar».`],
+  (n, c) => [`${n}: «La exigencia empieza por mí»`, `El entrenador del ${c} evita cargar toda la responsabilidad en el vestuario: «No puedo pedirles que mejoren si yo no reviso lo que hago».`]
 ];
 function noticiasDT(V) {
   const out = [];
   try {
     if (!cerradaV(V)) return out;
+    const nacional = (T, club) => T.campeon === club || ((T.R || {}).otros || []).some((o) => o.campeon === club);
     const titulos = (club) => { const t = []; if (V.europa === club) t.push(nombreEuropa(V)); OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id) === club) t.push(otraCopa(V, id).nombre); }); paisesDe(V).forEach((p) => { const C = copaDe(V, p); if (C && C.campeon === club) t.push(C.nombre); }); return t; };
     (V.objetivos || []).forEach((o) => {
       const don = o.entrenador && Mundo.donDT(o.entrenador); if (!don) return;
-      const n = sinApodo(o.entrenador), c = o.club, tit = titulos(c), liga = o.puesto === 1, h = [...(n + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7);
+      const n = sinApodo(o.entrenador), c = o.club, tit = titulos(c), liga = nacional(V, c), h = [...(n + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7);
       const rival = (V.objetivos.filter((x) => x.pais === o.pais && x.club !== c).sort((a, b) => b.prestigio - a.prestigio)[0] || {}).club;
       if (don === 'special') {
-        // Sin títulos todavía, la frase de «soy especial» no toca: primero gana, luego presume.
-        const gano = liga || tit.length || temporadas().some((T) => T !== V && cerradaV(T) && T.anio < V.anio && (T.objetivos || []).some((p) => p.entrenador === o.entrenador && (p.puesto === 1 || T.europa === p.club)));
+        // Reivindicar títulos exige haberlos ganado en esta partida.
+        const gano = liga || tit.length || temporadas().some((T) => T !== V && cerradaV(T) && T.anio < V.anio && (T.objetivos || []).some((p) => p.entrenador === o.entrenador && (nacional(T, p.club) || T.europa === p.club)));
         const lista = gano ? POLEMICAS : POLEMICAS.filter((_, i) => i !== 1);
         const [t, x] = lista[h % lista.length](n, c, rival);
         out.push({ rot: 'Polémica', tit: esc(t), txt: esc(x) + (liga || tit.length ? ` Y encima gana: ${esc([liga ? 'la liga' : ''].concat(tit).filter(Boolean).join(', '))}.` : '') });
@@ -1427,60 +1428,126 @@ function noticiasDT(V) {
       else if (don === 'loco' && o.aniosDT === 0 && o.balance === 'superado') out.push({ rot: 'Locura', tit: `El ${esc(c)} de ${esc(n)} enamora`, txt: 'Presión a todo el campo y ataque sin freno en su primer año. La duda de siempre: cuánto aguantarán las piernas.' });
       else if (don === 'eterno' && o.aniosDT >= 9 && o.aniosDT % 5 === 4) out.push({ rot: 'Toda una vida', tit: `${esc(n)} cumple ${o.aniosDT + 1} años en el ${esc(c)}`, txt: 'Han pasado plantillas enteras y él sigue en el mismo banquillo, rehaciendo el equipo una vez más.' });
     });
-    // El pique: un polemista y un táctico en la misma liga no pueden convivir en paz.
+    // Comparar estilos no demuestra que haya una pelea: solo se cuenta la clasificación.
     const con = (don) => (V.objetivos || []).filter((o) => o.entrenador && Mundo.donDT(o.entrenador) === don);
     con('special').forEach((a) => con('tactico').filter((b) => b.pais === a.pais).slice(0, 1).forEach((b) => {
       const gana = a.puesto < b.puesto ? a : b, pierde = gana === a ? b : a;
-      out.unshift({ rot: 'El pique del año', tit: `${esc(sinApodo(a.entrenador))} contra ${esc(sinApodo(b.entrenador))}: la liga se queda pequeña`, txt: `${esc(a.club)} y ${esc(b.club)} se han pasado el año mirándose de reojo: ruedas de prensa cruzadas, pizarras contra provocaciones. Esta vez gana ${esc(sinApodo(gana.entrenador))}, ${gana.puesto}.º con el ${esc(gana.club)}; ${esc(sinApodo(pierde.entrenador))} acaba ${pierde.puesto}.º y promete revancha.` });
+      out.unshift({ rot: 'Dos estilos', tit: `${esc(sinApodo(a.entrenador))} y ${esc(sinApodo(b.entrenador))}: dos maneras de competir`, txt: `${esc(sinApodo(gana.entrenador))} acaba ${gana.puesto}.º con el ${esc(gana.club)}; ${esc(sinApodo(pierde.entrenador))}, ${pierde.puesto}.º con el ${esc(pierde.club)}. Comparten liga, pero cada técnico tiene su propia forma de dirigir.` });
     }));
   } catch (e) { /* sin noticias */ }
   return out.slice(0, 4);
 }
-// Declaraciones de los jugadores: lo que dicen según su carácter, lo que buscan y cómo les fue el año.
+// Declaraciones: primero los hechos, después el carácter. No consumen azar del simulador.
 function declaraciones(V) {
-  const out = [];
-  try {
-    if (!cerradaV(V)) return out;
-    const h = (t) => [...(t + V.temporada)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 9973, 7), elige = (xs, t) => xs[h(t) % xs.length];
-    const pm = premiosMundo(V), G = figurasDe(V), ya = new Set(), objs = V.objetivos || [];
-    const car = (j) => { try { return Mundo.caracterDe(j); } catch (e) { return 'normal'; } }, quiere = (j) => { try { return Mundo.deseo(j); } catch (e) { return ''; } };
-    const dice = (rot, nombre, club, frase, txt) => { if (ya.has(nombre) || out.length >= 7) return; ya.add(nombre); out.push({ rot, nombre, club, frase, txt: artClubes(txt) }); };
-    // El ganador del gran premio.
-    const gan = pm.ganadorMejor, gj = gan && G.find((x) => x.nombre === gan.nombre);
-    if (gan && gj) {
-      const c = car(gj.j);
-      dice('Habla el número uno', gan.nombre, gan.club, c === 'conflictivo' || c === 'fiestero' ? elige(['«Soy el mejor del mundo y el que no lo vea, que mire los números».', '«Me critican porque no pueden pararme».'], gan.nombre) : c === 'lider' || c === 'profesional' ? elige(['«Este premio es de todo el vestuario».', '«Sin mis compañeros no habría ganado nada».'], gan.nombre) : elige(['«Trabajo cada día para esto. Y quiero más».', '«El año que viene quiero repetir».'], gan.nombre), `Tras ganar el ${pm.nombreMejor}.`);
-    }
-    // El segundo del podio no se conforma.
-    const seg = (pm.podio || [])[1];
-    if (seg && gan && seg.nombre !== gan.nombre) dice('El que se quedó a las puertas', seg.nombre, seg.club, elige([`«Respeto el premio, pero mi temporada fue mejor que la de ${corto(gan.nombre)}».`, '«Los premios individuales no me quitan el sueño. Los títulos, sí».', '«El año que viene no habrá discusión».'], seg.nombre), `Segundo en el ${pm.nombreMejor}.`);
-    // El vestuario roto habla antes que nadie (y así nadie jura amor al club del que lo están echando).
-    (V.vestuario || []).filter((x) => x.gana === 'jugador' || nivel(x.niv || 0) >= 680).slice(0, 2).forEach((x) => dice('Vestuario roto', x.jugador, x.club, x.gana === 'jugador' ? '«Yo solo quería lo mejor para el equipo. Las decisiones las toma el club».' : elige(['«Con este entrenador no vuelvo a jugar».', '«Aquí alguien sobra, y la directiva ya ha elegido».'], x.jugador), `Tras su choque con ${sinApodo(x.entrenador)}.`));
-    // La promesa de minutos: el que se queja de que no se cumplió, el que la agradece y el entrenador que hace una nueva.
-    { const x = sueldosDe(V).find((x) => x.frase); if (x) dice(x.rot, x.quien, x.club, x.frase, x.pie); }
-    try { const ps = promesasDe(V).filter((x) => x.frase); ['rota', 'cumplida', 'nueva'].forEach((t) => { const x = ps.find((y) => y.tipo === t); if (x) dice(x.rot, x.quien, x.club, x.frase, x.pie); }); } catch (e) { /* sin promesas */ }
-    try { const cs = confianzaDe(V).filter((x) => x.frase); ['dimite', 'rota', 'reencuentro'].forEach((t) => { const x = cs.find((y) => y.tipo === t); if (x) dice(x.rot, x.quien, x.club, x.frase, x.pie); }); } catch (e) { /* sin datos */ }
-    // La figura de un grande que fracasó y quiere títulos.
-    // Las quejas van rotando para que dos figuras no digan lo mismo el mismo año.
-    const QUEJAS = ['«Así no podemos seguir. Hacen falta fichajes».', '«Hemos fallado a la afición».', '«No hay excusas. Este escudo merece mucho más».', '«Cada uno tiene que mirarse al espejo, yo el primero».', '«Un año para olvidar. Toca callar y trabajar».', '«La gente tiene razón en estar enfadada».']; let queja = 0;
-    objs.filter((o) => o.balance === 'fracaso' && o.prestigio >= 780).slice(0, 3).forEach((o) => {
-      const sale = new Set((V.mercado || []).filter((m) => m.tipo === 'fichaje').map((m) => m.jugador));
-      const fig = G.filter((x) => x.club === o.club && x.pj >= 15 && !sale.has(x.nombre)).sort((a, b) => b.notaTemp - a.notaTemp)[0]; if (!fig) return;
-      const q = quiere(fig.j);
-      dice('Aviso a la directiva', fig.nombre, o.club, q === 'titulos' ? elige(['«Yo quiero ganar. Si aquí no se puede, habrá que pensar».', '«No he venido a este club para acabar así».'], fig.nombre) : q === 'casa' ? elige(['«Este es mi club. De aquí no me muevo, pero hay que cambiar cosas».', '«Yo no me bajo del barco. Esto lo arreglamos entre todos».', '«A este escudo le debo todo. Pido perdón a la afición».', '«No pienso irme, pero no podemos repetir un año así».'], fig.nombre) : QUEJAS[(h(o.club) + queja++) % QUEJAS.length], `El ${o.club} acabó ${o.puesto}.º.`);
-    });
-    // El fichaje más caro del verano se presenta.
-    const caro = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.precio).sort((a, b) => b.precio - a.precio)[0];
-    if (caro) dice('La presentación', caro.jugador, caro.a, elige(['«He venido a hacer historia en este club».', '«El precio no me pesa. Lo voy a devolver en el campo».', `«Desde niño soñaba con jugar en el ${caro.a}».`], caro.jugador), `Fichado por ${precioTxt(caro.precio)}, llega del ${caro.de}.`);
-    // El que acabó mal con su club.
-    const lio = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && /acabó mal/.test(x.motivo || '')).sort((a, b) => b.niv - a.niv)[0];
-    if (lio) dice('Portazo', lio.jugador, lio.a, elige([`«En el ${lio.de} no me valoraron. Aquí voy a demostrar quién soy».`, '«Hay cosas que pasaron en ese vestuario que algún día contaré».'], lio.jugador), `Salió del ${lio.de} de mala manera.`);
-    // El que se retira.
-    const ret = (V.retiros || []).filter((x) => (x.j.carrera || []).some((t) => nivel(t.niv || 0) >= 780)).sort((a, b) => b.edad - a.edad)[0];
-    if (ret) dice('Adiós', ret.j.n, ret.club, elige(['«Me voy vacío: lo he dado todo».', '«El fútbol me lo dio todo. Ahora toca devolverlo».', '«El cuerpo dijo basta, la cabeza habría seguido».'], ret.j.n), `Se retira a los ${ret.edad} años.`);
-    // El goleador del año.
-    if (pm.goleador) dice('El goleador', pm.goleador.nombre, pm.goleador.club, elige([`«${pm.goleador.g} goles no los mete cualquiera».`, '«Los goles son de quien me da los pases».', '«Vivo para marcar. No sé hacer otra cosa».'], pm.goleador.nombre), `Máximo goleador del mundo con ${pm.goleador.g}.`);
-  } catch (e) { /* sin declaraciones */ }
+  if (!cerradaV(V)) return [];
+  const candidatos = [], pm = premiosMundo(V), G = figurasDe(V), objs = V.objetivos || [];
+  const hash = (s) => [...s].reduce((n, c) => Math.imul(n ^ c.charCodeAt(0), 16777619) >>> 0, 2166136261);
+  const anio = Number(V.anio) || parseInt(V.temporada, 10) || 0;
+  const R = V.R || {}, campeones = new Map();
+  const esp = V.campeon || (R.T && R.T.tabla[0] && R.T.tabla[0].nombre);
+  if (esp) campeones.set(esp, { nombre: 'liga', pais: 'España' });
+  (R.otros || []).filter((o) => o.campeon).forEach((o) => campeones.set(o.campeon, {
+    nombre: o.campeonPorCopa && o.C ? o.C.nombre : (o.reglas || {}).liga || 'liga', pais: o.pais
+  }));
+  const car = (j) => { try { return Mundo.caracterDe(j); } catch (e) { return 'normal'; } };
+  const pon = (tipo, rol, prioridad, rot, nombre, club, frases, txt) => {
+    if (!nombre || !club) return;
+    const xs = Array.isArray(frases) ? frases : [frases];
+    candidatos.push({ tipo, rol, prioridad, rot, nombre, club, frases: xs, txt: artClubes(txt), orden: hash(nombre + tipo) });
+  };
+  // El año desplaza las variantes: un mismo protagonista no repite su frase al año siguiente.
+  const opciones = (d) => { const xs = d.frases.map((frase, i) => ({ frase, variante: d.tipo + ':' + i })), i = (hash(d.nombre + d.tipo) + anio) % xs.length; return xs.slice(i).concat(xs.slice(0, i)); };
+  const movs = (V.mercado || []).filter((x) => x.tipo === 'fichaje');
+  const trasladados = new Set(movs.map((x) => x.jugador));
+  const retiros = new Set((V.retiros || []).map((x) => x.j.n));
+  const salida = (n) => movs.find((x) => x.jugador === n);
+
+  // Una disputa documentada pesa más que una frase de premio o de presentación.
+  (V.vestuario || []).forEach((x) => {
+    pon('vestuario', 'jugador', 110, 'El vestuario', x.jugador, x.club,
+      x.gana === 'jugador' ? ['«He dado mi opinión, pero el banquillo lo decide la directiva».', '«Mi trabajo sigue estando en el campo. El club ha tomado su decisión».']
+        : [`«Mi relación con ${sinApodo(x.entrenador)} se ha deteriorado. No voy a negarlo».`, '«Tenemos diferencias. Fingir que no pasa nada no ayuda».'], `Tras el conflicto con ${sinApodo(x.entrenador)} en el ${x.club}.`);
+  });
+  // Solo se atribuye una declaración a quien figura en la resolución de esa promesa.
+  ((V.promesas || {}).resueltas || []).forEach((x) => {
+    const dt = sinApodo(x.dtHoy || x.dt || 'el entrenador');
+    if (x.estado === 'rota') pon('promesa', 'jugador', 105, 'Promesa incumplida', x.jugador, x.club,
+      [`«He jugado el ${x.pct} %. Esperaba tener más sitio en el ${x.club}».`, `«Quiero hablar de mis minutos con ${dt}. Lo de este año no era lo que esperaba».`, '«Necesito saber qué papel voy a tener antes de decidir mi futuro».'], `${x.min} minutos tras la promesa de ${sinApodo(x.dt)}.${salida(x.jugador) ? ` Después ficha por el ${salida(x.jugador).a}.` : ''}`);
+    else if (x.estado === 'cumplida') pon('promesa', 'jugador', 85, 'La oportunidad llegó', x.jugador, x.club,
+      [`«En el ${x.club} he tenido los minutos que necesitaba. Ahora me toca aprovecharlos».`, `«${dt} ha contado conmigo y eso se nota en la confianza».`, `«Con ${x.min} minutos ya he podido demostrar lo que puedo aportar».`], `Jugó el ${x.pct} % de los minutos disponibles.${x.dtHoy && x.dtHoy !== x.dt ? ` La promesa era de ${sinApodo(x.dt)}; los minutos llegaron con ${dt}.` : ''}`);
+  });
+  ((V.confianza || {}).rotas || []).filter((x) => nivel(x.niv) >= 560).forEach((x) => pon('confianza', 'jugador', 100, 'Confianza rota', x.jugador, x.club,
+    [`«Con ${sinApodo(x.dt)} he tenido poco sitio. Tenemos que hablarlo».`, `«He jugado el ${x.pct} % de los minutos. Así cuesta encontrar continuidad».`, '«Necesito jugar para recuperar la confianza. Mi situación tiene que cambiar».'], `La relación con ${sinApodo(x.dt)} se deterioró en el ${x.club}.`));
+
+  // Los técnicos tienen voz por lo que ocurrió en su equipo, aunque no sean maestros famosos.
+  (V.banquillos || []).forEach((x) => {
+    if (x.dimite && x.vendido) pon('dimision', 'entrenador', 115, 'El técnico dimite', x.sale, x.club,
+      [`«La salida de ${x.vendido} cambió el proyecto. He decidido dejarlo».`, `«Sin ${x.vendido}, el equipo cambió y los resultados no acompañaron. Mi etapa termina aquí».`, '«No comparto el rumbo del proyecto. Prefiero dar un paso al lado».'], `Al dimitir del ${x.club}${x.puesto ? ` tras acabar ${x.puesto}.º` : ''}.`);
+    else if (x.sale && x.motivo === 'despedido') pon('cese', 'entrenador', 92, 'Después del cese', x.sale, x.club,
+      [`«El ${x.club} ha decidido cambiar de entrenador. Me hago responsable de mi parte».`, '«Los resultados no han sido suficientes para seguir. Me habría gustado terminar de otra manera».', '«Me toca aceptar la decisión. Gracias a quienes trabajaron conmigo».'], `Tras su destitución${x.puesto ? ` con el equipo ${x.puesto}.º` : ''}.`);
+  });
+  objs.forEach((o) => {
+    if (!o.entrenador) return;
+    const despedida = (V.banquillos || []).some((x) => x.club === o.club && x.sale === o.entrenador);
+    const torneo = (R.otros || []).find((x) => x.pais === o.pais);
+    const ambito = torneo && (torneo.ligas || []).filter((l) => l.nivel === 1).length > 1 ? 'en su grupo' : 'en liga';
+    const contexto = `Balance de la temporada en el ${o.club}: ${o.puesto}.º ${ambito}${despedida ? '; después deja el banquillo' : ''}.`;
+    const titulo = campeones.get(o.club);
+    if (V.europa === o.club) pon('europa', 'entrenador', 108, 'El banquillo campeón', o.entrenador, o.club,
+      [`«Ganar la ${nombreEuropa(V)} con el ${o.club} es algo que este grupo ya se ha ganado para siempre».`, `«Esta ${nombreEuropa(V)} lleva el trabajo de todo el vestuario. Ninguno la gana solo».`, '«Hoy toca disfrutar del título. Hemos llegado hasta el final y lo hemos ganado».'], `Tras conquistar la ${nombreEuropa(V)}. ${contexto}`);
+    else if (titulo) pon('liga', 'entrenador', 96, 'El título desde el banquillo', o.entrenador, o.club,
+      [`«El título es del ${o.club}. Este equipo se ha ganado ese premio».`, '«Ser campeones exige sostener el trabajo. El grupo lo ha hecho».', `«Ahora podemos decirlo: el ${o.club} es campeón. Antes había que demostrarlo».`, '«El título se celebra hoy, pero se ha construido en cada entrenamiento».'], `Campeón de ${titulo.nombre} en ${titulo.pais}. ${contexto}`);
+    else if (!despedida && o.balance === 'fracaso') pon('balance', 'entrenador', 88, 'El técnico da la cara', o.entrenador, o.club,
+      [`«Acabar ${o.puesto}.º no era el objetivo del ${o.club}. Yo también tengo que hacer autocrítica».`, '«No hemos llegado a lo que se esperaba. Las explicaciones tienen que empezar por mí».', `«El ${o.club} esperaba más de nosotros. No voy a esconderme detrás de los jugadores».`], contexto);
+    else if (!despedida && o.balance === 'superado' && o.puesto < o.esperado) pon('sorpresa', 'entrenador', 90, 'Por encima del pronóstico', o.entrenador, o.club,
+      [`«Nos situaban ${o.esperado}.º y hemos acabado ${o.puesto}.º. Este grupo merecía más confianza».`, `«El ${o.club} ha superado lo que se esperaba. El mérito es de quienes lo han sostenido en el campo».`, '«Hemos competido por encima de las expectativas. Ahora hay que consolidarlo».'], contexto);
+  });
+  ((V.promesas || {}).nuevas || []).forEach((x) => pon('nueva-promesa', 'entrenador', 82, 'El plan del entrenador', x.dt, x.club,
+    [`«Quiero que ${x.jugador} tenga más minutos en el ${x.club} la próxima temporada».`, `«Cuento con ${x.jugador}. Mi compromiso es darle oportunidades para demostrarlo».`, `«Hemos hablado con ${x.jugador}: va a tener sitio en nuestros planes».`], `Promesa para la próxima temporada a ${x.jugador}.`));
+  ((V.confianza || {}).altas || []).filter((x) => nivel(x.niv) >= 600).forEach((x) => pon('respaldo', 'entrenador', 80, 'La confianza del técnico', x.dt, x.club,
+    [`«${x.jugador} me ha respondido en el campo. Por eso ha jugado el ${x.pct} % de los minutos».`, `«La continuidad de ${x.jugador} se explica por lo que aporta al equipo».`, `«Confío en ${x.jugador}. Los minutos que ha tenido reflejan esa confianza».`], `Sobre su papel en el ${x.club} esta temporada.`));
+
+  const gan = pm.ganadorMejor, gj = gan && G.find((x) => x.nombre === gan.nombre);
+  if (gan && gj) pon('premio', 'jugador', 90, 'Habla el ganador', gan.nombre, gan.club,
+    ['conflictivo', 'fiestero'].includes(car(gj.j))
+      ? [`«El ${pm.nombreMejor} reconoce mi temporada. Estoy orgulloso y quiero seguir ganando».`, '«Quería estar arriba y lo he conseguido. Eso no me quita el hambre».', '«Me tengo confianza, pero este premio había que ganarlo en el campo».']
+      : [`«Ganar el ${pm.nombreMejor} es un orgullo. También se lo debo a mis compañeros».`, '«Hay mucho trabajo detrás de este premio. Hoy me acuerdo de quienes me han ayudado».', '«No se consigue algo así sin un equipo detrás. Gracias a todos».'], `Tras recibir el ${pm.nombreMejor} por la temporada ${V.temporada}.`);
+  const seg = (pm.podio || [])[1], sj = seg && G.find((x) => x.nombre === seg.nombre);
+  if (seg && gan && seg.nombre !== gan.nombre) pon('podio', 'jugador', 60, 'El segundo del podio', seg.nombre, seg.club,
+    sj && car(sj.j) === 'conflictivo' ? [`«Yo también tenía argumentos para ganar. Felicito a ${gan.nombre}, pero no me conformo».`, '«Estar tan cerca me deja con ganas de más. Volveré a intentarlo».']
+      : [`«Felicito a ${gan.nombre}. Acabar segundo en el ${pm.nombreMejor} también tiene mucho mérito».`, '«Me habría gustado ganar, claro. Me quedo con el reconocimiento a la temporada».', '«Me alegra estar entre los mejores. El premio lo decide la votación».'], `Segundo en el ${pm.nombreMejor}; el ganador fue ${gan.nombre}.`);
+  // Nadie jura permanencia después de un traspaso, de retirarse o de romper la confianza.
+  const rotos = new Set((V.vestuario || []).map((x) => x.jugador).concat(((V.confianza || {}).rotas || []).map((x) => x.jugador)));
+  objs.filter((o) => o.balance === 'fracaso' && o.prestigio >= 780).forEach((o) => {
+    const fig = G.filter((x) => x.club === o.club && x.pj >= 15 && !trasladados.has(x.nombre) && !retiros.has(x.nombre) && !rotos.has(x.nombre)).sort((a, b) => b.notaTemp - a.notaTemp)[0];
+    if (fig) pon('balance-jugador', 'jugador', 65, 'Autocrítica en el vestuario', fig.nombre, o.club,
+      [`«El ${o.club} ha acabado ${o.puesto}.º. Entiendo que la afición esperara más».`, '«No hemos dado lo que se esperaba de nosotros. También me incluyo».', '«Hay que revisar lo que hemos hecho mal, empezando por nosotros».'], `Balance de liga: ${o.puesto}.º en ${o.pais}.`);
+  });
+  sueldosDe(V).filter((x) => x.frase).forEach((x) => pon('sueldo', 'jugador', 70, x.rot, x.quien, x.club,
+    [x.frase, `«Mi contrato en el ${x.club} también importa, pero mi trabajo sigue estando en el campo».`], x.pie));
+  movs.filter((x) => x.precio > 0).slice().sort((a, b) => b.precio - a.precio).slice(0, 3).forEach((x) => pon('fichaje', 'jugador', 55, 'La presentación', x.jugador, x.a,
+    [`«Llego del ${x.de} con ganas de ganarme un sitio en el ${x.a}».`, `«El ${x.a} ha apostado por mí. Ahora tengo que responder en el campo».`, '«El precio lo acuerdan los clubes. Mi trabajo es adaptarme y rendir».', `«Empieza una etapa en el ${x.a}. Tendré que demostrar lo que puedo aportar».`], `Presentación tras fichar por ${precioTxt(x.precio)}, procedente del ${x.de}.`));
+  (V.retiros || []).filter((x) => (x.j.carrera || []).some((t) => nivel(t.niv || 0) >= 780)).forEach((x) => pon('retiro', 'jugador', 120, 'La despedida', x.j.n, x.club,
+    [`«Cierro mi carrera a los ${x.edad} años. Gracias a quienes me acompañaron».`, '«Termina mi etapa como jugador. Me llevo mucho más que los resultados».', '«Decir adiós cuesta. Hoy me quedo con la gente con la que compartí el campo».'], `Al anunciar su retirada con ${x.edad} años.`));
+  if (pm.goleador && pm.goleador.g > 0) pon('goles', 'jugador', 75, 'El goleador', pm.goleador.nombre, pm.goleador.club,
+    [`«Estos ${pm.goleador.g} goles llevan muchos pases y mucho trabajo de mis compañeros».`, `«Acabar con ${pm.goleador.g} goles me da confianza. Ahora toca seguir trabajando».`, '«Me alegra acabar como goleador. El equipo me ha puesto en situación de marcar».'], `Máximo goleador del mundo en la partida: ${pm.goleador.g} goles.`);
+
+  // Espacio propio para ambos papeles; una persona, una intervención y ninguna cita duplicada.
+  candidatos.sort((a, b) => b.prioridad - a.prioridad || ((a.orden + anio) % 997) - ((b.orden + anio) % 997));
+  const out = [], personas = new Set(), frases = new Set(), variantes = new Set(), temas = new Map();
+  const toma = (d) => {
+    const persona = sinApodo(d.nombre);
+    if (personas.has(persona) || (temas.get(d.tipo) || 0) >= 2) return;
+    const elegida = opciones(d).find((x) => !frases.has(x.frase) && !variantes.has(x.variante));
+    if (!elegida) return;
+    const frase = elegida.frase;
+    variantes.add(elegida.variante);
+    personas.add(persona); frases.add(frase); temas.set(d.tipo, (temas.get(d.tipo) || 0) + 1);
+    out.push({ rot: d.rot, nombre: d.nombre, club: d.club, frase, txt: d.txt, rol: d.rol });
+  };
+  candidatos.filter((d) => d.rol === 'entrenador').some((d) => { toma(d); return out.length >= 3; });
+  candidatos.filter((d) => d.rol === 'jugador').some((d) => { if (out.length < 8) toma(d); return out.length >= 8; });
+  candidatos.forEach((d) => { if (out.length < 8) toma(d); });
   return out;
 }
 // Entrenador del año: el que más hizo con lo que tenía. Cuentan los títulos y quedar por encima de lo que tocaba.
