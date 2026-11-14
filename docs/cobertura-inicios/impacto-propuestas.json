@@ -1,0 +1,71 @@
+{
+  "base": "bf22a8f",
+  "filasValidadas": 6,
+  "ausenciasComprobadas": 7,
+  "integracion": "solo en memoria",
+  "antes": [
+    {
+      "club": "Bayern Múnich",
+      "porterosReales": [],
+      "porterosDeRelleno": 2
+    },
+    {
+      "club": "Lazio",
+      "porterosReales": [],
+      "porterosDeRelleno": 2
+    },
+    {
+      "club": "Lyon",
+      "porterosReales": [],
+      "porterosDeRelleno": 2
+    },
+    {
+      "club": "Eintracht Fráncfort",
+      "porterosReales": [],
+      "porterosDeRelleno": 2
+    },
+    {
+      "club": "Bochum",
+      "porterosReales": [],
+      "porterosDeRelleno": 2
+    }
+  ],
+  "despues": [
+    {
+      "club": "Bayern Múnich",
+      "porterosReales": [
+        "Manuel Neuer",
+        "Sven Ulreich"
+      ],
+      "porterosDeRelleno": 0
+    },
+    {
+      "club": "Lazio",
+      "porterosReales": [
+        "Ivan Provedel"
+      ],
+      "porterosDeRelleno": 0
+    },
+    {
+      "club": "Lyon",
+      "porterosReales": [
+        "Dominik Greif"
+      ],
+      "porterosDeRelleno": 0
+    },
+    {
+      "club": "Eintracht Fráncfort",
+      "porterosReales": [
+        "Michael Zetterer"
+      ],
+      "porterosDeRelleno": 0
+    },
+    {
+      "club": "Bochum",
+      "porterosReales": [
+        "Timo Horn"
+      ],
+      "porterosDeRelleno": 1
+    }
+  ]
+}
