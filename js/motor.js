@@ -203,8 +203,79 @@
     return base;
   }
 
-  // Alineación sencilla tipo WM: 1 portero, 4 defensas, 3 medios, 3 delanteros.
+  // Dibujos tácticos. Cada uno dice cuántos defensas, medios y delanteros salen y hacia dónde inclina al equipo.
+  // Lo que cuenta en el campo es la diferencia con lo normal de su época: la WM de 1958 no da más goles que el 4-4-2 de
+  // 1990, pero un 5-3-2 entre equipos de 4-2-4 sí se nota. El 4-2-3-1 lleva cinco medios y un punta.
+  const DIBUJOS = {
+    'WM': { l: [3, 2, 5], at: 10, cr: -6, de: -10, desde: 0, hasta: 1967 },
+    '4-2-4': { l: [4, 2, 4], at: 8, cr: -8, de: -2, desde: 1956, hasta: 1978 },
+    '4-3-3': { l: [4, 3, 3], at: 3, cr: 0, de: -3, desde: 1962, hasta: 9999 },
+    '4-4-2': { l: [4, 4, 2], at: -3, cr: 4, de: 3, desde: 1964, hasta: 9999 },
+    '5-3-2': { l: [5, 3, 2], at: -10, cr: -5, de: 14, desde: 1958, hasta: 9999 },
+    '3-5-2': { l: [3, 5, 2], at: -3, cr: 9, de: -2, desde: 1984, hasta: 9999 },
+    '4-2-3-1': { l: [4, 5, 1], at: -4, cr: 8, de: 2, desde: 1998, hasta: 9999 },
+    '3-4-3': { l: [3, 4, 3], at: 8, cr: 2, de: -9, desde: 1988, hasta: 9999 }
+  };
+  const EPOCAS_DIBUJO = [
+    [1961, { 'WM': 5, '4-2-4': 4, '5-3-2': 1 }],
+    [1969, { '4-2-4': 4, '4-3-3': 3, '4-4-2': 1.5, '5-3-2': 1.5 }],
+    [1985, { '4-4-2': 4, '4-3-3': 3.5, '5-3-2': 1.5, '4-2-4': 0.5 }],
+    [2005, { '4-4-2': 5, '3-5-2': 2.5, '4-3-3': 1.5, '5-3-2': 1 }],
+    [9999, { '4-2-3-1': 3.5, '4-3-3': 3, '4-4-2': 2, '3-5-2': 1, '3-4-3': 0.5 }]
+  ];
+  // Cada país tira hacia lo suyo: el cerrojo italiano, el 4-4-2 inglés, el 4-3-3 holandés, el 4-2-4 de Brasil, el 3-5-2 argentino.
+  const GUSTO_PAIS = [
+    ['Italia', '5-3-2', 1958, 1992, 4], ['Inglaterra', '4-4-2', 1966, 2008, 2.5], ['Países Bajos', '4-3-3', 1968, 9999, 3],
+    ['Brasil', '4-2-4', 1956, 1970, 2.5], ['Argentina', '3-5-2', 1986, 1998, 2.5], ['Alemania', '3-5-2', 1984, 2002, 2], ['España', '4-3-3', 2006, 9999, 1.6]
+  ];
+  // El dibujo de siempre de los entrenadores que hicieron escuela (si ese dibujo ya existe en el año de la partida).
+  const DIBUJO_DT = {
+    'Helenio Herrera': '5-3-2', 'Nereo Rocco': '5-3-2', 'Giovanni Trapattoni': '5-3-2', 'Béla Guttmann': '4-2-4', 'Matt Busby': '4-2-4', 'Miguel Muñoz': '4-2-4',
+    'Bill Shankly': '4-4-2', 'Don Revie': '4-4-2', 'Brian Clough': '4-4-2', 'Bob Paisley': '4-4-2', 'Alex Ferguson': '4-4-2', 'Arsène Wenger': '4-4-2', 'Arrigo Sacchi': '4-4-2',
+    'Fabio Capello': '4-4-2', 'Marcello Lippi': '4-4-2', 'Carlo Ancelotti': '4-4-2', 'Diego Simeone': '4-4-2', 'Telê Santana': '4-4-2', 'Luis Aragonés': '4-4-2', 'Carlos Bianchi': '4-4-2',
+    'Rinus Michels': '4-3-3', 'Ernst Happel': '4-3-3', 'Hennes Weisweiler': '4-3-3', 'Louis van Gaal': '4-3-3', 'Pep Guardiola': '4-3-3', 'Luis Enrique': '4-3-3', 'Jürgen Klopp': '4-3-3',
+    'Zinedine Zidane': '4-3-3', 'Hansi Flick': '4-2-3-1', 'Mikel Arteta': '4-3-3', 'Johan Cruyff': '3-4-3', 'Marcelo Bielsa': '3-4-3', 'Antonio Conte': '3-5-2', 'Massimiliano Allegri': '3-5-2',
+    'Carlos Bilardo': '3-5-2', 'Carlos Salvador Bilardo': '3-5-2', 'Ottmar Hitzfeld': '3-5-2', 'Xabi Alonso': '3-4-3', 'Thomas Tuchel': '3-4-3', 'José Mourinho': '4-2-3-1',
+    'Rafael Benítez': '4-2-3-1', 'Vicente del Bosque': '4-2-3-1', 'Unai Emery': '4-2-3-1', 'Roberto Mancini': '4-2-3-1', 'Jupp Heynckes': '4-2-3-1', 'Luiz Felipe Scolari': '4-2-3-1', 'Udo Lattek': '4-4-2'
+  };
+  function pesosDibujo(anio, pais) {
+    const w = Object.assign({}, EPOCAS_DIBUJO.find((x) => anio <= x[0])[1]);
+    GUSTO_PAIS.forEach(([p, d, a, b, k]) => { if (p === pais && anio >= a && anio <= b && DIBUJOS[d].desde <= anio) w[d] = (w[d] || 1) * k; });
+    return w;
+  }
+  const hashTxt = (t) => { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+  // El entrenador trae su dibujo, pero mira lo que tiene: si con otro saca un once claramente mejor, se adapta a la plantilla.
+  function elegirDibujo(equipo, anio, dt) {
+    const w = pesosDibujo(anio, equipo.pais), nombres = Object.keys(w);
+    let fav = DIBUJO_DT[dt];
+    if (!fav || DIBUJOS[fav].desde > anio || DIBUJOS[fav].hasta < anio) {
+      const total = nombres.reduce((s, k) => s + w[k], 0);
+      let x = (hashTxt(dt || equipo.nombre) % 10000) / 10000 * total;
+      fav = nombres.find((k) => (x -= w[k]) < 0) || nombres[0];
+    }
+    const campo = equipo.jugadores.filter((j) => j.pos !== 'POR');
+    const lin = (pos) => campo.filter((j) => j.pos === pos).map((j) => j.niv).sort((a, b) => b - a);
+    const L = [lin('DEF'), lin('MED'), lin('DEL')];
+    const cal = (d) => { let s = 0; DIBUJOS[d].l.forEach((k, i) => { for (let q = 0; q < k; q++) s += L[i][q] != null ? L[i][q] : 250; }); return s / 10; };
+    const mejor = nombres.concat(fav).sort((a, b) => cal(b) - cal(a))[0];
+    return cal(fav) >= cal(mejor) - 20 ? fav : mejor;
+  }
+  const refDibujo = new Map();
+  function efectoDibujo(d, anio) {
+    if (!d || !DIBUJOS[d]) return null;
+    let ref = refDibujo.get(anio);
+    if (!ref) {
+      const w = pesosDibujo(anio), t = Object.values(w).reduce((s, x) => s + x, 0);
+      ref = { at: 0, cr: 0, de: 0 };
+      Object.entries(w).forEach(([k, x]) => { ref.at += DIBUJOS[k].at * x / t; ref.cr += DIBUJOS[k].cr * x / t; ref.de += DIBUJOS[k].de * x / t; });
+      refDibujo.set(anio, ref);
+    }
+    return { at: DIBUJOS[d].at - ref.at, cr: DIBUJOS[d].cr - ref.cr, de: DIBUJOS[d].de - ref.de };
+  }
+
+  // Alineación según el dibujo del equipo (sin dibujo, 4-3-3): 1 portero y los mejores de cada línea.
   function alineacion(equipo, fuera, nv) {
+    const L = (DIBUJOS[equipo.dibujo] || DIBUJOS['4-3-3']).l;
     const libres = equipo.jugadores.filter((j) => !fuera.has(j.n));
     const orden = (a, b) => nv(b) - nv(a);
     const por = libres.filter((j) => j.pos === 'POR').sort(orden);
@@ -213,7 +284,7 @@
     const meta = por[0] || [...resto].sort(orden).reverse()[0];
     resto = resto.filter((j) => j !== meta);
     const toma = (pos, k) => resto.filter((j) => j.pos === pos).sort(orden).slice(0, k);
-    let xi = [meta].concat(toma('DEF', 4), toma('MED', 3), toma('DEL', 3));
+    let xi = [meta].concat(toma('DEF', L[0]), toma('MED', L[1]), toma('DEL', L[2]));
     xi = xi.filter(Boolean);
     const usados = new Set(xi.map((j) => j.n));
     const sobrantes = resto.filter((j) => !usados.has(j.n)).sort(orden);
@@ -353,6 +424,8 @@
       const E = ESTILOS[estilos[k]];
       const d = normal(r) * P.ruidoDia * tension.ruido + o.moral[k] * P.pesoMoral - menos[k] * P.unoMenos;
       f.ataque += d + E.at; f.creacion += d + E.cr; f.defensa += d * 0.8 + E.de;
+      const T = efectoDibujo((k ? visita : local).dibujo, o.anio);
+      if (T) { f.ataque += T.at; f.creacion += T.cr; f.defensa += T.de; }
       f.E = E;
     });
     const goles = [0, 0];
@@ -469,7 +542,7 @@
     eventos.sort((a, b) => a.min - b.min);
     // Quienes acaban el partido en el campo: son los que juegan la prórroga y tiran los penaltis.
     const acaban = (xi) => xi.map((j) => { const e = st.get(j); return e.sustituido ? e.sup : j; }).filter((j) => { const e = st.get(j); return !e.roja && !e.lesion; });
-    return { goles, st, notas, xiL, xiV, supL: entran[0], supV: entran[1], finL: acaban(xiL), finV: acaban(xiV), eventos, estilos, derbi: o.derbi };
+    return { goles, st, notas, xiL, xiV, supL: entran[0], supV: entran[1], finL: acaban(xiL), finV: acaban(xiV), eventos, estilos, dibujos: [local.dibujo || null, visita.dibujo || null], derbi: o.derbi };
   }
 
   // Estado que dura toda la temporada: forma de cada jugador, cansancio, ánimo de cada equipo, bajas.
@@ -551,7 +624,7 @@
     est.bajas.forEach((v, j) => (v <= 1 ? est.bajas.delete(j) : est.bajas.set(j, v - 1)));
     equipos.forEach((eq) => eq.jugadores.forEach((j) => { if (est.energia.has(j)) est.energia.set(j, Math.min(1, est.energia.get(j) + 0.03)); }));
   }
-  const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, derbi: m.derbi });
+  const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, dibujos: m.dibujos, derbi: m.derbi });
 
   // Suma las estadísticas de varias competiciones y guarda el desglose de cada una (dónde marcó, dónde asistió…).
   const CAMPOS = ['pj', 'min', 'minMitad', 'jorMitad', 'tit', 'baja', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
@@ -611,6 +684,7 @@
     b.finInterino = /^interino/.test(nuevo.nota || '') ? jornada + (nuevo.hasta - nuevo.desde) + 1 : null;
     est.banquillo.set(eq, b);
     eq.estiloEntrenador = nuevo.estilo || null;
+    eq.dibujo = elegirDibujo(eq, est.anio, nuevo.nombre);
   }
   const ocupado = (est, nombre, menos) => [...est.banquillo.entries()].some(([eq, b]) => eq !== menos && b.actual.nombre === nombre);
   function siguienteLibre(est, eq, desde) {
@@ -660,6 +734,7 @@
     equipos.forEach((e) => {
       e.estiloEntrenador = null;
       if (e.entrenadores && e.entrenadores.length) ponerEntrenador(est, e, 0, 1);
+      else e.dibujo = elegirDibujo(e, est.anio, null);
     });
     const tabla = equipos.map((e) => ({ equipo: e, nombre: e.nombre, estilo: estiloBase(e), pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, racha: [] }));
     const registro = new Map();
@@ -695,7 +770,7 @@
       if (op.alJugar) op.alJugar(jn + 1, resJornada);
     });
     tabla.sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);
-    tabla.forEach((t) => { const b = est.banquillo.get(t.equipo); t.entrenador = b ? b.actual.nombre : null; t.estilo = estiloBase(t.equipo); });
+    tabla.forEach((t) => { const b = est.banquillo.get(t.equipo); t.entrenador = b ? b.actual.nombre : null; t.estilo = estiloBase(t.equipo); t.dibujo = t.equipo.dibujo || null; });
     const jugadores = notasTemporada(registro, tabla[0].equipo);
     const tramos = {};
     equipos.forEach((e) => { const b = est.banquillo.get(e); if (b) tramos[e.nombre] = b.tramos; });
@@ -937,7 +1012,7 @@
     };
   }
 
-  const api = { golesEpoca, casaEpoca, tanda, escala, rng, partido, temporada, copa, global, premios, hitos, calendario, rol, estiloBase, fuerzaBruta, edad, NOMBRE_ESTILO, atributos, formaDe, ATRIBUTOS, NOMBRE_ATRIBUTO, nuevoEstado, jugarConEstado, pasaSemana, P };
+  const api = { golesEpoca, casaEpoca, tanda, escala, rng, partido, temporada, copa, global, premios, hitos, calendario, rol, estiloBase, DIBUJOS, DIBUJO_DT, elegirDibujo, fuerzaBruta, edad, NOMBRE_ESTILO, atributos, formaDe, ATRIBUTOS, NOMBRE_ATRIBUTO, nuevoEstado, jugarConEstado, pasaSemana, P };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Motor = api;
 })(typeof self !== 'undefined' ? self : this);

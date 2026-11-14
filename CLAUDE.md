@@ -19,6 +19,7 @@ Plan de etapas y reparto con otras IA: ver `PLAN.md`.
 - `datos/base.js` lo monta `herramientas/base.py`. No se edita a mano.
 - Atributos: `datos/atributos.js` lo monta `herramientas/atributos.py` desde `datos_fuente/base/atributos.csv` (figuras a mano). El resto los calcula `formaDe` en `js/motor.js`. Los atributos son la forma del nivel: no suben ni bajan el nivel total.
 - Canteras y maestros reales: `datos/canteras.js` lo monta `herramientas/canteras.py` desde `datos_fuente/base/canteras.csv` y `maestros_entrenadores.csv`. Solo se enseñan (fichas e historias); no cambian resultados.
+- Dibujos tácticos: `DIBUJOS`, `EPOCAS_DIBUJO`, `GUSTO_PAIS`, `DIBUJO_DT` y `elegirDibujo` en `js/motor.js` (`equipo.dibujo`, `t.dibujo` en la tabla, `m.dibujos` en el partido). El efecto se mide contra lo normal de la época (`efectoDibujo`), para no mover los goles de cada era.
 - Promesa de minutos: `nuevasPromesas` y `resolverPromesas` en `js/mundo.js` (estado en `M.promesas` y `j.promesas`); los textos salen de `promesasDe` en `js/app.js`. Los minutos se cuentan en `jugarConEstado` de `js/motor.js` (`min`, `tit`, `baja`).
 - Confianza: `confianza` y `reencuentros` en `js/mundo.js` (`j.conf`, `j.confMem`, `EGOS`, `c.vendida`); el pulso de vestuario y la dimisión están en `resumenBanquillos`. Textos en `confianzaDe` y `promesasEnero` de `js/app.js`.
 - La partida guardada es semilla + posición y se rehace al abrir. Si un cambio altera los resultados del motor, sube `version` en `guardar` y en la lectura de `js/app.js`.

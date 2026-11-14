@@ -321,7 +321,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 71, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: 72, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -711,7 +711,7 @@ function fichaPartido(id) {
   const m = x.m, ico = { gol: '⚽', pen: '⚽', roja: '🟥', amarilla: '🟨', lesion: '✚', penFallado: '✗' };
   const txt = (e) => e.tipo === 'gol' ? `${nombreJ(e.quien)}${e.asist ? `<small> asist. ${esc(corto(e.asist))}</small>` : ''}` : e.tipo === 'pen' ? `${nombreJ(e.quien)} <small>de penalti</small>` : e.tipo === 'roja' ? `${nombreJ(e.quien)} <small>expulsado</small>` : e.tipo === 'amarilla' ? `${nombreJ(e.quien)} <small>amarilla</small>` : e.tipo === 'lesion' ? `${nombreJ(e.quien)} <small>se lesiona${e.semanas ? ` · ${e.semanas} semana${e.semanas > 1 ? 's' : ''} de baja` : ''}</small>` : `${nombreJ(e.quien)} <small>falla un penalti</small>`;
   const ev = (m.eventos || []).filter((e) => ico[e.tipo]).map((e) => `<div class="evento ${e.lado ? 'visita' : ''}"><span class="min">${e.min}'</span><span>${ico[e.tipo]}</span><span>${txt(e)}</span></div>`).join('');
-  const est = (m.estilos || []).map((k) => Motor.NOMBRE_ESTILO[k] || k);
+  const est = (m.estilos || []).map((k, i) => [(m.dibujos || [])[i], Motor.NOMBRE_ESTILO[k] || k].filter(Boolean).join(' · '));
   const gana = m.ga > m.gb ? m.local : m.gb > m.ga ? m.visita : null;
   return `<div class="arriba"><div><div class="sub">${esc(x.comp || 'Partido')}${m.derbi ? ' · ' + esc(m.derbi) : ''}</div><h1>${gana ? `Gana el ${esc(gana)}` : 'Empate'}</h1></div><div class="botones-hoja"><button type="button" class="redondo" data-cerrar aria-label="Cerrar">✕</button></div></div>`
     + `<div class="marcador"><div>${botonClub(m.local)}${est[0] ? `<small>${esc(est[0])}</small>` : ''}</div><b>${m.ga}-${m.gb}</b><div>${botonClub(m.visita)}${est[1] ? `<small>${esc(est[1])}</small>` : ''}</div></div>`
@@ -2714,6 +2714,16 @@ function dineroClub(c) {
     return `<div class="palmares"><span class="rotulo">Cómo ficha y cuánto puede gastar</span><div><span>Forma de fichar</span><span>${esc(Mundo.POLITICAS[Mundo.politica(c)])}</span></div><div><span>Sueldos que paga</span><span>${salarioTxt(Mundo.euros(paga, M.anio))}</span></div><div><span>Lo que puede pagar</span><span>${salarioTxt(Mundo.euros(puede, M.anio))}${estado}</span></div>${c.ajusteSalarial && c.ajusteSalarial.anio === M.anio ? '<div><span>Sin clasificación europea</span><span>La directiva pide reducir la nómina</span></div>' : ''}</div>` + cajaClub(c);
   } catch (e) { return ''; }
 }
+const DIBUJO_TXT = {
+  'WM': 'tres defensas, dos medios y cinco delanteros, el dibujo clásico de los años 50',
+  '4-2-4': 'cuatro atrás y cuatro arriba, el del Brasil de Pelé',
+  '4-3-3': 'tres delanteros y un centro del campo de tres',
+  '4-4-2': 'dos líneas de cuatro y dos puntas',
+  '5-3-2': 'cinco defensas con un hombre libre: el cerrojo',
+  '3-5-2': 'tres centrales, cinco medios y dos puntas',
+  '4-2-3-1': 'un solo punta con tres medios por detrás',
+  '3-4-3': 'tres centrales y tres delanteros, muy valiente'
+};
 function fichaClub(n) {
   const c = clubDe(n), info = INFO.clubes[n] || {};
   if (!c) return `<div class="arriba"><h1>${esc(n)}</h1>${botonesHoja('c', n)}</div><div class="vacio">Este club no juega en la partida.</div>`;
@@ -2727,6 +2737,7 @@ function fichaClub(n) {
   return `<div class="carta-identidad carta-club"><div class="carta-emblema emblema-club" aria-hidden="true">${escudo(n)}<small>CLUB</small></div><div class="arriba"><div><div class="sub">${esc(c.pais)} · ${esc(c.grupo || '')}${(() => { let e = null; try { e = Mundo.estadioDe(n, S.anio + 1); } catch (er) { /* sin dato */ } e = e || info.estadio; return e ? ' · 🏟 ' + esc(e) : ''; })()}</div><h1>${info.c1 ? `<span class="escudo" aria-hidden="true" style="background:linear-gradient(90deg, ${info.c1} 50%, ${info.c2} 50%)"></span>` : ''}${esc(n)}</h1></div>${botonesHoja('c', n)}</div></div>`
     + `<div class="cifras"><div><small>Puesto</small><b>${puesto ? puesto.split(' ')[0] : '–'}</b></div><div><small>Prestigio</small><b>${c.prestigio}</b></div><div><small>Entrenador</small><b style="font-size:14px">${t ? (`<button type="button" class="nombre" data-e="${esc(t.nombre)}" data-ec="${esc(n)}">${esc(sinApodo(t.nombre))}</button>`) : '–'}</b></div></div>`
     + (puesto ? `<div class="sub">${esc(puesto)}${real && real !== +puesto.split('.')[0] ? marcaDif(`Puesto real al final: ${real}.º`) : ''}</div>` : '')
+    + (() => { const d = l && (l.T.tabla.find((x) => x.nombre === n) || {}).dibujo; return d ? `<div class="sub">Juega con un <b>${esc(d)}</b>${DIBUJO_TXT[d] ? `: ${DIBUJO_TXT[d]}` : ''}</div>` : ''; })()
     + (l ? formaClub(l, n, c.pais) : '')
     + `<div class="palmares"><span class="rotulo">Palmarés en esta partida</span>${palm || '<div><span class="vacio">Todavía sin títulos.</span><span></span></div>'}</div>`
     + presidenteClub(c)
@@ -2797,6 +2808,7 @@ function fichaEntrenador(n, club) {
   const c = clubDe(club), t = c && (c.entrenadores || []).find((x) => x.nombre === n);
   const rasgos = [];
   if (t && t.estilo) rasgos.push(`<span class="fuerte">${esc(Motor.NOMBRE_ESTILO[t.estilo] || t.estilo)}</span>`);
+  if (Motor.DIBUJO_DT[n]) rasgos.push(`<span>Su dibujo de siempre: ${esc(Motor.DIBUJO_DT[n])}</span>`);
   try { const ma = Mundo.maestro(n); if (ma) rasgos.push(`<span class="oro">${ma >= 3 ? 'Leyenda de los banquillos' : 'Gran entrenador'}: su equipo rinde más</span>`); } catch (e) { /* sin dato */ }
   try { const mn = Mundo.MANO[n]; if (mn) rasgos.push(`<span>${esc(Mundo.MANOS[mn])}</span>`); } catch (e) { /* sin dato */ }
   try { const don = Mundo.donDT(n); if (don) rasgos.push(`<span class="oro">★ Constante: ${esc(Mundo.DONES_DT[don])}</span>`); } catch (e) { /* sin dato */ }
@@ -3227,7 +3239,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 71) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === 72) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
