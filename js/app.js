@@ -2058,6 +2058,9 @@ function copiarResumen(btn) {
       intento(() => { const C = copaDe(V, pais); if (C && C.campeon) out.push(`   ${C.nombre}: ${C.campeon}${final(C)}`); });
       intento(() => { const SC = supercopasDe(V).find((x) => x.pais === pais); if (SC) out.push(`   ${SC.nombre}: ${SC.campeon}${final(SC)}`); });
       if (pr.pichichi) out.push(`   Goleador: ${pr.pichichi.nombre} (${pr.pichichi.club}), ${pr.pichichi.g} goles`);
+      intento(() => { const top = ligasDe(V, pais).filter((l) => l.nivel === 1); if (top.length !== 1 || !top[0].T) return; const tb = top[0].T.tabla, t = tb[0];
+        out.push(`   El campeón: ${t.gf} goles a favor y ${t.gc} en contra${tb[1] ? `, ${t.pts - tb[1].pts} ${t.pts - tb[1].pts === 1 ? 'punto' : 'puntos'} sobre el segundo` : ''}${t.dibujo ? `; juega con un ${t.dibujo}` : ''}`); });
+      intento(() => { const gs = figurasDe(V, pais).filter((x) => x.g > 0).sort((x, y) => y.g - x.g).slice(0, 3); if (gs.length > 1) out.push(`   Goleadores (todas las competiciones): ${gs.map((x) => `${x.nombre} (${x.club}), ${x.g}`).join(' · ')}`); });
       intento(() => { const mj = figurasDe(V, pais).filter((x) => x.pj >= 15).sort((x, y) => y.notaTemp - x.notaTemp)[0]; if (mj) out.push(`   Mejor jugador de la liga: ${mj.nombre} (${mj.club}), nota ${mj.notaTemp.toFixed(2)}`); });
       if (pr.zamora && pr.zamora.nombre) out.push(`   Mejor portero: ${pr.zamora.nombre} (${pr.zamora.club})`);
       intento(() => { const a = ascensosDe(V, pais); if (a.suben.length) out.push(`   Suben: ${a.suben.join(', ')}`); if (a.bajan.length) out.push(`   Bajan: ${a.bajan.join(', ')}`); });
@@ -2068,6 +2071,8 @@ function copiarResumen(btn) {
     sec('⭐ PREMIOS');
     if (pm.ganadorMejor) out.push(`• ${pm.nombreMejor}: ${pm.ganadorMejor.nombre} (${pm.ganadorMejor.club})`);
     if ((pm.podio || []).length > 1) out.push(`   Podio: ${pm.podio.map((x, i) => `${i + 1}.º ${x.nombre} (${x.club}, ${x.g} goles, ${x.a} asistencias, nota ${x.nota.toFixed(2)})`).join(' · ')}`);
+    intento(() => { const pt = (v) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2).replace('.', ','); if ((pm.podio || []).length) out.push(`   Por qué (rendimiento del año + títulos + categoría): ${pm.podio.map((x) => `${x.nombre} ${x.individual.toFixed(2).replace('.', ',')} ${pt(x.colectivo)} ${pt(x.clase)} = ${(x.individual + x.colectivo + x.clase).toFixed(2).replace('.', ',')}`).join(' · ')}`); });
+    intento(() => (pm.oficiales || []).forEach((o) => { if (o.nombre !== pm.nombreMejor && o.j) out.push(`• ${o.nombre}: ${o.j.nombre} (${o.j.club}), ${o.linea(o.j)}`); }));
     if (pm.goleador) out.push(`• Máximo goleador del mundo: ${pm.goleador.nombre} (${pm.goleador.club}), ${pm.goleador.g} goles`);
     if (pm.asistente) out.push(`• Más asistencias: ${pm.asistente.nombre} (${pm.asistente.club}), ${pm.asistente.a}`);
     if (pm.portero) out.push(`• Mejor portero: ${pm.portero.nombre} (${pm.portero.club})`);
@@ -2084,6 +2089,32 @@ function copiarResumen(btn) {
     if (!xs.length) return;
     sec('🌟 LOS 15 MEJORES DEL MUNDO (POR NIVEL)');
     xs.forEach(({ x, niv, t }, i) => out.push(`${i + 1}. ${x.nombre} (${x.club}${x.j.nac ? `, ${V.anio + 1 - +String(x.j.nac).slice(0, 4)} años` : ''}): nivel ${nivel(niv)} · ${t.pj} partidos, ${t.g} ${t.g === 1 ? 'gol' : 'goles'}${t.a ? `, ${t.a} ${t.a === 1 ? 'asistencia' : 'asistencias'}` : ''}${t.nota ? `, nota ${Number(t.nota).toFixed(2)}` : ''}`));
+  });
+  // Promesas: los mejores de 21 años o menos, por nivel.
+  intento(() => {
+    const xs = figurasDe(V).map((x) => { const t = ((x.j && x.j.carrera) || []).find((c) => c.temporada === V.temporada), niv = (t && t.niv) || (x.j && x.j.niv), edad = x.j && x.j.nac ? V.anio + 1 - +String(x.j.nac).slice(0, 4) : 99; return niv && !x.j.relleno && edad <= 21 ? { x, niv, edad } : null; }).filter(Boolean).sort((a, b) => b.niv - a.niv).slice(0, 8);
+    if (!xs.length) return;
+    sec('🌱 LOS MEJORES JÓVENES (21 AÑOS O MENOS)');
+    xs.forEach(({ x, niv, edad }, i) => out.push(`${i + 1}. ${x.nombre} (${x.club}, ${edad} años): nivel ${nivel(niv)} · ${x.pj} partidos, ${x.g} goles${x.notaTemp ? `, nota ${x.notaTemp.toFixed(2)}` : ''}`));
+  });
+  // Con qué dibujo se juega este año en las primeras divisiones.
+  intento(() => {
+    const m = new Map(), camp = [];
+    paisesDe(V).forEach((pais) => ligasDe(V, pais).filter((l) => l.nivel === 1 && l.T).forEach((l) => l.T.tabla.forEach((t, i) => { if (!t.dibujo) return; m.set(t.dibujo, (m.get(t.dibujo) || 0) + 1); if (i === 0) camp.push(`${t.nombre} (${t.dibujo})`); })));
+    const tot = [...m.values()].reduce((a, b) => a + b, 0); if (!tot) return;
+    sec('🧠 TÁCTICA DEL AÑO');
+    out.push(`• Dibujos más usados en primera: ${[...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([d, n]) => `${d} (${Math.round(100 * n / tot)} %)`).join(', ')}`);
+    if (camp.length) out.push(`• Los campeones: ${camp.join(', ')}`);
+  });
+  // Sueldos: solo de la última temporada, porque los contratos que se ven son los de hoy.
+  intento(() => {
+    const ult = cerradas[cerradas.length - 1]; if ((V !== S && V !== ult) || typeof M === 'undefined' || !M || !M.clubes) return;
+    const js = M.clubes.flatMap((c) => c.jugadores.filter((j) => !j.relleno).map((j) => ({ j, c, s: Mundo.sueldoFirmado(j, M.anio) }))).sort((a, b) => b.s - a.s).slice(0, 8);
+    const noms = M.clubes.map((c) => ({ c, s: c.jugadores.reduce((t, j) => t + Mundo.sueldoFirmado(j, M.anio), 0) })).sort((a, b) => b.s - a.s).slice(0, 6);
+    if (!js.length) return;
+    sec('💶 SUELDOS (HOY)');
+    out.push(`• Los mejor pagados: ${js.map(({ j, c, s }) => `${j.n} (${c.nombre}), ${salarioTxt(s)} al año${j.contrato ? ` hasta ${j.contrato}` : ''}`).join(' · ')}`);
+    out.push(`• Las nóminas más altas: ${noms.map(({ c, s }) => `${c.nombre}, ${salarioTxt(s)}`).join(' · ')}`);
   });
   // Lo acumulado en la partida: quién lleva más Copas de Europa y Balones de Oro, y las rachas de liga vivas.
   intento(() => {
