@@ -1225,7 +1225,8 @@ function promesasDe(V) {
   return out;
 }
 // Los importes firmados ya están en millones; no se vuelven a multiplicar por los precios de otra época.
-const salarioTxt = (v) => (v * 1000000).toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+// En millones con un decimal (o en miles si es poco): nadie lee una nómina euro a euro.
+const salarioTxt = (v) => (v >= 1 ? `${(Math.round(v * 10) / 10).toLocaleString('es-ES')} millones €` : `${Math.round(v * 1000).toLocaleString('es-ES')} mil €`);
 function sueldosDe(V) {
   const P = V.sueldos || {}, out = [];
   (P.ajustes || []).forEach((x) => out.push({ tipo: 'ajuste', rot: 'El precio de quedarse fuera', tit: `${x.club}, sin Europa y con una nómina alta`,
