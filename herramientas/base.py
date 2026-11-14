@@ -112,6 +112,12 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
     lee = lambda n: sin_repetir(csv.DictReader(open(os.path.join(WD, n), encoding='utf-8-sig')))
     en_liga = defaultdict(set)
     for x in ligas: en_liga[x[4]].add(x[1])
+    # Donde aún no está la clasificación del último año (Francia 2025), los clubes del último año conocido siguen contando:
+    # el juego hace lo mismo al empezar, y si no un fichaje de ese verano se quedaba fuera de la base.
+    ult_pais = {}
+    for x in ligas: ult_pais[x[0]] = max(ult_pais.get(x[0], 0), x[1])
+    for x in ligas:
+        if x[1] == ult_pais[x[0]]: en_liga[x[4]].update(range(x[1] + 1, 2027))
     pasos_wd = defaultdict(list)
     for f in lee('carreras_wikidata.csv'):
         d, h = entero(f['desde']), entero(f['hasta'])

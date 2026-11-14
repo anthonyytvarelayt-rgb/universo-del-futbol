@@ -21,3 +21,7 @@ La ficha oficial del Bayern para Neuer y las fichas de Wikipedia enlazadas en ca
 No se han completado los demás porteros y clubes sin información. Tampoco se han cambiado los 601 tramos de porteros que el inventario señaló por una tasa de goles anómala: esa señal es una prioridad de revisión y no prueba que las 601 filas sean erróneas.
 
 La prueba `python3 herramientas/revisar_porteros_2025.py` validó las seis identidades y siete ausencias y aplicó los seis pasos a una copia en memoria: Bayern pasa de cero a dos porteros reales; Lazio, Lyon, Eintracht y Bochum pasan de cero a uno. El efecto medido está en `docs/cobertura-inicios/impacto-propuestas.json`. No se guardó esa copia como base del juego.
+
+## Integrado (14 de noviembre de 2026, Claude)
+
+Las seis carreras y los siete ausentes ya están en `datos_fuente/expansion/wikidata/` y en `datos/base.js`. Provedel en el Módena queda con 0 goles. `herramientas/base.py` cuenta además los clubes del último año conocido de cada país para los años siguientes (Francia no tiene aún la clasificación de 2025). `herramientas/revisar_porteros_2025.py` era la comprobación previa y ya no pasa, porque los ausentes están dentro.
