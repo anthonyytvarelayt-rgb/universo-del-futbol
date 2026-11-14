@@ -99,6 +99,7 @@
   // Nadie nace hecho: lo que un talento tiene por encima de un buen titular (700 en la escala del motor) lo gana con los años.
   const JUVENTUD = [[-10, 0.25], [-8, 0.42], [-6, 0.64], [-4, 0.84], [-2, 0.96], [0, 1]];
   function metaEdad(tec, cv, edad) {
+    if (cv.salto && edad < cv.pico) edad = edad <= cv.hecho ? edad + cv.salto : edad + cv.salto * (cv.pico - edad) / (cv.pico - cv.hecho);
     const base = tec * cv.F(edad), d = edad - cv.pico;
     if (base <= 700 || d >= 0) return base;
     let k = JUVENTUD[0][1];
@@ -106,7 +107,7 @@
     return 700 + (base - 700) * k;
   }
   function curva(j) {
-    const clave = j.n + '|' + j.pos + '|' + (j.rol || '');
+    const clave = j.n + '|' + j.pos + '|' + (j.rol || '') + '|' + (j.hecho || '');
     if (curvas.has(clave)) return curvas.get(clave);
     const h = hashN(j.n, 7), u = (k) => ((h >>> k) % 1000) / 1000;
     const pf = perfil(j), real = CARRERAS[j.n];
@@ -126,6 +127,9 @@
     let mejor = 0, edadPico = pico;
     for (let e = 15; e <= 42; e++) { const v = bruto(e); if (v > mejor) { mejor = v; edadPico = e; } }
     const c = { perfil: pf, ritmo, pesos: w, pico: edadPico, F: (edad) => bruto(edad) / mejor };
+    // Quien de verdad ya era titular de crío (Rooney a los 17, Raúl, Maldini) no espera a los 24 para parecerlo: su curva
+    // de juventud va adelantada hasta tres años, y el adelanto se va apagando hasta su mejor edad. El techo no cambia.
+    if (j.hecho && j.hecho < edadPico) { c.hecho = j.hecho; c.salto = Math.min(j.pos === 'POR' ? 4 : 3, 22 - j.hecho); }
     curvas.set(clave, c);
     return c;
   }
@@ -1388,6 +1392,7 @@
       const libreYa = M.libres.find((j) => j.n === d.nombre && j.nac === d.nac);
       if (libreYa) { M.libres = M.libres.filter((j) => j !== libreYa); c.jugadores.push(libreYa); firmarSueldo(libreYa, nuevoAnio); masas.delete(c); dondeEsta.set(clave(libreYa.n, libreYa.nac), c); log.push({ temporada: temporadaTxt(nuevoAnio), jugador: libreYa.n, pos: libreYa.pos, niv: Math.round(libreYa.niv), de: 'sin club', a: c.nombre, tipo: 'libre' }); return; }
       const j = { n: d.nombre, completo: d.completo, pos: d.pos, nac: d.nac, pais: d.pais, nacion: d.pais || c.pais, niv: d.niv, tec: d.tec, tecReal: d.tec, pj: 0, g: 0, carrera: [], inicio: { niv: d.niv, club: c.nombre }, debut: nuevoAnio };
+      if (d.hecho) j.hecho = d.hecho;
       // Los que llegan durante la partida traen también su definición (antes se perdía y Messi remataba como un medio cualquiera).
       M.vistos.add(clave(d.nombre, d.nac));
       if (d.fin) j.fin = d.fin;
@@ -2367,10 +2372,17 @@
   const TIPOS_LLEGADA = ['debuta', 'cantera', 'extranjero', 'regresa'];
   const MINIMO_RELLENO = { POR: 2, DEF: 5, MED: 4, DEL: 4 };
   // Nivel que tendría un jugador a una edad, sabiendo su mejor nivel (sube hasta su pico y luego cae como en envejecer).
+  // Edad a la que ya era titular de verdad: su primera etapa con 20 o más partidos por año, si empezó con 20 o menos.
+  function hechoDe(j) {
+    const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
+    const fija = !j.ficticio && nac && j.carrera.find((q) => q[4] != null && q[4] / ((q[3] == null ? 2025 : q[3]) - q[2] + 1) >= 20);
+    return fija && fija[2] - nac + 1 <= 21 ? Math.max(17, fija[2] - nac + 1) : 0;
+  }
   function nivelEdad(j, anio) {
     const nac = parseInt(String(j.nac || '').slice(0, 4), 10);
     if (!nac) return j.max;
-    return Math.max(300, metaEdad(j.max, curva(j), anio - nac));
+    const h = hechoDe(j);
+    return Math.max(300, metaEdad(j.max, curva(h ? { n: j.n, pos: j.pos, rol: j.rol, perfil: j.perfil, hecho: h } : j), anio - nac));
   }
   function desdeBase(B, anio) {
     const cfg = new Map(B.paises.map((P) => [P.pais, P]));
@@ -2405,6 +2417,8 @@
       if (j.completo) x.completo = j.completo;
       if (j.ficticio) x.relleno = true;
       if (j.rol) x.rol = j.rol;
+      const h = hechoDe(j);
+      if (h) x.hecho = h;
       // Definición: goles reales por partido frente a lo normal de su puesto. Un goleador nato (Bican, Müller)
       // remata más y marca más que otro de su mismo nivel. Solo con 30+ partidos de datos.
       let pj = 0, g = 0;
