@@ -846,8 +846,9 @@
       const cuenta = {}; u.forEach((n) => { if (n) cuenta[n] = (cuenta[n] || 0) + 1; });
       const grande = ['España', 'Inglaterra', 'Italia', 'Alemania'].includes(o.pais);
       Object.entries(cuenta).forEach(([club, w]) => {
-        const seguida = x && x.club === club && x.n >= 4 ? Math.min(24, 6 * (x.n - 3)) : 0;
-        const baja = Math.max(seguida, grande ? Math.min(60, 12 * (w - 2)) : 0);
+        // Siempre hay un pez más grande (Anthony: vale para todo): desde la tercera seguida y en todas las ligas, no solo en las cuatro grandes.
+        const seguida = x && x.club === club && x.n >= 3 ? Math.min(60, 10 * (x.n - 2)) : 0;
+        const baja = Math.max(seguida, Math.min(60, (grande ? 12 : 10) * (w - 2)));
         const c = baja > 0 && M.clubes.find((y) => y.nombre === club);
         if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
       });
