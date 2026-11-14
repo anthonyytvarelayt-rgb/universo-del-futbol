@@ -846,9 +846,9 @@ function pintarMandos() {
     return;
   }
   if (fin || (finDeTemporada() && !hayOtra())) { t.innerHTML = `<button type="button" class="grande" disabled>Fin de la partida · ${TEMPORADAS} temporadas</button>`; return; }
-  if (finDeTemporada()) { t.innerHTML = `<button type="button" class="grande" data-tiempo="siguiente">▶ Empezar la temporada ${Mundo.temporadaTxt(S.anio + 1)}</button>`; return; }
+  if (finDeTemporada()) { t.innerHTML = `<button type="button" class="grande" data-tiempo="siguiente">Empezar la temporada ${Mundo.temporadaTxt(S.anio + 1)}</button>`; return; }
   const b = (id, txt, activo) => `<button type="button" data-tiempo="${id}" aria-pressed="${activo}">${txt}</button>`;
-  t.innerHTML = b('semana', 'Semana', false) + b('mes', 'Mes', jugando && modo === 'mes') + b('temporada', jugando && modo === 'temporada' && rapido ? 'Temp. ×3' : 'Temporada', jugando && modo === 'temporada') + b('fin', '⏭ Final', false) + b('pausa', 'Pausa', !jugando);
+  t.innerHTML = b('semana', 'Semana', false) + b('mes', 'Mes', jugando && modo === 'mes') + b('temporada', jugando && modo === 'temporada' && rapido ? 'Temp. ×3' : 'Temporada', jugando && modo === 'temporada') + b('fin', 'Final', false) + b('pausa', 'Pausa', !jugando);
 }
 
 // ---------- Hoy: el periódico de la época ----------
@@ -924,11 +924,12 @@ function pintarHoy() {
   }).join('');
   // El partido de la semana: el de los dos clubes más fuertes.
   const pds = grandes[0];
-  const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span>${esc(pds.m.local)}</span><b>${pds.m.ga}-${pds.m.gb}</b><span>${esc(pds.m.visita)}</span></span><small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
+  const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span class="equipo-destacado">${escudo(pds.m.local)}<span>${esc(pds.m.local)}</span></span><b>${pds.m.ga}-${pds.m.gb}</b><span class="equipo-destacado">${escudo(pds.m.visita)}<span>${esc(pds.m.visita)}</span></span></span><small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
+  const previa = destacado ? '' : carteleraHtml(V);
   $('s-hoy').innerHTML = cab(p.tipo === 'jornada' ? `Jornada ${p.j}` : fechaCorta(p))
-    + `<article class="noticia noticia-principal"><span class="rotulo rojo">${esc(lead.seccion)}</span><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p></article>`
-    + `<div class="actualidad">${destacado}<div class="breves">${breves}</div></div>`
-    + `<div class="columnas">${crackSemana(grandes)}${carteleraHtml(V)}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
+    + `<div class="hoy-apertura${destacado || previa ? '' : ' sin-partido'}"><article class="noticia noticia-principal"><div class="noticia-folio"><span class="rotulo">${esc(lead.seccion)}</span><span>LA HISTORIA CONTINÚA</span></div><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p><span class="noticia-pie"><span>UNIVERSO DEL FÚTBOL · ${esc(S.temporada)}</span>${lead.jugador ? `<button type="button" class="ver-protagonista" data-j="${esc(lead.jugador)}">Ver jugador</button>` : ''}</span></article>${destacado || (previa ? `<aside class="avance-jornada">${previa}</aside>` : '')}</div>`
+    + (breves ? `<div class="actualidad"><div class="separador-actualidad"><h2>En el resto del mundo</h2><span>LA JORNADA, EN BREVE</span></div><div class="breves">${breves}</div></div>` : '')
+    + `<div class="columnas">${crackSemana(grandes)}${destacado ? carteleraHtml(V) : ''}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
         <div class="caja"><span class="rotulo">Resultados grandes</span>${res}</div>
         <div class="caja lideres"><span class="rotulo">Líderes</span>${lideres || '<div class="vacio">Las ligas aún no han empezado.</div>'}</div>
         <div class="caja"><span class="rotulo">Goleadores del mundo</span>${goles.length ? goles.map((j, i) => goleadorFila(j, i, j.g, esc(j.pais))).join('') : '<div class="vacio">Todavía no hay goles.</div>'}</div>
@@ -3162,14 +3163,17 @@ const anioElegido = () => anioSel;
 function pintarInicio() {
   // Se elige una época, no un año: la partida arranca en la primera temporada de la época que tenga datos.
   const sel = eraDe(anioSel);
-  $('eras').innerHTML = ERAS.map((e) => {
-    const primero = ANIOS.find((a) => a >= e.desde && a <= e.hasta);
+  const opciones = ERAS.map((e) => ({ e, primero: ANIOS.find((a) => a >= e.desde && a <= e.hasta) }));
+  opciones.sort((a, b) => Number(a.primero == null) - Number(b.primero == null));
+  $('eras').innerHTML = opciones.map(({ e, primero }) => {
     return `<button type="button" class="era" data-era="${esc(e.nombre)}" style="--e:${e.color}" aria-pressed="${e === sel}"${primero == null ? ' disabled' : ''}><span class="anios-era">${e.desde}–${String(Math.min(e.hasta, 2026)).slice(2)}</span><b>${esc(e.nombre)}</b><small>${esc(e.figuras)}</small><span class="estado">${primero == null ? 'Próximamente' : `Empieza en ${Mundo.temporadaTxt(primero)}`}</span></button>`;
   }).join('');
   ponerEra(anioSel);
-  $('empezar').textContent = `Empezar en ${Mundo.temporadaTxt(anioSel)}${hayGuardada ? ' (nueva partida)' : ''}`;
+  $('inicioAnio').textContent = anioSel;
+  $('inicioEra').textContent = sel.nombre;
+  $('empezar').textContent = `${hayGuardada ? 'Nueva partida' : 'Empezar'} en ${Mundo.temporadaTxt(anioSel)}`;
   $('seguirPartida').hidden = !hayGuardada;
-  if (hayGuardada && S) $('seguirPartida').textContent = `Seguir mi partida (${S.temporada} · ${eraDe(S.anio).nombre})`;
+  if (hayGuardada && S) $('seguirPartida').textContent = `Continuar · ${S.temporada} · ${eraDe(S.anio).nombre}`;
   try { $('constantes').checked = localStorage.getItem('universo-futbol-constantes') !== 'no'; } catch (e) { /* por defecto encendido */ }
   $('pronosticos').checked = pronOn;
 }

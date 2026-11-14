@@ -1,0 +1,26 @@
+bien  calendario de 5 equipos
+bien  calendario de 19 equipos
+bien  calendario de 20 equipos
+bien  once sin porteros: once jugadores distintos
+bien  ningún lesionado marca después de irse
+bien  el expulsado se pierde el partido siguiente
+bien  la prórroga no cuenta como otro partido
+bien  en la prórroga solo siguen los que acabaron el partido
+bien  Mundial: ningún tercero se cruza con uno de su grupo
+bien  Mundial: no se convoca a retirados de la partida
+bien: convocatoria con 28 semanas de baja
+bien: convocatoria con 4 semanas de baja
+bien: convocatoria con 28 semanas de baja y doble nacionalidad
+bien  Mundial: la lista histórica respeta las bajas largas
+bien: las 40 ediciones tienen sus selecciones y terminan con campeón (tres semillas)
+bien: bajas largas, retirados y doble nacionalidad en ambas competiciones
+bien: dos Copas América en 1959, Euro 2020 en 2021 y bonus de medio Mundial
+bien: ningún continental altera la calibración ni los Mundiales posteriores
+bien  Eurocopa y Copa América: formatos, campeones y convocatorias
+Sueldos: contratos, progresión, peticiones, cuentas y pérdida de Europa bien
+bien  Sueldos pactados: contratos y consecuencias económicas
+Penaltis: porteros, turnos y participantes presentes bien
+bien  Penaltis: todos los participantes tiran antes de repetir
+Barrido: interrupciones, informes parciales y resultados antiguos bien
+bien  Barrido: conserva progreso y distingue interrupciones
+todo bien
