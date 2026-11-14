@@ -1931,6 +1931,8 @@
   const mentorDe = (nombre, M) => (M && M.mentores && M.mentores[nombre]) || MENTORES[nombre] || null;
   const DESTINO_DT = { 'José Mourinho': 'Real Madrid' };
   // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
+  // Club mínimo que acepta un entrenador de renombre: 620 de prestigio los buenos, 720 los grandes, 780 las leyendas.
+  const tallaDT = (e, c) => { const m = maestro(e.nombre); return !m || c.prestigio >= (m >= 3 ? 780 : m === 2 ? 720 : 620); };
   function extraDon(c, e) {
     const don = donDT(e.nombre), anios = e.anios || 0;
     if (don === 'special') return e.nombre === 'José Mourinho' ? 22 : 14;   // Mourinho es una bestia: gana en cualquier parte
@@ -2057,7 +2059,7 @@
       const casa = (p) => (p === 'Escocia' || p === 'Gales' || p === 'Irlanda del Norte' ? 'Inglaterra' : p);
       const puedeIr = (x) => { const p = casa(x.nacion || x.pais); if (p === c.pais) return true; if (sudaca(p) !== sudaca(c.pais)) return ['Argentina'].includes(p) && !sudaca(c.pais) && c.pais !== 'Inglaterra' && maestro(x.nombre) > 0 && anio < 1996 ? true : false;
         if (c.pais === 'Inglaterra') return anio >= 1996; return anio >= 1990 || ['Hungría', 'Austria', 'Países Bajos', 'Yugoslavia'].includes(p); };
-      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && !vetoDT(x, c) && puedeIr(x) && (c.prestigio >= 620 || maestro(x.nombre) < 3)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
+      const libres = M.parados.filter((x) => (maestro(x.nombre) > tengo || (!e && !tengo)) && x.vieneDe !== c.nombre && !vetoDT(x, c) && puedeIr(x) && tallaDT(x, c)).sort((a, b) => (b.casa === c.nombre) - (a.casa === c.nombre) || maestro(b.nombre) - maestro(a.nombre) || !!b.exJugador - !!a.exJugador || (b.pais === c.pais) - (a.pais === c.pais) || hashN(a.nombre + anio, 5) - hashN(b.nombre + anio, 5));
       let nuevo = libres[0], de = null;
       if (!nuevo && c.prestigio >= 820 && r() < 0.35) {
         const v = primera.filter((x) => x !== c && !(enemigos.get(c.nombre) || new Set()).has(x.nombre) && !vetoDT(x.entrenadores && x.entrenadores[0], c) && puedeIr(x.entrenadores && x.entrenadores[0] ? x.entrenadores[0] : {}) && x.prestigio <= c.prestigio - 100 && x.entrenadores && x.entrenadores[0] && maestro(x.entrenadores[0].nombre) > Math.max(1, tengo) && (x.entrenadores[0].anios || 0) >= 2 && (x.entrenadores[0].credito || 0) < 3)
@@ -2120,7 +2122,9 @@
     resumenBanquillos(M, T, conBanquillo, R.EU && R.EU.campeon, titulos);
     // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
     M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
-      const cand = M.parados.slice().sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
+      // Un grande de los banquillos no acepta cualquier cosa: Heynckes acababa en el União de Leiria (y lo hacía campeón),
+      // Del Bosque en el Trofense y Hitzfeld de suplente de medio mundo.
+      const cand = M.parados.filter((e) => tallaDT(e, c)).sort((a, b) => (b.pais === c.pais) - (a.pais === c.pais)).slice(0, 3);
       c.entrenadores = c.entrenadores.concat(cand.map((e) => Object.assign({}, e, { desde: 1, hasta: 30, fijo: false })));
     });
   }

@@ -24,4 +24,6 @@ Plan de etapas y reparto con otras IA: ver `PLAN.md`.
 - Confianza: `confianza` y `reencuentros` en `js/mundo.js` (`j.conf`, `j.confMem`, `EGOS`, `c.vendida`); el pulso de vestuario y la dimisión están en `resumenBanquillos`. Textos en `confianzaDe` y `promesasEnero` de `js/app.js`.
 - La partida guardada es semilla + posición y se rehace al abrir. Si un cambio altera los resultados del motor, sube `version` en `guardar` y en la lectura de `js/app.js`.
 - Igualdad por época: `PARIDAD` en `js/motor.js` ensancha la escala en las ligas (no en copas ni Europa). Se mide con `node pruebas/igualdad.js <año> <temporadas> <semilla>`.
+- Partidas largas: `quiereCasa`, `soloDeCasa` (Athletic), `tallaDT` (qué club acepta un gran entrenador) y el "fondo de armario" de los grandes están en `js/mundo.js`. Faltan plantillas reales de España 1963-92, Argentina 1978-92, Brasil y Portugal (ver aviso n.º 12 de GitHub).
+- Nombres y niveles a mano: `correcciones.csv` (campos `nombre`, `nivel`, `nacion`, `pos`, `rol`; el año puede ser la fecha entera) se aplica antes que `niveles_figuras.csv`, que ya usa el nombre nuevo.
 - Antes de subir un cambio del motor: `node pruebas/partida.js <año> <temporadas> <semilla>` desde al menos dos épocas, y abrir la página en un navegador.
