@@ -89,5 +89,11 @@ try {
 } catch (e) {
   caso('Penaltis: todos los participantes tiran antes de repetir', false, e.stack);
 }
+try {
+  require('./barrido-resistencia.js');
+  caso('Barrido: conserva progreso y distingue interrupciones', true);
+} catch (e) {
+  caso('Barrido: conserva progreso y distingue interrupciones', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);

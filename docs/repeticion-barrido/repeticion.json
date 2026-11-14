@@ -1,0 +1,1531 @@
+{
+  "revision": "bf22a8feff3d284ab1a5996b454fe4117b3dbebe",
+  "inicio": "2026-11-14T18:58:08.564Z",
+  "limite": null,
+  "finalizado": true,
+  "partidas": [
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 1,
+      "comprobaciones": 358563,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Barcelona": 4,
+        "Atlético Bilbao": 1
+      },
+      "europa": {
+        "Stade de Reims": 2,
+        "Real Madrid": 1,
+        "Manchester United": 3,
+        "Barcelona": 1,
+        "Schalke 04": 2,
+        "Kaiserslautern": 1,
+        "Ajax": 1,
+        "Borussia Dortmund": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87315,
+      "cesiones": 624,
+      "regresos": 567,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 2,
+      "comprobaciones": 359052,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 4,
+        "Real Madrid": 5,
+        "Atlético Bilbao": 2,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Real Madrid": 6,
+        "Barcelona": 2,
+        "Benfica": 2,
+        "Milan": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 87401,
+      "cesiones": 620,
+      "regresos": 561,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 3,
+      "comprobaciones": 359451,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 5,
+        "Barcelona": 5,
+        "Real Valladolid": 1,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Real Madrid": 4,
+        "Manchester United": 1,
+        "Barcelona": 3,
+        "Juventus": 1,
+        "Preston North End": 1,
+        "Celtic": 1,
+        "Tottenham Hotspur": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87560,
+      "cesiones": 564,
+      "regresos": 501,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 4,
+      "comprobaciones": 358646,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 8,
+        "Atlético Bilbao": 1,
+        "Real Madrid": 3
+      },
+      "europa": {
+        "Stade de Reims": 2,
+        "Barcelona": 5,
+        "Manchester United": 1,
+        "Real Madrid": 2,
+        "Hamburgo": 1,
+        "Partizán de Belgrado": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87356,
+      "cesiones": 633,
+      "regresos": 551,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 7,
+      "comprobaciones": 359778,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 3,
+        "Real Madrid": 9
+      },
+      "europa": {
+        "Real Madrid": 9,
+        "Manchester United": 3
+      },
+      "refinanciaciones": [],
+      "contratos": 87653,
+      "cesiones": 629,
+      "regresos": 555,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 7,
+      "comprobaciones": 136558,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 9,
+        "Atlético Madrid": 2,
+        "Barcelona": 1
+      },
+      "europa": {
+        "Atlético Madrid": 1,
+        "Real Madrid": 2,
+        "Bayern Múnich": 4,
+        "Borussia Dortmund": 1,
+        "PSV Eindhoven": 1,
+        "Roma": 1,
+        "Manchester City": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 33041,
+      "cesiones": 19,
+      "regresos": 18,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 9,
+      "comprobaciones": 359420,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 4,
+        "Real Madrid": 6,
+        "Real Valladolid": 1,
+        "Sevilla": 1
+      },
+      "europa": {
+        "Real Madrid": 3,
+        "Benfica": 2,
+        "Partizán de Belgrado": 1,
+        "Barcelona": 2,
+        "Anderlecht": 1,
+        "Schalke 04": 1,
+        "Manchester United": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87562,
+      "cesiones": 635,
+      "regresos": 565,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 9,
+      "comprobaciones": 136401,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 10,
+        "Atlético Madrid": 1,
+        "Barcelona": 1
+      },
+      "europa": {
+        "Paris Saint-Germain": 3,
+        "Manchester United": 1,
+        "Manchester City": 4,
+        "Barcelona": 1,
+        "Real Madrid": 3
+      },
+      "refinanciaciones": [],
+      "contratos": 32979,
+      "cesiones": 24,
+      "regresos": 24,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 10,
+      "comprobaciones": 359930,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 9,
+        "Valencia": 1,
+        "Atlético Bilbao": 2
+      },
+      "europa": {
+        "Real Madrid": 5,
+        "Stade de Reims": 2,
+        "Juventus": 1,
+        "Anderlecht": 1,
+        "Atlético Madrid": 1,
+        "Milan": 1,
+        "Schalke 04": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87658,
+      "cesiones": 592,
+      "regresos": 512,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 11,
+      "comprobaciones": 360263,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Barcelona": 4,
+        "Sevilla": 1
+      },
+      "europa": {
+        "Real Madrid": 1,
+        "Barcelona": 2,
+        "Arsenal": 1,
+        "Dukla Praga": 1,
+        "Manchester United": 3,
+        "Juventus": 1,
+        "Milan": 1,
+        "Bologna": 1,
+        "Wolverhampton Wanderers": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87730,
+      "cesiones": 655,
+      "regresos": 588,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 12,
+      "comprobaciones": 360675,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 5,
+        "Real Madrid": 4,
+        "Atlético Bilbao": 2,
+        "Valencia": 1
+      },
+      "europa": {
+        "Real Madrid": 4,
+        "Barcelona": 2,
+        "Atlético Bilbao": 1,
+        "Manchester United": 2,
+        "Borussia Dortmund": 1,
+        "Juventus": 1,
+        "Bayern Múnich": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87801,
+      "cesiones": 595,
+      "regresos": 528,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 13,
+      "comprobaciones": 358616,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 4,
+        "Barcelona": 4,
+        "Atlético Bilbao": 1,
+        "Valencia": 2,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Real Madrid": 1,
+        "Barcelona": 8,
+        "Manchester United": 1,
+        "Benfica": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87311,
+      "cesiones": 622,
+      "regresos": 556,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 13,
+      "comprobaciones": 136583,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 11,
+        "Barcelona": 1
+      },
+      "europa": {
+        "Liverpool": 1,
+        "Real Madrid": 3,
+        "Bayern Múnich": 2,
+        "Manchester City": 4,
+        "Atlético Madrid": 1,
+        "Manchester United": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 32988,
+      "cesiones": 19,
+      "regresos": 19,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 14,
+      "comprobaciones": 359315,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 3,
+        "Real Madrid": 7,
+        "Atlético Bilbao": 2
+      },
+      "europa": {
+        "Real Madrid": 4,
+        "Barcelona": 4,
+        "Manchester United": 2,
+        "Juventus": 1,
+        "Milan": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87552,
+      "cesiones": 626,
+      "regresos": 565,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 15,
+      "comprobaciones": 358906,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 3,
+        "Real Madrid": 5,
+        "Valencia": 2,
+        "Atlético Bilbao": 2
+      },
+      "europa": {
+        "MTK Budapest": 1,
+        "Barcelona": 1,
+        "CDNA Sofía": 1,
+        "Real Madrid": 3,
+        "Wolverhampton Wanderers": 1,
+        "Manchester United": 3,
+        "Schalke 04": 1,
+        "Torino": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87426,
+      "cesiones": 545,
+      "regresos": 482,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 15,
+      "comprobaciones": 136411,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Atlético Madrid": 1,
+        "Real Madrid": 9,
+        "Barcelona": 2
+      },
+      "europa": {
+        "Manchester City": 3,
+        "Liverpool": 3,
+        "Paris Saint-Germain": 1,
+        "Real Madrid": 1,
+        "Inter": 2,
+        "Bayern Múnich": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 32992,
+      "cesiones": 21,
+      "regresos": 21,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 16,
+      "comprobaciones": 358936,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 5,
+        "Barcelona": 5,
+        "Atlético Bilbao": 1,
+        "Real Valladolid": 1
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Barcelona": 3,
+        "Sporting de Portugal": 1,
+        "Manchester United": 4,
+        "Fiorentina": 1,
+        "Torino": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87385,
+      "cesiones": 622,
+      "regresos": 552,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 17,
+      "comprobaciones": 358625,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 4,
+        "Real Madrid": 3,
+        "Atlético Bilbao": 3,
+        "Atlético Madrid": 2
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Barcelona": 2,
+        "Inter": 3,
+        "Juventus": 1,
+        "Fiorentina": 1,
+        "Borussia Dortmund": 1,
+        "Atlético Madrid": 1,
+        "Tottenham Hotspur": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87335,
+      "cesiones": 602,
+      "regresos": 532,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 18,
+      "comprobaciones": 359347,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 2,
+        "Real Madrid": 9,
+        "Real Valladolid": 1
+      },
+      "europa": {
+        "Real Madrid": 5,
+        "CDNA Sofía": 1,
+        "Manchester United": 2,
+        "Atlético Bilbao": 2,
+        "Milan": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87506,
+      "cesiones": 623,
+      "regresos": 551,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 18,
+      "comprobaciones": 239329,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Atlético Bilbao": 3,
+        "Barcelona": 2
+      },
+      "europa": {
+        "Partizán de Belgrado": 1,
+        "Real Madrid": 4,
+        "Barcelona": 1,
+        "Celtic": 1,
+        "Ajax": 3,
+        "Juventus": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 57891,
+      "cesiones": 411,
+      "regresos": 378,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 18,
+      "comprobaciones": 136378,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 3,
+        "Real Madrid": 9
+      },
+      "europa": {
+        "Atlético Madrid": 1,
+        "Paris Saint-Germain": 1,
+        "Arsenal": 1,
+        "Manchester City": 1,
+        "Real Madrid": 4,
+        "Juventus": 1,
+        "Oporto": 2,
+        "Barcelona": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 33014,
+      "cesiones": 20,
+      "regresos": 20,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 19,
+      "comprobaciones": 360090,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 4,
+        "Barcelona": 4,
+        "Atlético Bilbao": 4
+      },
+      "europa": {
+        "Sporting de Portugal": 1,
+        "Manchester United": 4,
+        "Real Madrid": 1,
+        "Juventus": 1,
+        "Benfica": 1,
+        "Partizán de Belgrado": 1,
+        "Núremberg": 3
+      },
+      "refinanciaciones": [],
+      "contratos": 87701,
+      "cesiones": 602,
+      "regresos": 529,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 20,
+      "comprobaciones": 359515,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 6,
+        "Barcelona": 5,
+        "Valencia": 1
+      },
+      "europa": {
+        "Stade de Reims": 1,
+        "Real Madrid": 2,
+        "Barcelona": 5,
+        "Manchester United": 3,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87581,
+      "cesiones": 619,
+      "regresos": 546,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 20,
+      "comprobaciones": 239695,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Atlético Bilbao": 3,
+        "Real Madrid": 5,
+        "Barcelona": 4
+      },
+      "europa": {
+        "Anderlecht": 1,
+        "Manchester United": 4,
+        "Atlético Bilbao": 1,
+        "Arsenal": 1,
+        "Benfica": 1,
+        "Saint-Étienne": 2,
+        "Tottenham Hotspur": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 58008,
+      "cesiones": 433,
+      "regresos": 393,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 20,
+      "comprobaciones": 136643,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 6,
+        "Barcelona": 5,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Atlético Madrid": 1,
+        "Real Madrid": 3,
+        "Barcelona": 2,
+        "Manchester City": 5,
+        "Benfica": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 33041,
+      "cesiones": 18,
+      "regresos": 16,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 21,
+      "comprobaciones": 358916,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 4,
+        "Barcelona": 6,
+        "Atlético Bilbao": 1,
+        "Sevilla": 1
+      },
+      "europa": {
+        "Real Madrid": 5,
+        "Juventus": 1,
+        "Núremberg": 2,
+        "Barcelona": 2,
+        "Manchester United": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87350,
+      "cesiones": 636,
+      "regresos": 573,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 21,
+      "comprobaciones": 239812,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 2,
+        "Real Madrid": 7,
+        "Atlético Madrid": 1,
+        "Atlético Bilbao": 2
+      },
+      "europa": {
+        "Partizán de Belgrado": 1,
+        "Manchester United": 7,
+        "Tottenham Hotspur": 2,
+        "Colonia": 1,
+        "Juventus": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 58019,
+      "cesiones": 405,
+      "regresos": 372,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 22,
+      "comprobaciones": 359347,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 8,
+        "Atlético Bilbao": 1,
+        "Barcelona": 3
+      },
+      "europa": {
+        "Real Madrid": 3,
+        "Manchester United": 4,
+        "Wolverhampton Wanderers": 4,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87508,
+      "cesiones": 616,
+      "regresos": 536,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 23,
+      "comprobaciones": 359158,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 8,
+        "Atlético Bilbao": 2,
+        "Atlético Madrid": 1,
+        "Barcelona": 1
+      },
+      "europa": {
+        "Wolverhampton Wanderers": 1,
+        "Estrella Roja": 1,
+        "Real Madrid": 4,
+        "Manchester United": 3,
+        "Anderlecht": 1,
+        "Atlético Madrid": 1,
+        "Chelsea": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87507,
+      "cesiones": 646,
+      "regresos": 580,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 23,
+      "comprobaciones": 136478,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 10,
+        "Barcelona": 1,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Atlético Madrid": 1,
+        "Arsenal": 2,
+        "Manchester City": 2,
+        "Bayern Múnich": 1,
+        "Barcelona": 1,
+        "Milan": 2,
+        "Inter": 1,
+        "Liverpool": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 32966,
+      "cesiones": 16,
+      "regresos": 16,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 25,
+      "comprobaciones": 359113,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Barcelona": 4,
+        "Atlético Bilbao": 1
+      },
+      "europa": {
+        "Real Madrid": 6,
+        "Partizán de Belgrado": 1,
+        "Milan": 1,
+        "Manchester United": 2,
+        "Torino": 1,
+        "Kaiserslautern": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87409,
+      "cesiones": 556,
+      "regresos": 491,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 26,
+      "comprobaciones": 358984,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 4,
+        "Barcelona": 5,
+        "Atlético Bilbao": 1,
+        "Atlético Madrid": 2
+      },
+      "europa": {
+        "Real Madrid": 3,
+        "Barcelona": 4,
+        "Benfica": 2,
+        "Manchester United": 1,
+        "Hamburgo": 1,
+        "Schalke 04": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87389,
+      "cesiones": 585,
+      "regresos": 523,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 27,
+      "comprobaciones": 359413,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 5,
+        "Real Madrid": 7
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Barcelona": 1,
+        "Benfica": 2,
+        "Oporto": 1,
+        "Wolverhampton Wanderers": 2,
+        "Fiorentina": 1,
+        "Borussia Dortmund": 1,
+        "Ajax": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 87519,
+      "cesiones": 667,
+      "regresos": 588,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1970,
+      "temporadas": 12,
+      "semilla": 27,
+      "comprobaciones": 193489,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 4,
+        "Barcelona": 7,
+        "Atlético Bilbao": 1
+      },
+      "europa": {
+        "Manchester United": 1,
+        "Real Madrid": 2,
+        "Liverpool": 2,
+        "Bayern Múnich": 2,
+        "Barcelona": 3,
+        "Tottenham Hotspur": 1,
+        "Milan": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 45993,
+      "cesiones": 413,
+      "regresos": 374,
+      "nominas": 2695,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 28,
+      "comprobaciones": 358470,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 5,
+        "Real Madrid": 5,
+        "Valencia": 1,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Stade de Reims": 2,
+        "Real Madrid": 4,
+        "Manchester United": 3,
+        "Barcelona": 1,
+        "Kaiserslautern": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 87275,
+      "cesiones": 599,
+      "regresos": 535,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 29,
+      "comprobaciones": 359256,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 5,
+        "Barcelona": 7
+      },
+      "europa": {
+        "Stade de Reims": 1,
+        "Real Madrid": 2,
+        "Barcelona": 3,
+        "Juventus": 1,
+        "Inter": 2,
+        "Bologna": 1,
+        "Manchester United": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87464,
+      "cesiones": 584,
+      "regresos": 506,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 30,
+      "comprobaciones": 359374,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 6,
+        "Real Madrid": 4,
+        "Atlético Bilbao": 1,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Wolverhampton Wanderers": 2,
+        "Barcelona": 2,
+        "Real Madrid": 3,
+        "Manchester United": 1,
+        "Atlético Bilbao": 4
+      },
+      "refinanciaciones": [],
+      "contratos": 87541,
+      "cesiones": 659,
+      "regresos": 585,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 30,
+      "comprobaciones": 239273,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Barcelona": 3,
+        "Atlético Madrid": 2
+      },
+      "europa": {
+        "Anderlecht": 1,
+        "Juventus": 1,
+        "Real Madrid": 3,
+        "Barcelona": 1,
+        "Manchester United": 3,
+        "Ajax": 1,
+        "Hamburgo": 1,
+        "Milan": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 57909,
+      "cesiones": 362,
+      "regresos": 327,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 31,
+      "comprobaciones": 359518,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 5,
+        "Barcelona": 6,
+        "Atlético Bilbao": 1
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Manchester United": 5,
+        "Partizán de Belgrado": 1,
+        "Barcelona": 1,
+        "Fiorentina": 1,
+        "Celtic": 1,
+        "Kaiserslautern": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87553,
+      "cesiones": 620,
+      "regresos": 550,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 31,
+      "comprobaciones": 239488,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 6,
+        "Barcelona": 4,
+        "Real Valladolid": 1,
+        "Atlético Madrid": 1
+      },
+      "europa": {
+        "Dukla Praga": 1,
+        "Manchester United": 3,
+        "Real Madrid": 1,
+        "Juventus": 3,
+        "Barcelona": 1,
+        "Kaiserslautern": 1,
+        "Milan": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 57967,
+      "cesiones": 394,
+      "regresos": 354,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 32,
+      "comprobaciones": 359245,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 5,
+        "Real Madrid": 2,
+        "Atlético Bilbao": 2,
+        "Sevilla": 3
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Manchester United": 4,
+        "Barcelona": 2,
+        "Niza": 1,
+        "Sevilla": 1,
+        "Juventus": 1,
+        "Wolverhampton Wanderers": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87457,
+      "cesiones": 574,
+      "regresos": 492,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 33,
+      "comprobaciones": 358612,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Atlético Bilbao": 1,
+        "Barcelona": 7,
+        "Real Madrid": 4
+      },
+      "europa": {
+        "Real Madrid": 3,
+        "Estrella Roja": 1,
+        "Barcelona": 5,
+        "Stade de Reims": 1,
+        "Atlético Bilbao": 1,
+        "Manchester United": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87370,
+      "cesiones": 611,
+      "regresos": 542,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 2025,
+      "temporadas": 12,
+      "semilla": 33,
+      "comprobaciones": 136605,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 8,
+        "Barcelona": 4
+      },
+      "europa": {
+        "Real Madrid": 5,
+        "Barcelona": 2,
+        "Arsenal": 2,
+        "Manchester City": 2,
+        "Oporto": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 32998,
+      "cesiones": 19,
+      "regresos": 19,
+      "nominas": 1968,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 34,
+      "comprobaciones": 359022,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 6,
+        "Barcelona": 4,
+        "Atlético Bilbao": 1,
+        "Valencia": 1
+      },
+      "europa": {
+        "MTK Budapest": 1,
+        "Estrella Roja": 1,
+        "Real Madrid": 1,
+        "Stade de Reims": 1,
+        "Barcelona": 2,
+        "Manchester United": 3,
+        "Tottenham Hotspur": 1,
+        "Milan": 1,
+        "Kaiserslautern": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87440,
+      "cesiones": 582,
+      "regresos": 510,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 35,
+      "comprobaciones": 359252,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 3,
+        "Atlético Bilbao": 2,
+        "Real Madrid": 6,
+        "Real Valladolid": 1
+      },
+      "europa": {
+        "MTK Budapest": 1,
+        "Barcelona": 3,
+        "Feyenoord": 1,
+        "Benfica": 1,
+        "Manchester United": 4,
+        "Stade de Reims": 1,
+        "Real Madrid": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87500,
+      "cesiones": 592,
+      "regresos": 534,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 36,
+      "comprobaciones": 239330,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 9,
+        "Barcelona": 2,
+        "Sevilla": 1
+      },
+      "europa": {
+        "Sporting de Portugal": 1,
+        "Real Madrid": 2,
+        "Manchester United": 4,
+        "Milan": 1,
+        "Juventus": 2,
+        "Ajax": 1,
+        "Inter": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 57953,
+      "cesiones": 362,
+      "regresos": 326,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 37,
+      "comprobaciones": 358819,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 2,
+        "Atlético Bilbao": 4,
+        "Real Madrid": 5,
+        "Real Valladolid": 1
+      },
+      "europa": {
+        "Real Madrid": 2,
+        "Manchester United": 2,
+        "Barcelona": 2,
+        "Tottenham Hotspur": 1,
+        "Torino": 4,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87412,
+      "cesiones": 615,
+      "regresos": 533,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 37,
+      "comprobaciones": 239323,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 6,
+        "Barcelona": 5,
+        "Atlético Bilbao": 1
+      },
+      "europa": {
+        "Partizán de Belgrado": 1,
+        "Real Madrid": 2,
+        "Manchester United": 3,
+        "Milan": 4,
+        "Liverpool": 1,
+        "Ajax": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 57877,
+      "cesiones": 390,
+      "regresos": 341,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 38,
+      "comprobaciones": 359371,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 7,
+        "Barcelona": 1,
+        "Valencia": 1,
+        "Atlético Bilbao": 3
+      },
+      "europa": {
+        "Stade de Reims": 1,
+        "Real Madrid": 3,
+        "Manchester United": 3,
+        "CDNA Sofía": 2,
+        "Fiorentina": 1,
+        "Inter": 1,
+        "Juventus": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 87505,
+      "cesiones": 580,
+      "regresos": 526,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1958,
+      "temporadas": 12,
+      "semilla": 39,
+      "comprobaciones": 358827,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Barcelona": 4,
+        "Atlético Bilbao": 3,
+        "Real Madrid": 4,
+        "Valencia": 1
+      },
+      "europa": {
+        "MTK Budapest": 2,
+        "Estrella Roja": 1,
+        "Barcelona": 1,
+        "Manchester United": 4,
+        "Inter": 1,
+        "Stade de Reims": 1,
+        "Borussia Dortmund": 2
+      },
+      "refinanciaciones": [],
+      "contratos": 87352,
+      "cesiones": 586,
+      "regresos": 518,
+      "nominas": 4583,
+      "salida": 0,
+      "senal": null
+    },
+    {
+      "inicio": 1962,
+      "temporadas": 12,
+      "semilla": 40,
+      "comprobaciones": 238443,
+      "temporadasCompletadas": 12,
+      "fallos": [],
+      "muestras": [],
+      "liga": {
+        "Real Madrid": 9,
+        "Atlético Bilbao": 1,
+        "Atlético Madrid": 1,
+        "Barcelona": 1
+      },
+      "europa": {
+        "Milan": 2,
+        "Real Madrid": 4,
+        "Manchester United": 2,
+        "Liverpool": 1,
+        "Ajax": 1,
+        "Hamburgo": 1,
+        "Bayern Múnich": 1
+      },
+      "refinanciaciones": [],
+      "contratos": 57682,
+      "cesiones": 395,
+      "regresos": 359,
+      "nominas": 3075,
+      "salida": 0,
+      "senal": null
+    }
+  ],
+  "erroresPublicacion": [],
+  "fin": "2026-11-14T19:53:02.439Z"
+}
