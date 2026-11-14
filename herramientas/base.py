@@ -112,6 +112,11 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
     for clave, j in jugadores.items():
         por_anio[anio_nac(clave[1])].append((toks(clave[0]), clave, {p[0] for p in j['carrera']}))
     nuevos = {}
+    # Quien tiene en Wikidata a alguien con su mismo nombre exacto y año no se une con otro que solo se le parezca
+    # (a Dino Zoff se le pegaba la carrera de otro Dino de 1942 que también pasó por el Udinese).
+    exactos_wd = defaultdict(set)
+    for f in lee('jugadores_wikidata.csv'):
+        exactos_wd[anio_nac(f['nacimiento'].strip())].add(frozenset(toks(f['nombre'].strip())))
     for f in lee('jugadores_wikidata.csv'):
         clave = (f['nombre'].strip(), f['nacimiento'].strip())
         if f['wikidata'] in mujeres: n_wd['mujeres'] += 1; continue
@@ -124,8 +129,9 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
         ps = [p for p in ps if 15 <= p[2] - y <= 50]
         if not ps: continue
         t, clubes_wd, igual = toks(clave[0]), {p[0] for p in ps}, None
-        for tb, cb, clubs_b in por_anio.get(y, ()):
+        for tb, cb, clubs_b in sorted(por_anio.get(y, ()), key=lambda x: x[0] != t):
             comun = tb & t
+            if tb != t and frozenset(tb) in exactos_wd[y]: continue
             # Mismo año y mismo nombre (o uno dentro del otro); o mismo club y una palabra larga en común; o misma fecha exacta y algo en común.
             if (tb and t and (tb == t or (len(tb) > 1 and tb <= t) or (len(t) > 1 and t <= tb))) \
                or (clubs_b & clubes_wd and any(len(w) >= 4 for w in comun)) \
