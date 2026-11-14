@@ -619,7 +619,7 @@ function premiosMundo(V) {
   const puestoEn = new Map(), porEquipo = new Map();
   G.filter((x) => x.pj >= 15).forEach((x) => { if (!porEquipo.has(x.eq.nombre)) porEquipo.set(x.eq.nombre, []); porEquipo.get(x.eq.nombre).push(x); });
   porEquipo.forEach((xs) => xs.sort(porNota).forEach((x, i) => puestoEn.set(x, i)));
-  const peso = (x) => { const i = puestoEn.has(x) ? puestoEn.get(x) : 9; return i === 0 ? 1 : i <= 2 ? 0.6 : 0.2; };
+  const peso = (x) => { const i = puestoEn.has(x) ? puestoEn.get(x) : 9; return i === 0 ? 1 : i <= 2 ? 0.65 : 0.2; };
   // Y la liga donde se juega: brillar en una liga floja vale menos que hacerlo contra los mejores.
   const fuerzaLiga = {};
   if (V.fuerza) paisesDe(V).forEach((p) => { const fs = ligasDe(V, p).filter((l) => l.nivel === 1).flatMap((l) => l.T.tabla.map((t) => V.fuerza[t.nombre] || 0)).sort((a, b) => b - a).slice(0, 4); if (fs.length) fuerzaLiga[p] = fs.reduce((a, b) => a + b, 0) / fs.length; });
@@ -628,7 +628,9 @@ function premiosMundo(V) {
   // Y la clase: el Balón de Oro va a un jugador grande de verdad. A igual temporada pesa quién es mejor, y los títulos
   // cuentan menos para un jugador corriente del equipo campeón (antes lo ganaba un medio de 680 con seis goles).
   const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
-  const clase = (x) => Math.max(-0.6, Math.min(0.6, (nivelEn(x) - 800) / 300)), talla = (x) => Math.max(0.3, Math.min(1, (nivelEn(x) - 620) / 230));
+  // La clase desempata, no decide: con ±0,6 bastaba ser el de más nivel para ganarlo sin títulos (queja de Anthony:
+  // Ronaldo con 47 goles y nada ganado por delante de Raúl con 28, la liga y la Copa de Europa siendo la figura).
+  const clase = (x) => Math.max(-0.3, Math.min(0.2, (nivelEn(x) - 800) / 500)), talla = (x) => Math.max(0.45, Math.min(1, (nivelEn(x) - 600) / 180));
   // El Balón de Oro mira lo mismo que el de verdad, en su orden:
   // 1) el rendimiento individual y lo decisivo que fue (nota, goles, asistencias y goles en la Copa de Europa);
   // 2) lo que ganó su equipo (Copa de Europa, liga, Mundial, Eurocopa o Copa América, otras copas);
@@ -640,8 +642,8 @@ function premiosMundo(V) {
   }
   const golesEU = (x) => (x.por && x.por.Europa ? x.por.Europa.g || 0 : 0);
   const individual = (x) => x.notaTemp + Math.min(0.3, (x.g || 0) / 200) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.25, golesEU(x) / 40) - (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) - descuento(x);
-  const colectivo = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0)
-    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.45 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
+  const colectivo = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
+    + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (otrosTitulos.get(x.eq.nombre) || 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * Math.max(0.3, peso(x)) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
