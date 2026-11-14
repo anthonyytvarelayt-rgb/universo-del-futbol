@@ -725,7 +725,19 @@
     });
   }
 
+  // Igualdad de cada época en las ligas. Con los mismos niveles, el campeón arrasaba más que en la realidad entre 1965 y
+  // 2005 (84 % de los puntos en la Liga de los 70, cuando lo real era un 70 %): en aquel fútbol la diferencia de plantilla
+  // pesaba menos. Aquí se ensancha la escala (cada punto de nivel vale menos) según el año. No toca copas ni Europa.
+  const PARIDAD = [[1962, 1], [1970, 1.5], [2000, 1.5], [2008, 1.15], [2030, 1.15]];
+  const paridadEpoca = (anio) => interpola(anio || 1958, PARIDAD);
   function temporada(equipos, opciones) {
+    const e0 = P.escala, par = paridadEpoca((opciones || {}).anio);
+    P.escala = e0 * par;
+    // Con más igualdad se pierden algunas goleadas: se devuelve ese poco de gol para que cada época siga en su media.
+    const op = par === 1 ? opciones : Object.assign({}, opciones, { factorGoles: ((opciones || {}).factorGoles || 1) * (1 + 0.1 * (par - 1)) });
+    try { return temporadaLiga(equipos, op); } finally { P.escala = e0; }
+  }
+  function temporadaLiga(equipos, opciones) {
     const op = Object.assign({ semilla: Date.now() % 1e9, puntosVictoria: 2, alJugar: null, anio: 1958, cambios: 0, estado: null, derbis: [], factorGoles: 1 }, opciones);
     const r = rng(op.semilla);
     const est = op.estado || nuevoEstado(op.anio, op.derbis);
