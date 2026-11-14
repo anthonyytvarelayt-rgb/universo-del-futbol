@@ -1377,8 +1377,10 @@
       });
     };
     // Los emblemas de un club no se van mientras están en edad de jugar arriba (luego, si acaso, a despedirse lejos; nunca al rival).
-    const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
-    const atado = (j, v) => emblema(j, v) || (quiereCasa(j, v) && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
+    // En Sudamérica no: nada impide a sus cracks irse a Europa (Zico, Francescoli, Riquelme se fueron). Solo Pelé, tesoro nacional (CONSTANTES).
+    const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && !NO_EUROPA.includes(v.pais) && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
+    const crackSud = (j, v) => NO_EUROPA.includes(v.pais) && Motor.escala.mostrar(j.niv) >= 700;
+    const atado = (j, v) => emblema(j, v) || (quiereCasa(j, v) && !crackSud(j, v) && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
     M.clubes.forEach((c) => { if (c.division === 1) c.jugadores.forEach((j) => { if (j.choque === M.anio || (caracterDe(j) === 'conflictivo' && !j.cons && nuevoAnio - anioNac(j) >= 22 && aniosEn(j, c) >= 2 && r() < 0.15)) lios.add(j); }); });
@@ -1547,13 +1549,14 @@
     // mundo quedaban repartidos por cincuenta clubes (De Bruyne en el Auxerre, Neymar toda su carrera en el Santos), los
     // grandes se desinflaban y cualquiera ganaba la Champions. Cada verano, los mejores jugadores del mundo que no están
     // en un club de élite reciben la oferta de uno donde serían titulares; cuanto mejor el jugador, más probable.
-    if (fluidez > 0) {
+    if (fluidez > 0 || nuevoAnio >= 1960) {
+      const soloSud = fluidez === 0;  // antes de 1980 solo se mueven así los cracks de Sudamérica (el resto de Europa iba por su mercado)
       const europeos = [...fuerzas.keys()].filter((c) => !NO_EUROPA.includes(c.pais));
       // La élite son los veinte clubes europeos de más prestigio: no solo los cinco gigantes, también los Valencia, Roma o Dortmund de cada época.
       const elite = europeos.filter((c) => c.prestigio >= 640).sort((a, b) => b.prestigio - a.prestigio).slice(0, 20);
       const esElite = new Set(elite), llegadas = new Map();
       const estrellas = [];
-      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if (!j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
+      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if ((!soloSud || crackSud(j, v)) && !j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
       estrellas.sort((a, b) => b.j.niv - a.j.niv);
       const N = Math.round(40 + 110 * fluidez);
       // Subir desde un club de élite: a uno claramente más fuerte de su liga, o de una liga menor a un grande de las cuatro grandes.
@@ -1572,7 +1575,7 @@
         const K = CONSTANTES[j.n];
         if (K && K.club === v.nombre && nuevoAnio <= K.fiel) return;
         // Cuanto más arriba en la lista, menos tarda en salir: el número 1 se va casi seguro, el 100 una vez de cada cuatro.
-        if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * fluidez) * (yaElite ? 0.7 : 1)) return;
+        if (r() > (0.9 - 0.55 * k / N) * (0.5 + 0.5 * (soloSud ? 0.3 : fluidez)) * (yaElite ? 0.7 : 1)) return;
         const titular = (c) => { const xs = c.jugadores.filter((x) => x.pos === j.pos && !x.cedido).map((x) => x.niv).sort((a, b) => b - a); const n = IDEAL_ONCE[j.pos]; return xs.length < n ? 0 : xs[n - 1]; };
         const destinos = elite.filter((c) => c !== v && (llegadas.get(c) || 0) < 2 && !sobrado(c) && j.niv > titular(c) + 5 && puedeEntrar(j, c) && seVende(j, v, c) && puedePagar(c, j)
           && (!inquieto || lios.has(j) || (quiere === 'titulos' ? fuerzas.get(c) > (fuerzas.get(v) || 0) + 15 : quiere === 'reto' ? c.pais !== v.pais && c.prestigio >= v.prestigio - 80 : presupuesto(c, nuevoAnio) > presupuesto(v, nuevoAnio) * 1.1))
