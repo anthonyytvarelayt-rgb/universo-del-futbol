@@ -143,7 +143,7 @@ async function nuevaPartida(guardada) {
   TEMPORADAS = Math.max(1, ANIOS[ANIOS.length - 1] - anioInicio + 1);
   // Con una foto de esta partida se empieza en su temporada; sin ella, desde el principio.
   const f = guardada ? await leerFoto() : null;
-  if (f && f.semilla === semilla && f.numPartida === numPartida && f.anio === anioInicio && f.k > 0 && f.k <= guardada.k) {
+  if (f && f.version === VERSION_GUARDADO && f.semilla === semilla && f.numPartida === numPartida && f.anio === anioInicio && f.k > 0 && f.k <= guardada.k) {
     k = f.k; cerradas = f.cerradas; teletipo = f.teletipo;
     sim.enviar({ tipo: 'restaurar', semilla, base: BASE, anio: anioInicio, W: f.W, rr: f.rr });
   } else sim.enviar({ tipo: 'iniciar', semilla, base: BASE, anio: anioInicio });
@@ -308,6 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
+const VERSION_GUARDADO = 82;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -321,7 +322,7 @@ async function prepararAlmacen() {
 let ultimoGuardado = '';
 async function guardar() {
   if (!S) return;
-  const datos = { version: 82, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
+  const datos = { version: VERSION_GUARDADO, semilla, numPartida, anio: anioInicio, k, iPaso, temporada: S.temporada, cuando: new Date().toISOString() };
   const clave = `${semilla}|${k}|${iPaso}`;
   if (clave === ultimoGuardado) return;
   ultimoGuardado = clave;
@@ -353,7 +354,11 @@ function fotos(modo, hacer) {
     } catch (e) { res(null); }
   });
 }
-const guardarFoto = (f) => fotos('readwrite', (st) => st.put({ semilla, numPartida, anio: anioInicio, k: f.k, W: f.W, rr: f.rr, cerradas: f.cerradas, teletipo: f.teletipo }, 'ultima'));
+const guardarFoto = (f) => {
+  // La identidad pertenece a esta solicitud, aunque la transacción se abra después de cambiar de partida.
+  const foto = { version: VERSION_GUARDADO, semilla, numPartida, anio: anioInicio, k: f.k, W: f.W, rr: f.rr, cerradas: f.cerradas, teletipo: f.teletipo };
+  return fotos('readwrite', (st) => st.put(foto, 'ultima'));
+};
 const leerFoto = () => fotos('readonly', (st) => st.get('ultima'));
 async function borrarGuardada() {
   await fotos('readwrite', (st) => st.delete('ultima'));
@@ -3239,7 +3244,7 @@ $('tema').addEventListener('click', () => {
   pintarMandos();
   almacen = await Promise.race([prepararAlmacen(), new Promise((res) => setTimeout(() => res(null), 4000))]);
   const g = await leerGuardada();
-  if (g && g.version === 82) { hayGuardada = true; nuevaPartida(g); }
+  if (g && g.version === VERSION_GUARDADO) { hayGuardada = true; nuevaPartida(g); }
   else abrirInicio();
 })();
 
