@@ -1,0 +1,365 @@
+{
+  "errores": [],
+  "resultados": [
+    {
+      "width": 320,
+      "s": "hoy",
+      "ancho": 320,
+      "pagina": 320,
+      "desbordes": []
+    },
+    {
+      "width": 320,
+      "s": "comp",
+      "ancho": 320,
+      "pagina": 320,
+      "desbordes": []
+    },
+    {
+      "width": 320,
+      "s": "mundo",
+      "ancho": 320,
+      "pagina": 320,
+      "desbordes": []
+    },
+    {
+      "width": 320,
+      "s": "historia",
+      "ancho": 320,
+      "pagina": 320,
+      "desbordes": []
+    },
+    {
+      "width": 320,
+      "s": "ficha",
+      "pagina": 320,
+      "hoja": 318,
+      "ancho": 318,
+      "atributos": 0
+    },
+    {
+      "width": 360,
+      "s": "hoy",
+      "ancho": 360,
+      "pagina": 360,
+      "desbordes": []
+    },
+    {
+      "width": 360,
+      "s": "comp",
+      "ancho": 360,
+      "pagina": 360,
+      "desbordes": []
+    },
+    {
+      "width": 360,
+      "s": "mundo",
+      "ancho": 360,
+      "pagina": 360,
+      "desbordes": []
+    },
+    {
+      "width": 360,
+      "s": "historia",
+      "ancho": 360,
+      "pagina": 360,
+      "desbordes": []
+    },
+    {
+      "width": 360,
+      "s": "ficha",
+      "pagina": 360,
+      "hoja": 358,
+      "ancho": 358,
+      "atributos": 0
+    },
+    {
+      "width": 390,
+      "s": "hoy",
+      "ancho": 390,
+      "pagina": 390,
+      "desbordes": []
+    },
+    {
+      "width": 390,
+      "s": "comp",
+      "ancho": 390,
+      "pagina": 390,
+      "desbordes": []
+    },
+    {
+      "width": 390,
+      "s": "mundo",
+      "ancho": 390,
+      "pagina": 390,
+      "desbordes": []
+    },
+    {
+      "width": 390,
+      "s": "historia",
+      "ancho": 390,
+      "pagina": 390,
+      "desbordes": []
+    },
+    {
+      "width": 390,
+      "s": "ficha",
+      "pagina": 390,
+      "hoja": 388,
+      "ancho": 388,
+      "atributos": 0
+    },
+    {
+      "width": 768,
+      "s": "hoy",
+      "ancho": 768,
+      "pagina": 768,
+      "desbordes": []
+    },
+    {
+      "width": 768,
+      "s": "comp",
+      "ancho": 768,
+      "pagina": 768,
+      "desbordes": []
+    },
+    {
+      "width": 768,
+      "s": "mundo",
+      "ancho": 768,
+      "pagina": 768,
+      "desbordes": []
+    },
+    {
+      "width": 768,
+      "s": "historia",
+      "ancho": 768,
+      "pagina": 768,
+      "desbordes": []
+    },
+    {
+      "width": 768,
+      "s": "ficha",
+      "pagina": 768,
+      "hoja": 766,
+      "ancho": 766,
+      "atributos": 0
+    },
+    {
+      "width": 980,
+      "s": "hoy",
+      "ancho": 980,
+      "pagina": 980,
+      "desbordes": []
+    },
+    {
+      "width": 980,
+      "s": "comp",
+      "ancho": 980,
+      "pagina": 980,
+      "desbordes": []
+    },
+    {
+      "width": 980,
+      "s": "mundo",
+      "ancho": 980,
+      "pagina": 980,
+      "desbordes": []
+    },
+    {
+      "width": 980,
+      "s": "historia",
+      "ancho": 980,
+      "pagina": 980,
+      "desbordes": []
+    },
+    {
+      "width": 980,
+      "s": "ficha",
+      "pagina": 980,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    },
+    {
+      "width": 1024,
+      "s": "hoy",
+      "ancho": 1024,
+      "pagina": 1024,
+      "desbordes": []
+    },
+    {
+      "width": 1024,
+      "s": "comp",
+      "ancho": 1024,
+      "pagina": 1024,
+      "desbordes": []
+    },
+    {
+      "width": 1024,
+      "s": "mundo",
+      "ancho": 1024,
+      "pagina": 1024,
+      "desbordes": []
+    },
+    {
+      "width": 1024,
+      "s": "historia",
+      "ancho": 1024,
+      "pagina": 1024,
+      "desbordes": []
+    },
+    {
+      "width": 1024,
+      "s": "ficha",
+      "pagina": 1024,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    },
+    {
+      "width": 1200,
+      "s": "hoy",
+      "ancho": 1200,
+      "pagina": 1200,
+      "desbordes": []
+    },
+    {
+      "width": 1200,
+      "s": "comp",
+      "ancho": 1200,
+      "pagina": 1200,
+      "desbordes": []
+    },
+    {
+      "width": 1200,
+      "s": "mundo",
+      "ancho": 1200,
+      "pagina": 1200,
+      "desbordes": []
+    },
+    {
+      "width": 1200,
+      "s": "historia",
+      "ancho": 1200,
+      "pagina": 1200,
+      "desbordes": []
+    },
+    {
+      "width": 1200,
+      "s": "ficha",
+      "pagina": 1200,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    },
+    {
+      "width": 1280,
+      "s": "hoy",
+      "ancho": 1280,
+      "pagina": 1280,
+      "desbordes": []
+    },
+    {
+      "width": 1280,
+      "s": "comp",
+      "ancho": 1280,
+      "pagina": 1280,
+      "desbordes": []
+    },
+    {
+      "width": 1280,
+      "s": "mundo",
+      "ancho": 1280,
+      "pagina": 1280,
+      "desbordes": []
+    },
+    {
+      "width": 1280,
+      "s": "historia",
+      "ancho": 1280,
+      "pagina": 1280,
+      "desbordes": []
+    },
+    {
+      "width": 1280,
+      "s": "ficha",
+      "pagina": 1280,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    },
+    {
+      "width": 1440,
+      "s": "hoy",
+      "ancho": 1440,
+      "pagina": 1440,
+      "desbordes": []
+    },
+    {
+      "width": 1440,
+      "s": "comp",
+      "ancho": 1440,
+      "pagina": 1440,
+      "desbordes": []
+    },
+    {
+      "width": 1440,
+      "s": "mundo",
+      "ancho": 1440,
+      "pagina": 1440,
+      "desbordes": []
+    },
+    {
+      "width": 1440,
+      "s": "historia",
+      "ancho": 1440,
+      "pagina": 1440,
+      "desbordes": []
+    },
+    {
+      "width": 1440,
+      "s": "ficha",
+      "pagina": 1440,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    },
+    {
+      "width": 1920,
+      "s": "hoy",
+      "ancho": 1920,
+      "pagina": 1920,
+      "desbordes": []
+    },
+    {
+      "width": 1920,
+      "s": "comp",
+      "ancho": 1920,
+      "pagina": 1920,
+      "desbordes": []
+    },
+    {
+      "width": 1920,
+      "s": "mundo",
+      "ancho": 1920,
+      "pagina": 1920,
+      "desbordes": []
+    },
+    {
+      "width": 1920,
+      "s": "historia",
+      "ancho": 1920,
+      "pagina": 1920,
+      "desbordes": []
+    },
+    {
+      "width": 1920,
+      "s": "ficha",
+      "pagina": 1920,
+      "hoja": 878,
+      "ancho": 878,
+      "atributos": 0
+    }
+  ]
+}

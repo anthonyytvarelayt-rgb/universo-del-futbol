@@ -1,0 +1,342 @@
+[
+  {
+    "theme": "light",
+    "era": "Los pioneros",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Los pioneros",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Los pioneros",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 7.234063753481229
+  },
+  {
+    "theme": "light",
+    "era": "Los pioneros",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.233356249490736
+  },
+  {
+    "theme": "light",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 8.015308729386442
+  },
+  {
+    "theme": "light",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 9.911660729532933
+  },
+  {
+    "theme": "light",
+    "era": "Llega Pelé",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Llega Pelé",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Llega Pelé",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 6.156499190555547
+  },
+  {
+    "theme": "light",
+    "era": "Llega Pelé",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.465379589569705
+  },
+  {
+    "theme": "light",
+    "era": "Fútbol total",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Fútbol total",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Fútbol total",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 6.356700426244341
+  },
+  {
+    "theme": "light",
+    "era": "Fútbol total",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.427320815818295
+  },
+  {
+    "theme": "light",
+    "era": "Maradona y el Milan",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Maradona y el Milan",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Maradona y el Milan",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 6.676967252668986
+  },
+  {
+    "theme": "light",
+    "era": "Maradona y el Milan",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.269823510120217
+  },
+  {
+    "theme": "light",
+    "era": "Messi y Cristiano",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 13.460682517252607
+  },
+  {
+    "theme": "light",
+    "era": "Messi y Cristiano",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 5.01011718979641
+  },
+  {
+    "theme": "light",
+    "era": "Messi y Cristiano",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 9.36215620510271
+  },
+  {
+    "theme": "light",
+    "era": "Messi y Cristiano",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 9.271133260733542
+  },
+  {
+    "theme": "dark",
+    "era": "Los pioneros",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Los pioneros",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Los pioneros",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 7.620711313880373
+  },
+  {
+    "theme": "dark",
+    "era": "Los pioneros",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.233356249490736
+  },
+  {
+    "theme": "dark",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 7.137392981308271
+  },
+  {
+    "theme": "dark",
+    "era": "Di Stéfano y la Copa de Europa",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 9.911660729532933
+  },
+  {
+    "theme": "dark",
+    "era": "Llega Pelé",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Llega Pelé",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Llega Pelé",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 8.078580577629783
+  },
+  {
+    "theme": "dark",
+    "era": "Llega Pelé",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.465379589569705
+  },
+  {
+    "theme": "dark",
+    "era": "Fútbol total",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Fútbol total",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Fútbol total",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 7.975922301218802
+  },
+  {
+    "theme": "dark",
+    "era": "Fútbol total",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.427320815818295
+  },
+  {
+    "theme": "dark",
+    "era": "Maradona y el Milan",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Maradona y el Milan",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Maradona y el Milan",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 7.802781932140303
+  },
+  {
+    "theme": "dark",
+    "era": "Maradona y el Milan",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 10.269823510120217
+  },
+  {
+    "theme": "dark",
+    "era": "Messi y Cristiano",
+    "text": "--tinta",
+    "bg": "--papel",
+    "ratio": 16.049033356159015
+  },
+  {
+    "theme": "dark",
+    "era": "Messi y Cristiano",
+    "text": "--gris",
+    "bg": "--tarjeta",
+    "ratio": 6.810711920853788
+  },
+  {
+    "theme": "dark",
+    "era": "Messi y Cristiano",
+    "text": "--rojo-txt",
+    "bg": "--tarjeta",
+    "ratio": 6.182565538533367
+  },
+  {
+    "theme": "dark",
+    "era": "Messi y Cristiano",
+    "text": "--sobre-boton",
+    "bg": "--boton",
+    "ratio": 9.271133260733542
+  },
+  {
+    "text": "premio oro",
+    "ratio": 5.517065504076222
+  }
+]
