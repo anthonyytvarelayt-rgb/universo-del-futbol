@@ -97,6 +97,15 @@ for orden, f in enumerate(leer('carreras.csv')):
 import unicodedata
 WD = os.path.join(AQUI, '..', 'datos_fuente', 'expansion', 'wikidata')
 def toks(x): return set(re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', x).encode('ascii', 'ignore').decode().lower()).split())
+# Para unir por club hace falta compartir el apellido (la última palabra de uno de los dos nombres), no solo el
+# nombre de pila: a Carlos Polischuk se le pegaba la carrera de Carlos Salvador Bilardo por ser los dos «Carlos» de Estudiantes.
+import difflib
+def _orden(x): return re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', re.sub(r'\(.*?\)', ' ', x)).encode('ascii', 'ignore').decode().lower()).split()
+def apellido_comun(a, b, comun):
+    oa, ob = _orden(a), _orden(b)
+    if not oa or not ob: return False
+    if any(len(w) >= 4 and w in comun for w in (oa[-1], ob[-1])): return True
+    return len(oa[-1]) >= 5 and difflib.SequenceMatcher(None, oa[-1], ob[-1]).ratio() >= 0.8
 n_wd = {'nuevos': 0, 'unidos': 0, 'mujeres': 0, 'sin_sitio': 0}
 if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
     mujeres = set(open(os.path.join(WD, 'mujeres.txt')).read().split()) if os.path.exists(os.path.join(WD, 'mujeres.txt')) else set()
@@ -134,7 +143,7 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
             if tb != t and frozenset(tb) in exactos_wd[y]: continue
             # Mismo año y mismo nombre (o uno dentro del otro); o mismo club y una palabra larga en común; o misma fecha exacta y algo en común.
             if (tb and t and (tb == t or (len(tb) > 1 and tb <= t) or (len(t) > 1 and t <= tb))) \
-               or (clubs_b & clubes_wd and any(len(w) >= 4 for w in comun)) \
+               or (clubs_b & clubes_wd and apellido_comun(cb[0], clave[0], comun)) \
                or (len(cb[1]) == 10 and cb[1] == clave[1] and (comun or clubs_b & clubes_wd)):
                 igual = cb; break
         if igual:
