@@ -1043,6 +1043,9 @@
     (M.derbis || []).forEach((d) => { if (DERBI_BLANDO.test(d.nombre)) return; [[d.a, d.b], [d.b, d.a]].forEach(([x, y]) => { if (!enemigos.has(x)) enemigos.set(x, new Set()); enemigos.get(x).add(y); }); });
     return enemigos;
   }
+  // Orden de los grandes goleadores (Anthony): Pelé el patrón, luego Cristiano (récord oficial), luego Messi y Gerd Müller.
+  // Es el olfato de gol absoluto (gol); la definición del motor sale de su raíz cuadrada.
+  const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93 };
   // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
   const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
   const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 35, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
@@ -2477,12 +2480,15 @@
       // Definición: goles reales por partido frente a lo normal de su puesto. Un goleador nato (Bican, Müller)
       // remata más y marca más que otro de su mismo nivel. Solo con 30+ partidos de datos.
       let pj = 0, g = 0;
-      j.carrera.forEach((q) => { if (q[4] > 0 && q[5] != null) { pj += q[4]; g += q[5]; } });
+      // Un paso con más de 1,3 goles por partido es un error de los datos (Nyom: 2000 goles en 37 partidos con el Alès): no cuenta.
+      j.carrera.forEach((q) => { if (q[4] > 0 && q[5] != null && q[5] <= q[4] * 1.3) { pj += q[4]; g += q[5]; } });
       const normal = { DEL: 0.45, MED: 0.15, DEF: 0.04 }[j.pos];
       if (normal && pj >= 30) x.fin = +Math.max(0.75, Math.min(1.4, Math.pow(g / pj / normal, 0.5))).toFixed(2);
       // Olfato de gol absoluto, frente a un delantero centro normal (0,45 por partido): un extremo o un media punta que
       // marca como un nueve (Cristiano, Messi) remata como un nueve, juegue donde juegue.
-      if (j.pos !== 'POR' && pj >= 30) x.gol = +(g / pj / 0.45).toFixed(2);
+      // Tope 1,9 (por debajo de Gerd Müller): por encima solo los que Anthony pone delante. Pelé es el patrón (su definición va en CONSTANTES).
+      if (j.pos !== 'POR' && pj >= 30) x.gol = Math.min(1.9, +(g / pj / 0.45).toFixed(2));
+      if (GOLEADORES[j.n]) x.gol = GOLEADORES[j.n];
       return x;
     };
     const porClub = new Map();
