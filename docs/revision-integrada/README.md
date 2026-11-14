@@ -46,7 +46,7 @@ La reproducción queda como comando independiente y no se añade a la auditoría
 
 ## Segundo hallazgo al ampliar la semilla
 
-La primera prueba del barrido (`1958`, doce temporadas, semilla `1`) detectó un retirado que vuelve a una plantilla: **Rafael Santos, 1942-06-17**, aparece como activo desde el cierre de 1962-63 aunque ya figuraba entre los retirados al empezar esa temporada. La misma identidad sigue activa en años siguientes. No apareció en la muestra inicial de 56 temporadas.
+La primera prueba del barrido (`1958`, doce temporadas, semilla `1`) detectó un retirado que vuelve a una plantilla: **Rafael Santos, 1942-06-17**, se retira estando libre en el verano de 1962 y ese mismo verano una llegada histórica lo recrea en Nantes como debutante, con la carrera vacía. La primera comprobación lo detectaba al cierre de 1962-63; se amplió para contrastar también los retiros del propio verano. La misma identidad sigue activa en años siguientes. No apareció en la muestra inicial de 56 temporadas.
 
 Reproducción:
 

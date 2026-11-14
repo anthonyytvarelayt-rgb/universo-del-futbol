@@ -23,6 +23,7 @@ for (let k = 0; k < temporadas; k++) {
   ajusteAnterior.forEach((x) => comprobar(!enEuropa.has(x.club), 'recorte a un club que sí juega Europa', { club: x.club }));
   Mundo.verano(M, S, r);
   ajusteAnterior = S.sueldos.ajustes;
+  M.retirados.forEach((j) => retirados.add(clave(j)));
   const mercado = S.mercado || [], peticiones = S.sueldos.peticiones;
   const vistos = new Set();
   M.clubes.forEach((c) => {
