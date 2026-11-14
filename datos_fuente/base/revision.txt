@@ -83,6 +83,7 @@ carreras: Molina (Miguel) en dos clubes a la vez (Sevilla hasta 1968, Cádiz des
 carreras: Eugenio Fascetti en dos clubes a la vez (Lecco hasta 1968, Sambenedettese desde 1968)
 carreras: Guido Gratton en dos clubes a la vez (Lazio hasta 1961, Inter desde 1961)
 carreras: Lucio Dell'Angelo en dos clubes a la vez (Alessandria hasta 1959, Prato desde 1959)
+carreras: Lucio Dell'Angelo en dos clubes a la vez (Prato hasta 1960, Celta de Vigo desde 1960)
 carreras: Lucio Dell'Angelo en dos clubes a la vez (Verona hasta 1966, Atalanta desde 1966)
 carreras: Lucio Dell'Angelo en dos clubes a la vez (Prato hasta 1975, Monza desde 1972)
 carreras: Salvador Calvanese en dos clubes a la vez (Juventus hasta 1962, Atalanta desde 1962)

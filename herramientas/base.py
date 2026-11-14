@@ -165,6 +165,32 @@ if os.path.exists(os.path.join(WD, 'jugadores_wikidata.csv')):
         jugadores[clave] = j; n_wd['nuevos'] += 1
     print('wikidata', n_wd)
 
+# Un mismo jugador escrito dos veces (Seminario y Juan Seminario, Muller y Lucien Muller): misma fecha exacta de
+# nacimiento y un nombre dentro del otro. Se queda uno solo, con el nombre más completo y la carrera de los dos.
+_nom = lambda n: toks(re.sub(r'\(.*?\)', ' ', n))
+_fecha = defaultdict(list)
+for clave in jugadores:
+    if len(clave[1]) == 10 and not clave[1].endswith(('-01-01', '-07-01')) and not clave[0].startswith('Relleno'): _fecha[clave[1]].append(clave)
+n_dobles = 0
+for claves in _fecha.values():
+    for i, ca in enumerate(claves):
+        for cb in claves[i + 1:]:
+            if ca not in jugadores or cb not in jugadores: continue
+            ta, tb = _nom(ca[0]), _nom(cb[0])
+            if not ta or not tb or not (ta <= tb or tb <= ta): continue
+            largo, corto = (ca, cb) if (len(ta), '(' not in ca[0]) >= (len(tb), '(' not in cb[0]) else (cb, ca)
+            A, B = jugadores[largo], jugadores[corto]
+            for pb in B['carrera']:
+                choca = [pa for pa in A['carrera'] if pa[2] == pb[2] or (pa[0] == pb[0] and abs(pa[2] - pb[2]) <= 1)]
+                if not choca: A['carrera'].append(pb)
+                elif pb[6] is not None and all(pa[6] is None or (pb[1] == 'España' and pa[1] != 'España') for pa in choca):
+                    A['carrera'] = [pa for pa in A['carrera'] if pa not in choca] + [pb]
+            A['max'] = max(A['max'], B['max'])
+            if any(pb[6] is not None for pb in B['carrera']) and all(pa[6] is None for pa in A['carrera'] if pa not in B['carrera']): A['pos'] = B['pos']
+            if not A.get('nacion'): A['nacion'] = B.get('nacion', '')
+            del jugadores[corto]; n_dobles += 1
+print('dobles unidos', n_dobles)
+
 for j in jugadores.values():
     j['carrera'].sort(key=lambda p: p[2])
     for a, b in zip(j['carrera'], j['carrera'][1:]):
