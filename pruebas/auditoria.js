@@ -77,5 +77,11 @@ try {
 } catch (e) {
   caso('Eurocopa y Copa América: formatos, campeones y convocatorias', false, e.stack);
 }
+try {
+  require('./sueldos.js');
+  caso('Sueldos pactados: contratos y consecuencias económicas', true);
+} catch (e) {
+  caso('Sueldos pactados: contratos y consecuencias económicas', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
