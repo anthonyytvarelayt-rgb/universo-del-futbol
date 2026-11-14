@@ -47,7 +47,7 @@
     // Raúl: Mr. Champions antes que Cristiano (deseo de Anthony). Más gol, fiel al Madrid y con hambre de Copas de Europa.
     'Raúl': { techo: 870, suelo: [[18, 720], [20, 800], [22, 840], [24, 865], [27, 870], [30, 850], [32, 810], [34, 760]], club: 'Real Madrid', fiel: 2010 },
     'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
-    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5 },
+    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5, olfato: 1.6 },
     'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
   };
   // Clubes que mandan en una época: si al empezar la temporada no son los más fuertes de su liga (o de Europa hasta
@@ -70,6 +70,7 @@
       if (!K || j.relleno) return;
       j.cons = true;
       if (K.fin) j.fin = Math.max(j.fin || 0, K.fin);
+      if (K.olfato) j.olfato = K.olfato;  // remata más veces que nadie en su equipo (Cristiano: el récord oficial de goles)
       const s = sueloDe(K, M.anio - anioNac(j));
       if (s > j.niv) j.niv = s;
       j.tec = Math.max(j.tec || 0, j.niv, M.anio - anioNac(j) <= 27 ? Motor.escala.interno(K.techo) : 0);

@@ -470,7 +470,7 @@
       if (tipo === 'abierta') {
         // La definición sale de sus goles reales, que ya llevan dentro lo bueno que era su equipo y lo floja que era su liga;
         // aquí pesa a medias para no contarlo dos veces (el motor ya pone el equipo y los rivales).
-        const tirador = elige(r, mios, (j) => TIRO(j) * Math.sqrt(FIN(j)) * Math.exp(D(j, 'des') / 40), nv);
+        const tirador = elige(r, mios, (j) => TIRO(j) * Math.sqrt(FIN(j)) * Math.exp(D(j, 'des') / 40) * (j.olfato || 1), nv);
         let creador = elige(r, mios, (j) => PESO_PASE(j) * Math.exp(D(j, 'vis') / 40), nv, tirador);
         let pTiro = P.pTiroBase * 2 * lado.f.E.tiro * sig((lado.f.ataque - lado.fr.defensa) / P.escala + (lado.casa ? vCasa * lado.casa : 0)) * animo(k);
         // Regate: alguien encara a un defensor. Si sale bien, la jugada mejora; si no, se pierde.
