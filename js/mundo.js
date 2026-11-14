@@ -278,7 +278,7 @@
         const extra = van >= meta ? 8 : Math.min(160, 15 + 45 * debe);
         c.jugadores.forEach((j) => { reyes.push([j, extra]); j.temp = (j.temp || 0) + extra; }); });
       // La mística: hay camisetas que en esta copa pesan más (el Madrid sobre todo), y jugadores a los que se les da o se les resiste.
-      eqs.forEach((c) => { const v = MISTICA_EUROPA[c.nombre]; if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
+      eqs.forEach((c) => { const v = misticaEn(c.nombre, M.anio + 1); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       eqs.forEach((c) => c.jugadores.forEach((j) => { const v = !j.relleno && NOCHES_EUROPA[j.n]; if (v) { reyes.push([j, v]); j.temp = (j.temp || 0) + v; } }));
       // Los entrenadores especialistas en eliminatorias sacan un punto más a los suyos en Europa.
       eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
@@ -1046,9 +1046,11 @@
   }
   // Orden de los grandes goleadores (Anthony): Pelé el patrón, luego Cristiano (récord oficial), luego Messi y Gerd Müller.
   // Es el olfato de gol absoluto (gol); la definición del motor sale de su raíz cuadrada.
-  const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93 };
+  const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93, 'Johan Cruyff': 1.25 };  // Cruyff era más de crear que de rematar
   // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
   const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
+  // El Madrid de 1967 a 1997 no ganó ninguna: en esos años su camiseta no pesa más que otra (si no, ganaba tres seguidas con un equipo flojo).
+  const misticaEn = (club, anio) => (club === 'Real Madrid' && anio >= 1967 && anio <= 1996 ? 0 : MISTICA_EUROPA[club] || 0);
   const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 35, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
     'Zlatan Ibrahimović': -30, 'Gianluigi Buffon': -15, 'Ronaldo': -12, 'Gabriel Batistuta': -10, 'Harry Kane': -12 };
   const DERBI_BLANDO = /^duelo|clásico argentino|clásico de Italia|Choc des|^derbi de Londres$|Der Klassiker|derbi del Sole|clásico de la Saudade|San-São|clásico alvinegro/;

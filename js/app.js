@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 88;
+const VERSION_GUARDADO = 89;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -681,11 +681,14 @@ function premiosMundo(V) {
     const azar = () => { h += 0x6D2B79F5; let t = h; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
     const normal = () => Math.sqrt(-2 * Math.log(azar() + 1e-12)) * Math.cos(2 * Math.PI * azar());
     const naciones = lista.map((x) => (x.j && x.j.nacion) || '').concat(paisesDe(V), paisesDe(V));
+    // Cansancio del votante: al que lo ha ganado los tres últimos años le cuesta más convencer (Cruyff no lo gana ocho de nueve).
+    const previos = temporadas().filter((T) => T !== V && cerradaV(T) && T.anio < V.anio && T.anio >= V.anio - 3).map((T) => { try { return (premiosMundo(T).ganadorMejor || {}).nombre; } catch (e) { return null; } });
+    const cansancio = (n) => 0.18 * previos.filter((p) => p === n).length;
     const reparto = V.anio >= 2007 ? [6, 4, 3, 2, 1] : [5, 4, 3, 2, 1];
     const filas = lista.map((x) => ({ x, m: merito(x), puntos: 0, primeros: 0, votantes: 0 }));
     for (let k = 0; k < 100; k++) {
       const pais = naciones[Math.floor(azar() * naciones.length)];
-      filas.map((f) => ({ f, v: f.m + 0.22 * normal() + (f.x.j && f.x.j.nacion === pais ? 0.25 : 0) })).sort((a, b) => b.v - a.v).slice(0, 5)
+      filas.map((f) => ({ f, v: f.m - cansancio(f.x.nombre) + 0.22 * normal() + (f.x.j && f.x.j.nacion === pais ? 0.25 : 0) })).sort((a, b) => b.v - a.v).slice(0, 5)
         .forEach(({ f }, i) => { f.puntos += reparto[i]; f.votantes++; if (i === 0) f.primeros++; });
     }
     const out = filas.sort((a, b) => b.puntos - a.puntos || b.primeros - a.primeros || b.m - a.m);
