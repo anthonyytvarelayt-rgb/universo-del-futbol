@@ -1,6 +1,6 @@
 # Todos los presentes participan en la tanda
 
-Base: `bf22a8f`, versión de guardado 81. Se propone versión 82 porque pueden cambiar tandas largas y los resultados posteriores.
+Base actualizada: `d8996f8`, versión de guardado 82. Se propone versión 83 porque pueden cambiar tandas largas y los resultados posteriores.
 
 La selección de lanzadores eliminaba al portero. Con once jugadores presentes, los diez de campo repetían en el undécimo lanzamiento sin que hubiera tirado el portero. La corrección incluye a todos los presentes en la ordenación existente por nivel, puesto y definición. Se copia el array para conservar el orden del once. No incorpora suplentes ni jugadores que hayan abandonado el campo.
 
@@ -14,7 +14,7 @@ Referencia de la regla de turnos: [IFAB, regla 10, tanda de penaltis](https://ww
 - `node pruebas/penaltis-turnos.js`: bien.
 - `node pruebas/auditoria.js`: todo bien.
 - `node pruebas/famosos.js`: 113/113.
-- `node pruebas/partida.js 1958 12 5`: termina; cinco ligas Barcelona, cinco Real Madrid, una Bilbao y una Valladolid. Ocho campeones europeos distintos.
+- `node pruebas/partida.js 1958 12 5`: termina; seis ligas Barcelona, tres Real Madrid y tres Bilbao. Ocho campeones europeos distintos.
 - `node pruebas/partida.js 2000 12 7`: termina; siete ligas Barcelona y cinco Real Madrid. Cuatro campeones europeos distintos.
 - Navegador: dos temporadas desde 1958 y dos desde 2000, sin errores JS/red. Misma reconstrucción del guardado y controles manuales. Informe en `navegador.json`. La comprobación de la tanda se realiza en la prueba dirigida; no se presenta la navegación como una reproducción visual de una tanda de once lanzamientos.
 
