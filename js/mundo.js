@@ -284,6 +284,9 @@
       // Anthony: la Champions la gana el mejor; la sorpresa solo con un entrenador duro o un crack de los que conocemos.
       // El nivel pesa más (CONTRASTE) y estos dos son lo que puede dar la vuelta a una eliminatoria.
       const crackDe = (c) => c.jugadores.some((j) => !j.relleno && Motor.escala.mostrar(j.niv) >= 860);
+      // Siempre hay un pez más grande (Anthony): el que encadena Copas de Europa pasa a ser el equipo que todos estudian
+      // y al que todos quieren tumbar. Cada título de los cuatro últimos años le resta en esta copa.
+      eqs.forEach((c) => { const k = (M.historia || []).slice(-4).filter((h) => h.europa === c.nombre).length; if (k >= 2) c.jugadores.forEach((j) => { const v = -14 * (k - 1); reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, gran = dt && ((MAESTROS[dt.nombre] || [])[2] === 3 || don);
         const v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0) + (gran ? 10 : 0) + (crackDe(c) ? 10 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       const escalaLiga = Motor.P.escala;
