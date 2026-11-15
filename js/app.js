@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 92;
+const VERSION_GUARDADO = 93;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -635,7 +635,8 @@ function premiosMundo(V) {
   const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
   // La clase desempata, no decide: con ±0,6 bastaba ser el de más nivel para ganarlo sin títulos (queja de Anthony:
   // Ronaldo con 47 goles y nada ganado por delante de Raúl con 28, la liga y la Copa de Europa siendo la figura).
-  const clase = (x) => Math.max(-0.3, Math.min(0.2, (nivelEn(x) - 800) / 500)), talla = (x) => Math.max(0.45, Math.min(1, (nivelEn(x) - 600) / 180));
+  // Por abajo pesa más (Anthony, 1977: Souness, Currie y Bell, de 700, por delante de Cruyff porque su equipo arrasaba).
+  const clase = (x) => { const n = nivelEn(x); return n >= 800 ? Math.min(0.2, (n - 800) / 500) : Math.max(-0.8, (n - 800) / 180); }, talla = (x) => Math.max(0.45, Math.min(1, (nivelEn(x) - 600) / 180));
   // El Balón de Oro mira lo mismo que el de verdad, en su orden:
   // 1) el rendimiento individual y lo decisivo que fue (nota, goles, asistencias y goles en la Copa de Europa);
   // 2) lo que ganó su equipo (Copa de Europa, liga, Mundial, Eurocopa o Copa América, otras copas);
@@ -659,7 +660,9 @@ function premiosMundo(V) {
   const mejorMU = MU ? (MU.jugadores || []).filter((p) => p.pj >= 5).sort((a, b) => b.nota - a.nota)[0] : null;
   const mundialInd = (x) => { const p = enMU(x); if (!p) return 0; return Math.min(0.75, Math.min(0.4, 0.055 * p.g) + Math.min(0.12, 0.03 * p.a) + (p.pj >= 3 ? Math.max(0, p.nota - 7) * 0.2 : 0) + (mejorMU && mejorMU.n === p.n ? 0.15 : 0)); };
   const pesoSel = (x) => { const p = enMU(x); if (!p) return Math.max(0.3, peso(x)); const i = (MU.jugadores || []).filter((q) => q.eq === p.eq && q.pj >= 3).sort((a, b) => b.nota - a.nota).findIndex((q) => q.n === p.n); return i === 0 ? 1 : i >= 0 && i <= 2 ? 0.7 : 0.35; };
-  const individual = (x) => x.notaTemp + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.5 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
+  // Una nota altísima de un jugador corriente suele ser su equipo, que arrasa: por encima de 8,5 cuenta según su talla.
+  const notaB = (x) => x.notaTemp > 8.5 ? 8.5 + (x.notaTemp - 8.5) * Math.max(0.3, Math.min(1, (nivelEn(x) - 600) / 300)) : x.notaTemp;
+  const individual = (x) => notaB(x) + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.5 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
   const colectivoBase = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (otrosTitulos.get(x.eq.nombre) || 0))
@@ -680,10 +683,11 @@ function premiosMundo(V) {
     let h = 2166136261; for (const ch of `${V.temporada}|${q || ''}|${lista.map((x) => x.nombre).join(',')}`) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
     const azar = () => { h += 0x6D2B79F5; let t = h; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
     const normal = () => Math.sqrt(-2 * Math.log(azar() + 1e-12)) * Math.cos(2 * Math.PI * azar());
-    const naciones = lista.map((x) => (x.j && x.j.nacion) || '').concat(paisesDe(V), paisesDe(V));
+    // Un periodista por país, como el de verdad: antes salían de los países de los nominados y, si eran casi todos ingleses, votaban ingleses.
+    const naciones = [...new Set(lista.map((x) => (x.j && x.j.nacion) || '').concat(paisesDe(V)).filter(Boolean))];
     // Cansancio del votante: al que lo ha ganado los tres últimos años le cuesta más convencer (Cruyff no lo gana ocho de nueve).
     const previos = temporadas().filter((T) => T !== V && cerradaV(T) && T.anio < V.anio && T.anio >= V.anio - 3).map((T) => { try { return (premiosMundo(T).ganadorMejor || {}).nombre; } catch (e) { return null; } });
-    const cansancio = (n) => 0.18 * previos.filter((p) => p === n).length;
+    const cansancio = (n) => 0.12 * previos.filter((p) => p === n).length;
     const reparto = V.anio >= 2007 ? [6, 4, 3, 2, 1] : [5, 4, 3, 2, 1];
     const filas = lista.map((x) => ({ x, m: merito(x), puntos: 0, primeros: 0, votantes: 0 }));
     for (let k = 0; k < 100; k++) {
