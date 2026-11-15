@@ -841,14 +841,15 @@
       // En las cuatro grandes ligas cuenta además lo ganado en los últimos seis años, aunque no sea seguido:
       // quien lleva tres de seis empieza a relajarse y sus rivales a tenerle ganas.
       m.ultimas = m.ultimas || {};
-      const u = (m.ultimas[o.pais] = (m.ultimas[o.pais] || []).concat(o.campeon || '').slice(-6));
+      const u = (m.ultimas[o.pais] = (m.ultimas[o.pais] || []).concat(o.campeon || '').slice(-8));
       const x = m.racha['liga ' + o.pais];
       const cuenta = {}; u.forEach((n) => { if (n) cuenta[n] = (cuenta[n] || 0) + 1; });
       const grande = ['España', 'Inglaterra', 'Italia', 'Alemania'].includes(o.pais);
       Object.entries(cuenta).forEach(([club, w]) => {
         // Siempre hay un pez más grande (Anthony: vale para todo): desde la tercera seguida y en todas las ligas, no solo en las cuatro grandes.
-        const seguida = x && x.club === club && x.n >= 3 ? Math.min(60, 10 * (x.n - 2)) : 0;
-        const baja = Math.max(seguida, Math.min(60, (grande ? 12 : 10) * (w - 2)));
+        // Más fuerte desde 2026-11-15: el Barcelona de Cruyff ganaba 11 de 14 ligas y el Tottenham 11 de 13 en los 70.
+        const seguida = x && x.club === club && x.n >= 3 ? Math.min(85, 15 * (x.n - 2)) : 0;
+        const baja = Math.max(seguida, Math.min(85, (grande ? 14 : 12) * (w - 2)));
         const c = baja > 0 && M.clubes.find((y) => y.nombre === club);
         if (c && !CLUBES_CONSTANTES.some((C) => C.club === c.nombre && M.anio + 1 >= C.desde && M.anio + 1 <= C.hasta)) c.jugadores.forEach((j) => { j.temp = (j.temp || 0) - baja; });
       });

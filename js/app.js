@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 93;
+const VERSION_GUARDADO = 94;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -2137,7 +2137,7 @@ function copiarResumen(btn) {
     intento(() => {
       const g = new Map();
       V.R.EU.rondas.forEach((ro) => ro.cruces.forEach((c) => (c.partidos || []).forEach((m) => (m.eventos || []).forEach((e) => { if (e.tipo !== 'gol' && e.tipo !== 'pen') return; const club = e.lado === 0 ? m.local : m.visita, kk = e.quien + '|' + club; g.set(kk, { n: e.quien, club, g: (g.get(kk) || { g: 0 }).g + 1 }); }))));
-      const xs = [...g.values()].sort((x, y) => y.g - x.g).slice(0, 3); if (xs.length) out.push(`   Goleadores: ${xs.map((x) => `${x.n} (${x.club}), ${x.g}`).join(' · ')}`);
+      const xs = [...g.values()].sort((x, y) => y.g - x.g).slice(0, 3); if (xs.length) out.push(`   Goleadores: ${xs.map((x) => /^Suplente \d+ \(/.test(x.n) ? `${x.n.replace(/ \(.*\)$/, '')}* (${x.club}), ${x.g}` : `${x.n} (${x.club}), ${x.g}`).join(' · ')}`);
     });
     intento(() => { const ant = temporadas().filter((T) => cerradaV(T) && T.anio === V.anio - 1)[0]; if (!ant || !ant.europa || ant.europa === V.europa) return; const ro = V.R.EU.rondas, k = ro.map((x) => x.cruces.some((c) => c.a === ant.europa || c.b === ant.europa)).lastIndexOf(true); out.push(`   El campeón del año pasado (${ant.europa}): ${k < 0 ? 'no la jugó' : k === ro.length - 1 ? 'perdió la final' : k === ro.length - 2 ? 'cayó en semifinales' : k === ro.length - 3 ? 'cayó en cuartos' : 'cayó pronto'}`); });
     OTRAS_COPAS.forEach(([id]) => { if (campeonOtra(V, id)) out.push(`• ${otraCopa(V, id).nombre}: ${campeonOtra(V, id)}${final(otraCopa(V, id))}`); });

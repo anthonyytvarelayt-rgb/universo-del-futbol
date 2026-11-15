@@ -311,12 +311,13 @@
 
   // Lanzadores de penaltis, incluido el portero: todos los presentes tiran antes de repetir.
   // Copiar conserva el orden del once; se ordenan por nivel, puesto y definición.
-  const lanzadores = (xi, nv) => xi.slice().sort((a, b) => nv(b) * (TIRO(b) + 0.3) * Math.sqrt(FIN(b)) - nv(a) * (TIRO(a) + 0.3) * Math.sqrt(FIN(a)));
+  const lanzadores = (xi, nv) => xi.filter(Boolean).sort((a, b) => nv(b) * (TIRO(b) + 0.3) * Math.sqrt(FIN(b)) - nv(a) * (TIRO(a) + 0.3) * Math.sqrt(FIN(a)));
   // Tanda de penaltis (desde 1970): cinco cada uno y después muerte súbita.
   function tanda(r, xiA, xiB, nv) {
     const tA = lanzadores(xiA, nv), tB = lanzadores(xiB, nv);
-    const pA = xiA.find((j) => j.pos === 'POR'), pB = xiB.find((j) => j.pos === 'POR');
-    const marca = (l, por) => r() < 0.76 + ((nv(l) || 500) - (por ? nv(por) : 500)) / 2500;
+    const pA = xiA.find((j) => j && j.pos === 'POR'), pB = xiB.find((j) => j && j.pos === 'POR');
+    // Un equipo sin once (club de fuera sin plantilla) tira con lanzadores corrientes en vez de colgar la partida.
+    const marca = (l, por) => r() < 0.76 + (((l && nv(l)) || 500) - (por ? nv(por) : 500)) / 2500;
     let a = 0, b = 0;
     for (let i = 0; i < 5; i++) {
       if (marca(tA[i % tA.length], pB)) a++;
