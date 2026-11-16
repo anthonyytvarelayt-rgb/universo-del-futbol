@@ -629,7 +629,8 @@ function premiosMundo(V) {
   const fuerzaLiga = {};
   if (V.fuerza) paisesDe(V).forEach((p) => { const fs = ligasDe(V, p).filter((l) => l.nivel === 1).flatMap((l) => l.T.tabla.map((t) => V.fuerza[t.nombre] || 0)).sort((a, b) => b - a).slice(0, 4); if (fs.length) fuerzaLiga[p] = fs.reduce((a, b) => a + b, 0) / fs.length; });
   const mejorLiga = Math.max(0, ...Object.values(fuerzaLiga));
-  const descuento = (x) => (fuerzaLiga[x.eq.pais] ? Math.min(0.6, Math.max(0, (mejorLiga - fuerzaLiga[x.eq.pais]) / 150)) : 0);
+  // Un monstruo de verdad (Pelé en el Santos) es el mejor juegue donde juegue: la liga floja casi no le resta (Anthony: "al Rei no se le nota").
+  const descuento = (x) => (fuerzaLiga[x.eq.pais] ? Math.min(0.6, Math.max(0, (mejorLiga - fuerzaLiga[x.eq.pais]) / 150)) * (1 - Math.max(0, Math.min(0.85, (nivelEn(x) - 860) / 100))) : 0);
   // Y la clase: el Balón de Oro va a un jugador grande de verdad. A igual temporada pesa quién es mejor, y los títulos
   // cuentan menos para un jugador corriente del equipo campeón (antes lo ganaba un medio de 680 con seis goles).
   const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
@@ -663,7 +664,10 @@ function premiosMundo(V) {
   const pesoSel = (x) => { const p = enMU(x); if (!p) return Math.max(0.3, peso(x)); const i = (MU.jugadores || []).filter((q) => q.eq === p.eq && q.pj >= 3).sort((a, b) => b.nota - a.nota).findIndex((q) => q.n === p.n); return i === 0 ? 1 : i >= 0 && i <= 2 ? 0.7 : 0.35; };
   // Una nota altísima de un jugador corriente suele ser su equipo, que arrasa: por encima de 8,5 cuenta según su talla.
   const notaB = (x) => x.notaTemp > 8.5 ? 8.5 + (x.notaTemp - 8.5) * Math.max(0.3, Math.min(1, (nivelEn(x) - 600) / 300)) : x.notaTemp;
-  const individual = (x) => notaB(x) + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.25 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
+  // Una temporada increíble (Anthony: el mejor crack gana si su año es increíble, aunque su equipo no gane): los goles
+  // cuentan más (68 de Pelé no pueden valer lo mismo que 35) y una nota de leyenda suma aparte.
+  const historico = (x) => Math.min(0.4, Math.max(0, notaB(x) - 9.4));
+  const individual = (x) => notaB(x) + historico(x) + Math.min(0.4, (x.g || 0) / 160) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.25 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
   const colectivoBase = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (otrosTitulos.get(x.eq.nombre) || 0)

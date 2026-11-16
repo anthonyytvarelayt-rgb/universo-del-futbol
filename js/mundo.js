@@ -1391,8 +1391,7 @@
     // Los emblemas de un club no se van mientras están en edad de jugar arriba (luego, si acaso, a despedirse lejos; nunca al rival).
     // En Sudamérica no: nada impide a sus cracks irse a Europa (Zico, Francescoli, Riquelme se fueron). Solo Pelé, tesoro nacional (CONSTANTES).
     const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && !NO_EUROPA.includes(v.pais) && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
-    // Antes de los 90 Argentina y Brasil no dejaban salir a sus joyas antes de los 21 (Maradona llegó al Barcelona con 21, tras el Mundial 82).
-    const crackSud = (j, v) => NO_EUROPA.includes(v.pais) && Motor.escala.mostrar(j.niv) >= 700 && (nuevoAnio >= 1990 || nuevoAnio - anioNac(j) >= 21);
+        const crackSud = (j, v) => NO_EUROPA.includes(v.pais) && Motor.escala.mostrar(j.niv) >= 700;
     const atado = (j, v) => emblema(j, v) || (quiereCasa(j, v) && !crackSud(j, v) && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
@@ -1569,7 +1568,7 @@
       const elite = europeos.filter((c) => c.prestigio >= 640).sort((a, b) => b.prestigio - a.prestigio).slice(0, 20);
       const esElite = new Set(elite), llegadas = new Map();
       const estrellas = [];
-      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if ((!soloSud || crackSud(j, v)) && !(NO_EUROPA.includes(v.pais) && nuevoAnio < 1990 && nuevoAnio - anioNac(j) < 21) && !j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
+      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if ((!soloSud || crackSud(j, v)) && !j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
       estrellas.sort((a, b) => b.j.niv - a.j.niv);
       const N = Math.round(40 + 110 * fluidez);
       // Subir desde un club de élite: a uno claramente más fuerte de su liga, o de una liga menor a un grande de las cuatro grandes.
