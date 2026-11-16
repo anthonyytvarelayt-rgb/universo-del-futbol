@@ -1055,7 +1055,9 @@
   }
   // Orden de los grandes goleadores (Anthony): Pelé el patrón, luego Cristiano (récord oficial), luego Messi y Gerd Müller.
   // Es el olfato de gol absoluto (gol); la definición del motor sale de su raíz cuadrada.
-  const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93, 'Johan Cruyff': 1.25 };  // Cruyff era más de crear que de rematar
+  const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93, 'Johan Cruyff': 1.0 };  // Cruyff era más de crear que de rematar
+  // Olfato: cuántas más veces remata que sus compañeros. Müller vivía en el área (Anthony: Cruyff no puede marcar más que él).
+  const OLFATO = { 'Gerd Müller': 1.25 };
   // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
   const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
   // El Madrid de 1967 a 1997 no ganó ninguna: en esos años su camiseta no pesa más que otra (si no, ganaba tres seguidas con un equipo flojo).
@@ -2504,6 +2506,7 @@
       // Tope 1,9 (por debajo de Gerd Müller): por encima solo los que Anthony pone delante. Pelé es el patrón (su definición va en CONSTANTES).
       if (j.pos !== 'POR' && pj >= 30) x.gol = Math.min(1.9, +(g / pj / 0.45).toFixed(2));
       if (GOLEADORES[j.n]) x.gol = GOLEADORES[j.n];
+      if (OLFATO[j.n]) x.olfato = OLFATO[j.n];
       return x;
     };
     const porClub = new Map();

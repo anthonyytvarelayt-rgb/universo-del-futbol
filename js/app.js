@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 94;
+const VERSION_GUARDADO = 95;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -662,13 +662,13 @@ function premiosMundo(V) {
   const pesoSel = (x) => { const p = enMU(x); if (!p) return Math.max(0.3, peso(x)); const i = (MU.jugadores || []).filter((q) => q.eq === p.eq && q.pj >= 3).sort((a, b) => b.nota - a.nota).findIndex((q) => q.n === p.n); return i === 0 ? 1 : i >= 0 && i <= 2 ? 0.7 : 0.35; };
   // Una nota altísima de un jugador corriente suele ser su equipo, que arrasa: por encima de 8,5 cuenta según su talla.
   const notaB = (x) => x.notaTemp > 8.5 ? 8.5 + (x.notaTemp - 8.5) * Math.max(0.3, Math.min(1, (nivelEn(x) - 600) / 300)) : x.notaTemp;
-  const individual = (x) => notaB(x) + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.5 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
+  const individual = (x) => notaB(x) + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.25 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
   const colectivoBase = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
     + (otrosTitulos.get(x.eq.nombre) || 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * pesoSel(x) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
-  const colectivo = (x) => colectivoBase(x) * (1 + 0.5 * monstruo(x));
+  const colectivo = (x) => 0.8 * colectivoBase(x) * (1 + 0.25 * monstruo(x));  // a la mitad desde 2026-11-16: Beckenbauer segundo con 6 goles
   const merito = (x) => individual(x) + colectivo(x) + clase(x);
   r.meritoDe = (nombre) => { const o = G.filter((x) => x.pj >= 15).sort(porMerito), i = o.findIndex((x) => x.nombre === nombre), x = o[i]; return x ? { puesto: i + 1, nota: x.notaTemp, nivel: nivelEn(x), individual: individual(x), colectivo: colectivo(x), clase: clase(x) } : null; };
   const porMerito = (a, b) => merito(b) - merito(a);
@@ -687,7 +687,7 @@ function premiosMundo(V) {
     const naciones = [...new Set(lista.map((x) => (x.j && x.j.nacion) || '').concat(paisesDe(V)).filter(Boolean))];
     // Cansancio del votante: al que lo ha ganado los tres últimos años le cuesta más convencer (Cruyff no lo gana ocho de nueve).
     const previos = temporadas().filter((T) => T !== V && cerradaV(T) && T.anio < V.anio && T.anio >= V.anio - 3).map((T) => { try { return (premiosMundo(T).ganadorMejor || {}).nombre; } catch (e) { return null; } });
-    const cansancio = (n) => 0.12 * previos.filter((p) => p === n).length;
+    const cansancio = (n) => 0.06 * previos.filter((p) => p === n).length;
     const reparto = V.anio >= 2007 ? [6, 4, 3, 2, 1] : [5, 4, 3, 2, 1];
     const filas = lista.map((x) => ({ x, m: merito(x), puntos: 0, primeros: 0, votantes: 0 }));
     for (let k = 0; k < 100; k++) {
