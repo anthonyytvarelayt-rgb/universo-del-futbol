@@ -712,6 +712,8 @@ function premiosMundo(V) {
     const vt = votar(gran && gran.id === 'balon' ? gran.quien : null);
     r.nominados = vt.map(({ x, puntos, primeros, votantes }) => { const p = enMU(x); return { nombre: x.nombre, club: x.club, nacion: (x.j && x.j.nacion) || '', pos: x.pos, g: x.g, a: x.a, nota: x.notaTemp, puntos, primeros, votantes, individual: individual(x), colectivo: colectivo(x), clase: clase(x), mundial: p ? { g: p.g, a: p.a, eq: p.eq } : null }; });
     r.podio = r.nominados.slice(0, 3);
+    // Quien no podía ganarlo por la regla de la época (Anthony: "Rivelino, la mejor nota del mundo, y ni podio").
+    if (gran && gran.quien) { const f = filtroGran(gran.quien), fuera = G.filter((x) => x.pj >= 15 && !f(x)).sort(porMerito)[0]; if (fuera && merito(fuera) > merito(vt[0].x)) r.fueraRegla = { nombre: fuera.nombre, club: fuera.club, nota: fuera.notaTemp, regla: gran.quien === 'europeos' ? 'hasta 1995 solo podían ganarlo los europeos que jugaban en Europa' : 'entonces solo podían ganarlo los que jugaban en Europa' }; }
   } catch (e) { r.podio = []; }
   r.nombreMejor = (Epoca.premios(V.anio).find((p) => p.id === 'balon' || p.id === 'fifa') || {}).nombre || 'Mejor jugador del mundo';
   r.ganadorMejor = (r.oficiales.find((x) => x.nombre === r.nombreMejor) || {}).j || r.mejor;
@@ -1373,6 +1375,7 @@ function figurasHtml(V, pais) {
     premios = [
       ...pm.oficiales.map((x) => premio(x.nombre, x.j, x.linea)),
       (pm.podio || []).length > 1 ? `<div class="premio"><span>Podio del ${esc(pm.nombreMejor)}</span>${pm.podio.map((x, i) => `<small>${i + 1}.º ${nombreJ(x.nombre)} · ${esc(x.club)} · ${x.g} goles, ${x.a} asist., nota ${x.nota.toFixed(2)}</small>`).join('')}<small>Cuenta: rendimiento y goles decisivos (también en el Mundial), títulos del equipo y la clase del jugador. Votan 100 periodistas.</small></div>` : '',
+      pm.fueraRegla ? `<div class="premio"><span>Se quedó sin poder optar</span><small>${nombreJ(pm.fueraRegla.nombre)} · ${esc(pm.fueraRegla.club)} · nota ${pm.fueraRegla.nota.toFixed(2)}: lo habría ganado, pero ${esc(pm.fueraRegla.regla)}.</small></div>` : '',
       (pm.nominados || []).length > 3 ? `<div class="premio"><span>Los ${pm.nominados.length} nominados y sus votos</span>${pm.nominados.map((x, i) => `<small>${i + 1}.º ${nombreJ(x.nombre)} · ${esc(x.club)} · <b>${x.puntos} puntos</b>${x.primeros ? ` (${x.primeros} ${x.primeros === 1 ? 'primer puesto' : 'primeros puestos'})` : ''} · ${x.g} goles${x.mundial && x.mundial.g ? `, ${x.mundial.g} en el Mundial` : ''}</small>`).join('')}</div>` : '',
       pm.oficiales.length ? '' : premio('Mejor jugador del mundo', pm.mejor, (j) => `nota ${j.notaTemp.toFixed(2)}`),
       premio('Máximo goleador', pm.goleador, (j) => `${j.g} goles`),
@@ -2175,6 +2178,7 @@ function copiarResumen(btn) {
   intento(() => {
     sec('⭐ PREMIOS');
     if (pm.ganadorMejor) out.push(`• ${pm.nombreMejor}: ${pm.ganadorMejor.nombre} (${pm.ganadorMejor.club})`);
+    if (pm.fueraRegla) out.push(`   Sin poder optar: ${pm.fueraRegla.nombre} (${pm.fueraRegla.club}, nota ${pm.fueraRegla.nota.toFixed(2)}) lo habría ganado, pero ${pm.fueraRegla.regla}`);
     if ((pm.podio || []).length > 1) out.push(`   Podio: ${pm.podio.map((x, i) => `${i + 1}.º ${x.nombre} (${x.club}, ${x.puntos} puntos, ${x.g} goles, ${x.a} asistencias${x.mundial && x.mundial.g ? `, ${x.mundial.g} en el Mundial` : ''}, nota ${x.nota.toFixed(2)})`).join(' · ')}`);
     if ((pm.nominados || []).length > 3) out.push(`   Los ${pm.nominados.length} nominados (puntos de 100 periodistas): ${pm.nominados.map((x, i) => `${i + 1}. ${x.nombre} (${x.club}) ${x.puntos}`).join(', ')}`);
     intento(() => { const pt = (v) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2).replace('.', ','); if ((pm.podio || []).length) out.push(`   Por qué (rendimiento del año + títulos + categoría): ${pm.podio.map((x) => `${x.nombre} ${x.individual.toFixed(2).replace('.', ',')} ${pt(x.colectivo)} ${pt(x.clase)} = ${(x.individual + x.colectivo + x.clase).toFixed(2).replace('.', ',')}`).join(' · ')}`); });
@@ -2299,7 +2303,7 @@ function copiarResumen(btn) {
       (V.duenos || []).forEach((x) => lineas.push(`• Nuevo dueño millonario en el ${x.club}`));
       (V.presidentes || []).forEach((x) => lineas.push(`• Nuevo presidente en el ${x.club}: ${x.nombre}${Mundo.ESTILOS_PRESIDENTE[x.estilo] ? ` (${Mundo.ESTILOS_PRESIDENTE[x.estilo].split(':')[0].toLowerCase()})` : ''}`));
       const est = de('estancado').slice(0, 3); if (est.length) lineas.push(`• Promesas que se apagan: ${est.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
-      const fie = de('fiesta').slice(0, 3); if (fie.length) lineas.push(`• Año perdido por la mala vida: ${fie.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
+      const fie = de('fiesta').slice(0, 3); if (fie.length) lineas.push(`• Vuelven del verano fuera de forma: ${fie.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const ves = de('vestuario').slice(0, 4); if (ves.length) lineas.push(`• Mal ambiente todo el año en: ${ves.map((x) => x.club).join(', ')}`);
       if (lineas.length) { sec('📰 OTRAS NOTICIAS'); lineas.forEach((l) => out.push(l)); }
     });
