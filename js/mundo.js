@@ -1962,7 +1962,8 @@
     const don = donDT(e.nombre), anios = e.anios || 0;
     if (don === 'special') return e.nombre === 'José Mourinho' ? 22 : 14;   // Mourinho es una bestia: gana en cualquier parte
     if (don === 'tactico') return 10;
-    if (don === 'resucita') return c.prestigio < 700 ? 22 : c.prestigio < 820 ? 16 : 5;
+    // Levanta al club, pero no lo convierte en campeón el primer año (Anthony: el Derby de Clough, esperado 19.º, siempre ganaba la liga de 1970-71).
+    if (don === 'resucita') return (c.prestigio < 700 ? 22 : c.prestigio < 820 ? 16 : 5) * Math.min(1, 0.4 + 0.3 * anios);
     if (don === 'muro') return c.prestigio < 860 ? 13 : 3;
     if (don === 'loco') return anios === 0 ? 14 : anios >= 2 ? -6 : 0;
     if (don === 'eterno') return 4;
