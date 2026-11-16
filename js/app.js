@@ -635,8 +635,9 @@ function premiosMundo(V) {
   const nivelEn = (x) => { const t = x.j && (x.j.carrera || []).find((y) => y.temporada === V.temporada); return nivel(t && t.niv ? t.niv : x.j ? x.j.niv : 0); };
   // La clase desempata, no decide: con ±0,6 bastaba ser el de más nivel para ganarlo sin títulos (queja de Anthony:
   // Ronaldo con 47 goles y nada ganado por delante de Raúl con 28, la liga y la Copa de Europa siendo la figura).
-  // Por abajo pesa más (Anthony, 1977: Souness, Currie y Bell, de 700, por delante de Cruyff porque su equipo arrasaba).
-  const clase = (x) => { const n = nivelEn(x); return n >= 800 ? Math.min(0.2, (n - 800) / 500) : Math.max(-0.8, (n - 800) / 180); }, talla = (x) => Math.max(0.45, Math.min(1, (nivelEn(x) - 600) / 180));
+  // Por abajo pesa más (Anthony, 1977: Souness, Currie y Bell, de 700, por delante de Cruyff porque su equipo arrasaba;
+  // 2026-11-16 más aún: "¿quién diablos es Souness y por qué va por dos Balones?").
+  const clase = (x) => { const n = nivelEn(x); return n >= 800 ? Math.min(0.2, (n - 800) / 500) : Math.max(-1, (n - 800) / 120); }, talla = (x) => Math.max(0.45, Math.min(1, (nivelEn(x) - 600) / 180));
   // El Balón de Oro mira lo mismo que el de verdad, en su orden:
   // 1) el rendimiento individual y lo decisivo que fue (nota, goles, asistencias y goles en la Copa de Europa);
   // 2) lo que ganó su equipo (Copa de Europa, liga, Mundial, Eurocopa o Copa América, otras copas);
