@@ -286,7 +286,7 @@
       const crackDe = (c) => c.jugadores.some((j) => !j.relleno && Motor.escala.mostrar(j.niv) >= 860);
       // Siempre hay un pez más grande (Anthony): el que encadena Copas de Europa pasa a ser el equipo que todos estudian
       // y al que todos quieren tumbar. Cada título de los cuatro últimos años le resta en esta copa.
-      eqs.forEach((c) => { const k = (M.historia || []).slice(-4).filter((h) => h.europa === c.nombre).length; if (k >= 2) c.jugadores.forEach((j) => { const v = -14 * (k - 1); reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
+      eqs.forEach((c) => { const k = (M.historia || []).slice(-5).filter((h) => h.europa === c.nombre).length; if (k >= 2) c.jugadores.forEach((j) => { const v = -32 * (k - 1);  /* más fuerte desde 2026-11-16: el Tottenham ganaba cinco seguidas */ reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       eqs.forEach((c) => { const dt = c.entrenadores && c.entrenadores[0], don = dt ? donDT(dt.nombre) : null, gran = dt && ((MAESTROS[dt.nombre] || [])[2] === 3 || don);
         const v = (manoDe(c) === 'ganador' ? 8 : 0) + (don === 'orejona' ? 14 : don === 'special' ? 8 : 0) + (gran ? 10 : 0) + (crackDe(c) ? 10 : 0); if (v) c.jugadores.forEach((j) => { reyes.push([j, v]); j.temp = (j.temp || 0) + v; }); });
       const escalaLiga = Motor.P.escala;
@@ -1057,12 +1057,13 @@
   // Es el olfato de gol absoluto (gol); la definición del motor sale de su raíz cuadrada.
   const GOLEADORES = { 'Cristiano Ronaldo': 2.0, 'Lionel Messi': 1.96, 'Gerd Müller': 1.93, 'Johan Cruyff': 1.0 };  // Cruyff era más de crear que de rematar
   // Olfato: cuántas más veces remata que sus compañeros. Müller vivía en el área (Anthony: Cruyff no puede marcar más que él).
-  const OLFATO = { 'Gerd Müller': 1.25 };
+  const OLFATO = { 'Gerd Müller': 1.45 };  // Anthony: "metió 80 en una temporada"
   // Plus en la Copa de Europa: clubes con mística y jugadores marcados por ella (para bien o para mal).
   const MISTICA_EUROPA = { 'Real Madrid': 11, 'Milan': 8, 'Liverpool': 7, 'Bayern Múnich': 4, 'Ajax': 4 };
   // El Madrid de 1967 a 1997 no ganó ninguna: en esos años su camiseta no pesa más que otra (si no, ganaba tres seguidas con un equipo flojo).
-  const misticaEn = (club, anio) => (club === 'Real Madrid' && anio >= 1967 && anio <= 1996 ? 0 : MISTICA_EUROPA[club] || 0);
-  const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 35, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
+  // Y el Bayern de Beckenbauer y Müller (tres seguidas, 1974-76): en esos años es el equipo de las noches grandes (Anthony: "el Bayern no hace nada").
+  const misticaEn = (club, anio) => (club === 'Real Madrid' && anio >= 1967 && anio <= 1996 ? 0 : club === 'Bayern Múnich' && anio >= 1972 && anio <= 1977 ? 16 : MISTICA_EUROPA[club] || 0);
+  const NOCHES_EUROPA = { 'Filippo Inzaghi': 30, 'Raúl': 35, 'Sergio Ramos': 22, 'Clarence Seedorf': 18, 'Paolo Maldini': 15, 'Karim Benzema': 18, 'Luka Modrić': 15, 'Alfredo Di Stéfano': 20, 'Franz Beckenbauer': 15, 'Gerd Müller': 18, 'Sepp Maier': 10, 'Francisco Gento': 15, 'Andrés Iniesta': 12, 'Didier Drogba': 15, 'Steven Gerrard': 15,
     'Zlatan Ibrahimović': -30, 'Gianluigi Buffon': -15, 'Ronaldo': -12, 'Gabriel Batistuta': -10, 'Harry Kane': -12 };
   const DERBI_BLANDO = /^duelo|clásico argentino|clásico de Italia|Choc des|^derbi de Londres$|Der Klassiker|derbi del Sole|clásico de la Saudade|San-São|clásico alvinegro/;
   const DESEO_REAL = {
@@ -1390,7 +1391,8 @@
     // Los emblemas de un club no se van mientras están en edad de jugar arriba (luego, si acaso, a despedirse lejos; nunca al rival).
     // En Sudamérica no: nada impide a sus cracks irse a Europa (Zico, Francescoli, Riquelme se fueron). Solo Pelé, tesoro nacional (CONSTANTES).
     const emblema = (j, v) => EMBLEMAS[j.n] === v.nombre && !NO_EUROPA.includes(v.pais) && nuevoAnio - anioNac(j) <= 33 && !lios.has(j);
-    const crackSud = (j, v) => NO_EUROPA.includes(v.pais) && Motor.escala.mostrar(j.niv) >= 700;
+    // Antes de los 90 Argentina y Brasil no dejaban salir a sus joyas antes de los 21 (Maradona llegó al Barcelona con 21, tras el Mundial 82).
+    const crackSud = (j, v) => NO_EUROPA.includes(v.pais) && Motor.escala.mostrar(j.niv) >= 700 && (nuevoAnio >= 1990 || nuevoAnio - anioNac(j) >= 21);
     const atado = (j, v) => emblema(j, v) || (quiereCasa(j, v) && !crackSud(j, v) && v.division === 1 && aniosEn(j, v) >= 3) || recienLlegado(j, v);
     // El de carácter difícil acaba mal con su club de vez en cuando, y entonces sale aunque el club no quiera.
     const lios = new Set();
@@ -1567,7 +1569,7 @@
       const elite = europeos.filter((c) => c.prestigio >= 640).sort((a, b) => b.prestigio - a.prestigio).slice(0, 20);
       const esElite = new Set(elite), llegadas = new Map();
       const estrellas = [];
-      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if ((!soloSud || crackSud(j, v)) && !j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
+      M.clubes.forEach((v) => v.jugadores.forEach((j) => { if ((!soloSud || crackSud(j, v)) && !(NO_EUROPA.includes(v.pais) && nuevoAnio < 1990 && nuevoAnio - anioNac(j) < 21) && !j.relleno && !j.cedido && j.debut !== nuevoAnio && nuevoAnio - anioNac(j) <= 31 && nuevoAnio - anioNac(j) >= 18) estrellas.push({ j, v }); }));
       estrellas.sort((a, b) => b.j.niv - a.j.niv);
       const N = Math.round(40 + 110 * fluidez);
       // Subir desde un club de élite: a uno claramente más fuerte de su liga, o de una liga menor a un grande de las cuatro grandes.
@@ -1905,7 +1907,7 @@
     'Helenio Herrera': [1910, 1948, 3, 'defensivo', 'Argentina'], 'Béla Guttmann': [1899, 1945, 2, 'ofensivo', 'Hungría'], 'Matt Busby': [1909, 1945, 3, 'ofensivo', 'Escocia'], 'Bill Shankly': [1913, 1949, 3, 'ofensivo', 'Escocia'],
     'Nereo Rocco': [1912, 1947, 2, 'defensivo', 'Italia'], 'Miguel Muñoz': [1922, 1959, 2, 'equilibrado', 'España'], 'Hennes Weisweiler': [1919, 1958, 2, 'ofensivo', 'Alemania'], 'Don Revie': [1927, 1961, 2, 'equilibrado', 'Inglaterra'],
     'Ernst Happel': [1925, 1962, 3, 'ofensivo', 'Austria'], 'Rinus Michels': [1928, 1965, 3, 'ofensivo', 'Países Bajos'], 'Brian Clough': [1935, 1965, 3, 'contragolpe', 'Inglaterra'], 'Telê Santana': [1931, 1969, 2, 'ofensivo', 'Brasil'],
-    'Udo Lattek': [1935, 1970, 2, 'equilibrado', 'Alemania'], 'Bob Paisley': [1919, 1974, 3, 'equilibrado', 'Inglaterra'], 'Giovanni Trapattoni': [1939, 1974, 3, 'defensivo', 'Italia'], 'Alex Ferguson': [1941, 1974, 3, 'ofensivo', 'Escocia'],
+    'Udo Lattek': [1935, 1970, 2, 'equilibrado', 'Alemania'], 'Bob Paisley': [1919, 1974, 3, 'equilibrado', 'Inglaterra'], 'Giovanni Trapattoni': [1939, 1974, 3, 'defensivo', 'Italia'], 'Alex Ferguson': [1941, 1986, 3, 'ofensivo', 'Escocia'],
     'Luis Aragonés': [1938, 1974, 2, 'contragolpe', 'España'], 'Jupp Heynckes': [1945, 1979, 2, 'equilibrado', 'Alemania'], 'Luiz Felipe Scolari': [1948, 1982, 2, 'defensivo', 'Brasil'], 'Ottmar Hitzfeld': [1949, 1983, 3, 'equilibrado', 'Alemania'],
     'Arsène Wenger': [1949, 1984, 2, 'ofensivo', 'Francia'], 'Johan Cruyff': [1947, 1985, 3, 'ofensivo', 'Países Bajos'], 'Arrigo Sacchi': [1946, 1985, 3, 'ofensivo', 'Italia'], 'Marcello Lippi': [1948, 1985, 3, 'equilibrado', 'Italia'],
     'Carlos Bianchi': [1949, 1985, 2, 'equilibrado', 'Argentina'], 'Marcelo Bielsa': [1955, 1990, 2, 'ofensivo', 'Argentina'], 'Fabio Capello': [1946, 1991, 3, 'defensivo', 'Italia'], 'Louis van Gaal': [1951, 1991, 2, 'ofensivo', 'Países Bajos'],
@@ -2036,7 +2038,7 @@
       const ed = edadDe(e), p = puestos.get(c);
       const don = donDT(e.nombre);
       // El de la dinastía se queda hasta que él quiera (se jubila pasados los 70).
-      if (don === 'eterno') { if (ed && ed >= 71 && r() < 0.5) log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
+      if (don === 'eterno') { if (ed && (ed >= 73 || (ed >= 68 && r() < 0.5))) log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
       const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
