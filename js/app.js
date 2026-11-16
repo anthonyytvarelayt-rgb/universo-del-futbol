@@ -666,10 +666,12 @@ function premiosMundo(V) {
   const individual = (x) => notaB(x) + Math.min(0.22, (x.g || 0) / 220) + Math.min(0.2, (x.a || 0) / 150) + Math.min(0.2, golesEU(x) / 45) - lastre(x) + 0.25 * monstruo(x) * ganado(x) + mundialInd(x) - descuento(x);
   const colectivoBase = (x) => talla(x) * peso(x) * ((ligas.has(x.eq.nombre) && cerradaV(V) ? 0.3 : 0)
     + (finalEU ? (R.EU.campeon === x.eq.nombre ? 0.55 : (finalEU.a === x.eq.nombre || finalEU.b === x.eq.nombre) ? 0.15 : 0) : 0)
-    + (otrosTitulos.get(x.eq.nombre) || 0))
+    + (otrosTitulos.get(x.eq.nombre) || 0)
+    // El doblete (liga y Copa de Europa) es el año grande de verdad: su figura parte como favorita (Anthony, 2026-11-16).
+    + (finalEU && R.EU.campeon === x.eq.nombre && ligas.has(x.eq.nombre) && cerradaV(V) ? 0.2 : 0))
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * pesoSel(x) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
-  const colectivo = (x) => 0.8 * colectivoBase(x) * (1 + 0.25 * monstruo(x));  // a la mitad desde 2026-11-16: Beckenbauer segundo con 6 goles
+  const colectivo = (x) => colectivoBase(x) * (1 + 0.25 * monstruo(x));  // extra de defensa monstruo a la mitad desde 2026-11-16 (Beckenbauer segundo con 6 goles)
   const merito = (x) => individual(x) + colectivo(x) + clase(x);
   r.meritoDe = (nombre) => { const o = G.filter((x) => x.pj >= 15).sort(porMerito), i = o.findIndex((x) => x.nombre === nombre), x = o[i]; return x ? { puesto: i + 1, nota: x.notaTemp, nivel: nivelEn(x), individual: individual(x), colectivo: colectivo(x), clase: clase(x) } : null; };
   const porMerito = (a, b) => merito(b) - merito(a);
@@ -688,7 +690,7 @@ function premiosMundo(V) {
     const naciones = [...new Set(lista.map((x) => (x.j && x.j.nacion) || '').concat(paisesDe(V)).filter(Boolean))];
     // Cansancio del votante: al que lo ha ganado los tres últimos años le cuesta más convencer (Cruyff no lo gana ocho de nueve).
     const previos = temporadas().filter((T) => T !== V && cerradaV(T) && T.anio < V.anio && T.anio >= V.anio - 3).map((T) => { try { return (premiosMundo(T).ganadorMejor || {}).nombre; } catch (e) { return null; } });
-    const cansancio = (n) => 0.06 * previos.filter((p) => p === n).length;
+    const cansancio = (n) => 0.1 * previos.filter((p) => p === n).length;
     const reparto = V.anio >= 2007 ? [6, 4, 3, 2, 1] : [5, 4, 3, 2, 1];
     const filas = lista.map((x) => ({ x, m: merito(x), puntos: 0, primeros: 0, votantes: 0 }));
     for (let k = 0; k < 100; k++) {
@@ -713,6 +715,8 @@ function premiosMundo(V) {
     const vt = votar(gran && gran.id === 'balon' ? gran.quien : null);
     r.nominados = vt.map(({ x, puntos, primeros, votantes }) => { const p = enMU(x); return { nombre: x.nombre, club: x.club, nacion: (x.j && x.j.nacion) || '', pos: x.pos, g: x.g, a: x.a, nota: x.notaTemp, puntos, primeros, votantes, individual: individual(x), colectivo: colectivo(x), clase: clase(x), mundial: p ? { g: p.g, a: p.a, eq: p.eq } : null }; });
     r.podio = r.nominados.slice(0, 3);
+    // Y si hubieran contado todos (Anthony: "algo que diga qué pasaría si se contaran no europeos"), como hizo France Football en 2015 con Pelé.
+    if (gran && gran.quien && gran.quien !== 'todos') { const ab = votar(null).slice(0, 3).map(({ x, puntos }) => ({ nombre: x.nombre, club: x.club, nacion: (x.j && x.j.nacion) || '', puntos })); if (ab.length) r.abierto = { podio: ab, cambia: !vt[0] || ab[0].nombre !== vt[0].x.nombre }; }
     // Quien no podía ganarlo por la regla de la época (Anthony: "Rivelino, la mejor nota del mundo, y ni podio").
     if (gran && gran.quien) { const f = filtroGran(gran.quien), fuera = G.filter((x) => x.pj >= 15 && !f(x)).sort(porMerito)[0]; if (fuera && merito(fuera) > merito(vt[0].x)) r.fueraRegla = { nombre: fuera.nombre, club: fuera.club, nota: fuera.notaTemp, regla: gran.quien === 'europeos' ? 'hasta 1995 solo podían ganarlo los europeos que jugaban en Europa' : 'entonces solo podían ganarlo los que jugaban en Europa' }; }
   } catch (e) { r.podio = []; }
@@ -1376,7 +1380,8 @@ function figurasHtml(V, pais) {
     premios = [
       ...pm.oficiales.map((x) => premio(x.nombre, x.j, x.linea)),
       (pm.podio || []).length > 1 ? `<div class="premio"><span>Podio del ${esc(pm.nombreMejor)}</span>${pm.podio.map((x, i) => `<small>${i + 1}.º ${nombreJ(x.nombre)} · ${esc(x.club)} · ${x.g} goles, ${x.a} asist., nota ${x.nota.toFixed(2)}</small>`).join('')}<small>Cuenta: rendimiento y goles decisivos (también en el Mundial), títulos del equipo y la clase del jugador. Votan 100 periodistas.</small></div>` : '',
-      pm.fueraRegla ? `<div class="premio"><span>Se quedó sin poder optar</span><small>${nombreJ(pm.fueraRegla.nombre)} · ${esc(pm.fueraRegla.club)} · nota ${pm.fueraRegla.nota.toFixed(2)}: lo habría ganado, pero ${esc(pm.fueraRegla.regla)}.</small></div>` : '',
+      pm.abierto ? `<div class="premio"><span>Si hubiera estado abierto a todos</span>${pm.abierto.cambia ? `<small><b>Lo habría ganado ${nombreJ(pm.abierto.podio[0].nombre)}</b> (${esc(pm.abierto.podio[0].nacion)}, ${esc(pm.abierto.podio[0].club)})</small>` : '<small>Habría ganado el mismo.</small>'}<small>${pm.abierto.podio.map((x, i) => `${i + 1}.º ${nombreJ(x.nombre)} · ${x.puntos} puntos`).join(' · ')}</small></div>` : '',
+      pm.fueraRegla && !pm.abierto ? `<div class="premio"><span>Se quedó sin poder optar</span><small>${nombreJ(pm.fueraRegla.nombre)} · ${esc(pm.fueraRegla.club)} · nota ${pm.fueraRegla.nota.toFixed(2)}: lo habría ganado, pero ${esc(pm.fueraRegla.regla)}.</small></div>` : '',
       (pm.nominados || []).length > 3 ? `<div class="premio"><span>Los ${pm.nominados.length} nominados y sus votos</span>${pm.nominados.map((x, i) => `<small>${i + 1}.º ${nombreJ(x.nombre)} · ${esc(x.club)} · <b>${x.puntos} puntos</b>${x.primeros ? ` (${x.primeros} ${x.primeros === 1 ? 'primer puesto' : 'primeros puestos'})` : ''} · ${x.g} goles${x.mundial && x.mundial.g ? `, ${x.mundial.g} en el Mundial` : ''}</small>`).join('')}</div>` : '',
       pm.oficiales.length ? '' : premio('Mejor jugador del mundo', pm.mejor, (j) => `nota ${j.notaTemp.toFixed(2)}`),
       premio('Máximo goleador', pm.goleador, (j) => `${j.g} goles`),
@@ -2179,7 +2184,8 @@ function copiarResumen(btn) {
   intento(() => {
     sec('⭐ PREMIOS');
     if (pm.ganadorMejor) out.push(`• ${pm.nombreMejor}: ${pm.ganadorMejor.nombre} (${pm.ganadorMejor.club})`);
-    if (pm.fueraRegla) out.push(`   Sin poder optar: ${pm.fueraRegla.nombre} (${pm.fueraRegla.club}, nota ${pm.fueraRegla.nota.toFixed(2)}) lo habría ganado, pero ${pm.fueraRegla.regla}`);
+    if (pm.abierto) out.push(`   Si hubiera estado abierto a todos: ${pm.abierto.cambia ? `lo habría ganado ${pm.abierto.podio[0].nombre} (${pm.abierto.podio[0].nacion}). ` : 'habría ganado el mismo. '}Podio: ${pm.abierto.podio.map((x, i) => `${i + 1}.º ${x.nombre} ${x.puntos}`).join(' · ')}`);
+    if (pm.fueraRegla && !pm.abierto) out.push(`   Sin poder optar: ${pm.fueraRegla.nombre} (${pm.fueraRegla.club}, nota ${pm.fueraRegla.nota.toFixed(2)}) lo habría ganado, pero ${pm.fueraRegla.regla}`);
     if ((pm.podio || []).length > 1) out.push(`   Podio: ${pm.podio.map((x, i) => `${i + 1}.º ${x.nombre} (${x.club}, ${x.puntos} puntos, ${x.g} goles, ${x.a} asistencias${x.mundial && x.mundial.g ? `, ${x.mundial.g} en el Mundial` : ''}, nota ${x.nota.toFixed(2)})`).join(' · ')}`);
     if ((pm.nominados || []).length > 3) out.push(`   Los ${pm.nominados.length} nominados (puntos de 100 periodistas): ${pm.nominados.map((x, i) => `${i + 1}. ${x.nombre} (${x.club}) ${x.puntos}`).join(', ')}`);
     intento(() => { const pt = (v) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2).replace('.', ','); if ((pm.podio || []).length) out.push(`   Por qué (rendimiento del año + títulos + categoría): ${pm.podio.map((x) => `${x.nombre} ${x.individual.toFixed(2).replace('.', ',')} ${pt(x.colectivo)} ${pt(x.clase)} = ${(x.individual + x.colectivo + x.clase).toFixed(2).replace('.', ',')}`).join(' · ')}`); });
@@ -2234,6 +2240,7 @@ function copiarResumen(btn) {
     const lineas = [];
     const eu = cuenta(ts.map((T) => T.europa)).slice(0, 6); if (eu.length) lineas.push(`• ${nombreEuropa(V)} (desde ${ts[0].temporada}): ${eu.map(([c, n]) => `${c} ${n}`).join(', ')}`);
     const bo = cuenta(ts.map((T) => { const g = premiosMundo(T).ganadorMejor; return g && g.nombre; })).slice(0, 6); if (bo.length) lineas.push(`• ${pm.nombreMejor || 'Mejor jugador'}: ${bo.map(([c, n]) => `${c} ${n}`).join(', ')}`);
+    if (ts.some((T) => { const p = premiosMundo(T); return p.abierto && p.abierto.cambia; })) { const ba = cuenta(ts.map((T) => { const p = premiosMundo(T); return p.abierto ? p.abierto.podio[0].nombre : (p.ganadorMejor || {}).nombre; })).slice(0, 6); lineas.push(`• Balón de Oro abierto a todos (si hubieran podido ganarlo los de fuera): ${ba.map(([c, n]) => `${c} ${n}`).join(', ')}`); }
     const rachas = [];
     paisesDe(V).forEach((pais) => { const c = campeonDe(V, pais).campeon; if (!c) return; let n = 0; for (let i = ts.length - 1; i >= 0 && campeonDe(ts[i], pais).campeon === c; i--) n++; if (n >= 2) rachas.push(`${c} ${n} ligas seguidas`); const tot = cuenta(ts.map((T) => campeonDe(T, pais).campeon)).slice(0, 5); if (tot.length) lineas.push(`• Ligas de ${pais}: ${tot.map(([k, m]) => `${k} ${m}`).join(', ')}`); });
     if (rachas.length) lineas.unshift(`• Rachas vivas: ${rachas.join(', ')}`);
