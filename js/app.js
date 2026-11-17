@@ -2931,13 +2931,27 @@ function goleadoresClub(n) {
 function dineroTxt(v) { const m = v * Mundo.recordTraspaso(M.anio) / 22; return `${precioTxt(m >= 10 ? Math.round(m) : m >= 1 ? Math.round(m * 10) / 10 : Math.round(m * 100) / 100)} al año`; }
 const BALANCE_TXT = { superado: 'Éxito', cumplido: 'Cumplió', cerca: 'Balance agridulce', fracaso: 'Por debajo del objetivo' };
 function objetivoClub(c, l) {
-  try {
-    if (!l || l.nivel !== 1 && l.grupo !== 'Primera') return '';
-    const n = l.T.tabla.length, porNombre = l.T.tabla.map((t) => clubDe(t.nombre)).filter(Boolean).sort((a, b) => b.prestigio - a.prestigio);
-    const obj = Mundo.objetivoDe(porNombre.indexOf(c), n, c.prestigio);
-    const antes = cerradas.length ? ((cerradas[cerradas.length - 1].objetivos || []).find((o) => o.club === c.nombre)) : null;
-    return `<div class="palmares"><span class="rotulo">La directiva</span><div><span>Objetivo de esta temporada</span><span>${esc(Mundo.OBJETIVOS[obj])}</span></div>${c.vestuario && c.vestuario !== 'normal' ? `<div><span>Vestuario</span><span>${c.vestuario === 'unido' ? 'Unido: rinde por encima de lo que vale' : 'Roto: rinde por debajo de lo que vale'}</span></div>` : ''}${antes ? `<div><span>La temporada pasada</span><span>${BALANCE_TXT[antes.balance]} · ${antes.descenso ? 'descenso' : `${antes.puesto}.º en la tabla`}${antes.copas && antes.copas.length ? ' · ' + esc(antes.copas.join(', ')) : antes.finalMayor ? ' · final de ' + esc(antes.finalMayor) : ''}</span></div>` : ''}</div>`;
-  } catch (e) { return ''; }
+  const cierre = S && S.veranoHecho ? S : null;
+  const ultima = cierre || cerradas[cerradas.length - 1];
+  const antes = ultima && (ultima.objetivos || []).find((o) => o.club === c.nombre);
+  const enPrimera = l && (l.nivel === 1 || l.grupo === 'Primera');
+  if (!enPrimera && !antes) return '';
+  let filas = '';
+  if (enPrimera && !cierre) {
+    const porNombre = l.T.tabla.map((t) => clubDe(t.nombre)).filter(Boolean).sort((a, b) => b.prestigio - a.prestigio);
+    const obj = Mundo.objetivoDe(porNombre.indexOf(c), l.T.tabla.length, c.prestigio);
+    filas += `<div><span>Objetivo de esta temporada</span><span>${esc(Mundo.OBJETIVOS[obj])}</span></div>`;
+  }
+  if (c.vestuario && c.vestuario !== 'normal') {
+    filas += `<div><span>Vestuario</span><span>${c.vestuario === 'unido' ? 'Unido: rinde por encima de lo que vale' : 'Roto: rinde por debajo de lo que vale'}</span></div>`;
+  }
+  if (antes) {
+    const etiqueta = cierre ? 'Balance de la temporada' : 'La temporada pasada';
+    const tabla = antes.descenso ? 'descenso' : `${antes.puesto}.º en la tabla`;
+    const copas = antes.copas && antes.copas.length ? antes.copas.join(', ') : antes.finalMayor ? 'final de ' + antes.finalMayor : '';
+    filas += `<div><span>${etiqueta}</span><span>${BALANCE_TXT[antes.balance]} · ${esc(tabla)}${copas ? ' · ' + esc(copas) : ''}</span></div>`;
+  }
+  return filas ? `<div class="palmares"><span class="rotulo">La directiva</span>${filas}</div>` : '';
 }
 // La caja del club: lo que tiene, lo que ingresó y lo que gastó el último año.
 const eur = (v) => !v ? '0 €' : (v < 0 ? '−' : '') + precioTxt(Math.abs(v) >= 10 ? Math.round(Math.abs(v)) : Math.abs(v) >= 1 ? Math.round(Math.abs(v) * 10) / 10 : Math.round(Math.abs(v) * 100) / 100);
