@@ -259,8 +259,15 @@
     const lin = (pos) => campo.filter((j) => j.pos === pos).map((j) => j.niv).sort((a, b) => b - a);
     const L = [lin('DEF'), lin('MED'), lin('DEL')];
     const cal = (d) => { let s = 0; DIBUJOS[d].l.forEach((k, i) => { for (let q = 0; q < k; q++) s += L[i][q] != null ? L[i][q] : 250; }); return s / 10; };
-    const mejor = nombres.concat(fav).sort((a, b) => cal(b) - cal(a))[0];
-    return cal(fav) >= cal(mejor) - 20 ? fav : mejor;
+    const disponibles = new Set(nombres.concat(fav));
+    const moda = equipo.modaTactica;
+    if (moda && DIBUJOS[moda] && DIBUJOS[moda].desde <= anio && DIBUJOS[moda].hasta >= anio) disponibles.add(moda);
+    const calidad = new Map([...disponibles].map((d) => [d, cal(d) + (d === fav ? 20 : 0)]));
+    const ordenar = (puntos, xs) => [...xs].sort((a, b) => puntos(b) - puntos(a) || (b === fav) - (a === fav))[0];
+    const original = ordenar((d) => calidad.get(d), new Set(nombres.concat(fav)));
+    const elegido = ordenar((d) => calidad.get(d) + (d === moda && !DIBUJO_DT[dt] ? 13 : 0), disponibles);
+    equipo.imitaTactica = elegido !== original && elegido === moda ? moda : null;
+    return elegido;
   }
   const refDibujo = new Map();
   function efectoDibujo(d, anio) {
@@ -423,13 +430,28 @@
       }
     });
 
-    const fL = fuerzas(xiL, nv, D), fV = fuerzas(xiV, nv, D);
+    const fL = fuerzas(xiL, nv, D), fV = fuerzas(xiV, nv, D), enlaces = [];
     [fL, fV].forEach((f, k) => {
       const E = ESTILOS[estilos[k]];
       const d = normal(r) * P.ruidoDia * tension.ruido + o.moral[k] * P.pesoMoral - menos[k] * P.unoMenos;
       f.ataque += d + E.at; f.creacion += d + E.cr; f.defensa += d * 0.8 + E.de;
-      const T = efectoDibujo((k ? visita : local).dibujo, o.anio);
+      const eq = k ? visita : local, rival = k ? local : visita;
+      const T = efectoDibujo(eq.dibujo, o.anio);
       if (T) { f.ataque += T.at; f.creacion += T.cr; f.defensa += T.de; }
+      const dibujo = DIBUJOS[eq.dibujo], otro = DIBUJOS[rival.dibujo];
+      if (dibujo && otro && rival.dibujo === eq.modaTactica && dibujo.l[1] >= otro.l[1] + 2) f.creacion += 5;
+      // Un pasador con visión aprovecha mejor las carreras de delanteros capaces de desmarcarse.
+      const once = k ? xiV : xiL;
+      const mejor = (pos, medir) => once.filter((j) => j.pos === pos && !j.relleno)
+        .reduce((max, j) => {
+          const valor = medir(j) + (nv(j) - 700) / 20;
+          return valor > (max?.valor || 0) ? { j, valor } : max;
+        }, null);
+      const medio = mejor('MED', (j) => (D(j, 'pas') + D(j, 'vis')) / 2);
+      const punta = mejor('DEL', (j) => (D(j, 'des') + D(j, 'vel')) / 2);
+      const enlace = medio && punta ? Math.min(8, Math.max(0, medio.valor - 9) * Math.max(0, punta.valor - 6) / 18) : 0;
+      f.creacion += enlace;
+      if (enlace >= 2) enlaces.push({ lado: k, medio: medio.j.n, punta: punta.j.n, aporte: enlace });
       f.E = E;
     });
     const goles = [0, 0];
@@ -546,14 +568,14 @@
     eventos.sort((a, b) => a.min - b.min);
     // Quienes acaban el partido en el campo: son los que juegan la prórroga y tiran los penaltis.
     const acaban = (xi) => xi.map((j) => { const e = st.get(j); return e.sustituido ? e.sup : j; }).filter((j) => { const e = st.get(j); return !e.roja && !e.lesion; });
-    return { goles, st, notas, xiL, xiV, supL: entran[0], supV: entran[1], finL: acaban(xiL), finV: acaban(xiV), eventos, estilos, dibujos: [local.dibujo || null, visita.dibujo || null], derbi: o.derbi };
+    return { goles, st, notas, xiL, xiV, supL: entran[0], supV: entran[1], finL: acaban(xiL), finV: acaban(xiV), eventos, estilos, enlaces, dibujos: [local.dibujo || null, visita.dibujo || null], derbi: o.derbi };
   }
 
   // Estado que dura toda la temporada: forma de cada jugador, cansancio, ánimo de cada equipo, bajas.
   function nuevoEstado(anio, derbis) {
     const mapa = new Map();
     (derbis || []).forEach((d) => { mapa.set(d.a + '|' + d.b, d.nombre); mapa.set(d.b + '|' + d.a, d.nombre); });
-    return { derbis: mapa, banquillo: new Map(), anio: anio || 1958, forma: new Map(), energia: new Map(), moral: new Map(), bajas: new Map(), habitual: new Map(), amarillas: new Map() };
+    return { derbis: mapa, banquillo: new Map(), anio: anio || 1958, forma: new Map(), energia: new Map(), moral: new Map(), bajas: new Map(), relevos: new Map(), cambiosPuesto: [], enlaces: new Map(), habitual: new Map(), amarillas: new Map() };
   }
   function edad(j, anio) {
     const y = parseInt(String(j.nac || '').slice(0, 4), 10);
@@ -574,7 +596,16 @@
     // justo cuando tiene un suplente parecido. Antes de los cambios (años 60) se rotaba mucho menos.
     const ener = (j) => (est.energia.has(j) ? est.energia.get(j) : 1), K = est.anio < 1970 ? P.rotacion * 0.4 : est.anio < 1995 ? P.rotacion * 0.75 : P.rotacion;
     const base = (j) => nv(j) + pro(j) - (1 - ener(j)) * K;
-    const sel = (eq) => { const t = est.banquillo.get(eq); return t && t.actual.merito ? (j) => base(j) + (est.forma.get(j) || 0) * 0.8 : base; };
+    const sel = (eq) => {
+      const t = est.banquillo.get(eq), ventaja = new Map();
+      for (const [titular, reto] of est.relevos) {
+        if (reto.eq !== eq || est.bajas.has(titular) || !reto.confirmado) continue;
+        if (est.bajas.has(reto.suplente) || !eq.jugadores.includes(reto.suplente)) continue;
+        ventaja.set(reto.suplente, 24);
+        ventaja.set(titular, -14);
+      }
+      return (j) => base(j) + (ventaja.get(j) || 0) + (t && t.actual.merito ? (est.forma.get(j) || 0) * 0.8 : 0);
+    };
     // Riesgo de lesión: sube con la edad (desde los 30) y con el cansancio.
     const riesgo = (j) => (1 + Math.max(0, edad(j, est.anio) - 29) * 0.07) * (1 + (1 - (est.energia.has(j) ? est.energia.get(j) : 1)) * 2);
     const m = partido(r, local, visita, Object.assign({
@@ -582,7 +613,33 @@
       moral: [est.moral.get(local) || 0, est.moral.get(visita) || 0],
       derbi: est.derbis.get(local.nombre + '|' + visita.nombre) || null
     }, o));
+    m.neutral = !!o.neutral;
+    if (!o.prorroga) m.enlaces.forEach(({ lado, medio, punta, aporte }) => {
+      const club = (lado ? visita : local).nombre;
+      const clave = JSON.stringify([club, medio, punta]);
+      const dato = est.enlaces.get(clave) || { club, medio, punta, partidos: 0, aporte: 0 };
+      dato.partidos++;
+      dato.aporte += aporte;
+      est.enlaces.set(clave, dato);
+    });
     const [ga, gb] = m.goles;
+    if (!o.prorroga) for (const [titular, reto] of est.relevos) {
+      const once = reto.eq === local ? m.xiL : reto.eq === visita ? m.xiV : null;
+      if (!once) continue;
+      if (est.bajas.has(titular)) {
+        if (once.includes(reto.suplente)) {
+          reto.partidos++;
+          reto.nota += m.notas.get(reto.suplente) || 0;
+          reto.confirmado = reto.partidos >= 2 && reto.nota / reto.partidos >= 6.7;
+        }
+      } else {
+        if (reto.confirmado && once.includes(reto.suplente) && !once.includes(titular) && !reto.notificado) {
+          est.cambiosPuesto.push({ club: reto.eq.nombre, titular: titular.n, suplente: reto.suplente.n, partidos: reto.partidos });
+          reto.notificado = true;
+        }
+        if (++reto.regreso >= 4 || !reto.confirmado) est.relevos.delete(titular);
+      }
+    }
     [[local, ga - gb, m.xiL.concat(m.supL), gb], [visita, gb - ga, m.xiV.concat(m.supV), ga]].forEach(([eq, d, xi, contra]) => {
       // Rachas: el ánimo sube con las victorias y baja con las derrotas, y se va olvidando.
       // Ganar un derbi pesa el doble en el ánimo.
@@ -606,13 +663,22 @@
         est.forma.set(j, Math.max(-80, Math.min(80, 0.8 * (est.forma.get(j) || 0) + (nota - habitual) * 8 + normal(r) * 14)));
         // Cansancio: jugar gasta, y gasta más a partir de los 30.
         const t = est.banquillo.get(eq);
-        const gasto = (0.035 + Math.max(0, edad(j, est.anio) - 30) * 0.006) * (t && t.actual.fisico ? 0.85 : 1);
+        const gasto = (0.035 + Math.max(0, edad(j, est.anio) - 30) * 0.006) *
+          (t && t.actual.fisico ? 0.85 : 1) * (o.cargaContinental ? 1 + (eq.cargaContinental || 0) : 1);
         est.energia.set(j, Math.max(0.3, (est.energia.has(j) ? est.energia.get(j) : 1) - gasto * ((e.salida - (e.entrada || 0)) / 90)));
         if (e.lesion) {
           // La mayoría son de una a tres semanas; alguna larga, y unas pocas graves (rodilla, rotura) de meses, más con la edad.
           const x2 = r(), grave = 0.03 + Math.max(0, edad(j, est.anio) - 30) * 0.008;
           const semanas = x2 < grave ? 15 + Math.floor(r() * 20) : x2 < 0.17 ? 4 + Math.floor(r() * 10) : 1 + Math.floor(r() * 3);
           est.bajas.set(j, semanas); x.baja += semanas;
+          if (!o.prorroga && !j.relleno && !e.entrada && semanas >= 4) {
+            const retador = e.sup && e.sup.pos === j.pos && !e.sup.relleno ? e.sup :
+              eq.jugadores.filter((q) => q !== j && q.pos === j.pos && !q.relleno && !xi.includes(q) && !est.bajas.has(q))
+                .sort((a, b) => b.niv - a.niv)[0];
+            if (retador && retador.niv >= j.niv - 110) {
+              est.relevos.set(j, { eq, suplente: retador, partidos: 0, nota: 0, regreso: 0 });
+            }
+          }
           const ev = m.eventos.find((v) => v.tipo === 'lesion' && v.quien === j.n); if (ev) ev.semanas = semanas;
         }
         // Sanciones: se apunta una semana de más porque la de este partido se descuenta al acabar la jornada.
@@ -628,7 +694,7 @@
     est.bajas.forEach((v, j) => (v <= 1 ? est.bajas.delete(j) : est.bajas.set(j, v - 1)));
     equipos.forEach((eq) => eq.jugadores.forEach((j) => { if (est.energia.has(j)) est.energia.set(j, Math.min(1, est.energia.get(j) + 0.03)); }));
   }
-  const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, dibujos: m.dibujos, derbi: m.derbi });
+  const resumen = (m, local, visita) => ({ local: local.nombre, visita: visita.nombre, ga: m.goles[0], gb: m.goles[1], eventos: m.eventos, estilos: m.estilos, dibujos: m.dibujos, derbi: m.derbi, neutral: m.neutral });
 
   // Suma las estadísticas de varias competiciones y guarda el desglose de cada una (dónde marcó, dónde asistió…).
   const CAMPOS = ['pj', 'min', 'minMitad', 'jorMitad', 'tit', 'baja', 'g', 'a', 'paradas', 'ceros', 'regates', 'cortes', 'pases', 'pasesOk', 'pen', 'rojas', 'amarillas', 'lesiones', 'enc', 'sumaNota'];
@@ -786,7 +852,7 @@
       if (op.alJugar) op.alJugar(jn + 1, resJornada);
     });
     tabla.sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);
-    tabla.forEach((t) => { const b = est.banquillo.get(t.equipo); t.entrenador = b ? b.actual.nombre : null; t.estilo = estiloBase(t.equipo); t.dibujo = t.equipo.dibujo || null; });
+    tabla.forEach((t) => { const b = est.banquillo.get(t.equipo); t.entrenador = b ? b.actual.nombre : null; t.estilo = estiloBase(t.equipo); t.dibujo = t.equipo.dibujo || null; t.imitaTactica = t.equipo.imitaTactica || null; });
     const jugadores = notasTemporada(registro, tabla[0].equipo);
     const tramos = {};
     equipos.forEach((e) => { const b = est.banquillo.get(e); if (b) tramos[e.nombre] = b.tramos; });
@@ -813,7 +879,10 @@
     let esperan = orden.slice(0, orden.length - juegan);
     let vivos = orden.slice(orden.length - juegan);
     const barajar = (xs) => { const a = [...xs]; for (let i = a.length - 1; i > 0; i--) { const k = Math.floor(r() * (i + 1)); [a[i], a[k]] = [a[k], a[i]]; } return a; };
-    const juega = (a, b, o) => jugarConEstado(r, est, a, b, Object.assign({ cambios: op.cambios, factorGoles: op.factorGoles }, o), registro);
+    const continental = /Europa|Champions|UEFA|Recopa|Libertadores|Campeones/i.test(op.nombre || '');
+    const juega = (a, b, o) => jugarConEstado(r, est, a, b, Object.assign({
+      cambios: op.cambios, factorGoles: op.factorGoles, cargaContinental: continental
+    }, o), registro);
     // Una eliminatoria: ida y vuelta (o final única), desempate en campo neutral con prórroga si hace falta.
     const eliminatoria = (A, B, unica) => {
       const partidos = [];

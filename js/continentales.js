@@ -2,6 +2,7 @@
 (function (root) {
   'use strict';
   const Motor = root.Motor || (typeof require !== 'undefined' ? require('./motor.js') : null);
+  const Dinamica = root.Dinamica || (typeof require !== 'undefined' ? require('./dinamica.js') : null);
   const Mundial = root.Mundial || (typeof require !== 'undefined' ? require('./mundial.js') : null);
   const limpio = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s*\(.*\)\s*$/, '').trim();
   const ALIAS = { rfa: 'alemania', 'alemania federal': 'alemania', 'alemania occidental': 'alemania', urss: 'union sovietica',
@@ -58,7 +59,8 @@
       const todos = mios.concat(externos), lista = [];
       ['POR', 'DEF', 'MED', 'DEL'].forEach((pos) => {
         const cupo = Math.max(pos === 'POR' ? 2 : 4, E.jugadores.filter((x) => x.pos === pos).length);
-        lista.push(...todos.filter((x) => x.pos === pos).sort((a, b) => b.niv - a.niv || a.n.localeCompare(b.n)).slice(0, cupo));
+        const previa = (M.generaciones || {})[pais] || {};
+        lista.push(...Dinamica.convocados(todos.filter((x) => x.pos === pos), cupo, ed.anio, (previa.lineas || {})[pos]));
       });
       if (lista.length < 7) throw new Error('Faltan jugadores reales para ' + E.nombre + ' en ' + ed.nombre + ' ' + ed.edicion);
       equipos[k] = { nombre: E.nombre, jugadores: lista };
@@ -71,7 +73,7 @@
     const T = Mundial.torneo(Object.assign({}, ed, { equipos }), { semilla });
     Object.assign(T, { id: ed.id, nombre: ed.nombre, edicion: ed.edicion, etiqueta: ed.etiqueta,
       real: ed.real.campeon, referencia: ed.real, fuentes: ed.fuentes });
-    T.convocados = Object.fromEntries(Object.values(equipos).map((E) => [E.nombre, E.jugadores.map((x) => [x.n, x.pos, x.niv, x.ref ? 1 : 0])]));
+    T.convocados = Object.fromEntries(Object.values(equipos).map((E) => [E.nombre, E.jugadores.map((x) => [x.n, x.pos, x.niv, x.ref ? 1 : 0, x.edad || (x.nac && ed.anio - parseInt(x.nac, 10)) || 0])]));
     T.jugadores.forEach((x) => {
       const j = x.ref && refs.get(x.ref);
       x.mio = !!j;

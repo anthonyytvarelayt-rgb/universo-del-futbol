@@ -92,7 +92,7 @@ function crearSimulador() {
   };
   try {
     // En la página de un solo archivo el código va dentro de cada etiqueta; en el sitio por archivos, el trabajador los importa por su dirección.
-    const fuentes = ['src-motor', 'src-atributos', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-continentales-datos', 'src-continentales', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
+    const fuentes = ['src-motor', 'src-atributos', 'src-epoca', 'src-mundial', 'src-mundiales', 'src-continentales-datos', 'src-dinamica', 'src-continentales', 'src-canteras', 'src-mundo'].map((id) => $(id)).filter(Boolean).map((el) => (el.src ? `importScripts(${JSON.stringify(el.src)});` : el.textContent)).join('\n;\n');
     const codigo = `${fuentes}\n;const atender = (${cuerpoSimulador.toString()})(self);\nself.onmessage = (e) => atender(e.data, (x) => self.postMessage(x));`;
     const w = new Worker(URL.createObjectURL(new Blob([codigo], { type: 'text/javascript' })));
     w.onmessage = (e) => recibir(e.data);
@@ -225,7 +225,7 @@ async function avanzar(callado) {
     if (!callado) $('fechaTxt').textContent = 'Llega el verano…';
     const d = await obtener('verano', k);
     // El verano trae el mundo de después: edades, retiros, fichajes y ascensos.
-    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, presidentes: d.S.presidentes, escandalos: d.S.escandalos, culebrones: d.S.culebrones, vestuario: d.S.vestuario, estadios: d.S.estadios, promesas: d.S.promesas, confianza: d.S.confianza, sueldos: d.S.sueldos, veranoHecho: true });
+    Object.assign(S, { movimientos: d.S.movimientos, retiros: d.S.retiros, mercado: d.S.mercado, novedades: d.S.novedades, banquillos: d.S.banquillos, objetivos: d.S.objetivos, finanzas: d.S.finanzas, duenos: d.S.duenos, presidentes: d.S.presidentes, escandalos: d.S.escandalos, culebrones: d.S.culebrones, vestuario: d.S.vestuario, estadios: d.S.estadios, promesas: d.S.promesas, confianza: d.S.confianza, sueldos: d.S.sueldos, dinamica: d.S.dinamica, veranoHecho: true });
     M = d.M;
   }
   // Al cerrar la temporada, el teletipo da los campeones de todas las ligas.
@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 100;
+const VERSION_GUARDADO = 101;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -1210,6 +1210,59 @@ function historiasMercado(V) {
   return cadenas.slice(0, 4);
 }
 
+const PUESTOS_DINAMICA = { POR: 'la portería', DEF: 'la defensa', MED: 'el centro del campo', DEL: 'la delantera' };
+function dinamicaDe(V) {
+  const nombres = PUESTOS_DINAMICA, out = [];
+  const pon = (tema, titulo, texto) => out.push({ tema, titulo: artClubes(titulo), texto: artClubes(texto) });
+  const perfiles = { cedidos: 'Dependió de cedidos y busca cubrir los puestos que pierde al devolverlos.', veteranos: 'Subió con veteranos y busca refuerzos más jóvenes.',
+    jovenes: 'Subió con jóvenes que ya jugaban juntos. En el mercado procura conservar ese bloque.' };
+  (V.dinamica || []).forEach((x) => {
+    if (x.tipo === 'tactica') pon('Tácticas', `El ${x.dibujo} gana peso en ${x.pais}`,
+      `${x.clubes.join(' y ')} obtuvieron buenos resultados con ese dibujo. Otros técnicos podrán probarlo si les encaja la plantilla.`);
+    if (x.tipo === 'imitacion') pon('Tácticas', `El ${x.dibujo} se extiende en ${x.pais}`,
+      `${x.clubes.join(', ')} se inclinaron por ese dibujo tras los resultados de otros clubes.`);
+    if (x.tipo === 'ascenso') pon('Ascensos', `Así sube el ${x.club}`, perfiles[x.perfil]);
+    if (x.tipo === 'recuperacion') pon('Alineaciones', `${x.suplente} conserva el puesto`,
+      `${x.titular} volvió a estar disponible en el ${x.club}, pero ${x.suplente} siguió como titular tras ${x.partidos} partidos en el once durante la baja.`);
+    if (x.tipo === 'enlace') pon('Tácticas', `${x.medio} y ${x.punta}, la conexión del ${x.club}`,
+      `El pase y la visión del centrocampista se combinaron con los desmarques del delantero en ${x.partidos} partidos.`);
+    if (x.tipo === 'ruta') pon('Ojeadores', `El ${x.club} vuelve a mirar hacia ${x.pais}`,
+      `El rendimiento de ${x.jugador} reforzó el interés del club por ese mercado.`);
+    if (x.tipo === 'prioridad') pon('Banquillos', `${x.tecnico} y la directiva priorizan puestos distintos`,
+      `El técnico quería reforzar ${nombres[x.pedida]}. El club fichó a ${x.jugador} para ${nombres[x.comprada]} y dejó pendiente el puesto que pidió.`);
+    if (x.tipo === 'sucesion') pon('Mercado', `El ${x.club} prepara su portería`,
+      `Fichó a ${x.sustituto} como opción de futuro mientras ${x.titular} sigue en la plantilla.`);
+    if (x.tipo === 'regreso') pon('Mercado', `${x.jugador} vuelve al ${x.club}`,
+      `${x.desde ? 'Deja el ' + x.desde + ' y acepta' : 'Estaba libre y acepta'} menos de lo que pediría en otro contrato para volver al club donde se formó.`);
+    if (x.tipo === 'vestuario') pon('Vestuario', `Tensión entre ${x.grupo === 'jovenes' ? 'los jóvenes' : 'los veteranos'} del ${x.club}`,
+      `Con ${x.tecnico}, ${x.afectados.slice(0, 5).join(', ')} ${x.grupo === 'jovenes' ? 'apenas encontraron minutos en el primer equipo' : 'perdieron minutos respecto a la temporada anterior'}.`);
+  });
+  torneosSelecciones(V).forEach(({ T }) => (T.relevosGeneracion || []).forEach((x) =>
+    pon('Selecciones', `${x.seleccion} cambia ${nombres[x.pos]}`, `${x.salidas.join(', ')} estaban entre los veteranos de la convocatoria anterior y quedaron fuera de esta lista.`)));
+  const cuentas = V.finanzas || [];
+  const conEuropa = cuentas.filter((x) => x.partidosContinental >= 4).sort((a, b) => (b.gastoContinental - b.continental) - (a.gastoContinental - a.continental))[0];
+  if (conEuropa && conEuropa.gastoContinental) pon('Economía', `La factura continental del ${conEuropa.club}`,
+    `${conEuropa.partidosContinental} partidos, ${eur(conEuropa.continental)} de ingresos adicionales y ${eur(conEuropa.gastoContinental)} de gastos por jugar y viajar. Los premios van aparte.`);
+  const reserva = cuentas.filter((x) => x.reserva > 0 && x.ventas > 0).sort((a, b) => b.reserva - a.reserva)[0];
+  if (reserva) pon('Economía', `El ${reserva.club} separa dinero de las ventas`, `Tiene ${eur(reserva.reserva)} reservados para compromisos del club. Esa cantidad queda fuera del presupuesto de fichajes.`);
+  const porTV = cuentas.filter((x) => x.tv > 0).sort((a, b) => b.tv - a.tv)[0];
+  if (porTV) pon('Economía', `El reparto de televisión beneficia al ${porTV.club}`,
+    `El reparto más igualado le deja ${eur(porTV.tv)} adicionales de los ingresos de su liga.`);
+  return out;
+}
+function dinamicaHtml(V) {
+  const temas = new Map();
+  dinamicaDe(V).forEach((x) => {
+    const lista = temas.get(x.tema) || [];
+    lista.push(x);
+    temas.set(x.tema, lista);
+  });
+  if (!temas.size) return '';
+  return `<div class="caja"><span class="rotulo">Cómo cambia el fútbol</span>${[...temas].map(([tema, noticias]) =>
+    `<details><summary>${esc(tema)}</summary>${noticias.slice(0, 8).map((x) =>
+      `<div class="resultado"><span><span>${esc(x.titulo)}<small>${esc(x.texto)}</small></span></span></div>`).join('')}</details>`).join('')}</div>`;
+}
+
 function sorpresasHtml(V) {
   const nov = V.veranoHecho ? V.novedades || [] : [];
   const joyas = nov.filter((x) => x.tipo === 'joya').sort((a, b) => b.tec - a.tec).slice(0, 3).map((x) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La joya inesperada</span>${marcaDif(`De verdad su mejor nivel fue ${nivel(x.real)}`)}</div><h2 class="titulo medio">${nombreJ(x.jugador)} explota en el ${esc(x.club)}</h2><p>Tiene ${x.edad} años y nivel ${nivel(x.niv)}, pero esta temporada ha dado un salto que nadie vio venir. Los ojeadores ya hablan de un techo de ${nivel(x.tec)}. En este universo su carrera puede ser otra.</p></article>`).join('');
@@ -1277,7 +1330,7 @@ function sorpresasHtml(V) {
   const confi = (() => { try { const cs = confianzaDe(V), pick = (t, n) => cs.filter((x) => x.tipo === t).slice(0, n); return pick('dimite', 1).concat(pick('rota', 2), pick('reencuentro', 1), pick('alta', 1)).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join(''); } catch (e) { return ''; } })();
   const salarios = sueldosDe(V).filter((x, i, xs) => xs.findIndex((y) => y.tipo === x.tipo) === i).slice(0, 4).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join('');
   const mercadoVivo = historiasMercado(V).map((x) => art(x.rot, esc(x.tit), esc(artClubes(x.txt)))).join('');
-  return mercadoVivo + salarios + records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + confi + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return dinamicaHtml(V) + mercadoVivo + salarios + records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + confi + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
 }
 // Datos reales de formación y de maestros (datos/canteras.js). Solo se enseñan.
 const canteraReal = (n) => (typeof CANTERAS_REALES !== 'undefined' && CANTERAS_REALES[n]) || null;
@@ -2348,6 +2401,13 @@ function copiarResumen(btn) {
     if (fr.length) out.push(`• Por debajo del objetivo: ${fr.map((o) => `${o.club} (${o.puesto}.º)`).join(', ')}`);
   });
   intento(() => { const hs = historiasDe(V); if (hs.length) { sec('📖 HISTORIAS DEL AÑO'); hs.forEach((h) => out.push(`• ${h.rot.toUpperCase()}: ${h.tit}${/[?!.]$/.test(h.tit) ? '' : '.'} ${h.txt}`)); } });
+  intento(() => {
+    const cambios = dinamicaDe(V);
+    if (!cambios.length) return;
+    sec('CÓMO CAMBIA EL FÚTBOL');
+    [...new Set(cambios.map((x) => x.tema))].forEach((tema) => cambios.filter((x) => x.tema === tema).slice(0, 3)
+      .forEach((x) => out.push(`• ${x.titulo}. ${x.texto}`)));
+  });
   // El verano: fichajes con precio, banquillos, retiros y lo que pasó con los jugadores.
   if (V.veranoHecho) {
     out.push('', `━━━━━━━━━━ ☀️ VERANO DE ${V.anio + 1}: lo que pasa al acabar la temporada ━━━━━━━━━━`);
@@ -2962,11 +3022,15 @@ function cajaClub(c) {
     const fila = (t, v) => `<div><span>${t}</span><span>${v}</span></div>`;
     return `<div class="palmares"><span class="rotulo">La caja del club · ${f.anio - 1}-${String(f.anio).slice(2)}</span>`
       + fila('Dinero en caja', `<b>${eur(c.caja)}</b> · ${estado}`)
-      + fila('Puede gastar en fichajes', eur(Math.max(0, c.caja + credito)))
+      + fila('Puede gastar en fichajes', eur(Math.max(0, c.caja - (c.reservaVentas || 0) + credito)))
       + fila('Ingresos (taquilla, televisión, patrocinio)', eur(f.ingresos))
+      + (c.reservaVentas ? fila('Ingresos de ventas reservados', eur(c.reservaVentas)) : '')
+      + (f.tv ? fila('Efecto del reparto de televisión', eur(f.tv)) : '')
+      + (f.partidosContinental ? fila('Ingresos adicionales por partidos continentales', eur(f.continental)) : '')
+      + (f.gastoContinental ? fila('Viajes y gastos de partidos continentales', eur(-f.gastoContinental)) : '')
       + (f.premios ? fila('Premios por títulos y puestos', eur(f.premios)) : '')
       + (f.dueno ? fila('Dinero del dueño', eur(f.dueno)) : '')
-      + fila('Sueldos', eur(-f.sueldos)) + fila('Otros gastos', eur(-f.gastos))
+      + fila('Sueldos', eur(-f.sueldos)) + fila('Otros gastos', eur(-(f.gastos - (f.gastoContinental || 0))))
       + (f.obras ? fila('Estadio, cantera y deudas viejas', eur(-f.obras)) : '')
       + fila('Fichajes del verano', `compró ${eur(f.compras)} · vendió ${eur(f.ventas)}`)
       + (c.rescate === f.anio ? fila('Aviso', '<b>Tuvo que refinanciar su deuda</b>') : '') + '</div>';
