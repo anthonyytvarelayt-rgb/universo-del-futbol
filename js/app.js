@@ -1178,7 +1178,7 @@ function edicionEspecial(V) {
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return portadaHtml(V) + cartel + relatoHtml(`La final de la ${nombreEuropa(V)}, contada`, relatoEuropa(V)) + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<button type="button" class="copiar" data-copiar="${cerradas.indexOf(V)}">📋 Copiar el resumen de la temporada</button>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '') + (supersNac ? `<div class="caja"><span class="rotulo">Supercopas</span>${supersNac}</div>` : '')
+  return portadaHtml(V) + cartel + relatoHtml(`La final de la ${nombreEuropa(V)}, contada`, relatoEuropa(V)) + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + exportarResumenHtml(V) + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '') + (supersNac ? `<div class="caja"><span class="rotulo">Supercopas</span>${supersNac}</div>` : '')
     + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
     + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
@@ -2263,8 +2263,134 @@ function partidosLeyenda(ts) {
     return `<div class="caja"><span class="rotulo">Partidos de leyenda</span>${top.map((x) => `<button type="button" class="resultado fila-btn" data-partido="${regP(x.m, x.comp)}"><span><span>${selloDerbi(x.m)}${esc(x.m.local)} <b>${x.m.ga}-${x.m.gb}</b> ${esc(x.m.visita)}<small>${esc(x.V.temporada)} · ${esc(x.txt)}</small></span></span><span>›</span></button>`).join('')}</div>`;
   } catch (e) { return ''; }
 }
-function copiarResumen(btn) {
-  const V = cerradas[+btn.dataset.copiar] || S, pm = premiosMundo(V), out = [`⚽ UNIVERSO DEL FÚTBOL · TEMPORADA ${V.temporada}`];
+function lineasTablaInforme(tabla) {
+  return tabla.map((t, i) => {
+    const base = `${i + 1}. ${t.nombre || t.equipo} | ${t.pj} | ${t.g} | ${t.e} | ${t.p} | ${t.gf} | ${t.gc} | ${t.pts}`;
+    const extra = [t.dibujo, t.entrenador && sinApodo(t.entrenador)].filter(Boolean);
+    return base + (extra.length ? ' | ' + extra.join(' · ') : '');
+  });
+}
+
+function cuadroInforme(C) {
+  const lineas = [];
+  if (C.campeon) lineas.push(`Campeón: ${C.campeon}`);
+  for (const ronda of C.rondas || []) {
+    lineas.push(ronda.nombre);
+    for (const g of ronda.grupos || []) lineas.push(g.nombre, ...lineasTablaInforme(g.tabla));
+    for (const c of ronda.cruces || []) {
+      if (!c.b) {
+        lineas.push(`  ${c.a}: ${c.sinRival || 'pasa sin jugar'}`);
+        continue;
+      }
+      const marcadores = (c.partidos || []).map((m) => {
+        const nombre = m.prorroga ? 'Solo prórroga: ' : m.desempate ? 'Desempate: ' : '';
+        return `${nombre}${m.local} ${m.ga}–${m.gb} ${m.visita}`;
+      });
+      const extras = [c.penaltis && `tanda ${c.penaltis}`, c.golesFuera && 'goles fuera de casa', c.ganador && `gana ${c.ganador}`].filter(Boolean);
+      if (marcadores.length || extras.length) lineas.push(`  ${c.grupo ? c.grupo + ' · ' : ''}${marcadores.concat(extras).join(' · ')}`);
+    }
+  }
+  return lineas;
+}
+
+function informeSelecciones(V) {
+  const lineas = [];
+  for (const { T } of torneosSelecciones(V)) {
+    lineas.push('', tituloSeleccion(T) + (T.sede ? ' · ' + T.sede : ''), `Campeón: ${T.campeon}`);
+    for (const F of T.fases || []) {
+      lineas.push(F.nombre);
+      for (const g of F.grupos || []) lineas.push(g.nombre, ...lineasTablaInforme(g.tabla));
+      for (const p of (T.partidos || []).filter((p) => p.fase === F.nombre)) {
+        const tanda = Array.isArray(p.penaltis) ? p.penaltis.slice(0, 2).join('–') : p.penaltis;
+        const extra = [p.ronda, p.prorroga && 'tras prórroga', tanda && `tanda ${tanda}`, p.sorteo && 'por sorteo'].filter(Boolean);
+        lineas.push(`  ${p.a} ${p.ga}–${p.gb} ${p.b}${extra.length ? ' · ' + extra.join(' · ') : ''}`);
+      }
+    }
+    const goleadores = (T.premios || {}).goleadores || [];
+    if (goleadores.length) lineas.push('Goleadores', ...goleadores.map((x) => `  ${x.n} (${x.eq}): ${x.g} G en ${x.pj} PJ`));
+    const listas = Object.entries(T.convocados || {});
+    if (!listas.length) continue;
+    lineas.push('Convocatorias · ° = jugador de fuera de las ligas simuladas');
+    for (const [pais, jugadores] of listas) {
+      const tecnico = (T.seleccionadores || {})[pais];
+      lineas.push(`  ${pais}${tecnico ? ' · ' + sinApodo(tecnico) : ''}: ${jugadores.map(([nombre, pos, niv, simulado]) =>
+        `${nombre}${simulado ? '' : '°'} (${pos}, nivel ${niv})`).join(' · ')}`);
+    }
+  }
+  return lineas;
+}
+
+function informeAmpliado(V, pm) {
+  const R = V.R;
+  const out = ['','══════════ INFORME DETALLADO ══════════'];
+  const sec = (titulo, lineas) => { if (lineas.length) out.push('', titulo, ...lineas); };
+  const paises = paisesDe(V);
+  const tabla = '# Club | PJ | G | E | P | GF | GC | Pts | dibujo y técnico si constan';
+  for (const pais of paises) {
+    const competiciones = ligasDe(V, pais).filter((l) => l.T?.tabla?.length);
+    const lineas = [];
+    const camp = campeonDe(V, pais);
+    if (camp.campeon) lineas.push(`Campeón nacional: ${camp.campeon}${camp.sub ? ' · Subcampeón: ' + camp.sub : ''}`);
+    for (const L of competiciones) {
+      lineas.push('', L.grupo + (L.nivel > 1 ? ` · Nivel ${L.nivel}` : ''), tabla, ...lineasTablaInforme(L.T.tabla));
+    }
+    sec(`CLASIFICACIONES · ${pais.toUpperCase()}`, lineas);
+  }
+  const copas = new Set([R.EU, R.LIB, R.UEFA, R.RECOPA, R.SUPER, R.INTER, ...supercopasDe(V),
+    ...paises.map((p) => copaDe(V, p)), ...(R.otros || []).map((o) => o.F), ...(R.promos || []).map((p) => p.C)].filter(Boolean));
+  if (copas.size) {
+    out.push('', 'RESULTADOS DE COPA Y PROMOCIÓN', 'Tablas: # Equipo | PJ | G | E | P | GF | GC | Pts');
+    for (const C of copas) out.push('', C.nombre, ...cuadroInforme(C));
+  }
+  const selecciones = informeSelecciones(V);
+  if (selecciones.length) out.push('', 'TORNEOS DE SELECCIONES', 'Tablas: # Equipo | PJ | G | E | P | GF | GC | Pts', ...selecciones);
+
+  const figura = (x) => `${x.nombre} (${x.club}) | ${x.pos} | ${x.pj} PJ | ${x.min ?? '—'} min | ${x.g} G | ${x.a} A | ${x.notaTemp.toFixed(2)} nota`;
+  const G = figurasDe(V);
+  for (const pais of paises) {
+    const xs = G.filter((x) => x.eq.pais === pais && x.pj >= 10);
+    if (!xs.length) continue;
+    const porNota = xs.slice().sort((a, b) => b.notaTemp - a.notaTemp).slice(0, 10);
+    const porGoles = xs.filter((x) => x.g > 0).sort((a, b) => b.g - a.g || a.pj - b.pj).slice(0, 10);
+    const porAsistencias = xs.filter((x) => x.a > 0).sort((a, b) => b.a - a.a || a.pj - b.pj).slice(0, 5);
+    sec(`FIGURAS · ${pais.toUpperCase()} · TODAS LAS COMPETICIONES`, [
+      'Mejores notas', ...porNota.map(figura), 'Goles', ...porGoles.map(figura), 'Asistencias', ...porAsistencias.map(figura)
+    ]);
+  }
+  sec(`VOTACIÓN DETALLADA · ${pm.nombreMejor.toUpperCase()}`, (pm.nominados || []).map((x, i) =>
+    `${i + 1}. ${x.nombre} (${x.club}) · ${x.puntos} pts · ${x.primeros} primeros puestos · ${x.votantes} papeletas · rendimiento ${x.individual.toFixed(2)} · títulos ${x.colectivo.toFixed(2)} · nivel ${x.clase.toFixed(2)}`));
+
+  sec('ASCENSOS Y DESCENSOS · TODOS LOS MOVIMIENTOS', (V.movimientos || []).map((x) => {
+    const tipo = x.sube || x.a === 'Primera' || x.de ? 'Ascenso' : 'Descenso';
+    return `${x.pais || 'España'} · ${x.club} · ${tipo}${x.de ? ' desde ' + x.de : ''} → ${x.a}`;
+  }));
+  const finanzas = (V.finanzas || []).slice().sort((a, b) => (a.pais || '').localeCompare(b.pais || '', 'es') || a.club.localeCompare(b.club, 'es'));
+  const euros = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  const dinero = (v) => Number.isFinite(v) ? euros.format(Math.round(v * 1e6)) : '—';
+  if (finanzas.length) sec('CUENTAS DE TODOS LOS CLUBES REGISTRADOS', [
+    'País | Club | Ingresos | Premios | Aporte del dueño | Nómina | Gastos | Compras | Ventas | Caja | Reserva | TV | Ingreso continental | Gasto continental | Obras',
+    ...finanzas.map((f) => [f.pais, f.club, f.ingresos, f.premios, f.dueno, f.sueldos, f.gastos, f.compras, f.ventas, f.caja, f.reserva, f.tv, f.continental, f.gastoContinental, f.obras]
+      .map((v, i) => i < 2 ? v || '—' : dinero(v)).join(' | '))
+  ]);
+  sec('REGISTRO COMPLETO DEL MERCADO', (V.mercado || []).map((x) => {
+    const nota = [x.edad && x.edad + ' años', Number.isFinite(x.niv) && 'nivel ' + nivel(x.niv),
+      Number.isFinite(x.precio) && (x.precio ? dinero(x.precio) : 'gratis'), x.hasta && 'hasta ' + x.hasta, x.motivo].filter(Boolean);
+    const ruta = x.de && x.de !== x.a ? `${x.de} → ${x.a || 'sin club'}` : x.a || x.de || '—';
+    return `${x.tipo} · ${x.jugador}${esFicticio(x.jugador) ? '*' : ''} · ${ruta}${nota.length ? ' · ' + nota.join(' · ') : ''}`;
+  }));
+  sec('TODOS LOS CAMBIOS DE BANQUILLO', (V.banquillos || []).map((x) =>
+    [x.club, x.sale && 'sale ' + x.sale, x.entra && 'llega ' + x.entra, x.de && 'desde ' + x.de, x.motivo].filter(Boolean).join(' · ')));
+  sec('TODAS LAS RETIRADAS REGISTRADAS', (V.retiros || []).filter((x) => x.j && !x.j.relleno).map((x) =>
+    `${x.j.n} · ${x.edad} años · ${x.club}`));
+  sec('PROMESAS DE MINUTOS · DETALLE', promesasDe(V).map((x) => `${x.rot}: ${x.tit}. ${x.txt}`));
+  sec('RELACIONES CON LOS TÉCNICOS · DETALLE', confianzaDe(V).map((x) => `${x.rot}: ${x.tit}. ${x.txt}`));
+  sec('DINÁMICA DE LA TEMPORADA · DETALLE', dinamicaDe(V).map((x) => `${x.tema} · ${x.titulo}. ${x.texto}`));
+  return out;
+}
+
+function textoResumen(V, ampliado = false) {
+  const pm = premiosMundo(V), out = [`⚽ UNIVERSO DEL FÚTBOL · TEMPORADA ${V.temporada}`];
+  if (ampliado) out.push('Informe de la partida · resultados simulados', Number.isFinite(V.semilla) ? `Referencia de temporada: ${V.semilla}` : '');
   const sec = (t) => out.push('', t), intento = (f) => { try { f(); } catch (e) { /* una parte que falle no rompe el resumen */ } };
   const final = (C) => { const f = C && C.rondas && C.rondas[C.rondas.length - 1].cruces[0]; if (!f || !f.b) return ''; const otro = f.a === C.campeon ? f.b : f.a; return ` (final contra ${otro})`; };
   // La portada del año: el titular y los protagonistas.
@@ -2273,13 +2399,13 @@ function copiarResumen(btn) {
     out.push(`• Titular: ${d.titular}`);
     if (d.crack) out.push(`• El crack del año: ${d.crack.nombre} (${d.crack.club}), ${d.crack.g} goles`);
     if (d.sorpresa) out.push(`• La sorpresa: ${d.sorpresa.club}, ${d.sorpresa.puesto}.º cuando se esperaba ${d.sorpresa.esperado}.º`);
-    if (d.fracaso) out.push(`• El fracaso: ${d.fracaso.club}, ${d.fracaso.puesto}.º cuando se esperaba ${d.fracaso.esperado}.º`);
+    if (d.fracaso) out.push(`• Por debajo del objetivo: ${d.fracaso.club}, ${d.fracaso.puesto}.º cuando se esperaba ${d.fracaso.esperado}.º`);
     if (d.momento) out.push(`• El momento: ${d.momento.tit}`);
   });
   // Copas internacionales de clubes.
   intento(() => {
     sec('🏆 COPAS INTERNACIONALES');
-    if (V.europa) out.push(`• ${nombreEuropa(V)}: ${V.europa}${final(V.R.EU)}${EUROPA_REAL[V.anio] && EUROPA_REAL[V.anio] !== V.europa ? ` · de verdad la ganó ${EUROPA_REAL[V.anio]}` : ''}`);
+    if (V.europa) out.push(`• ${nombreEuropa(V)}: ${V.europa}${final(V.R.EU)}`);
     intento(() => { const rl = relatoEuropa(V); if (rl.length) out.push(`   La final, contada: ${rl.join(' ')}`); });
     intento(() => { const ro = V.R.EU.rondas, fin = ro[ro.length - 1].cruces[0], sf = ro[ro.length - 2].cruces.flatMap((x) => [x.a, x.b]).filter((x) => x && x !== fin.a && x !== fin.b); if (sf.length) out.push(`   Cayeron en semifinales: ${sf.join(' y ')}`); });
     intento(() => { const ro = V.R.EU.rondas; if (ro.length < 3) return; const sm = new Set(ro[ro.length - 2].cruces.flatMap((x) => [x.a, x.b])), cu = ro[ro.length - 3].cruces.flatMap((x) => [x.a, x.b]).filter((x) => x && !sm.has(x)); if (cu.length && cu.length <= 4) out.push(`   Cayeron en cuartos: ${cu.join(', ')}`); });
@@ -2364,15 +2490,12 @@ function copiarResumen(btn) {
     out.push(`• Dibujos más usados en primera: ${[...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([d, n]) => `${d} (${Math.round(100 * n / tot)} %)`).join(', ')}`);
     if (camp.length) out.push(`• Los campeones: ${camp.join(', ')}`);
   });
-  // Sueldos: solo de la última temporada, porque los contratos que se ven son los de hoy.
+  // La nómina pertenece al cierre copiado y se conserva al pasar al año siguiente.
   intento(() => {
-    const ult = cerradas[cerradas.length - 1]; if ((V !== S && V !== ult) || typeof M === 'undefined' || !M || !M.clubes) return;
-    const js = M.clubes.flatMap((c) => c.jugadores.filter((j) => !j.relleno).map((j) => ({ j, c, s: Mundo.sueldoFirmado(j, M.anio) }))).sort((a, b) => b.s - a.s).slice(0, 8);
-    const noms = M.clubes.map((c) => ({ c, s: c.jugadores.reduce((t, j) => t + Mundo.sueldoFirmado(j, M.anio), 0) })).sort((a, b) => b.s - a.s).slice(0, 6);
-    if (!js.length) return;
-    sec('💶 SUELDOS (HOY)');
-    out.push(`• Los mejor pagados: ${js.map(({ j, c, s }) => `${j.n} (${c.nombre}), ${salarioTxt(s)} al año${j.contrato ? ` hasta ${j.contrato}` : ''}`).join(' · ')}`);
-    out.push(`• Las nóminas más altas: ${noms.map(({ c, s }) => `${c.nombre}, ${salarioTxt(s)}`).join(' · ')}`);
+    const fichas = (V.finanzas || []).filter((c) => Number.isFinite(c.sueldos)).sort((a, b) => b.sueldos - a.sueldos).slice(0, 6);
+    if (!fichas.length) return;
+    sec('💶 NÓMINAS DE LA TEMPORADA');
+    out.push(`• Las más altas: ${fichas.map((c) => `${c.club}, ${salarioTxt(c.sueldos)}`).join(' · ')}`);
   });
   // Lo acumulado en la partida: quién lleva más Copas de Europa y Balones de Oro, y las rachas de liga vivas.
   intento(() => {
@@ -2480,9 +2603,41 @@ function copiarResumen(btn) {
     const filas = [...caja.querySelectorAll('.resultado')].map((f) => { const s = f.querySelector('small'), t = s ? s.textContent : ''; if (s) s.remove(); return `• ${t}: ${f.querySelector('span').textContent.trim()}, ${f.querySelector('b:last-child') ? f.querySelector('b:last-child').textContent : ''}`; });
     if (filas.length) { sec('📈 RÉCORDS DE LA PARTIDA (HASTA HOY)'); filas.forEach((l) => out.push(l)); }
   });
-  const texto = artClubes(out.join('\n'));
-  const listo = () => { btn.textContent = '✓ Copiado'; setTimeout(() => { btn.textContent = '📋 Copiar el resumen de la temporada'; }, 2000); };
-  try { navigator.clipboard.writeText(texto).then(listo, () => { window.prompt('Copia el resumen:', texto); }); } catch (e) { window.prompt('Copia el resumen:', texto); }
+  if (ampliado) out.push(...informeAmpliado(V, pm));
+  return artClubes(out.join('\n'));
+}
+
+function exportarResumenHtml(V, archivo = []) {
+  const ref = V ? cerradas.indexOf(V) : 'archivo';
+  const selector = V ? '' : `<label>Temporada <select class="desplegable">${archivo.map((t) => `<option value="${t.anio}">${esc(t.temporada)}</option>`).join('')}</select></label>`;
+  return `<div class="exportar-resumen" role="group" aria-label="Copiar la temporada">
+    ${selector}
+    <button type="button" class="copiar" data-copiar="${ref}">Copiar resumen</button>
+    <button type="button" class="copiar copia-detalle" data-copiar="${ref}" data-formato="detallado">Copiar informe detallado</button>
+    <small role="status"></small></div>`;
+}
+
+async function copiarResumen(btn) {
+  const grupo = btn.closest('.exportar-resumen');
+  const V = btn.dataset.copiar === 'archivo'
+    ? temporadas().find((t) => t.veranoHecho && t.anio === Number(grupo.querySelector('select').value))
+    : cerradas[Number(btn.dataset.copiar)] || S;
+  if (!V || !cerradaV(V)) return;
+  const ampliado = btn.dataset.formato === 'detallado';
+  const texto = textoResumen(V, ampliado);
+  const estado = grupo.querySelector('[role="status"]');
+  estado.textContent = '';
+  try {
+    await navigator.clipboard.writeText(texto);
+    estado.textContent = ampliado ? 'Informe detallado copiado' : 'Resumen copiado';
+  } catch {
+    const dialogo = $('copiaResumen'), contenido = $('textoCopiaResumen');
+    $('tituloCopiaResumen').textContent = `${ampliado ? 'Informe detallado' : 'Resumen'} · ${V.temporada}`;
+    contenido.value = texto;
+    dialogo.showModal();
+    contenido.focus();
+    contenido.select();
+  }
 }
 
 // ---------- Competiciones ----------
@@ -3462,7 +3617,9 @@ function pintarHistoria() {
   if (R.equipoGoles) recs.push(`<div class="record"><span>MÁS GOLES DE UN EQUIPO EN UNA LIGA ESPAÑOLA</span><b>${esc(R.equipoGoles.club)}, ${R.equipoGoles.gf} goles</b><small>${esc(R.equipoGoles.temporada)}</small></div>`);
   if (R.partido) recs.push(`<div class="record"><span>GOLES EN UN PARTIDO</span><b>${esc(R.partido.quien)}, ${R.partido.g} goles</b><small>${esc(R.partido.partido)}, ${esc(R.partido.temporada)}</small></div>`);
   const momentos = ts.slice().reverse().flatMap((V) => divergencias(V)).slice(0, 15);
+  const archivo = ts.filter((V) => V.veranoHecho).slice().reverse();
   $('s-historia').innerHTML = `<div class="era-cab" style="border-bottom-color:${colorEra}"><div class="rotulo" style="color:${colorEra === 'var(--rojo)' ? 'var(--rojo-txt)' : 'var(--gris)'}">${Mundo.temporadaTxt(anioInicio)} — hoy</div><h1>${esc(titulo)}</h1><p>${esc(subt)}</p></div>`
+    + (archivo.length ? `<div class="caja"><span class="rotulo">Informes de temporada</span>${exportarResumenHtml(null, archivo)}</div>` : '')
     + `<div class="columnas"><div class="caja"><div class="fila-sel"><span class="rotulo">Campeones</span><select class="desplegable" data-accion="hpais" aria-label="Liga">${paises.map((p) => `<option${p === histPais ? ' selected' : ''}>${esc(p)}</option>`).join('')}</select></div>
         ${ts.length ? `<table class="campeones"><thead><tr><th>Año</th><th>${esc(histPais)}</th><th>Europa</th></tr></thead><tbody>${filas}</tbody></table><p class="nota-pie">Toca un año para ver ese año en Competiciones.</p>` : '<div class="vacio">La primera temporada todavía se está jugando.</div>'}</div>
       <div class="caja">${recs.join('') || '<div class="vacio">Los récords se apuntan al terminar cada temporada.</div>'}

@@ -78,6 +78,13 @@
   <div class="hoja" id="hoja" role="dialog" aria-modal="true" aria-label="Ficha"></div>
 </div>
 
+<dialog id="copiaResumen" class="dialogo-copia" aria-labelledby="tituloCopiaResumen">
+  <form method="dialog" class="dialogo-copia-forma">
+    <div class="dialogo-copia-titulo"><h2 id="tituloCopiaResumen">Resumen</h2><button type="submit" class="copiar">Cerrar</button></div>
+    <p>El navegador bloqueó la copia automática. Puedes copiar el texto seleccionado.</p>
+    <textarea id="textoCopiaResumen" aria-label="Texto para copiar" readonly></textarea>
+  </form>
+</dialog>
 <script id="src-motor" src="js/motor.js"></script>
 <script id="src-epoca" src="js/epoca.js"></script>
 <script src="js/cronica.js"></script>
