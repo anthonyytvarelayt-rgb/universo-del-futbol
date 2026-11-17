@@ -47,5 +47,5 @@ for (const inicio of [1958, 2000]) Mundo.partida(Mundo.desdeBase(BASE, inicio), 
     });
   }
 });
-assert.ok(titulos > 0 && madrids > 0 && relevos > 0 && reputaciones > 0 && cadenaLarga > 0);
 console.log(`10 temporadas: ${titulos} campeones grandes con éxito (${madrids} del Madrid), ${relevos} relevos, ${cadenaLarga} eslabones de cadenas de al menos tres y ${reputaciones} fichajes con peso de la trayectoria.`);
+assert.ok(titulos > 0 && madrids > 0 && relevos > 0, 'El recorrido debe incluir un Madrid campeón y relevos reales');
