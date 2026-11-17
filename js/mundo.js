@@ -1954,7 +1954,7 @@
     'Didier Deschamps': 'Marcello Lippi', 'Laurent Blanc': 'Alex Ferguson', 'Carlos Bianchi': 'Osvaldo Zubeldía', 'Carlos Bilardo': 'Osvaldo Zubeldía', 'Telê Santana': 'Zezé Moreira', 'Luiz Felipe Scolari': 'Carlos Froner', 'Luis Aragonés': 'Ferdinand Daučík', 'Javier Clemente': 'Ronnie Allen', 'John Toshack': 'Bill Shankly', 'Terry Venables': 'Dave Sexton' };
   delete MENTORES['Helenio Herrera'];
   const mentorDe = (nombre, M) => (M && M.mentores && M.mentores[nombre]) || MENTORES[nombre] || null;
-  const DESTINO_DT = { 'José Mourinho': 'Real Madrid' };
+  const DESTINO_DT = { 'José Mourinho': 'Real Madrid', 'Alex Ferguson': 'Manchester United' };  // Ferguson: su sitio es Old Trafford (Anthony: "¿dónde está mi Ferguson?")
   // Cuánto sube (o baja) su equipo esta temporada por la constante del entrenador. 'anios' = temporadas ya cumplidas en el club.
   // Club mínimo que acepta un entrenador de renombre: 620 de prestigio los buenos, 720 los grandes, 780 las leyendas.
   const tallaDT = (e, c) => { const m = maestro(e.nombre); return !m || c.prestigio >= (m >= 3 ? 780 : m === 2 ? 720 : 620); };
