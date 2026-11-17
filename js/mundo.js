@@ -1736,7 +1736,7 @@
         // Los ojeadores a veces aciertan de pleno y a veces se equivocan: el chaval resulta mejor o peor de lo que parecía.
         if (ojea && !elegido.j.cons && !elegido.j.relleno) { const u = r(); if (u < 0.2) elegido.j.tec = Math.max(elegido.j.niv + 5, elegido.j.tec * 0.94); else if (u > 0.85) elegido.j.tec = Math.min(1090, elegido.j.tec * 1.05); }
         const fichaje = mover(elegido.j, elegido.v, comprador, 'fichaje', lios.has(elegido.j) ? 'lio' : sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && cargaSalarial(elegido.j, nuevoAnio) >= 2 ? 'apuro' : undefined, vacante && vacante[1]);
-        if (elegido.reputacion >= 12 && cand.some((x) => x.j.niv > elegido.j.niv && x.j.niv + x.reputacion < elegido.j.niv + elegido.reputacion)) fichaje.reputacion = true;
+        if (elegido.reputacion > 0 && cand.some((x) => x.j.niv > elegido.j.niv && x.j.niv + x.reputacion < elegido.j.niv + elegido.reputacion)) fichaje.reputacion = true;
         compras++;
       }
     });
