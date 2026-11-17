@@ -107,5 +107,11 @@ try {
 } catch (e) {
   caso('Dinámica de clubes y selecciones', false, e.stack);
 }
+try {
+  require('./promesas-desarrollo.js');
+  caso('Promesas: figuras y desarrollo recuperable', true);
+} catch (e) {
+  caso('Promesas: figuras y desarrollo recuperable', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);

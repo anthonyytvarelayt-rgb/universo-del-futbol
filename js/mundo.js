@@ -901,21 +901,73 @@
     j.grave = { anio: M.anio + 1, perdio: Math.round(perdio), edad, parte, meses };
     novedades.push({ tipo: 'lesion', jugador: j.n, club: c.nombre, niv: Math.round(j.niv + perdio), queda: Math.round(j.niv), edad, parte, meses, recae });
   }
+  // El techo histórico permite distinguir a una figura aunque en la partida aún sea juvenil.
+  const figuraFormacion = (j) => Boolean(j.cons || CONSTANTES[j.n] || CARRERAS[j.n] ||
+    (j.tecReal || 0) >= Motor.escala.interno(780));
+
+  const formacionEvaluable = (t) => Boolean(t && t.partidosClub >= 18 && t.baja <= 4 && !t.lesionLarga);
+
+  function desarrolloJoven(j, edad) {
+    if (j.relleno || figuraFormacion(j) || edad < 22 || edad > 25) return null;
+    const ultimas = j.carrera.slice(-3);
+    const ultima = ultimas[ultimas.length - 1];
+    const participacion = (t) => Math.min(1, t.min / (90 * t.partidosClub));
+    if (!formacionEvaluable(ultima)) return null;
+    if (j.frenoFormacion && (participacion(ultima) >= 0.5 ||
+      (ultimas.length > 1 && ultima.niv - ultimas[ultimas.length - 2].niv >= 35))) return { tipo: 'desarrollo-reactivado' };
+    if (j.frenoFormacion || j.joya || (j.tec || 0) < 860 || j.tec - j.niv < 65 || ultimas.length !== 3) return null;
+    const primerAnio = parseInt(ultimas[0].temporada, 10);
+    if (!ultimas.every((t, i) => formacionEvaluable(t) && parseInt(t.temporada, 10) === primerAnio + i && participacion(t) < 0.35)) return null;
+    if (ultima.niv - ultimas[0].niv >= 25) return null;
+    const porcentaje = Math.round(100 * ultimas.reduce((a, t) => a + t.min, 0) /
+      (90 * ultimas.reduce((a, t) => a + t.partidosClub, 0)));
+    return { tipo: 'desarrollo-lento', temporadas: ultimas.length, porcentaje };
+  }
+
+  function partidosFormacion(R) {
+    const partidos = new Map();
+    const suma = (club, n) => partidos.set(club, (partidos.get(club) || 0) + n);
+    const ligas = [R.T].concat(R.seg.map((x) => x.T), R.otros.flatMap((o) => o.ligas.map((x) => x.T)));
+    ligas.forEach((T) => T.tabla.forEach((t) => suma(t.nombre, t.pj)));
+    const copas = new Set([R.C, R.EU, R.UEFA, R.RECOPA, R.SUPER, R.LIB, R.INTER]
+      .concat(R.SUPERNAC || [], R.promos.map((x) => x.C), R.otros.flatMap((o) => [o.C, o.F])));
+    copas.delete(null);
+    copas.delete(undefined);
+    copas.forEach((C) => C.rondas.forEach((r) => r.cruces.forEach((c) => (c.partidos || []).forEach((m) => {
+      if (m.prorroga) return;
+      suma(m.local, 1);
+      suma(m.visita, 1);
+    }))));
+    return partidos;
+  }
+
   // Crecimiento, declive y retiros al terminar la temporada.
   function envejecer(M, R, r) {
     const pj = new Map(R.G.map((x) => [x.j, x]));
+    const partidos = partidosFormacion(R);
     const retiros = [], novedades = [];
     retiros.novedades = novedades;
     M.clubes.forEach((c) => {
       const mano = manoDe(c);
       c.jugadores = c.jugadores.filter((j) => {
         const x = pj.get(j);
-        j.carrera.push({ temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division, pj: x ? x.pj : 0, min: x ? x.min || 0 : 0, g: x ? x.g : 0, a: x ? x.a : 0, nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido });
+        j.carrera.push({
+          temporada: temporadaTxt(M.anio), club: c.nombre, division: c.divJugada || c.division,
+          pj: x ? x.pj : 0, min: x ? x.min || 0 : 0, g: x ? x.g : 0, a: x ? x.a : 0,
+          nota: x ? +x.notaTemp.toFixed(2) : null, niv: Math.round(j.niv), cedido: !!j.cedido,
+          partidosClub: partidos.get(c.nombre) || 0, baja: x ? x.baja || 0 : 0,
+          lesionLarga: j.grave?.anio === M.anio
+        });
         if (j.selT) { j.carrera[j.carrera.length - 1].sel = j.selT; delete j.selT; }
         const edad = M.anio + 1 - anioNac(j);
         const cv = curva(j), pico = cv.pico, car = caracterDe(j);
         const minutos = Math.min(1, (x ? x.pj : 0) / 25);
         insignias(M, R, c, j, x, edad, novedades);
+        const cambio = desarrolloJoven(j, edad);
+        if (cambio) {
+          j.frenoFormacion = cambio.tipo === 'desarrollo-lento';
+          novedades.push({ ...cambio, jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec) });
+        } else if (edad > 25 || figuraFormacion(j)) delete j.frenoFormacion;
         if (edad <= pico) {
           // Crece hacia lo que le toca a su edad según su curva; jugar acelera, y un chaval sin minutos pierde algo de techo.
           const meta = metaEdad(j.tec || j.niv, cv, edad);
@@ -928,8 +980,13 @@
             j.tec = Math.max(suelo, Math.min(Math.max(tope, j.tec || 0), (j.tec || j.niv) * (1 + 0.012 * (rinde - 0.45))));
           }
           // Si ya va por delante de su curva (Pelé a los 17), no se le frena: solo el vaivén normal.
-          j.niv += hueco > 0 ? hueco * (0.25 + 0.35 * minutos + 0.3 * rinde + 0.07 * gradoDe(j, 'prodigio')) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
-          if (edad <= 24 && minutos < 0.3 && !j.relleno && !j.cons) j.tec = (j.tec || j.niv) - r() * 12;
+          const temporada = j.carrera[j.carrera.length - 1];
+          const evaluable = formacionEvaluable(temporada);
+          const ritmo = j.frenoFormacion && evaluable ? 0.85 : 1;
+          j.niv += hueco > 0 ? hueco * ritmo * (0.25 + 0.35 * minutos + 0.3 * rinde + 0.07 * gradoDe(j, 'prodigio')) * (edad <= 21 ? 1.2 : 1) + normal(r) * 10 : normal(r) * 6;
+          if (edad <= 24 && minutos < 0.3 && !j.relleno && !figuraFormacion(j) && evaluable) {
+            j.tec = Math.max(j.niv, (j.tec || j.niv) - r() * 6);
+          }
           // La joya inesperada: muy de vez en cuando un chaval que juega y rinde da un salto que nadie esperaba
           // y su techo se dispara. En la vida real fue uno más; en este universo puede acabar entre los mejores.
           // Los clubes de cantera sacan más a sus chavales: crecen un poco más deprisa y dan más sorpresas.
@@ -937,14 +994,7 @@
           if (criado && edad <= 23 && hueco > 0) j.niv += hueco * 0.08;
           // Y hay entrenadores que hacen mejores a los jóvenes (Cruyff, Wenger, Guardiola).
           if (mano === 'jovenes' && edad <= 23 && hueco > 0 && minutos >= 0.3) j.niv += hueco * 0.1;
-          // Y la otra cara: la promesa que se queda en nada. De vez en cuando un chaval que apuntaba alto se estanca.
-          if (edad <= 22 && !j.relleno && !j.cons && !j.joya && !j.estancado && (j.tec || 0) >= 860 && (j.tec || 0) - j.niv >= 60 && r() < (minutos < 0.4 ? 0.05 : 0.015)) {
-            j.estancado = M.anio + 1;
-            const antes = j.tec;
-            j.tec = Math.max(j.niv + 10, j.tec * (0.88 + 0.06 * r()));
-            novedades.push({ tipo: 'estancado', jugador: j.n, club: c.nombre, edad, niv: Math.round(j.niv), tec: Math.round(j.tec), antes: Math.round(antes) });
-          }
-          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && !j.estancado && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < (criado ? 0.03 : 0.015)) {
+          if (edad <= 21 && !j.relleno && !j.cons && !j.joya && minutos >= 0.8 && rinde >= 0.3 && (j.tec || 0) >= 800 && (j.tec || 0) < 1000 && r() < (criado ? 0.03 : 0.015)) {
             j.joya = M.anio + 1;
             // El salto se mide en la escala que se ve (de 50 a 110 puntos): arriba cada punto interno pesa mucho más, y con un
             // tanto por ciento un buen centrocampista (650) amanecía a la altura de Platini (840) y copaba los mejores del mundo.
@@ -1461,7 +1511,7 @@
     const clubDe = new Map(); M.clubes.forEach((c) => c.jugadores.forEach((j) => clubDe.set(j, c)));
     const sobra = (j) => { const c = clubDe.get(j); if (!c || j.relleno || Motor.escala.mostrar(j.niv) < 650 || nuevoAnio - anioNac(j) < 23) return false;
       return c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv > j.niv).length >= IDEAL_ONCE[j.pos] + (j.pos === 'POR' ? 0 : 0); };
-    const sinMinutos = (j) => j.promesaRota === M.anio || j.sinConf === M.anio || (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
+    const sinMinutos = (j) => (j.frenoFormacion && formacionEvaluable(j.carrera.at(-1))) || j.promesaRota === M.anio || j.sinConf === M.anio || (deseo(j) === 'minutos' && nuevoAnio - anioNac(j) >= 22 && (jugo.get(j) || 0) < 14) || sobra(j);
     // Y un club no amontona figuras del mismo puesto: con el once y un recambio de nivel parecido, no entra otro más.
     const tapon = (j, c) => c.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv >= j.niv - 45).length >= IDEAL_ONCE[j.pos] + 1;
     // 1. Vuelven los cedidos.
@@ -2954,7 +3004,7 @@
     return d;
   }
 
-  const api = { EGOS, ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, balanceTemporada, reputacionMercado, maestro, caracterDe, CARACTERES, deseo, sueldo, sueldoFirmado, cargaSalarial, firmarSueldo, limiteSueldos, prepararSueldos, revisarSueldos, cuentas, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { EGOS, ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, balanceTemporada, reputacionMercado, desarrolloJoven, maestro, caracterDe, CARACTERES, deseo, sueldo, sueldoFirmado, cargaSalarial, firmarSueldo, limiteSueldos, prepararSueldos, revisarSueldos, cuentas, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);

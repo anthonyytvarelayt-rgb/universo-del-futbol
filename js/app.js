@@ -308,7 +308,7 @@ async function siguienteTemporada() {
 // ---------- Guardar la partida ----------
 // Se guarda solo la semilla y el punto de la partida: con eso el motor rehace todo igual.
 // Va en el espacio privado de cada persona en la página; si no está disponible, en este navegador.
-const VERSION_GUARDADO = 101;
+const VERSION_GUARDADO = 102;
 const CLAVE = 'universo-futbol-beta-partida';
 let almacen = null;
 async function prepararAlmacen() {
@@ -1299,7 +1299,10 @@ function sorpresasHtml(V) {
   const lios = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.motivo === 'acabó mal con su club' && x.niv >= 800).sort((a, b) => b.niv - a.niv).slice(0, 2).map((x) => art('Portazo', `${nombreJ(x.jugador)} acaba mal con el ${esc(x.de)}`, `Después de meses de tensión con el club, se marcha al ${esc(x.a)}.`)).join('');
   const renov = (V.mercado || []).filter((x) => x.tipo === 'renovación' && x.niv >= 900).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Renovación', `${nombreJ(x.jugador)} renueva con el ${esc(x.de)}`, `Se le acababa el contrato y podía irse gratis, pero ha firmado hasta ${x.hasta}.`)).join('');
   const gratis = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && /gratis/.test(x.motivo || '') && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Se va gratis', `${nombreJ(x.jugador)} deja el ${esc(x.de)} sin dejar un euro`, `No quiso renovar y, con el contrato acabado, ficha por el ${esc(x.a)}.`)).join('');
-  const estancados = nov.filter((x) => x.tipo === 'estancado' && x.antes >= 900).sort((a, b) => b.antes - a.antes).slice(0, 1).map((x) => art('La promesa que se apaga', `${nombreJ(x.jugador)} no termina de llegar`, `A sus ${x.edad} años en el ${esc(x.club)} apuntaba a nivel ${nivel(x.antes)}. Los que le siguen ya no lo ven tan claro: su techo baja a ${nivel(x.tec)}.`)).join('');
+  const desarrollo = nov.filter((x) => x.tipo === 'desarrollo-lento' || x.tipo === 'desarrollo-reactivado')
+    .sort((a, b) => b.tec - a.tec).slice(0, 2).map((x) => x.tipo === 'desarrollo-lento'
+      ? art('Le falta continuidad', `${nombreJ(x.jugador)} busca más minutos`, `Jugó el ${x.porcentaje} % de los minutos de sus últimas ${x.temporadas} temporadas en competición. Su progreso se ha frenado y puede retomarlo si gana continuidad.`)
+      : art('Recupera el ritmo', `${nombreJ(x.jugador)} vuelve a avanzar`, `Su última temporada en el ${esc(x.club)} le permitió recuperar continuidad o dar un salto de nivel.`)).join('');
   const rotos = nov.filter((x) => x.tipo === 'vestuario').slice(0, 1).map((x) => art('Vestuario roto', `Mal ambiente en el ${esc(x.club)}`, `${x.nombres.map(esc).join(' y ')} no se soportan y el grupo lo nota. Si nadie pone orden, el equipo rendirá por debajo de lo que vale.`)).join('');
   const bomba = (V.mercado || []).filter((x) => x.tipo === 'fichaje' && x.niv >= 930 && x.motivo && !/gratis|acabó mal/.test(x.motivo)).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('El fichaje del verano', `${nombreJ(x.jugador)}, del ${esc(x.de)} al ${esc(x.a)}`, `Nivel ${nivel(x.niv)}${x.precio ? ', ' + precioTxt(x.precio) : ''}. El motivo: ${esc(x.motivo)}.`)).join('');
   const fiestas = nov.filter((x) => x.tipo === 'fiesta' && x.niv >= 850).sort((a, b) => b.niv - a.niv).slice(0, 1).map((x) => art('Fuera de forma', `${nombreJ(x.jugador)} vuelve del verano con kilos de más`, `El jugador del ${esc(x.club)} no se ha cuidado en vacaciones. Le costará toda la temporada recuperar su nivel.`)).join('');
@@ -1330,7 +1333,7 @@ function sorpresasHtml(V) {
   const confi = (() => { try { const cs = confianzaDe(V), pick = (t, n) => cs.filter((x) => x.tipo === t).slice(0, n); return pick('dimite', 1).concat(pick('rota', 2), pick('reencuentro', 1), pick('alta', 1)).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join(''); } catch (e) { return ''; } })();
   const salarios = sueldosDe(V).filter((x, i, xs) => xs.findIndex((y) => y.tipo === x.tipo) === i).slice(0, 4).map((x) => art(x.rot, esc(x.tit), esc(x.txt))).join('');
   const mercadoVivo = historiasMercado(V).map((x) => art(x.rot, esc(x.tit), esc(artClubes(x.txt)))).join('');
-  return dinamicaHtml(V) + mercadoVivo + salarios + records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + confi + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + estancados + joyas + graves + vueltas + fiestas + caja;
+  return dinamicaHtml(V) + mercadoVivo + salarios + records + duelos + fracasos + hazanas + despidos + plenos + vest + promes + confi + culeb + estadios + escandalos + traiciones + adioses + presis + duenos + historias + secuelas + egos + declara + vuelven + robos + dtNoticias + recordT + dinero + bomba + lios + rotos + gratis + renov + desarrollo + joyas + graves + vueltas + fiestas + caja;
 }
 // Datos reales de formación y de maestros (datos/canteras.js). Solo se enseñan.
 const canteraReal = (n) => (typeof CANTERAS_REALES !== 'undefined' && CANTERAS_REALES[n]) || null;
@@ -2460,7 +2463,10 @@ function copiarResumen(btn) {
       (V.escandalos || []).forEach((x) => lineas.push(`• ESCÁNDALO: el ${x.club}, investigado por ${x.texto}; multa de ${eur(x.multa)} y pérdida de prestigio`));
       (V.duenos || []).forEach((x) => lineas.push(`• Nuevo dueño millonario en el ${x.club}`));
       (V.presidentes || []).forEach((x) => lineas.push(`• Nuevo presidente en el ${x.club}: ${x.nombre}${Mundo.ESTILOS_PRESIDENTE[x.estilo] ? ` (${Mundo.ESTILOS_PRESIDENTE[x.estilo].split(':')[0].toLowerCase()})` : ''}`));
-      const est = de('estancado').slice(0, 3); if (est.length) lineas.push(`• Promesas que se apagan: ${est.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
+      const est = de('desarrollo-lento').slice(0, 3);
+      if (est.length) lineas.push(`• Jóvenes sin continuidad: ${est.map((x) => `${x.jugador} (${x.porcentaje} % de los minutos en ${x.temporadas} temporadas)`).join(', ')}`);
+      const retoman = de('desarrollo-reactivado').slice(0, 3);
+      if (retoman.length) lineas.push(`• Retoman su desarrollo: ${retoman.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const fie = de('fiesta').slice(0, 3); if (fie.length) lineas.push(`• Vuelven del verano fuera de forma: ${fie.map((x) => `${x.jugador} (${x.club})`).join(', ')}`);
       const ves = de('vestuario').slice(0, 4); if (ves.length) lineas.push(`• Mal ambiente todo el año en: ${ves.map((x) => x.club).join(', ')}`);
       if (lineas.length) { sec('📰 OTRAS NOTICIAS'); lineas.forEach((l) => out.push(l)); }
@@ -3400,7 +3406,8 @@ function libroDecadas(ts) {
       ['lesion', 'Las lesiones graves', (x) => `${x.jugador}, del ${x.club}, cayó de nivel ${nivel(x.niv)} a ${nivel(x.queda)}`],
       ['rivalidad', 'Las rivalidades', (x) => `${x.a} (${x.clubA}) y ${x.b} (${x.clubB}) iniciaron su duelo`],
       ['regreso', 'Los regresos', (x) => `${x.jugador} recuperó su nivel en el ${x.club}`],
-      ['estancado', 'Las promesas que se apagaron', (x) => `${x.jugador} (${x.club}) se estancó a los ${x.edad} años`],
+      ['desarrollo-lento', 'Jóvenes que necesitaron minutos', (x) => `${x.jugador} jugó el ${x.porcentaje} % de los minutos en ${x.temporadas} temporadas`],
+      ['desarrollo-reactivado', 'Retomaron su desarrollo', (x) => `${x.jugador} recuperó el ritmo en el ${x.club}`],
       ['fiesta', 'Los que llegaron fuera de forma', (x) => `${x.jugador} (${x.club}) volvió del verano fuera de forma`]
     ].map(([tipo, titulo, relatar]) => {
       // De las insignias solo las grandes (oro y excepcional): las demás son cientos por década.
