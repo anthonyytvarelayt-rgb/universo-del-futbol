@@ -1343,15 +1343,26 @@
     out.push({ club: c.nombre, pais: c.pais, tipo: t[0], texto: t[1], multa });
     return out;
   }
+  // La memoria del mercado pesa menos cuando el club tiene buenos ojeadores.
+  function reputacionMercado(j, politicaClub) {
+    if (j.relleno) return 0;
+    const historial = (j.carrera || []).slice(-4);
+    const pico = Math.max(j.niv, ...historial.filter((t) => t.pj >= 15).map((t) => t.niv || 0));
+    const factor = politicaClub === 'ojeadores' ? 0.05 : politicaClub === 'estrellas' ? 0.4 : 0.2;
+    return Math.min(28, Math.round((pico - j.niv) * factor));
+  }
+
   function mercado(M, r, sueldos) {
     const nuevoAnio = M.anio + 1;
     // Todas las fases del mercado comparten el registro, incluidos los pasos históricos y el fondo de plantilla.
-    const log = [], culebrones = [], fichados = new Set();
+    const log = [], culebrones = [], vacantes = new Map(), fichados = new Set();
     log.culebrones = culebrones;
     const porNombre = new Map(M.clubes.map((c) => [c.nombre, c]));
-    const mover = (j, de, a, tipo, motivo) => {
+    const mover = (j, de, a, tipo, motivo, reemplazo) => {
       // Si venden a una de las dos figuras del equipo, el entrenador lo recuerda (ver banquillos).
       if (tipo === 'fichaje' && de.division === 1 && de.entrenadores && de.entrenadores[0] && !j.relleno && de.jugadores.filter((x) => x.niv > j.niv).length < 2) de.vendida = { jugador: j.n, a: a.nombre, anio: nuevoAnio, dt: de.entrenadores[0].nombre };
+      const esTitular = tipo === 'fichaje' && !j.relleno && !j.cedido && de.division <= 2 &&
+        de.jugadores.filter((x) => x.pos === j.pos && !x.cedido && x.niv > j.niv).length < IDEAL_ONCE[j.pos];
       de.jugadores = de.jugadores.filter((x) => x !== j);
       a.jugadores.push(j);
       masas.delete(de); masas.delete(a);
@@ -1359,7 +1370,20 @@
       const pago = tipo === 'fichaje' ? precio(j, nuevoAnio, motivo, a) : 0;
       if (pago) { cajaDe(a, nuevoAnio); cajaDe(de, nuevoAnio); a.caja -= pago; de.caja += pago; if (a.finanzas) a.finanzas.compras = redondo(a.finanzas.compras + pago); if (de.finanzas) de.finanzas.ventas = redondo(de.finanzas.ventas + pago); }
       const ex = tipo === 'fichaje' && !j.relleno && enemigos.has(a.nombre) ? (enemigos.get(a.nombre).has(de.nombre) ? de.nombre : Object.keys(pasado(j, a)).sort((x, y) => pasado(j, a)[y] - pasado(j, a)[x])[0]) : null;
-      log.push(Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, ex ? { traicion: ex, directa: ex === de.nombre } : {}, tipo === 'fichaje' ? { precio: pago, edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {}));
+      const movimiento = Object.assign({ temporada: temporadaTxt(nuevoAnio), jugador: j.n, pos: j.pos, niv: Math.round(j.niv), de: de.nombre, a: a.nombre, tipo }, ex ? { traicion: ex, directa: ex === de.nombre } : {}, tipo === 'fichaje' ? { precio: pago, edad: nuevoAnio - anioNac(j) } : {}, motivo ? { motivo: MOTIVOS[motivo] || motivo } : {});
+      if (reemplazo) movimiento.reemplaza = reemplazo.indice;
+      if (tipo === 'fichaje' && !j.relleno) {
+        const puestos = vacantes.get(a);
+        const vacante = puestos && puestos.get(j.pos);
+        if (vacante && (reemplazo || j.niv >= vacante.nivel - 35)) puestos.delete(j.pos);
+      }
+      if (esTitular) {
+        const puestos = vacantes.get(de) || new Map();
+        if (!puestos.has(j.pos) || puestos.get(j.pos).nivel < j.niv) puestos.set(j.pos, { nivel: j.niv, indice: log.length });
+        vacantes.set(de, puestos);
+      }
+      log.push(movimiento);
+      return movimiento;
     };
     // Contratos: más largos cuanto más joven.
     const duracion = (j) => duracionContrato(j, nuevoAnio);
@@ -1656,15 +1680,20 @@
     const apuros = new Set(fluidez > 0 ? M.clubes.filter((c) => c.division === 1 && (masa(c) > limiteSueldos(c, nuevoAnio) * (c.ajusteSalarial ? 1 : 1.15) || cajaDe(c, nuevoAnio) < -0.35 * ingresosDe(c, nuevoAnio) || c.escandalo === nuevoAnio || (estiloPresi(c, nuevoAnio) === 'tacano' && hashN(c.nombre + nuevoAnio, 9) % 2 === 0))) : []);
     orden.forEach((comprador) => {
       let compras = 0, figuras = 0;
-      if (sobrado(comprador)) return;
+      if (sobrado(comprador) && !vacantes.get(comprador)?.size) return;
       const pol = fluidez > 0 ? politica(comprador) : 'normal';
       const tope = Math.max(1, (fluidez > 0 ? 2 : 1) + (fluidez === 1 ? 1 : 0) + (campeones.has(comprador.nombre) ? -1 : comprador.prestigio >= 800 ? 1 : 0) + (pol === 'cantera' ? -1 : 0) + (comprador.balance === 'fracaso' && comprador.prestigio >= 650 ? 1 : 0));
+      const vacantesIntentadas = new Set();
       for (let vuelta = 0; vuelta < 3 + fluidez + 1 && compras < tope; vuelta++) {
         // El puesto más flojo del once respecto a la media del club.
         const xi = (pos, k) => comprador.jugadores.filter((j) => j.pos === pos && !j.cedido).map((j) => j.niv).sort((a, b) => b - a).slice(0, k);
         const huecos = { POR: xi('POR', 1), DEF: xi('DEF', 4), MED: xi('MED', 3), DEL: xi('DEL', 3) };
         const mediaClub = media(Object.values(huecos).flat());
-        const pos = Object.keys(huecos).sort((a, b) => (media(huecos[a]) || 0) - (media(huecos[b]) || 0))[0];
+        const vacante = [...(vacantes.get(comprador) || [])].filter(([pos, x]) =>
+          !vacantesIntentadas.has(pos) && (huecos[pos].length < IDEAL_ONCE[pos] || Math.min(...huecos[pos]) < x.nivel - 35))
+          .sort((a, b) => b[1].nivel - a[1].nivel)[0];
+        const pos = vacante ? vacante[0] : Object.keys(huecos).sort((a, b) => (media(huecos[a]) || 0) - (media(huecos[b]) || 0))[0];
+        if (vacante) vacantesIntentadas.add(pos);
         const umbral = Math.max(huecos[pos].length ? Math.min(...huecos[pos]) : 0, mediaClub - 40) + 25;
         // Mirar fuera es una decisión del club, no de cada jugador: los países que casi no fichaban fuera casi nunca lo hacen.
         // Los clubes con ojeadores miran fuera mucho más, y buscan al joven que va para figura antes que al ya hecho.
@@ -1679,7 +1708,8 @@
             && (vende(v, comprador, mirarFuera) || (sinMinutos(j) && comprador.prestigio >= v.prestigio - 200) || (apuros.has(v) && v.pais !== comprador.pais && comprador.prestigio >= v.prestigio - 150 && cargaSalarial(j, nuevoAnio) >= 2))
             // Argentina y Brasil solo traen de fuera a los suyos que vuelven: una figura europea no se va a jugar allí.
             && (v.pais === comprador.pais || (j.niv >= NIVEL_EXTRANJERO && puedeEntrar(j, comprador) && (!NO_EUROPA.includes(comprador.pais) || !extranjero(j, comprador.pais))))).map((j) => ({ j, v })))
-          .sort((a, b) => (ojea ? b.j.tec - a.j.tec : b.j.niv - a.j.niv));
+          .map((x) => ({ ...x, reputacion: ojea ? 0 : reputacionMercado(x.j, pol) }))
+          .sort((a, b) => ojea ? b.j.tec - a.j.tec : (b.j.niv + b.reputacion) - (a.j.niv + a.reputacion));
         const tercera = new Map(), titular = new Map();
         const elegido = cand.find(({ j, v }) => {
           // Un club no suelta fácil a una de sus tres figuras; irse a otro país cuesta más.
@@ -1705,7 +1735,8 @@
         ventas.set(elegido.v, (ventas.get(elegido.v) || 0) + 1);
         // Los ojeadores a veces aciertan de pleno y a veces se equivocan: el chaval resulta mejor o peor de lo que parecía.
         if (ojea && !elegido.j.cons && !elegido.j.relleno) { const u = r(); if (u < 0.2) elegido.j.tec = Math.max(elegido.j.niv + 5, elegido.j.tec * 0.94); else if (u > 0.85) elegido.j.tec = Math.min(1090, elegido.j.tec * 1.05); }
-        mover(elegido.j, elegido.v, comprador, 'fichaje', lios.has(elegido.j) ? 'lio' : sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && cargaSalarial(elegido.j, nuevoAnio) >= 2 ? 'apuro' : undefined);
+        const fichaje = mover(elegido.j, elegido.v, comprador, 'fichaje', lios.has(elegido.j) ? 'lio' : sinMinutos(elegido.j) ? 'minutos' : ojea ? 'ojeadores' : apuros.has(elegido.v) && cargaSalarial(elegido.j, nuevoAnio) >= 2 ? 'apuro' : undefined, vacante && vacante[1]);
+        if (elegido.reputacion >= 12 && cand.some((x) => x.j.niv > elegido.j.niv && x.j.niv + x.reputacion < elegido.j.niv + elegido.reputacion)) fichaje.reputacion = true;
         compras++;
       }
     });
@@ -1882,28 +1913,86 @@
     if (puestoNombre >= n - 5) return 'salvarse';
     return 'media';
   }
-  // Cómo acabó respecto al objetivo: 'superado', 'cumplido', 'cerca' o 'fracaso'.
-  function balanceDe(obj, puesto, n) {
+  // El objetivo de liga y el valor de la temporada se evalúan por separado.
+  function balanceDe(obj, puesto, n, contexto = {}) {
     const arriba = Math.max(4, Math.round(n * 0.3));
-    if (obj === 'titulo') return puesto === 0 ? 'cumplido' : puesto <= 1 ? 'cerca' : 'fracaso';
-    if (obj === 'europa') return puesto === 0 ? 'superado' : puesto < arriba ? 'cumplido' : puesto < n * 0.55 ? 'cerca' : 'fracaso';
-    if (obj === 'media') return puesto < arriba ? 'superado' : puesto < n - 4 ? 'cumplido' : puesto < n - 3 ? 'cerca' : 'fracaso';
-    return puesto < n / 2 ? 'superado' : puesto < n - 3 ? 'cumplido' : 'fracaso';
+    const cercaEnPuntos = contexto.distancia <= (contexto.puntosVictoria || 3);
+    if (contexto.descenso) return 'fracaso';
+    if (obj === 'titulo') {
+      if (puesto === 0) return 'cumplido';
+      return puesto <= 2 || (puesto <= 4 && cercaEnPuntos) ? 'cerca' : 'fracaso';
+    }
+    if (obj === 'europa') {
+      if (puesto === 0) return 'superado';
+      if (puesto < arriba) return 'cumplido';
+      return puesto <= arriba + 1 || cercaEnPuntos || puesto < n * 0.55 ? 'cerca' : 'fracaso';
+    }
+    if (obj === 'media') return puesto < arriba ? 'superado' : puesto < n - 4 ? 'cumplido' : 'cerca';
+    return puesto < n / 2 ? 'superado' : 'cumplido';
   }
+
+  function balanceTemporada(balanceLiga, { descenso, campeonLiga, tituloMayor, tituloSecundario, finalMayor }) {
+    if (tituloMayor) return 'superado';
+    if (descenso) return 'fracaso';
+    if (campeonLiga && balanceLiga !== 'superado') return tituloSecundario || finalMayor ? 'superado' : 'cumplido';
+    if (tituloSecundario && balanceLiga === 'fracaso') return 'cerca';
+    if (tituloSecundario && balanceLiga === 'cumplido') return 'superado';
+    if (finalMayor && balanceLiga === 'fracaso') return 'cerca';
+    return balanceLiga;
+  }
+
   function objetivos(M, R) {
-    const T = [R.T].concat(...R.otros.map((o) => o.ligas.filter((l) => l.nivel === 1).map((l) => l.T))).filter((t) => t && t.tabla);
-    const lista = [];
+    const ligas = [{ T: R.T, campeon: R.T.tabla[0].nombre, reglas: R.reglas }];
+    R.otros.forEach((o) => o.ligas.filter((l) => l.nivel === 1).forEach((l) => {
+      ligas.push({ T: l.T, campeon: o.campeon, reglas: o.reglas });
+    }));
+    const titulos = new Map(), finales = new Map();
+    const titulo = (copa, mayor = false) => {
+      if (!copa || !copa.campeon) return;
+      const premio = { nombre: copa.nombre, mayor };
+      titulos.set(copa.campeon, [...(titulos.get(copa.campeon) || []), premio]);
+      if (!mayor) return;
+      const ronda = copa.rondas && copa.rondas[copa.rondas.length - 1];
+      const final = ronda && ronda.cruces[0];
+      const sub = final && [final.a, final.b].find((club) => club && club !== copa.campeon);
+      if (sub) finales.set(sub, copa.nombre);
+    };
+    titulo(R.EU, true);
+    titulo(R.LIB, true);
+    [R.C, R.UEFA, R.RECOPA].forEach((copa) => titulo(copa));
+    R.otros.forEach((o) => { if (!o.campeonPorCopa) titulo(o.C); });
+
     M.clubes.forEach((c) => { c.balance = null; });
-    T.forEach((t) => {
-      const n = t.tabla.length, nombre = [...t.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio);
-      t.tabla.forEach((x, i) => {
-        const obj = objetivoDe(nombre.indexOf(x), n, x.equipo.prestigio), bal = balanceDe(obj, i, n);
-        x.equipo.balance = bal;
-        const dt = x.equipo.entrenadores && x.equipo.entrenadores[0];
-        lista.push({ club: x.equipo.nombre, pais: x.equipo.pais, objetivo: obj, puesto: i + 1, balance: bal, prestigio: x.equipo.prestigio, esperado: nombre.indexOf(x) + 1, entrenador: dt ? dt.nombre : null, aniosDT: dt ? dt.anios || 0 : 0 });
+    return ligas.flatMap(({ T, campeon, reglas }) => {
+      const n = T.tabla.length;
+      const porPrestigio = [...T.tabla].sort((a, b) => b.equipo.prestigio - a.equipo.prestigio);
+      const puntosVictoria = (reglas || {}).puntosVictoria || 3;
+      return T.tabla.map((x, i) => {
+        const c = x.equipo, esperado = porPrestigio.indexOf(x);
+        const objetivo = objetivoDe(esperado, n, c.prestigio);
+        const umbral = objetivo === 'europa' ? Math.max(4, Math.round(n * 0.3)) - 1 : 0;
+        const distancia = Math.max(0, (T.tabla[Math.min(umbral, n - 1)].pts || 0) - (x.pts || 0));
+        const descenso = c.division > 1;
+        const campeonLiga = campeon === c.nombre;
+        const copas = titulos.get(c.nombre) || [];
+        const finalMayor = finales.get(c.nombre) || null;
+        // En los torneos con fase final, liderar un grupo tampoco equivale a ganar el campeonato.
+        let balanceLiga = balanceDe(objetivo, i, n, { descenso, distancia, puntosVictoria });
+        if (campeonLiga) balanceLiga = objetivo === 'titulo' ? 'cumplido' : 'superado';
+        else if (objetivo === 'titulo' && i === 0 && !descenso) balanceLiga = 'cerca';
+        const balance = balanceTemporada(balanceLiga, {
+          descenso, campeonLiga, tituloMayor: copas.some((x) => x.mayor),
+          tituloSecundario: copas.some((x) => !x.mayor), finalMayor
+        });
+        c.balance = balance;
+        const dt = c.entrenadores && c.entrenadores[0];
+        return {
+          club: c.nombre, pais: c.pais, objetivo, puesto: i + 1, balance, balanceLiga,
+          descenso, campeonLiga, copas: copas.map((x) => x.nombre), finalMayor,
+          prestigio: c.prestigio, esperado: esperado + 1, entrenador: dt ? dt.nombre : null, aniosDT: dt ? dt.anios || 0 : 0
+        };
       });
     });
-    return lista;
   }
 
   // Entrenadores de época: los grandes técnicos de la historia. Entran en la partida el año en que empezaron a entrenar
@@ -1992,7 +2081,7 @@
   }
   // En verano: se jubilan los mayores, llegan los nuevos técnicos de época, se despide a quien falló y los clubes sin
   // banquillo (o con ganas de algo mejor) eligen, primero los de más nombre.
-  function resumenBanquillos(M, T, conBanquillo, campeonEU, titulos) {
+  function resumenBanquillos(M, T, titulos) {
     const anio = M.anio + 1, log = [];
     const r = Motor.rng(anio * 131 + 7);
     const activos = new Set(); M.clubes.forEach((c) => c.jugadores.forEach((j) => activos.add(j.n))); M.libres.forEach((j) => activos.add(j.n));
@@ -2048,10 +2137,9 @@
       if (don === 'eterno') { if (ed && (ed >= 73 || (ed >= 68 && r() < 0.5))) log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       if (ed && ed >= 66 && r() < (ed >= 70 ? 0.7 : 0.25)) { log.push({ club: c.nombre, sale: deja(c, 'se jubila'), motivo: 'se jubila' }); return; }
       // Fin de ciclo: pocos banquillos duran más de cuatro o cinco años, y menos si no se gana.
-      const gano = (p && p.puesto === 0) || campeonEU === c.nombre;
       // Crédito: lo que gana un entrenador le compra tiempo. Los títulos del año suman y lo de años atrás pesa cada vez menos.
       // Quien acaba de ganar no se va ni lo echan; con crédito alto se le perdona un mal año (o dos).
-      const ganado = ((titulos && titulos.get(c.nombre)) || 0) + (p && p.puesto === 0 ? 3 : 0);
+      const ganado = titulos.get(c.nombre) || 0;
       e.credito = 0.6 * (e.credito || 0) + ganado;
       e.titulos = (e.titulos || 0) + (ganado ? 1 : 0);
       // Nadie es eterno salvo los de la dinastía: pasados siete años, el propio técnico decide un día cerrar su etapa (aunque le vaya bien).
@@ -2081,7 +2169,7 @@
       if (!p || p.puesto === 0) return;
       // Despido: muy por debajo de lo que se esperaba; a un técnico de época se le aguanta algo más.
       const fallo = p.puesto - p.esperado;
-      if ((c.balance === 'fracaso' && r() < (maestro(e.nombre) ? 0.5 : 0.75) * aguante) || (fallo >= 5 + maestro(e.nombre) && r() < 0.5 * aguante)) log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'despedido', puesto: p.puesto + 1 });
+      if (c.balance === 'fracaso' && (r() < (maestro(e.nombre) ? 0.5 : 0.75) * aguante || (fallo >= 5 + maestro(e.nombre) && r() < 0.5 * aguante))) log.push({ club: c.nombre, sale: deja(c, 'despedido'), motivo: 'despedido', puesto: p.puesto + 1 });
     });
     // Fichar: cada club sin banquillo elige al mejor que haya libre; un grande puede quitarle su técnico a uno menor.
     primera.forEach((c) => {
@@ -2148,11 +2236,13 @@
     M.parados = M.parados.filter((e) => { /* sin año de nacimiento conocido no se inventa la edad: deja la bolsa a los veinte años de quedar libre por primera vez */ const nacido = parseInt(String(e.nac || '').slice(0, 4), 10) || null; e.libreDesde = e.libreDesde || M.anio; const viejo = nacido ? M.anio + 1 - nacido > 68 : M.anio - e.libreDesde > 20; if (vistos.has(e.nombre) || conBanquillo.has(e.nombre) || viejo) return false; vistos.add(e.nombre); return true; }).sort((a, b) => (maestro(a.nombre) ? 1 : 0) - (maestro(b.nombre) ? 1 : 0)).slice(-40);
     // Títulos del año por club, para el crédito de cada entrenador: Copa de Europa 4, liga 3, otras copas internacionales 2, copa nacional 1.
     const titulos = new Map(), suma = (n, v) => { if (n) titulos.set(n, (titulos.get(n) || 0) + v); };
+    suma(R.T.tabla[0].nombre, 3);
+    R.otros.forEach((o) => suma(o.campeon, 3));
     suma(R.EU && R.EU.campeon, 4);
     [R.UEFA, R.RECOPA, R.LIB, R.INTER].forEach((C) => suma(C && C.campeon, 2));
     suma(R.SUPER && R.SUPER.campeon, 1);
-    suma(R.C && R.C.campeon, 1); R.otros.forEach((o) => suma(o.C && o.C.campeon, 1));
-    resumenBanquillos(M, T, conBanquillo, R.EU && R.EU.campeon, titulos);
+    suma(R.C && R.C.campeon, 1); R.otros.forEach((o) => { if (!o.campeonPorCopa) suma(o.C && o.C.campeon, 1); });
+    resumenBanquillos(M, T, titulos);
     // Cada club con banquillo tiene detrás tres candidatos de la bolsa por si lo cesan: primero los de su país.
     M.clubes.filter((c) => c.division <= 2 && c.entrenadores && c.entrenadores.length === 1).forEach((c) => {
       // Un grande de los banquillos no acepta cualquier cosa: Heynckes acababa en el União de Leiria (y lo hacía campeón),
@@ -2389,8 +2479,8 @@
     records(M, R);
     // La categoría en la que se jugó esta temporada se apunta antes de los ascensos y descensos.
     M.clubes.forEach((c) => { c.divJugada = c.division; });
-    resumen.objetivos = objetivos(M, R);
     resumen.movimientos = categorias(M, R);
+    resumen.objetivos = objetivos(M, R);
     prestigio(M, R);
     // La directiva lo nota: superar el objetivo da nombre al club y fracasar se lo quita.
     M.clubes.forEach((c) => { if (c.balance === 'superado') c.prestigio = Math.min(1000, c.prestigio + 6); else if (c.balance === 'fracaso') c.prestigio = Math.max(250, c.prestigio - 6); });
@@ -2638,7 +2728,7 @@
     return d;
   }
 
-  const api = { EGOS, ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, maestro, caracterDe, CARACTERES, deseo, sueldo, sueldoFirmado, cargaSalarial, firmarSueldo, limiteSueldos, prepararSueldos, revisarSueldos, cuentas, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
+  const api = { EGOS, ESTADIOS, estadioDe, EMBLEMAS, MENTORES, mentorDe, CANTERAS, PRESIDENTES, ESTILOS_PRESIDENTE, presidenteDe, DONES_DT, CONSTANTES_DT, donDT, MANOS, MANO, OBJETIVOS, objetivoDe, balanceDe, balanceTemporada, reputacionMercado, maestro, caracterDe, CARACTERES, deseo, sueldo, sueldoFirmado, cargaSalarial, firmarSueldo, limiteSueldos, prepararSueldos, revisarSueldos, cuentas, precio, recordTraspaso, euros, ingresosDe, creditoDe, presupuesto, politica, DESEOS, POLITICAS, desdeBase, nivelEdad, curva, nuevoMundo, jugarTemporada, jugar, verano, avanzar, partida, perfil, temporadaTxt, RECORD_REAL_LIGA, INSIGNIAS, GRADOS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Mundo = api;
 })(typeof self !== 'undefined' ? self : this);
