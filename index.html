@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/programa.css">
 </head>
 <body>
 
@@ -19,16 +20,16 @@
 <!-- Inicio: elige la época -->
 <div class="inicio" id="inicio" hidden>
   <div class="dentro">
-    <div class="inicio-marca"><span class="insignia-uf" aria-hidden="true">UF<span>✦</span></span><b>UNIVERSO DEL FÚTBOL</b><span class="inicio-marca-pie">SIMULACIÓN HISTÓRICA</span></div>
-    <header class="inicio-presentacion">
-      <div class="rotulo"><span class="punto-estado" aria-hidden="true"></span> Una partida. Otra historia.</div>
-      <h1>Universo <span>del fútbol<span class="punto-titulo">.</span></span></h1>
-      <p>Los nombres que conoces.<br>Los finales que nadie ha visto.</p>
-      <div class="estadio-inicio" aria-hidden="true"><span class="inicio-arte"></span><div class="poster-epoca"><small>TU HISTORIA EMPIEZA EN</small><b id="inicioAnio">1958</b><span id="inicioEra">Llega Pelé</span></div></div>
-      <div class="sello-inicio"><span>LEYENDAS REALES</span><span>RESULTADOS POR ESCRIBIR</span></div>
+    <header class="programa-cab">
+      <div class="programa-filete"><span class="programa-monograma" aria-hidden="true">Uf</span><span>Simulador histórico de fútbol</span><span>1958 — 2026</span></div>
+      <h1>Universo <i>del</i> fútbol</h1>
     </header>
+    <figure class="programa-lamina">
+      <img src="css/portada-programa.webp" alt="Ilustración de un futbolista que corre tras un balón de cuero ante una grada llena" fetchpriority="high">
+      <figcaption><span>Temporada inicial</span><strong id="inicioAnio">1958</strong><b id="inicioEra">Llega Pelé</b></figcaption>
+    </figure>
     <div class="inicio-eleccion">
-    <div class="paso-inicio"><span>ELIGE EL PRIMER CAPÍTULO</span><h2>¿Dónde empieza<br>tu universo?</h2><p>Una época, sus leyendas y un futuro abierto.</p></div>
+    <div class="paso-inicio"><h2>Elige tu época</h2></div>
     <button type="button" class="seguir" id="seguirPartida" hidden>Seguir mi partida</button>
     <div class="eras" id="eras"></div>
     <details class="ajustes"><summary>Opciones de la partida</summary>
@@ -39,7 +40,7 @@
         <input type="checkbox" class="interruptor" id="pronosticos"></label>
     </details>
     <button type="button" class="empezar" id="empezar">Empezar</button>
-    <p class="inicio-ayuda">Avanza a tu ritmo. Tu partida se guarda automáticamente.</p>
+    <p class="inicio-ayuda">La partida se guarda al avanzar.</p>
     </div>
   </div>
 </div>
@@ -64,7 +65,7 @@
 <nav class="abajo" aria-label="Partida y secciones">
   <div class="dentro">
     <div class="marca"><span class="marca-sello" aria-hidden="true">UF<span>✦</span></span><b>Universo <i>del</i> fútbol</b><span id="eraTxt">1930 — 2026</span></div>
-    <div class="mando-partida"><div class="mando-etiqueta"><span class="punto-estado" aria-hidden="true"></span> Tú marcas el ritmo</div><div class="tiempo" id="tiempo"></div></div>
+    <div class="mando-partida"><div class="mando-etiqueta"><span class="punto-estado" aria-hidden="true"></span> Calendario</div><div class="tiempo" id="tiempo"></div></div>
     <div class="navegar" id="navegar">
       <button type="button" data-s="hoy" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2h-1 M7 9h7 M7 12.5h7 M7 16h4"/></svg><span>Hoy</span></button>
       <button type="button" data-s="comp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z M8 6H5a3 3 0 0 0 3 4 M16 6h3a3 3 0 0 1-3 4 M12 13v4 M8.5 20h7l-1-3h-5z"/></svg><span>Competiciones</span></button>
@@ -78,14 +79,22 @@
   <div class="hoja" id="hoja" role="dialog" aria-modal="true" aria-label="Ficha"></div>
 </div>
 
+<dialog id="copiaResumen" class="dialogo-copia" aria-labelledby="tituloCopiaResumen">
+  <form method="dialog" class="dialogo-copia-forma">
+    <div class="dialogo-copia-titulo"><h2 id="tituloCopiaResumen">Resumen</h2><button type="submit" class="copiar">Cerrar</button></div>
+    <p>El navegador bloqueó la copia automática. Puedes copiar el texto seleccionado.</p>
+    <textarea id="textoCopiaResumen" aria-label="Texto para copiar" readonly></textarea>
+  </form>
+</dialog>
 <script id="src-motor" src="js/motor.js"></script>
 <script id="src-epoca" src="js/epoca.js"></script>
 <script src="js/cronica.js"></script>
 <script id="src-atributos" src="datos/atributos.js"></script>
-<script src="datos/canteras.js"></script>
+<script id="src-canteras" src="datos/canteras.js"></script>
 <script id="src-mundial" src="js/mundial.js"></script>
 <script id="src-mundiales" src="datos/mundiales.js"></script>
 <script id="src-continentales-datos" src="datos/continentales.js"></script>
+<script id="src-dinamica" src="js/dinamica.js"></script>
 <script id="src-continentales" src="js/continentales.js"></script>
 <script id="src-mundo" src="js/mundo.js"></script>
 <script src="datos/base.js"></script>
