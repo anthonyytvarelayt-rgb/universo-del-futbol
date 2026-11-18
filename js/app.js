@@ -597,8 +597,17 @@ const NO_EUROPEOS = /Brasil|Argentina|Uruguay|Paraguay|Chile|Per[uú]|Colombia|B
 const GRANDES_LIGAS = ['España', 'Italia', 'Inglaterra', 'Alemania', 'Francia'];
 // Los premios de una temporada terminada no cambian: se calculan una vez.
 const cachePremios = new WeakMap();
+// La temporada en curso también se guarda, mientras no llegue un estado nuevo (S cambia de objeto) ni se cierre:
+// antes se recalculaba en cada llamada (370 veces al pintar, 6-10 segundos con unas temporadas jugadas).
+let cachePremiosS = null;
 function premiosMundo(V) {
   if (V !== S && cachePremios.has(V)) return cachePremios.get(V);
+  if (V === S && cachePremiosS && cachePremiosS.S === S && cachePremiosS.cerrada === cerradaV(S)) return cachePremiosS.r;
+  const r = premiosMundo0(V);
+  if (V === S) cachePremiosS = { S, cerrada: cerradaV(S), r };
+  return r;
+}
+function premiosMundo0(V) {
   const G = figurasDe(V);
   const r = {
     mejor: mejorDe(G, (a, b) => b.notaTemp - a.notaTemp, 15),
