@@ -35,7 +35,7 @@ if (salida) fs.mkdirSync(salida, { recursive: true });
       await p.goto('http://127.0.0.1:' + servidor.address().port);
       await p.locator('[data-era="' + (inicio === 1958 ? 'Llega Pelé' : 'Messi y Cristiano') + '"]').click();
       assert.equal(await p.locator('#inicioAnio').textContent(), String(inicio));
-      assert.ok(await p.locator('.programa-lamina img').evaluate((im) => im.complete && im.naturalWidth > 0));
+      assert.ok(await p.locator('.programa-lamina img').evaluate(async (im) => { await im.decode(); return im.naturalWidth > 0; }));
       await foto('inicio');
       await p.locator('#empezar').click();
       const nav = (id) => p.locator('#navegar [data-s="' + id + '"]').click();
@@ -99,8 +99,49 @@ if (salida) fs.mkdirSync(salida, { recursive: true });
         assert.ok(archivo.partidos >= 1 && archivo.club && archivo.gol);
         if (n && archivo.resueltas) assert.match(archivo.citas, /Al cierre,/);
         if (n === 0) {
+          const cierre = p.locator('.dossier-cierre');
+          await cierre.getByRole('heading', { name: 'Así se decidió' }).waitFor();
+          assert.equal(await cierre.locator('.cinta-cierre .radio-cierre[data-pais="España"]').count(), 1);
           await foto('fin');
+          const giro = cierre.locator('[data-minuto]').first();
+          if (await giro.count()) {
+            const minutoAbierto = await giro.getAttribute('data-minuto');
+            await giro.click();
+            assert.equal(await dial.inputValue(), minutoAbierto);
+            await nav('hoy');
+          }
+
+          const descarga = p.waitForEvent('download');
+          await cierre.getByRole('button', { name: 'Guardar portada' }).click();
+          const portada = await descarga;
+          assert.match(portada.suggestedFilename(), /^portada-\d{4}-\d{2}\.png$/);
+          if (salida) await portada.saveAs(path.join(salida, dispositivo + '-portada.png'));
+          await cierre.locator('.cinta-cierre .radio-cierre[data-pais="España"]').click();
+          assert.equal(await p.locator('[data-accion="radio-jornada"]').inputValue(), String(await p.evaluate(() => S.R.T.resultados.length)));
+          assert.equal(await dial.inputValue(), '0');
+          const estadoInicio = await p.evaluate(() => iPaso);
+          await p.locator('#ritmo-radio').selectOption('6');
+          const play = p.locator('[data-radio-reproducir]');
+          await play.click();
+          await p.waitForFunction(() => Number(document.querySelector('#dial-minuto').value) > 0);
+          await play.click();
+          const pausado = await dial.inputValue();
+          await p.waitForTimeout(600);
+          assert.equal(await dial.inputValue(), pausado);
+          assert.equal(await p.evaluate(() => iPaso), estadoInicio);
+          await minuto(await dial.getAttribute('max'));
+          const registro = await p.evaluate(() => S.R.T.tabla.map((t) => t.nombre + t.pts + ' pts'));
+          assert.deepEqual(await p.locator('.radio-tabla li').allTextContents(), registro);
+          await foto('ultima-jornada');
+          await p.locator('.radio-acta').first().click();
+          await p.locator('#hoja').waitFor();
+          await p.keyboard.press('Escape');
+          await nav('hoy');
+
           await nav('historia'); await foto('historia');
+          await p.locator('#archivo-cierre [data-radio-final][data-pais="España"]').click();
+          assert.equal(await dial.inputValue(), '0');
+          await nav('historia');
           await p.locator('.remontadas [data-partido]').first().click();
           await p.locator('#hoja').waitFor(); await p.keyboard.press('Escape');
           await nav('comp'); await p.locator('[data-vista="radio"]').click();

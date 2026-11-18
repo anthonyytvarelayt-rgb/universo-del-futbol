@@ -820,13 +820,23 @@
     });
     const tabla = equipos.map((e) => ({ equipo: e, nombre: e.nombre, estilo: estiloBase(e), pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, racha: [] }));
     const onces = equipos.map(() => new Map());
+    const ultimosOnces = [];
+    const banquillosActa = new Map();
+    const porterosActa = equipos.map(() => []);
+    const bajasPortero = equipos.map(() => []);
     const registro = new Map();
     const resultados = [];
     const cal = calendario(equipos.length);
     const mitadLiga = Math.floor(cal.length / 2);
     cal.forEach((ronda, jn) => {
       const resJornada = [];
+      const nCambios = cambios.length;
       revisarBanquillos(r, est, equipos, tabla, jn + 1, cambios);
+      for (const cambio of cambios.slice(nCambios)) {
+        const indice = equipos.findIndex((eq) => eq.nombre === cambio.club);
+        cambio.antes = ultimosOnces[indice];
+        banquillosActa.set(indice, cambio);
+      }
       // Último cuarto de liga: los que se juegan el descenso aprietan y los de media tabla sin nada en juego se relajan.
       if (jn >= cal.length * 0.75 && equipos.length >= 8) {
         const orden = [...tabla].sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc));
@@ -839,9 +849,22 @@
       ronda.forEach(([a, b]) => {
         const m = jugarConEstado(r, est, equipos[a], equipos[b], { cambios: op.cambios, factorGoles: op.factorGoles }, registro);
         const [ga, gb] = m.goles;
-        for (const [indice, once] of [[a, m.xiL], [b, m.xiV]]) {
-          if (once.length !== 11) continue;
+        for (const [lado, indice, once] of [[0, a, m.xiL], [1, b, m.xiV]]) {
+          const portero = once.find((j) => j.pos === 'POR');
+          const ficha = { jornada: jn + 1, portero: portero?.n, ceros: m.goles[1 - lado] === 0 };
+          porterosActa[indice].push(ficha);
+          const baja = portero && m.eventos.find((e) => e.tipo === 'lesion' && e.lado === lado && e.quien === portero.n && e.semanas >= 3);
+          if (baja) bajasPortero[indice].push({ ...ficha, semanas: baja.semanas, entra: baja.entra });
           const nombres = once.map((j) => j.n);
+          const actaOnce = { jornada: jn + 1, nombres, dibujo: m.dibujos[lado] };
+          ultimosOnces[indice] = actaOnce;
+          const cambio = banquillosActa.get(indice);
+          if (cambio) {
+            cambio.partidosObservados = (cambio.partidosObservados || 0) + 1;
+            cambio.primero ||= actaOnce;
+            if (cambio.partidosObservados === 10) cambio.decimo = actaOnce;
+          }
+          if (once.length !== 11) continue;
           const clave = JSON.stringify(nombres.slice().sort());
           const acta = onces[indice].get(clave) || { nombres, partidos: 0, jornada: jn + 1 };
           acta.partidos++;
@@ -862,6 +885,15 @@
       if (op.alJugar) op.alJugar(jn + 1, resJornada);
     });
     tabla.forEach((t, i) => {
+      t.relevosPorteria = bajasPortero[i].flatMap((baja) => {
+        const partidos = porterosActa[i].filter((m) => m.jornada > baja.jornada);
+        const regresa = partidos.find((m) => m.portero === baja.portero);
+        const suplente = partidos.find((m) => m.jornada < baja.jornada + baja.semanas)?.portero;
+        if (!suplente || suplente === baja.portero) return [];
+        const suplencias = partidos.filter((m) => m.portero === suplente && m.jornada < Math.min(regresa?.jornada || Infinity, baja.jornada + baja.semanas));
+        if (suplencias.length < 2) return [];
+        return [{ ...baja, suplente, titularidades: suplencias.length, ceros: suplencias.filter((m) => m.ceros).length, regreso: regresa?.jornada }];
+      });
       t.onceHabitual = [...onces[i].values()].sort((a, b) => b.partidos - a.partidos || a.jornada - b.jornada)[0];
     });
     tabla.sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);

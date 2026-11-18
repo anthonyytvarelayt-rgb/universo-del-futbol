@@ -972,7 +972,7 @@ function historiasSemana() {
 function pintarHoy() {
   const p = paso(), V = S;
   const cab = (derecha) => `<div class="cabecera-diario" title="Atajos: espacio juega o para, → una semana, M un mes, F al final, 1-4 secciones"><div class="nombre">${({radio:'La crónica de radio',revista:'La revista de la jornada',teletexto:'Fútbol · Teletexto',directo:'Central de marcadores'})[document.documentElement.dataset.edicion] || 'La edición del día'}</div><div class="bajo"><span>${esc(fechaDe(p).split(' · ').pop())}</span><span>${esc(derecha)}</span></div></div>`;
-  if (finDeTemporada() || fin) { $('s-hoy').innerHTML = cab('Edición especial') + edicionEspecial(V) + hemeroteca(V); return; }
+  if (finDeTemporada() || fin) { $('s-hoy').innerHTML = edicionEspecial(V) + hemeroteca(V); return; }
   const t = titularDe(p);
   const mundo = historiasSemana();
   // Portada: lo más grande de la semana; la crónica española entra como una noticia más.
@@ -1005,6 +1005,7 @@ function pintarHoy() {
   $('s-hoy').innerHTML = cab(p.tipo === 'jornada' ? `Jornada ${p.j}` : fechaCorta(p))
     + `<div class="hoy-apertura${destacado || previa ? '' : ' sin-partido'}"><article class="noticia noticia-principal"><div class="noticia-folio"><span class="rotulo">${esc(lead.seccion)}</span><span>${esc(S.temporada)}</span></div><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p><span class="noticia-pie">${lead.jugador ? `<button type="button" class="ver-protagonista" data-j="${esc(lead.jugador)}">Ver jugador</button>` : ''}</span></article>${destacado || (previa ? `<aside class="avance-jornada">${previa}</aside>` : '')}</div>`
     + (jornadasVistas() ? '<button type="button" class="enlace-radio" data-radio-hoy><b>El transistor</b><span>Revivir los goles de la jornada española</span><i aria-hidden="true">↗</i></button>' : '')
+    + previaDeCierre(V)
     + hemeroteca(V)
     + (breves ? `<div class="actualidad"><div class="separador-actualidad"><h2>En el resto del mundo</h2><span></span></div><div class="breves">${breves}</div></div>` : '')
     + `<div class="columnas">${crackSemana(grandes)}${destacado ? carteleraHtml(V) : ''}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
@@ -1143,29 +1144,377 @@ function portadaHtml(V, mini) {
     <div class="portada-rejilla">${caja('Campeón de Europa', d.eu ? botonClub(d.eu) : '', d.eu ? esc(d.nombreEU) + (d.liga ? ' y la liga' : '') : '')}${caja('El crack del año', d.crack ? nombreJ(d.crack.nombre) : '', d.crack ? `${esc(d.crack.club)} · ${d.crack.g} goles` : '')}${caja('La sorpresa', d.sorpresa ? botonClub(d.sorpresa.club) : '', d.sorpresa ? `${d.sorpresa.puesto}.º cuando se esperaba ${d.sorpresa.esperado}.º` : '')}${caja('Por debajo del objetivo', d.fracaso ? botonClub(d.fracaso.club) : '', d.fracaso ? `${d.fracaso.puesto}.º cuando se esperaba ${d.fracaso.esperado}.º` : '')}${caja('El momento', d.momento ? esc(d.momento.tit) : '', d.momento ? esc(d.momento.rot) : '')}</div>
     <button type="button" class="copiar portada-guardar" data-portada="${temporadas().indexOf(V)}">🖼 Guardar portada</button></section>`;
 }
-// La portada como imagen (para mandarla por WhatsApp): se dibuja en un lienzo, sin librerías.
-function guardarPortada(btn) {
-  const V = temporadas()[+btn.dataset.portada]; if (!V) return;
-  const d = portadaDatos(V), W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+// La portada compartida también se compone como una página de periódico.
+async function guardarPortada(btn) {
+  const V = temporadas()[Number(btn.dataset.portada)];
+  if (!V) return;
+  const d = portadaDatos(V);
+  const cv = document.createElement('canvas');
+  cv.width = 1080;
+  cv.height = 1350;
   const g = cv.getContext('2d');
-  const fondo = d.c1, tinta = '#fff', acento = d.c2;
-  g.fillStyle = fondo; g.fillRect(0, 0, W, H); g.fillStyle = acento; g.fillRect(0, 0, W, 18); g.fillRect(0, H - 18, W, 18);
-  const linea = (txt, x, y, tam, peso, color, max) => { g.font = `${peso} ${tam}px Archivo, Arial, sans-serif`; g.fillStyle = color; const pal = String(txt).split(' '); let l = '', yy = y; pal.forEach((p) => { const t = l ? l + ' ' + p : p; if (g.measureText(t).width > (max || W - 140) && l) { g.fillText(l, x, yy); l = p; yy += tam * 1.15; } else l = t; }); g.fillText(l, x, yy); return yy + tam * 1.15; };
-  linea('UNIVERSO DEL FÚTBOL · ' + V.temporada, 70, 100, 34, 700, tinta);
-  let y = linea(d.titular.toUpperCase(), 70, 210, 74, 900, tinta);
+  const papel = '#f7eed8', tinta = '#183743', acento = '#963520';
+  const trazo = (x, y, ancho, alto, color = tinta) => {
+    g.fillStyle = color;
+    g.fillRect(x, y, ancho, alto);
+  };
+  const linea = (texto, x, y, tam, tipo = 'Georgia', color = tinta, max = 952) => {
+    g.font = `bold ${tam}px ${tipo}`;
+    g.fillStyle = color;
+    const palabras = String(texto).split(/\s+/);
+    let fila = '';
+    for (const palabra of palabras) {
+      const prueba = fila ? fila + ' ' + palabra : palabra;
+      if (fila && g.measureText(prueba).width > max) {
+        g.fillText(fila, x, y, max);
+        fila = palabra;
+        y += tam * 1.1;
+      } else fila = prueba;
+    }
+    g.fillText(fila, x, y, max);
+    return y + tam * 1.1;
+  };
+  trazo(0, 0, cv.width, cv.height, papel);
+  trazo(64, 60, 952, 5);
+  linea('UNIVERSO DEL FÚTBOL', 64, 117, 44);
+  linea('CIERRE DE TEMPORADA · ' + V.temporada, 64, 157, 20, 'Arial', acento);
+  trazo(64, 182, 952, 3);
+  const imagen = new Image();
+  imagen.src = 'css/tribuna-cierre.webp';
+  try {
+    await imagen.decode();
+    const alto = Math.min(imagen.height, Math.round(imagen.width * 400 / 952));
+    g.drawImage(imagen, 0, Math.round((imagen.height - alto) / 2), imagen.width, alto, 64, 205, 952, 400);
+  } catch {
+    trazo(64, 205, 952, 400);
+    linea(V.temporada, 110, 480, 158, 'Georgia', papel, 860);
+  }
+  const tamTitular = d.titular.length > 75 ? 53 : 65;
+  let y = linea(d.titular, 64, 684, tamTitular);
+  trazo(64, y - 30, 952, 2);
   y += 20;
-  [['CAMPEÓN DE EUROPA', d.eu, d.eu ? d.nombreEU : ''], ['EL CRACK DEL AÑO', d.crack && d.crack.nombre, d.crack ? `${d.crack.club} · ${d.crack.g} goles` : ''], ['LA SORPRESA', d.sorpresa && d.sorpresa.club, d.sorpresa ? `${d.sorpresa.puesto}.º cuando se esperaba ${d.sorpresa.esperado}.º` : ''], ['POR DEBAJO DEL OBJETIVO', d.fracaso && d.fracaso.club, d.fracaso ? `${d.fracaso.puesto}.º cuando se esperaba ${d.fracaso.esperado}.º` : ''], ['EL MOMENTO', d.momento && d.momento.tit, d.momento ? d.momento.rot : '']].filter((c) => c[1]).forEach(([r, t, s2]) => {
-    if (y > H - 150) return;
-    g.fillStyle = acento; g.fillRect(70, y - 8, 8, 120);
-    linea(r, 100, y + 22, 26, 700, tinta); const y2 = linea(t, 100, y + 70, 44, 800, tinta, W - 200); linea(s2, 100, y2 - 6, 26, 400, tinta);
-    y = y2 + 34;
+  const destacados = [
+    [d.nombreEU, d.eu, d.liga ? 'También ganó su liga' : ''],
+    ['Figura del año', d.crack?.nombre, d.crack ? `${d.crack.club} · ${d.crack.g} goles` : ''],
+    ['La sorpresa', d.sorpresa?.club, d.sorpresa ? `${d.sorpresa.puesto}.º · se esperaba ${d.sorpresa.esperado}.º` : '']
+  ].filter(([, nombre]) => nombre);
+  destacados.forEach(([etiqueta, nombre, pie], i) => {
+    const x = 64 + i * 323;
+    linea(etiqueta.toUpperCase(), x, y, 18, 'Arial', acento, 292);
+    const debajo = linea(nombre, x, y + 38, 34, 'Georgia', tinta, 292);
+    if (pie) linea(pie, x, debajo, 20, 'Arial', tinta, 292);
   });
-  cv.toBlob((blob) => {
-    if (!blob) return; const nombre = `portada-${V.temporada}.png`, file = typeof File === 'function' ? new File([blob], nombre, { type: 'image/png' }) : null;
-    const descargar = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
-    if (file && navigator.canShare && navigator.canShare({ files: [file] })) navigator.share({ files: [file], title: d.titular }).catch(() => {}); else descargar();
+  const giro = desenlacesDeLiga(V).find((l) => l.cambio);
+  if (giro && y < 960) {
+    trazo(64, 1110, 952, 2);
+    linea('VUELCO EN LA ÚLTIMA JORNADA', 64, 1153, 21, 'Arial', acento);
+    linea(`${giro.campeon.nombre} adelantó a ${giro.tabla[0].nombre} en ${giro.nombre}.`, 64, 1195, 34);
+  }
+  trazo(64, 1270, 952, 2);
+  linea('Resultados de tu partida', 64, 1311, 20, 'Arial');
+  cv.toBlob(async (blob) => {
+    if (!blob) return;
+    const nombre = `portada-${V.temporada}.png`;
+    const archivo = typeof File === 'function' ? new File([blob], nombre, { type: 'image/png' }) : null;
+    if (archivo && navigator.userActivation?.isActive && navigator.canShare?.({ files: [archivo] })) {
+      try {
+        await navigator.share({ files: [archivo], title: d.titular });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = nombre;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }, 'image/png');
 }
+// Trabajamos con los puntos antes de jugar y con los emparejamientos, nunca con
+// el marcador futuro. Los dos equipos de un partido comparten el mismo resultado.
+function opcionesUltimaJornada(tabla, partidos, victoria) {
+  const resultados = [[victoria, 0], [1, 1], [0, victoria]];
+  const porClub = new Map();
+  const puntosPrevios = new Map(tabla.map((t) => [t.nombre, t.pts]));
+  partidos.forEach((m) => {
+    porClub.set(m.local, { partido: m, lado: 0, rival: m.visita });
+    porClub.set(m.visita, { partido: m, lado: 1, rival: m.local });
+  });
+  const casos = tabla.map((club) => {
+    const juega = porClub.get(club.nombre);
+    const escenarios = (juega ? ['Si gana', 'Si empata', 'Si pierde'] : ['Si descansa']).map((nombre, i) => {
+      const marcador = juega && resultados[juega.lado ? 2 - i : i];
+      const puntos = club.pts + (juega ? marcador[juega.lado] : 0);
+      const depende = [], empates = [];
+      for (const otro of tabla) {
+        if (otro === club) continue;
+        const cita = porClub.get(otro.nombre);
+        const mismo = cita && juega && cita.partido === juega.partido;
+        const posibles = cita ? mismo ? [marcador[cita.lado]] : [victoria, 1, 0] : [0];
+        if (otro.pts + Math.min(...posibles) > puntos) return { nombre, estado: 'fuera' };
+        if (otro.pts + Math.max(...posibles) > puntos) {
+          const condicion = puntos - otro.pts >= 1 ? 'no puede ganar' : 'debe perder';
+          depende.push([otro.nombre, condicion]);
+        }
+        if (posibles.includes(puntos - otro.pts)) empates.push(otro.nombre);
+      }
+      const incompatible = partidos.some((m) => m !== juega?.partido && !resultados.some(([local, visita]) =>
+        puntosPrevios.get(m.local) + local <= puntos && puntosPrevios.get(m.visita) + visita <= puntos));
+      if (incompatible) return { nombre, estado: 'fuera' };
+      return { nombre, estado: depende.length ? 'depende' : empates.length ? 'desempate' : 'primero', depende, empates };
+    });
+    return { club, rival: juega?.rival, escenarios };
+  });
+  return casos.filter((x) => x.escenarios.some((e) => e.estado !== 'fuera'));
+}
+
+function ligasDeCierre(V, esPrevia) {
+  return paisesDe(V).flatMap((pais) => {
+    const ligas = ligasDe(V, pais).filter((L) => L.nivel === 1);
+    return ligas.flatMap((L) => {
+      const n = L.T.resultados.length;
+      if (n < 2 || (esPrevia && vistasDe(L.T, V) !== n - 1)) return [];
+      const pv = reglasDe(V, pais).puntosVictoria || 2;
+      const tabla = tablaHasta(L.T, n - 1, pv);
+      const casos = opcionesUltimaJornada(tabla, L.T.resultados[n - 1], pv);
+      return [{ pais, L, n, tabla, casos, nombre: ligas.length > 1 ? L.grupo : nombreLiga(V, pais), regional: ligas.length > 1 }];
+    });
+  });
+}
+
+function escenarioHtml(e) {
+  if (e.estado === 'fuera') return 'Se queda sin opciones.';
+  if (e.estado === 'primero') return 'Acaba primero por puntos.';
+  if (e.estado === 'desempate') return `Decide el desempate con ${esc(lista(e.empates))}.`;
+  const requisitos = e.depende.map(([club, texto]) => `${esc(club)} ${texto}`);
+  return requisitos.join(' y ') + (e.empates.length ? '. Si igualan a puntos, decide el desempate.' : '.');
+}
+
+function opcionesLigaHtml({ nombre, n, casos }) {
+  return `<details><summary>${esc(nombre)} · jornada ${n} · ${casos.length} con opciones de acabar primero</summary>
+      <p>Con igualdad en puntos, cuentan la diferencia de goles y después los goles a favor.</p>
+    ${casos.map(({ club, rival, escenarios }) => `<article><h3>${botonClub(club.nombre)} · ${club.pts} pts</h3><p>${rival ? 'Contra ' + esc(rival) : 'Descansa'}</p>
+        <dl>${escenarios.map((e) => `<div><dt>${e.nombre}</dt><dd>${escenarioHtml(e)}</dd></div>`).join('')}</dl></article>`).join('')}</details>`;
+}
+
+function previaDeCierre(V) {
+  const ligas = ligasDeCierre(V, true).filter((x) => x.casos.length > 1);
+  if (!ligas.length) return '';
+  return `<section class="vispera-cierre"><h2>La víspera de la última jornada</h2>${ligas.map(opcionesLigaHtml).join('')}</section>`;
+}
+
+function jornadaDelTitulo(T, victoria) {
+  const ultima = T.resultados.length, campeon = T.tabla[0];
+  const partidos = new Map(T.tabla.map((t) => [t.nombre, t.pj]));
+  let jornada;
+  for (let j = ultima - 1; j >= 1; j--) {
+    const posiciones = tablaHasta(T, j, victoria);
+    const lider = posiciones[0];
+    if (lider.nombre !== campeon.nombre || posiciones.slice(1).some((rival) =>
+      rival.pts + (partidos.get(rival.nombre) - rival.pj) * victoria >= lider.pts)) break;
+    jornada = j;
+  }
+  return jornada;
+}
+
+const cacheCierreLigas = new WeakMap();
+function desenlacesDeLiga(V) {
+  if (cacheCierreLigas.has(V)) return cacheCierreLigas.get(V);
+  const finales = ligasDeCierre(V, false).map((d) => {
+    const { L, n, casos, tabla } = d;
+    const [campeon, segundo] = L.T.tabla;
+    const diferencia = campeon.pts - segundo.pts;
+    const cambio = campeon.nombre !== tabla[0].nombre;
+    const ms = L.T.resultados[n - 1];
+    const partido = ms.find((m) => m.local === campeon.nombre || m.visita === campeon.nombre);
+    const balance = { ...d, campeon, segundo, diferencia, cambio, partido, abierta: casos.length > 1 };
+    const pv = reglasDe(V, d.pais).puntosVictoria || 2;
+    if (balance.abierta) balance.giros = girosUltimaJornada(balance, pv);
+    else balance.jornadaTitulo = jornadaDelTitulo(L.T, pv);
+    return balance;
+  }).sort((a, b) => Number(b.cambio) - Number(a.cambio) || Number(b.abierta) - Number(a.abierta) ||
+    Number(a.regional) - Number(b.regional) || a.diferencia - b.diferencia || a.pais.localeCompare(b.pais, 'es'));
+  cacheCierreLigas.set(V, finales);
+  return finales;
+}
+
+function girosUltimaJornada({ L, n, tabla }, pv) {
+  const jornada = L.T.resultados[n - 1];
+  const minutos = [...new Set(jornada.flatMap((m) => golesRadio(m).map((g) => g.min)))].sort((a, b) => a - b);
+  const pitido = Math.max(90, ...minutos);
+  const previas = L.T.resultados.slice(0, n - 1);
+  let lider = tabla[0].nombre;
+  const giros = [];
+  for (const minuto of minutos) {
+    const marcadores = jornada.map((m) => marcadorRadio(m, minuto));
+    if (marcadores.includes(null)) return [];
+    const partidos = jornada.map((m, i) => ({ local: m.local, visita: m.visita, ga: marcadores[i][0], gb: marcadores[i][1] }));
+    const nuevo = minuto === pitido ? L.T.tabla[0].nombre : tablaHasta({ tabla: L.T.tabla, resultados: [...previas, partidos] }, n, pv)[0].nombre;
+    if (lider === nuevo) continue;
+    lider = nuevo;
+    const detectados = jornada.flatMap((m) => golesRadio(m).filter((g) => g.min === minuto));
+    giros.push({ minuto, lider, autores: detectados.map((g) => g.quien) });
+  }
+  return giros;
+}
+
+function botonesArchivoCierre(V) {
+  return desenlacesDeLiga(V).map(({ L, pais, nombre }) =>
+    `<button class="copiar" type="button" data-radio-final="${esc(L.grupo)}" data-pais="${esc(pais)}" data-anio="${V.anio}">Revivir · ${esc(nombre)}</button>`).join(' ');
+}
+
+function movimientosCierre(V) {
+  const paises = paisesDe(V).map((pais) => ({ pais, ...ascensosDe(V, pais) })).filter((x) => x.suben.length || x.bajan.length);
+  if (!paises.length) return '';
+  return `<section class="vestuario-cierre" id="cierre-movimientos"><h2>Ascensos y descensos</h2><div class="columnas">${paises.map((x) =>
+    `<article class="caja"><h3>${esc(x.pais)}</h3>${x.suben.length ? `<p><b>Suben</b> ${x.suben.map(botonClub).join(' ')}</p>` : ''}
+    ${x.bajan.length ? `<p><b>Bajan</b> ${x.bajan.map(botonClub).join(' ')}</p>` : ''}</article>`).join('')}</div></section>`;
+}
+
+function dossierCierre(V, vestuario, relevos, movimientos, pm) {
+  const finales = desenlacesDeLiga(V), primero = finales[0];
+  if (!primero) return '';
+  const conGiros = finales.find((d) => d.giros?.length);
+  return `<section class="dossier-cierre" aria-label="Cierre de temporada"><div class="folio-cierre"><span>Universo del fútbol</span><b>${esc(V.temporada)}</b><span>Edición de cierre</span></div>
+    <header><div><h1>Así se decidió</h1><p>${primero.cambio ? `El ${esc(primero.campeon.nombre)} adelantó al ${esc(primero.tabla[0].nombre)} en la última jornada.` :
+      primero.abierta ? `El ${esc(primero.campeon.nombre)} defendió el liderato hasta el pitido final.` : `Los campeones y los partidos que cerraron la temporada.`}</p></div><img width="1100" height="733" src="css/tribuna-cierre.webp" alt="Ilustración de aficionados alzando sus bufandas en la grada al final de un partido"></header>
+    <nav class="indice-cierre" aria-label="En esta edición"><a href="#cierre-ligas">Ligas</a><a href="#cierre-europa">Europa</a><a href="#cierre-premios">Premios</a>${movimientos ? '<a href="#cierre-movimientos">Ascensos y descensos</a>' : ''}${vestuario ? '<a href="#cierre-vestuario">Vestuario</a>' : ''}${relevos ? '<a href="#cierre-relevos">Relevos</a>' : ''}<a href="#cierre-verano">Verano</a><a href="#cierre-informe">Copiar informe</a><button type="button" data-portada="${temporadas().indexOf(V)}">Guardar portada</button></nav>
+    <dl class="portadilla-datos">
+      ${V.europa ? `<div><dt>${esc(nombreEuropa(V))}</dt><dd>${botonClub(V.europa)}${marcaSi(V.europa, EUROPA_REAL[V.anio])}</dd></div>` : ''}
+      ${pm.ganadorMejor ? `<div><dt>${esc(pm.nombreMejor)}</dt><dd>${nombreJ(pm.ganadorMejor.nombre)}</dd></div>` : ''}
+      ${torneosSelecciones(V).map(({ T, id }) => `<div><dt>${esc(tituloSeleccion(T))}</dt><dd><button type="button" class="nombre" data-ir-seleccion="${esc(id)}">${esc(T.campeon)}</button></dd></div>`).join('')}
+    </dl>
+    ${conGiros ? `<div class="giros-cierre"><h2>El liderato en juego <small>${esc(conGiros.nombre)}</small></h2><ol>${conGiros.giros.map((g) =>
+      `<li><button type="button" data-radio-final="${esc(conGiros.L.grupo)}" data-pais="${esc(conGiros.pais)}" data-anio="${V.anio}" data-minuto="${g.minuto}">
+      <b>${g.minuto}′</b><span>${esc(g.lider)} se pone primero<small>Goles de ${esc(lista(g.autores))}</small></span></button></li>`).join('')}</ol></div>` : ''}
+    <div class="cinta-cierre" id="cierre-ligas">${finales.map(({ pais, L, n, nombre, regional, campeon, segundo, diferencia, cambio, abierta, partido, jornadaTitulo }) =>
+      `<article><div class="rotulo">${esc(pais)} · ${esc(nombre)}</div><h2>${botonClub(campeon.nombre)}</h2>
+      <p>${regional ? 'Primero del grupo' : 'Campeón'} · ${campeon.pts} pts${cambio ? ' · vuelco en la última jornada' : abierta ? ' · llegó a la última con opciones abiertas' : ''}</p>
+      <p>${diferencia ? `${diferencia} ${diferencia === 1 ? 'punto' : 'puntos'} sobre el ${esc(segundo.nombre)}` : `Igualado a puntos con el ${esc(segundo.nombre)}`}</p>
+      ${jornadaTitulo ? `<button class="acta-cierre sello-titulo" type="button" data-radio-final="${esc(L.grupo)}" data-pais="${esc(pais)}" data-anio="${V.anio}" data-jornada="${jornadaTitulo}">Aseguró el primer puesto en la J${jornadaTitulo} ↗</button>` : ''}
+      ${partido ? `<button class="acta-cierre" type="button" data-partido="${regP(partido, nombre + ' · J' + n)}">${esc(partido.local)} <b>${partido.ga}–${partido.gb}</b> ${esc(partido.visita)}</button>` : ''}
+      <button class="radio-cierre" type="button" data-radio-final="${esc(L.grupo)}" data-pais="${esc(pais)}" data-anio="${V.anio}">Revivir jornada ${n} <span aria-hidden="true">↗</span></button></article>`).join('')}</div></section>`;
+}
+
+function historiasVestuario(V) {
+  const relatos = [];
+  for (const pais of paisesDe(V)) for (const L of ligasDe(V, pais)) {
+    const T = L.T;
+    for (const t of T.tabla) for (const p of t.relevosPorteria || []) {
+      const m = T.resultados[p.jornada - 1]?.find((x) => x.local === t.nombre || x.visita === t.nombre);
+      if (!m) continue;
+      const jornada = p.regreso ? `Volvió al once en la jornada ${p.regreso}.` : 'El portero lesionado no volvió al once esa liga.';
+      relatos.push({ tipo: 'Portería', prioridad: p.titularidades, club: t.nombre, titulo: `${p.suplente} tuvo su oportunidad`,
+        texto: `${p.portero} se lesionó en la jornada ${p.jornada} y causó baja ${p.semanas} semanas. ${p.suplente} fue titular en ${p.titularidades} partidos durante ese tramo y el equipo dejó la portería a cero en ${p.ceros}. ${jornada}`, m, L });
+    }
+    for (const c of T.cambios || []) {
+      if (!c.antes || !c.primero) continue;
+      const hasta = c.decimo || c.primero;
+      const sale = c.antes.nombres.filter((j) => !hasta.nombres.includes(j));
+      const entra = hasta.nombres.filter((j) => !c.antes.nombres.includes(j));
+      const dibujo = c.antes.dibujo && hasta.dibujo ? c.antes.dibujo === hasta.dibujo ?
+        `Se mantuvo el ${hasta.dibujo}.` : `Del ${c.antes.dibujo} al ${hasta.dibujo}.` : '';
+      const m = T.resultados[hasta.jornada - 1]?.find((x) => x.local === c.club || x.visita === c.club);
+      if (!m) continue;
+      const cambiosOnce = [
+        entra.length ? `Entraron ${lista(entra)}.` : '',
+        sale.length ? `Salieron ${lista(sale)}.` : ''
+      ].filter(Boolean).join(' ');
+      relatos.push({ tipo: 'Banquillo', prioridad: c.decimo ? 7 + entra.length : entra.length, club: c.club,
+        titulo: `El relevo de ${sinApodo(c.entra)} en el banquillo`,
+        texto: `${sinApodo(c.entra)} relevó a ${sinApodo(c.sale)} en la jornada ${c.jornada}. ${c.decimo ? 'Décimo partido' : 'Debut'} frente al último once anterior. ${cambiosOnce || 'Repitió los titulares.'} ${dibujo}`, m, L, antes: c.antes, primero: c.primero, decimo: c.decimo });
+    }
+  }
+  return relatos.sort((a, b) => b.prioridad - a.prioridad || a.club.localeCompare(b.club, 'es'));
+}
+
+function historiasVestuarioHtml(V) {
+  const relatos = historiasVestuario(V);
+  const destacados = ['Banquillo', 'Portería'].flatMap((tipo) => relatos.filter((d) => d.tipo === tipo).slice(0, 2));
+  return destacados.length ? `<section class="vestuario-cierre" id="cierre-vestuario"><h2>Lo que cambió en el vestuario</h2><div class="columnas">${destacados.map((d) => `
+    <article class="caja"><span class="rotulo">${d.tipo} · ${botonClub(d.club)}</span><h3>${esc(d.titulo)}</h3><p>${esc(d.texto)}</p>
+    ${d.primero ? `<details><summary>Comparar las alineaciones</summary>
+      ${[[d.antes, 'Último once anterior'], [d.primero, 'Debut'], [d.decimo, 'Décimo partido']].filter(([once]) => once).map(([once, nombre]) =>
+        `<div><b>${nombre} · J${once.jornada}${once.dibujo ? ' · ' + esc(once.dibujo) : ''}</b><p>${once.nombres.map(nombreJ).join(' · ')}</p>
+        ${(() => { const m = d.L.T.resultados[once.jornada - 1]?.find((x) => x.local === d.club || x.visita === d.club);
+          return m ? `<button class="nombre" type="button" data-partido="${regP(m, d.L.grupo + ' · J' + once.jornada)}">Ver acta de la J${once.jornada}</button>` : ''; })()}</div>`).join('')}
+      </details>` : ''}
+    <button type="button" class="copiar" data-partido="${regP(d.m, d.L.grupo + ' · ' + V.temporada)}">Abrir el acta</button></article>`).join('')}</div></section>` : '';
+}
+
+// Solo evaluamos un reemplazo si el propio mercado relacionó la compra con la salida.
+const cacheMinutosMercado = new WeakMap();
+const cacheRelevosMercado = new WeakMap();
+function minutosMercado(V) {
+  if (cacheMinutosMercado.has(V)) return cacheMinutosMercado.get(V);
+  const clubes = new Map();
+  for (const x of V.G) {
+    if (!x.min || !x.tit || !x.pos || !figuraReal(x)) continue;
+    if (!clubes.has(x.club)) clubes.set(x.club, []);
+    clubes.get(x.club).push(x);
+  }
+  for (const xs of clubes.values()) xs.sort((a, b) => b.min - a.min || b.tit - a.tit);
+  cacheMinutosMercado.set(V, clubes);
+  return clubes;
+}
+
+function relevosMercado(V) {
+  if (cacheRelevosMercado.has(V)) return cacheRelevosMercado.get(V);
+  const ts = temporadas();
+  const clubes = minutosMercado(V);
+  const relatos = [];
+  for (const t of ts) {
+    const distancia = V.anio - t.anio;
+    if (distancia < 1 || distancia > 2 || !t.veranoHecho) continue;
+    const mercado = t.mercado || [];
+    const antes = minutosMercado(t);
+    for (const fichaje of mercado) {
+      if (fichaje.tipo !== 'fichaje' || !Number.isInteger(fichaje.reemplaza)) continue;
+      const venta = mercado[fichaje.reemplaza];
+      const club = fichaje.a;
+      if (!venta || venta.de !== club || !venta.pos || venta.jugador === fichaje.jugador) continue;
+      const salio = antes.get(club)?.find((x) => x.nombre === venta.jugador && x.tit >= 10);
+      const puesto = clubes.get(club)?.filter((x) => x.pos === venta.pos) || [];
+      const principal = puesto[0];
+      if (!salio || !principal || principal.nombre === venta.jugador || principal.tit < 10) continue;
+      const refuerzo = clubes.get(club)?.find((x) => x.nombre === fichaje.jugador);
+      const canterano = t.mercado.some((x) => x.tipo === 'debut' && x.de === 'cantera' && x.a === club && x.jugador === principal.nombre);
+      relatos.push({ club, venta, fichaje, principal, refuerzo, canterano, distancia, salio });
+    }
+  }
+  relatos.sort((a, b) => Number(b.canterano) - Number(a.canterano) ||
+    Number(b.principal.nombre !== b.fichaje.jugador) - Number(a.principal.nombre !== a.fichaje.jugador) ||
+    b.salio.min - a.salio.min);
+  cacheRelevosMercado.set(V, relatos);
+  return relatos;
+}
+
+function relevoMercadoTexto(x) {
+  const { venta, fichaje, principal, refuerzo, distancia, canterano } = x;
+  const tiempo = distancia === 2 ? 'Dos temporadas después,' : 'En la temporada siguiente,';
+  return `${venta.jugador} salió al ${venta.a} y el club fichó a ${fichaje.jugador} para cubrir su marcha. ${tiempo} ${principal.nombre}${canterano ? ', que debutó aquel verano,' : ''} lideró el puesto en minutos con ${principal.min} y ${principal.tit} titularidades.${
+    principal.nombre === fichaje.jugador ? '' : refuerzo ? ` El refuerzo jugó ${refuerzo.min} minutos en el club.` : ''}`;
+}
+
+function fichaRelevoMercado(nombre, club = false) {
+  const recientes = temporadas().filter(cerradaV).slice(-4).reverse();
+  const xs = recientes.flatMap((V) => relevosMercado(V)
+    .filter((d) => club ? d.club === nombre : [d.venta.jugador, d.fichaje.jugador, d.principal.nombre].includes(nombre))
+    .map((d) => ({ d, temporada: V.temporada }))).slice(0, 3);
+  return xs.length ? `<details class="recortes"><summary>Fichajes con perspectiva</summary>${xs.map(({ d, temporada }) =>
+    `<article><b>${temporada} · ${botonClub(d.club)}</b><p>${esc(relevoMercadoTexto(d))}</p></article>`).join('')}</details>` : '';
+}
+
+function mercadoConPerspectiva(V) {
+  const xs = relevosMercado(V).slice(0, 4);
+  return xs.length ? `<section class="vestuario-cierre" id="cierre-relevos"><h2>Quién se quedó con el puesto</h2><div class="columnas">${xs.map((x) =>
+    `<article class="caja"><span class="rotulo">${botonClub(x.club)}</span><h3>${nombreJ(x.venta.jugador)} → ${nombreJ(x.fichaje.jugador)}</h3>
+      <p>${esc(relevoMercadoTexto(x))}</p>${x.principal.nombre !== x.fichaje.jugador ? `<p>${nombreJ(x.principal.nombre)}</p>` : ''}</article>`).join('')}</div></section>` : '';
+}
+
 function edicionEspecial(V) {
   const EU = V.R.EU, fEU = EU && EU.rondas[EU.rondas.length - 1].cruces[0];
   const difs = divergencias(V), grandes = difs.filter((d) => d.grande);
@@ -1202,9 +1551,13 @@ function edicionEspecial(V) {
       <span class="rotulo" style="margin-top:8px">Debutan</span>${deb.map((x) => `<div class="resultado"><span><span>${nombreJ(x.jugador)}<small>${esc(x.a)} · techo ${nivel(x.tec)}</small></span></span></div>`).join('')}</div>`;
   }
   const noticias = grandes.slice(0, 4).map((d) => `<article class="noticia"><div class="arriba"><span class="rotulo rojo">La historia cambia</span>${marcaDif(d.real)}</div><h2 class="titulo medio">${esc(d.titulo)}</h2></article>`).join('');
-  return portadaHtml(V) + cartel + relatoHtml(`La final de la ${nombreEuropa(V)}, contada`, relatoEuropa(V)) + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + exportarResumenHtml(V) + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '') + (supersNac ? `<div class="caja"><span class="rotulo">Supercopas</span>${supersNac}</div>` : '')
-    + `<div class="caja"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
-    + `<div class="columnas">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
+  const vestuario = historiasVestuarioHtml(V);
+  const relevos = mercadoConPerspectiva(V);
+  const movimientos = movimientosCierre(V);
+  const reencuentrosEuropa = EU ? nochesRepetidas(V, EU, 'europa', EU.rondas.length) : '';
+  return dossierCierre(V, vestuario, relevos, movimientos, pm) + movimientos + vestuario + relevos + portadaHtml(V) + `<div id="cierre-europa">${cartel}</div>` + reencuentrosEuropa + relatoHtml(`La final de la ${nombreEuropa(V)}, contada`, relatoEuropa(V)) + podio + torneosSelecciones(V).map(({ T, id }) => mundialCaja(V, T, id)).join('') + `<div id="cierre-informe">${exportarResumenHtml(V)}</div>` + noticias + sorpresasHtml(V) + `<div class="caja"><span class="rotulo">Campeones de ${V.temporada}</span>${campeones}</div>` + (otras ? `<div class="caja"><span class="rotulo">Otras copas internacionales</span>${otras}</div>` : '') + (supersNac ? `<div class="caja"><span class="rotulo">Supercopas</span>${supersNac}</div>` : '')
+    + `<div class="caja" id="cierre-premios"><span class="rotulo">Premios mundiales</span><div class="premios">${premios}</div></div>`
+    + `<div class="columnas" id="cierre-verano">${verano}${resultadoPron(V)}${seguidosHtml()}</div>`;
 }
 
 // Lo que nadie esperaba: las joyas que explotan y las insignias que se ganan jugando.
@@ -2348,6 +2701,10 @@ function informeAmpliado(V, pm) {
   const R = V.R;
   const out = ['','══════════ INFORME DETALLADO ══════════'];
   const sec = (titulo, lineas) => { if (lineas.length) out.push('', titulo, ...lineas); };
+  sec('ASÍ SE DECIDIERON LAS LIGAS', desenlacesDeLiga(V).flatMap((d) => [
+    `${d.pais} · ${d.nombre} | ${d.campeon.nombre} ${d.campeon.pts} pts · ${d.segundo.nombre} ${d.segundo.pts} pts${d.jornadaTitulo ? ' · primer puesto asegurado en J' + d.jornadaTitulo : ''}`,
+    ...(d.giros || []).map((g) => `  ${g.minuto}′ · ${g.lider} primero en la tabla provisional. Goles de ${lista(g.autores)}.`)
+  ]));
   const paises = paisesDe(V);
   const tabla = '# Club | PJ | G | E | P | GF | GC | Pts | dibujo y técnico si constan';
   for (const pais of paises) {
@@ -2376,6 +2733,8 @@ function informeAmpliado(V, pm) {
 
   sec('LAS GRANDES REMONTADAS DEL AÑO', remontadasDelAnio(V).map(({ m, club, margen, gol, comp }) =>
     `${comp} · ${m.local} ${m.ga}–${m.gb} ${m.visita} · ${club} remontó ${margen} ${margen === 1 ? 'gol' : 'goles'}. Gol de la victoria: ${gol.quien}, ${gol.min}′.`));
+  sec('QUIÉN SE QUEDÓ CON EL PUESTO', relevosMercado(V).map((d) => `${d.club} · ${relevoMercadoTexto(d)}`));
+  sec('BANQUILLOS Y RELEVOS EN LA PORTERÍA', historiasVestuario(V).map((d) => `${d.club} · ${d.titulo}. ${d.texto}`));
   const figura = (x) => `${x.nombre} (${x.club}) | ${x.pos} | ${x.pj} PJ | ${x.min ?? '—'} min | ${x.g} G | ${x.a} A | ${x.notaTemp.toFixed(2)} nota`;
   const G = figurasDe(V);
   for (const pais of paises) {
@@ -2697,6 +3056,7 @@ function pintarComp() {
     const L = ligas.find((l) => l.grupo === compSel);
     cuerpo = compVista === 'tabla' ? tablaLiga(V, L) : compVista === 'res' ? resultadosLiga(V, L) : compVista === 'fig' ? figurasHtml(V, compPais) : compVista === 'radio' ? radioLiga(V, L) : compVista === 'datos' ? datosLiga(V, L) : goleadoresLiga(V, L);
   }
+  pausarRadio();
   $('s-comp').innerHTML = cab + cuerpo;
   if (compVista === 'radio') sintonizarRadio();
 }
@@ -2846,11 +3206,41 @@ function radioLiga(V, L) {
   const j = Math.min(n, verJ || n);
   const ms = L.T.resultados[j - 1];
   const maximo = Math.max(90, ...ms.flatMap((m) => golesRadio(m).map((e) => e.min)));
-  return `<section class="radio-liga"><header><div><span class="rotulo">Radio de la liga · ${esc(L.grupo)}</span><h2>El transistor</h2></div>
+  const cierre = j === L.T.resultados.length && desenlacesDeLiga(V).find((d) => d.pais === compPais && d.L.grupo === L.grupo);
+  return `<section class="radio-liga"><header><div><span class="rotulo">Radio de la liga · ${esc(L.grupo)} · ${esc(V.temporada)}</span><h2>El transistor</h2></div>
     <label>Jornada <select class="desplegable" data-accion="radio-jornada">${Array.from({ length: n }, (_, i) => `<option value="${i + 1}"${i + 1 === j ? ' selected' : ''}>${i + 1}</option>`).join('')}</select></label></header>
     <div class="dial"><label for="dial-minuto">Minuto <output id="radio-reloj" for="dial-minuto">0′</output></label><input type="range" id="dial-minuto" min="0" max="${maximo}" value="0">
-    <button type="button" data-radio-gol>Siguiente gol</button></div>
+    <button type="button" data-radio-reproducir>Reproducir</button>
+    <label class="velocidad-radio">Ritmo <select id="ritmo-radio" aria-label="Velocidad de la radio"><option value="1">×1</option><option value="3">×3</option><option value="6">×6</option></select></label>
+    <button type="button" data-radio-gol>Siguiente gol</button>
+    ${typeof SpeechSynthesisUtterance === 'function' && window.speechSynthesis ? '<label class="voz-radio"><input type="checkbox" id="voz-radio"> Locución</label>' : ''}</div>
+    ${cierre?.abierta ? `<div class="vispera-cierre vispera-radio">${opcionesLigaHtml(cierre)}</div>` : ''}
     <div id="radio-emision"></div></section>`;
+}
+
+let relojRadio = null;
+function pausarRadio() {
+  if ($('voz-radio')?.checked) window.speechSynthesis.cancel();
+  clearInterval(relojRadio);
+  relojRadio = null;
+  const boton = $('dial-minuto')?.parentElement.querySelector('[data-radio-reproducir]');
+  if (boton) boton.textContent = Number($('dial-minuto').value) === Number($('dial-minuto').max) ? 'Volver a escuchar' : 'Reproducir';
+}
+
+function reproducirRadio(boton) {
+  const dial = $('dial-minuto');
+  if (!dial) return;
+  if (relojRadio) { pausarRadio(); return; }
+  if (dial.value === dial.max) { dial.value = 0; sintonizarRadio(); }
+  boton.textContent = 'Pausar relato';
+  relojRadio = setInterval(() => {
+    // Cada reproducción pertenece a una sola jornada y a una sola pantalla.
+    if (dial !== $('dial-minuto') || !dial.isConnected || dial.closest('[hidden]')) { pausarRadio(); return; }
+    if ($('voz-radio')?.checked && window.speechSynthesis.speaking) return;
+    const proximo = Number(dial.parentElement.querySelector('[data-radio-gol]').dataset.radioGol);
+    dial.value = Math.min(Number(dial.max), Number(dial.value) + Number($('ritmo-radio').value), proximo);
+    sintonizarRadio();
+  }, 440);
 }
 
 function sintonizarRadio() {
@@ -2867,18 +3257,29 @@ function sintonizarRadio() {
   if (minuto) pasadas.push(parciales.filter(Boolean));
   const pv = reglasDe(V, compPais).puntosVictoria;
   const clasificar = (rondas) => tablaHasta({ tabla: L.T.tabla, resultados: rondas }, rondas.length, pv);
-  const tabla = clasificar(pasadas);
+  const tabla = final && j === L.T.resultados.length ? L.T.tabla : clasificar(pasadas);
   const eventos = ms.flatMap((m) => golesRadio(m).map((e) => ({ ...e, club: e.lado ? m.visita : m.local }))).sort((a, b) => a.min - b.min);
   const proximo = eventos.find((e) => e.min > minuto);
   const salto = dial.parentElement.querySelector('[data-radio-gol]');
   salto.dataset.radioGol = proximo ? proximo.min : dial.max;
   salto.textContent = proximo ? 'Siguiente gol' : 'Pitido final';
   salto.disabled = final;
+  const narrar = Boolean(relojRadio && $('voz-radio')?.checked);
+  if (final || !relojRadio) pausarRadio();
   const reloj = final ? 'Final' : minuto + '′';
   $('radio-reloj').textContent = reloj;
   dial.setAttribute('aria-valuetext', final ? 'Pitido final' : 'Minuto ' + minuto);
   const vistos = eventos.filter((e) => e.min <= minuto);
   const ultimos = vistos.filter((e) => e.min === vistos.at(-1)?.min);
+  if (narrar) {
+    const goles = ultimos.filter((e) => e.min === minuto).map((e) => `Gol de ${e.quien} para ${e.club}.`);
+    if (final) goles.push('Final de la jornada.');
+    if (goles.length) {
+      const voz = new SpeechSynthesisUtterance(`Minuto ${minuto}. ${goles.join(' ')}`);
+      voz.lang = 'es';
+      window.speechSynthesis.speak(voz);
+    }
+  }
   let relevo = '';
   if (minuto > 1 && ultimos.some((g) => g.min === minuto) && !parciales.includes(null)) {
     const antes = ms.map((m) => {
@@ -2890,8 +3291,17 @@ function sintonizarRadio() {
       if (tabla[0].nombre !== anterior.nombre) relevo = `<p class="relevo"><b>Cambio de líder.</b> ${esc(tabla[0].nombre)} adelanta a ${esc(anterior.nombre)} en la tabla.</p>`;
     }
   }
+  const enGol = new Set(ultimos.filter((e) => e.min === minuto).map((e) => e.club));
+  const marcadores = ms.map((m, i) => {
+    const tocado = enGol.has(m.local) || enGol.has(m.visita);
+    const marcador = parciales[i] ? parciales[i].ga + '–' + parciales[i].gb : 's/d';
+    const texto = `<span>${esc(m.local)}</span><b>${marcador}</b><span>${esc(m.visita)}</span>`;
+    return final
+      ? `<button type="button" class="radio-partido radio-acta" data-partido="${regP(m, L.grupo + ' · J' + j + ' · ' + V.temporada)}">${texto}</button>`
+      : `<div class="radio-partido${tocado ? ' radio-gol' : ''}">${texto}</div>`;
+  }).join('');
   $('radio-emision').innerHTML = `<p class="radio-boletin" aria-live="polite">${ultimos.length ? ultimos.map((e) => `${e.min}′ · Gol de ${esc(e.quien)} (${esc(e.club)})`).join(' / ') : minuto ? 'Todavía no se ha marcado.' : 'Los equipos saltan al campo.'}</p>${relevo}
-    <div class="radio-pliegos"><div><h3>En los campos</h3>${ms.map((m, i) => `<div class="radio-partido"><span>${esc(m.local)}</span><b>${parciales[i] ? parciales[i].ga + '–' + parciales[i].gb : 's/d'}</b><span>${esc(m.visita)}</span></div>`).join('')}</div>
+    <div class="radio-pliegos"><div><h3>En los campos</h3>${marcadores}${final ? '<p class="nota-pie">Pulsa un marcador para leer el acta.</p>' : ''}</div>
     <div><h3>${final ? 'Tabla al cierre' : minuto ? 'Tabla provisional' : 'Antes de la jornada'}</h3>${parciales.includes(null) && !final && minuto ? '<p>Faltan minutos de gol para calcular la tabla provisional.</p>' : `<ol class="radio-tabla">${tabla.map((t) => `<li><span>${esc(t.nombre)}</span><b>${t.pts} pts</b></li>`).join('')}</ol>`}</div></div>`;
 }
 
@@ -2973,13 +3383,53 @@ function rondasCopaVistas(V, C) {
   if (otraCopa(V, compSel)) return S.R.EU ? Math.round(rondasVistas('europa') * C.rondas.length / S.R.EU.rondas.length) : 0;
   return compPais === 'España' ? rondasVistas('copa') : Math.round(rondasVistas('copa') * C.rondas.length / S.R.C.rondas.length);
 }
+function crucesDeCopa(C) {
+  return (C?.rondas || []).flatMap((ronda) => (ronda.cruces || [])
+    .filter((c) => c.a && c.b && c.ganador && !c.grupo && c.partidos?.length)
+    .map((c) => ({ c, ronda: ronda.nombre })));
+}
+
+function nochesRepetidas(V, C, copa, vistos) {
+  const historias = new Map();
+  const pareja = (c) => JSON.stringify([c.a, c.b].sort());
+  for (const T of temporadas()) {
+    if (T.anio >= V.anio || V.anio - T.anio > 6) continue;
+    const antigua = copa === 'europa' ? T.R.EU : copa === 'copa' ? copaDe(T, compPais) : otraCopa(T, copa);
+    for (const { c, ronda } of crucesDeCopa(antigua)) {
+      const k = pareja(c), xs = historias.get(k) || [];
+      xs.push({ c, ronda, temporada: T.temporada, anio: T.anio });
+      historias.set(k, xs);
+    }
+  }
+  const actual = crucesDeCopa({ rondas: C.rondas.slice(0, vistos) });
+  const pendientes = C.rondas[vistos]?.cruces || [];
+  const duelos = new Map();
+  for (const { c, ronda } of actual) duelos.set(pareja(c), { c, ronda, visto: true });
+  for (const c of pendientes) if (c.a && c.b && !c.grupo && !duelos.has(pareja(c))) {
+    duelos.set(pareja(c), { c, ronda: C.rondas[vistos].nombre });
+  }
+  const destacados = [...duelos.values()].flatMap((d) => {
+    const historia = historias.get(pareja(d.c)) || [];
+    return new Set(historia.map((x) => x.anio)).size >= 2 ? [{ ...d, historia }] : [];
+  }).sort((a, b) => b.historia.length - a.historia.length).slice(0, 3);
+  if (!destacados.length) return '';
+  return `<section class="noches-repetidas"><h2>Viejos cruces, nueva cita</h2>${destacados.map(({ c, ronda, visto, historia }) =>
+    `<details><summary>${esc(c.a)} – ${esc(c.b)} · ${esc(ronda)}</summary>
+    <ol>${[...historia, ...(visto ? [{ temporada: V.temporada, c, ronda }] : [])].map((x) =>
+      `<li><strong>${esc(x.temporada)}</strong> <span>${esc(x.ronda)} · gana ${esc(x.c.ganador)}</span>
+      ${x.c.partidos.map((m) => `<button type="button" data-partido="${regP(m, C.nombre + ' · ' + x.temporada)}">${esc(m.local)} ${m.ga}–${m.gb} ${esc(m.visita)}${m.prorroga ? ' · prórroga' : ''}</button>`).join('')}
+      ${x.c.penaltis ? `<small>Tanda ${esc(x.c.penaltis)}</small>` : ''}</li>`).join('')}</ol></details>`).join('')}</section>`;
+}
+
 function cuadroCopa(V) {
   const C = copaSel(V); if (!C) return '<div class="vacio">No se juega esta temporada.</div>';
   const n = rondasCopaVistas(V, C);
-  if (!n) return `<div class="vacio">${compSel === 'inter' ? 'Se juega al acabar la temporada, entre el campeón de Europa y el de América.' : compSel === 'europa' || otraCopa(V, compSel) ? 'Empieza en otoño.' : 'Empieza en primavera, al terminar la liga.'}</div>`;
+  const memoria = nochesRepetidas(V, C, compSel, n);
+  if (!n) return memoria + `<div class="vacio">${compSel === 'inter' ? 'Se juega al acabar la temporada, entre el campeón de Europa y el de América.' : compSel === 'europa' || otraCopa(V, compSel) ? 'Empieza en otoño.' : 'Empieza en primavera, al terminar la liga.'}</div>`;
   const real = compSel === 'europa' ? EUROPA_REAL[V.anio] : null;
   const acabada = n === C.rondas.length;
   return (acabada ? `<div class="cartel"><span>Campeón</span><b>${esc(C.campeon)}${marcaSi(C.campeon, real)}</b></div>` : '')
+    + memoria
     + C.rondas.slice(0, n).reverse().map((ro) => `<div class="ronda"><h3>${esc(ro.nombre)}</h3>${cruces(ro)}</div>`).join('');
 }
 function goleadoresCopa(V) {
@@ -3323,6 +3773,7 @@ function fichaJugador(n) {
     + `<div class="cifras"><div><small>Goles ${S.temporada}</small><b>${cif.g}</b></div><div><small>Asist.</small><b>${cif.a}</b></div><div><small>${cif.nota != null ? 'Nota' : 'En la partida'}</small><b>${cif.nota != null ? cif.nota.toFixed(1).replace('.', ',') : `${tot.g} g / ${tot.pj} pj`}</b></div></div>`
     + (comparaCon && comparaCon !== n ? comparar(comparaCon, n) : '')
     + actasDelJugador(n)
+    + fichaRelevoMercado(n)
     + `<div class="acciones-ficha"><button type="button" class="copiar" data-comparar="${esc(n)}">⚖ Comparar</button><button type="button" class="copiar" data-compartir="${esc(n)}">📋 Copiar ficha</button></div>`
     + grafico
     + memorables(n, carrera)
@@ -3453,6 +3904,7 @@ function fichaClub(n) {
     + objetivoClub(c, l)
     + dineroClub(c)
     + archivoOnce(n, c.pais)
+    + fichaRelevoMercado(n, true)
     + historialClub(n, c.pais)
     + apodosHtml(apodosClub(n))
     + simbolosClub(n, c)
@@ -3882,6 +4334,9 @@ function pintarHistoria() {
         <span class="rotulo" style="margin-top:8px">Momentos que cambiaron la historia</span>
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
     + (ts.length > 1 ? `<section><label>Hemeroteca de temporada <select class="desplegable" data-accion="archivo-promesas">${ts.slice(1).reverse().map((t) => `<option value="${t.anio}">${esc(t.temporada)}</option>`).join('')}</select></label><div id="archivo-promesas">${hemeroteca(ts.at(-1)) || 'Sin promesas documentadas.'}</div></section>` : '')
+    + (ts.length ? `<section class="vispera-cierre"><h2>Revivir una última jornada</h2>
+      <label>Temporada <select class="desplegable" data-accion="fecha-cierre">${ts.slice().reverse().map((t) => `<option value="${t.anio}">${esc(t.temporada)}</option>`).join('')}</select></label>
+      <div id="archivo-cierre">${botonesArchivoCierre(ts.at(-1))}</div></section>` : '')
     + memoriasRemontada(ts)
     + lineaTiempo(ts)
     + (ts.length ? `<details class="caja galeria-portadas"><summary><span class="rotulo">Portadas de cada temporada</span> <small>${ts.length}</small></summary><div class="portadas">${ts.slice().reverse().map((V) => portadaHtml(V, true)).join('')}</div></details>` : '')
@@ -3894,6 +4349,13 @@ function pintarHistoria() {
 // ---------- Inicio: la línea del tiempo ----------
 let anioSel = ANIO_DEFECTO, hayGuardada = false;
 const anioElegido = () => anioSel;
+const LAMINAS_INICIO = {
+  radio: ['portada-programa.webp', 'Un futbolista corre tras el balón de cuero delante de la grada'],
+  revista: ['portada-1970.webp', 'Un centrocampista de naranja protege el balón de dos rivales'],
+  teletexto: ['portada-1986.webp', 'Un atacante de camiseta celeste regatea entre defensores'],
+  directo: ['portada-2000.webp', 'Un remate a la luz de los focos, con la portería al fondo']
+};
+
 function pintarInicio() {
   // Se elige una época, no un año: la partida arranca en la primera temporada de la época que tenga datos.
   const sel = eraDe(anioSel);
@@ -3903,9 +4365,14 @@ function pintarInicio() {
     return `<button type="button" class="era" data-era="${esc(e.nombre)}" style="--e:${e.color}" aria-pressed="${e === sel}"${primero == null ? ' disabled' : ''}><span class="anios-era">${e.desde}–${String(Math.min(e.hasta, 2026)).slice(2)}</span><b>${esc(e.nombre)}</b><small>${esc(e.figuras)}</small><span class="estado">${primero == null ? 'Próximamente' : `Empieza en ${Mundo.temporadaTxt(primero)}`}</span></button>`;
   }).join('');
   ponerEra(anioSel);
+  const [lamina, texto] = LAMINAS_INICIO[document.documentElement.dataset.edicion];
+  const imagen = $('laminaInicio');
+  imagen.src = 'css/' + lamina;
+  imagen.alt = 'Ilustración. ' + texto;
   $('inicioAnio').textContent = anioSel;
   $('inicioEra').textContent = sel.nombre;
   $('empezar').textContent = `${hayGuardada ? 'Nueva partida' : 'Empezar'} en ${Mundo.temporadaTxt(anioSel)}`;
+  $('empezarCierre').textContent = hayGuardada ? 'Nueva partida y simular la primera temporada' : 'Simular la primera temporada';
   $('seguirPartida').hidden = !hayGuardada;
   if (hayGuardada && S) $('seguirPartida').textContent = `Continuar · ${S.temporada} · ${eraDe(S.anio).nombre}`;
   try { $('constantes').checked = localStorage.getItem('universo-futbol-constantes') !== 'no'; } catch (e) { /* por defecto encendido */ }
@@ -3920,7 +4387,7 @@ document.addEventListener('click', async (e) => {
   const tb = e.target.closest('[data-tiempo]');
   if (tb) { const t = tb.dataset.tiempo; if (t === 'siguiente') siguienteTemporada(); else if (t === 'semana') pasoAMano(); else if (t === 'pausa') parar(); else if (t === 'fin') saltarAlFinal(); else jugar(t); return; }
   const nav = e.target.closest('#navegar button[data-s]');
-  if (nav) { nav.blur(); seccion = nav.dataset.s; nuevoEn.delete(seccion); cerrarFicha(); pintar(); window.scrollTo({ top: 0 }); return; }
+  if (nav) { pausarRadio(); nav.blur(); seccion = nav.dataset.s; nuevoEn.delete(seccion); cerrarFicha(); pintar(); window.scrollTo({ top: 0 }); return; }
   if (e.target === $('hojaFondo') || e.target.closest('[data-cerrar]')) { cerrarFicha(); return; }
   if (e.target.closest('[data-quitar-pron]')) { ponerPron(false); pintarHoy(); return; }
   const sg = e.target.closest('[data-seguir]');
@@ -3937,8 +4404,28 @@ document.addEventListener('click', async (e) => {
   if (cp) { copiarResumen(cp); return; }
   const ptd = e.target.closest('[data-portada]');
   if (ptd) { guardarPortada(ptd); return; }
+  const reproduce = e.target.closest('[data-radio-reproducir]');
+  if (reproduce) { reproducirRadio(reproduce); return; }
   const golRadio = e.target.closest('[data-radio-gol]');
-  if (golRadio) { $('dial-minuto').value = golRadio.dataset.radioGol; sintonizarRadio(); return; }
+  if (golRadio) { pausarRadio(); $('dial-minuto').value = golRadio.dataset.radioGol; sintonizarRadio(); return; }
+  const radioFinal = e.target.closest('[data-radio-final]');
+  if (radioFinal) {
+    const ts = temporadas(), i = ts.findIndex((t) => t.anio === Number(radioFinal.dataset.anio));
+    if (i < 0 || !cerradaV(ts[i])) return;
+    parar();
+    verK = ts[i] === S ? null : i;
+    verJ = Number(radioFinal.dataset.jornada) || null;
+    compPais = radioFinal.dataset.pais;
+    compSel = radioFinal.dataset.radioFinal;
+    compVista = 'radio';
+    seccion = 'comp';
+    pintar();
+    const dial = $('dial-minuto');
+    if (dial && radioFinal.dataset.minuto) { dial.value = radioFinal.dataset.minuto; sintonizarRadio(); }
+    window.scrollTo({ top: 0 });
+    dial?.focus({ preventScroll: true });
+    return;
+  }
   if (e.target.closest('[data-radio-hoy]')) {
     parar(); verK = null; verJ = null; compPais = 'España'; compSel = 'Primera'; compVista = 'radio';
     seccion = 'comp'; pintar(); window.scrollTo({ top: 0 }); return;
@@ -3981,16 +4468,21 @@ document.addEventListener('change', (e) => {
   else if (a === 'radio-jornada') { verJ = Number(e.target.value); pintarComp(); }
   else if (a === 'bpais') { busqPais = e.target.value; pintarMundo(); }
   else if (a === 'bpos') { busqPos = e.target.value; pintarMundo(); }
+  else if (a === 'fecha-cierre') {
+    const t = temporadas().find((v) => v.anio === Number(e.target.value) && cerradaV(v));
+    if (t) $('archivo-cierre').innerHTML = botonesArchivoCierre(t);
+  }
   else if (a === 'archivo-promesas') {
     const t = temporadas().find((v) => v.anio === Number(e.target.value) && cerradaV(v));
     if (t) $('archivo-promesas').innerHTML = hemeroteca(t) || 'Sin promesas documentadas.';
   }
   else if (a === 'hpais') { histPais = e.target.value; pintarHistoria(); }
   else if (a === 'pron') guardarPron(e.target.dataset.pais, e.target.value);
+  else if (e.target.id === 'voz-radio' && !e.target.checked) window.speechSynthesis.cancel();
   else if (e.target.id === 'pronosticos') ponerPron(e.target.checked);
   else if (e.target.id === 'constantes') { try { localStorage.setItem('universo-futbol-constantes', e.target.checked ? 'si' : 'no'); } catch (x) { /* nada */ } }
 });
-document.addEventListener('input', (e) => { if (e.target.id === 'dial-minuto') sintonizarRadio();
+document.addEventListener('input', (e) => { if (e.target.id === 'dial-minuto') { pausarRadio(); sintonizarRadio(); }
   else if (e.target.id === 'busq') { busq = e.target.value; pintarResultados(); } });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !$('hojaFondo').hidden) { cerrarFicha(); return; }
@@ -4003,17 +4495,20 @@ document.addEventListener('keydown', (e) => {
   else if (k2 === 'm') jugar('mes');
   else if (k2 === 'f') saltarAlFinal();
   else if (k2 === 'enter' && finDeTemporada()) siguienteTemporada();
-  else if ('1234'.includes(k2) && k2) { seccion = ['hoy', 'comp', 'mundo', 'historia'][+k2 - 1]; nuevoEn.delete(seccion); cerrarFicha(); pintar(); }
+  else if ('1234'.includes(k2) && k2) { pausarRadio(); seccion = ['hoy', 'comp', 'mundo', 'historia'][+k2 - 1]; nuevoEn.delete(seccion); cerrarFicha(); pintar(); }
 });
-$('nueva').addEventListener('click', () => { parar(); abrirInicio(); });
+$('nueva').addEventListener('click', () => { pausarRadio(); parar(); abrirInicio(); });
 $('seguirPartida').addEventListener('click', () => { $('inicio').hidden = true; if (S) ponerEra(S.anio); pintar(); });
-$('empezar').addEventListener('click', async () => {
+async function arrancarPartida(hastaCierre) {
   $('inicio').hidden = true; $('cargando').hidden = false;
   await borrarGuardada(); ultimoGuardado = '';
   seccion = 'hoy'; verK = null; compPais = 'España'; compSel = 'Primera';
   hayGuardada = true;
-  nuevaPartida();
-});
+  await nuevaPartida();
+  if (hastaCierre) await saltarAlFinal();
+}
+$('empezar').addEventListener('click', () => arrancarPartida(false));
+$('empezarCierre').addEventListener('click', () => arrancarPartida(true));
 
 // Tema claro u oscuro a mano (si no se elige, el del sistema).
 function ponerTema(t) {

@@ -113,5 +113,11 @@ try {
 } catch (e) {
   caso('Promesas: figuras y desarrollo recuperable', false, e.stack);
 }
+try {
+  require('./ultima-jornada.js');
+  caso('Última jornada: escenarios con los puntos de cada época', true);
+} catch (e) {
+  caso('Última jornada: escenarios con los puntos de cada época', false, e.stack);
+}
 console.log(mal ? `${mal} casos mal` : 'todo bien');
 process.exit(mal ? 1 : 0);
