@@ -242,3 +242,7 @@
 .portadilla-datos :is(.nombre,.club) { font:inherit; color:inherit; min-height:33px; text-align:left; white-space:normal; }
 .sello-titulo { color:#ffdb91; font-weight:700; text-underline-offset:3px; text-decoration:underline; }
 .indice-cierre button { border:0; background:none; color:#fff0d4; font:600 15px/1 var(--texto); text-decoration:underline; text-underline-offset:4px; padding:8px 0; }
+.radio-gol { background:var(--hundido); box-shadow:inset 3px 0 var(--bermellon); font-weight:700; }
+.radio-acta { width:100%; border:0; border-bottom:1px solid var(--linea2); color:var(--tinta); background:none; text-align:left; }
+.radio-acta:hover { background:var(--hundido); }
+.radio-tabla > li:first-child { font-weight:700; color:var(--rojo-txt); }

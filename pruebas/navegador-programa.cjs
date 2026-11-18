@@ -133,6 +133,9 @@ if (salida) fs.mkdirSync(salida, { recursive: true });
           const registro = await p.evaluate(() => S.R.T.tabla.map((t) => t.nombre + t.pts + ' pts'));
           assert.deepEqual(await p.locator('.radio-tabla li').allTextContents(), registro);
           await foto('ultima-jornada');
+          await p.locator('.radio-acta').first().click();
+          await p.locator('#hoja').waitFor();
+          await p.keyboard.press('Escape');
           await nav('hoy');
 
           await nav('historia'); await foto('historia');

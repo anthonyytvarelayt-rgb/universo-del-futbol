@@ -3291,8 +3291,17 @@ function sintonizarRadio() {
       if (tabla[0].nombre !== anterior.nombre) relevo = `<p class="relevo"><b>Cambio de líder.</b> ${esc(tabla[0].nombre)} adelanta a ${esc(anterior.nombre)} en la tabla.</p>`;
     }
   }
+  const enGol = new Set(ultimos.filter((e) => e.min === minuto).map((e) => e.club));
+  const marcadores = ms.map((m, i) => {
+    const tocado = enGol.has(m.local) || enGol.has(m.visita);
+    const marcador = parciales[i] ? parciales[i].ga + '–' + parciales[i].gb : 's/d';
+    const texto = `<span>${esc(m.local)}</span><b>${marcador}</b><span>${esc(m.visita)}</span>`;
+    return final
+      ? `<button type="button" class="radio-partido radio-acta" data-partido="${regP(m, L.grupo + ' · J' + j + ' · ' + V.temporada)}">${texto}</button>`
+      : `<div class="radio-partido${tocado ? ' radio-gol' : ''}">${texto}</div>`;
+  }).join('');
   $('radio-emision').innerHTML = `<p class="radio-boletin" aria-live="polite">${ultimos.length ? ultimos.map((e) => `${e.min}′ · Gol de ${esc(e.quien)} (${esc(e.club)})`).join(' / ') : minuto ? 'Todavía no se ha marcado.' : 'Los equipos saltan al campo.'}</p>${relevo}
-    <div class="radio-pliegos"><div><h3>En los campos</h3>${ms.map((m, i) => `<div class="radio-partido"><span>${esc(m.local)}</span><b>${parciales[i] ? parciales[i].ga + '–' + parciales[i].gb : 's/d'}</b><span>${esc(m.visita)}</span></div>`).join('')}</div>
+    <div class="radio-pliegos"><div><h3>En los campos</h3>${marcadores}${final ? '<p class="nota-pie">Pulsa un marcador para leer el acta.</p>' : ''}</div>
     <div><h3>${final ? 'Tabla al cierre' : minuto ? 'Tabla provisional' : 'Antes de la jornada'}</h3>${parciales.includes(null) && !final && minuto ? '<p>Faltan minutos de gol para calcular la tabla provisional.</p>' : `<ol class="radio-tabla">${tabla.map((t) => `<li><span>${esc(t.nombre)}</span><b>${t.pts} pts</b></li>`).join('')}</ol>`}</div></div>`;
 }
 
@@ -4486,7 +4495,7 @@ document.addEventListener('keydown', (e) => {
   else if (k2 === 'm') jugar('mes');
   else if (k2 === 'f') saltarAlFinal();
   else if (k2 === 'enter' && finDeTemporada()) siguienteTemporada();
-  else if ('1234'.includes(k2) && k2) { seccion = ['hoy', 'comp', 'mundo', 'historia'][+k2 - 1]; nuevoEn.delete(seccion); cerrarFicha(); pintar(); }
+  else if ('1234'.includes(k2) && k2) { pausarRadio(); seccion = ['hoy', 'comp', 'mundo', 'historia'][+k2 - 1]; nuevoEn.delete(seccion); cerrarFicha(); pintar(); }
 });
 $('nueva').addEventListener('click', () => { pausarRadio(); parar(); abrirInicio(); });
 $('seguirPartida').addEventListener('click', () => { $('inicio').hidden = true; if (S) ponerEra(S.anio); pintar(); });
