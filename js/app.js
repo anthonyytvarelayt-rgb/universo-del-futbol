@@ -575,7 +575,14 @@ function campeonDe(V, pais) {
 const figuraReal = (x) => !(x.j && x.j.relleno) && !esFicticio(x.nombre);
 const mejorDe = (xs, f, minimo) => xs.filter((x) => x.pj >= (minimo || 1)).sort(f)[0] || null;
 // Premios de un país: los del motor si su liga es única; si va por grupos, se calculan con sus ligas de arriba.
+const cachePremiosDe = new WeakMap();
 function premiosDe(V, pais) {
+  if (V === S) return premiosDe0(V, pais);
+  let m = cachePremiosDe.get(V); if (!m) cachePremiosDe.set(V, (m = new Map()));
+  if (!m.has(pais)) m.set(pais, premiosDe0(V, pais));
+  return m.get(pais);
+}
+function premiosDe0(V, pais) {
   const P = pais === 'España' ? V.R.premios : (otroEn(V, pais) || {}).premios;
   const claves = clavesTop(V, pais);
   const G = V.G.filter((x) => x.eq && x.eq.pais === pais && figuraReal(x));
@@ -3052,11 +3059,18 @@ const flecha = (j) => { const c = j.carrera || []; if (!c.length || c[c.length -
 const fuerzaClub = (c) => { const ns = c.jugadores.map((j) => j.niv).sort((a, b) => b - a).slice(0, 11); return ns.length ? nivel(ns.reduce((a, b) => a + b, 0) / ns.length) : 0; };
 
 // ---------- Fichas: la hoja que sube ----------
+// Índice por nombre, rehecho solo cuando llega un mundo nuevo (antes recorría todos los clubes en cada búsqueda:
+// con muchas temporadas, segundos al pintar).
+let indiceJug = null;
 function buscarJugador(nombre) {
-  for (const c of M.clubes) { const j = c.jugadores.find((x) => x.n === nombre); if (j) return { j, club: c.nombre, pais: c.pais, activo: true }; }
-  const libre = M.libres.find((x) => x.n === nombre); if (libre) return { j: libre, club: 'sin club', activo: true };
-  const ret = M.retirados.find((x) => x.n === nombre); if (ret) return { j: ret, club: null, activo: false, retiro: ret };
-  return null;
+  if (!indiceJug || indiceJug.M !== M || indiceJug.n !== M.retirados.length + M.libres.length) {
+    const ix = new Map();
+    M.retirados.forEach((ret) => { ix.set(ret.n, { j: ret, club: null, activo: false, retiro: ret }); });
+    M.libres.forEach((libre) => { ix.set(libre.n, { j: libre, club: 'sin club', activo: true }); });
+    for (let k = M.clubes.length - 1; k >= 0; k--) { const c = M.clubes[k]; for (let i = c.jugadores.length - 1; i >= 0; i--) { const j = c.jugadores[i]; ix.set(j.n, { j, club: c.nombre, pais: c.pais, activo: true }); } }
+    indiceJug = { M, n: M.retirados.length + M.libres.length, ix };
+  }
+  return indiceJug.ix.get(nombre) || null;
 }
 let fichaAbierta = null;
 function abrirFicha(f) {
@@ -3089,7 +3103,15 @@ function entrenadorHoy(c) {
   }
   return lista[0];
 }
+let cachePalmares = null;
 function palmaresDe(club, jugador, crudo) {
+  const firma = temporadas().length + '|' + (S && cerradaV(S));
+  if (!cachePalmares || cachePalmares.S !== S || cachePalmares.firma !== firma) cachePalmares = { S, firma, m: new Map() };
+  const k = `${club}|${jugador}|${crudo ? 1 : 0}`;
+  if (!cachePalmares.m.has(k)) cachePalmares.m.set(k, palmaresDe0(club, jugador, crudo));
+  const v = cachePalmares.m.get(k); return Array.isArray(v) ? v.slice() : v;
+}
+function palmaresDe0(club, jugador, crudo) {
   const out = [];
   temporadas().filter(cerradaV).forEach((V) => {
     if (jugador) torneosSelecciones(V).forEach(({ T }) => {
