@@ -949,7 +949,7 @@ function historiasSemana() {
 }
 function pintarHoy() {
   const p = paso(), V = S;
-  const cab = (derecha) => `<div class="cabecera-diario" title="Atajos: espacio juega o para, → una semana, M un mes, F al final, 1-4 secciones"><div class="nombre">La semana en el mundo</div><div class="bajo"><span>${esc(fechaDe(p).split(' · ').pop())}</span><span>${esc(derecha)}</span></div></div>`;
+  const cab = (derecha) => `<div class="cabecera-diario" title="Atajos: espacio juega o para, → una semana, M un mes, F al final, 1-4 secciones"><div class="nombre">La edición del día</div><div class="bajo"><span>${esc(fechaDe(p).split(' · ').pop())}</span><span>${esc(derecha)}</span></div></div>`;
   if (finDeTemporada() || fin) { $('s-hoy').innerHTML = cab('Edición especial') + edicionEspecial(V); return; }
   const t = titularDe(p);
   const mundo = historiasSemana();
@@ -981,8 +981,9 @@ function pintarHoy() {
   const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span class="equipo-destacado">${escudo(pds.m.local)}<span>${esc(pds.m.local)}</span></span><b>${pds.m.ga}-${pds.m.gb}</b><span class="equipo-destacado">${escudo(pds.m.visita)}<span>${esc(pds.m.visita)}</span></span></span><small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
   const previa = destacado ? '' : carteleraHtml(V);
   $('s-hoy').innerHTML = cab(p.tipo === 'jornada' ? `Jornada ${p.j}` : fechaCorta(p))
-    + `<div class="hoy-apertura${destacado || previa ? '' : ' sin-partido'}"><article class="noticia noticia-principal"><div class="noticia-folio"><span class="rotulo">${esc(lead.seccion)}</span><span>LA HISTORIA CONTINÚA</span></div><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p><span class="noticia-pie"><span>UNIVERSO DEL FÚTBOL · ${esc(S.temporada)}</span>${lead.jugador ? `<button type="button" class="ver-protagonista" data-j="${esc(lead.jugador)}">Ver jugador</button>` : ''}</span></article>${destacado || (previa ? `<aside class="avance-jornada">${previa}</aside>` : '')}</div>`
-    + (breves ? `<div class="actualidad"><div class="separador-actualidad"><h2>En el resto del mundo</h2><span>LA JORNADA, EN BREVE</span></div><div class="breves">${breves}</div></div>` : '')
+    + `<div class="hoy-apertura${destacado || previa ? '' : ' sin-partido'}"><article class="noticia noticia-principal"><div class="noticia-folio"><span class="rotulo">${esc(lead.seccion)}</span><span>${esc(S.temporada)}</span></div><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p><span class="noticia-pie">${lead.jugador ? `<button type="button" class="ver-protagonista" data-j="${esc(lead.jugador)}">Ver jugador</button>` : ''}</span></article>${destacado || (previa ? `<aside class="avance-jornada">${previa}</aside>` : '')}</div>`
+    + (jornadasVistas() ? '<button type="button" class="enlace-radio" data-radio-hoy><b>El transistor</b><span>Revivir los goles de la jornada española</span><i aria-hidden="true">↗</i></button>' : '')
+    + (breves ? `<div class="actualidad"><div class="separador-actualidad"><h2>En el resto del mundo</h2><span></span></div><div class="breves">${breves}</div></div>` : '')
     + `<div class="columnas">${crackSemana(grandes)}${destacado ? carteleraHtml(V) : ''}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
         <div class="caja"><span class="rotulo">Resultados grandes</span>${res}</div>
         <div class="caja lideres"><span class="rotulo">Líderes</span>${lideres || '<div class="vacio">Las ligas aún no han empezado.</div>'}</div>
@@ -2335,6 +2336,11 @@ function informeAmpliado(V, pm) {
       lineas.push('', L.grupo + (L.nivel > 1 ? ` · Nivel ${L.nivel}` : ''), tabla, ...lineasTablaInforme(L.T.tabla));
     }
     sec(`CLASIFICACIONES · ${pais.toUpperCase()}`, lineas);
+    for (const L of competiciones.filter((l) => l.nivel === 1)) {
+      const saldos = cuartoDeHora(L.T.resultados.flat(), reglasDe(V, pais).puntosVictoria || 2);
+      sec(`PUNTOS GANADOS O PERDIDOS DESPUÉS DEL MINUTO 75 · ${L.grupo.toUpperCase()}`,
+        saldos.map(([club, saldo]) => `${club} | ${saldo > 0 ? '+' : ''}${saldo} pts`));
+    }
   }
   const copas = new Set([R.EU, R.LIB, R.UEFA, R.RECOPA, R.SUPER, R.INTER, ...supercopasDe(V),
     ...paises.map((p) => copaDe(V, p)), ...(R.otros || []).map((o) => o.F), ...(R.promos || []).map((p) => p.C)].filter(Boolean));
@@ -2345,6 +2351,8 @@ function informeAmpliado(V, pm) {
   const selecciones = informeSelecciones(V);
   if (selecciones.length) out.push('', 'TORNEOS DE SELECCIONES', 'Tablas: # Equipo | PJ | G | E | P | GF | GC | Pts', ...selecciones);
 
+  sec('LAS GRANDES REMONTADAS DEL AÑO', remontadasDelAnio(V).map(({ m, club, margen, gol, comp }) =>
+    `${comp} · ${m.local} ${m.ga}–${m.gb} ${m.visita} · ${club} remontó ${margen} ${margen === 1 ? 'gol' : 'goles'}. Gol de la victoria: ${gol.quien}, ${gol.min}′.`));
   const figura = (x) => `${x.nombre} (${x.club}) | ${x.pos} | ${x.pj} PJ | ${x.min ?? '—'} min | ${x.g} G | ${x.a} A | ${x.notaTemp.toFixed(2)} nota`;
   const G = figurasDe(V);
   for (const pais of paises) {
@@ -2651,7 +2659,7 @@ function pintarComp() {
   if (!opciones.some((o) => o[0] === compSel)) compSel = opciones.length ? opciones[0][0] : '';
   const internacional = internacionales.find((t) => t.id === compSel);
   const esCopa = compSel === 'copa' || compSel === 'europa' || !!otraCopa(V, compSel) || !!internacional;
-  const vistas = esCopa ? [['tabla', 'Cuadro'], ['gol', 'Goleadores']] : [['tabla', 'Tabla'], ['res', 'Partidos'], ['gol', 'Goles'], ['fig', 'Figuras'], ['datos', 'Datos']];
+  const vistas = esCopa ? [['tabla', 'Cuadro'], ['gol', 'Goleadores']] : [['tabla', 'Tabla'], ['res', 'Partidos'], ['gol', 'Goles'], ['fig', 'Figuras'], ['datos', 'Datos'], ['radio', 'Radio']];
   if (!vistas.some((v) => v[0] === compVista)) compVista = 'tabla';
   const cab = `<div class="selectores">
       <div class="fila-sel"><h1>Competiciones</h1><span style="display:flex;gap:8px;flex-wrap:wrap">${selTemp()}<select class="desplegable" data-accion="pais" aria-label="País">${paises.map((p) => `<option${p === compPais ? ' selected' : ''}>${esc(p)}</option>`).join('')}</select></span></div>
@@ -2664,9 +2672,10 @@ function pintarComp() {
   else if (esCopa) cuerpo = compVista === 'gol' ? goleadoresCopa(V) : cuadroCopa(V);
   else {
     const L = ligas.find((l) => l.grupo === compSel);
-    cuerpo = compVista === 'tabla' ? tablaLiga(V, L) : compVista === 'res' ? resultadosLiga(V, L) : compVista === 'fig' ? figurasHtml(V, compPais) : compVista === 'datos' ? datosLiga(V, L) : goleadoresLiga(V, L);
+    cuerpo = compVista === 'tabla' ? tablaLiga(V, L) : compVista === 'res' ? resultadosLiga(V, L) : compVista === 'fig' ? figurasHtml(V, compPais) : compVista === 'radio' ? radioLiga(V, L) : compVista === 'datos' ? datosLiga(V, L) : goleadoresLiga(V, L);
   }
   $('s-comp').innerHTML = cab + cuerpo;
+  if (compVista === 'radio') sintonizarRadio();
 }
 function torneosSelecciones(V) {
   const R = V.R || {}, r = [];
@@ -2774,7 +2783,95 @@ function resultadosLiga(V, L) {
   const prox = n === nV && nV < T.resultados.length ? `<div class="ronda"><h3>Próxima jornada (${nV + 1})</h3>${T.resultados[nV].map((m) => `<div class="cruce"><span>${esc(m.local)} – ${esc(m.visita)}</span><span>${m.derbi ? '<span class="sello">derbi</span>' : ''}</span></div>`).join('')}</div>` : '';
   return `<div class="navj"><button type="button" data-j-nav="-1" aria-label="Jornada anterior"${n <= 1 ? ' disabled' : ''}>◀</button><b>Jornada ${n}</b><button type="button" data-j-nav="1" aria-label="Jornada siguiente"${n >= nV ? ' disabled' : ''}>▶</button></div>` + partidos(T.resultados[n - 1], comp) + `<p class="nota-pie">Toca un partido para ver su hoja.</p>` + prox;
 }
-// Datos de la liga: medias, extremos y dos gráficos (carrera por el título y por ser máximo goleador).
+// El transistor vuelve a contar los goles de una jornada ya vista.
+const golesRadio = (m) => (m.eventos || []).filter((e) => e.tipo === 'gol' || e.tipo === 'pen');
+function marcadorRadio(m, minuto) {
+  const goles = golesRadio(m);
+  if (goles.some((e) => !Number.isFinite(e.min))) return null;
+  const locales = goles.filter((e) => !e.lado).length;
+  if (locales !== m.ga || goles.length - locales !== m.gb) return null;
+  const marcador = [0, 0];
+  for (const gol of goles) if (gol.min <= minuto) marcador[gol.lado ? 1 : 0]++;
+  return marcador;
+}
+
+function cuartoDeHora(partidos, puntosVictoria) {
+  const saldos = new Map();
+  const puntos = (a, b) => a === b ? 1 : a > b ? puntosVictoria : 0;
+  for (const m of partidos) {
+    const parcial = marcadorRadio(m, 75);
+    if (!parcial) continue;
+    const [a, b] = parcial;
+    saldos.set(m.local, (saldos.get(m.local) || 0) + puntos(m.ga, m.gb) - puntos(a, b));
+    saldos.set(m.visita, (saldos.get(m.visita) || 0) + puntos(m.gb, m.ga) - puntos(b, a));
+  }
+  return [...saldos].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'es'));
+}
+
+function panelCuartoDeHora(partidos, pv) {
+  const saldos = cuartoDeHora(partidos, pv);
+  if (!saldos.length) return '';
+  const extremos = saldos.filter((s) => s[1] > 0).slice(0, 3)
+    .concat(saldos.filter((s) => s[1] < 0).slice(-3));
+  return `<section class="balance-tardio"><h2>Los últimos quince</h2><p>Saldo de puntos al pitido final respecto al marcador del minuto 75.</p>
+    ${extremos.map(([club, saldo]) => `<div>${botonClub(club)}<b>${saldo > 0 ? '+' : '−'}${Math.abs(saldo)} pts</b></div>`).join('') || '<p>Todos conservan el mismo saldo.</p>'}</section>`;
+}
+
+function radioLiga(V, L) {
+  const n = vistasDe(L.T, V);
+  if (!n) return '<div class="vacio">El transistor se abre al terminar la primera jornada de esta liga.</div>';
+  const j = Math.min(n, verJ || n);
+  const ms = L.T.resultados[j - 1];
+  const maximo = Math.max(90, ...ms.flatMap((m) => golesRadio(m).map((e) => e.min)));
+  return `<section class="radio-liga"><header><div><span class="rotulo">Radio de la liga · ${esc(L.grupo)}</span><h2>El transistor</h2></div>
+    <label>Jornada <select class="desplegable" data-accion="radio-jornada">${Array.from({ length: n }, (_, i) => `<option value="${i + 1}"${i + 1 === j ? ' selected' : ''}>${i + 1}</option>`).join('')}</select></label></header>
+    <div class="dial"><label for="dial-minuto">Minuto <output id="radio-reloj" for="dial-minuto">0′</output></label><input type="range" id="dial-minuto" min="0" max="${maximo}" value="0">
+    <button type="button" data-radio-gol>Siguiente gol</button></div>
+    <div id="radio-emision"></div></section>`;
+}
+
+function sintonizarRadio() {
+  const dial = $('dial-minuto');
+  if (!dial) return;
+  const V = VT(), L = ligasDe(V, compPais).find((l) => l.grupo === compSel);
+  const j = Math.min(verJ || Infinity, vistasDe(L.T, V));
+  const ms = L.T.resultados[j - 1], minuto = Number(dial.value), final = minuto === Number(dial.max);
+  const parciales = ms.map((m) => {
+    const goles = final ? [m.ga, m.gb] : marcadorRadio(m, minuto);
+    return goles && { local: m.local, visita: m.visita, ga: goles[0], gb: goles[1] };
+  });
+  const pasadas = L.T.resultados.slice(0, j - 1);
+  if (minuto) pasadas.push(parciales.filter(Boolean));
+  const pv = reglasDe(V, compPais).puntosVictoria;
+  const clasificar = (rondas) => tablaHasta({ tabla: L.T.tabla, resultados: rondas }, rondas.length, pv);
+  const tabla = clasificar(pasadas);
+  const eventos = ms.flatMap((m) => golesRadio(m).map((e) => ({ ...e, club: e.lado ? m.visita : m.local }))).sort((a, b) => a.min - b.min);
+  const proximo = eventos.find((e) => e.min > minuto);
+  const salto = dial.parentElement.querySelector('[data-radio-gol]');
+  salto.dataset.radioGol = proximo ? proximo.min : dial.max;
+  salto.textContent = proximo ? 'Siguiente gol' : 'Pitido final';
+  salto.disabled = final;
+  const reloj = final ? 'Final' : minuto + '′';
+  $('radio-reloj').textContent = reloj;
+  dial.setAttribute('aria-valuetext', final ? 'Pitido final' : 'Minuto ' + minuto);
+  const vistos = eventos.filter((e) => e.min <= minuto);
+  const ultimos = vistos.filter((e) => e.min === vistos.at(-1)?.min);
+  let relevo = '';
+  if (minuto > 1 && ultimos.some((g) => g.min === minuto) && !parciales.includes(null)) {
+    const antes = ms.map((m) => {
+      const goles = marcadorRadio(m, minuto - 1);
+      return goles && { local: m.local, visita: m.visita, ga: goles[0], gb: goles[1] };
+    });
+    if (antes.every(Boolean)) {
+      const anterior = clasificar([...pasadas.slice(0, -1), antes])[0];
+      if (tabla[0].nombre !== anterior.nombre) relevo = `<p class="relevo"><b>Cambio de líder.</b> ${esc(tabla[0].nombre)} adelanta a ${esc(anterior.nombre)} en la tabla.</p>`;
+    }
+  }
+  $('radio-emision').innerHTML = `<p class="radio-boletin" aria-live="polite">${ultimos.length ? ultimos.map((e) => `${e.min}′ · Gol de ${esc(e.quien)} (${esc(e.club)})`).join(' / ') : minuto ? 'Todavía no se ha marcado.' : 'Los equipos saltan al campo.'}</p>${relevo}
+    <div class="radio-pliegos"><div><h3>En los campos</h3>${ms.map((m, i) => `<div class="radio-partido"><span>${esc(m.local)}</span><b>${parciales[i] ? parciales[i].ga + '–' + parciales[i].gb : 's/d'}</b><span>${esc(m.visita)}</span></div>`).join('')}</div>
+    <div><h3>${final ? 'Tabla al cierre' : minuto ? 'Tabla provisional' : 'Antes de la jornada'}</h3>${parciales.includes(null) && !final && minuto ? '<p>Faltan minutos de gol para calcular la tabla provisional.</p>' : `<ol class="radio-tabla">${tabla.map((t) => `<li><span>${esc(t.nombre)}</span><b>${t.pts} pts</b></li>`).join('')}</ol>`}</div></div>`;
+}
+
 function datosLiga(V, L) {
   const T = L.T, n = vistasDe(T, V), pv = reglasDe(V, compPais).puntosVictoria || 2;
   if (n < 2) return '<div class="vacio">Hacen falta al menos dos jornadas.</div>';
@@ -2807,6 +2904,7 @@ function datosLiga(V, L) {
     ${dato('Mejor defensa', defensa.gc, `goles en contra · ${esc(defensa.nombre)}`)}
     ${dato('Más empates', empates.e, esc(empates.nombre))}
     ${dato('Expulsiones', rojas, `una cada ${rojas ? Math.round(ms.length / rojas) : '–'} partidos`)}</div>
+    ${panelCuartoDeHora(ms, pv)}
     <span class="rotulo" style="margin-top:14px">La carrera por el título · puesto jornada a jornada</span>${grafLineas(pos, tb.length, true, 'Puesto de los seis primeros en cada jornada')}
     ${series.length ? `<span class="rotulo" style="margin-top:14px">La carrera del máximo goleador · goles acumulados</span>${grafLineas(series, Math.max(1, ...series.map((x) => x.v[x.v.length - 1])), false, 'Goles acumulados de los cinco primeros')}` : ''}`;
 }
@@ -2879,7 +2977,7 @@ const sinTildes = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLo
 const POS = { POR: 'Portero', DEF: 'Defensa', MED: 'Centrocampista', DEL: 'Delantero' };
 function pintarMundo() {
   const paises = paisesDe(S);
-  const cab = `<div class="buscador">
+  const cab = `<div class="buscador"><h1>El fichero</h1>
       <label class="rotulo" for="busq">Busca un jugador, un club o un entrenador</label>
       <input type="search" id="busq" value="${esc(busq)}" placeholder="Pelé, Di Stéfano, Benfica…" autocomplete="off">
       <div class="pildoras" role="group" aria-label="Qué buscar">${[['j', 'Jugadores'], ['c', 'Clubes'], ['e', 'Entrenadores'], ['pr', 'Promesas'], ['ley', 'Salón de la fama']].map(([id, txt]) => `<button type="button" data-btipo="${id}" aria-pressed="${id === busqTipo}">${txt}</button>`).join('')}</div>
@@ -3101,7 +3199,8 @@ function fichaJugador(n) {
   familiaDe(n).forEach((f) => rasgos.push(`<span>${f.txt} ${esc(f.otro)}</span>`));
   if (!x.activo) { try { const ps = puestoSalon(n); if (ps) rasgos.push(`<span class="oro">Salón de la fama: n.º ${ps}</span>`); } catch (e) { /* sin salón */ } }
   const palm = palmaresDe(null, n);
-  return `<div class="carta-identidad"><div class="carta-emblema" aria-hidden="true"><span>${x.activo ? nv : '★'}</span><small>${esc(POS[j.pos] || j.pos || 'Leyenda')}</small><b>${esc(n.split(' ').filter(Boolean).map((p) => p[0]).slice(0, 2).join(''))}</b></div><div class="arriba"><div><span class="rotulo">${x.activo ? 'Carta de jugador' : 'El legado'}</span><h1>${esc(n)}</h1><div class="sub">${sub}${difClub}</div>${j.completo ? `<div class="sub">${esc(j.completo)}</div>` : ''}</div>${botonesHoja('j', n)}</div></div>`
+  const equipoCromo = INFO.clubes[x.club || carrera.at(-1)?.club] || {};
+  return `<div class="carta-identidad"><div class="carta-emblema cromo" style="--camiseta:${esc(equipoCromo.c1 || '#42606a')};--segunda:${esc(equipoCromo.c2 || '#f1ebd9')}" aria-hidden="true"><i class="camiseta-cromo"></i><span>${x.activo ? nv : '★'}</span><small>${esc(POS[j.pos] || j.pos || 'Leyenda')}</small><b>${esc(n.split(' ').filter(Boolean).map((p) => p[0]).slice(0, 2).join(''))}</b></div><div class="arriba"><div><span class="rotulo">${x.activo ? 'Carta de jugador' : 'El legado'}</span><h1>${esc(n)}</h1><div class="sub">${sub}${difClub}</div>${j.completo ? `<div class="sub">${esc(j.completo)}</div>` : ''}</div>${botonesHoja('j', n)}</div></div>`
     + apodosHtml(apodosJugador(j, n))
     + (x.activo ? rankingDe(j, x.pais) : '')
     + (x.activo ? `<div class="niveles"><div class="nivel-hoy"><span>NIVEL HOY</span><b>${nv}</b><small>${techo ? `techo ${techo}` : ''}</small></div><div class="categoria"><span>CATEGORÍA</span><b>${esc(Motor.escala.categoria(nv))}</b><small>escala 1-1000</small></div></div>` : '')
@@ -3588,6 +3687,45 @@ function libroDecadas(ts) {
     </article></details>`;
   }).join('')}</section>`;
 }
+const cacheRemontadas = new WeakMap();
+function remontadasDelAnio(V) {
+  if (cacheRemontadas.has(V)) return cacheRemontadas.get(V);
+  const recuerdos = [];
+  for (const pais of paisesDe(V)) {
+    for (const L of ligasDe(V, pais).filter((l) => l.nivel === 1)) {
+      L.T.resultados.forEach((jornada, j) => jornada.forEach((m) => {
+        if (m.ga === m.gb) return;
+        const visitante = m.gb > m.ga;
+        let ventaja = 0, peor = 0, decisivo;
+        const goles = golesRadio(m).sort((a, b) => a.min - b.min);
+        if (goles.length !== m.ga + m.gb) return;
+        for (const gol of goles) {
+          ventaja += Boolean(gol.lado) === visitante ? 1 : -1;
+          peor = Math.min(peor, ventaja);
+          if (ventaja === 1 && Boolean(gol.lado) === visitante) decisivo = gol;
+        }
+        if (peor < 0 && decisivo && ventaja === Math.abs(m.ga - m.gb)) {
+          recuerdos.push({ m, club: visitante ? m.visita : m.local, margen: -peor, gol: decisivo,
+            comp: `${L.grupo} · ${pais} · J${j + 1} · ${V.temporada}` });
+        }
+      }));
+    }
+  }
+  const mejores = recuerdos.sort(ordenRemontada).slice(0, 3);
+  cacheRemontadas.set(V, mejores);
+  return mejores;
+}
+function ordenRemontada(a, b) {
+  return b.margen - a.margen || b.gol.min - a.gol.min;
+}
+function memoriasRemontada(ts) {
+  const top = ts.flatMap(remontadasDelAnio).sort(ordenRemontada).slice(0, 3);
+  if (!top.length) return '';
+  return `<section class="remontadas"><h2>Las grandes remontadas</h2><div>${top.map(({ m, club, margen, gol, comp }) =>
+    `<button type="button" data-partido="${regP(m, comp)}"><small>${esc(comp)}</small><strong>${esc(m.local)} ${m.ga}–${m.gb} ${esc(m.visita)}</strong>
+    <span>${esc(club)} perdía por ${margen} ${margen === 1 ? 'gol' : 'goles'}. ${esc(gol.quien)} marcó el gol de la victoria en el ${gol.min}′.</span></button>`).join('')}</div></section>`;
+}
+
 function pintarHistoria() {
   const ts = temporadas().filter(cerradaV);
   // La era la marca quien domina la partida: cada Copa de Europa vale tres ligas.
@@ -3625,6 +3763,7 @@ function pintarHistoria() {
       <div class="caja">${recs.join('') || '<div class="vacio">Los récords se apuntan al terminar cada temporada.</div>'}
         <span class="rotulo" style="margin-top:8px">Momentos que cambiaron la historia</span>
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
+    + memoriasRemontada(ts)
     + lineaTiempo(ts)
     + (ts.length ? `<details class="caja galeria-portadas"><summary><span class="rotulo">Portadas de cada temporada</span> <small>${ts.length}</small></summary><div class="portadas">${ts.slice().reverse().map((V) => portadaHtml(V, true)).join('')}</div></details>` : '')
     + libroDecadas(ts)
@@ -3679,6 +3818,12 @@ document.addEventListener('click', async (e) => {
   if (cp) { copiarResumen(cp); return; }
   const ptd = e.target.closest('[data-portada]');
   if (ptd) { guardarPortada(ptd); return; }
+  const golRadio = e.target.closest('[data-radio-gol]');
+  if (golRadio) { $('dial-minuto').value = golRadio.dataset.radioGol; sintonizarRadio(); return; }
+  if (e.target.closest('[data-radio-hoy]')) {
+    parar(); verK = null; verJ = null; compPais = 'España'; compSel = 'Primera'; compVista = 'radio';
+    seccion = 'comp'; pintar(); window.scrollTo({ top: 0 }); return;
+  }
   const lv = e.target.closest('[data-lado]');
   if (lv) { ladoTabla = lv.dataset.lado; pintarComp(); return; }
   const j = e.target.closest('[data-j]');
@@ -3696,7 +3841,7 @@ document.addEventListener('click', async (e) => {
   const comp = e.target.closest('[data-comp]');
   if (comp) { compSel = comp.dataset.comp; verJ = null; pintarComp(); return; }
   const vista = e.target.closest('[data-vista]');
-  if (vista) { compVista = vista.dataset.vista; pintarComp(); return; }
+  if (vista) { compVista = vista.dataset.vista; if (compVista === 'radio') parar(); pintarComp(); return; }
   const jn = e.target.closest('[data-j-nav]');
   if (jn) { const L = ligasDe(VT(), compPais).find((l) => l.grupo === compSel), nV = vistasDe(L.T, VT()); verJ = Math.max(1, Math.min(nV, (verJ == null ? nV : verJ) + +jn.dataset.jNav)); if (verJ >= nV) verJ = null; pintarComp(); return; }
   const st = e.target.closest('[data-stat]');
@@ -3714,6 +3859,7 @@ document.addEventListener('change', (e) => {
   const a = e.target.dataset && e.target.dataset.accion;
   if (a === 'temporada') { const i = +e.target.value; verK = temporadas()[i] === S ? null : i; verJ = null; pintar(); }
   else if (a === 'pais') { compPais = e.target.value; compSel = ''; verJ = null; pintarComp(); }
+  else if (a === 'radio-jornada') { verJ = Number(e.target.value); pintarComp(); }
   else if (a === 'bpais') { busqPais = e.target.value; pintarMundo(); }
   else if (a === 'bpos') { busqPos = e.target.value; pintarMundo(); }
   else if (a === 'hpais') { histPais = e.target.value; pintarHistoria(); }
@@ -3721,7 +3867,8 @@ document.addEventListener('change', (e) => {
   else if (e.target.id === 'pronosticos') ponerPron(e.target.checked);
   else if (e.target.id === 'constantes') { try { localStorage.setItem('universo-futbol-constantes', e.target.checked ? 'si' : 'no'); } catch (x) { /* nada */ } }
 });
-document.addEventListener('input', (e) => { if (e.target.id === 'busq') { busq = e.target.value; pintarResultados(); } });
+document.addEventListener('input', (e) => { if (e.target.id === 'dial-minuto') sintonizarRadio();
+  else if (e.target.id === 'busq') { busq = e.target.value; pintarResultados(); } });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !$('hojaFondo').hidden) { cerrarFicha(); return; }
   // Atajos: espacio juega o para, → una semana, M un mes, F al final, Intro la temporada siguiente, 1-4 las secciones.
@@ -3749,11 +3896,11 @@ $('empezar').addEventListener('click', async () => {
 function ponerTema(t) {
   if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
   const oscuro = t ? t === 'dark' : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  $('tema').textContent = oscuro ? '☀️' : '🌙';
+  $('tema').textContent = oscuro ? '☼' : '◐';
   $('tema').setAttribute('aria-label', oscuro ? 'Poner tema claro' : 'Poner tema oscuro');
 }
-// Sin elección guardada, el juego se abre en oscuro.
-try { ponerTema(localStorage.getItem('universo-futbol-tema') || 'dark'); } catch (e) { ponerTema('dark'); }
+// Sin elección guardada, el juego se abre con el papel claro del programa.
+try { ponerTema(localStorage.getItem('universo-futbol-tema') || 'light'); } catch (e) { ponerTema('light'); }
 $('tema').addEventListener('click', () => {
   const oscuro = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
   const t = oscuro ? 'light' : 'dark';
