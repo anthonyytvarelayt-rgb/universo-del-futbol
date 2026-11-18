@@ -819,6 +819,7 @@
       else e.dibujo = elegirDibujo(e, est.anio, null);
     });
     const tabla = equipos.map((e) => ({ equipo: e, nombre: e.nombre, estilo: estiloBase(e), pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, racha: [] }));
+    const onces = equipos.map(() => new Map());
     const registro = new Map();
     const resultados = [];
     const cal = calendario(equipos.length);
@@ -838,6 +839,15 @@
       ronda.forEach(([a, b]) => {
         const m = jugarConEstado(r, est, equipos[a], equipos[b], { cambios: op.cambios, factorGoles: op.factorGoles }, registro);
         const [ga, gb] = m.goles;
+        for (const [indice, once] of [[a, m.xiL], [b, m.xiV]]) {
+          if (once.length !== 11) continue;
+          const nombres = once.map((j) => j.n);
+          const clave = JSON.stringify(nombres.slice().sort());
+          const acta = onces[indice].get(clave) || { nombres, partidos: 0, jornada: jn + 1 };
+          acta.partidos++;
+          acta.ultima = jn + 1;
+          onces[indice].set(clave, acta);
+        }
         const ta = tabla[a], tb = tabla[b];
         ta.pj++; tb.pj++; ta.gf += ga; ta.gc += gb; tb.gf += gb; tb.gc += ga;
         if (ga > gb) { ta.g++; tb.p++; ta.pts += op.puntosVictoria; ta.racha.push('G'); tb.racha.push('P'); }
@@ -850,6 +860,9 @@
       // A mitad de liga se apunta lo que lleva jugado cada uno (para revisar en enero las promesas de minutos).
       if (jn + 1 === mitadLiga) registro.forEach((x) => { x.minMitad = x.min; x.jorMitad = mitadLiga; });
       if (op.alJugar) op.alJugar(jn + 1, resJornada);
+    });
+    tabla.forEach((t, i) => {
+      t.onceHabitual = [...onces[i].values()].sort((a, b) => b.partidos - a.partidos || a.jornada - b.jornada)[0];
     });
     tabla.sort((x, y) => y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf);
     tabla.forEach((t) => { const b = est.banquillo.get(t.equipo); t.entrenador = b ? b.actual.nombre : null; t.estilo = estiloBase(t.equipo); t.dibujo = t.equipo.dibujo || null; t.imitaTactica = t.equipo.imitaTactica || null; });

@@ -785,6 +785,7 @@ function fichaPartido(id) {
   const gana = m.ga > m.gb ? m.local : m.gb > m.ga ? m.visita : null;
   return `<div class="arriba"><div><div class="sub">${esc(x.comp || 'Partido')}${m.derbi ? ' · ' + esc(m.derbi) : ''}</div><h1>${gana ? `Gana el ${esc(gana)}` : 'Empate'}</h1></div><div class="botones-hoja"><button type="button" class="redondo" data-cerrar aria-label="Cerrar">✕</button></div></div>`
     + `<div class="marcador"><div>${botonClub(m.local)}${est[0] ? `<small>${esc(est[0])}</small>` : ''}</div><b>${m.ga}-${m.gb}</b><div>${botonClub(m.visita)}${est[1] ? `<small>${esc(est[1])}</small>` : ''}</div></div>`
+    + (x.once ? `<div class="recortes"><h2>Once titular · ${esc(x.once.club)}</h2><p>${x.once.nombres.map(nombreJ).join(' · ')}</p></div>` : '')
     + cronologia(m)
     + `<div class="eventos">${ev || '<div class="vacio">Sin goles ni incidencias.</div>'}</div>`
     + caraACara(m);
@@ -862,7 +863,7 @@ function pintar() {
   if (!S) return;
   $('cargando').hidden = true;
   if (verK != null && !temporadas()[verK]) verK = null;
-  $('temporadaTxt').textContent = S.temporada; ponerEra(S.anio);
+  $('temporadaTxt').textContent = S.temporada; ponerEra(seccion === 'comp' ? VT().anio : S.anio);
   $('progresoBar').style.width = `${Math.round(100 * ((fin || finDeTemporada()) ? 1 : Math.min(1, jornadasVistas() / 30)))}%`;
   $('fechaTxt').textContent = fin ? 'Fin de la partida' : finDeTemporada() ? `Temporada terminada · verano de ${S.anio + 1}` : fechaDe(paso());
   document.querySelectorAll('#navegar button').forEach((b) => {
@@ -949,8 +950,8 @@ function historiasSemana() {
 }
 function pintarHoy() {
   const p = paso(), V = S;
-  const cab = (derecha) => `<div class="cabecera-diario" title="Atajos: espacio juega o para, → una semana, M un mes, F al final, 1-4 secciones"><div class="nombre">La edición del día</div><div class="bajo"><span>${esc(fechaDe(p).split(' · ').pop())}</span><span>${esc(derecha)}</span></div></div>`;
-  if (finDeTemporada() || fin) { $('s-hoy').innerHTML = cab('Edición especial') + edicionEspecial(V); return; }
+  const cab = (derecha) => `<div class="cabecera-diario" title="Atajos: espacio juega o para, → una semana, M un mes, F al final, 1-4 secciones"><div class="nombre">${({radio:'La crónica de radio',revista:'La revista de la jornada',teletexto:'Fútbol · Teletexto',directo:'Central de marcadores'})[document.documentElement.dataset.edicion] || 'La edición del día'}</div><div class="bajo"><span>${esc(fechaDe(p).split(' · ').pop())}</span><span>${esc(derecha)}</span></div></div>`;
+  if (finDeTemporada() || fin) { $('s-hoy').innerHTML = cab('Edición especial') + edicionEspecial(V) + hemeroteca(V); return; }
   const t = titularDe(p);
   const mundo = historiasSemana();
   // Portada: lo más grande de la semana; la crónica española entra como una noticia más.
@@ -978,11 +979,12 @@ function pintarHoy() {
   }).join('');
   // El partido de la semana: el de los dos clubes más fuertes.
   const pds = grandes[0];
-  const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span class="equipo-destacado">${escudo(pds.m.local)}<span>${esc(pds.m.local)}</span></span><b>${pds.m.ga}-${pds.m.gb}</b><span class="equipo-destacado">${escudo(pds.m.visita)}<span>${esc(pds.m.visita)}</span></span></span><small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
+  const destacado = pds ? `<button type="button" class="destacado" data-partido="${regP(pds.m, pds.pais)}"><span class="rotulo">Partido de la semana · ${esc(pds.pais)}${pds.m.derbi ? ' · ' + esc(pds.m.derbi) : ''}</span><span class="marcador-mini"><span class="equipo-destacado">${escudo(pds.m.local)}<span>${esc(pds.m.local)}</span></span><b>${pds.m.ga}-${pds.m.gb}</b><span class="equipo-destacado">${escudo(pds.m.visita)}<span>${esc(pds.m.visita)}</span></span></span>${V.anio >= 1970 && V.anio < 1986 && pds.m.dibujos?.every(Boolean) ? `<small>Pizarra · ${pds.m.dibujos.map(esc).join(' frente a ')}</small>` : ''}<small>${incidencias(pds.m) || 'Sin goles'} · toca para ver la hoja</small></button>` : '';
   const previa = destacado ? '' : carteleraHtml(V);
   $('s-hoy').innerHTML = cab(p.tipo === 'jornada' ? `Jornada ${p.j}` : fechaCorta(p))
     + `<div class="hoy-apertura${destacado || previa ? '' : ' sin-partido'}"><article class="noticia noticia-principal"><div class="noticia-folio"><span class="rotulo">${esc(lead.seccion)}</span><span>${esc(S.temporada)}</span></div><h1 class="titulo">${esc(lead.titular)}</h1><p>${esc(lead.texto)}</p><span class="noticia-pie">${lead.jugador ? `<button type="button" class="ver-protagonista" data-j="${esc(lead.jugador)}">Ver jugador</button>` : ''}</span></article>${destacado || (previa ? `<aside class="avance-jornada">${previa}</aside>` : '')}</div>`
     + (jornadasVistas() ? '<button type="button" class="enlace-radio" data-radio-hoy><b>El transistor</b><span>Revivir los goles de la jornada española</span><i aria-hidden="true">↗</i></button>' : '')
+    + hemeroteca(V)
     + (breves ? `<div class="actualidad"><div class="separador-actualidad"><h2>En el resto del mundo</h2><span></span></div><div class="breves">${breves}</div></div>` : '')
     + `<div class="columnas">${crackSemana(grandes)}${destacado ? carteleraHtml(V) : ''}${pronosticosHtml()}${seguidosHtml()}${rachasHtml(V)}
         <div class="caja"><span class="rotulo">Resultados grandes</span>${res}</div>
@@ -3159,6 +3161,83 @@ function rankingDe(j, pais) {
   const plural = { POR: 'porteros', DEF: 'defensas', MED: 'centrocampistas', DEL: 'delanteros' }[j.pos] || 'de su puesto';
   return g ? `<div class="ranking"><span><b>N.º ${g}</b> del mundo</span><span><b>N.º ${p}</b> de los ${plural}</span><span><b>N.º ${n}</b> en ${esc(pais)}</span></div>` : '';
 }
+function actasDelJugador(nombre) {
+  let primero, derbi;
+  const finales = [];
+  for (const V of temporadas()) {
+    const clubes = new Set(V.G.filter((x) => x.nombre === nombre).map((x) => x.club));
+    if (!clubes.size) continue;
+    for (const pais of paisesDe(V)) for (const L of ligasDe(V, pais)) {
+      if (primero && derbi) break;
+      if (!L.T.tabla.some((t) => clubes.has(t.nombre))) continue;
+      L.T.resultados.slice(0, vistasDe(L.T, V)).forEach((ronda, i) => ronda.forEach((m) => {
+        if (!clubes.has(m.local) && !clubes.has(m.visita)) return;
+        const gol = golesRadio(m).find((e) => e.quien === nombre);
+        if (!gol) return;
+        const dato = { m, gol, comp: `${L.grupo} · ${pais} · J${i + 1} · ${V.temporada}` };
+        primero ||= dato;
+        if (m.derbi) derbi ||= dato;
+      }));
+    }
+    if (!cerradaV(V)) continue;
+    const copas = new Set([V.R.EU, V.R.LIB, V.R.UEFA, V.R.RECOPA, ...paisesDe(V).map((p) => copaDe(V, p))]);
+    for (const C of copas) {
+      const f = C?.rondas?.at(-1)?.cruces?.[0];
+      if (!f || f.penaltis || !f.b) continue;
+      const ms = f.partidos || [];
+      // En finales a partido único se puede atribuir el gol que rompió el último empate.
+      if (!ms.length || ms.some((m, i) => i && !m.prorroga)) continue;
+      let ventaja = 0, dato;
+      for (const m of ms) for (const gol of golesRadio(m).sort((a,b) => a.min - b.min)) {
+        const favor = (gol.lado ? m.visita : m.local) === C.campeon;
+        ventaja += favor ? 1 : -1;
+        if (favor && ventaja === 1) dato = { m, gol, comp: `${C.nombre} · final · ${V.temporada}` };
+      }
+      if (ventaja > 0 && dato?.gol.quien === nombre) finales.push(['Gol que decidió la final', dato]);
+    }
+  }
+  const filas = [['Primer gol de liga registrado', primero], ['Primer gol en un derbi de liga', derbi], ...finales].filter(([,x]) => x);
+  return filas.length ? `<section class="recortes"><h2>Goles para recordar</h2>${filas.map(([t,x]) => `<button type="button" data-partido="${regP(x.m,x.comp)}"><b>${t}</b> ${esc(x.m.local)} – ${esc(x.m.visita)} · ${x.gol.min}′<small>${esc(x.comp)}</small></button>`).join('')}</section>` : '';
+}
+
+function archivoOnce(club, pais) {
+  let anterior;
+  const filas = [];
+  for (const V of temporadas().filter(cerradaV)) {
+    const L = ligasDe(V, pais).find((l) => l.T.tabla.some((t) => t.nombre === club));
+    const once = L?.T.tabla.find((t) => t.nombre === club)?.onceHabitual;
+    if (!once) { anterior = null; continue; }
+    const salen = anterior?.filter((n) => !once.nombres.includes(n)) || [];
+    const entran = anterior ? once.nombres.filter((n) => !anterior.includes(n)) : [];
+    const m = L.T.resultados[once.jornada - 1].find((p) => p.local === club || p.visita === club);
+    const id = regP(m, L.grupo + ' · ' + V.temporada);
+    PARTIDOS.get(id).once = { club, nombres: once.nombres };
+    const titulo = campeonDe(V, pais).campeon === club ? ' · campeón de liga' : V.europa === club ? ' · campeón de Europa' : '';
+    filas.push(`<details><summary>${V.temporada}${titulo} · ${once.partidos} ${once.partidos === 1 ? 'partido juntos' : 'partidos juntos'}</summary><p>${once.nombres.map(nombreJ).join(' · ')}</p>${once.ultima > once.jornada ? `<small>Primera aparición en la jornada ${once.jornada}, última en la ${once.ultima}.</small>` : ''}
+      ${anterior ? `<p>${salen.length ? 'Salen del once habitual: ' + salen.map(esc).join(', ') + '. Entran: ' + entran.map(esc).join(', ') + '.' : 'Repiten los once titulares.'}</p>` : ''}
+      <button type="button" class="nombre" data-partido="${id}">Ver su primera alineación · J${once.jornada}</button></details>`);
+    anterior = once.nombres;
+  }
+  return filas.length ? `<section class="recortes"><h2>El once que hizo época</h2><p>La alineación inicial más repetida en liga cada temporada.</p>${filas.reverse().join('')}</section>` : '';
+}
+
+function hemeroteca(V) {
+  const previa = temporadas().find((t) => t.anio === V.anio - 1);
+  if (!previa || (!V.veranoHecho && (V !== S || jornadasVistas() < 16))) return '';
+  const citas = promesasDe(previa).filter((x) => x.tipo === 'nueva');
+  const filas = (previa.promesas?.nuevas || []).map((p) => {
+    const cita = citas.find((q) => q.quien === p.dt && q.club === p.club && q.pie === `Sobre ${p.jugador}, este verano.`);
+    if (!cita) return '';
+    const cierre = V.promesas?.resueltas?.find((r) => r.jugador === p.jugador && r.club === p.club && r.dt === p.dt);
+    const acta = V.G.find((g) => g.nombre === p.jugador && g.club === p.club);
+    const jornadas = acta?.jorMitad || V.G.find((g) => g.club === p.club && g.jorMitad)?.jorMitad;
+    if (!cierre && (!jornadas || V.veranoHecho)) return '';
+    const balance = cierre ? `Al cierre, ${cierre.min} minutos en ${cierre.pj} partidos. ${cierre.estado === 'lesion' ? 'Las lesiones condicionaron su temporada.' : cierre.dtHoy && cierre.dt !== cierre.dtHoy ? 'El club cambió de entrenador.' : ''}` : `A mitad de liga, ${acta?.minMitad || 0} minutos en las primeras ${jornadas} jornadas del equipo.`;
+    return `<article><blockquote>${esc(cita.frase)}</blockquote><small>${esc(sinApodo(p.dt))} sobre ${nombreJ(p.jugador)} · ${esc(p.club)} · verano de ${V.anio}</small><p>${esc(balance)}</p></article>`;
+  }).filter(Boolean);
+  return filas.length ? `<details class="recortes"><summary>Hemeroteca de promesas · ${V.temporada} · ${filas.length}</summary>${filas.join('')}</details>` : '';
+}
+
 function fichaJugador(n) {
   const x = buscarJugador(n);
   if (!x) return `<div class="arriba"><h1>${esc(n)}</h1>${botonesHoja('j', n)}</div><div class="vacio">No juega en ninguna de las ligas de la partida.</div>`;
@@ -3207,6 +3286,7 @@ function fichaJugador(n) {
     + (x.activo ? atributosHtml(j) + insigniasHtml(j) : '')
     + `<div class="cifras"><div><small>Goles ${S.temporada}</small><b>${cif.g}</b></div><div><small>Asist.</small><b>${cif.a}</b></div><div><small>${cif.nota != null ? 'Nota' : 'En la partida'}</small><b>${cif.nota != null ? cif.nota.toFixed(1).replace('.', ',') : `${tot.g} g / ${tot.pj} pj`}</b></div></div>`
     + (comparaCon && comparaCon !== n ? comparar(comparaCon, n) : '')
+    + actasDelJugador(n)
     + `<div class="acciones-ficha"><button type="button" class="copiar" data-comparar="${esc(n)}">⚖ Comparar</button><button type="button" class="copiar" data-compartir="${esc(n)}">📋 Copiar ficha</button></div>`
     + grafico
     + memorables(n, carrera)
@@ -3336,6 +3416,7 @@ function fichaClub(n) {
     + presidenteClub(c)
     + objetivoClub(c, l)
     + dineroClub(c)
+    + archivoOnce(n, c.pais)
     + historialClub(n, c.pais)
     + apodosHtml(apodosClub(n))
     + simbolosClub(n, c)
@@ -3449,6 +3530,7 @@ const eraDe = (anio) => ERAS.find((e) => anio >= e.desde && anio <= e.hasta) || 
 function ponerEra(anio) {
   const e = eraDe(anio);
   document.documentElement.style.setProperty('--rojo', e.color);
+  document.documentElement.dataset.edicion = anio < 1970 ? 'radio' : anio < 1986 ? 'revista' : anio < 2000 ? 'teletexto' : 'directo';
   $('eraTxt').textContent = e.nombre;
 }
 // Cuadrícula de campeones: una fila por país, una columna por temporada, con los colores del club.
@@ -3763,6 +3845,7 @@ function pintarHistoria() {
       <div class="caja">${recs.join('') || '<div class="vacio">Los récords se apuntan al terminar cada temporada.</div>'}
         <span class="rotulo" style="margin-top:8px">Momentos que cambiaron la historia</span>
         ${momentos.length ? momentos.map((m) => `<div class="momento"><b>${esc(m.titulo)}</b>${marcaDif(m.real)}</div>`).join('') : '<div class="vacio">De momento, la historia va como fue.</div>'}</div></div>`
+    + (ts.length > 1 ? `<section><label>Hemeroteca de temporada <select class="desplegable" data-accion="archivo-promesas">${ts.slice(1).reverse().map((t) => `<option value="${t.anio}">${esc(t.temporada)}</option>`).join('')}</select></label><div id="archivo-promesas">${hemeroteca(ts.at(-1)) || 'Sin promesas documentadas.'}</div></section>` : '')
     + memoriasRemontada(ts)
     + lineaTiempo(ts)
     + (ts.length ? `<details class="caja galeria-portadas"><summary><span class="rotulo">Portadas de cada temporada</span> <small>${ts.length}</small></summary><div class="portadas">${ts.slice().reverse().map((V) => portadaHtml(V, true)).join('')}</div></details>` : '')
@@ -3862,6 +3945,10 @@ document.addEventListener('change', (e) => {
   else if (a === 'radio-jornada') { verJ = Number(e.target.value); pintarComp(); }
   else if (a === 'bpais') { busqPais = e.target.value; pintarMundo(); }
   else if (a === 'bpos') { busqPos = e.target.value; pintarMundo(); }
+  else if (a === 'archivo-promesas') {
+    const t = temporadas().find((v) => v.anio === Number(e.target.value) && cerradaV(v));
+    if (t) $('archivo-promesas').innerHTML = hemeroteca(t) || 'Sin promesas documentadas.';
+  }
   else if (a === 'hpais') { histPais = e.target.value; pintarHistoria(); }
   else if (a === 'pron') guardarPron(e.target.dataset.pais, e.target.value);
   else if (e.target.id === 'pronosticos') ponerPron(e.target.checked);

@@ -145,3 +145,26 @@
   .inicio .dentro { align-items:stretch; }.programa-lamina { width:100%; }.cromo { padding:4px; gap:2px; }.cromo .camiseta-cromo { height:65px; }.cromo small { font-size:6px; }
 }
 .relevo { margin:0; padding:8px 16px; background:var(--hundido); color:var(--tinta); font-family:var(--display); }
+.recortes { border-top:3px double var(--tinta); padding:14px 0; }
+.recortes h2,.recortes > summary { font:bold 23px/1.2 var(--display); margin:0 0 8px; }
+.recortes summary { cursor:pointer; padding-block:8px; }.recortes article,.recortes details { border-bottom:1px solid var(--linea2); padding:8px 0; }
+.recortes blockquote { margin:4px 0; font:italic 18px/1.35 var(--display); }
+.recortes > button { display:block; width:100%; text-align:left; padding:10px; background:var(--hundido); border:0; border-bottom:1px solid var(--linea); }
+.recortes small { display:block; color:var(--gris); }.recortes p { margin:6px 0; }
+[data-edicion="revista"] .cabecera-diario { border-bottom:8px solid #ce6226; }
+[data-edicion="revista"] .noticia-principal { background:var(--hundido); border:0; padding:22px; }
+[data-edicion="revista"] .noticia .titulo { font-style:italic; }
+[data-edicion="revista"] .destacado { background-color:#194937; background-image:linear-gradient(#faf4 1px,transparent 1px),linear-gradient(90deg,#faf4 1px,transparent 1px); background-size:48px 48px; }
+[data-edicion="teletexto"] :is(.cabecera-diario,.noticia-principal,.destacado) { background:#11142b; color:#fff; border:0; padding:16px; }
+[data-edicion="teletexto"] :is(.cabecera-diario .nombre,.noticia .titulo,.destacado .rotulo) { font-family:monospace; color:#ffdf66; letter-spacing:-.055em; }
+[data-edicion="teletexto"] :is(.noticia-principal p,.noticia-folio .rotulo,.cabecera-diario .bajo) { color:#99f4f1; font-family:monospace; }
+[data-edicion="directo"] .cabecera-diario { background:#203654; color:white; padding:14px; border-bottom:4px solid #ef8299; }
+[data-edicion="directo"] .cabecera-diario :is(.nombre,.bajo) { color:white; font-family:var(--texto); }
+[data-edicion="directo"] .destacado { background:linear-gradient(115deg,#13253d,#353352); border:0; border-top:6px solid #ef8299; }
+[data-edicion="directo"] .marcador-mini b { background:#f4f1fa; color:#182c43; }
+[data-edicion="revista"] :is(.fila-sel h1,.buscador h1,.era-cab h1,.hoja h1) { font-style:italic; }
+[data-edicion="revista"] :is(.selectores,.buscador,.carta-identidad) { border-bottom:5px solid #cc642b; }
+[data-edicion="teletexto"] :is(.fila-sel h1,.buscador h1,.era-cab,.tabla th,.tabla .pts,.marcador b,.cab b,.hoja h1) { font-family:ui-monospace,monospace; }
+[data-edicion="teletexto"] :is(.era-cab,.tabla th,.abajo) { background:#11142b; color:#ffdf66; }
+[data-edicion="directo"] :is(.era-cab,.tabla th,.abajo) { background:#203654; }
+[data-edicion="directo"] :is(.fila-sel h1,.buscador h1,.era-cab h1,.hoja h1) { font-family:var(--texto); font-weight:800; }

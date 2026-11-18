@@ -85,6 +85,19 @@ if (salida) fs.mkdirSync(salida, { recursive: true });
         const siguiente = p.locator('[data-tiempo="siguiente"]');
         await siguiente.waitFor({ timeout: 120000 });
         assert.equal(await p.evaluate(() => S.anio), inicio + n);
+        const archivo = await p.evaluate(() => {
+          const t = S.R.T.tabla[0], once = t.onceHabitual;
+          const goleador = S.R.T.resultados.flat().flatMap(golesRadio)[0].quien;
+          return {
+            nombres: new Set(once.nombres).size, partidos: once.partidos,
+            club: archivoOnce(t.nombre, 'España').includes('primera alineación'),
+            gol: actasDelJugador(goleador).includes('Primer gol de liga registrado'),
+            citas: hemeroteca(S), resueltas: S.promesas?.resueltas?.length || 0
+          };
+        });
+        assert.equal(archivo.nombres, 11);
+        assert.ok(archivo.partidos >= 1 && archivo.club && archivo.gol);
+        if (n && archivo.resueltas) assert.match(archivo.citas, /Al cierre,/);
         if (n === 0) {
           await foto('fin');
           await nav('historia'); await foto('historia');
