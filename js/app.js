@@ -129,7 +129,9 @@ function adelantar(kk) {
   if (kk + 1 < TEMPORADAS) { sim.enviar({ tipo: 'foto', k: kk + 1 }); sim.enviar({ tipo: 'jugar', k: kk + 1 }); }
 }
 
+let fotoRestaurada = -1;
 async function nuevaPartida(guardada) {
+  fotoRestaurada = -1;
   parar();
   if (sim) sim.cerrar();
   listos.clear(); esperas.clear();
@@ -144,7 +146,7 @@ async function nuevaPartida(guardada) {
   // Con una foto de esta partida se empieza en su temporada; sin ella, desde el principio.
   const f = guardada ? await leerFoto() : null;
   if (f && f.version === VERSION_GUARDADO && f.semilla === semilla && f.numPartida === numPartida && f.anio === anioInicio && f.k > 0 && f.k <= guardada.k) {
-    k = f.k; cerradas = f.cerradas; teletipo = f.teletipo;
+    k = f.k; cerradas = f.cerradas; teletipo = f.teletipo; fotoRestaurada = f.k;
     sim.enviar({ tipo: 'restaurar', semilla, base: BASE, anio: anioInicio, W: f.W, rr: f.rr });
   } else sim.enviar({ tipo: 'iniciar', semilla, base: BASE, anio: anioInicio });
   sim.enviar({ tipo: 'jugar', k });
@@ -161,7 +163,8 @@ async function nuevaPartida(guardada) {
 async function empezarTemporada(kk) {
   const d = await obtener('temporada', kk);
   S = d.S; M = d.M; S.veranoHecho = false;
-  if (kk > 0) { const antes = { cerradas: cerradas.slice(), teletipo: teletipo.slice() }; obtener('foto', kk).then((f) => guardarFoto(Object.assign(f, antes))); }
+  // Al recuperar desde la foto de esta misma temporada no se vuelve a guardar (copiarla entera costaba segundos).
+  if (kk > 0 && kk !== fotoRestaurada) { const antes = { cerradas: cerradas.slice(), teletipo: teletipo.slice() }; obtener('foto', kk).then((f) => guardarFoto(Object.assign(f, antes))); }
   pasos = calendario(S);
   iPaso = 0; verJ = null;
   adelantar(kk);
@@ -681,7 +684,8 @@ function premiosMundo0(V) {
   const lastre = (x) => (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) * (1 - monstruo(x) * ganado(x));
   // El Mundial (Anthony: "no es serio que alguien meta 7 u 8 en un Mundial, lo gane y no pase nada"): goles, asistencias
   // y nota en el torneo suben al jugador, y el mejor del torneo suma algo más. Ganarlo cuenta según lo clave que fue en su selección.
-  const enMU = (x) => { if (!MU || !x.j) return null; const ps = (MU.jugadores || []).filter((p) => p.n === x.nombre); return ps.find((p) => sel(p.eq) === sel(x.j.nacion)) || ps[0] || null; };
+  const porNombreMU = new Map(); if (MU) (MU.jugadores || []).forEach((p) => { if (!porNombreMU.has(p.n)) porNombreMU.set(p.n, []); porNombreMU.get(p.n).push(p); });
+  const enMU = (x) => { if (!MU || !x.j) return null; const ps = porNombreMU.get(x.nombre) || []; return ps.find((p) => sel(p.eq) === sel(x.j.nacion)) || ps[0] || null; };
   const mejorMU = MU ? (MU.jugadores || []).filter((p) => p.pj >= 5).sort((a, b) => b.nota - a.nota)[0] : null;
   const mundialInd = (x) => { const p = enMU(x); if (!p) return 0; return Math.min(0.75, Math.min(0.4, 0.055 * p.g) + Math.min(0.12, 0.03 * p.a) + (p.pj >= 3 ? Math.max(0, p.nota - 7) * 0.2 : 0) + (mejorMU && mejorMU.n === p.n ? 0.15 : 0)); };
   const pesoSel = (x) => { const p = enMU(x); if (!p) return Math.max(0.3, peso(x)); const i = (MU.jugadores || []).filter((q) => q.eq === p.eq && q.pj >= 3).sort((a, b) => b.nota - a.nota).findIndex((q) => q.n === p.n); return i === 0 ? 1 : i >= 0 && i <= 2 ? 0.7 : 0.35; };
@@ -699,7 +703,8 @@ function premiosMundo0(V) {
     + (MU && x.j && x.j.nacion ? (sel(MU.campeon) === sel(x.j.nacion) ? 0.5 : sel(MU.subcampeon) === sel(x.j.nacion) ? 0.15 : 0) * pesoSel(x) : 0)
     + (typeof Continentales !== 'undefined' ? Continentales.bonus(continentales, x.nombre, peso(x)) : 0);
   const colectivo = (x) => colectivoBase(x) * (1 + 0.25 * monstruo(x));  // extra de defensa monstruo a la mitad desde 2026-11-16 (Beckenbauer segundo con 6 goles)
-  const merito = (x) => individual(x) + colectivo(x) + clase(x);
+  const memoMerito = new Map();  // se ordena con él: sin memoria se recalculaba miles de veces
+  const merito = (x) => { let v = memoMerito.get(x); if (v === undefined) { v = individual(x) + colectivo(x) + clase(x); memoMerito.set(x, v); } return v; };
   r.meritoDe = (nombre) => { const o = G.filter((x) => x.pj >= 15).sort(porMerito), i = o.findIndex((x) => x.nombre === nombre), x = o[i]; return x ? { puesto: i + 1, nota: x.notaTemp, nivel: nivelEn(x), individual: individual(x), colectivo: colectivo(x), clase: clase(x) } : null; };
   const porMerito = (a, b) => merito(b) - merito(a);
   // La votación (Anthony: 30 nominados y un sistema de votos): los 30 de más mérito entran en la lista y votan 100
