@@ -48,7 +48,7 @@
     // Raúl: Mr. Champions antes que Cristiano (deseo de Anthony). Más gol, fiel al Madrid y con hambre de Copas de Europa.
     'Raúl': { techo: 870, suelo: [[18, 720], [20, 800], [22, 840], [24, 865], [27, 870], [30, 850], [32, 810], [34, 760]], club: 'Real Madrid', fiel: 2010 },
     'Lionel Messi': { techo: 1000, suelo: [[18, 660], [20, 780], [22, 890], [24, 960], [26, 985], [31, 975], [34, 940], [37, 880]], elite: true },
-    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5, olfato: 1.6 },
+    'Cristiano Ronaldo': { techo: 1000, suelo: [[19, 640], [21, 760], [23, 880], [25, 950], [27, 985], [33, 975], [36, 930], [39, 860]], elite: true, europa: 5, olfato: 1.3 },
     'Kylian Mbappé': { techo: 970, suelo: [[18, 720], [20, 810], [23, 900], [26, 950], [30, 945]], elite: true, mundial: 1.7 },
   };
   // Clubes que mandan en una época: si al empezar la temporada no son los más fuertes de su liga (o de Europa hasta
@@ -1615,12 +1615,12 @@
     const seVende = (j, v, comprador) => !traicion(j, v, comprador) && !soloDeCasa(j, comprador) && seVende0(j, v, comprador);
     const seVende0 = (j, v, comprador) => { const K = CONSTANTES[j.n]; return !K || j.relleno || (!(K.club === v.nombre && nuevoAnio <= K.fiel) && (!K.elite || ((grandes.length ? grandes.includes(comprador) : comprador.prestigio >= 800) && !comprador.jugadores.some((x) => x.cons)))); };
     // Las leyendas 'elite' (Cristiano, Mbappé) no se quedan en una liga menor: en cuanto son figuras mundiales
-    // (nivel 900) se las lleva uno de los clubes más fuertes de las grandes ligas. En cuál acaban lo decide la partida.
+    // (nivel 900; las que van para 1000, ya a los 22 con nivel 700, como Cristiano al United) se las lleva uno de los clubes más fuertes de las grandes ligas. En cuál acaban lo decide la partida.
     const LIGAS_GRANDES = ['España', 'Inglaterra', 'Italia', 'Alemania'];
     const grandes = [...fuerzas.keys()].filter((c) => LIGAS_GRANDES.includes(c.pais) && c.prestigio >= 760).sort((a, b) => fuerzas.get(b) - fuerzas.get(a)).slice(0, 6);
     if (grandes.length) M.clubes.forEach((v) => v.jugadores.slice().forEach((j) => {
       const K = CONSTANTES[j.n];
-      if (!K || !K.elite || fichados.has(j) || j.relleno || j.niv < Motor.escala.interno(900) || (LIGAS_GRANDES.includes(v.pais) && v.prestigio >= 750)) return;
+      if (!K || !K.elite || fichados.has(j) || j.relleno || j.niv < Motor.escala.interno(nuevoAnio - anioNac(j) <= 22 && (K.techo || 0) >= 980 ? 700 : 900) || (LIGAS_GRANDES.includes(v.pais) && v.prestigio >= 750)) return;
       // Mejor a un grande que no tenga ya a otra leyenda: Mbappé no se junta con Messi.
       const sinLeyenda = grandes.filter((g) => !g.jugadores.some((x) => x.cons));
       const destinos = (sinLeyenda.length ? sinLeyenda : grandes).filter((g) => !traicion(j, v, g));
