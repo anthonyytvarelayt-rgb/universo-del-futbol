@@ -681,7 +681,7 @@ function premiosMundo0(V) {
   const atras = (x) => x.pos === 'POR' || x.pos === 'DEF';
   const monstruo = (x) => atras(x) ? Math.max(0, Math.min(1, (nivelEn(x) - 740) / 140)) : 0;
   const ganado = (x) => Math.min(1, colectivoBase(x) / 0.6);
-  const lastre = (x) => (x.pos === 'POR' ? 0.5 : x.pos === 'DEF' ? 0.25 : 0) * (1 - monstruo(x) * ganado(x));
+  const lastre = (x) => (x.pos === 'POR' ? 0.7 : x.pos === 'DEF' ? 0.25 : 0) * (1 - monstruo(x) * ganado(x));
   // El Mundial (Anthony: "no es serio que alguien meta 7 u 8 en un Mundial, lo gane y no pase nada"): goles, asistencias
   // y nota en el torneo suben al jugador, y el mejor del torneo suma algo más. Ganarlo cuenta según lo clave que fue en su selección.
   const porNombreMU = new Map(); if (MU) (MU.jugadores || []).forEach((p) => { if (!porNombreMU.has(p.n)) porNombreMU.set(p.n, []); porNombreMU.get(p.n).push(p); });

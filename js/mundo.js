@@ -2770,6 +2770,8 @@
     resumen.escandalos = escandalos(M, R);
     resumen.estadios = M.clubes.filter((c) => c.division === 1 && ESTADIOS[c.nombre]).map((c) => { const xs = ESTADIOS[c.nombre], i = xs.findIndex((y) => y[0] === M.anio + 1); return i > 0 ? { club: c.nombre, nuevo: xs[i][1], viejo: xs[i - 1][1], anios: M.anio + 1 - xs[i - 1][0], cambio: !xs[i][2], mudanza: xs[i][2] === 2 } : null; }).filter(Boolean);
     resumen.mercado = mercado(M, r, resumen.sueldos, dinamica);
+    // Una sucesión en la portería solo se cuenta si el veterano sigue en el club al cerrar el mercado.
+    for (let i = dinamica.length - 1; i >= 0; i--) { const x = dinamica[i]; if (x.tipo === 'sucesion' && !M.clubes.some((c) => c.nombre === x.club && c.jugadores.some((j) => j.n === x.titular))) dinamica.splice(i, 1); }
     cerrarSueldos(M, resumen.sueldos, resumen.mercado);
     resumen.culebrones = resumen.mercado.culebrones || [];
     resumen.promesas.nuevas = nuevasPromesas(M, R, resumen.mercado);
